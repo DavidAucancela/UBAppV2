@@ -119,6 +119,202 @@ class EnvioViewSet(viewsets.ModelViewSet):
             'total_valor': float(total_valor)
         })
 
+    @action(detail=False, methods=['post'])
+    def import_json(self, request):
+        """Importar envíos desde archivo JSON"""
+        if 'file' not in request.FILES:
+            return Response(
+                {'error': 'Se requiere un archivo JSON'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        json_file = request.FILES['file']
+        
+        try:
+            import json
+            from django.contrib.auth import get_user_model
+            
+            Usuario = get_user_model()
+            
+            # Leer y procesar archivo JSON
+            data = json.loads(json_file.read().decode('utf-8'))
+            
+            # Validar estructura de datos
+            if not isinstance(data, list):
+                return Response(
+                    {'error': 'El archivo debe contener una lista de envíos'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            created_envios = []
+            errors = []
+            
+            for i, envio_data in enumerate(data):
+                try:
+                    # Procesar productos si existen
+                    productos_data = envio_data.pop('productos', [])
+                    
+                    # Buscar comprador por cédula o email
+                    comprador_info = envio_data.get('comprador')
+                    if isinstance(comprador_info, dict):
+                        comprador = Usuario.objects.filter(
+                            Q(cedula=comprador_info.get('cedula')) |
+                            Q(correo=comprador_info.get('correo'))
+                        ).first()
+                        
+                        if not comprador:
+                            errors.append(f'Línea {i+1}: Comprador no encontrado')
+                            continue
+                        
+                        envio_data['comprador'] = comprador.id
+                    
+                    # Crear envío
+                    serializer = EnvioCreateSerializer(data=envio_data)
+                    if serializer.is_valid():
+                        envio = serializer.save()
+                        
+                        # Crear productos asociados
+                        for producto_data in productos_data:
+                            producto_data['envio'] = envio.id
+                            prod_serializer = ProductoSerializer(data=producto_data)
+                            if prod_serializer.is_valid():
+                                prod_serializer.save()
+                            else:
+                                errors.append(f'Línea {i+1}, producto: {prod_serializer.errors}')
+                        
+                        # Recalcular totales del envío
+                        envio.calcular_totales()
+                        created_envios.append(envio)
+                        
+                    else:
+                        errors.append(f'Línea {i+1}: {serializer.errors}')
+                        
+                except Exception as e:
+                    errors.append(f'Línea {i+1}: {str(e)}')
+            
+            # Registrar actividad
+            try:
+                from dashboard.views import log_user_activity
+                log_user_activity(
+                    request.user, 'import_data',
+                    f'Importados {len(created_envios)} envíos desde JSON',
+                    'Envio', None,
+                    {'total_imported': len(created_envios), 'errors': len(errors)},
+                    request
+                )
+            except:
+                pass  # No fallar si no se puede registrar actividad
+            
+            return Response({
+                'message': f'Importación completada',
+                'created': len(created_envios),
+                'errors': errors,
+                'envios': EnvioListSerializer(created_envios, many=True).data
+            })
+            
+        except json.JSONDecodeError:
+            return Response(
+                {'error': 'Archivo JSON inválido'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            return Response(
+                {'error': f'Error procesando archivo: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+    @action(detail=False, methods=['post'])
+    def import_excel(self, request):
+        """Importar envíos desde archivo Excel"""
+        if 'file' not in request.FILES:
+            return Response(
+                {'error': 'Se requiere un archivo Excel'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        excel_file = request.FILES['file']
+        
+        try:
+            import pandas as pd
+            from django.contrib.auth import get_user_model
+            
+            Usuario = get_user_model()
+            
+            # Leer archivo Excel
+            df = pd.read_excel(excel_file)
+            
+            # Validar columnas requeridas
+            required_columns = ['hawb', 'comprador_cedula', 'peso_total', 'valor_total']
+            missing_columns = [col for col in required_columns if col not in df.columns]
+            
+            if missing_columns:
+                return Response(
+                    {'error': f'Columnas faltantes: {missing_columns}'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            created_envios = []
+            errors = []
+            
+            for index, row in df.iterrows():
+                try:
+                    # Buscar comprador
+                    comprador = Usuario.objects.filter(
+                        cedula=row['comprador_cedula']
+                    ).first()
+                    
+                    if not comprador:
+                        errors.append(f'Fila {index+2}: Comprador con cédula {row["comprador_cedula"]} no encontrado')
+                        continue
+                    
+                    # Crear envío
+                    envio_data = {
+                        'hawb': row['hawb'],
+                        'comprador': comprador.id,
+                        'peso_total': row['peso_total'],
+                        'valor_total': row['valor_total'],
+                        'cantidad_total': row.get('cantidad_total', 1),
+                        'estado': row.get('estado', 'pendiente'),
+                        'observaciones': row.get('observaciones', '')
+                    }
+                    
+                    serializer = EnvioCreateSerializer(data=envio_data)
+                    if serializer.is_valid():
+                        envio = serializer.save()
+                        created_envios.append(envio)
+                    else:
+                        errors.append(f'Fila {index+2}: {serializer.errors}')
+                        
+                except Exception as e:
+                    errors.append(f'Fila {index+2}: {str(e)}')
+            
+            # Registrar actividad
+            try:
+                from dashboard.views import log_user_activity
+                log_user_activity(
+                    request.user, 'import_data',
+                    f'Importados {len(created_envios)} envíos desde Excel',
+                    'Envio', None,
+                    {'total_imported': len(created_envios), 'errors': len(errors)},
+                    request
+                )
+            except:
+                pass  # No fallar si no se puede registrar actividad
+            
+            return Response({
+                'message': f'Importación completada',
+                'created': len(created_envios),
+                'errors': errors,
+                'envios': EnvioListSerializer(created_envios, many=True).data
+            })
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Error procesando archivo Excel: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
 class ProductoViewSet(viewsets.ModelViewSet):
     """ViewSet para el modelo Producto"""
     queryset = Producto.objects.all()

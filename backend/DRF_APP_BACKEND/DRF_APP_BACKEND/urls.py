@@ -8,6 +8,7 @@ urlpatterns = [
     path('api/usuarios/', include('usuarios.urls')),
     path('api/envios/', include('archivos.urls')),
     path('api/busqueda/', include('busqueda.urls')),
+    path('api/dashboard/', include('dashboard.urls')),
 ]
 
 # Servir archivos media en desarrollo
