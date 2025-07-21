@@ -1,0 +1,91 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo">
+        <i class="fas fa-shipping-fast"></i>
+        <h1>UBApp</h1>
+      </div>
+      <p class="subtitle">Sistema de Gestión de Envíos</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="username" class="form-label">
+          <i class="fas fa-user"></i>
+          Usuario
+        </label>
+        <input 
+          type="text" 
+          id="username"
+          formControlName="username" 
+          class="form-control"
+          placeholder="Ingresa tu usuario"
+          [class.error]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+        >
+        <div class="error-message" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+          {{ getErrorMessage('username') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">
+          <i class="fas fa-lock"></i>
+          Contraseña
+        </label>
+        <div class="password-input">
+          <input 
+            [type]="hidePassword ? 'password' : 'text'"
+            id="password"
+            formControlName="password" 
+            class="form-control"
+            placeholder="Ingresa tu contraseña"
+            [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          >
+          <button 
+            type="button" 
+            class="password-toggle"
+            (click)="hidePassword = !hidePassword"
+          >
+            <i class="fas" [class.fa-eye]="!hidePassword" [class.fa-eye-slash]="hidePassword"></i>
+          </button>
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          {{ getErrorMessage('password') }}
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary login-btn"
+        [disabled]="!loginForm.valid || loading"
+      >
+        <i class="fas fa-spinner fa-spin" *ngIf="loading"></i>
+        <span *ngIf="!loading">Iniciar Sesión</span>
+        <span *ngIf="loading">Iniciando...</span>
+      </button>
+    </form>
+
+    <div class="login-info">
+      <h3>Credenciales de prueba:</h3>
+      <div class="credentials">
+        <div class="credential-item">
+          <i class="fas fa-user"></i>
+          <span><strong>Usuario:</strong> admin</span>
+        </div>
+        <div class="credential-item">
+          <i class="fas fa-key"></i>
+          <span><strong>Contraseña:</strong> admin123</span>
+        </div>
+        <div class="credential-item">
+          <i class="fas fa-shield-alt"></i>
+          <span><strong>Rol:</strong> Administrador</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-error" *ngIf="errorMessage">
+      <i class="fas fa-exclamation-triangle"></i>
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>
