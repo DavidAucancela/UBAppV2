@@ -1,0 +1,288 @@
+<div class="usuarios-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="header-content">
+      <h1>Gestión de Usuarios</h1>
+      <p>Administra los usuarios del sistema</p>
+    </div>
+    <button class="btn btn-primary" (click)="openCreateModal()">
+      <i class="fas fa-plus"></i>
+      Nuevo Usuario
+    </button>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input 
+        type="text" 
+        placeholder="Buscar usuarios..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange()"
+        class="search-input"
+      >
+    </div>
+    <div class="filter-controls">
+      <select [(ngModel)]="selectedRole" (change)="onRoleFilterChange()" class="filter-select">
+        <option value="">Todos los roles</option>
+        <option value="1">Admin</option>
+        <option value="2">Gerente</option>
+        <option value="3">Digitador</option>
+        <option value="4">Comprador</option>
+      </select>
+      <select [(ngModel)]="selectedStatus" (change)="onStatusFilterChange()" class="filter-select">
+        <option value="">Todos los estados</option>
+        <option value="true">Activo</option>
+        <option value="false">Inactivo</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="spinner">
+      <i class="fas fa-spinner fa-spin"></i>
+      <span>Cargando usuarios...</span>
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <div class="table-container" *ngIf="!loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Cédula</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of paginatedUsuarios" class="table-row">
+          <td>
+            <div class="user-info">
+              <div class="user-avatar">
+                <i class="fas fa-user"></i>
+              </div>
+              <span>{{ usuario.username }}</span>
+            </div>
+          </td>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.correo }}</td>
+          <td>{{ usuario.cedula }}</td>
+          <td>
+            <span class="role-badge" [class]="getRoleClass(usuario.rol)">
+              {{ getRoleLabel(usuario.rol) }}
+            </span>
+          </td>
+          <td>
+            <span class="status-badge" [class]="usuario.es_activo ? 'active' : 'inactive'">
+              {{ usuario.es_activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+          <td>
+            <div class="actions">
+              <button class="btn-icon" (click)="editUsuario(usuario)" title="Editar">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-icon" (click)="viewUsuario(usuario)" title="Ver detalles">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button 
+                class="btn-icon danger" 
+                (click)="deleteUsuario(usuario)"
+                title="Eliminar"
+                *ngIf="canDeleteUsuario(usuario)"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="filteredUsuarios.length === 0">
+      <i class="fas fa-users"></i>
+      <h3>No se encontraron usuarios</h3>
+      <p>No hay usuarios que coincidan con los filtros aplicados</p>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="filteredUsuarios.length > 0">
+    <button class="btn btn-secondary" [disabled]="currentPage === 1" (click)="previousPage()">
+      <i class="fas fa-chevron-left"></i>
+      Anterior
+    </button>
+    <span class="page-info">
+      Página {{ currentPage }} de {{ totalPages }}
+    </span>
+    <button class="btn btn-secondary" [disabled]="currentPage === totalPages" (click)="nextPage()">
+      Siguiente
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Modal for Create/Edit User -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ editingUsuario ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
+      <button class="btn-icon" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()" class="modal-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="username">Usuario *</label>
+          <input 
+            type="text" 
+            id="username"
+            formControlName="username" 
+            class="form-control"
+            [class.error]="usuarioForm.get('username')?.invalid && usuarioForm.get('username')?.touched"
+          >
+          <div class="error-message" *ngIf="usuarioForm.get('username')?.invalid && usuarioForm.get('username')?.touched">
+            El usuario es requerido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="nombre">Nombre *</label>
+          <input 
+            type="text" 
+            id="nombre"
+            formControlName="nombre" 
+            class="form-control"
+            [class.error]="usuarioForm.get('nombre')?.invalid && usuarioForm.get('nombre')?.touched"
+          >
+          <div class="error-message" *ngIf="usuarioForm.get('nombre')?.invalid && usuarioForm.get('nombre')?.touched">
+            El nombre es requerido
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="correo">Correo *</label>
+          <input 
+            type="email" 
+            id="correo"
+            formControlName="correo" 
+            class="form-control"
+            [class.error]="usuarioForm.get('correo')?.invalid && usuarioForm.get('correo')?.touched"
+          >
+          <div class="error-message" *ngIf="usuarioForm.get('correo')?.invalid && usuarioForm.get('correo')?.touched">
+            Ingrese un correo válido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cedula">Cédula *</label>
+          <input 
+            type="text" 
+            id="cedula"
+            formControlName="cedula" 
+            class="form-control"
+            [class.error]="usuarioForm.get('cedula')?.invalid && usuarioForm.get('cedula')?.touched"
+          >
+          <div class="error-message" *ngIf="usuarioForm.get('cedula')?.invalid && usuarioForm.get('cedula')?.touched">
+            La cédula es requerida
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="rol">Rol *</label>
+          <select 
+            id="rol"
+            formControlName="rol" 
+            class="form-control"
+            [class.error]="usuarioForm.get('rol')?.invalid && usuarioForm.get('rol')?.touched"
+          >
+            <option value="">Seleccione un rol</option>
+            <option value="1">Admin</option>
+            <option value="2">Gerente</option>
+            <option value="3">Digitador</option>
+            <option value="4">Comprador</option>
+          </select>
+          <div class="error-message" *ngIf="usuarioForm.get('rol')?.invalid && usuarioForm.get('rol')?.touched">
+            El rol es requerido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input 
+            type="tel" 
+            id="telefono"
+            formControlName="telefono" 
+            class="form-control"
+          >
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="!editingUsuario">
+        <label for="password">Contraseña *</label>
+        <div class="password-input">
+          <input 
+            [type]="hidePassword ? 'password' : 'text'"
+            id="password"
+            formControlName="password" 
+            class="form-control"
+            [class.error]="usuarioForm.get('password')?.invalid && usuarioForm.get('password')?.touched"
+          >
+          <button 
+            type="button" 
+            class="password-toggle"
+            (click)="hidePassword = !hidePassword"
+          >
+            <i class="fas" [class.fa-eye]="!hidePassword" [class.fa-eye-slash]="hidePassword"></i>
+          </button>
+        </div>
+        <div class="error-message" *ngIf="usuarioForm.get('password')?.invalid && usuarioForm.get('password')?.touched">
+          La contraseña debe tener al menos 6 caracteres
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="es_activo">
+          <span class="checkmark"></span>
+          Usuario activo
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!usuarioForm.valid || submitting">
+          <i class="fas fa-spinner fa-spin" *ngIf="submitting"></i>
+          {{ editingUsuario ? 'Actualizar' : 'Crear' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Alert Messages -->
+<div class="alert alert-success" *ngIf="successMessage">
+  <i class="fas fa-check-circle"></i>
+  {{ successMessage }}
+</div>
+
+<div class="alert alert-error" *ngIf="errorMessage">
+  <i class="fas fa-exclamation-triangle"></i>
+  {{ errorMessage }}
+</div>
