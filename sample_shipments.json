@@ -1,0 +1,87 @@
+[
+  {
+    "sender_name": "John Smith",
+    "sender_company": "Tech Solutions Inc",
+    "sender_address": "123 Main Street",
+    "sender_city": "New York",
+    "sender_state": "NY",
+    "sender_zip": "10001",
+    "sender_country": "USA",
+    "sender_phone": "+1-212-555-0123",
+    "sender_email": "john.smith@techsolutions.com",
+    "recipient_name": "Jane Doe",
+    "recipient_company": "ABC Corporation",
+    "recipient_address": "456 Oak Avenue",
+    "recipient_city": "Los Angeles",
+    "recipient_state": "CA",
+    "recipient_zip": "90001",
+    "recipient_country": "USA",
+    "recipient_phone": "+1-323-555-0456",
+    "recipient_email": "jane.doe@abccorp.com",
+    "weight": 5.5,
+    "dimensions": "30x20x15",
+    "value": 250.00,
+    "insurance_amount": 50.00,
+    "shipping_cost": 25.00,
+    "priority": "HIGH",
+    "products": [
+      {
+        "name": "Laptop Computer",
+        "description": "High-performance business laptop",
+        "category": "ELECTRONICS",
+        "sku": "LAP-001",
+        "quantity": 1,
+        "unit_price": 1200.00,
+        "weight": 2.5,
+        "is_fragile": true
+      },
+      {
+        "name": "Wireless Mouse",
+        "description": "Ergonomic wireless mouse",
+        "category": "ELECTRONICS",
+        "sku": "MOU-001",
+        "quantity": 2,
+        "unit_price": 25.00,
+        "weight": 0.1
+      }
+    ]
+  },
+  {
+    "sender_name": "Sarah Johnson",
+    "sender_address": "789 Broadway",
+    "sender_city": "Chicago",
+    "sender_state": "IL",
+    "sender_zip": "60601",
+    "sender_country": "USA",
+    "sender_phone": "+1-312-555-0789",
+    "sender_email": "sarah.j@email.com",
+    "recipient_name": "Michael Brown",
+    "recipient_address": "321 Pine Street",
+    "recipient_city": "Houston",
+    "recipient_state": "TX",
+    "recipient_zip": "77001",
+    "recipient_country": "USA",
+    "recipient_phone": "+1-713-555-0321",
+    "recipient_email": "m.brown@email.com",
+    "weight": 10.0,
+    "value": 500.00,
+    "priority": "NORMAL",
+    "products": [
+      {
+        "name": "Office Chair",
+        "category": "FURNITURE",
+        "quantity": 1,
+        "unit_price": 350.00,
+        "weight": 8.0,
+        "dimensions": "60x60x100"
+      },
+      {
+        "name": "Desk Lamp",
+        "category": "FURNITURE",
+        "quantity": 1,
+        "unit_price": 75.00,
+        "weight": 1.5
+      }
+    ]
+  }
+]
