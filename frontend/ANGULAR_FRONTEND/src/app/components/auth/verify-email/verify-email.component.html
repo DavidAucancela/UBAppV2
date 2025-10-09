@@ -1,0 +1,126 @@
+<div class="verify-email-container">
+  <div class="verify-card">
+    <!-- Verificando -->
+    <div class="verification-status" *ngIf="verifying">
+      <div class="icon spinning">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+      <h2>Verificando tu correo electrónico</h2>
+      <p>Por favor espera mientras verificamos tu cuenta...</p>
+    </div>
+
+    <!-- Verificación exitosa -->
+    <div class="verification-status success" *ngIf="verified && !verifying">
+      <div class="icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2>¡Verificación exitosa!</h2>
+      <p>Tu correo electrónico ha sido verificado correctamente.</p>
+      <p class="redirect-message">Serás redirigido al login en unos segundos...</p>
+      <a routerLink="/login" class="btn btn-primary">
+        Ir al Login ahora
+      </a>
+    </div>
+
+    <!-- Error en verificación -->
+    <div class="verification-status error" *ngIf="error && !verifying && !resent">
+      <div class="icon">
+        <i class="fas fa-times-circle"></i>
+      </div>
+      <h2>Error en la verificación</h2>
+      <p>{{ errorMessage }}</p>
+      
+      <div class="resend-section">
+        <h3>¿Necesitas un nuevo enlace de verificación?</h3>
+        <p>Ingresa tu correo electrónico y te enviaremos un nuevo enlace.</p>
+        
+        <div class="form-group">
+          <input 
+            type="email" 
+            [(ngModel)]="email" 
+            placeholder="tu-correo@ejemplo.com"
+            class="form-control"
+            [disabled]="resending"
+          >
+        </div>
+        
+        <button 
+          class="btn btn-primary" 
+          (click)="resendVerification()"
+          [disabled]="resending || !email"
+        >
+          <i class="fas fa-spinner fa-spin" *ngIf="resending"></i>
+          <i class="fas fa-paper-plane" *ngIf="!resending"></i>
+          {{ resending ? 'Enviando...' : 'Reenviar verificación' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Correo reenviado -->
+    <div class="verification-status info" *ngIf="resent">
+      <div class="icon">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <h2>Correo enviado</h2>
+      <p>Si el correo existe en nuestro sistema, recibirás un nuevo enlace de verificación.</p>
+      <p>Por favor revisa tu bandeja de entrada y la carpeta de spam.</p>
+      
+      <button class="btn btn-secondary" (click)="resent = false; error = true">
+        Intentar con otro correo
+      </button>
+    </div>
+
+    <!-- Sin token -->
+    <div class="verification-status" *ngIf="!verifying && !verified && !error">
+      <div class="icon">
+        <i class="fas fa-envelope-open-text"></i>
+      </div>
+      <h2>Verificación de correo electrónico</h2>
+      <p>Usa el enlace que te enviamos por correo para verificar tu cuenta.</p>
+      
+      <div class="resend-section">
+        <h3>¿No recibiste el correo?</h3>
+        <p>Ingresa tu dirección de correo y te enviaremos un nuevo enlace.</p>
+        
+        <div class="form-group">
+          <input 
+            type="email" 
+            [(ngModel)]="email" 
+            placeholder="tu-correo@ejemplo.com"
+            class="form-control"
+            [disabled]="resending"
+          >
+        </div>
+        
+        <button 
+          class="btn btn-primary" 
+          (click)="resendVerification()"
+          [disabled]="resending || !email"
+        >
+          <i class="fas fa-spinner fa-spin" *ngIf="resending"></i>
+          <i class="fas fa-paper-plane" *ngIf="!resending"></i>
+          {{ resending ? 'Enviando...' : 'Enviar enlace de verificación' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <a routerLink="/login" class="link">
+        <i class="fas fa-arrow-left"></i>
+        Volver al login
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

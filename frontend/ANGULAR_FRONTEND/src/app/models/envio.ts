@@ -20,6 +20,9 @@ export interface Envio {
   estado: string;
   estado_nombre?: string;
   observaciones?: string;
+  marcado?: boolean;
+  archivado?: boolean;
+  fecha_archivo?: string;
   fecha_creacion?: string;
   fecha_actualizacion?: string;
   productos?: Producto[];
@@ -39,6 +42,8 @@ export interface EnvioUpdate {
   comprador?: number;
   estado?: string;
   observaciones?: string;
+  marcado?: boolean;
+  archivado?: boolean;
 }
 
 export enum EstadosEnvio {

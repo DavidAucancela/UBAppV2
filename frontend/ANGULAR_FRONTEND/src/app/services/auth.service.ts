@@ -10,6 +10,7 @@ export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
   private currentUserSubject = new BehaviorSubject<Usuario | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
+  private tokenKey = 'authToken';
 
   constructor(private http: HttpClient) {
     this.loadCurrentUser();
@@ -18,9 +19,11 @@ export class AuthService {
   private loadCurrentUser(): void {
     if (typeof window !== 'undefined' && window.localStorage) {
       const user = localStorage.getItem('currentUser');
+      const token = localStorage.getItem(this.tokenKey);
       if (user) {
         this.currentUserSubject.next(JSON.parse(user));
       }
+      // No hacemos nada directo con token aquí; lo usa el interceptor
     }
   }
 
@@ -31,6 +34,9 @@ export class AuthService {
           if (response.user) {
             if (typeof window !== 'undefined' && window.localStorage) {
               localStorage.setItem('currentUser', JSON.stringify(response.user));
+              if (response.token) {
+                localStorage.setItem(this.tokenKey, response.token);
+              }
             }
             this.currentUserSubject.next(response.user);
           }
@@ -51,6 +57,7 @@ export class AuthService {
     
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.removeItem('currentUser');
+      localStorage.removeItem(this.tokenKey);
     }
     this.currentUserSubject.next(null);
   }
@@ -114,5 +121,12 @@ export class AuthService {
         ?.split('=')[1] || '';
     }
     return '';
+  }
+
+  getToken(): string | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem(this.tokenKey);
+    }
+    return null;
   }
 }

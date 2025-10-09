@@ -85,6 +85,39 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/envios/envios/estadisticas/`);
   }
 
+  marcarEnvio(id: number, marcado?: boolean): Observable<any> {
+    const body = marcado === undefined ? {} : { marcado };
+    return this.http.post<any>(`${this.apiUrl}/envios/envios/${id}/marcar/`, body);
+  }
+
+  archivarEnvio(id: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/envios/envios/${id}/archivar/`, {});
+  }
+
+  restaurarEnvio(id: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/envios/envios/${id}/restaurar/`, {});
+  }
+
+  importarEnviosJSON(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(`${this.apiUrl}/envios/envios/import_json/`, formData);
+  }
+
+  importarEnviosExcel(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(`${this.apiUrl}/envios/envios/import_excel/`, formData);
+  }
+
+  getEnviosFiltrado(paramsObj: { [k: string]: any }): Observable<Envio[]> {
+    let params = new HttpParams();
+    Object.entries(paramsObj).forEach(([k, v]) => {
+      if (v !== undefined && v !== null && v !== '') params = params.set(k, String(v));
+    });
+    return this.http.get<Envio[]>(`${this.apiUrl}/envios/envios/`, { params });
+  }
+
   // ===== PRODUCTOS =====
   getProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.apiUrl}/envios/productos/`);

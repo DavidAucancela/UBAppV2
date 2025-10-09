@@ -9,6 +9,9 @@ export interface Usuario {
   telefono?: string;
   fecha_nacimiento?: string;
   direccion?: string;
+  tiene_discapacidad?: boolean;
+  tipo_discapacidad?: string;
+  notas_accesibilidad?: string;
   es_activo: boolean;
   fecha_creacion?: string;
   fecha_actualizacion?: string;
