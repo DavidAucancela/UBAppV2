@@ -144,3 +144,11 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Custom User Model
 AUTH_USER_MODEL = 'usuarios.Usuario'
+
+# Configuración de Cache para límite de intentos de login
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
