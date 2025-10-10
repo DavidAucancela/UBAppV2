@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Usuario, LoginRequest, LoginResponse, Roles } from '../models/usuario';
+import { environment } from '../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = environment.apiUrl; 
   private currentUserSubject = new BehaviorSubject<Usuario | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -28,9 +30,10 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.apiUrl}/usuarios/auth/login/`, credentials)
       .pipe(
         tap(response => {
-          if (response.user) {
+          if (response.user && response.token) {
             if (typeof window !== 'undefined' && window.localStorage) {
               localStorage.setItem('currentUser', JSON.stringify(response.user));
+              localStorage.setItem('authToken', response.token);
             }
             this.currentUserSubject.next(response.user);
           }
@@ -51,6 +54,7 @@ export class AuthService {
     
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.removeItem('currentUser');
+      localStorage.removeItem('authToken');
     }
     this.currentUserSubject.next(null);
   }
@@ -98,6 +102,13 @@ export class AuthService {
 
   canViewOwnEnvios(): boolean {
     return this.isComprador();
+  }
+
+  getToken(): string | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem('authToken');
+    }
+    return null;
   }
 
   getAuthHeaders(): { [key: string]: string } {

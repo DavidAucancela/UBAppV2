@@ -5,7 +5,7 @@
         <i class="fas fa-shipping-fast"></i>
         <h1>UBApp</h1>
       </div>
-      <p class="subtitle">Sistema de Gestión de Envíos</p>
+      <p class="subtitle">Sistema de gestión de envíos</p>
     </div>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
@@ -64,24 +64,6 @@
         <span *ngIf="loading">Iniciando...</span>
       </button>
     </form>
-
-    <div class="login-info">
-      <h3>Credenciales de prueba:</h3>
-      <div class="credentials">
-        <div class="credential-item">
-          <i class="fas fa-user"></i>
-          <span><strong>Usuario:</strong> admin</span>
-        </div>
-        <div class="credential-item">
-          <i class="fas fa-key"></i>
-          <span><strong>Contraseña:</strong> admin123</span>
-        </div>
-        <div class="credential-item">
-          <i class="fas fa-shield-alt"></i>
-          <span><strong>Rol:</strong> Administrador</span>
-        </div>
-      </div>
-    </div>
 
     <div class="alert alert-error" *ngIf="errorMessage">
       <i class="fas fa-exclamation-triangle"></i>

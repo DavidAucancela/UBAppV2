@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
 import { Envio, EnvioCreate, EnvioUpdate } from '../models/envio';
 import { Producto, ProductoCreate, ProductoUpdate } from '../models/producto';
+import { environment } from '../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

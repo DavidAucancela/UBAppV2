@@ -25,6 +25,15 @@ class ProductoListSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['id']
 
+class ProductoCreateSerializer(serializers.ModelSerializer):
+    """Serializer para crear productos anidados (sin campo envio)"""
+    
+    class Meta:
+        model = Producto
+        fields = [
+            'descripcion', 'peso', 'cantidad', 'valor', 'categoria'
+        ]
+
 class EnvioSerializer(serializers.ModelSerializer):
     """Serializer para el modelo Envío"""
     comprador_info = CompradorSerializer(source='comprador', read_only=True)
@@ -59,7 +68,7 @@ class EnvioListSerializer(serializers.ModelSerializer):
 
 class EnvioCreateSerializer(serializers.ModelSerializer):
     """Serializer para crear envíos con productos"""
-    productos = ProductoSerializer(many=True, required=False)
+    productos = ProductoCreateSerializer(many=True, required=False)
     
     class Meta:
         model = Envio
@@ -69,9 +78,21 @@ class EnvioCreateSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         productos_data = validated_data.pop('productos', [])
+        
+        # Establecer valores por defecto para totales
+        if not validated_data.get('peso_total'):
+            validated_data['peso_total'] = 0
+        if not validated_data.get('cantidad_total'):
+            validated_data['cantidad_total'] = 0
+        if not validated_data.get('valor_total'):
+            validated_data['valor_total'] = 0
+        
         envio = Envio.objects.create(**validated_data)
         
         for producto_data in productos_data:
             Producto.objects.create(envio=envio, **producto_data)
+        
+        # Recalcular totales basados en productos
+        envio.calcular_totales()
         
         return envio 

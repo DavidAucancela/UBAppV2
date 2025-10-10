@@ -76,3 +76,5 @@
 
 Para más detalles ver: `INFORME_REVISION_FRONTEND.md` (documento completo)
 
+
+

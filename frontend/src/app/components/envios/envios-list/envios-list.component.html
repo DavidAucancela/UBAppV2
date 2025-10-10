@@ -1,1 +1,622 @@
-<p>envios-list works!</p>
+<div class="envios-container">
+  <!-- Header -->
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">
+        <i class="fas fa-truck"></i>
+        Gestión de Envíos
+      </h2>
+      <button 
+        class="btn btn-primary"
+        (click)="openCreateModal()"
+        *ngIf="authService.canManageEnvios()"
+      >
+        <i class="fas fa-plus"></i>
+        Nuevo Envío
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-section">
+      <div class="filter-row">
+        <!-- Search -->
+        <div class="filter-group">
+          <label class="filter-label">
+            <i class="fas fa-search"></i>
+            Buscar
+          </label>
+          <input 
+            type="text"
+            class="form-control"
+            [(ngModel)]="searchTerm"
+            (input)="onSearchChange()"
+            placeholder="HAWB, comprador, cédula..."
+          >
+        </div>
+
+        <!-- Estado Filter -->
+        <div class="filter-group">
+          <label class="filter-label">
+            <i class="fas fa-filter"></i>
+            Estado
+          </label>
+          <select 
+            class="form-control"
+            [(ngModel)]="selectedEstado"
+            (change)="onEstadoFilterChange()"
+          >
+            <option value="">Todos los estados</option>
+            <option [value]="EstadosEnvio.PENDIENTE">Pendiente</option>
+            <option [value]="EstadosEnvio.EN_TRANSITO">En Tránsito</option>
+            <option [value]="EstadosEnvio.ENTREGADO">Entregado</option>
+            <option [value]="EstadosEnvio.CANCELADO">Cancelado</option>
+          </select>
+        </div>
+
+        <!-- Comprador Filter -->
+        <div class="filter-group" *ngIf="!authService.isComprador()">
+          <label class="filter-label">
+            <i class="fas fa-user"></i>
+            Comprador
+          </label>
+          <select 
+            class="form-control"
+            [(ngModel)]="selectedComprador"
+            (change)="onCompradorFilterChange()"
+          >
+            <option value="">Todos los compradores</option>
+            <option *ngFor="let comprador of compradores" [value]="comprador.id">
+              {{ comprador.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Summary -->
+    <div class="results-summary">
+      <span class="results-count">
+        <i class="fas fa-list"></i>
+        Mostrando {{ paginatedEnvios.length }} de {{ filteredEnvios.length }} envíos
+      </span>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div class="alert alert-success" *ngIf="successMessage">
+    <i class="fas fa-check-circle"></i>
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div class="alert alert-error" *ngIf="errorMessage">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="loading">
+    <i class="fas fa-spinner fa-spin"></i>
+    <span>Cargando envíos...</span>
+  </div>
+
+  <!-- Table -->
+  <div class="card" *ngIf="!loading">
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>HAWB</th>
+            <th>Comprador</th>
+            <th>Cédula</th>
+            <th>Productos</th>
+            <th>Peso Total</th>
+            <th>Valor Total</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th class="actions-column">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let envio of paginatedEnvios">
+            <td>
+              <strong>{{ envio.hawb }}</strong>
+            </td>
+            <td>{{ envio.comprador_info?.nombre || '-' }}</td>
+            <td>{{ envio.comprador_info?.cedula || '-' }}</td>
+            <td class="text-center">
+              <span class="badge badge-info">
+                {{ envio.cantidad_productos || 0 }}
+              </span>
+            </td>
+            <td>{{ envio.peso_total | number:'1.2-2' }} kg</td>
+            <td>{{ envio.valor_total | currency:'USD':'symbol':'1.2-2' }}</td>
+            <td>
+              <span class="badge" [ngClass]="getEstadoClass(envio.estado)">
+                {{ getEstadoLabel(envio.estado) }}
+              </span>
+            </td>
+            <td>{{ envio.fecha_creacion | date:'dd/MM/yyyy' }}</td>
+            <td class="actions-column">
+              <div class="action-buttons">
+                <button 
+                  class="btn-icon btn-view"
+                  (click)="viewEnvio(envio)"
+                  title="Ver detalle"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+                
+                <button 
+                  class="btn-icon btn-edit"
+                  (click)="editEnvio(envio)"
+                  *ngIf="canEditEnvio(envio)"
+                  title="Editar"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+
+                <!-- Estado dropdown -->
+                <div class="dropdown-estado" *ngIf="canChangeEstado(envio)">
+                  <button class="btn-icon btn-status" title="Cambiar estado">
+                    <i class="fas fa-exchange-alt"></i>
+                  </button>
+                  <div class="dropdown-estado-menu">
+                    <button 
+                      (click)="cambiarEstado(envio, EstadosEnvio.PENDIENTE)"
+                      [disabled]="envio.estado === EstadosEnvio.PENDIENTE"
+                    >
+                      Pendiente
+                    </button>
+                    <button 
+                      (click)="cambiarEstado(envio, EstadosEnvio.EN_TRANSITO)"
+                      [disabled]="envio.estado === EstadosEnvio.EN_TRANSITO"
+                    >
+                      En Tránsito
+                    </button>
+                    <button 
+                      (click)="cambiarEstado(envio, EstadosEnvio.ENTREGADO)"
+                      [disabled]="envio.estado === EstadosEnvio.ENTREGADO"
+                    >
+                      Entregado
+                    </button>
+                    <button 
+                      (click)="cambiarEstado(envio, EstadosEnvio.CANCELADO)"
+                      [disabled]="envio.estado === EstadosEnvio.CANCELADO"
+                    >
+                      Cancelado
+                    </button>
+                  </div>
+                </div>
+                
+                <button 
+                  class="btn-icon btn-delete"
+                  (click)="deleteEnvio(envio)"
+                  *ngIf="canDeleteEnvio(envio)"
+                  title="Eliminar"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="filteredEnvios.length === 0">
+            <td colspan="9" class="no-data">
+              <i class="fas fa-inbox"></i>
+              <p>No se encontraron envíos</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button 
+        class="btn btn-secondary"
+        (click)="previousPage()"
+        [disabled]="currentPage === 1"
+      >
+        <i class="fas fa-chevron-left"></i>
+        Anterior
+      </button>
+      
+      <span class="pagination-info">
+        Página {{ currentPage }} de {{ totalPages }}
+      </span>
+      
+      <button 
+        class="btn btn-secondary"
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+      >
+        Siguiente
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Create/Edit -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>
+        <i class="fas fa-truck"></i>
+        {{ editingEnvio ? 'Editar Envío' : 'Nuevo Envío' }}
+      </h3>
+      <button class="btn-close" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <form [formGroup]="envioForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <!-- Información del Envío -->
+        <div class="form-section">
+          <h4 class="section-title">
+            <i class="fas fa-info-circle"></i>
+            Información del Envío
+          </h4>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">
+                HAWB <span class="required">*</span>
+              </label>
+              <input 
+                type="text"
+                formControlName="hawb"
+                class="form-control"
+                placeholder="Ej: HAW123456"
+                [class.error]="envioForm.get('hawb')?.invalid && envioForm.get('hawb')?.touched"
+              >
+              <div class="error-message" *ngIf="envioForm.get('hawb')?.invalid && envioForm.get('hawb')?.touched">
+                El HAWB es requerido
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Comprador <span class="required">*</span>
+              </label>
+              <select 
+                formControlName="comprador"
+                class="form-control"
+                [class.error]="envioForm.get('comprador')?.invalid && envioForm.get('comprador')?.touched"
+              >
+                <option value="">Seleccione un comprador</option>
+                <option *ngFor="let comprador of compradores" [value]="comprador.id">
+                  {{ comprador.nombre }} - {{ comprador.cedula }}
+                </option>
+              </select>
+              <div class="error-message" *ngIf="envioForm.get('comprador')?.invalid && envioForm.get('comprador')?.touched">
+                Debe seleccionar un comprador
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Estado <span class="required">*</span>
+              </label>
+              <select 
+                formControlName="estado"
+                class="form-control"
+              >
+                <option [value]="EstadosEnvio.PENDIENTE">Pendiente</option>
+                <option [value]="EstadosEnvio.EN_TRANSITO">En Tránsito</option>
+                <option [value]="EstadosEnvio.ENTREGADO">Entregado</option>
+                <option [value]="EstadosEnvio.CANCELADO">Cancelado</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              Observaciones
+            </label>
+            <textarea 
+              formControlName="observaciones"
+              class="form-control"
+              rows="3"
+              placeholder="Observaciones adicionales..."
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Productos -->
+        <div class="form-section">
+          <div class="section-header">
+            <h4 class="section-title">
+              <i class="fas fa-box"></i>
+              Productos
+            </h4>
+            <button 
+              type="button"
+              class="btn btn-secondary btn-sm"
+              (click)="addProducto()"
+            >
+              <i class="fas fa-plus"></i>
+              Agregar Producto
+            </button>
+          </div>
+
+          <div class="productos-list" formArrayName="productos">
+            <div 
+              *ngFor="let producto of productos.controls; let i = index" 
+              [formGroupName]="i"
+              class="producto-item"
+            >
+              <div class="producto-header">
+                <span class="producto-number">Producto #{{ i + 1 }}</span>
+                <button 
+                  type="button"
+                  class="btn-icon btn-delete"
+                  (click)="removeProducto(i)"
+                  [disabled]="productos.length === 1"
+                  title="Eliminar producto"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                  <label class="form-label">
+                    Descripción <span class="required">*</span>
+                  </label>
+                  <input 
+                    type="text"
+                    formControlName="descripcion"
+                    class="form-control"
+                    placeholder="Descripción del producto"
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    Categoría <span class="required">*</span>
+                  </label>
+                  <select 
+                    formControlName="categoria"
+                    class="form-control"
+                  >
+                    <option value="">Seleccionar</option>
+                    <option [value]="CategoriasProducto.ELECTRONICA">Electrónica</option>
+                    <option [value]="CategoriasProducto.ROPA">Ropa</option>
+                    <option [value]="CategoriasProducto.HOGAR">Hogar</option>
+                    <option [value]="CategoriasProducto.DEPORTES">Deportes</option>
+                    <option [value]="CategoriasProducto.OTROS">Otros</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">
+                    Peso (kg) <span class="required">*</span>
+                  </label>
+                  <input 
+                    type="number"
+                    formControlName="peso"
+                    class="form-control"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="0.00"
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    Cantidad <span class="required">*</span>
+                  </label>
+                  <input 
+                    type="number"
+                    formControlName="cantidad"
+                    class="form-control"
+                    min="1"
+                    placeholder="1"
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    Valor Unitario ($) <span class="required">*</span>
+                  </label>
+                  <input 
+                    type="number"
+                    formControlName="valor"
+                    class="form-control"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Totales -->
+          <div class="totales-section">
+            <div class="total-item">
+              <span class="total-label">Total Productos:</span>
+              <span class="total-value">{{ totalCantidad }}</span>
+            </div>
+            <div class="total-item">
+              <span class="total-label">Peso Total:</span>
+              <span class="total-value">{{ totalPeso | number:'1.2-2' }} kg</span>
+            </div>
+            <div class="total-item">
+              <span class="total-label">Valor Total:</span>
+              <span class="total-value">{{ totalValor | currency:'USD':'symbol':'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="alert alert-error" *ngIf="errorMessage">
+          <i class="fas fa-exclamation-circle"></i>
+          {{ errorMessage }}
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button 
+          type="button"
+          class="btn btn-secondary"
+          (click)="closeModal()"
+          [disabled]="submitting"
+        >
+          Cancelar
+        </button>
+        <button 
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!envioForm.valid || submitting"
+        >
+          <i class="fas fa-spinner fa-spin" *ngIf="submitting"></i>
+          <i class="fas fa-save" *ngIf="!submitting"></i>
+          {{ submitting ? 'Guardando...' : (editingEnvio ? 'Actualizar' : 'Crear') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Detail -->
+<div class="modal-overlay" *ngIf="showDetailModal" (click)="closeDetailModal()">
+  <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>
+        <i class="fas fa-file-alt"></i>
+        Detalle del Envío
+      </h3>
+      <button class="btn-close" (click)="closeDetailModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="modal-body" *ngIf="selectedEnvio">
+      <!-- Información General -->
+      <div class="detail-section">
+        <h4 class="section-title">
+          <i class="fas fa-info-circle"></i>
+          Información General
+        </h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-label">HAWB:</span>
+            <span class="detail-value">{{ selectedEnvio.hawb }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Estado:</span>
+            <span class="badge" [ngClass]="getEstadoClass(selectedEnvio.estado)">
+              {{ getEstadoLabel(selectedEnvio.estado) }}
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Fecha de Emisión:</span>
+            <span class="detail-value">{{ selectedEnvio.fecha_emision | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Fecha de Creación:</span>
+            <span class="detail-value">{{ selectedEnvio.fecha_creacion | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información del Comprador -->
+      <div class="detail-section">
+        <h4 class="section-title">
+          <i class="fas fa-user"></i>
+          Comprador
+        </h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-label">Nombre:</span>
+            <span class="detail-value">{{ selectedEnvio.comprador_info?.nombre }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Cédula:</span>
+            <span class="detail-value">{{ selectedEnvio.comprador_info?.cedula }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Correo:</span>
+            <span class="detail-value">{{ selectedEnvio.comprador_info?.correo }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Teléfono:</span>
+            <span class="detail-value">{{ selectedEnvio.comprador_info?.telefono || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Productos -->
+      <div class="detail-section">
+        <h4 class="section-title">
+          <i class="fas fa-box"></i>
+          Productos ({{ selectedEnvio.productos?.length || 0 }})
+        </h4>
+        <div class="productos-detail-list">
+          <div 
+            *ngFor="let producto of selectedEnvio.productos; let i = index" 
+            class="producto-detail-item"
+          >
+            <div class="producto-detail-header">
+              <span class="producto-number">#{{ i + 1 }}</span>
+              <span class="badge badge-info">{{ getCategoriaLabel(producto.categoria) }}</span>
+            </div>
+            <div class="producto-detail-body">
+              <p class="producto-descripcion">{{ producto.descripcion }}</p>
+              <div class="producto-detail-stats">
+                <div class="stat">
+                  <i class="fas fa-weight"></i>
+                  <span>{{ producto.peso }} kg × {{ producto.cantidad }} = {{ producto.peso * producto.cantidad }} kg</span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-dollar-sign"></i>
+                  <span>{{ producto.valor | currency:'USD':'symbol':'1.2-2' }} × {{ producto.cantidad }} = {{ (producto.valor * producto.cantidad) | currency:'USD':'symbol':'1.2-2' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Totales -->
+      <div class="detail-section totales-section-detail">
+        <div class="total-item-detail">
+          <span class="total-label-detail">Total Productos:</span>
+          <span class="total-value-detail">{{ selectedEnvio.cantidad_total }}</span>
+        </div>
+        <div class="total-item-detail">
+          <span class="total-label-detail">Peso Total:</span>
+          <span class="total-value-detail">{{ selectedEnvio.peso_total | number:'1.2-2' }} kg</span>
+        </div>
+        <div class="total-item-detail highlight">
+          <span class="total-label-detail">Valor Total:</span>
+          <span class="total-value-detail">{{ selectedEnvio.valor_total | currency:'USD':'symbol':'1.2-2' }}</span>
+        </div>
+      </div>
+
+      <!-- Observaciones -->
+      <div class="detail-section" *ngIf="selectedEnvio.observaciones">
+        <h4 class="section-title">
+          <i class="fas fa-comment"></i>
+          Observaciones
+        </h4>
+        <p class="observaciones-text">{{ selectedEnvio.observaciones }}</p>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button 
+        type="button"
+        class="btn btn-secondary"
+        (click)="closeDetailModal()"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>

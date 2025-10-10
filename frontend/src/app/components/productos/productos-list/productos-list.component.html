@@ -1,1 +1,357 @@
-<p>productos-list works!</p>
+
+<div class="productos-container">
+  <!-- Header -->
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">
+        <i class="fas fa-box"></i>
+        Gestión de Productos
+      </h2>
+      <button 
+        class="btn btn-primary"
+        (click)="openCreateModal()"
+      >
+        <i class="fas fa-plus"></i>
+        Nuevo Producto
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-section">
+      <div class="filter-row">
+        <!-- Search -->
+        <div class="filter-group">
+          <label class="filter-label">
+            <i class="fas fa-search"></i>
+            Buscar
+          </label>
+          <input 
+            type="text"
+            class="form-control"
+            [(ngModel)]="searchTerm"
+            (input)="onSearchChange()"
+            placeholder="Descripción del producto..."
+          >
+        </div>
+
+        <!-- Categoria Filter -->
+        <div class="filter-group">
+          <label class="filter-label">
+            <i class="fas fa-filter"></i>
+            Categoría
+          </label>
+          <select 
+            class="form-control"
+            [(ngModel)]="selectedCategoria"
+            (change)="onCategoriaFilterChange()"
+          >
+            <option value="">Todas las categorías</option>
+            <option [value]="CategoriasProducto.ELECTRONICA">Electrónica</option>
+            <option [value]="CategoriasProducto.ROPA">Ropa</option>
+            <option [value]="CategoriasProducto.HOGAR">Hogar</option>
+            <option [value]="CategoriasProducto.DEPORTES">Deportes</option>
+            <option [value]="CategoriasProducto.OTROS">Otros</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Summary -->
+    <div class="results-summary">
+      <span class="results-count">
+        <i class="fas fa-list"></i>
+        Mostrando {{ paginatedProductos.length }} de {{ filteredProductos.length }} productos
+      </span>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div class="alert alert-success" *ngIf="successMessage">
+    <i class="fas fa-check-circle"></i>
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div class="alert alert-error" *ngIf="errorMessage">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="loading">
+    <i class="fas fa-spinner fa-spin"></i>
+    <span>Cargando productos...</span>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="productos-grid" *ngIf="!loading">
+    <div 
+      *ngFor="let producto of paginatedProductos" 
+      class="producto-card"
+    >
+      <div class="producto-card-header">
+        <span class="badge" [ngClass]="'categoria-' + producto.categoria">
+          {{ getCategoriaLabel(producto.categoria) }}
+        </span>
+        <div class="producto-actions">
+          <button 
+            class="btn-icon btn-edit"
+            (click)="editProducto(producto)"
+            title="Editar"
+          >
+            <i class="fas fa-edit"></i>
+          </button>
+          <button 
+            class="btn-icon btn-delete"
+            (click)="deleteProducto(producto)"
+            title="Eliminar"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="producto-card-body">
+        <h3 class="producto-title">{{ producto.descripcion }}</h3>
+        
+        <div class="producto-stats">
+          <div class="stat-item">
+            <i class="fas fa-weight-hanging"></i>
+            <div class="stat-content">
+              <span class="stat-label">Peso</span>
+              <span class="stat-value">{{ producto.peso }} kg</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <i class="fas fa-boxes"></i>
+            <div class="stat-content">
+              <span class="stat-label">Cantidad</span>
+              <span class="stat-value">{{ producto.cantidad }}</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <i class="fas fa-dollar-sign"></i>
+            <div class="stat-content">
+              <span class="stat-label">Valor Unit.</span>
+              <span class="stat-value">{{ producto.valor | currency:'USD':'symbol':'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="producto-totals">
+          <div class="total-row">
+            <span>Peso Total:</span>
+            <strong>{{ getPesoTotal(producto) | number:'1.2-2' }} kg</strong>
+          </div>
+          <div class="total-row highlight">
+            <span>Valor Total:</span>
+            <strong>{{ getValorTotal(producto) | currency:'USD':'symbol':'1.2-2' }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="producto-card-footer">
+        <small class="producto-date">
+          <i class="fas fa-calendar"></i>
+          {{ producto.fecha_creacion | date:'dd/MM/yyyy' }}
+        </small>
+      </div>
+    </div>
+
+    <!-- No Data -->
+    <div class="no-data-card" *ngIf="filteredProductos.length === 0">
+      <i class="fas fa-box-open"></i>
+      <h3>No se encontraron productos</h3>
+      <p>Intenta cambiar los filtros de búsqueda</p>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="card" *ngIf="!loading && totalPages > 1">
+    <div class="pagination">
+      <button 
+        class="btn btn-secondary"
+        (click)="previousPage()"
+        [disabled]="currentPage === 1"
+      >
+        <i class="fas fa-chevron-left"></i>
+        Anterior
+      </button>
+      
+      <span class="pagination-info">
+        Página {{ currentPage }} de {{ totalPages }}
+      </span>
+      
+      <button 
+        class="btn btn-secondary"
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+      >
+        Siguiente
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Create/Edit -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>
+        <i class="fas fa-box"></i>
+        {{ editingProducto ? 'Editar Producto' : 'Nuevo Producto' }}
+      </h3>
+      <button class="btn-close" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">
+            Descripción <span class="required">*</span>
+          </label>
+          <input 
+            type="text"
+            formControlName="descripcion"
+            class="form-control"
+            placeholder="Ej: Laptop HP Pavilion 15.6..."
+            [class.error]="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched"
+          >
+          <div class="error-message" *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched">
+            La descripción es requerida
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            Categoría <span class="required">*</span>
+          </label>
+          <select 
+            formControlName="categoria"
+            class="form-control"
+            [class.error]="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched"
+          >
+            <option value="">Seleccione una categoría</option>
+            <option [value]="CategoriasProducto.ELECTRONICA">
+              <i class="fas fa-laptop"></i> Electrónica
+            </option>
+            <option [value]="CategoriasProducto.ROPA">
+              <i class="fas fa-tshirt"></i> Ropa
+            </option>
+            <option [value]="CategoriasProducto.HOGAR">
+              <i class="fas fa-home"></i> Hogar
+            </option>
+            <option [value]="CategoriasProducto.DEPORTES">
+              <i class="fas fa-futbol"></i> Deportes
+            </option>
+            <option [value]="CategoriasProducto.OTROS">
+              <i class="fas fa-box"></i> Otros
+            </option>
+          </select>
+          <div class="error-message" *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched">
+            Debe seleccionar una categoría
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">
+              Peso (kg) <span class="required">*</span>
+            </label>
+            <input 
+              type="number"
+              formControlName="peso"
+              class="form-control"
+              min="0.01"
+              step="0.01"
+              placeholder="0.00"
+              [class.error]="productoForm.get('peso')?.invalid && productoForm.get('peso')?.touched"
+            >
+            <div class="error-message" *ngIf="productoForm.get('peso')?.invalid && productoForm.get('peso')?.touched">
+              El peso debe ser mayor a 0
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              Cantidad <span class="required">*</span>
+            </label>
+            <input 
+              type="number"
+              formControlName="cantidad"
+              class="form-control"
+              min="1"
+              placeholder="1"
+              [class.error]="productoForm.get('cantidad')?.invalid && productoForm.get('cantidad')?.touched"
+            >
+            <div class="error-message" *ngIf="productoForm.get('cantidad')?.invalid && productoForm.get('cantidad')?.touched">
+              La cantidad debe ser al menos 1
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              Valor Unitario ($) <span class="required">*</span>
+            </label>
+            <input 
+              type="number"
+              formControlName="valor"
+              class="form-control"
+              min="0"
+              step="0.01"
+              placeholder="0.00"
+              [class.error]="productoForm.get('valor')?.invalid && productoForm.get('valor')?.touched"
+            >
+            <div class="error-message" *ngIf="productoForm.get('valor')?.invalid && productoForm.get('valor')?.touched">
+              El valor debe ser mayor o igual a 0
+            </div>
+          </div>
+        </div>
+
+        <!-- Preview de Totales -->
+        <div class="totales-preview" *ngIf="productoForm.get('peso')?.value && productoForm.get('cantidad')?.value && productoForm.get('valor')?.value">
+          <h4>Totales Calculados</h4>
+          <div class="preview-row">
+            <span>Peso Total:</span>
+            <strong>{{ (productoForm.get('peso')?.value * productoForm.get('cantidad')?.value) | number:'1.2-2' }} kg</strong>
+          </div>
+          <div class="preview-row highlight">
+            <span>Valor Total:</span>
+            <strong>{{ (productoForm.get('valor')?.value * productoForm.get('cantidad')?.value) | currency:'USD':'symbol':'1.2-2' }}</strong>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="alert alert-error" *ngIf="errorMessage">
+          <i class="fas fa-exclamation-circle"></i>
+          {{ errorMessage }}
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button 
+          type="button"
+          class="btn btn-secondary"
+          (click)="closeModal()"
+          [disabled]="submitting"
+        >
+          Cancelar
+        </button>
+        <button 
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!productoForm.valid || submitting"
+        >
+          <i class="fas fa-spinner fa-spin" *ngIf="submitting"></i>
+          <i class="fas fa-save" *ngIf="!submitting"></i>
+          {{ submitting ? 'Guardando...' : (editingProducto ? 'Actualizar' : 'Crear') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

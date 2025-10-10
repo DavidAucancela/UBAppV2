@@ -280,3 +280,5 @@ Al completar las fases 1 y 2 tendrás:
 
 *Documentación generada el 10 de Octubre, 2025*
 
+
+

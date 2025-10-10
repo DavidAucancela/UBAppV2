@@ -4,13 +4,33 @@ import { DashboardComponent } from './components/dashboard/dashboard/dashboard.c
 import { UsuariosListComponent } from './components/usuarios/usuarios-list/usuarios-list.component';
 import { EnviosListComponent } from './components/envios/envios-list/envios-list.component';
 import { ProductosListComponent } from './components/productos/productos-list/productos-list.component';
+import { authGuard } from './guards/auth.guard';
+import { roleGuard } from './guards/role.guard';
+import { Roles } from './models/usuario';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'usuarios', component: UsuariosListComponent },
-  { path: 'envios', component: EnviosListComponent },
-  { path: 'productos', component: ProductosListComponent },
+  { 
+    path: 'dashboard', 
+    component: DashboardComponent,
+    canActivate: [authGuard]
+  },
+  { 
+    path: 'usuarios', 
+    component: UsuariosListComponent,
+    canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE])]
+  },
+  { 
+    path: 'envios', 
+    component: EnviosListComponent,
+    canActivate: [authGuard]
+  },
+  { 
+    path: 'productos', 
+    component: ProductosListComponent,
+    canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR])]
+  },
   { path: '**', redirectTo: '/login' }
 ];

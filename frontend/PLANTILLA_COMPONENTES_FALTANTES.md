@@ -720,3 +720,5 @@ export class ProductosListComponent implements OnInit {
 - Testing: 2-3 horas
 - **TOTAL: 15-21 horas (~2-3 días)**
 
+
+

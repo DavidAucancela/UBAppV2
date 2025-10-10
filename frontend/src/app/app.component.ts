@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { Usuario, ROLES_LABELS } from './models/usuario';
 import { Subscription } from 'rxjs';
@@ -21,7 +21,10 @@ export class AppComponent implements OnInit, OnDestroy {
   
   private userSubscription: Subscription | null = null;
 
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // Suscribirse a los cambios del usuario actual
@@ -43,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
   logout(): void {
     this.authService.logout();
     this.showUserMenu = false;
+    this.router.navigate(['/login']);
   }
 
   // Cerrar el menú de usuario cuando se hace clic fuera

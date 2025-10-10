@@ -63,8 +63,9 @@ export class UsuariosListComponent implements OnInit {
   loadUsuarios(): void {
     this.loading = true;
     this.apiService.getUsuarios().subscribe({
-      next: (usuarios) => {
-        this.usuarios = usuarios;
+      next: (response) => {
+        // El backend puede devolver un array o un objeto con 'results'
+        this.usuarios = Array.isArray(response) ? response : (response as any).results || [];
         this.applyFilters();
         this.loading = false;
       },
@@ -77,6 +78,10 @@ export class UsuariosListComponent implements OnInit {
   }
 
   applyFilters(): void {
+    // Asegurarse de que usuarios sea un array
+    if (!Array.isArray(this.usuarios)) {
+      this.usuarios = [];
+    }
     let filtered = [...this.usuarios];
 
     // Search filter
