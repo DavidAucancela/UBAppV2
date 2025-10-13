@@ -2,7 +2,7 @@
   <!-- Header Section -->
   <div class="header-section">
     <div class="header-content">
-      <h1>Gestión de Usuarios</h1>
+      <h1>Gestión de usuarios</h1>
       <p>Administra los usuarios del sistema</p>
     </div>
     <button class="btn btn-primary" (click)="openCreateModal()">
@@ -19,7 +19,7 @@
         type="text" 
         placeholder="Buscar usuarios..."
         [(ngModel)]="searchTerm"
-        (input)="onSearchChange()"
+        (ngModelChange)="onSearchChange()"
         class="search-input"
       >
     </div>
@@ -130,18 +130,125 @@
   </div>
 </div>
 
+<!-- Modal for View User Details -->
+<div class="modal-overlay" *ngIf="showViewModal" (click)="closeViewModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>
+        <i class="fas fa-user-circle"></i>
+        Detalle de Usuario
+      </h2>
+      <button class="btn-icon" (click)="closeViewModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="modal-body" *ngIf="selectedUsuario as u">
+      <div class="detail-section">
+        <h4 class="detail-section-title">
+          <i class="fas fa-info-circle"></i>
+          Información Personal
+        </h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-label">Usuario</span>
+            <span class="detail-value">{{ u.username }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Nombre</span>
+            <span class="detail-value">{{ u.nombre }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Correo</span>
+            <span class="detail-value">{{ u.correo }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Cédula</span>
+            <span class="detail-value">{{ u.cedula }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Teléfono</span>
+            <span class="detail-value">{{ u.telefono || '-' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Rol</span>
+            <span class="role-badge" [class]="getRoleClass(u.rol)">
+              {{ getRoleLabel(u.rol) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section" *ngIf="u.direccion || u.fecha_nacimiento">
+        <h4 class="detail-section-title">
+          <i class="fas fa-address-card"></i>
+          Información Adicional
+        </h4>
+        <div class="detail-grid">
+          <div class="detail-item" *ngIf="u.direccion">
+            <span class="detail-label">Dirección</span>
+            <span class="detail-value">{{ u.direccion }}</span>
+          </div>
+          <div class="detail-item" *ngIf="u.fecha_nacimiento">
+            <span class="detail-label">Fecha de Nacimiento</span>
+            <span class="detail-value">{{ u.fecha_nacimiento }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h4 class="detail-section-title">
+          <i class="fas fa-cog"></i>
+          Estado y Registro
+        </h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-label">Estado</span>
+            <span class="status-badge" [class]="u.es_activo ? 'active' : 'inactive'">
+              {{ u.es_activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </div>
+          <div class="detail-item" *ngIf="u.fecha_creacion">
+            <span class="detail-label">Fecha de Creación</span>
+            <span class="detail-value">{{ u.fecha_creacion | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <div class="detail-item" *ngIf="u.fecha_actualizacion">
+            <span class="detail-label">Última Actualización</span>
+            <span class="detail-value">{{ u.fecha_actualizacion | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="closeViewModal()">
+        <i class="fas fa-times"></i>
+        Cerrar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="editUsuario(selectedUsuario!)" *ngIf="selectedUsuario">
+        <i class="fas fa-edit"></i>
+        Editar
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Modal for Create/Edit User -->
 <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2>{{ editingUsuario ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
+      <h2>
+        <i class="fas" [class.fa-user-plus]="!editingUsuario" [class.fa-user-edit]="editingUsuario"></i>
+        {{ editingUsuario ? 'Editar Usuario' : 'Nuevo Usuario' }}
+      </h2>
       <button class="btn-icon" (click)="closeModal()">
         <i class="fas fa-times"></i>
       </button>
     </div>
 
     <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()" class="modal-form">
-      <div class="form-row">
+      <div class="modal-body">
+        <div class="form-row">
         <div class="form-group">
           <label for="username">Usuario *</label>
           <input 
@@ -152,7 +259,7 @@
             [class.error]="usuarioForm.get('username')?.invalid && usuarioForm.get('username')?.touched"
           >
           <div class="error-message" *ngIf="usuarioForm.get('username')?.invalid && usuarioForm.get('username')?.touched">
-            El usuario es requerido
+            {{ usuarioForm.get('username')?.errors?.['server'] || 'El usuario es requerido' }}
           </div>
         </div>
 
@@ -196,7 +303,7 @@
             [class.error]="usuarioForm.get('cedula')?.invalid && usuarioForm.get('cedula')?.touched"
           >
           <div class="error-message" *ngIf="usuarioForm.get('cedula')?.invalid && usuarioForm.get('cedula')?.touched">
-            La cédula es requerida
+            {{ usuarioForm.get('cedula')?.errors?.['server'] || 'La cédula es requerida' }}
           </div>
         </div>
       </div>
@@ -255,20 +362,23 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label class="checkbox-label">
-          <input type="checkbox" formControlName="es_activo">
-          <span class="checkmark"></span>
-          Usuario activo
-        </label>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="es_activo">
+            <span class="checkmark"></span>
+            Usuario activo
+          </label>
+        </div>
       </div>
 
-      <div class="modal-actions">
-        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()" [disabled]="submitting">
+          <i class="fas fa-times"></i>
           Cancelar
         </button>
         <button type="submit" class="btn btn-primary" [disabled]="!usuarioForm.valid || submitting">
           <i class="fas fa-spinner fa-spin" *ngIf="submitting"></i>
+          <i class="fas" [class.fa-save]="!submitting" *ngIf="!submitting"></i>
           {{ editingUsuario ? 'Actualizar' : 'Crear' }}
         </button>
       </div>

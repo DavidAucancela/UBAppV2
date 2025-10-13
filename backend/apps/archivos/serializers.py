@@ -51,7 +51,7 @@ class EnvioSerializer(serializers.ModelSerializer):
 
 class EnvioListSerializer(serializers.ModelSerializer):
     """Serializer para listar envíos (versión simplificada)"""
-    comprador_nombre = serializers.CharField(source='comprador.nombre', read_only=True)
+    comprador_info = CompradorSerializer(source='comprador', read_only=True)
     estado_nombre = serializers.CharField(source='get_estado_display', read_only=True)
     cantidad_productos = serializers.SerializerMethodField()
     
@@ -59,9 +59,10 @@ class EnvioListSerializer(serializers.ModelSerializer):
         model = Envio
         fields = [
             'id', 'hawb', 'peso_total', 'cantidad_total', 'valor_total',
-            'fecha_emision', 'comprador_nombre', 'estado_nombre', 'cantidad_productos'
+            'fecha_emision', 'comprador', 'comprador_info', 'estado', 'estado_nombre', 
+            'cantidad_productos', 'fecha_creacion'
         ]
-        read_only_fields = ['id', 'fecha_emision']
+        read_only_fields = ['id', 'fecha_emision', 'fecha_creacion']
     
     def get_cantidad_productos(self, obj):
         return obj.productos.count()

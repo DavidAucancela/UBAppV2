@@ -46,6 +46,22 @@ align-items: center;
 gap: 10px;
 font-size: 1.5rem;
 font-weight: 700;
+background: transparent;
+border: none;
+color: white;
+cursor: pointer;
+padding: 10px 15px;
+border-radius: 8px;
+transition: all 0.3s ease;
+}
+
+.logo:hover {
+background-color: rgba(255, 255, 255, 0.1);
+transform: scale(1.05);
+}
+
+.logo.active {
+background-color: rgba(255, 255, 255, 0.2);
 }
 
 .logo i {
@@ -83,6 +99,48 @@ color: white;
 font-size: 1.1rem;
 }
 
+/* Header Actions */
+.header-actions {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+.action-btn {
+position: relative;
+background: transparent;
+border: none;
+color: white;
+cursor: pointer;
+padding: 10px;
+border-radius: 8px;
+transition: all 0.3s ease;
+font-size: 1.2rem;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+}
+
+.action-btn:hover {
+background-color: rgba(255, 255, 255, 0.1);
+}
+
+.action-btn .badge {
+position: absolute;
+top: 5px;
+right: 5px;
+background-color: #ef4444;
+color: white;
+font-size: 0.65rem;
+padding: 2px 6px;
+border-radius: 10px;
+font-weight: 600;
+min-width: 18px;
+text-align: center;
+}
+
 /* User Menu */
 .user-menu {
 position: relative;
@@ -91,30 +149,39 @@ position: relative;
 .user-info {
 display: flex;
 align-items: center;
-gap: 10px;
+justify-content: center;
 cursor: pointer;
-padding: 10px 15px;
-border-radius: 8px;
-transition: background-color 0.3s ease;
+padding: 8px;
+border-radius: 50%;
+transition: all 0.3s ease;
+background: transparent;
+border: 2px solid rgba(255, 255, 255, 0.3);
+color: white;
+font-size: 1.5rem;
+width: 45px;
+height: 45px;
 }
 
 .user-info:hover {
 background-color: rgba(255, 255, 255, 0.1);
+border-color: rgba(255, 255, 255, 0.5);
+transform: scale(1.05);
 }
 
 .dropdown-menu {
 position: absolute;
-top: 100%;
+top: calc(100% + 10px);
 right: 0;
 background: white;
-border-radius: 8px;
-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-min-width: 200px;
+border-radius: 12px;
+box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+min-width: 280px;
 opacity: 0;
 visibility: hidden;
 transform: translateY(-10px);
 transition: all 0.3s ease;
 z-index: 1001;
+overflow: hidden;
 }
 
 .dropdown-menu.show {
@@ -123,24 +190,81 @@ visibility: visible;
 transform: translateY(0);
 }
 
+.dropdown-header {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 16px;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+}
+
+.user-avatar {
+font-size: 2.5rem;
+}
+
+.user-details {
+flex: 1;
+}
+
+.user-name {
+font-weight: 600;
+font-size: 1rem;
+margin-bottom: 4px;
+}
+
+.user-role {
+font-size: 0.85rem;
+opacity: 0.9;
+}
+
 .dropdown-item {
 display: flex;
 align-items: center;
-gap: 10px;
+gap: 12px;
 padding: 12px 16px;
 color: #374151;
 cursor: pointer;
-transition: background-color 0.3s ease;
+transition: all 0.3s ease;
+text-decoration: none;
+background: transparent;
+border: none;
+width: 100%;
+text-align: left;
+font-size: 0.95rem;
 }
 
 .dropdown-item:hover {
 background-color: #f3f4f6;
 }
 
+.dropdown-item i {
+width: 20px;
+text-align: center;
+color: #6b7280;
+}
+
+.dropdown-item.logout {
+color: #ef4444;
+}
+
+.dropdown-item.logout:hover {
+background-color: #fee2e2;
+}
+
+.dropdown-item.logout i {
+color: #ef4444;
+}
+
+.toggle-icon {
+margin-left: auto;
+color: #9ca3af;
+}
+
 .dropdown-divider {
 height: 1px;
 background-color: #e5e7eb;
-margin: 4px 0;
+margin: 8px 0;
 }
 
 /* Main Content */
@@ -367,4 +491,68 @@ color: #991b1b;
 .badge-info {
 background-color: #dbeafe;
 color: #1e40af;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+background-color: #1e293b;
+color: #e5e7eb;
+}
+
+body.dark-mode .header {
+background: linear-gradient(135deg, #4c1d95 0%, #581c87 100%);
+}
+
+body.dark-mode .card,
+body.dark-mode .dropdown-menu,
+body.dark-mode .table {
+background-color: #334155;
+color: #e5e7eb;
+}
+
+body.dark-mode .dropdown-item {
+color: #e5e7eb;
+}
+
+body.dark-mode .dropdown-item:hover {
+background-color: #475569;
+}
+
+body.dark-mode .form-control {
+background-color: #475569;
+color: #e5e7eb;
+border-color: #64748b;
+}
+
+body.dark-mode .table th {
+background-color: #475569;
+color: #e5e7eb;
+}
+
+body.dark-mode .table tr:hover {
+background-color: #475569;
+}
+
+/* Responsive Design for Header Actions */
+@media (max-width: 768px) {
+  .header-actions {
+    gap: 8px;
+  }
+  
+  .action-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .user-info {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+  }
+  
+  .dropdown-menu {
+    min-width: 260px;
+    right: -10px;
+  }
 }

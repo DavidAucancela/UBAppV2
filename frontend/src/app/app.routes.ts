@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
+import { InicioComponent } from './components/dashboard/inicio/inicio.component';
 import { UsuariosListComponent } from './components/usuarios/usuarios-list/usuarios-list.component';
 import { EnviosListComponent } from './components/envios/envios-list/envios-list.component';
 import { ProductosListComponent } from './components/productos/productos-list/productos-list.component';
@@ -12,6 +13,11 @@ import { Roles } from './models/usuario';
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { 
+    path: 'inicio', 
+    component: InicioComponent,
+    canActivate: [authGuard]
+  },
   { 
     path: 'dashboard', 
     component: DashboardComponent,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { Envio, EnvioCreate, EstadosEnvio, ESTADOS_LABELS } from '../../../models/envio';
@@ -49,7 +50,8 @@ export class EnviosListComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     public authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute
   ) {
     this.envioForm = this.fb.group({
       hawb: ['', [Validators.required]],
@@ -61,8 +63,15 @@ export class EnviosListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadEnvios();
-    this.loadCompradores();
+    // Leer query params para prefiltrar
+    this.route.queryParamMap.subscribe((params) => {
+      const estado = params.get('estado');
+      const comprador = params.get('comprador');
+      if (estado) this.selectedEstado = estado;
+      if (comprador) this.selectedComprador = comprador;
+      this.loadEnvios();
+      this.loadCompradores();
+    });
   }
 
   get productos(): FormArray {

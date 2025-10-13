@@ -31,6 +31,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.userSubscription = this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     });
+    
+    // Cargar tema guardado
+    const darkMode = localStorage.getItem('darkMode');
+    if (darkMode === 'true') {
+      document.body.classList.add('dark-mode');
+    }
   }
 
   ngOnDestroy(): void {
@@ -41,6 +47,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   toggleUserMenu(): void {
     this.showUserMenu = !this.showUserMenu;
+  }
+
+  closeUserMenu(): void {
+    this.showUserMenu = false;
+  }
+
+  toggleTheme(): void {
+    // Implementar lógica de cambio de tema
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+    const isDarkMode = body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode ? 'true' : 'false');
   }
 
   logout(): void {

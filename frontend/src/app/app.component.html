@@ -14,14 +14,14 @@
     <!-- Header/Navigation -->
     <header class="header" *ngIf="authService.isAuthenticated()">
       <div class="header-content">
-        <div class="logo">
+        <button class="logo" routerLink="/inicio" [routerLinkActive]="'active'">
           <i class="fas fa-shipping-fast"></i>
           <span>UBApp</span>
-        </div>
+        </button>
         
         <nav class="nav-menu">
           <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
-            <i class="fas fa-tachometer-alt"></i>
+            <i class="fas fa-home"></i>
             <span>Dashboard</span>
           </a>
           
@@ -44,22 +44,62 @@
           </a>
         </nav>
         
-        <div class="user-menu">
-          <div class="user-info" (click)="toggleUserMenu()">
-            <i class="fas fa-user-circle"></i>
-            <span>{{ currentUser?.nombre || currentUser?.username }}</span>
-            <i class="fas fa-chevron-down"></i>
-          </div>
+        <div class="header-actions">
+          <!-- Notificaciones -->
+          <button class="action-btn" title="Notificaciones">
+            <i class="fas fa-bell"></i>
+            <span class="badge">3</span>
+          </button>
           
-          <div class="dropdown-menu" [class.show]="showUserMenu">
-            <div class="dropdown-item">
-              <i class="fas fa-user"></i>
-              <span>{{ getRoleLabel(currentUser?.rol) }}</span>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item" (click)="logout()">
-              <i class="fas fa-sign-out-alt"></i>
-              <span>Cerrar Sesión</span>
+          <!-- Búsqueda rápida -->
+          <button class="action-btn" title="Búsqueda rápida">
+            <i class="fas fa-search"></i>
+          </button>
+          
+          <!-- User Menu -->
+          <div class="user-menu">
+            <button class="user-info" (click)="toggleUserMenu()" title="{{ currentUser?.nombre || currentUser?.username }}">
+              <i class="fas fa-user-circle"></i>
+            </button>
+            
+            <div class="dropdown-menu" [class.show]="showUserMenu">
+              <div class="dropdown-header">
+                <div class="user-avatar">
+                  <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                  <div class="user-name">{{ currentUser?.nombre || currentUser?.username }}</div>
+                  <div class="user-role">{{ getRoleLabel(currentUser?.rol) }}</div>
+                </div>
+              </div>
+              
+              <div class="dropdown-divider"></div>
+              
+              <a routerLink="/configuracion" class="dropdown-item" (click)="closeUserMenu()">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+              </a>
+
+              
+              <div class="dropdown-divider"></div>
+              
+              <button class="dropdown-item" (click)="toggleTheme()">
+                <i class="fas fa-moon"></i>
+                <span>Modo Oscuro</span>
+                <i class="fas fa-toggle-off toggle-icon"></i>
+              </button>
+              
+              <a routerLink="/ayuda" class="dropdown-item" (click)="closeUserMenu()">
+                <i class="fas fa-question-circle"></i>
+                <span>Ayuda</span>
+              </a>
+              
+              <div class="dropdown-divider"></div>
+              
+              <button class="dropdown-item logout" (click)="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+              </button>
             </div>
           </div>
         </div>

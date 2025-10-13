@@ -120,23 +120,52 @@
         <tbody>
           <tr *ngFor="let envio of paginatedEnvios">
             <td>
-              <strong>{{ envio.hawb }}</strong>
+              <div class="hawb-cell">
+                <i class="fas fa-barcode"></i>
+                <strong>{{ envio.hawb }}</strong>
+              </div>
             </td>
-            <td>{{ envio.comprador_info?.nombre || '-' }}</td>
-            <td>{{ envio.comprador_info?.cedula || '-' }}</td>
+            <td>
+              <div class="comprador-cell">
+                <i class="fas fa-user-circle"></i>
+                <span>{{ envio.comprador_info?.nombre || 'Sin información' }}</span>
+              </div>
+            </td>
+            <td>
+              <div class="cedula-cell">
+                <i class="fas fa-id-card"></i>
+                <span>{{ envio.comprador_info?.cedula || '-' }}</span>
+              </div>
+            </td>
             <td class="text-center">
               <span class="badge badge-info">
+                <i class="fas fa-box"></i>
                 {{ envio.cantidad_productos || 0 }}
               </span>
             </td>
-            <td>{{ envio.peso_total | number:'1.2-2' }} kg</td>
-            <td>{{ envio.valor_total | currency:'USD':'symbol':'1.2-2' }}</td>
+            <td>
+              <div class="metric-cell">
+                <i class="fas fa-weight"></i>
+                <span>{{ envio.peso_total | number:'1.2-2' }} kg</span>
+              </div>
+            </td>
+            <td>
+              <div class="metric-cell valor">
+                <i class="fas fa-dollar-sign"></i>
+                <span>{{ envio.valor_total | currency:'USD':'symbol':'1.2-2' }}</span>
+              </div>
+            </td>
             <td>
               <span class="badge" [ngClass]="getEstadoClass(envio.estado)">
                 {{ getEstadoLabel(envio.estado) }}
               </span>
             </td>
-            <td>{{ envio.fecha_creacion | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <div class="fecha-cell">
+                <i class="fas fa-calendar-alt"></i>
+                <span>{{ envio.fecha_creacion | date:'dd/MM/yyyy' }}</span>
+              </div>
+            </td>
             <td class="actions-column">
               <div class="action-buttons">
                 <button 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { Usuario, Roles, ROLES_LABELS } from '../../../models/usuario';
@@ -10,7 +11,7 @@ import { Usuario, Roles, ROLES_LABELS } from '../../../models/usuario';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './usuarios-list.component.html',
-  styleUrl: './usuarios-list.component.css'
+  styleUrls: ['./usuarios-list.component.css']
 })
 export class UsuariosListComponent implements OnInit {
   usuarios: Usuario[] = [];
@@ -18,7 +19,9 @@ export class UsuariosListComponent implements OnInit {
   loading = false;
   submitting = false;
   showModal = false;
+  showViewModal = false;
   editingUsuario: Usuario | null = null;
+  selectedUsuario: Usuario | null = null;
   hidePassword = true;
   
   // Filters
@@ -42,7 +45,8 @@ export class UsuariosListComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute
   ) {
     this.usuarioForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -57,7 +61,14 @@ export class UsuariosListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadUsuarios();
+    // Leer query params para prefiltrar por rol/estado
+    this.route.queryParamMap.subscribe((params) => {
+      const rol = params.get('rol');
+      const activo = params.get('activo');
+      if (rol) this.selectedRole = String(rol);
+      if (activo !== null) this.selectedStatus = String(activo);
+      this.loadUsuarios();
+    });
   }
 
   loadUsuarios(): void {
@@ -88,10 +99,10 @@ export class UsuariosListComponent implements OnInit {
     if (this.searchTerm) {
       const search = this.searchTerm.toLowerCase();
       filtered = filtered.filter(usuario =>
-        usuario.username.toLowerCase().includes(search) ||
-        usuario.nombre.toLowerCase().includes(search) ||
-        usuario.correo.toLowerCase().includes(search) ||
-        usuario.cedula.toLowerCase().includes(search)
+        (usuario.username || '').toLowerCase().includes(search) ||
+        (usuario.nombre || '').toLowerCase().includes(search) ||
+        (usuario.correo || '').toLowerCase().includes(search) ||
+        (usuario.cedula || '').toLowerCase().includes(search)
       );
     }
 
@@ -150,6 +161,11 @@ export class UsuariosListComponent implements OnInit {
     });
     this.showModal = true;
     this.hidePassword = true;
+    // Asegurar validadores de contraseña para creación
+    const passwordCtrl = this.usuarioForm.get('password');
+    passwordCtrl?.setValidators([Validators.required, Validators.minLength(6)]);
+    passwordCtrl?.updateValueAndValidity();
+    this.submitting = false;
   }
 
   editUsuario(usuario: Usuario): void {
@@ -166,11 +182,34 @@ export class UsuariosListComponent implements OnInit {
     });
     this.showModal = true;
     this.hidePassword = true;
+    // Quitar validadores de contraseña en edición
+    const passwordCtrl = this.usuarioForm.get('password');
+    passwordCtrl?.clearValidators();
+    passwordCtrl?.updateValueAndValidity();
+    this.submitting = false;
   }
 
   viewUsuario(usuario: Usuario): void {
-    // Implementar vista detallada del usuario
-    console.log('Ver usuario:', usuario);
+    this.selectedUsuario = { ...usuario };
+    if (usuario.id) {
+      this.apiService.getUsuario(usuario.id).subscribe({
+        next: (detallado) => {
+          this.selectedUsuario = detallado;
+          this.showViewModal = true;
+        },
+        error: () => {
+          // Si falla, mostramos al menos los datos existentes
+          this.showViewModal = true;
+        }
+      });
+    } else {
+      this.showViewModal = true;
+    }
+  }
+
+  closeViewModal(): void {
+    this.showViewModal = false;
+    this.selectedUsuario = null;
   }
 
   deleteUsuario(usuario: Usuario): void {
@@ -195,6 +234,7 @@ export class UsuariosListComponent implements OnInit {
     this.editingUsuario = null;
     this.usuarioForm.reset();
     this.errorMessage = '';
+    this.submitting = false;
   }
 
   onSubmit(): void {
@@ -210,11 +250,13 @@ export class UsuariosListComponent implements OnInit {
             this.closeModal();
             this.loadUsuarios();
             setTimeout(() => this.successMessage = '', 3000);
+            this.submitting = false;
           },
           error: (error) => {
             console.error('Error actualizando usuario:', error);
             this.errorMessage = 'Error al actualizar el usuario';
             this.submitting = false;
+            this.setBackendErrors(error?.error);
             setTimeout(() => this.errorMessage = '', 3000);
           }
         });
@@ -226,11 +268,13 @@ export class UsuariosListComponent implements OnInit {
             this.closeModal();
             this.loadUsuarios();
             setTimeout(() => this.successMessage = '', 3000);
+            this.submitting = false;
           },
           error: (error) => {
             console.error('Error creando usuario:', error);
             this.errorMessage = 'Error al crear el usuario';
             this.submitting = false;
+            this.setBackendErrors(error?.error);
             setTimeout(() => this.errorMessage = '', 3000);
           }
         });
@@ -244,6 +288,22 @@ export class UsuariosListComponent implements OnInit {
     Object.keys(this.usuarioForm.controls).forEach(key => {
       const control = this.usuarioForm.get(key);
       control?.markAsTouched();
+    });
+  }
+
+  private setBackendErrors(apiErrors: any): void {
+    if (!apiErrors || typeof apiErrors !== 'object') return;
+    Object.keys(apiErrors).forEach((key) => {
+      const control = this.usuarioForm.get(key);
+      const messages = apiErrors[key];
+      const message = Array.isArray(messages) ? messages[0] : String(messages);
+      if (control) {
+        control.setErrors({ ...(control.errors || {}), server: message });
+        control.markAsTouched();
+      } else {
+        // Si no existe control, mostrar como error general
+        this.errorMessage = message;
+      }
     });
   }
 

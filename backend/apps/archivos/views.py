@@ -105,6 +105,7 @@ class EnvioViewSet(viewsets.ModelViewSet):
         envios_pendientes = queryset.filter(estado='pendiente').count()
         envios_en_transito = queryset.filter(estado='en_transito').count()
         envios_entregados = queryset.filter(estado='entregado').count()
+        envios_cancelados = queryset.filter(estado='cancelado').count()
         
         # Totales
         total_peso = queryset.aggregate(total=models.Sum('peso_total'))['total'] or 0
@@ -116,7 +117,13 @@ class EnvioViewSet(viewsets.ModelViewSet):
             'envios_en_transito': envios_en_transito,
             'envios_entregados': envios_entregados,
             'total_peso': float(total_peso),
-            'total_valor': float(total_valor)
+            'total_valor': float(total_valor),
+            'por_estado': {
+                'Pendiente': envios_pendientes,
+                'En tránsito': envios_en_transito,
+                'Entregado': envios_entregados,
+                'Cancelado': envios_cancelados
+            }
         })
 
 class ProductoViewSet(viewsets.ModelViewSet):
