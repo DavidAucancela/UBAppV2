@@ -1,41 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-import re
-from django.core.exceptions import ValidationError
-
-def validar_cedula_ecuatoriana(cedula):
-    """Valida cédula ecuatoriana usando algoritmo módulo 10"""
-    if not cedula or len(cedula) != 10:
-        raise ValidationError("La cédula debe tener 10 dígitos")
-    
-    # Verificar que solo contenga dígitos
-    if not cedula.isdigit():
-        raise ValidationError("La cédula solo debe contener números")
-    
-    # Verificar provincia (primeros 2 dígitos entre 01 y 24)
-    provincia = int(cedula[0:2])
-    if provincia < 1 or provincia > 24:
-        raise ValidationError("Los dos primeros dígitos deben estar entre 01 y 24 (código de provincia)")
-    
-    # Tercer dígito debe ser menor a 6 (personas naturales)
-    if int(cedula[2]) >= 6:
-        raise ValidationError("El tercer dígito debe ser menor a 6 para personas naturales")
-    
-    # Algoritmo módulo 10
-    coeficientes = [2, 1, 2, 1, 2, 1, 2, 1, 2]
-    suma = 0
-    
-    for i in range(9):
-        valor = int(cedula[i]) * coeficientes[i]
-        if valor >= 10:
-            valor -= 9
-        suma += valor
-    
-    resultado = suma % 10
-    verificador = 0 if resultado == 0 else 10 - resultado
-    
-    if verificador != int(cedula[9]):
-        raise ValidationError("El dígito verificador de la cédula no es válido")
+from django.core.validators import MinLengthValidator
+from .validators import validar_cedula_ecuatoriana
 
 class Usuario(AbstractUser):
     """Modelo de usuario personalizado con roles"""
@@ -48,8 +14,13 @@ class Usuario(AbstractUser):
     ]
     
     # Campos básicos requeridos
-    nombre = models.CharField(max_length=100, blank=True, null=True)
-    correo = models.EmailField(unique=True, blank=True, null=True)
+    nombre = models.CharField(
+        max_length=100,
+        blank=False,
+        null=True,
+        validators=[MinLengthValidator(2, 'El nombre debe tener al menos 2 caracteres')]
+    )
+    correo = models.EmailField(unique=True, blank=False, null=True)
     cedula = models.CharField(
         max_length=10, 
         unique=True, 
@@ -64,6 +35,49 @@ class Usuario(AbstractUser):
     telefono = models.CharField(max_length=15, blank=True, null=True)
     fecha_nacimiento = models.DateField(blank=True, null=True)
     direccion = models.TextField(blank=True, null=True)
+    
+    # Campos de ubicación para mapa
+    ciudad = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        choices=[
+            ('Quito', 'Quito'),
+            ('Guayaquil', 'Guayaquil'),
+            ('Cuenca', 'Cuenca'),
+            ('Ambato', 'Ambato'),
+            ('Manta', 'Manta'),
+            ('Loja', 'Loja'),
+            ('Esmeraldas', 'Esmeraldas'),
+            ('Riobamba', 'Riobamba'),
+            ('Machala', 'Machala'),
+            ('Santo Domingo', 'Santo Domingo'),
+            ('Ibarra', 'Ibarra'),
+            ('Portoviejo', 'Portoviejo'),
+            ('Durán', 'Durán'),
+            ('Quevedo', 'Quevedo'),
+            ('Milagro', 'Milagro'),
+        ],
+        verbose_name="Ciudad",
+        help_text="Ciudad de residencia del usuario"
+    )
+    latitud = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        blank=True,
+        null=True,
+        verbose_name="Latitud",
+        help_text="Coordenada de latitud para ubicación en mapa"
+    )
+    longitud = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        blank=True,
+        null=True,
+        verbose_name="Longitud",
+        help_text="Coordenada de longitud para ubicación en mapa"
+    )
+    
     es_activo = models.BooleanField(default=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)

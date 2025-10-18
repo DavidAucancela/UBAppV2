@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { Usuario, ROLES_LABELS } from './models/usuario';
@@ -23,7 +23,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     public authService: AuthService,
-    private router: Router
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
@@ -32,10 +33,12 @@ export class AppComponent implements OnInit, OnDestroy {
       this.currentUser = user;
     });
     
-    // Cargar tema guardado
-    const darkMode = localStorage.getItem('darkMode');
-    if (darkMode === 'true') {
-      document.body.classList.add('dark-mode');
+    // Cargar tema guardado (solo en el navegador)
+    if (isPlatformBrowser(this.platformId)) {
+      const darkMode = localStorage.getItem('darkMode');
+      if (darkMode === 'true') {
+        document.body.classList.add('dark-mode');
+      }
     }
   }
 
@@ -54,11 +57,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   toggleTheme(): void {
-    // Implementar lógica de cambio de tema
-    const body = document.body;
-    body.classList.toggle('dark-mode');
-    const isDarkMode = body.classList.contains('dark-mode');
-    localStorage.setItem('darkMode', isDarkMode ? 'true' : 'false');
+    // Implementar lógica de cambio de tema (solo en el navegador)
+    if (isPlatformBrowser(this.platformId)) {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+      const isDarkMode = body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode ? 'true' : 'false');
+    }
   }
 
   logout(): void {

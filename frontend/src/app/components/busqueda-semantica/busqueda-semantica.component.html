@@ -1,0 +1,523 @@
+<!-- Contenedor principal de búsqueda semántica -->
+<div class="busqueda-semantica-container">
+  
+  <!-- Encabezado -->
+  <div class="encabezado">
+    <h1 class="titulo-principal">
+      <i class="fas fa-brain"></i>
+      Búsqueda Semántica de Envíos
+    </h1>
+    <p class="subtitulo">Encuentra envíos usando lenguaje natural - Describe lo que buscas y nuestro IA lo encontrará</p>
+  </div>
+
+  <!-- Botón cambiar a búsqueda exacta (si está integrado) -->
+  <div *ngIf="modoIntegrado" class="toggle-modo">
+    <button class="btn-cambiar-modo" (click)="cambiarAModoExacto()">
+      <i class="fas fa-exchange-alt"></i>
+      Cambiar a Búsqueda Exacta
+    </button>
+  </div>
+
+  <!-- Mensajes de estado -->
+  <div class="mensajes">
+    <div *ngIf="mensajeExito" class="alerta alerta-exito">
+      <i class="fas fa-check-circle"></i>
+      {{ mensajeExito }}
+    </div>
+    <div *ngIf="errorMensaje" class="alerta alerta-error">
+      <i class="fas fa-exclamation-triangle"></i>
+      {{ errorMensaje }}
+    </div>
+  </div>
+
+  <!-- Sección principal de búsqueda -->
+  <div class="seccion-busqueda">
+    
+    <!-- Campo de búsqueda semántica -->
+    <div class="busqueda-semantica-principal">
+      <div class="contenedor-input-semantico">
+        <i class="fas fa-search icono-busqueda"></i>
+        <textarea
+          [(ngModel)]="textoConsulta"
+          (input)="alEscribirConsulta()"
+          (focus)="alEnfocarCampo()"
+          (blur)="alDesenfocarCampo()"
+          class="input-semantico"
+          placeholder="Describe lo que buscas... Ej: 'envíos entregados en Quito la semana pasada' o 'paquetes pendientes para Guayaquil'"
+          rows="3"
+        ></textarea>
+        <button 
+          class="btn-limpiar-consulta"
+          *ngIf="textoConsulta.length > 0"
+          (click)="limpiarBusqueda()"
+          title="Limpiar búsqueda"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="acciones-busqueda">
+        <button 
+          class="btn btn-primario btn-buscar-semantico"
+          (click)="realizarBusquedaSemantica()"
+          [disabled]="analizando || textoConsulta.length < 3"
+        >
+          <i class="fas fa-brain"></i>
+          {{ analizando ? 'Analizando tu búsqueda...' : 'Buscar con IA' }}
+        </button>
+
+        <button 
+          class="btn btn-secundario"
+          (click)="toggleHistorial()"
+        >
+          <i class="fas fa-history"></i>
+          Historial
+        </button>
+
+        <button 
+          class="btn btn-secundario"
+          (click)="toggleFiltrosAdicionales()"
+        >
+          <i class="fas fa-sliders-h"></i>
+          Filtros Opcionales
+        </button>
+      </div>
+    </div>
+
+    <!-- Panel de sugerencias -->
+    <div *ngIf="sugerenciasVisibles" class="panel-sugerencias">
+      <div class="header-sugerencias">
+        <i class="fas fa-lightbulb"></i>
+        {{ mostrandoSugerenciasPredefinidas ? 'Ejemplos de búsqueda' : 'Sugerencias' }}
+      </div>
+      
+      <!-- Sugerencias predefinidas -->
+      <div *ngIf="mostrandoSugerenciasPredefinidas" class="lista-sugerencias">
+        <div 
+          *ngFor="let sugerencia of sugerenciasPredefinidas"
+          class="item-sugerencia"
+          (click)="seleccionarSugerencia(sugerencia)"
+        >
+          <i class="fas {{ sugerencia.icono }}"></i>
+          <span class="texto-sugerencia">{{ sugerencia.texto }}</span>
+        </div>
+      </div>
+
+      <!-- Sugerencias dinámicas -->
+      <div *ngIf="!mostrandoSugerenciasPredefinidas && sugerenciasDinamicas.length > 0" class="lista-sugerencias">
+        <div 
+          *ngFor="let sugerencia of sugerenciasDinamicas"
+          class="item-sugerencia"
+          (click)="seleccionarSugerencia(sugerencia)"
+        >
+          <i class="fas {{ sugerencia.icono || 'fa-search' }}"></i>
+          <span class="texto-sugerencia">{{ sugerencia.texto }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel de historial -->
+    <div *ngIf="mostrarHistorial" class="panel-historial">
+      <div class="header-historial">
+        <span>
+          <i class="fas fa-history"></i>
+          Búsquedas Recientes
+        </span>
+        <button 
+          class="btn-limpiar-historial"
+          (click)="limpiarHistorial()"
+          *ngIf="historialBusquedas.length > 0"
+        >
+          <i class="fas fa-trash"></i>
+          Limpiar
+        </button>
+      </div>
+      
+      <div *ngIf="historialBusquedas.length === 0" class="historial-vacio">
+        <i class="fas fa-inbox"></i>
+        <p>No hay búsquedas recientes</p>
+      </div>
+
+      <div *ngIf="historialBusquedas.length > 0" class="lista-historial">
+        <div 
+          *ngFor="let busqueda of historialBusquedas"
+          class="item-historial"
+          (click)="usarDelHistorial(busqueda)"
+        >
+          <div class="contenido-historial">
+            <i class="fas fa-search"></i>
+            <span class="texto-historial">{{ busqueda.consulta }}</span>
+          </div>
+          <span class="badge-resultados">{{ busqueda.totalResultados }} resultados</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros adicionales opcionales -->
+    <div *ngIf="mostrarFiltrosAdicionales" class="filtros-adicionales-semanticos">
+      <h3 class="titulo-filtros">
+        <i class="fas fa-filter"></i>
+        Filtros Adicionales (Opcionales)
+      </h3>
+      
+      <div class="grid-filtros-adicionales">
+        <div class="campo-filtro">
+          <label>Fecha Desde:</label>
+          <input type="date" [(ngModel)]="fechaDesde" class="input-filtro">
+        </div>
+
+        <div class="campo-filtro">
+          <label>Fecha Hasta:</label>
+          <input type="date" [(ngModel)]="fechaHasta" class="input-filtro">
+        </div>
+
+        <div class="campo-filtro">
+          <label>Estado del Envío:</label>
+          <select [(ngModel)]="estadoFiltro" class="select-filtro">
+            <option value="">Todos los estados</option>
+            <option *ngFor="let estado of estadosDisponibles" [value]="estado.valor">
+              {{ estado.etiqueta }}
+            </option>
+          </select>
+        </div>
+
+        <div class="campo-filtro">
+          <label>Ciudad Destino:</label>
+          <input type="text" [(ngModel)]="ciudadDestinoFiltro" class="input-filtro" placeholder="Ej: Quito">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicador de carga / analizando -->
+  <div *ngIf="analizando" class="indicador-analisis">
+    <div class="animacion-cerebro">
+      <i class="fas fa-brain fa-pulse"></i>
+    </div>
+    <h3>Analizando tu búsqueda...</h3>
+    <p>Nuestro sistema de IA está procesando tu consulta</p>
+    <div class="barra-progreso">
+      <div class="barra-progreso-animada"></div>
+    </div>
+  </div>
+
+  <!-- Sin resultados -->
+  <div *ngIf="sinResultados && !analizando" class="sin-resultados">
+    <i class="fas fa-search icono-grande"></i>
+    <h3>No se encontraron coincidencias</h3>
+    <p>Intenta reformular tu búsqueda o usa términos diferentes</p>
+    <div class="sugerencias-mejora">
+      <strong>Tips para mejorar tu búsqueda:</strong>
+      <ul>
+        <li>Sé más específico: "envíos a Quito de esta semana"</li>
+        <li>Usa sinónimos: "paquetes" en lugar de "envíos"</li>
+        <li>Menciona detalles: nombres, ciudades, fechas</li>
+      </ul>
+    </div>
+    <button class="btn btn-primario" (click)="limpiarBusqueda()">
+      <i class="fas fa-redo"></i>
+      Nueva Búsqueda
+    </button>
+  </div>
+
+  <!-- Controles de vista de resultados -->
+  <div *ngIf="resultadosSemanticos.length > 0 && !analizando" class="controles-vista">
+    <div class="info-resultados-semanticos">
+      <span class="contador-resultados">
+        <strong>{{ resultadosSemanticos.length }}</strong> resultado(s) encontrado(s)
+      </span>
+      <span class="info-modelo" *ngIf="respuestaActual?.modeloUtilizado">
+        <i class="fas fa-microchip"></i>
+        Modelo: {{ respuestaActual.modeloUtilizado }}
+      </span>
+      <span class="info-tiempo" *ngIf="respuestaActual?.tiempoRespuesta">
+        <i class="fas fa-clock"></i>
+        {{ respuestaActual.tiempoRespuesta }}ms
+      </span>
+    </div>
+
+    <div class="botones-vista">
+      <button 
+        class="btn-vista"
+        [class.activo]="configuracion.tipoVista === TipoVistaResultados.TARJETAS"
+        (click)="cambiarTipoVista(TipoVistaResultados.TARJETAS)"
+        title="Vista de tarjetas"
+      >
+        <i class="fas fa-th-large"></i>
+      </button>
+      <button 
+        class="btn-vista"
+        [class.activo]="configuracion.tipoVista === TipoVistaResultados.LISTA"
+        (click)="cambiarTipoVista(TipoVistaResultados.LISTA)"
+        title="Vista de lista"
+      >
+        <i class="fas fa-list"></i>
+      </button>
+      <button 
+        class="btn-vista"
+        [class.activo]="configuracion.tipoVista === TipoVistaResultados.COMPACTA"
+        (click)="cambiarTipoVista(TipoVistaResultados.COMPACTA)"
+        title="Vista compacta"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Resultados semánticos - Vista de Tarjetas -->
+  <div *ngIf="!analizando && !sinResultados && configuracion.tipoVista === TipoVistaResultados.TARJETAS" class="resultados-tarjetas">
+    <div *ngFor="let resultado of resultadosSemanticos" class="tarjeta-resultado">
+      <!-- Cabecera con puntuación -->
+      <div class="cabecera-tarjeta">
+        <div class="info-principal">
+          <span class="hawb-destac">{{ resultado.envio.hawb }}</span>
+          <span class="badge-estado" [ngClass]="obtenerClaseEstado(resultado.envio.estado)">
+            {{ obtenerEtiquetaEstado(resultado.envio.estado) }}
+          </span>
+        </div>
+        <div class="puntuacion-similitud" *ngIf="configuracion.mostrarPuntuacion">
+          <div class="barra-similitud">
+            <div 
+              class="relleno-similitud"
+              [style.width.%]="resultado.puntuacionSimilitud * 100"
+              [style.background-color]="obtenerColorSimilitud(resultado.puntuacionSimilitud)"
+            ></div>
+          </div>
+          <span class="texto-similitud" [ngClass]="obtenerClaseSimilitud(resultado.puntuacionSimilitud)">
+            {{ formatearPorcentajeSimilitud(resultado.puntuacionSimilitud) }} relevante
+          </span>
+        </div>
+      </div>
+
+      <!-- Información del envío -->
+      <div class="contenido-tarjeta">
+        <div class="campo-info">
+          <i class="fas fa-user"></i>
+          <span class="etiqueta">Destinatario:</span>
+          <strong>{{ resultado.envio.comprador_info?.nombre || 'N/A' }}</strong>
+        </div>
+
+        <div class="campo-info">
+          <i class="fas fa-map-marker-alt"></i>
+          <span class="etiqueta">Ciudad:</span>
+          <strong>{{ resultado.envio.comprador_info?.ciudad || 'N/A' }}</strong>
+        </div>
+
+        <div class="campo-info">
+          <i class="fas fa-calendar"></i>
+          <span class="etiqueta">Fecha:</span>
+          <strong>{{ formatearFecha(resultado.envio.fecha_emision) }}</strong>
+        </div>
+
+        <div class="campo-info">
+          <i class="fas fa-weight-hanging"></i>
+          <span class="etiqueta">Peso:</span>
+          <strong>{{ formatearPeso(resultado.envio.peso_total) }}</strong>
+        </div>
+
+        <div class="campo-info">
+          <i class="fas fa-dollar-sign"></i>
+          <span class="etiqueta">Valor:</span>
+          <strong class="texto-valor">{{ formatearMoneda(resultado.envio.valor_total) }}</strong>
+        </div>
+
+        <!-- Fragmentos relevantes -->
+        <div *ngIf="configuracion.mostrarFragmentos && resultado.fragmentosRelevantes.length > 0" class="fragmentos-relevantes">
+          <div class="titulo-fragmentos">
+            <i class="fas fa-quote-left"></i>
+            Coincidencias encontradas:
+          </div>
+          <div *ngFor="let fragmento of resultado.fragmentosRelevantes" class="fragmento">
+            {{ fragmento }}
+          </div>
+        </div>
+
+        <!-- Razón de relevancia -->
+        <div *ngIf="configuracion.mostrarRazonRelevancia && resultado.razonRelevancia" class="razon-relevancia">
+          <i class="fas fa-info-circle"></i>
+          {{ resultado.razonRelevancia }}
+        </div>
+      </div>
+
+      <!-- Acciones -->
+      <div class="pie-tarjeta">
+        <button class="btn btn-primario btn-sm" (click)="verDetalles(resultado)">
+          <i class="fas fa-eye"></i>
+          Ver Detalle
+        </button>
+        
+        <div class="feedback-botones">
+          <button 
+            class="btn-feedback btn-feedback-positivo"
+            (click)="enviarFeedback(resultado, true)"
+            title="Resultado relevante"
+          >
+            <i class="fas fa-thumbs-up"></i>
+          </button>
+          <button 
+            class="btn-feedback btn-feedback-negativo"
+            (click)="enviarFeedback(resultado, false)"
+            title="Resultado no relevante"
+          >
+            <i class="fas fa-thumbs-down"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resultados semánticos - Vista de Lista (similar estructura pero diferente layout) -->
+  <div *ngIf="!analizando && !sinResultados && configuracion.tipoVista === TipoVistaResultados.LISTA" class="resultados-lista">
+    <!-- Similar a tarjetas pero con layout más compacto -->
+    <div *ngFor="let resultado of resultadosSemanticos" class="item-lista-resultado">
+      <div class="contenido-lista">
+        <div class="cabecera-lista">
+          <span class="hawb-lista">{{ resultado.envio.hawb }}</span>
+          <span class="badge-estado" [ngClass]="obtenerClaseEstado(resultado.envio.estado)">
+            {{ obtenerEtiquetaEstado(resultado.envio.estado) }}
+          </span>
+          <span class="similitud-lista" *ngIf="configuracion.mostrarPuntuacion">
+            {{ formatearPorcentajeSimilitud(resultado.puntuacionSimilitud) }}
+          </span>
+        </div>
+        
+        <div class="info-lista">
+          <span>{{ resultado.envio.comprador_info?.nombre || 'N/A' }}</span>
+          <span>·</span>
+          <span>{{ resultado.envio.comprador_info?.ciudad || 'N/A' }}</span>
+          <span>·</span>
+          <span>{{ formatearFecha(resultado.envio.fecha_emision) }}</span>
+        </div>
+      </div>
+      
+      <button class="btn btn-sm" (click)="verDetalles(resultado)">
+        Ver Detalle
+      </button>
+    </div>
+  </div>
+
+  <!-- Resultados semánticos - Vista Compacta -->
+  <div *ngIf="!analizando && !sinResultados && configuracion.tipoVista === TipoVistaResultados.COMPACTA" class="resultados-compactos">
+    <table class="tabla-compacta">
+      <thead>
+        <tr>
+          <th *ngIf="configuracion.mostrarPuntuacion">Relevancia</th>
+          <th>HAWB</th>
+          <th>Destinatario</th>
+          <th>Ciudad</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let resultado of resultadosSemanticos">
+          <td *ngIf="configuracion.mostrarPuntuacion">
+            <span class="badge-similitud" [ngClass]="obtenerClaseSimilitud(resultado.puntuacionSimilitud)">
+              {{ formatearPorcentajeSimilitud(resultado.puntuacionSimilitud) }}
+            </span>
+          </td>
+          <td><strong>{{ resultado.envio.hawb }}</strong></td>
+          <td>{{ resultado.envio.comprador_info?.nombre || 'N/A' }}</td>
+          <td>{{ resultado.envio.comprador_info?.ciudad || 'N/A' }}</td>
+          <td>
+            <span class="badge-estado" [ngClass]="obtenerClaseEstado(resultado.envio.estado)">
+              {{ obtenerEtiquetaEstado(resultado.envio.estado) }}
+            </span>
+          </td>
+          <td>{{ formatearFecha(resultado.envio.fecha_emision) }}</td>
+          <td>
+            <button class="btn-icono" (click)="verDetalles(resultado)" title="Ver detalle">
+              <i class="fas fa-eye"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal de detalles (reutil Envío) -->
+<div class="modal-overlay" *ngIf="mostrarDetalleModal" (click)="cerrarDetalleModal()">
+  <div class="modal-contenido" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>
+        <i class="fas fa-box"></i>
+        Detalles del Envío
+      </h2>
+      <button class="btn-cerrar-modal" (click)="cerrarDetalleModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="modal-body" *ngIf="envioSeleccionado">
+      <!-- Información general -->
+      <div class="seccion-detalle">
+        <h3><i class="fas fa-info-circle"></i> Información General</h3>
+        <div class="grid-detalle">
+          <div class="campo-detalle">
+            <label>HAWB:</label>
+            <strong>{{ envioSeleccionado.hawb }}</strong>
+          </div>
+          <div class="campo-detalle">
+            <label>Estado:</label>
+            <span class="badge-estado" [ngClass]="obtenerClaseEstado(envioSeleccionado.estado)">
+              {{ obtenerEtiquetaEstado(envioSeleccionado.estado) }}
+            </span>
+          </div>
+          <div class="campo-detalle">
+            <label>Fecha Emisión:</label>
+            <span>{{ formatearFecha(envioSeleccionado.fecha_emision) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información del destinatario -->
+      <div class="seccion-detalle" *ngIf="envioSeleccionado.comprador_info">
+        <h3><i class="fas fa-user"></i> Destinatario</h3>
+        <div class="grid-detalle">
+          <div class="campo-detalle">
+            <label>Nombre:</label>
+            <span>{{ envioSeleccionado.comprador_info.nombre }}</span>
+          </div>
+          <div class="campo-detalle">
+            <label>Cédula:</label>
+            <span>{{ envioSeleccionado.comprador_info.cedula }}</span>
+          </div>
+          <div class="campo-detalle">
+            <label>Ciudad:</label>
+            <span>{{ envioSeleccionado.comprador_info.ciudad || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información del envío -->
+      <div class="seccion-detalle">
+        <h3><i class="fas fa-box-open"></i> Información del Envío</h3>
+        <div class="grid-detalle">
+          <div class="campo-detalle">
+            <label>Peso Total:</label>
+            <strong>{{ formatearPeso(envioSeleccionado.peso_total) }}</strong>
+          </div>
+          <div class="campo-detalle">
+            <label>Valor Total:</label>
+            <strong class="texto-valor">{{ formatearMoneda(envioSeleccionado.valor_total) }}</strong>
+          </div>
+          <div class="campo-detalle">
+            <label>Costo Servicio:</label>
+            <strong>{{ formatearMoneda(envioSeleccionado.costo_servicio) }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secundario" (click)="cerrarDetalleModal()">
+        <i class="fas fa-times"></i>
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>
+

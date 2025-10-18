@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { Envio, EnvioCreate, EstadosEnvio, ESTADOS_LABELS } from '../../../models/envio';
-import { ProductoCreate, CategoriasProducto, CATEGORIAS_LABELS } from '../../../models/producto';
+import { Producto, ProductoCreate, CategoriasProducto, CATEGORIAS_LABELS } from '../../../models/producto';
 import { Usuario } from '../../../models/usuario';
 
 @Component({
@@ -19,12 +19,18 @@ export class EnviosListComponent implements OnInit {
   envios: Envio[] = [];
   filteredEnvios: Envio[] = [];
   compradores: Usuario[] = [];
+  productosExistentes: Producto[] = [];
   loading = false;
   submitting = false;
   showModal = false;
   showDetailModal = false;
   editingEnvio: Envio | null = null;
   selectedEnvio: Envio | null = null;
+  
+  // Cálculo de costos
+  costoServicioCalculado = 0;
+  detallesCostos: any[] = [];
+  calculandoCosto = false;
   
   // Filters
   searchTerm = '';
@@ -126,6 +132,53 @@ export class EnviosListComponent implements OnInit {
     });
   }
 
+  loadProductosExistentes(): void {
+    this.apiService.getProductos().subscribe({
+      next: (response) => {
+        this.productosExistentes = Array.isArray(response) ? response : (response as any).results || [];
+      },
+      error: (error) => {
+        console.error('Error cargando productos:', error);
+      }
+    });
+  }
+
+  calcularCostoServicio(): void {
+    const productosData = this.productos.value.map((p: any) => ({
+      descripcion: p.descripcion,
+      categoria: p.categoria,
+      peso: parseFloat(p.peso) || 0,
+      cantidad: parseInt(p.cantidad) || 1,
+      valor: parseFloat(p.valor) || 0
+    }));
+
+    // Filtrar productos válidos
+    const productosValidos = productosData.filter((p: any) => 
+      p.categoria && p.peso > 0 && p.cantidad > 0
+    );
+
+    if (productosValidos.length === 0) {
+      this.costoServicioCalculado = 0;
+      this.detallesCostos = [];
+      return;
+    }
+
+    this.calculandoCosto = true;
+    this.apiService.calcularCostoEnvio(productosValidos).subscribe({
+      next: (response) => {
+        this.costoServicioCalculado = response.costo_total || 0;
+        this.detallesCostos = response.detalles || [];
+        this.calculandoCosto = false;
+      },
+      error: (error) => {
+        console.error('Error calculando costo:', error);
+        this.costoServicioCalculado = 0;
+        this.detallesCostos = [];
+        this.calculandoCosto = false;
+      }
+    });
+  }
+
   applyFilters(): void {
     // Asegurarse de que envios sea un array
     if (!Array.isArray(this.envios)) {
@@ -196,7 +249,10 @@ export class EnviosListComponent implements OnInit {
       estado: EstadosEnvio.PENDIENTE
     });
     this.productos.clear();
+    this.costoServicioCalculado = 0;
+    this.detallesCostos = [];
     this.addProducto(); // Agregar un producto por defecto
+    this.loadProductosExistentes();
     this.showModal = true;
   }
 
@@ -211,18 +267,31 @@ export class EnviosListComponent implements OnInit {
     
     // Cargar productos
     this.productos.clear();
+    this.costoServicioCalculado = envio.costo_servicio || 0;
+    this.detallesCostos = [];
+    
     if (envio.productos && envio.productos.length > 0) {
       envio.productos.forEach(producto => {
-        this.productos.push(this.fb.group({
+        const productoGroup = this.fb.group({
           descripcion: [producto.descripcion, Validators.required],
           peso: [producto.peso, [Validators.required, Validators.min(0.01)]],
           cantidad: [producto.cantidad, [Validators.required, Validators.min(1)]],
           valor: [producto.valor, [Validators.required, Validators.min(0)]],
-          categoria: [producto.categoria, Validators.required]
-        }));
+          categoria: [producto.categoria, Validators.required],
+          productoExistenteId: ['']
+        });
+        
+        // Suscribirse a cambios para recalcular costo
+        productoGroup.valueChanges.subscribe(() => {
+          this.calcularCostoServicio();
+        });
+        
+        this.productos.push(productoGroup);
       });
     }
     
+    this.loadProductosExistentes();
+    this.calcularCostoServicio();
     this.showModal = true;
   }
 
@@ -278,14 +347,39 @@ export class EnviosListComponent implements OnInit {
       peso: [0, [Validators.required, Validators.min(0.01)]],
       cantidad: [1, [Validators.required, Validators.min(1)]],
       valor: [0, [Validators.required, Validators.min(0)]],
-      categoria: ['', Validators.required]
+      categoria: ['', Validators.required],
+      productoExistenteId: ['']
     });
+    
+    // Suscribirse a cambios para recalcular costo
+    productoGroup.valueChanges.subscribe(() => {
+      this.calcularCostoServicio();
+    });
+    
     this.productos.push(productoGroup);
+  }
+
+  onProductoExistenteSelected(index: number, productoId: string): void {
+    if (!productoId) return;
+    
+    const productoSeleccionado = this.productosExistentes.find(p => p.id?.toString() === productoId);
+    if (productoSeleccionado) {
+      const productoGroup = this.productos.at(index) as FormGroup;
+      productoGroup.patchValue({
+        descripcion: productoSeleccionado.descripcion,
+        peso: productoSeleccionado.peso,
+        cantidad: 1,
+        valor: productoSeleccionado.valor,
+        categoria: productoSeleccionado.categoria
+      });
+      this.calcularCostoServicio();
+    }
   }
 
   removeProducto(index: number): void {
     if (this.productos.length > 1) {
       this.productos.removeAt(index);
+      this.calcularCostoServicio();
     }
   }
 
@@ -391,6 +485,17 @@ export class EnviosListComponent implements OnInit {
     return CATEGORIAS_LABELS[categoria as keyof typeof CATEGORIAS_LABELS] || categoria;
   }
 
+  getCategoriaIcon(categoria: string): string {
+    const iconos: { [key: string]: string } = {
+      'electronica': 'fa-laptop',
+      'ropa': 'fa-tshirt',
+      'hogar': 'fa-home',
+      'deportes': 'fa-futbol',
+      'otros': 'fa-box'
+    };
+    return iconos[categoria] || 'fa-box';
+  }
+
   canEditEnvio(envio: Envio): boolean {
     return this.authService.canManageEnvios();
   }
@@ -426,5 +531,16 @@ export class EnviosListComponent implements OnInit {
     return this.productos.controls.reduce((sum, control) => {
       return sum + (control.get('cantidad')?.value || 0);
     }, 0);
+  }
+
+  getCostoProducto(index: number): number {
+    if (this.detallesCostos && this.detallesCostos[index]) {
+      return this.detallesCostos[index].costo_total || 0;
+    }
+    return 0;
+  }
+
+  getTotalCostoServicio(): number {
+    return this.costoServicioCalculado;
   }
 }

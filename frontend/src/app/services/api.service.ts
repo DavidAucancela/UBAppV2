@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
 import { Envio, EnvioCreate, EnvioUpdate } from '../models/envio';
 import { Producto, ProductoCreate, ProductoUpdate } from '../models/producto';
+import { FiltrosBusquedaEnvio, RespuestaBusquedaEnvio, EstadisticasBusqueda } from '../models/busqueda-envio';
+import { ConsultaSemantica, RespuestaSemantica, SugerenciaSemantica, HistorialBusquedaSemantica, MetricasSemanticas } from '../models/busqueda-semantica';
 import { environment } from '../environments/environment';
 
 
@@ -49,6 +51,23 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/usuarios/estadisticas/`);
   }
 
+  // ===== MAPA DE COMPRADORES =====
+  getMapaCompradores(ciudad?: string): Observable<any> {
+    let params = new HttpParams();
+    if (ciudad) {
+      params = params.set('ciudad', ciudad);
+    }
+    return this.http.get<any>(`${this.apiUrl}/usuarios/mapa_compradores/`, { params });
+  }
+
+  getEnviosComprador(compradorId: number, estado?: string): Observable<any> {
+    let params = new HttpParams();
+    if (estado) {
+      params = params.set('estado', estado);
+    }
+    return this.http.get<any>(`${this.apiUrl}/usuarios/${compradorId}/envios_comprador/`, { params });
+  }
+
   // ===== ENVÍOS =====
   getEnvios(): Observable<Envio[]> {
     return this.http.get<Envio[]>(`${this.apiUrl}/envios/envios/`);
@@ -87,6 +106,10 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/envios/envios/estadisticas/`);
   }
 
+  calcularCostoEnvio(productos: any[]): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/envios/envios/calcular_costo/`, { productos });
+  }
+
   // ===== PRODUCTOS =====
   getProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.apiUrl}/envios/productos/`);
@@ -117,6 +140,15 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/envios/productos/estadisticas/`);
   }
 
+  // ===== TARIFAS =====
+  getTarifas(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/envios/tarifas/`);
+  }
+
+  buscarTarifa(categoria: string, peso: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/envios/tarifas/buscar_tarifa/`, { categoria, peso });
+  }
+
   // ===== BÚSQUEDA =====
   buscar(termino: string, tipo: string = 'general'): Observable<any> {
     const params = new HttpParams()
@@ -135,5 +167,178 @@ export class ApiService {
 
   getEstadisticasBusqueda(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/busqueda/estadisticas/`);
+  }
+
+  // ===== BÚSQUEDA AVANZADA DE ENVÍOS =====
+  
+  /**
+   * Busca envíos con filtros avanzados
+   * @param filtros Objeto con los criterios de búsqueda
+   * @returns Observable con la respuesta paginada de envíos
+   */
+  buscarEnviosAvanzado(filtros: FiltrosBusquedaEnvio): Observable<RespuestaBusquedaEnvio> {
+    let params = new HttpParams();
+    
+    // Agregar parámetros solo si tienen valor
+    if (filtros.textoBusqueda) {
+      params = params.set('search', filtros.textoBusqueda);
+    }
+    if (filtros.numeroGuia) {
+      params = params.set('hawb', filtros.numeroGuia);
+    }
+    if (filtros.nombreRemitente) {
+      params = params.set('remitente', filtros.nombreRemitente);
+    }
+    if (filtros.nombreDestinatario) {
+      params = params.set('comprador__nombre__icontains', filtros.nombreDestinatario);
+    }
+    if (filtros.ciudadOrigen) {
+      params = params.set('ciudad_origen', filtros.ciudadOrigen);
+    }
+    if (filtros.ciudadDestino) {
+      params = params.set('comprador__ciudad__icontains', filtros.ciudadDestino);
+    }
+    if (filtros.estado) {
+      params = params.set('estado', filtros.estado);
+    }
+    if (filtros.fechaDesde) {
+      params = params.set('fecha_emision__gte', filtros.fechaDesde);
+    }
+    if (filtros.fechaHasta) {
+      params = params.set('fecha_emision__lte', filtros.fechaHasta);
+    }
+    if (filtros.ordenarPor) {
+      params = params.set('ordering', filtros.ordenarPor);
+    }
+    if (filtros.pagina) {
+      params = params.set('page', filtros.pagina.toString());
+    }
+    if (filtros.elementosPorPagina) {
+      params = params.set('page_size', filtros.elementosPorPagina.toString());
+    }
+    
+    return this.http.get<RespuestaBusquedaEnvio>(`${this.apiUrl}/envios/envios/`, { params });
+  }
+
+  /**
+   * Obtiene estadísticas de los resultados de búsqueda
+   * @param filtros Filtros aplicados
+   * @returns Observable con estadísticas calculadas
+   */
+  obtenerEstadisticasBusquedaEnvios(filtros: FiltrosBusquedaEnvio): Observable<EstadisticasBusqueda> {
+    let params = new HttpParams();
+    
+    if (filtros.textoBusqueda) params = params.set('search', filtros.textoBusqueda);
+    if (filtros.numeroGuia) params = params.set('hawb', filtros.numeroGuia);
+    if (filtros.estado) params = params.set('estado', filtros.estado);
+    if (filtros.fechaDesde) params = params.set('fecha_emision__gte', filtros.fechaDesde);
+    if (filtros.fechaHasta) params = params.set('fecha_emision__lte', filtros.fechaHasta);
+    
+    return this.http.get<EstadisticasBusqueda>(`${this.apiUrl}/envios/envios/estadisticas/`, { params });
+  }
+
+  /**
+   * Exporta los resultados de búsqueda en el formato especificado
+   * @param filtros Filtros aplicados
+   * @param formato Formato de exportación (pdf, excel, csv)
+   * @returns Observable con el blob del archivo
+   */
+  exportarResultadosBusqueda(filtros: FiltrosBusquedaEnvio, formato: string): Observable<Blob> {
+    let params = new HttpParams();
+    
+    if (filtros.textoBusqueda) params = params.set('search', filtros.textoBusqueda);
+    if (filtros.numeroGuia) params = params.set('hawb', filtros.numeroGuia);
+    if (filtros.estado) params = params.set('estado', filtros.estado);
+    if (filtros.fechaDesde) params = params.set('fecha_emision__gte', filtros.fechaDesde);
+    if (filtros.fechaHasta) params = params.set('fecha_emision__lte', filtros.fechaHasta);
+    
+    params = params.set('formato', formato);
+    
+    return this.http.get(`${this.apiUrl}/envios/envios/exportar/`, { 
+      params, 
+      responseType: 'blob' 
+    });
+  }
+
+  /**
+   * Obtiene un comprobante de envío en PDF
+   * @param envioId ID del envío
+   * @returns Observable con el blob del PDF
+   */
+  obtenerComprobanteEnvio(envioId: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/envios/envios/${envioId}/comprobante/`, {
+      responseType: 'blob'
+    });
+  }
+
+  // ===== BÚSQUEDA SEMÁNTICA DE ENVÍOS =====
+
+  /**
+   * Realiza una búsqueda semántica de envíos usando IA
+   * @param consulta Consulta semántica con texto libre
+   * @returns Observable con resultados ordenados por relevancia
+   */
+  buscarEnviosSemantica(consulta: ConsultaSemantica): Observable<RespuestaSemantica> {
+    return this.http.post<RespuestaSemantica>(`${this.apiUrl}/busqueda/semantica/`, consulta);
+  }
+
+  /**
+   * Obtiene sugerencias de búsqueda mientras el usuario escribe
+   * @param textoIncompleto Texto parcial que el usuario está escribiendo
+   * @returns Observable con sugerencias relevantes
+   */
+  obtenerSugerenciasSemanticas(textoIncompleto: string): Observable<SugerenciaSemantica[]> {
+    const params = new HttpParams().set('q', textoIncompleto);
+    return this.http.get<SugerenciaSemantica[]>(`${this.apiUrl}/busqueda/semantica/sugerencias/`, { params });
+  }
+
+  /**
+   * Guarda una búsqueda en el historial del usuario
+   * @param consulta Texto de la consulta realizada
+   * @param totalResultados Número de resultados encontrados
+   * @returns Observable con confirmación
+   */
+  guardarHistorialSemantico(consulta: string, totalResultados: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/busqueda/semantica/historial/`, {
+      consulta,
+      totalResultados
+    });
+  }
+
+  /**
+   * Obtiene el historial de búsquedas semánticas del usuario
+   * @returns Observable con lista de búsquedas anteriores
+   */
+  obtenerHistorialSemantico(): Observable<HistorialBusquedaSemantica[]> {
+    return this.http.get<HistorialBusquedaSemantica[]>(`${this.apiUrl}/busqueda/semantica/historial/`);
+  }
+
+  /**
+   * Limpia el historial de búsquedas semánticas
+   * @returns Observable con confirmación
+   */
+  limpiarHistorialSemantico(): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/busqueda/semantica/historial/`);
+  }
+
+  /**
+   * Obtiene métricas y estadísticas de búsquedas semánticas
+   * @returns Observable con métricas agregadas
+   */
+  obtenerMetricasSemanticas(): Observable<MetricasSemanticas> {
+    return this.http.get<MetricasSemanticas>(`${this.apiUrl}/busqueda/semantica/metricas/`);
+  }
+
+  /**
+   * Proporciona feedback sobre la relevancia de un resultado
+   * @param resultadoId ID del resultado evaluado
+   * @param esRelevante Si el resultado fue útil o no
+   * @returns Observable con confirmación
+   */
+  enviarFeedbackSemantico(resultadoId: number, esRelevante: boolean): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/busqueda/semantica/feedback/`, {
+      resultadoId,
+      esRelevante
+    });
   }
 }

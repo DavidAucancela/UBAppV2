@@ -1,0 +1,535 @@
+<!-- Contenedor principal del módulo de búsqueda -->
+<div class="busqueda-envios-container">
+  
+  <!-- Encabezado -->
+  <div class="encabezado">
+    <h1 class="titulo-principal">
+      <i class="fas fa-search"></i>
+      Búsqueda de Envíos
+    </h1>
+    <p class="subtitulo">Busque y filtre envíos por múltiples criterios</p>
+  </div>
+
+  <!-- Mensajes de estado -->
+  <div class="mensajes">
+    <div *ngIf="mensajeExito" class="alerta alerta-exito">
+      <i class="fas fa-check-circle"></i>
+      {{ mensajeExito }}
+    </div>
+    <div *ngIf="errorMensaje" class="alerta alerta-error">
+      <i class="fas fa-exclamation-triangle"></i>
+      {{ errorMensaje }}
+    </div>
+  </div>
+
+  <!-- Formulario de búsqueda -->
+  <div class="seccion-busqueda">
+    <form [formGroup]="formularioBusqueda" (ngSubmit)="aplicarFiltros()">
+      
+      <!-- Búsqueda rápida -->
+      <div class="busqueda-rapida">
+        <div class="input-group-principal">
+          <i class="fas fa-search icono-busqueda"></i>
+          <input
+            type="text"
+            formControlName="textoBusqueda"
+            class="input-busqueda-principal"
+            placeholder="Buscar por número de guía, destinatario o cualquier término..."
+            (input)="alCambiarBusqueda()"
+          />
+          <button 
+            type="button" 
+            class="btn-limpiar"
+            *ngIf="tieneFiltrosActivos()"
+            (click)="limpiarFiltros()"
+            title="Limpiar filtros"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Toggle de filtros avanzados -->
+      <div class="toggle-filtros">
+        <button
+          type="button"
+          class="btn-toggle-filtros"
+          (click)="toggleFiltrosAvanzados()"
+        >
+          <i class="fas" [ngClass]="mostrarFiltrosAvanzados ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+          {{ mostrarFiltrosAvanzados ? 'Ocultar' : 'Mostrar' }} Filtros Avanzados
+          <span *ngIf="contarFiltrosActivos() > 0" class="badge-filtros">
+            {{ contarFiltrosActivos() }}
+          </span>
+        </button>
+      </div>
+
+      <!-- Filtros avanzados (colapsable) -->
+      <div class="filtros-avanzados" *ngIf="mostrarFiltrosAvanzados">
+        <div class="grid-filtros">
+          
+          <!-- Número de guía -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-barcode"></i>
+              Número de Guía (HAWB)
+            </label>
+            <input
+              type="text"
+              formControlName="numeroGuia"
+              class="input-filtro"
+              placeholder="Ej: HAWB123456"
+            />
+          </div>
+
+          <!-- Nombre destinatario -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-user"></i>
+              Nombre del Destinatario
+            </label>
+            <input
+              type="text"
+              formControlName="nombreDestinatario"
+              class="input-filtro"
+              placeholder="Nombre del comprador"
+            />
+          </div>
+
+          <!-- Ciudad destino -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-map-marker-alt"></i>
+              Ciudad de Destino
+            </label>
+            <select formControlName="ciudadDestino" class="select-filtro">
+              <option value="">Todas las ciudades</option>
+              <option *ngFor="let ciudad of ciudadesEcuador" [value]="ciudad">
+                {{ ciudad }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Estado del envío -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-info-circle"></i>
+              Estado del Envío
+            </label>
+            <select formControlName="estado" class="select-filtro">
+              <option value="">Todos los estados</option>
+              <option *ngFor="let estado of estadosDisponibles" [value]="estado.valor">
+                {{ estado.etiqueta }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Fecha desde -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-calendar-alt"></i>
+              Fecha Desde
+            </label>
+            <input
+              type="date"
+              formControlName="fechaDesde"
+              class="input-filtro"
+            />
+          </div>
+
+          <!-- Fecha hasta -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-calendar-alt"></i>
+              Fecha Hasta
+            </label>
+            <input
+              type="date"
+              formControlName="fechaHasta"
+              class="input-filtro"
+            />
+          </div>
+        </div>
+
+        <!-- Botones de acción de filtros -->
+        <div class="acciones-filtros">
+          <button type="submit" class="btn btn-primario">
+            <i class="fas fa-search"></i>
+            Buscar
+          </button>
+          <button type="button" class="btn btn-secundario" (click)="limpiarFiltros()">
+            <i class="fas fa-eraser"></i>
+            Limpiar Filtros
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Barra de herramientas -->
+  <div class="barra-herramientas">
+    <div class="info-resultados">
+      <span class="texto-resultados">
+        <strong>{{ totalResultados }}</strong> envío(s) encontrado(s)
+      </span>
+    </div>
+
+    <div class="controles-derecha">
+      <!-- Ordenamiento -->
+      <div class="control-ordenamiento">
+        <label for="ordenamiento">
+          <i class="fas fa-sort"></i>
+          Ordenar por:
+        </label>
+        <select 
+          id="ordenamiento"
+          class="select-ordenamiento"
+          [value]="ordenamientoActual"
+          (change)="cambiarOrdenamiento($any($event.target).value)"
+        >
+          <option *ngFor="let opcion of opcionesOrdenamiento" [value]="opcion.valor">
+            {{ opcion.etiqueta }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Elementos por página -->
+      <div class="control-elementos">
+        <label>
+          <i class="fas fa-list"></i>
+          Mostrar:
+        </label>
+        <select 
+          class="select-elementos"
+          [value]="elementosPorPagina"
+          (change)="cambiarElementosPorPagina(+$any($event.target).value)"
+        >
+          <option *ngFor="let opcion of opcionesElementosPorPagina" [value]="opcion">
+            {{ opcion }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Botones de exportación -->
+      <div class="control-exportar" *ngIf="puedeVerAccionesAvanzadas()">
+        <button 
+          class="btn btn-exportar"
+          title="Exportar resultados"
+          [disabled]="enviosEncontrados.length === 0"
+        >
+          <i class="fas fa-download"></i>
+          Exportar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicador de carga -->
+  <div *ngIf="cargando" class="indicador-carga">
+    <div class="spinner"></div>
+    <p>Cargando datos...</p>
+  </div>
+
+  <!-- Sin resultados -->
+  <div *ngIf="sinResultados && !cargando" class="sin-resultados">
+    <i class="fas fa-search icono-grande"></i>
+    <h3>No se encontraron resultados</h3>
+    <p>Intente ajustar los filtros de búsqueda o realice una búsqueda diferente.</p>
+    <button class="btn btn-primario" (click)="limpiarFiltros()">
+      <i class="fas fa-redo"></i>
+      Limpiar Filtros
+    </button>
+  </div>
+
+  <!-- Tabla de resultados -->
+  <div *ngIf="!cargando && !sinResultados && enviosEncontrados.length > 0" class="seccion-resultados">
+    <div class="tabla-responsive">
+      <table class="tabla-envios">
+        <thead>
+          <tr>
+            <th>N° Guía (HAWB)</th>
+            <th>Destinatario</th>
+            <th>Ciudad Destino</th>
+            <th>Estado</th>
+            <th>Fecha Emisión</th>
+            <th class="text-right">Peso Total</th>
+            <th class="text-right">Valor Total</th>
+            <th class="text-right">Costo Servicio</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let envio of enviosEncontrados" class="fila-envio">
+            <td class="celda-hawb">
+              <strong>{{ envio.hawb }}</strong>
+            </td>
+            <td>
+              <div class="info-destinatario">
+                <div class="nombre">{{ envio.comprador_info?.nombre || 'N/A' }}</div>
+                <div class="cedula" *ngIf="envio.comprador_info?.cedula">
+                  {{ envio.comprador_info.cedula }}
+                </div>
+              </div>
+            </td>
+            <td>
+              <i class="fas fa-map-marker-alt"></i>
+              {{ envio.comprador_info?.ciudad || 'N/A' }}
+            </td>
+            <td>
+              <span class="badge-estado" [ngClass]="obtenerClaseEstado(envio.estado)">
+                {{ obtenerEtiquetaEstado(envio.estado) }}
+              </span>
+            </td>
+            <td class="celda-fecha">
+              {{ formatearFecha(envio.fecha_emision) }}
+            </td>
+            <td class="text-right celda-peso">
+              {{ formatearPeso(envio.peso_total) }}
+            </td>
+            <td class="text-right celda-valor">
+              {{ formatearMoneda(envio.valor_total) }}
+            </td>
+            <td class="text-right celda-costo">
+              {{ formatearMoneda(envio.costo_servicio) }}
+            </td>
+            <td class="text-center celda-acciones">
+              <div class="botones-accion">
+                <button 
+                  class="btn-icono btn-ver"
+                  (click)="verDetalles(envio)"
+                  title="Ver detalles"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button 
+                  class="btn-icono btn-descargar"
+                  (click)="descargarComprobante(envio)"
+                  title="Descargar comprobante"
+                >
+                  <i class="fas fa-download"></i>
+                </button>
+                <button 
+                  class="btn-icono btn-imprimir"
+                  (click)="imprimirComprobante(envio)"
+                  title="Imprimir comprobante"
+                >
+                  <i class="fas fa-print"></i>
+                </button>
+                <button 
+                  class="btn-icono btn-mapa"
+                  (click)="verEnMapa(envio)"
+                  title="Ver en mapa"
+                  *ngIf="envio.comprador_info?.ciudad"
+                >
+                  <i class="fas fa-map-marked-alt"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="paginacion" *ngIf="totalPaginas > 1">
+      <button 
+        class="btn-pagina"
+        (click)="paginaAnterior()"
+        [disabled]="paginaActual === 1"
+      >
+        <i class="fas fa-chevron-left"></i>
+        Anterior
+      </button>
+
+      <div class="numeros-pagina">
+        <button 
+          *ngIf="paginaActual > 3"
+          class="btn-numero"
+          (click)="irAPagina(1)"
+        >
+          1
+        </button>
+        <span *ngIf="paginaActual > 3" class="puntos-suspension">...</span>
+
+        <button 
+          *ngFor="let pagina of obtenerRangoPaginas()"
+          class="btn-numero"
+          [class.activo]="pagina === paginaActual"
+          (click)="irAPagina(pagina)"
+        >
+          {{ pagina }}
+        </button>
+
+        <span *ngIf="paginaActual < totalPaginas - 2" class="puntos-suspension">...</span>
+        <button 
+          *ngIf="paginaActual < totalPaginas - 2"
+          class="btn-numero"
+          (click)="irAPagina(totalPaginas)"
+        >
+          {{ totalPaginas }}
+        </button>
+      </div>
+
+      <button 
+        class="btn-pagina"
+        (click)="paginaSiguiente()"
+        [disabled]="paginaActual === totalPaginas"
+      >
+        Siguiente
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de detalles del envío -->
+<div class="modal-overlay" *ngIf="mostrarDetalleModal" (click)="cerrarDetalleModal()">
+  <div class="modal-contenido" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>
+        <i class="fas fa-box"></i>
+        Detalles del Envío
+      </h2>
+      <button class="btn-cerrar-modal" (click)="cerrarDetalleModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="modal-body" *ngIf="envioSeleccionado">
+      <!-- Información general -->
+      <div class="seccion-detalle">
+        <h3 class="subtitulo-detalle">
+          <i class="fas fa-info-circle"></i>
+          Información General
+        </h3>
+        <div class="grid-detalle">
+          <div class="campo-detalle">
+            <label>Número de Guía (HAWB):</label>
+            <strong>{{ envioSeleccionado.hawb }}</strong>
+          </div>
+          <div class="campo-detalle">
+            <label>Estado:</label>
+            <span class="badge-estado" [ngClass]="obtenerClaseEstado(envioSeleccionado.estado)">
+              {{ obtenerEtiquetaEstado(envioSeleccionado.estado) }}
+            </span>
+          </div>
+          <div class="campo-detalle">
+            <label>Fecha de Emisión:</label>
+            <span>{{ formatearFecha(envioSeleccionado.fecha_emision) }}</span>
+          </div>
+          <div class="campo-detalle">
+            <label>Fecha de Actualización:</label>
+            <span>{{ formatearFecha(envioSeleccionado.fecha_actualizacion) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información del destinatario -->
+      <div class="seccion-detalle" *ngIf="envioSeleccionado.comprador_info">
+        <h3 class="subtitulo-detalle">
+          <i class="fas fa-user"></i>
+          Información del Destinatario
+        </h3>
+        <div class="grid-detalle">
+          <div class="campo-detalle">
+            <label>Nombre:</label>
+            <span>{{ envioSeleccionado.comprador_info.nombre }}</span>
+          </div>
+          <div class="campo-detalle">
+            <label>Cédula:</label>
+            <span>{{ envioSeleccionado.comprador_info.cedula }}</span>
+          </div>
+          <div class="campo-detalle">
+            <label>Correo:</label>
+            <span>{{ envioSeleccionado.comprador_info.correo }}</span>
+          </div>
+          <div class="campo-detalle">
+            <label>Teléfono:</label>
+            <span>{{ envioSeleccionado.comprador_info.telefono || 'N/A' }}</span>
+          </div>
+          <div class="campo-detalle">
+            <label>Ciudad:</label>
+            <span>{{ envioSeleccionado.comprador_info.ciudad || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información del envío -->
+      <div class="seccion-detalle">
+        <h3 class="subtitulo-detalle">
+          <i class="fas fa-box-open"></i>
+          Información del Envío
+        </h3>
+        <div class="grid-detalle">
+          <div class="campo-detalle">
+            <label>Peso Total:</label>
+            <strong>{{ formatearPeso(envioSeleccionado.peso_total) }}</strong>
+          </div>
+          <div class="campo-detalle">
+            <label>Cantidad Total:</label>
+            <strong>{{ envioSeleccionado.cantidad_total }} unidades</strong>
+          </div>
+          <div class="campo-detalle">
+            <label>Valor Total:</label>
+            <strong class="texto-valor">{{ formatearMoneda(envioSeleccionado.valor_total) }}</strong>
+          </div>
+          <div class="campo-detalle">
+            <label>Costo del Servicio:</label>
+            <strong class="texto-costo">{{ formatearMoneda(envioSeleccionado.costo_servicio) }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Productos -->
+      <div class="seccion-detalle" *ngIf="envioSeleccionado.productos && envioSeleccionado.productos.length > 0">
+        <h3 class="subtitulo-detalle">
+          <i class="fas fa-boxes"></i>
+          Productos ({{ envioSeleccionado.productos.length }})
+        </h3>
+        <div class="tabla-productos">
+          <table>
+            <thead>
+              <tr>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th class="text-right">Peso</th>
+                <th class="text-right">Cantidad</th>
+                <th class="text-right">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of envioSeleccionado.productos">
+                <td>{{ producto.descripcion }}</td>
+                <td>{{ producto.categoria_nombre || producto.categoria }}</td>
+                <td class="text-right">{{ formatearPeso(producto.peso) }}</td>
+                <td class="text-right">{{ producto.cantidad }}</td>
+                <td class="text-right">{{ formatearMoneda(producto.valor) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Observaciones -->
+      <div class="seccion-detalle" *ngIf="envioSeleccionado.observaciones">
+        <h3 class="subtitulo-detalle">
+          <i class="fas fa-comment-alt"></i>
+          Observaciones
+        </h3>
+        <p class="texto-observaciones">{{ envioSeleccionado.observaciones }}</p>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secundario" (click)="cerrarDetalleModal()">
+        <i class="fas fa-times"></i>
+        Cerrar
+      </button>
+      <button class="btn btn-primario" (click)="descargarComprobante(envioSeleccionado!)">
+        <i class="fas fa-download"></i>
+        Descargar Comprobante
+      </button>
+    </div>
+  </div>
+</div>
+

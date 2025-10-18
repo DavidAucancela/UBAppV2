@@ -354,5 +354,9 @@ export class InicioComponent implements OnInit {
     else if (this.estadoMatches(normalized, EstadosEnvio.CANCELADO)) estado = EstadosEnvio.CANCELADO;
     this.router.navigate(['/envios'], { queryParams: estado ? { estado } : undefined });
   }
+
+  goToMapa(): void {
+    this.router.navigate(['/mapa-compradores']);
+  }
 }
 

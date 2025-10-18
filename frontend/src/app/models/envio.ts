@@ -6,6 +6,7 @@ export interface Envio {
   peso_total: number;
   cantidad_total: number;
   valor_total: number;
+  costo_servicio?: number;
   fecha_emision?: string;
   comprador: number;
   comprador_info?: {
@@ -16,6 +17,9 @@ export interface Envio {
     cedula: string;
     rol_nombre: string;
     telefono?: string;
+    ciudad?: string;
+    latitud?: number;
+    longitud?: number;
   };
   estado: string;
   estado_nombre?: string;

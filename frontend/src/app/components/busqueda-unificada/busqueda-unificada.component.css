@@ -1,0 +1,279 @@
+/* ===== BÚSQUEDA UNIFICADA ===== */
+
+.busqueda-unificada-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem 0;
+}
+
+/* ===== SELECTOR DE MODO ===== */
+.selector-modo-busqueda {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+}
+
+.tabs-modo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.tab-modo {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.tab-modo i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.tab-modo span {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.tab-modo small {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.tab-modo:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.tab-modo.activo {
+  background: white;
+  color: #667eea;
+  border-color: white;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-10px);
+}
+
+.tab-modo.activo i {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ===== INDICADOR DE MODO ===== */
+.indicador-modo {
+  position: relative;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.barra-indicador {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: white;
+  border-radius: 10px;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.barra-indicador.derecha {
+  transform: translateX(100%);
+}
+
+/* ===== DESCRIPCIÓN DEL MODO ===== */
+.descripcion-modo {
+  max-width: 1000px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+}
+
+.info-modo {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.info-modo i {
+  font-size: 2rem;
+  color: #667eea;
+  flex-shrink: 0;
+}
+
+.info-modo-ia i {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.info-modo p {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.info-modo strong {
+  color: #667eea;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* ===== CONTENEDOR DE COMPONENTES ===== */
+.contenedor-componentes {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.componente-busqueda {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* ===== FOOTER INFORMATIVO ===== */
+.footer-unificado {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding: 0 1rem;
+}
+
+.comparacion-modos {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.columna-comparacion h4 {
+  color: #667eea;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.columna-comparacion ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.columna-comparacion li {
+  padding: 0.75rem 0;
+  color: #2c3e50;
+  font-size: 1.05rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.columna-comparacion li:last-child {
+  border-bottom: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .busqueda-unificada-container {
+    padding: 1rem 0;
+  }
+
+  .tabs-modo {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .tab-modo {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .tab-modo i {
+    font-size: 1.5rem;
+  }
+
+  .tab-modo span {
+    font-size: 1rem;
+  }
+
+  .tab-modo small {
+    font-size: 0.8rem;
+  }
+
+  .info-modo {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .info-modo i {
+    font-size: 1.5rem;
+  }
+
+  .comparacion-modos {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+
+  .columna-comparacion h4 {
+    font-size: 1.1rem;
+  }
+
+  .columna-comparacion li {
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .tab-modo {
+    padding: 1rem;
+  }
+
+  .info-modo p {
+    font-size: 0.95rem;
+  }
+}
+

@@ -1,0 +1,119 @@
+<div class="mapa-container">
+  <div class="mapa-header">
+    <h1>🗺️ Mapa de Compradores - Ecuador</h1>
+    <p class="mapa-descripcion">
+      Visualiza la ubicación de todos los compradores registrados en las principales ciudades del Ecuador.
+      Haz clic en una ciudad para ver los compradores individuales y sus envíos.
+    </p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Cargando mapa...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-message">
+    <span class="error-icon">⚠️</span>
+    <p>{{ error }}</p>
+    <button (click)="recargarDatos()" class="btn-retry">Reintentar</button>
+  </div>
+
+  <!-- Estadísticas -->
+  <div *ngIf="mapaData && !loading" class="estadisticas-panel">
+    <div class="estadistica-card">
+      <div class="estadistica-icon">👥</div>
+      <div class="estadistica-info">
+        <span class="estadistica-valor">{{ mapaData.total_compradores }}</span>
+        <span class="estadistica-label">Compradores Totales</span>
+      </div>
+    </div>
+    
+    <div class="estadistica-card">
+      <div class="estadistica-icon">📍</div>
+      <div class="estadistica-info">
+        <span class="estadistica-valor">{{ mapaData.ciudades.length }}</span>
+        <span class="estadistica-label">Ciudades con Compradores</span>
+      </div>
+    </div>
+
+    <div *ngIf="ciudadSeleccionada" class="estadistica-card ciudad-activa">
+      <div class="estadistica-icon">🎯</div>
+      <div class="estadistica-info">
+        <span class="estadistica-valor">{{ ciudadSeleccionada }}</span>
+        <span class="estadistica-label">Ciudad Seleccionada</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controles del Mapa -->
+  <div *ngIf="!loading" class="mapa-controles">
+    <button (click)="volverVista()" class="btn-control" title="Volver a vista general">
+      🏠 Vista General
+    </button>
+    <button (click)="recargarDatos()" class="btn-control" title="Recargar datos">
+      🔄 Recargar
+    </button>
+  </div>
+
+  <!-- Mapa -->
+  <div *ngIf="!loading && !error && isBrowser" class="mapa-wrapper">
+    <div id="mapa-ecuador" class="mapa-leaflet"></div>
+    
+    <!-- Leyenda -->
+    <div class="mapa-leyenda">
+      <h4>📋 Leyenda</h4>
+      <div class="leyenda-item">
+        <span class="leyenda-icono ciudad">📍</span>
+        <span>Ciudad (haz clic para ver compradores)</span>
+      </div>
+      <div class="leyenda-item">
+        <span class="leyenda-icono comprador">👤</span>
+        <span>Comprador Individual</span>
+      </div>
+      <div class="leyenda-estados">
+        <h5>Estados de Envío:</h5>
+        <div class="estado-item">
+          <span class="estado-badge pendiente">⏳ Pendiente</span>
+          <span class="estado-badge en-transito">🚚 En Tránsito</span>
+        </div>
+        <div class="estado-item">
+          <span class="estado-badge entregado">✅ Entregado</span>
+          <span class="estado-badge cancelado">❌ Cancelado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instrucciones -->
+    <div class="instrucciones-panel">
+      <h4>💡 Cómo usar el mapa</h4>
+      <ol>
+        <li>Haz clic en un marcador de ciudad (📍) para ver los compradores</li>
+        <li>Usa la rueda del mouse para hacer zoom</li>
+        <li>Arrastra el mapa para moverte por Ecuador</li>
+        <li>Haz clic en un comprador (👤) para ver sus envíos</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Lista de Ciudades -->
+  <div *ngIf="mapaData && !loading" class="ciudades-lista">
+    <h3>📊 Resumen por Ciudad</h3>
+    <div class="ciudad-card" *ngFor="let ciudad of mapaData.ciudades">
+      <div class="ciudad-header">
+        <h4>{{ ciudad.ciudad }}</h4>
+        <span class="badge-compradores">{{ ciudad.total_compradores }} compradores</span>
+      </div>
+      <div class="ciudad-compradores">
+        <div class="comprador-mini" *ngFor="let comprador of ciudad.compradores.slice(0, 3)">
+          <span class="comprador-nombre">👤 {{ comprador.nombre }}</span>
+          <span class="comprador-envios">{{ comprador.total_envios }} envíos</span>
+        </div>
+        <p *ngIf="ciudad.compradores.length > 3" class="mas-compradores">
+          + {{ ciudad.compradores.length - 3 }} compradores más
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

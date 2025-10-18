@@ -1,0 +1,94 @@
+<!-- Contenedor principal de búsqueda unificada -->
+<div class="busqueda-unificada-container">
+  
+  <!-- Toggle de modo de búsqueda -->
+  <div class="selector-modo-busqueda">
+    <div class="tabs-modo">
+      <button 
+        class="tab-modo"
+        [class.activo]="modoActual === 'exacta'"
+        (click)="cambiarModo('exacta')"
+      >
+        <i class="fas fa-search"></i>
+        <span>Búsqueda Exacta</span>
+        <small>Filtros tradicionales</small>
+      </button>
+
+      <button 
+        class="tab-modo"
+        [class.activo]="modoActual === 'semantica'"
+        (click)="cambiarModo('semantica')"
+      >
+        <i class="fas fa-brain"></i>
+        <span>Búsqueda Semántica</span>
+        <small>Con Inteligencia Artificial</small>
+      </button>
+    </div>
+
+    <!-- Indicador de modo activo -->
+    <div class="indicador-modo">
+      <div class="barra-indicador" [class.derecha]="modoActual === 'semantica'"></div>
+    </div>
+  </div>
+
+  <!-- Descripción del modo actual -->
+  <div class="descripcion-modo">
+    <div *ngIf="modoActual === 'exacta'" class="info-modo">
+      <i class="fas fa-info-circle"></i>
+      <p>
+        <strong>Búsqueda Exacta:</strong> 
+        Usa filtros específicos para encontrar envíos por número de guía, destinatario, ciudad, estado y fechas.
+      </p>
+    </div>
+
+    <div *ngIf="modoActual === 'semantica'" class="info-modo info-modo-ia">
+      <i class="fas fa-robot"></i>
+      <p>
+        <strong>Búsqueda Semántica con IA:</strong> 
+        Describe lo que buscas en lenguaje natural. Ejemplo: "envíos entregados en Quito la semana pasada"
+      </p>
+    </div>
+  </div>
+
+  <!-- Componentes de búsqueda -->
+  <div class="contenedor-componentes">
+    <!-- Búsqueda Exacta -->
+    <div *ngIf="modoActual === 'exacta'" class="componente-busqueda" [@fadeIn]>
+      <app-busqueda-envios></app-busqueda-envios>
+    </div>
+
+    <!-- Búsqueda Semántica -->
+    <div *ngIf="modoActual === 'semantica'" class="componente-busqueda" [@fadeIn]>
+      <app-busqueda-semantica 
+        [modoIntegrado]="true"
+        (cambiarModo)="cambiarModo($event)">
+      </app-busqueda-semantica>
+    </div>
+  </div>
+
+  <!-- Footer informativo -->
+  <div class="footer-unificado">
+    <div class="comparacion-modos">
+      <div class="columna-comparacion">
+        <h4><i class="fas fa-search"></i> Búsqueda Exacta</h4>
+        <ul>
+          <li>✓ Filtros precisos y específicos</li>
+          <li>✓ Resultados determinísticos</li>
+          <li>✓ Ideal para consultas estructuradas</li>
+          <li>✓ Rápida y eficiente</li>
+        </ul>
+      </div>
+
+      <div class="columna-comparacion">
+        <h4><i class="fas fa-brain"></i> Búsqueda Semántica</h4>
+        <ul>
+          <li>✓ Lenguaje natural</li>
+          <li>✓ Comprende intenciones</li>
+          <li>✓ Resultados por relevancia</li>
+          <li>✓ Más flexible e intuitiva</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+

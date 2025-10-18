@@ -6,6 +6,7 @@ export interface Producto {
   valor: number;
   categoria: string;
   categoria_nombre?: string;
+  costo_envio?: number;
   envio: number;
   fecha_creacion?: string;
   fecha_actualizacion?: string;

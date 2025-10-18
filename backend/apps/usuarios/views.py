@@ -7,14 +7,20 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import get_user_model, authenticate
 from django.db.models import Q
 from django.core.cache import cache
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from datetime import datetime, timedelta
-from .serializers import UsuarioSerializer, UsuarioListSerializer, CompradorSerializer
+from .serializers import UsuarioSerializer, UsuarioListSerializer, CompradorSerializer, CompradorMapaSerializer
+from .permissions import SoloAdmin
+from .validators import validar_password_fuerte
 
 Usuario = get_user_model()
 
+@method_decorator(csrf_exempt, name='dispatch')
 class LoginView(APIView):
     """Vista para autenticación de usuarios con límite de intentos"""
     permission_classes = [permissions.AllowAny]
+    authentication_classes = []  # No usar autenticación en login
     
     MAX_INTENTOS = 5  # Máximo de intentos fallidos
     TIEMPO_BLOQUEO = 900  # 15 minutos en segundos
@@ -126,6 +132,12 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     ordering_fields = ['nombre', 'fecha_creacion', 'rol']
     ordering = ['-fecha_creacion']
 
+    def get_permissions(self):
+        """Aplica permisos por acción: crear/eliminar solo admin; resto autenticados."""
+        if self.action in ['create', 'destroy']:
+            return [SoloAdmin()]
+        return [permissions.IsAuthenticated()]
+
     def get_serializer_class(self):
         """Retorna el serializer apropiado según la acción"""
         if self.action == 'list':
@@ -193,10 +205,24 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 
         if password_nuevo != password_confirm:
             return Response({'error': 'Las contraseñas no coinciden'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Validación fuerte centralizada
+        try:
+            validar_password_fuerte(password_nuevo)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Actualizar contraseña
         user.set_password(password_nuevo)
         user.save()
-        return Response({'message': 'Contraseña actualizada correctamente'})
+
+        # Invalidar tokens existentes para forzar re-login
+        try:
+            Token.objects.filter(user=user).delete()
+        except Exception:
+            pass
+
+        return Response({'message': 'Contraseña actualizada correctamente. Vuelva a iniciar sesión.'})
 
     @action(detail=True, methods=['post'])
     def activar_desactivar(self, request, pk=None):
@@ -250,3 +276,74 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             stats[rol_nombre] = count
         
         return Response(stats)
+
+    @action(detail=False, methods=['get'])
+    def mapa_compradores(self, request):
+        """Obtiene compradores con ubicación para el mapa interactivo"""
+        ciudad = request.query_params.get('ciudad', None)
+        
+        # Filtrar compradores activos con ubicación
+        compradores = Usuario.objects.filter(
+            rol=4,  # Solo compradores
+            es_activo=True
+        ).exclude(
+            ciudad__isnull=True
+        ).exclude(
+            ciudad=''
+        )
+        
+        # Filtrar por ciudad si se especifica
+        if ciudad:
+            compradores = compradores.filter(ciudad=ciudad)
+        
+        serializer = CompradorMapaSerializer(compradores, many=True)
+        
+        # Agrupar por ciudad para el mapa
+        ciudades_data = {}
+        for comprador_data in serializer.data:
+            ciudad_nombre = comprador_data.get('ciudad')
+            if ciudad_nombre:
+                if ciudad_nombre not in ciudades_data:
+                    ciudades_data[ciudad_nombre] = {
+                        'ciudad': ciudad_nombre,
+                        'total_compradores': 0,
+                        'compradores': []
+                    }
+                ciudades_data[ciudad_nombre]['total_compradores'] += 1
+                ciudades_data[ciudad_nombre]['compradores'].append(comprador_data)
+        
+        return Response({
+            'ciudades': list(ciudades_data.values()),
+            'total_compradores': compradores.count()
+        })
+    
+    @action(detail=True, methods=['get'])
+    def envios_comprador(self, request, pk=None):
+        """Obtiene todos los envíos de un comprador específico"""
+        comprador = self.get_object()
+        
+        # Verificar que sea un comprador
+        if comprador.rol != 4:
+            return Response(
+                {'error': 'El usuario especificado no es un comprador'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Obtener envíos del comprador
+        from apps.archivos.models import Envio
+        from apps.archivos.serializers import EnvioListSerializer
+        
+        envios = Envio.objects.filter(comprador=comprador).order_by('-fecha_emision')
+        
+        # Filtros opcionales
+        estado = request.query_params.get('estado', None)
+        if estado:
+            envios = envios.filter(estado=estado)
+        
+        serializer = EnvioListSerializer(envios, many=True)
+        
+        return Response({
+            'comprador': CompradorSerializer(comprador).data,
+            'envios': serializer.data,
+            'total_envios': envios.count()
+        })

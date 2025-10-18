@@ -351,3 +351,32 @@
   animation: fadeInUp 0.6s ease-out;
 }
 
+/* Mapa Card Styles */
+.stat-card.mapa-card {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stat-card.mapa-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.3);
+}
+
+.stat-icon.mapa {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.stat-card.mapa-card .stat-content h3 {
+  color: white;
+  font-weight: 600;
+}
+
+.stat-description {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 5px;
+  display: block;
+}

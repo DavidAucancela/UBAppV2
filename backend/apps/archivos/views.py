@@ -5,10 +5,10 @@ from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
 from django.db import models
-from .models import Envio, Producto
+from .models import Envio, Producto, Tarifa
 from .serializers import (
     EnvioSerializer, EnvioListSerializer, EnvioCreateSerializer,
-    ProductoSerializer, ProductoListSerializer
+    ProductoSerializer, ProductoListSerializer, TarifaSerializer
 )
 
 # Create your views here.
@@ -31,6 +31,26 @@ class EnvioViewSet(viewsets.ModelViewSet):
         elif self.action == 'create':
             return EnvioCreateSerializer
         return EnvioSerializer
+    
+    def create(self, request, *args, **kwargs):
+        """Crear envío con mejor manejo de errores"""
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid():
+            # Retornar errores detallados
+            return Response({
+                'error': 'Datos inválidos',
+                'detalles': serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        except Exception as e:
+            return Response({
+                'error': 'Error al crear el envío',
+                'detalle': str(e)
+            }, status=status.HTTP_400_BAD_REQUEST)
 
     def get_queryset(self):
         """Filtra el queryset según el usuario y su rol"""
@@ -125,6 +145,63 @@ class EnvioViewSet(viewsets.ModelViewSet):
                 'Cancelado': envios_cancelados
             }
         })
+    
+    @action(detail=False, methods=['post'])
+    def calcular_costo(self, request):
+        """Calcula el costo de envío sin crear el envío"""
+        productos_data = request.data.get('productos', [])
+        
+        if not productos_data:
+            return Response({
+                'error': 'Se requiere al menos un producto'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        costo_total = 0
+        detalles = []
+        
+        for producto in productos_data:
+            categoria = producto.get('categoria')
+            peso = float(producto.get('peso', 0))
+            cantidad = int(producto.get('cantidad', 1))
+            
+            # Buscar tarifa aplicable
+            tarifa = Tarifa.objects.filter(
+                categoria=categoria,
+                peso_minimo__lte=peso,
+                peso_maximo__gte=peso,
+                activa=True
+            ).first()
+            
+            if tarifa:
+                costo_producto = tarifa.calcular_costo(peso) * cantidad
+                costo_total += costo_producto
+                detalles.append({
+                    'descripcion': producto.get('descripcion', 'Producto'),
+                    'categoria': categoria,
+                    'peso': peso,
+                    'cantidad': cantidad,
+                    'costo_unitario': round(tarifa.calcular_costo(peso), 2),
+                    'costo_total': round(costo_producto, 2),
+                    'tarifa': {
+                        'precio_por_kg': float(tarifa.precio_por_kg),
+                        'cargo_base': float(tarifa.cargo_base)
+                    }
+                })
+            else:
+                detalles.append({
+                    'descripcion': producto.get('descripcion', 'Producto'),
+                    'categoria': categoria,
+                    'peso': peso,
+                    'cantidad': cantidad,
+                    'costo_unitario': 0,
+                    'costo_total': 0,
+                    'error': 'No hay tarifa disponible para esta categoría y peso'
+                })
+        
+        return Response({
+            'costo_total': round(costo_total, 2),
+            'detalles': detalles
+        })
 
 class ProductoViewSet(viewsets.ModelViewSet):
     """ViewSet para el modelo Producto"""
@@ -197,3 +274,62 @@ class ProductoViewSet(viewsets.ModelViewSet):
             'total_valor': float(total_valor),
             'por_categoria': stats_por_categoria
         })
+
+
+class TarifaViewSet(viewsets.ModelViewSet):
+    """ViewSet para el modelo Tarifa"""
+    queryset = Tarifa.objects.all()
+    serializer_class = TarifaSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filterset_fields = ['categoria', 'activa']
+    ordering_fields = ['categoria', 'peso_minimo', 'precio_por_kg']
+    ordering = ['categoria', 'peso_minimo']
+
+    @action(detail=False, methods=['get'])
+    def por_categoria(self, request):
+        """Obtiene tarifas activas de una categoría específica"""
+        categoria = request.query_params.get('categoria')
+        if categoria:
+            tarifas = Tarifa.objects.filter(categoria=categoria, activa=True).order_by('peso_minimo')
+            serializer = self.get_serializer(tarifas, many=True)
+            return Response(serializer.data)
+        return Response({'error': 'Parámetro categoria requerido'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(detail=False, methods=['post'])
+    def buscar_tarifa(self, request):
+        """Busca la tarifa aplicable para una categoría y peso específico"""
+        categoria = request.data.get('categoria')
+        peso = request.data.get('peso')
+        
+        if not categoria or peso is None:
+            return Response({
+                'error': 'Se requieren los parámetros categoria y peso'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            peso = float(peso)
+        except ValueError:
+            return Response({
+                'error': 'El peso debe ser un número válido'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        tarifa = Tarifa.objects.filter(
+            categoria=categoria,
+            peso_minimo__lte=peso,
+            peso_maximo__gte=peso,
+            activa=True
+        ).first()
+        
+        if tarifa:
+            serializer = self.get_serializer(tarifa)
+            costo = tarifa.calcular_costo(peso)
+            return Response({
+                'tarifa': serializer.data,
+                'costo_calculado': round(costo, 2)
+            })
+        else:
+            return Response({
+                'error': f'No se encontró tarifa activa para {categoria} con peso {peso}kg',
+                'sugerencia': 'Verifique las tarifas disponibles o contacte al administrador'
+            }, status=status.HTTP_404_NOT_FOUND)

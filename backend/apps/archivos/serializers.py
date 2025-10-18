@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Envio, Producto
+from .models import Envio, Producto, Tarifa
 from apps.usuarios.serializers import CompradorSerializer
 
 class ProductoSerializer(serializers.ModelSerializer):
@@ -10,9 +10,9 @@ class ProductoSerializer(serializers.ModelSerializer):
         model = Producto
         fields = [
             'id', 'descripcion', 'peso', 'cantidad', 'valor', 'categoria', 
-            'categoria_nombre', 'envio', 'fecha_creacion', 'fecha_actualizacion'
+            'categoria_nombre', 'costo_envio', 'envio', 'fecha_creacion', 'fecha_actualizacion'
         ]
-        read_only_fields = ['id', 'fecha_creacion', 'fecha_actualizacion']
+        read_only_fields = ['id', 'costo_envio', 'fecha_creacion', 'fecha_actualizacion']
 
 class ProductoListSerializer(serializers.ModelSerializer):
     """Serializer para listar productos (versión simplificada)"""
@@ -21,9 +21,9 @@ class ProductoListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = [
-            'id', 'descripcion', 'peso', 'cantidad', 'valor', 'categoria_nombre'
+            'id', 'descripcion', 'peso', 'cantidad', 'valor', 'categoria_nombre', 'costo_envio'
         ]
-        read_only_fields = ['id']
+        read_only_fields = ['id', 'costo_envio']
 
 class ProductoCreateSerializer(serializers.ModelSerializer):
     """Serializer para crear productos anidados (sin campo envio)"""
@@ -43,11 +43,11 @@ class EnvioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Envio
         fields = [
-            'id', 'hawb', 'peso_total', 'cantidad_total', 'valor_total',
+            'id', 'hawb', 'peso_total', 'cantidad_total', 'valor_total', 'costo_servicio',
             'fecha_emision', 'comprador', 'comprador_info', 'estado', 'estado_nombre',
             'observaciones', 'productos', 'fecha_creacion', 'fecha_actualizacion'
         ]
-        read_only_fields = ['id', 'fecha_emision', 'fecha_creacion', 'fecha_actualizacion']
+        read_only_fields = ['id', 'costo_servicio', 'fecha_emision', 'fecha_creacion', 'fecha_actualizacion']
 
 class EnvioListSerializer(serializers.ModelSerializer):
     """Serializer para listar envíos (versión simplificada)"""
@@ -58,11 +58,11 @@ class EnvioListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Envio
         fields = [
-            'id', 'hawb', 'peso_total', 'cantidad_total', 'valor_total',
+            'id', 'hawb', 'peso_total', 'cantidad_total', 'valor_total', 'costo_servicio',
             'fecha_emision', 'comprador', 'comprador_info', 'estado', 'estado_nombre', 
             'cantidad_productos', 'fecha_creacion'
         ]
-        read_only_fields = ['id', 'fecha_emision', 'fecha_creacion']
+        read_only_fields = ['id', 'costo_servicio', 'fecha_emision', 'fecha_creacion']
     
     def get_cantidad_productos(self, obj):
         return obj.productos.count()
@@ -81,19 +81,33 @@ class EnvioCreateSerializer(serializers.ModelSerializer):
         productos_data = validated_data.pop('productos', [])
         
         # Establecer valores por defecto para totales
-        if not validated_data.get('peso_total'):
-            validated_data['peso_total'] = 0
-        if not validated_data.get('cantidad_total'):
-            validated_data['cantidad_total'] = 0
-        if not validated_data.get('valor_total'):
-            validated_data['valor_total'] = 0
+        validated_data['peso_total'] = 0
+        validated_data['cantidad_total'] = 0
+        validated_data['valor_total'] = 0
+        validated_data['costo_servicio'] = 0
         
+        # Crear el envío
         envio = Envio.objects.create(**validated_data)
         
+        # Crear productos asociados
         for producto_data in productos_data:
             Producto.objects.create(envio=envio, **producto_data)
         
         # Recalcular totales basados en productos
-        envio.calcular_totales()
+        if productos_data:
+            envio.calcular_totales()
         
-        return envio 
+        return envio
+
+
+class TarifaSerializer(serializers.ModelSerializer):
+    """Serializer para el modelo Tarifa"""
+    categoria_nombre = serializers.CharField(source='get_categoria_display', read_only=True)
+    
+    class Meta:
+        model = Tarifa
+        fields = [
+            'id', 'categoria', 'categoria_nombre', 'peso_minimo', 'peso_maximo',
+            'precio_por_kg', 'cargo_base', 'activa', 'fecha_creacion', 'fecha_actualizacion'
+        ]
+        read_only_fields = ['id', 'fecha_creacion', 'fecha_actualizacion'] 

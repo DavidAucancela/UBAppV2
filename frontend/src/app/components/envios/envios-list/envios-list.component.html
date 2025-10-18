@@ -107,11 +107,11 @@
         <thead>
           <tr>
             <th>HAWB</th>
-            <th>Comprador</th>
-            <th>Cédula</th>
+            <th>Comprador / Cédula</th>
             <th>Productos</th>
-            <th>Peso Total</th>
-            <th>Valor Total</th>
+            <th>Peso (kg)</th>
+            <th>Valor</th>
+            <th>Costo Envío</th>
             <th>Estado</th>
             <th>Fecha</th>
             <th class="actions-column">Acciones</th>
@@ -120,40 +120,27 @@
         <tbody>
           <tr *ngFor="let envio of paginatedEnvios">
             <td>
-              <div class="hawb-cell">
-                <i class="fas fa-barcode"></i>
-                <strong>{{ envio.hawb }}</strong>
-              </div>
+              <strong class="hawb-text">{{ envio.hawb }}</strong>
             </td>
             <td>
-              <div class="comprador-cell">
-                <i class="fas fa-user-circle"></i>
-                <span>{{ envio.comprador_info?.nombre || 'Sin información' }}</span>
-              </div>
-            </td>
-            <td>
-              <div class="cedula-cell">
-                <i class="fas fa-id-card"></i>
-                <span>{{ envio.comprador_info?.cedula || '-' }}</span>
+              <div class="comprador-info">
+                <span class="comprador-nombre">{{ envio.comprador_info?.nombre || 'Sin información' }}</span>
+                <span class="comprador-cedula">{{ envio.comprador_info?.cedula || '-' }}</span>
               </div>
             </td>
             <td class="text-center">
               <span class="badge badge-info">
-                <i class="fas fa-box"></i>
                 {{ envio.cantidad_productos || 0 }}
               </span>
             </td>
-            <td>
-              <div class="metric-cell">
-                <i class="fas fa-weight"></i>
-                <span>{{ envio.peso_total | number:'1.2-2' }} kg</span>
-              </div>
+            <td class="text-right">
+              {{ envio.peso_total | number:'1.2-2' }}
             </td>
-            <td>
-              <div class="metric-cell valor">
-                <i class="fas fa-dollar-sign"></i>
-                <span>{{ envio.valor_total | currency:'USD':'symbol':'1.2-2' }}</span>
-              </div>
+            <td class="text-right">
+              {{ envio.valor_total | currency:'USD':'symbol':'1.2-2' }}
+            </td>
+            <td class="text-right">
+              <span class="costo-servicio">{{ envio.costo_servicio || 0 | currency:'USD':'symbol':'1.2-2' }}</span>
             </td>
             <td>
               <span class="badge" [ngClass]="getEstadoClass(envio.estado)">
@@ -161,10 +148,7 @@
               </span>
             </td>
             <td>
-              <div class="fecha-cell">
-                <i class="fas fa-calendar-alt"></i>
-                <span>{{ envio.fecha_creacion | date:'dd/MM/yyyy' }}</span>
-              </div>
+              {{ envio.fecha_creacion | date:'dd/MM/yyyy' }}
             </td>
             <td class="actions-column">
               <div class="action-buttons">
@@ -389,6 +373,26 @@
                 </button>
               </div>
 
+              <!-- Selector de producto existente -->
+              <div class="form-row">
+                <div class="form-group" style="flex: 1;">
+                  <label class="form-label">
+                    <i class="fas fa-search"></i>
+                    Buscar Producto Existente
+                  </label>
+                  <select 
+                    formControlName="productoExistenteId"
+                    class="form-control"
+                    (change)="onProductoExistenteSelected(i, $event.target.value)"
+                  >
+                    <option value="">-- Crear nuevo producto --</option>
+                    <option *ngFor="let prod of productosExistentes" [value]="prod.id">
+                      {{ prod.descripcion }} - {{ getCategoriaLabel(prod.categoria) }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
               <div class="form-row">
                 <div class="form-group" style="flex: 2;">
                   <label class="form-label">
@@ -404,6 +408,7 @@
 
                 <div class="form-group">
                   <label class="form-label">
+                    <i [class]="'fas ' + getCategoriaIcon(producto.get('categoria')?.value || '')"></i>
                     Categoría <span class="required">*</span>
                   </label>
                   <select 
@@ -411,11 +416,11 @@
                     class="form-control"
                   >
                     <option value="">Seleccionar</option>
-                    <option [value]="CategoriasProducto.ELECTRONICA">Electrónica</option>
-                    <option [value]="CategoriasProducto.ROPA">Ropa</option>
-                    <option [value]="CategoriasProducto.HOGAR">Hogar</option>
-                    <option [value]="CategoriasProducto.DEPORTES">Deportes</option>
-                    <option [value]="CategoriasProducto.OTROS">Otros</option>
+                    <option [value]="CategoriasProducto.ELECTRONICA">📱 Electrónica</option>
+                    <option [value]="CategoriasProducto.ROPA">👕 Ropa</option>
+                    <option [value]="CategoriasProducto.HOGAR">🏠 Hogar</option>
+                    <option [value]="CategoriasProducto.DEPORTES">⚽ Deportes</option>
+                    <option [value]="CategoriasProducto.OTROS">📦 Otros</option>
                   </select>
                 </div>
               </div>
@@ -467,17 +472,47 @@
 
           <!-- Totales -->
           <div class="totales-section">
-            <div class="total-item">
-              <span class="total-label">Total Productos:</span>
-              <span class="total-value">{{ totalCantidad }}</span>
+            <div class="totales-grid">
+              <div class="total-item">
+                <span class="total-label">
+                  <i class="fas fa-boxes"></i>
+                  Total Productos:
+                </span>
+                <span class="total-value">{{ totalCantidad }}</span>
+              </div>
+              <div class="total-item">
+                <span class="total-label">
+                  <i class="fas fa-weight-hanging"></i>
+                  Peso Total:
+                </span>
+                <span class="total-value">{{ totalPeso | number:'1.2-2' }} kg</span>
+              </div>
+              <div class="total-item">
+                <span class="total-label">
+                  <i class="fas fa-tag"></i>
+                  Valor Total Productos:
+                </span>
+                <span class="total-value">{{ totalValor | currency:'USD':'symbol':'1.2-2' }}</span>
+              </div>
+              <div class="total-item total-costo-servicio">
+                <span class="total-label">
+                  <i class="fas fa-shipping-fast"></i>
+                  Costo de Servicio:
+                </span>
+                <span class="total-value">
+                  <span *ngIf="calculandoCosto" class="loading-inline">
+                    <i class="fas fa-spinner fa-spin"></i> Calculando...
+                  </span>
+                  <span *ngIf="!calculandoCosto">{{ costoServicioCalculado | currency:'USD':'symbol':'1.2-2' }}</span>
+                </span>
+              </div>
             </div>
-            <div class="total-item">
-              <span class="total-label">Peso Total:</span>
-              <span class="total-value">{{ totalPeso | number:'1.2-2' }} kg</span>
-            </div>
-            <div class="total-item">
-              <span class="total-label">Valor Total:</span>
-              <span class="total-value">{{ totalValor | currency:'USD':'symbol':'1.2-2' }}</span>
+            <div class="total-final" *ngIf="costoServicioCalculado > 0">
+              <span class="total-label">
+                <i class="fas fa-calculator"></i>
+                Total General (Productos + Envío):
+              </span>
+              <span class="total-value-final">{{ (totalValor + costoServicioCalculado) | currency:'USD':'symbol':'1.2-2' }}</span>
             </div>
           </div>
         </div>
@@ -593,18 +628,25 @@
           >
             <div class="producto-detail-header">
               <span class="producto-number">#{{ i + 1 }}</span>
-              <span class="badge badge-info">{{ getCategoriaLabel(producto.categoria) }}</span>
+              <span class="badge badge-categoria">
+                <i [class]="'fas ' + getCategoriaIcon(producto.categoria)"></i>
+                {{ getCategoriaLabel(producto.categoria) }}
+              </span>
             </div>
             <div class="producto-detail-body">
               <p class="producto-descripcion">{{ producto.descripcion }}</p>
               <div class="producto-detail-stats">
                 <div class="stat">
                   <i class="fas fa-weight"></i>
-                  <span>{{ producto.peso }} kg × {{ producto.cantidad }} = {{ producto.peso * producto.cantidad }} kg</span>
+                  <span>Peso: {{ producto.peso }} kg × {{ producto.cantidad }} = <strong>{{ producto.peso * producto.cantidad | number:'1.2-2' }} kg</strong></span>
                 </div>
                 <div class="stat">
                   <i class="fas fa-dollar-sign"></i>
-                  <span>{{ producto.valor | currency:'USD':'symbol':'1.2-2' }} × {{ producto.cantidad }} = {{ (producto.valor * producto.cantidad) | currency:'USD':'symbol':'1.2-2' }}</span>
+                  <span>Valor: {{ producto.valor | currency:'USD':'symbol':'1.2-2' }} × {{ producto.cantidad }} = <strong>{{ (producto.valor * producto.cantidad) | currency:'USD':'symbol':'1.2-2' }}</strong></span>
+                </div>
+                <div class="stat" *ngIf="producto.costo_envio">
+                  <i class="fas fa-shipping-fast"></i>
+                  <span>Costo Envío: <strong>{{ producto.costo_envio | currency:'USD':'symbol':'1.2-2' }}</strong></span>
                 </div>
               </div>
             </div>
@@ -615,16 +657,39 @@
       <!-- Totales -->
       <div class="detail-section totales-section-detail">
         <div class="total-item-detail">
-          <span class="total-label-detail">Total Productos:</span>
+          <span class="total-label-detail">
+            <i class="fas fa-boxes"></i>
+            Total Productos:
+          </span>
           <span class="total-value-detail">{{ selectedEnvio.cantidad_total }}</span>
         </div>
         <div class="total-item-detail">
-          <span class="total-label-detail">Peso Total:</span>
+          <span class="total-label-detail">
+            <i class="fas fa-weight-hanging"></i>
+            Peso Total:
+          </span>
           <span class="total-value-detail">{{ selectedEnvio.peso_total | number:'1.2-2' }} kg</span>
         </div>
-        <div class="total-item-detail highlight">
-          <span class="total-label-detail">Valor Total:</span>
+        <div class="total-item-detail">
+          <span class="total-label-detail">
+            <i class="fas fa-tag"></i>
+            Valor Productos:
+          </span>
           <span class="total-value-detail">{{ selectedEnvio.valor_total | currency:'USD':'symbol':'1.2-2' }}</span>
+        </div>
+        <div class="total-item-detail">
+          <span class="total-label-detail">
+            <i class="fas fa-shipping-fast"></i>
+            Costo Servicio:
+          </span>
+          <span class="total-value-detail">{{ selectedEnvio.costo_servicio || 0 | currency:'USD':'symbol':'1.2-2' }}</span>
+        </div>
+        <div class="total-item-detail highlight">
+          <span class="total-label-detail">
+            <i class="fas fa-calculator"></i>
+            Total General:
+          </span>
+          <span class="total-value-detail">{{ (selectedEnvio.valor_total + (selectedEnvio.costo_servicio || 0)) | currency:'USD':'symbol':'1.2-2' }}</span>
         </div>
       </div>
 

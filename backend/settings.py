@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'drf_spectacular',
     'apps.usuarios',
     'apps.archivos',
     'apps.busqueda',
@@ -135,12 +136,31 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'API del Proyecto',
+    'DESCRIPTION': 'Documentación de la API (usuarios, archivos, búsqueda) con DRF Spectacular',
+    'VERSION': '1.0.0',
 }
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True  # Solo para desarrollo
 CORS_ALLOW_CREDENTIALS = True
+
+# CSRF settings - Permitir peticiones desde el frontend
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:4200',
+    'http://localhost:4201',
+    'http://127.0.0.1:4200',
+    'http://127.0.0.1:4201',
+]
+
+# Permitir CSRF cookie en peticiones cross-origin
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'Lax'
 
 # Custom User Model
 AUTH_USER_MODEL = 'usuarios.Usuario'

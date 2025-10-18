@@ -42,6 +42,22 @@
             <i class="fas fa-box"></i>
             <span>Productos</span>
           </a>
+          
+          <a routerLink="/busqueda-semantica" routerLinkActive="active" class="nav-link">
+            <i class="fas fa-brain"></i>
+            <span>Búsqueda Semántica</span>
+          </a>
+          
+          <a routerLink="/busqueda-envios" routerLinkActive="active" class="nav-link">
+            <i class="fas fa-search"></i>
+            <span>Búsqueda</span>
+          </a>
+          
+          <a routerLink="/mapa-compradores" routerLinkActive="active" class="nav-link"
+             *ngIf="authService.canManageEnvios()">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Mapa</span>
+          </a>
         </nav>
         
         <div class="header-actions">

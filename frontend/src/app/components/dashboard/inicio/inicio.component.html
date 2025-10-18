@@ -72,6 +72,17 @@
           <p class="stat-number">{{ stats.productos?.total_productos || 0 }}</p>
         </div>
       </div>
+
+      <!-- Mapa de Compradores Card -->
+      <div class="stat-card mapa-card" *ngIf="isAdmin() || isGerente() || isDigitador()" (click)="goToMapa()" style="cursor: pointer;">
+        <div class="stat-icon mapa">
+          <i class="fas fa-map-marked-alt"></i>
+        </div>
+        <div class="stat-content">
+          <h3>Mapa de Compradores</h3>
+          <p class="stat-description">Ver ubicaciones</p>
+        </div>
+      </div>
     </div>
 
     <!-- Detailed Statistics -->
