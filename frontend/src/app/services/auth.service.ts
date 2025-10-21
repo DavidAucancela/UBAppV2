@@ -34,6 +34,10 @@ export class AuthService {
             if (typeof window !== 'undefined' && window.localStorage) {
               localStorage.setItem('currentUser', JSON.stringify(response.user));
               localStorage.setItem('authToken', response.token);
+              // Guardar refresh token si está presente
+              if ((response as any).refresh) {
+                localStorage.setItem('refreshToken', (response as any).refresh);
+              }
             }
             this.currentUserSubject.next(response.user);
           }
@@ -42,8 +46,11 @@ export class AuthService {
   }
 
   logout(): void {
+    // Obtener refresh token para enviarlo al backend
+    const refreshToken = this.getRefreshToken();
+    
     // Llamar al endpoint de logout
-    this.http.post(`${this.apiUrl}/usuarios/auth/logout/`, {}).subscribe({
+    this.http.post(`${this.apiUrl}/usuarios/auth/logout/`, { refresh: refreshToken }).subscribe({
       next: () => {
         console.log('Logout exitoso');
       },
@@ -55,6 +62,7 @@ export class AuthService {
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.removeItem('currentUser');
       localStorage.removeItem('authToken');
+      localStorage.removeItem('refreshToken');
     }
     this.currentUserSubject.next(null);
   }
@@ -107,6 +115,13 @@ export class AuthService {
   getToken(): string | null {
     if (typeof window !== 'undefined' && window.localStorage) {
       return localStorage.getItem('authToken');
+    }
+    return null;
+  }
+
+  getRefreshToken(): string | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem('refreshToken');
     }
     return null;
   }

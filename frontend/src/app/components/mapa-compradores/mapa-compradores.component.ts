@@ -54,30 +54,35 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
   private crearIconosPersonalizados(): void {
     if (!this.L) return;
     
-    // Icono para ciudad (cluster de compradores)
+    // Icono para ciudad (cluster de compradores) - SVG con ícono de ubicación
+    const svgCiudad = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r="18" fill="#3b82f6" stroke="#1e40af" stroke-width="2" opacity="0.8"/>
+        <path d="M20 10 C 16 10 13 13 13 17 C 13 22 20 30 20 30 C 20 30 27 22 27 17 C 27 13 24 10 20 10 Z M 20 20 C 18.3 20 17 18.7 17 17 C 17 15.3 18.3 14 20 14 C 21.7 14 23 15.3 23 17 C 23 18.7 21.7 20 20 20 Z" fill="white"/>
+      </svg>
+    `;
+    
     this.iconoCiudad = this.L.icon({
-      iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-          <circle cx="20" cy="20" r="18" fill="#3b82f6" stroke="#1e40af" stroke-width="2" opacity="0.8"/>
-          <text x="20" y="26" font-size="16" fill="white" text-anchor="middle" font-weight="bold">📍</text>
-        </svg>
-      `),
+      iconUrl: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svgCiudad),
       iconSize: [40, 40],
       iconAnchor: [20, 40],
       popupAnchor: [0, -40]
     });
 
-    // Icono para comprador individual
+    // Icono para comprador individual - SVG con ícono de persona más visible
+    const svgComprador = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+        <circle cx="18" cy="18" r="16" fill="#10b981" stroke="#059669" stroke-width="2.5" opacity="0.95"/>
+        <circle cx="18" cy="14" r="5" fill="white"/>
+        <path d="M 9 28 C 9 22 12 19 18 19 C 24 19 27 22 27 28 Z" fill="white"/>
+      </svg>
+    `;
+    
     this.iconoComprador = this.L.icon({
-      iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-          <circle cx="16" cy="16" r="14" fill="#10b981" stroke="#059669" stroke-width="2" opacity="0.9"/>
-          <text x="16" y="21" font-size="14" fill="white" text-anchor="middle" font-weight="bold">👤</text>
-        </svg>
-      `),
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, -32]
+      iconUrl: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svgComprador),
+      iconSize: [36, 36],
+      iconAnchor: [18, 36],
+      popupAnchor: [0, -36]
     });
   }
 
@@ -87,9 +92,13 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
 
     this.apiService.getMapaCompradores().subscribe({
       next: (data) => {
+        console.log('Datos del mapa recibidos:', data);
         this.mapaData = data;
         this.loading = false;
-        this.inicializarMapa();
+        // Esperar a que Angular renderice el DOM antes de inicializar el mapa
+        setTimeout(() => {
+          this.inicializarMapa();
+        }, 0);
       },
       error: (error) => {
         this.error = 'Error al cargar los datos del mapa';
@@ -101,6 +110,13 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
 
   private inicializarMapa(): void {
     if (!this.L || !this.isBrowser) return;
+    
+    // Verificar que el contenedor del mapa existe
+    const mapaContainer = document.getElementById('mapa-ecuador');
+    if (!mapaContainer) {
+      console.error('Contenedor del mapa no encontrado');
+      return;
+    }
     
     // Inicializar mapa centrado en Ecuador
     this.map = this.L.map('mapa-ecuador').setView([-1.8312, -78.1834], 7);
@@ -146,14 +162,19 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
       icon: this.iconoCiudad
     }).addTo(this.map);
 
-    // Popup para la ciudad
+    // Popup para la ciudad con mayor tamaño
     const popupContent = this.crearPopupCiudad(ciudad, datos);
-    marker.bindPopup(popupContent, { maxWidth: 300 });
+    marker.bindPopup(popupContent, { 
+      maxWidth: 400,
+      minWidth: 300,
+      className: 'popup-ciudad-custom'
+    });
 
     // Al hacer clic, hacer zoom y mostrar compradores individuales
     marker.on('click', () => {
+      console.log(`Click en ciudad: ${ciudad.nombre}`, datos);
       this.ciudadSeleccionada = ciudad.nombre;
-      this.map.setView([ciudad.latitud, ciudad.longitud], 12);
+      this.map.setView([ciudad.latitud, ciudad.longitud], 13);
       setTimeout(() => {
         this.mostrarCompradoresIndividuales(datos);
       }, 500);
@@ -193,22 +214,49 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
     // Limpiar marcadores anteriores de compradores
     this.limpiarMarcadoresCompradores();
 
+    // Contar compradores válidos con ubicación
+    let compradoresConUbicacion = 0;
+
     // Agregar marcador para cada comprador
     ciudadDatos.compradores.forEach((comprador, index) => {
+      // Verificar que el comprador tenga coordenadas válidas
+      if (!comprador.latitud || !comprador.longitud) {
+        console.warn(`Comprador ${comprador.nombre} no tiene coordenadas`, comprador);
+        return; // Saltar este comprador
+      }
+
+      compradoresConUbicacion++;
+
+      // Convertir coordenadas a números (pueden venir como strings del backend)
+      const latBase = Number(comprador.latitud);
+      const lngBase = Number(comprador.longitud);
+
+      // Verificar que las conversiones sean válidas
+      if (isNaN(latBase) || isNaN(lngBase)) {
+        console.error(`Coordenadas inválidas para ${comprador.nombre}:`, { latitud: comprador.latitud, longitud: comprador.longitud });
+        return;
+      }
+
       // Agregar pequeño offset para evitar superposición
       const offset = this.calcularOffset(index, ciudadDatos.compradores.length);
-      const lat = comprador.latitud + offset.lat;
-      const lng = comprador.longitud + offset.lng;
+      const lat = latBase + offset.lat;
+      const lng = lngBase + offset.lng;
 
       const marker = this.L.marker([lat, lng], {
         icon: this.iconoComprador
       }).addTo(this.map);
 
       const popupContent = this.crearPopupComprador(comprador);
-      marker.bindPopup(popupContent, { maxWidth: 400 });
+      marker.bindPopup(popupContent, { 
+        maxWidth: 500,
+        minWidth: 400,
+        className: 'popup-comprador-custom'
+      });
 
       this.markers.push(marker);
     });
+
+    console.log(`Mostrados ${compradoresConUbicacion} compradores de ${ciudadDatos.compradores.length} total`);
   }
 
   private calcularOffset(index: number, total: number): { lat: number; lng: number } {
@@ -253,7 +301,7 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
           <p style="margin: 5px 0;"><strong>Usuario:</strong> ${comprador.username}</p>
           <p style="margin: 5px 0;"><strong>Email:</strong> ${comprador.correo}</p>
           <p style="margin: 5px 0;"><strong>Teléfono:</strong> ${comprador.telefono || 'N/A'}</p>
-          <p style="margin: 5px 0;"><strong>Ciudad:</strong> ${comprador.ciudad}</p>
+          <p style="margin: 5px 0;"><strong>Ubicación:</strong> ${comprador.ubicacion_completa}</p>
           <p style="margin: 5px 0;"><strong>Total Envíos:</strong> <span style="
             background: #3b82f6;
             color: white;
@@ -311,11 +359,18 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
   }
 
   recargarDatos(): void {
+    // Limpiar marcadores existentes
+    this.limpiarMarcadoresCompradores();
+    this.ciudadesMarkers.forEach(marker => marker.remove());
+    this.ciudadesMarkers.clear();
+    
+    // Si el mapa existe, eliminarlo completamente
     if (this.map) {
-      this.limpiarMarcadoresCompradores();
-      this.ciudadesMarkers.forEach(marker => marker.remove());
-      this.ciudadesMarkers.clear();
-      this.cargarDatosMapa();
+      this.map.remove();
+      this.map = null;
     }
+    
+    // Recargar datos
+    this.cargarDatosMapa();
   }
 }

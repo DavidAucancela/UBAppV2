@@ -58,6 +58,7 @@ export class BusquedaEnviosComponent implements OnInit, OnDestroy {
   mostrarFiltrosAvanzados = false;
   mostrarDetalleModal = false;
   envioSeleccionado: Envio | null = null;
+  mostrarMenuExportar = false;
   
   // Destrucción del componente
   private destruir$ = new Subject<void>();
@@ -86,6 +87,7 @@ export class BusquedaEnviosComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.configurarBusquedaDebounce();
     this.realizarBusquedaInicial();
+    this.configurarCierreMenuExportar();
   }
 
   ngOnDestroy(): void {
@@ -375,9 +377,32 @@ export class BusquedaEnviosComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Configura el cierre automático del menú de exportación al hacer clic fuera
+   */
+  private configurarCierreMenuExportar(): void {
+    document.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      const dropdown = target.closest('.dropdown-exportar');
+      if (!dropdown && this.mostrarMenuExportar) {
+        this.mostrarMenuExportar = false;
+      }
+    });
+  }
+
+  /**
+   * Alterna el menú de exportación
+   */
+  toggleMenuExportar(): void {
+    this.mostrarMenuExportar = !this.mostrarMenuExportar;
+  }
+
+  /**
    * Exporta los resultados actuales
    */
   exportarResultados(formato: 'pdf' | 'excel' | 'csv'): void {
+    // Cerrar el menú
+    this.mostrarMenuExportar = false;
+    
     this.mensajeExito = `Exportando resultados en formato ${formato.toUpperCase()}...`;
     
     const filtros = this.construirFiltros();
@@ -455,17 +480,19 @@ export class BusquedaEnviosComponent implements OnInit, OnDestroy {
   /**
    * Formatea un número como moneda
    */
-  formatearMoneda(valor: number | undefined): string {
-    if (valor === undefined || valor === null) return '$0.00';
-    return `$${valor.toFixed(2)}`;
+  formatearMoneda(valor: number | undefined | null): string {
+    if (valor === undefined || valor === null || isNaN(valor)) return '$0.00';
+    const numero = Number(valor);
+    return `$${numero.toFixed(2)}`;
   }
 
   /**
    * Formatea un peso con unidad
    */
-  formatearPeso(peso: number | undefined): string {
-    if (peso === undefined || peso === null) return '0 kg';
-    return `${peso.toFixed(2)} kg`;
+  formatearPeso(peso: number | undefined | null): string {
+    if (peso === undefined || peso === null || isNaN(peso)) return '0.00 kg';
+    const numero = Number(peso);
+    return `${numero.toFixed(2)} kg`;
   }
 
   /**

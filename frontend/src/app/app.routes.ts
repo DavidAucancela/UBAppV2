@@ -2,21 +2,31 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
 import { InicioComponent } from './components/dashboard/inicio/inicio.component';
+import { DashboardUsuarioComponent } from './components/dashboard/dashboard-usuario/dashboard-usuario.component';
 import { UsuariosListComponent } from './components/usuarios/usuarios-list/usuarios-list.component';
 import { EnviosListComponent } from './components/envios/envios-list/envios-list.component';
+import { MisEnviosComponent } from './components/envios/mis-envios/mis-envios.component';
 import { ProductosListComponent } from './components/productos/productos-list/productos-list.component';
 import { MapaCompradoresComponent } from './components/mapa-compradores/mapa-compradores.component';
 import { BusquedaEnviosComponent } from './components/busqueda-envios/busqueda-envios.component';
 import { BusquedaSemanticaComponent } from './components/busqueda-semantica/busqueda-semantica.component';
 import { BusquedaUnificadaComponent } from './components/busqueda-unificada/busqueda-unificada.component';
+import { ImportacionExcelComponent } from './components/importacion-excel/importacion-excel.component';
+import { InformacionGeneralComponent } from './components/informacion/informacion-general/informacion-general.component';
+import { UbicacionesComponent } from './components/informacion/ubicaciones/ubicaciones.component';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { Roles } from './models/usuario';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  // Páginas públicas
+  { path: '', redirectTo: '/informacion', pathMatch: 'full' },
+  { path: 'informacion', component: InformacionGeneralComponent },
+  { path: 'ubicaciones', component: UbicacionesComponent },
   { path: 'login', component: LoginComponent },
+  
+  // Páginas protegidas
   { 
     path: 'inicio', 
     component: InicioComponent,
@@ -25,6 +35,16 @@ export const routes: Routes = [
   { 
     path: 'dashboard', 
     component: DashboardComponent,
+    canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE])]
+  },
+  { 
+    path: 'dashboard-usuario', 
+    component: DashboardUsuarioComponent,
+    canActivate: [authGuard]
+  },
+  { 
+    path: 'mis-envios', 
+    component: MisEnviosComponent,
     canActivate: [authGuard]
   },
   { 
@@ -45,7 +65,7 @@ export const routes: Routes = [
   { 
     path: 'busqueda-semantica', 
     component: BusquedaSemanticaComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE])]
   },
   { 
     path: 'busqueda', 
@@ -62,5 +82,10 @@ export const routes: Routes = [
     component: MapaCompradoresComponent,
     canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR])]
   },
-  { path: '**', redirectTo: '/login' }
+  { 
+    path: 'importacion-excel', 
+    component: ImportacionExcelComponent,
+    canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR])]
+  },
+  { path: '**', redirectTo: '/informacion' }
 ];

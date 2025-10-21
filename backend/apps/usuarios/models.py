@@ -36,28 +36,34 @@ class Usuario(AbstractUser):
     fecha_nacimiento = models.DateField(blank=True, null=True)
     direccion = models.TextField(blank=True, null=True)
     
-    # Campos de ubicación para mapa
+    # Cupo anual para compradores (en kilogramos)
+    cupo_anual = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=1000.00,
+        verbose_name="Cupo Anual (kg)",
+        help_text="Límite de peso anual que puede enviar el comprador"
+    )
+    
+    # Campos de ubicación para mapa (Provincia -> Cantón -> Ciudad)
+    provincia = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        verbose_name="Provincia",
+        help_text="Provincia de residencia del usuario"
+    )
+    canton = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        verbose_name="Cantón",
+        help_text="Cantón de residencia del usuario"
+    )
     ciudad = models.CharField(
         max_length=100,
         blank=True,
         null=True,
-        choices=[
-            ('Quito', 'Quito'),
-            ('Guayaquil', 'Guayaquil'),
-            ('Cuenca', 'Cuenca'),
-            ('Ambato', 'Ambato'),
-            ('Manta', 'Manta'),
-            ('Loja', 'Loja'),
-            ('Esmeraldas', 'Esmeraldas'),
-            ('Riobamba', 'Riobamba'),
-            ('Machala', 'Machala'),
-            ('Santo Domingo', 'Santo Domingo'),
-            ('Ibarra', 'Ibarra'),
-            ('Portoviejo', 'Portoviejo'),
-            ('Durán', 'Durán'),
-            ('Quevedo', 'Quevedo'),
-            ('Milagro', 'Milagro'),
-        ],
         verbose_name="Ciudad",
         help_text="Ciudad de residencia del usuario"
     )
@@ -94,6 +100,17 @@ class Usuario(AbstractUser):
         """Obtiene el nombre del rol"""
         return dict(self.ROLES_CHOICES)[self.rol]
     
+    def get_ubicacion_completa(self):
+        """Retorna la ubicación completa en formato legible"""
+        partes = []
+        if self.ciudad:
+            partes.append(self.ciudad)
+        if self.canton:
+            partes.append(self.canton)
+        if self.provincia:
+            partes.append(self.provincia)
+        return ', '.join(partes) if partes else 'Sin ubicación'
+    
     
     @property
     def es_admin(self):
@@ -110,3 +127,61 @@ class Usuario(AbstractUser):
     @property
     def es_comprador(self):
         return self.rol == 4
+    
+    def obtener_peso_usado_anual(self, anio=None):
+        """Calcula el peso total de envíos del comprador en un año específico"""
+        from datetime import datetime
+        from django.db.models import Sum
+        
+        if anio is None:
+            anio = datetime.now().year
+        
+        # Sumar peso de todos los envíos del año
+        peso_total = self.envio_set.filter(
+            fecha_emision__year=anio
+        ).exclude(
+            estado='cancelado'
+        ).aggregate(
+            total=Sum('peso_total')
+        )['total'] or 0
+        
+        return float(peso_total)
+    
+    def obtener_peso_disponible_anual(self, anio=None):
+        """Calcula el peso disponible del cupo anual"""
+        peso_usado = self.obtener_peso_usado_anual(anio)
+        return float(self.cupo_anual) - peso_usado
+    
+    def obtener_porcentaje_cupo_usado(self, anio=None):
+        """Calcula el porcentaje del cupo anual usado"""
+        if float(self.cupo_anual) == 0:
+            return 0
+        peso_usado = self.obtener_peso_usado_anual(anio)
+        return (peso_usado / float(self.cupo_anual)) * 100
+    
+    def obtener_estadisticas_envios(self, anio=None):
+        """Obtiene estadísticas completas de envíos del comprador"""
+        from datetime import datetime
+        from django.db.models import Sum, Count
+        
+        if anio is None:
+            anio = datetime.now().year
+        
+        envios = self.envio_set.filter(fecha_emision__year=anio)
+        
+        return {
+            'total_envios': envios.count(),
+            'envios_pendientes': envios.filter(estado='pendiente').count(),
+            'envios_en_transito': envios.filter(estado='en_transito').count(),
+            'envios_entregados': envios.filter(estado='entregado').count(),
+            'envios_cancelados': envios.filter(estado='cancelado').count(),
+            'peso_total': float(envios.exclude(estado='cancelado').aggregate(
+                total=Sum('peso_total')
+            )['total'] or 0),
+            'valor_total': float(envios.exclude(estado='cancelado').aggregate(
+                total=Sum('valor_total')
+            )['total'] or 0),
+            'costo_servicio_total': float(envios.exclude(estado='cancelado').aggregate(
+                total=Sum('costo_servicio')
+            )['total'] or 0),
+        }

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Envio, Producto, Tarifa
+from .models import Envio, Producto, Tarifa, ImportacionExcel
 from apps.usuarios.serializers import CompradorSerializer
 
 class ProductoSerializer(serializers.ModelSerializer):
@@ -110,4 +110,73 @@ class TarifaSerializer(serializers.ModelSerializer):
             'id', 'categoria', 'categoria_nombre', 'peso_minimo', 'peso_maximo',
             'precio_por_kg', 'cargo_base', 'activa', 'fecha_creacion', 'fecha_actualizacion'
         ]
-        read_only_fields = ['id', 'fecha_creacion', 'fecha_actualizacion'] 
+        read_only_fields = ['id', 'fecha_creacion', 'fecha_actualizacion']
+
+
+class ImportacionExcelSerializer(serializers.ModelSerializer):
+    """Serializer para el modelo ImportacionExcel"""
+    estado_nombre = serializers.CharField(source='get_estado_display', read_only=True)
+    nombre_usuario = serializers.CharField(source='usuario.nombre', read_only=True)
+    porcentaje_exito = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = ImportacionExcel
+        fields = [
+            'id', 'archivo', 'nombre_original', 'estado', 'estado_nombre',
+            'usuario', 'nombre_usuario', 'total_registros', 'registros_validos',
+            'registros_errores', 'registros_duplicados', 'registros_procesados',
+            'errores_validacion', 'columnas_mapeadas', 'registros_seleccionados',
+            'mensaje_resultado', 'fecha_creacion', 'fecha_actualizacion',
+            'fecha_completado', 'porcentaje_exito'
+        ]
+        read_only_fields = [
+            'id', 'usuario', 'estado', 'total_registros', 'registros_validos',
+            'registros_errores', 'registros_duplicados', 'registros_procesados',
+            'fecha_creacion', 'fecha_actualizacion', 'fecha_completado'
+        ]
+    
+    def get_porcentaje_exito(self, obj):
+        """Calcula el porcentaje de registros válidos"""
+        if obj.total_registros > 0:
+            return round((obj.registros_validos / obj.total_registros) * 100, 2)
+        return 0
+
+
+class ImportacionExcelCreateSerializer(serializers.ModelSerializer):
+    """Serializer para crear importaciones de Excel"""
+    
+    class Meta:
+        model = ImportacionExcel
+        fields = ['archivo', 'nombre_original']
+    
+    def validate_archivo(self, value):
+        """Valida que el archivo sea Excel"""
+        nombre_archivo = value.name.lower()
+        if not (nombre_archivo.endswith('.xlsx') or nombre_archivo.endswith('.xls')):
+            raise serializers.ValidationError(
+                "El archivo debe ser formato Excel (.xlsx o .xls)"
+            )
+        return value
+
+
+class PreviewExcelSerializer(serializers.Serializer):
+    """Serializer para la vista previa de datos del Excel"""
+    columnas = serializers.ListField(child=serializers.CharField())
+    filas = serializers.ListField(child=serializers.DictField())
+    total_filas = serializers.IntegerField()
+    errores_detectados = serializers.ListField(child=serializers.DictField(), required=False)
+    duplicados = serializers.ListField(child=serializers.IntegerField(), required=False)
+
+
+class ProcesarExcelSerializer(serializers.Serializer):
+    """Serializer para procesar datos del Excel"""
+    importacion_id = serializers.IntegerField()
+    columnas_mapeadas = serializers.DictField(
+        child=serializers.CharField(),
+        help_text="Mapeo entre columnas del Excel y campos del modelo"
+    )
+    registros_seleccionados = serializers.ListField(
+        child=serializers.IntegerField(),
+        required=False,
+        help_text="Índices de registros a importar (vacío = todos)"
+    ) 

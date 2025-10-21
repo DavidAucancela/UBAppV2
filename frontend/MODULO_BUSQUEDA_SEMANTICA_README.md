@@ -640,3 +640,5 @@ El Módulo de Búsqueda Semántica está **listo para ser integrado** con el bac
 *Desarrollado para Universal Box - Sistema de Gestión de Envíos*
 *Versión 1.0.0 - Octubre 2025*
 
+
+

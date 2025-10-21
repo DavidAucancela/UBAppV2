@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+import json
 
 Usuario = get_user_model()
 
@@ -205,3 +206,133 @@ class Producto(models.Model):
         # (evita recursión cuando se actualiza solo costo_envio)
         if not kwargs.get('update_fields'):
             self.envio.calcular_totales()
+
+
+class ImportacionExcel(models.Model):
+    """Modelo para gestionar importaciones de archivos Excel"""
+    
+    ESTADO_CHOICES = [
+        ('pendiente', 'Pendiente'),
+        ('validando', 'Validando'),
+        ('validado', 'Validado'),
+        ('procesando', 'Procesando'),
+        ('completado', 'Completado'),
+        ('error', 'Error'),
+    ]
+    
+    # Información del archivo
+    archivo = models.FileField(
+        upload_to='importaciones/%Y/%m/',
+        verbose_name="Archivo Excel"
+    )
+    nombre_original = models.CharField(
+        max_length=255,
+        verbose_name="Nombre Original del Archivo"
+    )
+    
+    # Estado de la importación
+    estado = models.CharField(
+        max_length=20,
+        choices=ESTADO_CHOICES,
+        default='pendiente',
+        verbose_name="Estado"
+    )
+    
+    # Usuario que realizó la importación
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='importaciones',
+        verbose_name="Usuario"
+    )
+    
+    # Estadísticas de la importación
+    total_registros = models.IntegerField(
+        default=0,
+        verbose_name="Total de Registros"
+    )
+    registros_validos = models.IntegerField(
+        default=0,
+        verbose_name="Registros Válidos"
+    )
+    registros_errores = models.IntegerField(
+        default=0,
+        verbose_name="Registros con Errores"
+    )
+    registros_duplicados = models.IntegerField(
+        default=0,
+        verbose_name="Registros Duplicados"
+    )
+    registros_procesados = models.IntegerField(
+        default=0,
+        verbose_name="Registros Procesados"
+    )
+    
+    # Detalles de validación y errores
+    errores_validacion = models.JSONField(
+        default=dict,
+        blank=True,
+        verbose_name="Errores de Validación",
+        help_text="Detalles de errores encontrados durante la validación"
+    )
+    
+    # Configuración de importación
+    columnas_mapeadas = models.JSONField(
+        default=dict,
+        blank=True,
+        verbose_name="Mapeo de Columnas",
+        help_text="Mapeo entre columnas del Excel y campos del modelo"
+    )
+    
+    registros_seleccionados = models.JSONField(
+        default=list,
+        blank=True,
+        verbose_name="Índices de Registros Seleccionados",
+        help_text="Lista de índices de registros que se importarán"
+    )
+    
+    # Resultados
+    mensaje_resultado = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Mensaje de Resultado"
+    )
+    
+    # Fechas
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+    fecha_completado = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name="Fecha de Completado"
+    )
+    
+    class Meta:
+        verbose_name = 'Importación de Excel'
+        verbose_name_plural = 'Importaciones de Excel'
+        ordering = ['-fecha_creacion']
+    
+    def __str__(self):
+        return f"{self.nombre_original} - {self.get_estado_display()} ({self.fecha_creacion.strftime('%d/%m/%Y %H:%M')})"
+    
+    def marcar_como_completado(self):
+        """Marca la importación como completada"""
+        from django.utils import timezone
+        self.estado = 'completado'
+        self.fecha_completado = timezone.now()
+        self.save()
+    
+    def agregar_error(self, fila, columna, mensaje):
+        """Agrega un error de validación"""
+        if not isinstance(self.errores_validacion, dict):
+            self.errores_validacion = {}
+        
+        clave_fila = f"fila_{fila}"
+        if clave_fila not in self.errores_validacion:
+            self.errores_validacion[clave_fila] = []
+        
+        self.errores_validacion[clave_fila].append({
+            'columna': columna,
+            'mensaje': mensaje
+        })
+        self.registros_errores += 1

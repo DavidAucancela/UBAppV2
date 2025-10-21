@@ -1,0 +1,157 @@
+<header class="animated-header">
+  <!-- Mensaje de Bienvenida -->
+  <div class="welcome-overlay" *ngIf="showWelcomeMessage" @welcomeMessage>
+    <div class="welcome-content">
+      <div class="welcome-icon">
+        <i class="fas fa-user-check"></i>
+      </div>
+      <h2>{{ welcomeMessageText }}</h2>
+      <p>{{ getRoleLabel(currentUser?.rol) }}</p>
+      <div class="welcome-loader">
+        <div class="loader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra de Navegación -->
+  <div class="header-content" [@navbarSlide]="navbarState">
+    <!-- Logo con animación - Siempre visible -->
+    <a class="logo" [routerLink]="authService.isAuthenticated() ? '/inicio' : '/informacion'" 
+       [routerLinkActive]="'active'" 
+       aria-label="Ir al inicio de UBApp" [@logoAnimation]="logoState">
+      <i class="fas fa-shipping-fast" aria-hidden="true"></i>
+      <span>UBApp</span>
+      <div class="logo-glow"></div>
+    </a>
+    
+    <!-- Menú de Navegación - Solo si está autenticado -->
+    <nav class="nav-menu" aria-label="Navegación principal" *ngIf="authService.isAuthenticated()">
+      <ul class="nav-list">
+        <li class="nav-item" *ngFor="let item of visibleNavItems; let i = index" 
+            [@itemAnimation]="getAnimationDelay(i)">
+          <a [routerLink]="item.route" 
+             routerLinkActive="active" 
+             class="nav-link"
+             [class.has-submenu]="item.subItems && item.subItems.length > 0"
+             aria-current="page">
+            <i [class]="item.icon" aria-hidden="true"></i>
+            <span>{{ item.label }}</span>
+            <i class="fas fa-chevron-down submenu-arrow" 
+               *ngIf="item.subItems && item.subItems.length > 0"
+               aria-hidden="true"></i>
+          </a>
+          
+          <!-- Submenú si existe -->
+          <div class="dropdown-menu" *ngIf="item.subItems && item.subItems.length > 0">
+            <a *ngFor="let subItem of item.subItems" 
+               [routerLink]="subItem.route" 
+               class="dropdown-item">
+              <i [class]="subItem.icon" aria-hidden="true"></i>
+              <span>{{ subItem.label }}</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+      
+      <!-- Indicador de carga -->
+      <div class="nav-loading" *ngIf="isLoadingNav">
+        <div class="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Botones públicos cuando NO está autenticado -->
+    <div class="public-actions" *ngIf="!authService.isAuthenticated()">
+      <a routerLink="/informacion" routerLinkActive="active" class="nav-link-public">
+        <i class="fas fa-info-circle"></i>
+        <span>Información</span>
+      </a>
+      <a routerLink="/ubicaciones" routerLinkActive="active" class="nav-link-public">
+        <i class="fas fa-map-marked-alt"></i>
+        <span>Ubicaciones</span>
+      </a>
+      <a routerLink="/login" class="btn-login">
+        <i class="fas fa-sign-in-alt me-2"></i>
+        <span>Iniciar Sesión</span>
+      </a>
+    </div>
+    
+    <!-- Acciones del Header con animación - Solo si está autenticado -->
+    <div class="header-actions" [@actionsAnimation]="actionsState" *ngIf="authService.isAuthenticated()">
+      <!-- Notificaciones -->
+      <div class="notification-wrapper">
+        <button class="action-btn" title="Notificaciones" aria-label="Ver notificaciones">
+          <i class="fas fa-bell" aria-hidden="true"></i>
+          <span class="badge">3</span>
+          <span class="pulse-ring"></span>
+        </button>
+      </div>
+      
+      <!-- Búsqueda rápida -->
+      <button class="action-btn" title="Búsqueda rápida" aria-label="Abrir búsqueda rápida">
+        <i class="fas fa-search" aria-hidden="true"></i>
+      </button>
+      
+      <!-- Tema -->
+      <button class="action-btn" (click)="toggleTheme()" 
+              title="Cambiar tema" aria-label="Cambiar tema">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+      </button>
+      
+      <!-- Menú de Usuario -->
+      <div class="user-menu">
+        <button class="user-info" 
+                (click)="toggleUserMenu()" 
+                [attr.aria-expanded]="showUserMenu" 
+                aria-label="Menú de usuario"
+                title="Usuario Actual">
+          <div class="user-avatar">
+            <i class="fas fa-user-circle" aria-hidden="true"></i>
+            <div class="status-indicator online"></div>
+          </div>
+          <div class="user-details" *ngIf="currentUser">
+            <span class="user-name">{{ currentUser.nombre }}</span>
+            <span class="user-role">{{ getRoleLabel(currentUser.rol) }}</span>
+          </div>
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        
+        <!-- Dropdown del usuario -->
+        <div class="user-dropdown" *ngIf="showUserMenu" (click)="$event.stopPropagation()">
+          <div class="dropdown-header">
+            <div class="user-avatar-large">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="user-info-text" *ngIf="currentUser">
+              <h4>{{ currentUser.nombre }}</h4>
+              <p>{{ currentUser.correo }}</p>
+              <span class="role-badge">{{ getRoleLabel(currentUser.rol) }}</span>
+            </div>
+          </div>
+          
+          <div class="dropdown-divider"></div>
+          
+          <a routerLink="/perfil" class="dropdown-item" (click)="closeUserMenu()">
+            <i class="fas fa-user"></i>
+            <span>Mi Perfil</span>
+          </a>
+          
+          <a routerLink="/configuracion" class="dropdown-item" (click)="closeUserMenu()">
+            <i class="fas fa-cog"></i>
+            <span>Configuración</span>
+          </a>
+          
+          <div class="dropdown-divider"></div>
+          
+          <button class="dropdown-item logout-btn" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Cerrar Sesión</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

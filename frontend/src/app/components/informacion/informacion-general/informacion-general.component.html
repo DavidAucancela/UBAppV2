@@ -1,0 +1,169 @@
+<!-- Hero Section -->
+<div class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">Sistema de Gestión de Envíos</h1>
+        <p class="lead mb-4">
+          Plataforma integral para administrar tus envíos internacionales de manera eficiente y segura.
+        </p>
+        <div class="d-flex gap-3">
+          <a routerLink="/login" class="btn btn-primary btn-lg">
+            <i class="bi bi-box-arrow-in-right me-2"></i>
+            Iniciar Sesión
+          </a>
+          <a routerLink="/ubicaciones" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-geo-alt me-2"></i>
+            Nuestras Ubicaciones
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <i class="bi bi-boxes hero-icon"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Características -->
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold mb-3">Características del Sistema</h2>
+    <p class="lead text-muted">Todo lo que necesitas para gestionar tus envíos en un solo lugar</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4" *ngFor="let caracteristica of caracteristicas">
+      <div class="card feature-card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <div class="feature-icon mb-3">
+            <i class="bi {{ caracteristica.icono }}"></i>
+          </div>
+          <h5 class="card-title mb-3">{{ caracteristica.titulo }}</h5>
+          <p class="card-text text-muted">{{ caracteristica.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Beneficios -->
+<div class="bg-light py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h2 class="fw-bold mb-4">¿Por qué elegir nuestro sistema?</h2>
+        <ul class="list-unstyled">
+          <li class="mb-3" *ngFor="let beneficio of beneficios">
+            <i class="bi bi-check-circle-fill text-success me-2"></i>
+            <span>{{ beneficio }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow">
+          <div class="card-body p-4">
+            <h5 class="card-title mb-3">
+              <i class="bi bi-info-circle-fill text-primary me-2"></i>
+              Información Importante
+            </h5>
+            <p class="mb-3">
+              Nuestro sistema está diseñado para facilitar la gestión de envíos internacionales,
+              proporcionando herramientas avanzadas y un control completo sobre tus operaciones.
+            </p>
+            <p class="mb-0">
+              Cada usuario tiene un cupo anual asignado que puede administrar de manera eficiente
+              a través de nuestro dashboard personalizado.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Roles y Permisos -->
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold mb-3">Roles del Sistema</h2>
+    <p class="lead text-muted">Diferentes niveles de acceso según tus necesidades</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-3">
+      <div class="card role-card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <div class="role-icon admin mb-3">
+            <i class="bi bi-shield-fill-check"></i>
+          </div>
+          <h5 class="card-title">Administrador</h5>
+          <p class="card-text text-muted">Acceso completo a todas las funcionalidades del sistema</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="card role-card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <div class="role-icon gerente mb-3">
+            <i class="bi bi-person-badge-fill"></i>
+          </div>
+          <h5 class="card-title">Gerente</h5>
+          <p class="card-text text-muted">Acceso a búsquedas avanzadas y dashboard gerencial</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="card role-card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <div class="role-icon digitador mb-3">
+            <i class="bi bi-keyboard-fill"></i>
+          </div>
+          <h5 class="card-title">Digitador</h5>
+          <p class="card-text text-muted">Gestión de envíos y registro de información</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="card role-card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <div class="role-icon comprador mb-3">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <h5 class="card-title">Comprador</h5>
+          <p class="card-text text-muted">Visualización y seguimiento de envíos propios</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action -->
+<div class="cta-section">
+  <div class="container text-center">
+    <h2 class="fw-bold text-white mb-4">¿Listo para comenzar?</h2>
+    <p class="lead text-white mb-4">
+      Accede a tu cuenta y empieza a gestionar tus envíos de manera eficiente
+    </p>
+    <div class="d-flex gap-3 justify-content-center">
+      <a routerLink="/login" class="btn btn-light btn-lg">
+        <i class="bi bi-box-arrow-in-right me-2"></i>
+        Iniciar Sesión
+      </a>
+      <a routerLink="/ubicaciones" class="btn btn-outline-light btn-lg">
+        <i class="bi bi-geo-alt me-2"></i>
+        Ver Ubicaciones
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-4">
+  <div class="container text-center">
+    <p class="mb-0">© 2025 Sistema de Gestión de Envíos. Todos los derechos reservados.</p>
+  </div>
+</footer>
+

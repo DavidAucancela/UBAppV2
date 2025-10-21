@@ -4,46 +4,310 @@
   margin: 0 auto;
 }
 
-/* Welcome Section */
+/* Welcome Section - Usuario Logueado */
 .welcome-section {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 20px;
   padding: 40px;
   margin-bottom: 30px;
   color: white;
-  text-align: center;
+  animation: slideInDown 0.6s ease-out;
 }
 
-.welcome-content h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0 0 10px 0;
-}
-
-.welcome-content p {
-  font-size: 1.1rem;
-  margin: 0 0 20px 0;
-  opacity: 0.9;
-}
-
-.user-info {
+.welcome-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 30px;
 }
 
-.user-info i {
-  font-size: 2rem;
+.welcome-icon i {
+  font-size: 5rem;
+  opacity: 0.9;
+  animation: fadeIn 1s ease-out;
+}
+
+.welcome-text {
+  text-align: left;
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  animation: slideInRight 0.6s ease-out;
+}
+
+.welcome-subtitle {
+  font-size: 1.2rem;
+  margin: 10px 0;
 }
 
 .role-badge {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Colores específicos por rol */
+.role-badge.role-1 {
+  background: rgba(220, 53, 69, 0.3);
+  border: 2px solid rgba(220, 53, 69, 0.5);
+}
+
+.role-badge.role-2 {
+  background: rgba(13, 110, 253, 0.3);
+  border: 2px solid rgba(13, 110, 253, 0.5);
+}
+
+.role-badge.role-3 {
+  background: rgba(32, 201, 151, 0.3);
+  border: 2px solid rgba(32, 201, 151, 0.5);
+}
+
+.role-badge.role-4 {
+  background: rgba(255, 193, 7, 0.3);
+  border: 2px solid rgba(255, 193, 7, 0.5);
+}
+
+/* Hero Landing - Sin Sesión Activa */
+.hero-landing {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 20px;
+  padding: 60px 40px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-landing::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-logo i {
+  font-size: 6rem;
+  margin-bottom: 30px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  animation: slideInDown 0.6s ease-out;
+}
+
+.hero-subtitle {
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin: 0 0 30px 0;
+  opacity: 0.95;
+  animation: fadeIn 1s ease-out 0.2s backwards;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 0 0 40px 0;
+  opacity: 0.9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeIn 1s ease-out 0.4s backwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+  animation: fadeIn 1s ease-out 0.6s backwards;
+}
+
+.btn-hero {
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-hero.btn-primary {
+  background: white;
+  color: #667eea;
+}
+
+.btn-hero.btn-primary:hover {
+  background: #f8f9fa;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-hero.btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-hero.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-features {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  animation: fadeIn 1s ease-out 0.8s backwards;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+}
+
+.feature-item i {
+  font-size: 2.5rem;
+}
+
+.feature-item span {
   font-size: 0.9rem;
   font-weight: 500;
+}
+
+/* Animations */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .welcome-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .welcome-text {
+    text-align: center;
+  }
+
+  .welcome-title {
+    font-size: 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .btn-hero {
+    width: 100%;
+  }
 }
 
 /* Loading State */

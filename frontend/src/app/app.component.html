@@ -1,141 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <title>UBApp - Sistema de Gestión</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div id="app-container">
-    <!-- Header/Navigation -->
-    <header class="header" *ngIf="authService.isAuthenticated()">
-      <div class="header-content">
-        <button class="logo" routerLink="/inicio" [routerLinkActive]="'active'">
-          <i class="fas fa-shipping-fast"></i>
-          <span>UBApp</span>
-        </button>
-        
-        <nav class="nav-menu">
-          <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
-            <i class="fas fa-home"></i>
-            <span>Dashboard</span>
-          </a>
-          
-          <a routerLink="/usuarios" routerLinkActive="active" class="nav-link" 
-             *ngIf="authService.canManageUsers()">
-            <i class="fas fa-users"></i>
-            <span>Usuarios</span>
-          </a>
-          
-          <a routerLink="/envios" routerLinkActive="active" class="nav-link"
-             *ngIf="authService.canViewAllEnvios() || authService.canViewOwnEnvios()">
-            <i class="fas fa-truck"></i>
-            <span>Envíos</span>
-          </a>
-          
-          <a routerLink="/productos" routerLinkActive="active" class="nav-link"
-             *ngIf="authService.canManageEnvios()">
-            <i class="fas fa-box"></i>
-            <span>Productos</span>
-          </a>
-          
-          <a routerLink="/busqueda-semantica" routerLinkActive="active" class="nav-link">
-            <i class="fas fa-brain"></i>
-            <span>Búsqueda Semántica</span>
-          </a>
-          
-          <a routerLink="/busqueda-envios" routerLinkActive="active" class="nav-link">
-            <i class="fas fa-search"></i>
-            <span>Búsqueda</span>
-          </a>
-          
-          <a routerLink="/mapa-compradores" routerLinkActive="active" class="nav-link"
-             *ngIf="authService.canManageEnvios()">
-            <i class="fas fa-map-marked-alt"></i>
-            <span>Mapa</span>
-          </a>
-        </nav>
-        
-        <div class="header-actions">
-          <!-- Notificaciones -->
-          <button class="action-btn" title="Notificaciones">
-            <i class="fas fa-bell"></i>
-            <span class="badge">3</span>
-          </button>
-          
-          <!-- Búsqueda rápida -->
-          <button class="action-btn" title="Búsqueda rápida">
-            <i class="fas fa-search"></i>
-          </button>
-          
-          <!-- User Menu -->
-          <div class="user-menu">
-            <button class="user-info" (click)="toggleUserMenu()" title="{{ currentUser?.nombre || currentUser?.username }}">
-              <i class="fas fa-user-circle"></i>
-            </button>
-            
-            <div class="dropdown-menu" [class.show]="showUserMenu">
-              <div class="dropdown-header">
-                <div class="user-avatar">
-                  <i class="fas fa-user-circle"></i>
-                </div>
-                <div class="user-details">
-                  <div class="user-name">{{ currentUser?.nombre || currentUser?.username }}</div>
-                  <div class="user-role">{{ getRoleLabel(currentUser?.rol) }}</div>
-                </div>
-              </div>
-              
-              <div class="dropdown-divider"></div>
-              
-              <a routerLink="/configuracion" class="dropdown-item" (click)="closeUserMenu()">
-                <i class="fas fa-cog"></i>
-                <span>Configuración</span>
-              </a>
+<!-- Navbar con Animaciones Avanzadas -->
+<app-navbar></app-navbar>
 
-              
-              <div class="dropdown-divider"></div>
-              
-              <button class="dropdown-item" (click)="toggleTheme()">
-                <i class="fas fa-moon"></i>
-                <span>Modo Oscuro</span>
-                <i class="fas fa-toggle-off toggle-icon"></i>
-              </button>
-              
-              <a routerLink="/ayuda" class="dropdown-item" (click)="closeUserMenu()">
-                <i class="fas fa-question-circle"></i>
-                <span>Ayuda</span>
-              </a>
-              
-              <div class="dropdown-divider"></div>
-              
-              <button class="dropdown-item logout" (click)="logout()">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Cerrar Sesión</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content" [class.with-header]="authService.isAuthenticated()">
-      <div class="content-wrapper">
-        <router-outlet></router-outlet>
-      </div>
-    </main>
-
-    <!-- Loading Spinner -->
-    <div class="loading-overlay" *ngIf="loading">
-      <div class="spinner">
-        <i class="fas fa-spinner fa-spin"></i>
-        <span>Cargando...</span>
-      </div>
-    </div>
+<!-- Main Content -->
+<main class="main-content" [class.with-header]="authService.isAuthenticated()">
+  <div class="content-wrapper">
+    <router-outlet></router-outlet>
   </div>
-</body>
-</html>
+</main>
+
+<!-- Loading Spinner -->
+<div class="loading-overlay" *ngIf="loading">
+  <div class="spinner">
+    <i class="fas fa-spinner fa-spin"></i>
+    <span>Cargando...</span>
+  </div>
+</div>

@@ -43,7 +43,32 @@ export class LoginComponent {
         next: (response) => {
           this.loading = false;
           console.log('Login exitoso:', response);
-          this.router.navigate(['/dashboard']);
+          
+          // Redirigir según el rol del usuario
+          const user = response.user;
+          if (!user || !user.rol) {
+            // Si no hay información del rol, ir a inicio por defecto
+            this.router.navigate(['/inicio']);
+            return;
+          }
+
+          // Roles: 1=Admin, 2=Gerente, 3=Digitador, 4=Comprador
+          switch (user.rol) {
+            case 1: // Admin
+              this.router.navigate(['/inicio']);
+              break;
+            case 2: // Gerente
+              this.router.navigate(['/dashboard']); // Dashboard gerencial
+              break;
+            case 3: // Digitador
+              this.router.navigate(['/envios']); // Gestión de envíos
+              break;
+            case 4: // Comprador
+              this.router.navigate(['/dashboard-usuario']); // Dashboard personal
+              break;
+            default:
+              this.router.navigate(['/inicio']);
+          }
         },
         error: (error) => {
           this.loading = false;
@@ -51,10 +76,12 @@ export class LoginComponent {
           
           if (error.status === 401) {
             this.errorMessage = 'Credenciales incorrectas. Verifica tu usuario y contraseña.';
+          } else if (error.status === 429) {
+            this.errorMessage = error.error?.error || 'Demasiados intentos fallidos. Intenta más tarde.';
           } else if (error.status === 0) {
             this.errorMessage = 'Error de conexión. Verifica que el servidor esté funcionando.';
           } else {
-            this.errorMessage = 'Error en el inicio de sesión. Intenta nuevamente.';
+            this.errorMessage = error.error?.error || 'Error en el inicio de sesión. Intenta nuevamente.';
           }
         }
       });

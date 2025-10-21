@@ -165,3 +165,5 @@ export const CONFIGURACION_DEFAULT: ConfiguracionSemantica = {
   tipoVista: TipoVistaResultados.TARJETAS
 };
 
+
+

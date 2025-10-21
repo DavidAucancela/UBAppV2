@@ -339,6 +339,89 @@
         </div>
       </div>
 
+      <!-- Sección de Ubicación -->
+      <div class="form-section-title">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Ubicación Geográfica</span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="provincia">Provincia</label>
+          <select 
+            id="provincia"
+            formControlName="provincia" 
+            (change)="onProvinciaChange($event)"
+            class="form-control"
+          >
+            <option value="">Seleccione una provincia</option>
+            <option *ngFor="let prov of provincias" [value]="prov">
+              {{ prov }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="canton">
+            Cantón
+            <span class="loading-text" *ngIf="loadingCantones">
+              <i class="fas fa-spinner fa-spin"></i>
+            </span>
+          </label>
+          <select 
+            id="canton"
+            formControlName="canton" 
+            (change)="onCantonChange($event)"
+            class="form-control"
+            [disabled]="cantones.length === 0"
+          >
+            <option value="">
+              {{ cantones.length === 0 ? 'Primero seleccione una provincia' : 'Seleccione un cantón' }}
+            </option>
+            <option *ngFor="let cant of cantones" [value]="cant">
+              {{ cant }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="ciudad">
+            Ciudad
+            <span class="loading-text" *ngIf="loadingCiudades">
+              <i class="fas fa-spinner fa-spin"></i>
+            </span>
+          </label>
+          <select 
+            id="ciudad"
+            formControlName="ciudad" 
+            (change)="onCiudadChange($event)"
+            class="form-control"
+            [disabled]="ciudades.length === 0"
+          >
+            <option value="">
+              {{ ciudades.length === 0 ? 'Primero seleccione un cantón' : 'Seleccione una ciudad' }}
+            </option>
+            <option *ngFor="let ciud of ciudades" [value]="ciud">
+              {{ ciud }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Mostrar coordenadas si están disponibles -->
+        <div class="form-group" *ngIf="usuarioForm.get('latitud')?.value">
+          <label>Coordenadas</label>
+          <div class="coordenadas-badge">
+            <i class="fas fa-map-pin"></i>
+            <span>
+              {{ usuarioForm.get('latitud')?.value | number:'1.4-4' }}, 
+              {{ usuarioForm.get('longitud')?.value | number:'1.4-4' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
       <div class="form-group" *ngIf="!editingUsuario">
         <label for="password">Contraseña *</label>
         <div class="password-input">

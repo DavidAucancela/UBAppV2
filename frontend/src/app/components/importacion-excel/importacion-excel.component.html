@@ -1,0 +1,356 @@
+<div class="importacion-excel-container">
+  <!-- Encabezado -->
+  <div class="header">
+    <h2>📊 Módulo de Carga y Procesamiento de Archivos Excel</h2>
+    <p class="subtitle">Importe datos masivos de envíos desde archivos Excel con validación y limpieza automática</p>
+  </div>
+
+  <!-- Mensajes de alerta -->
+  <div *ngIf="mensajeError" class="alerta alerta-error">
+    <span class="icono">⚠️</span>
+    <span>{{ mensajeError }}</span>
+    <button class="btn-cerrar" (click)="mensajeError = ''">&times;</button>
+  </div>
+
+  <div *ngIf="mensajeExito" class="alerta alerta-exito">
+    <span class="icono">✅</span>
+    <span>{{ mensajeExito }}</span>
+    <button class="btn-cerrar" (click)="mensajeExito = ''">&times;</button>
+  </div>
+
+  <!-- Indicador de progreso -->
+  <div class="progress-steps">
+    <div class="step" [class.active]="paso >= 1" [class.completed]="paso > 1">
+      <div class="step-number">1</div>
+      <div class="step-label">Cargar Archivo</div>
+    </div>
+    <div class="step-line" [class.completed]="paso > 1"></div>
+    <div class="step" [class.active]="paso >= 2" [class.completed]="paso > 2">
+      <div class="step-number">2</div>
+      <div class="step-label">Mapear Columnas</div>
+    </div>
+    <div class="step-line" [class.completed]="paso > 2"></div>
+    <div class="step" [class.active]="paso >= 3" [class.completed]="paso > 3">
+      <div class="step-number">3</div>
+      <div class="step-label">Validar y Seleccionar</div>
+    </div>
+    <div class="step-line" [class.completed]="paso > 3"></div>
+    <div class="step" [class.active]="paso >= 4">
+      <div class="step-number">4</div>
+      <div class="step-label">Procesar</div>
+    </div>
+  </div>
+
+  <!-- PASO 1: Cargar Archivo -->
+  <div *ngIf="paso === 1" class="paso-container">
+    <div class="card">
+      <h3>📁 Paso 1: Cargar Archivo Excel</h3>
+      
+      <div class="upload-area">
+        <input 
+          type="file" 
+          id="fileInput" 
+          accept=".xlsx,.xls" 
+          (change)="onArchivoSeleccionado($event)"
+          #fileInput
+        />
+        <label for="fileInput" class="upload-label">
+          <div class="upload-icon">📤</div>
+          <div class="upload-text">
+            <strong>Haga clic para seleccionar</strong> o arrastre un archivo Excel
+          </div>
+          <div class="upload-hint">Formatos permitidos: .xlsx, .xls</div>
+        </label>
+      </div>
+
+      <div *ngIf="archivoSeleccionado" class="archivo-info">
+        <div class="archivo-nombre">
+          <span class="icono">📄</span>
+          <span>{{ archivoSeleccionado.name }}</span>
+        </div>
+        <div class="archivo-tamano">
+          {{ (archivoSeleccionado.size / 1024 / 1024).toFixed(2) }} MB
+        </div>
+      </div>
+
+      <div *ngIf="previewDatos" class="preview-info">
+        <h4>Vista Previa de Datos</h4>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total de Filas</div>
+            <div class="stat-value">{{ previewDatos.total_filas }}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Columnas</div>
+            <div class="stat-value">{{ previewDatos.columnas.length }}</div>
+          </div>
+        </div>
+
+        <!-- Tabla de vista previa -->
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th *ngFor="let columna of previewDatos.columnas">{{ columna }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fila of filasPaginadas; let i = index">
+                <td>{{ fila._indice + 1 }}</td>
+                <td *ngFor="let columna of previewDatos.columnas">
+                  {{ fila[columna] || '-' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Paginación -->
+        <div *ngIf="totalPaginas > 1" class="paginacion">
+          <button 
+            (click)="paginaActual = paginaActual - 1" 
+            [disabled]="paginaActual === 1"
+            class="btn-paginacion">
+            ← Anterior
+          </button>
+          <span class="pagina-info">Página {{ paginaActual }} de {{ totalPaginas }}</span>
+          <button 
+            (click)="paginaActual = paginaActual + 1" 
+            [disabled]="paginaActual === totalPaginas"
+            class="btn-paginacion">
+            Siguiente →
+          </button>
+        </div>
+      </div>
+
+      <div class="acciones">
+        <button class="btn btn-secondary" (click)="descargarPlantilla()">
+          📥 Descargar Plantilla de Ejemplo
+        </button>
+        <button 
+          class="btn btn-primary" 
+          (click)="subirArchivo()"
+          [disabled]="!archivoSeleccionado || cargando">
+          <span *ngIf="!cargando">Continuar →</span>
+          <span *ngIf="cargando">⏳ Procesando...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 2: Mapear Columnas -->
+  <div *ngIf="paso === 2" class="paso-container">
+    <div class="card">
+      <h3>🗺️ Paso 2: Mapear Columnas del Excel</h3>
+      <p>Asocie las columnas de su archivo Excel con los campos del sistema</p>
+
+      <div class="mapeo-container">
+        <div class="mapeo-grid">
+          <div *ngFor="let columna of previewDatos?.columnas" class="mapeo-item">
+            <label>{{ columna }}</label>
+            <select [(ngModel)]="mapeoColumnas[columna]" class="select-mapeo">
+              <option [ngValue]="null">-- No mapear --</option>
+              <option 
+                *ngFor="let campo of camposDisponibles" 
+                [value]="campo.valor"
+                [title]="campo.descripcion">
+                {{ campo.etiqueta }} {{ campo.requerido ? '(*)' : '' }}
+              </option>
+            </select>
+            <span class="campo-hint" *ngIf="mapeoColumnas[columna]">
+              {{ obtenerDescripcionCampo(columna) }}
+            </span>
+          </div>
+        </div>
+
+        <div *ngIf="!mapeoValido" class="alerta alerta-warning">
+          ⚠️ El campo <strong>HAWB</strong> es obligatorio. Por favor mapearlo antes de continuar.
+        </div>
+      </div>
+
+      <div class="acciones">
+        <button class="btn btn-secondary" (click)="paso = 1">
+          ← Atrás
+        </button>
+        <button 
+          class="btn btn-primary" 
+          (click)="validarDatos()"
+          [disabled]="!mapeoValido || cargando">
+          <span *ngIf="!cargando">Validar Datos →</span>
+          <span *ngIf="cargando">⏳ Validando...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 3: Validar y Seleccionar -->
+  <div *ngIf="paso === 3" class="paso-container">
+    <div class="card">
+      <h3>✅ Paso 3: Validar y Seleccionar Registros</h3>
+
+      <!-- Estadísticas de validación -->
+      <div *ngIf="importacionActual" class="stats-grid">
+        <div class="stat-card stat-success">
+          <div class="stat-label">Registros Válidos</div>
+          <div class="stat-value">{{ importacionActual.registros_validos }}</div>
+        </div>
+        <div class="stat-card stat-error">
+          <div class="stat-label">Registros con Errores</div>
+          <div class="stat-value">{{ importacionActual.registros_errores }}</div>
+        </div>
+        <div class="stat-card stat-warning">
+          <div class="stat-label">Duplicados</div>
+          <div class="stat-value">{{ importacionActual.registros_duplicados }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Registros</div>
+          <div class="stat-value">{{ importacionActual.total_registros }}</div>
+        </div>
+      </div>
+
+      <!-- Errores de validación -->
+      <div *ngIf="erroresValidacion.length > 0" class="errores-container">
+        <h4>⚠️ Errores Detectados</h4>
+        <div class="errores-lista">
+          <div *ngFor="let error of erroresValidacion.slice(0, 10)" class="error-item">
+            <span class="error-fila">Fila {{ error.fila }}</span>
+            <span class="error-columna">{{ error.columna }}</span>
+            <span class="error-mensaje">{{ error.error }}</span>
+          </div>
+          <div *ngIf="erroresValidacion.length > 10" class="error-item more">
+            ... y {{ erroresValidacion.length - 10 }} errores más
+          </div>
+        </div>
+        <button class="btn btn-secondary" (click)="descargarReporteErrores()">
+          📥 Descargar Reporte Completo de Errores
+        </button>
+      </div>
+
+      <!-- Selección de registros -->
+      <div class="seleccion-container">
+        <h4>Seleccionar Registros a Importar</h4>
+        <div class="seleccion-opciones">
+          <label class="checkbox-label">
+            <input 
+              type="checkbox" 
+              [(ngModel)]="todosSeleccionados"
+              (change)="seleccionarTodos(todosSeleccionados)"
+            />
+            <span>Seleccionar todos ({{ registrosSeleccionados.size }} de {{ previewDatos?.total_filas }})</span>
+          </label>
+        </div>
+
+        <!-- Tabla con selección -->
+        <div class="table-container">
+          <table class="data-table selectable">
+            <thead>
+              <tr>
+                <th>Sel.</th>
+                <th>#</th>
+                <th>Estado</th>
+                <th *ngFor="let columna of columnasMapeadas.slice(0, 5)">{{ columna }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fila of filasPaginadas" 
+                  [class.error-row]="tieneError(fila._indice)"
+                  [class.duplicate-row]="esDuplicado(fila._indice)">
+                <td>
+                  <input 
+                    type="checkbox" 
+                    [checked]="registrosSeleccionados.has(fila._indice)"
+                    (change)="toggleSeleccion(fila._indice)"
+                    [disabled]="tieneError(fila._indice)"
+                  />
+                </td>
+                <td>{{ fila._indice + 1 }}</td>
+                <td>
+                  <span *ngIf="tieneError(fila._indice)" class="badge badge-error">Error</span>
+                  <span *ngIf="esDuplicado(fila._indice) && !tieneError(fila._indice)" class="badge badge-warning">Duplicado</span>
+                  <span *ngIf="!tieneError(fila._indice) && !esDuplicado(fila._indice)" class="badge badge-success">OK</span>
+                </td>
+                <td *ngFor="let columna of columnasMapeadas.slice(0, 5)">
+                  {{ fila[columna] || '-' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Selección de comprador -->
+      <div class="comprador-container">
+        <h4>Asignar Comprador</h4>
+        <div class="form-group">
+          <label for="compradorSelect">Seleccione el comprador para estos envíos:</label>
+          <input 
+            type="number" 
+            id="compradorSelect" 
+            [(ngModel)]="compradorId" 
+            placeholder="ID del comprador"
+            class="input-text"
+          />
+          <small>Nota: En una versión completa, aquí habría un selector con lista de compradores disponibles</small>
+        </div>
+      </div>
+
+      <div class="acciones">
+        <button class="btn btn-secondary" (click)="paso = 2">
+          ← Atrás
+        </button>
+        <button 
+          class="btn btn-primary" 
+          (click)="procesarDatos()"
+          [disabled]="registrosSeleccionados.size === 0 || !compradorId || cargando">
+          <span *ngIf="!cargando">Importar Datos ({{ registrosSeleccionados.size }} registros) →</span>
+          <span *ngIf="cargando">⏳ Importando...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 4: Completado -->
+  <div *ngIf="paso === 4" class="paso-container">
+    <div class="card success-card">
+      <div class="success-icon">🎉</div>
+      <h3>¡Importación Completada con Éxito!</h3>
+      
+      <div *ngIf="importacionActual" class="resultado-container">
+        <p class="resultado-mensaje">{{ importacionActual.mensaje_resultado }}</p>
+        
+        <div class="stats-grid">
+          <div class="stat-card stat-success">
+            <div class="stat-label">Registros Procesados</div>
+            <div class="stat-value">{{ importacionActual.registros_procesados }}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Porcentaje de Éxito</div>
+            <div class="stat-value">{{ importacionActual.porcentaje_exito }}%</div>
+          </div>
+        </div>
+
+        <div *ngIf="importacionActual.registros_errores > 0" class="alerta alerta-warning">
+          ⚠️ Se encontraron {{ importacionActual.registros_errores }} errores durante la importación.
+          <button class="btn-link" (click)="descargarReporteErrores()">Descargar reporte de errores</button>
+        </div>
+      </div>
+
+      <div class="acciones">
+        <button class="btn btn-primary" (click)="reiniciar()">
+          🔄 Importar Otro Archivo
+        </button>
+        <button class="btn btn-secondary" routerLink="/dashboard">
+          🏠 Volver al Dashboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="cargando" class="loader-overlay">
+    <div class="loader-spinner"></div>
+    <p>Procesando...</p>
+  </div>
+</div>
+

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Envio, Producto, Tarifa
+from .models import Envio, Producto, Tarifa, ImportacionExcel
 
 class ProductoInline(admin.TabularInline):
     """Inline para productos en envíos"""
@@ -74,3 +74,46 @@ class TarifaAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+
+@admin.register(ImportacionExcel)
+class ImportacionExcelAdmin(admin.ModelAdmin):
+    """Admin para el modelo ImportacionExcel"""
+    list_display = ['nombre_original', 'usuario', 'estado', 'total_registros', 'registros_validos', 'registros_errores', 'fecha_creacion']
+    list_filter = ['estado', 'fecha_creacion', 'usuario']
+    search_fields = ['nombre_original', 'usuario__nombre', 'usuario__cedula']
+    ordering = ['-fecha_creacion']
+    readonly_fields = [
+        'nombre_original', 'usuario', 'estado', 'total_registros', 'registros_validos',
+        'registros_errores', 'registros_duplicados', 'registros_procesados',
+        'errores_validacion', 'mensaje_resultado', 'fecha_creacion', 'fecha_actualizacion', 'fecha_completado'
+    ]
+    
+    fieldsets = (
+        ('Información del Archivo', {
+            'fields': ('archivo', 'nombre_original', 'usuario', 'estado')
+        }),
+        ('Estadísticas', {
+            'fields': ('total_registros', 'registros_validos', 'registros_errores', 'registros_duplicados', 'registros_procesados'),
+        }),
+        ('Configuración', {
+            'fields': ('columnas_mapeadas', 'registros_seleccionados'),
+            'classes': ('collapse',)
+        }),
+        ('Resultados', {
+            'fields': ('mensaje_resultado', 'errores_validacion'),
+            'classes': ('collapse',)
+        }),
+        ('Fechas', {
+            'fields': ('fecha_creacion', 'fecha_actualizacion', 'fecha_completado'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    def has_add_permission(self, request):
+        """No permitir crear importaciones desde el admin"""
+        return False
+    
+    def has_change_permission(self, request, obj=None):
+        """Solo permitir ver, no editar"""
+        return False

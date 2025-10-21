@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
+import { UbicacionesService } from '../../../services/ubicaciones.service';
 import { Usuario, Roles, ROLES_LABELS } from '../../../models/usuario';
 
 @Component({
@@ -42,9 +43,17 @@ export class UsuariosListComponent implements OnInit {
   usuarioForm: FormGroup;
   ROLES_LABELS = ROLES_LABELS;
 
+  // Ubicaciones
+  provincias: string[] = [];
+  cantones: string[] = [];
+  ciudades: string[] = [];
+  loadingCantones = false;
+  loadingCiudades = false;
+
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
+    private ubicacionesService: UbicacionesService,
     private fb: FormBuilder,
     private route: ActivatedRoute
   ) {
@@ -55,12 +64,20 @@ export class UsuariosListComponent implements OnInit {
       cedula: ['', [Validators.required]],
       rol: ['', [Validators.required]],
       telefono: [''],
+      provincia: [''],
+      canton: [''],
+      ciudad: [''],
+      latitud: [null],
+      longitud: [null],
       password: ['', [Validators.required, Validators.minLength(6)]],
       es_activo: [true]
     });
   }
 
   ngOnInit(): void {
+    // Cargar provincias al iniciar
+    this.cargarProvincias();
+    
     // Leer query params para prefiltrar por rol/estado
     this.route.queryParamMap.subscribe((params) => {
       const rol = params.get('rol');
@@ -159,6 +176,9 @@ export class UsuariosListComponent implements OnInit {
     this.usuarioForm.reset({
       es_activo: true
     });
+    // Limpiar listas de ubicaciones
+    this.cantones = [];
+    this.ciudades = [];
     this.showModal = true;
     this.hidePassword = true;
     // Asegurar validadores de contraseña para creación
@@ -177,9 +197,32 @@ export class UsuariosListComponent implements OnInit {
       cedula: usuario.cedula,
       rol: usuario.rol,
       telefono: usuario.telefono || '',
+      provincia: usuario.provincia || '',
+      canton: usuario.canton || '',
+      ciudad: usuario.ciudad || '',
+      latitud: usuario.latitud,
+      longitud: usuario.longitud,
       es_activo: usuario.es_activo,
       password: '' // No mostrar contraseña al editar
     });
+    
+    // Cargar cantones y ciudades si existen
+    if (usuario.provincia) {
+      this.ubicacionesService.getCantones(usuario.provincia).subscribe({
+        next: (data) => {
+          this.cantones = data.cantones || [];
+        }
+      });
+    }
+    
+    if (usuario.provincia && usuario.canton) {
+      this.ubicacionesService.getCiudades(usuario.provincia, usuario.canton).subscribe({
+        next: (data) => {
+          this.ciudades = data.ciudades || [];
+        }
+      });
+    }
+    
     this.showModal = true;
     this.hidePassword = true;
     // Quitar validadores de contraseña en edición
@@ -343,5 +386,96 @@ export class UsuariosListComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.filteredUsuarios.slice(startIndex, endIndex);
+  }
+
+  // Métodos de ubicaciones
+  cargarProvincias(): void {
+    this.ubicacionesService.getProvincias().subscribe({
+      next: (data) => {
+        this.provincias = data.provincias || [];
+      },
+      error: (error) => {
+        console.error('Error cargando provincias:', error);
+      }
+    });
+  }
+
+  onProvinciaChange(event: Event): void {
+    const provincia = (event.target as HTMLSelectElement).value;
+    
+    // Limpiar cantones y ciudades
+    this.usuarioForm.patchValue({
+      canton: '',
+      ciudad: '',
+      latitud: null,
+      longitud: null
+    });
+    this.cantones = [];
+    this.ciudades = [];
+    
+    if (!provincia) return;
+    
+    // Cargar cantones
+    this.loadingCantones = true;
+    this.ubicacionesService.getCantones(provincia).subscribe({
+      next: (data) => {
+        this.cantones = data.cantones || [];
+        this.loadingCantones = false;
+      },
+      error: (error) => {
+        console.error('Error cargando cantones:', error);
+        this.loadingCantones = false;
+      }
+    });
+  }
+
+  onCantonChange(event: Event): void {
+    const canton = (event.target as HTMLSelectElement).value;
+    const provincia = this.usuarioForm.get('provincia')?.value;
+    
+    // Limpiar ciudades
+    this.usuarioForm.patchValue({
+      ciudad: '',
+      latitud: null,
+      longitud: null
+    });
+    this.ciudades = [];
+    
+    if (!canton || !provincia) return;
+    
+    // Cargar ciudades
+    this.loadingCiudades = true;
+    this.ubicacionesService.getCiudades(provincia, canton).subscribe({
+      next: (data) => {
+        this.ciudades = data.ciudades || [];
+        this.loadingCiudades = false;
+      },
+      error: (error) => {
+        console.error('Error cargando ciudades:', error);
+        this.loadingCiudades = false;
+      }
+    });
+  }
+
+  onCiudadChange(event: Event): void {
+    const ciudad = (event.target as HTMLSelectElement).value;
+    const provincia = this.usuarioForm.get('provincia')?.value;
+    const canton = this.usuarioForm.get('canton')?.value;
+    
+    if (!ciudad || !provincia || !canton) return;
+    
+    // Obtener coordenadas
+    this.ubicacionesService.getCoordenadas(provincia, canton, ciudad).subscribe({
+      next: (data) => {
+        this.usuarioForm.patchValue({
+          latitud: data.latitud,
+          longitud: data.longitud
+        });
+        console.log('Coordenadas asignadas:', data);
+      },
+      error: (error) => {
+        console.error('Error obteniendo coordenadas:', error);
+      }
+    });
   }
 }

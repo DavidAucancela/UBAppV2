@@ -1,18 +1,23 @@
 from rest_framework import viewsets, permissions, status, filters
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model, authenticate
 from django.db.models import Q
 from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from datetime import datetime, timedelta
-from .serializers import UsuarioSerializer, UsuarioListSerializer, CompradorSerializer, CompradorMapaSerializer
+from .serializers import UsuarioSerializer, UsuarioListSerializer, CompradorSerializer, CompradorMapaSerializer, DashboardUsuarioSerializer
 from .permissions import SoloAdmin
 from .validators import validar_password_fuerte
+from .datos_ecuador import (
+    obtener_provincias, 
+    obtener_cantones, 
+    obtener_ciudades,
+    obtener_coordenadas
+)
 
 Usuario = get_user_model()
 
@@ -95,14 +100,15 @@ class LoginView(APIView):
         # Login exitoso - limpiar intentos
         self.limpiar_intentos(username)
         
-        # Crear o obtener token
-        token, created = Token.objects.get_or_create(user=user)
+        # Crear tokens JWT
+        refresh = RefreshToken.for_user(user)
         
         # Serializar datos del usuario
         serializer = UsuarioSerializer(user)
         
         return Response({
-            'token': token.key,
+            'token': str(refresh.access_token),
+            'refresh': str(refresh),
             'user': serializer.data,
             'message': 'Login exitoso'
         })
@@ -112,10 +118,17 @@ class LogoutView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
     def post(self, request):
-        # Eliminar token del usuario
+        # Para JWT, simplemente confirmamos el logout
+        # El frontend eliminará los tokens del localStorage
+        # Opcionalmente podrías blacklistear el token aquí
         try:
-            request.user.auth_token.delete()
-        except:
+            # Si usas el refresh token para blacklist
+            refresh_token = request.data.get('refresh')
+            if refresh_token:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+        except Exception as e:
+            # Si no tienes blacklist habilitado o hay algún error, continuar
             pass
         
         return Response({
@@ -216,11 +229,8 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         user.set_password(password_nuevo)
         user.save()
 
-        # Invalidar tokens existentes para forzar re-login
-        try:
-            Token.objects.filter(user=user).delete()
-        except Exception:
-            pass
+        # Con JWT no necesitamos invalidar tokens manualmente
+        # El usuario deberá iniciar sesión nuevamente con la nueva contraseña
 
         return Response({'message': 'Contraseña actualizada correctamente. Vuelva a iniciar sesión.'})
 
@@ -346,4 +356,117 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             'comprador': CompradorSerializer(comprador).data,
             'envios': serializer.data,
             'total_envios': envios.count()
+        })
+    
+    @action(detail=False, methods=['get'])
+    def dashboard_usuario(self, request):
+        """Dashboard del usuario actual con sus envíos y estadísticas de cupo"""
+        from datetime import datetime
+        from apps.archivos.models import Envio
+        from apps.archivos.serializers import EnvioListSerializer
+        
+        usuario = request.user
+        anio = request.query_params.get('anio', datetime.now().year)
+        
+        try:
+            anio = int(anio)
+        except ValueError:
+            anio = datetime.now().year
+        
+        # Obtener estadísticas de envíos
+        estadisticas = usuario.obtener_estadisticas_envios(anio)
+        
+        # Obtener estadísticas de cupo (solo para compradores)
+        if usuario.es_comprador:
+            peso_usado = usuario.obtener_peso_usado_anual(anio)
+            peso_disponible = usuario.obtener_peso_disponible_anual(anio)
+            porcentaje_usado = usuario.obtener_porcentaje_cupo_usado(anio)
+        else:
+            peso_usado = 0
+            peso_disponible = 0
+            porcentaje_usado = 0
+        
+        # Datos del dashboard
+        dashboard_data = {
+            'usuario': usuario,
+            'cupo_anual': usuario.cupo_anual,
+            'peso_usado': peso_usado,
+            'peso_disponible': peso_disponible,
+            'porcentaje_usado': porcentaje_usado,
+            'anio': anio,
+            **estadisticas
+        }
+        
+        # Serializar datos
+        serializer = DashboardUsuarioSerializer(dashboard_data)
+        
+        # Obtener envíos recientes del usuario (últimos 10)
+        envios = Envio.objects.filter(
+            comprador=usuario
+        ).order_by('-fecha_emision')[:10]
+        
+        envios_serializer = EnvioListSerializer(envios, many=True)
+        
+        return Response({
+            'dashboard': serializer.data,
+            'envios_recientes': envios_serializer.data
+        })
+    
+    @action(detail=False, methods=['get'])
+    def mis_envios(self, request):
+        """Obtiene todos los envíos del usuario actual"""
+        from apps.archivos.models import Envio
+        from apps.archivos.serializers import EnvioListSerializer
+        
+        usuario = request.user
+        
+        # Obtener envíos del usuario
+        envios = Envio.objects.filter(comprador=usuario).order_by('-fecha_emision')
+        
+        # Filtros opcionales
+        estado = request.query_params.get('estado', None)
+        if estado:
+            envios = envios.filter(estado=estado)
+        
+        # Filtro por fecha
+        fecha_desde = request.query_params.get('fecha_desde', None)
+        fecha_hasta = request.query_params.get('fecha_hasta', None)
+        
+        if fecha_desde:
+            envios = envios.filter(fecha_emision__gte=fecha_desde)
+        if fecha_hasta:
+            envios = envios.filter(fecha_emision__lte=fecha_hasta)
+        
+        serializer = EnvioListSerializer(envios, many=True)
+        
+        return Response({
+            'envios': serializer.data,
+            'total_envios': envios.count()
+        })
+    
+    @action(detail=False, methods=['get'])
+    def estadisticas_cupo(self, request):
+        """Obtiene estadísticas del cupo anual del usuario"""
+        from datetime import datetime
+        
+        usuario = request.user
+        anio = request.query_params.get('anio', datetime.now().year)
+        
+        try:
+            anio = int(anio)
+        except ValueError:
+            anio = datetime.now().year
+        
+        # Obtener estadísticas de cupo
+        peso_usado = usuario.obtener_peso_usado_anual(anio)
+        peso_disponible = usuario.obtener_peso_disponible_anual(anio)
+        porcentaje_usado = usuario.obtener_porcentaje_cupo_usado(anio)
+        
+        return Response({
+            'cupo_anual': float(usuario.cupo_anual),
+            'peso_usado': peso_usado,
+            'peso_disponible': peso_disponible,
+            'porcentaje_usado': porcentaje_usado,
+            'anio': anio,
+            'alerta': 'warning' if porcentaje_usado >= 80 else 'info' if porcentaje_usado >= 50 else 'success'
         })

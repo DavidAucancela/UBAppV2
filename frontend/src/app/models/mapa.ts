@@ -11,7 +11,10 @@ export interface CompradorMapa {
   nombre: string;
   correo: string;
   telefono: string;
+  provincia: string;
+  canton: string;
   ciudad: string;
+  ubicacion_completa: string;
   latitud: number;
   longitud: number;
   rol_nombre: string;
@@ -58,4 +61,6 @@ export const CIUDADES_ECUADOR: CiudadEcuador[] = [
   { nombre: 'Quevedo', latitud: -1.0285, longitud: -79.4602, provincia: 'Los Ríos' },
   { nombre: 'Milagro', latitud: -2.1344, longitud: -79.5922, provincia: 'Guayas' }
 ];
+
+
 

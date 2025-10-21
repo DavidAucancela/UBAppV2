@@ -670,3 +670,49 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* Form Section Title */
+.form-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 25px 0 15px 0;
+  padding: 12px 15px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-left: 4px solid #3b82f6;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #1e40af;
+  font-size: 15px;
+}
+
+.form-section-title i {
+  font-size: 16px;
+}
+
+/* Loading Text */
+.loading-text {
+  margin-left: 8px;
+  color: #3b82f6;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+/* Coordenadas Badge */
+.coordenadas-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 8px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.coordenadas-badge i {
+  font-size: 16px;
+}

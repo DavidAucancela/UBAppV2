@@ -15,8 +15,10 @@ class UsuarioSerializer(serializers.ModelSerializer):
         model = Usuario
         fields = [
             'id', 'username', 'nombre', 'correo', 'cedula', 'rol', 'rol_nombre',
-            'telefono', 'fecha_nacimiento', 'direccion', 'ciudad', 'latitud', 'longitud',
-            'es_activo', 'fecha_creacion', 'fecha_actualizacion', 'password', 'password_confirm'
+            'telefono', 'fecha_nacimiento', 'direccion', 
+            'provincia', 'canton', 'ciudad', 'latitud', 'longitud',
+            'cupo_anual', 'es_activo', 'fecha_creacion', 'fecha_actualizacion', 
+            'password', 'password_confirm'
         ]
         read_only_fields = ['id', 'fecha_creacion', 'fecha_actualizacion']
         extra_kwargs = {
@@ -120,32 +122,75 @@ class UsuarioSerializer(serializers.ModelSerializer):
 class UsuarioListSerializer(serializers.ModelSerializer):
     """Serializer para listar usuarios (sin información sensible)"""
     rol_nombre = serializers.CharField(source='get_rol_display_name', read_only=True)
+    ubicacion_completa = serializers.CharField(source='get_ubicacion_completa', read_only=True)
     
     class Meta:
         model = Usuario
-        fields = ['id', 'username', 'nombre', 'correo', 'cedula', 'rol', 'rol_nombre', 'ciudad', 'latitud', 'longitud', 'es_activo', 'fecha_creacion']
+        fields = ['id', 'username', 'nombre', 'correo', 'cedula', 'rol', 'rol_nombre', 
+                  'provincia', 'canton', 'ciudad', 'ubicacion_completa',
+                  'latitud', 'longitud', 'cupo_anual', 'es_activo', 'fecha_creacion']
         read_only_fields = ['id', 'fecha_creacion']
+
+
+class DashboardUsuarioSerializer(serializers.Serializer):
+    """Serializer para el dashboard de usuario con estadísticas de envíos y cupo"""
+    # Información del usuario
+    usuario = UsuarioListSerializer(read_only=True)
+    
+    # Estadísticas de cupo
+    cupo_anual = serializers.DecimalField(max_digits=10, decimal_places=2)
+    peso_usado = serializers.DecimalField(max_digits=10, decimal_places=2)
+    peso_disponible = serializers.DecimalField(max_digits=10, decimal_places=2)
+    porcentaje_usado = serializers.DecimalField(max_digits=5, decimal_places=2)
+    
+    # Estadísticas de envíos
+    total_envios = serializers.IntegerField()
+    envios_pendientes = serializers.IntegerField()
+    envios_en_transito = serializers.IntegerField()
+    envios_entregados = serializers.IntegerField()
+    envios_cancelados = serializers.IntegerField()
+    peso_total = serializers.DecimalField(max_digits=10, decimal_places=2)
+    valor_total = serializers.DecimalField(max_digits=12, decimal_places=2)
+    costo_servicio_total = serializers.DecimalField(max_digits=12, decimal_places=2)
+    
+    # Información del año
+    anio = serializers.IntegerField()
 
 class CompradorSerializer(serializers.ModelSerializer):
     """Serializer específico para compradores"""
     rol_nombre = serializers.CharField(source='get_rol_display_name', read_only=True)
+    ubicacion_completa = serializers.CharField(source='get_ubicacion_completa', read_only=True)
     
     class Meta:
         model = Usuario
-        fields = ['id', 'username', 'nombre', 'correo', 'cedula', 'rol_nombre', 'telefono', 'ciudad', 'latitud', 'longitud']
+        fields = ['id', 'username', 'nombre', 'correo', 'cedula', 'rol_nombre', 'telefono', 
+                  'provincia', 'canton', 'ciudad', 'ubicacion_completa', 'latitud', 'longitud']
         read_only_fields = ['id']
 
 
 class CompradorMapaSerializer(serializers.ModelSerializer):
     """Serializer específico para mapa de compradores con conteo de envíos"""
     rol_nombre = serializers.CharField(source='get_rol_display_name', read_only=True)
+    ubicacion_completa = serializers.CharField(source='get_ubicacion_completa', read_only=True)
     total_envios = serializers.SerializerMethodField()
     envios_recientes = serializers.SerializerMethodField()
+    latitud = serializers.SerializerMethodField()
+    longitud = serializers.SerializerMethodField()
     
     class Meta:
         model = Usuario
-        fields = ['id', 'username', 'nombre', 'correo', 'telefono', 'ciudad', 'latitud', 'longitud', 'rol_nombre', 'total_envios', 'envios_recientes']
+        fields = ['id', 'username', 'nombre', 'correo', 'telefono', 
+                  'provincia', 'canton', 'ciudad', 'ubicacion_completa',
+                  'latitud', 'longitud', 'rol_nombre', 'total_envios', 'envios_recientes']
         read_only_fields = ['id']
+    
+    def get_latitud(self, obj):
+        """Retorna latitud como float en lugar de Decimal"""
+        return float(obj.latitud) if obj.latitud else None
+    
+    def get_longitud(self, obj):
+        """Retorna longitud como float en lugar de Decimal"""
+        return float(obj.longitud) if obj.longitud else None
     
     def get_total_envios(self, obj):
         """Retorna el total de envíos del comprador"""
