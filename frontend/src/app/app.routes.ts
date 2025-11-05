@@ -14,6 +14,7 @@ import { BusquedaUnificadaComponent } from './components/busqueda-unificada/busq
 import { ImportacionExcelComponent } from './components/importacion-excel/importacion-excel.component';
 import { InformacionGeneralComponent } from './components/informacion/informacion-general/informacion-general.component';
 import { UbicacionesComponent } from './components/informacion/ubicaciones/ubicaciones.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { Roles } from './models/usuario';
@@ -30,6 +31,11 @@ export const routes: Routes = [
   { 
     path: 'inicio', 
     component: InicioComponent,
+    canActivate: [authGuard]
+  },
+  { 
+    path: 'perfil', 
+    component: PerfilComponent,
     canActivate: [authGuard]
   },
   { 

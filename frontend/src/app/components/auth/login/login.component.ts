@@ -18,9 +18,14 @@ import { LoginRequest } from '../../../models/usuario';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  resetForm: FormGroup;
   loading = false;
+  loadingReset = false;
   hidePassword = true;
   errorMessage = '';
+  showResetPassword = false;
+  resetSuccess = false;
+  resetError = '';
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +35,10 @@ export class LoginComponent {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+
+    this.resetForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -106,5 +115,62 @@ export class LoginComponent {
       const control = this.loginForm.get(key);
       control?.markAsTouched();
     });
+  }
+
+  toggleResetPassword(): void {
+    this.showResetPassword = !this.showResetPassword;
+    this.resetSuccess = false;
+    this.resetError = '';
+    this.errorMessage = '';
+    this.resetForm.reset();
+  }
+
+  onResetPassword(): void {
+    if (this.resetForm.valid) {
+      this.loadingReset = true;
+      this.resetError = '';
+      this.resetSuccess = false;
+
+      // Simular envío de correo (aquí deberías implementar la lógica real)
+      setTimeout(() => {
+        this.loadingReset = false;
+        this.resetSuccess = true;
+        
+        // Volver al login después de 3 segundos
+        setTimeout(() => {
+          this.toggleResetPassword();
+        }, 3000);
+      }, 2000);
+
+      // Implementación real cuando tengas el endpoint en el backend:
+      /*
+      this.authService.resetPassword(this.resetForm.value.email).subscribe({
+        next: () => {
+          this.loadingReset = false;
+          this.resetSuccess = true;
+          setTimeout(() => {
+            this.toggleResetPassword();
+          }, 3000);
+        },
+        error: (error) => {
+          this.loadingReset = false;
+          this.resetError = error.error?.message || 'Error al enviar el correo. Verifica la dirección.';
+        }
+      });
+      */
+    } else {
+      this.resetForm.get('email')?.markAsTouched();
+    }
+  }
+
+  getResetErrorMessage(): string {
+    const control = this.resetForm.get('email');
+    if (control?.hasError('required')) {
+      return 'El correo electrónico es requerido';
+    }
+    if (control?.hasError('email')) {
+      return 'Ingresa un correo electrónico válido';
+    }
+    return '';
   }
 }

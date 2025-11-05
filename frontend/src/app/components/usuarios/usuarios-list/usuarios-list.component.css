@@ -716,3 +716,117 @@
 .coordenadas-badge i {
   font-size: 16px;
 }
+
+/* Modo Oscuro */
+:host-context(body.dark-mode) .usuarios-container {
+  background-color: transparent;
+}
+
+:host-context(body.dark-mode) .header-content h1 {
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .header-content p {
+  color: #94a3b8;
+}
+
+:host-context(body.dark-mode) .search-input,
+:host-context(body.dark-mode) .filter-select {
+  background-color: #475569;
+  border-color: #64748b;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .search-input:focus,
+:host-context(body.dark-mode) .filter-select:focus {
+  background-color: #1e293b;
+  border-color: #a78bfa;
+}
+
+:host-context(body.dark-mode) .table-container {
+  background-color: #334155;
+}
+
+:host-context(body.dark-mode) .table th {
+  background: linear-gradient(135deg, #475569 0%, #334155 100%);
+  color: #cbd5e1;
+}
+
+:host-context(body.dark-mode) .table tbody tr {
+  background-color: #334155;
+}
+
+:host-context(body.dark-mode) .table tbody tr:hover {
+  background-color: #475569;
+}
+
+:host-context(body.dark-mode) .table td {
+  color: #e5e7eb;
+  border-bottom-color: #475569;
+}
+
+:host-context(body.dark-mode) .table tbody tr td:first-child {
+  color: #a78bfa;
+}
+
+:host-context(body.dark-mode) .table tbody tr td strong {
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .btn-icon {
+  background-color: #475569;
+  color: #94a3b8;
+}
+
+:host-context(body.dark-mode) .btn-icon:hover {
+  background-color: #64748b;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .empty-state h3 {
+  color: #cbd5e1;
+}
+
+:host-context(body.dark-mode) .modal-content {
+  background-color: #334155;
+}
+
+:host-context(body.dark-mode) .modal-header {
+  background: linear-gradient(135deg, #4c1d95 0%, #581c87 100%);
+}
+
+:host-context(body.dark-mode) .modal-body {
+  background-color: #334155;
+}
+
+:host-context(body.dark-mode) .form-group label {
+  color: #cbd5e1;
+}
+
+:host-context(body.dark-mode) .form-control {
+  background-color: #475569;
+  border-color: #64748b;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .form-control:focus {
+  background-color: #1e293b;
+  border-color: #a78bfa;
+}
+
+:host-context(body.dark-mode) .modal-footer {
+  background-color: #475569;
+  border-top-color: #64748b;
+}
+
+:host-context(body.dark-mode) .detail-label {
+  color: #94a3b8;
+}
+
+:host-context(body.dark-mode) .detail-value {
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .spinner {
+  color: #94a3b8;
+}

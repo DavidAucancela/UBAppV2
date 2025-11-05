@@ -71,6 +71,13 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  updateCurrentUser(user: Usuario): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+    }
+    this.currentUserSubject.next(user);
+  }
+
   isAuthenticated(): boolean {
     return this.getCurrentUser() !== null;
   }

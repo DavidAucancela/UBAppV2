@@ -448,3 +448,60 @@ h2.fw-bold::after {
   }
 }
 
+/* Modo Oscuro */
+:host-context(body.dark-mode) .hero-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+:host-context(body.dark-mode) .feature-card {
+  background-color: #334155;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .feature-card:hover {
+  box-shadow: 
+    0 20px 40px rgba(79, 70, 229, 0.3),
+    0 0 0 1px rgba(79, 70, 229, 0.2);
+}
+
+:host-context(body.dark-mode) .role-card {
+  background-color: #334155;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .role-card:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+:host-context(body.dark-mode) .cta-section {
+  background: linear-gradient(135deg, #4c1d95 0%, #581c87 100%);
+}
+
+:host-context(body.dark-mode) .bg-light {
+  background: linear-gradient(180deg, #1e293b 0%, #334155 100%) !important;
+}
+
+:host-context(body.dark-mode) .list-unstyled li {
+  background-color: #334155;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .list-unstyled li:hover {
+  box-shadow: 0 5px 20px rgba(79, 70, 229, 0.3);
+}
+
+:host-context(body.dark-mode) .card {
+  background-color: #334155;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) h2.fw-bold,
+:host-context(body.dark-mode) h3,
+:host-context(body.dark-mode) h4,
+:host-context(body.dark-mode) h5 {
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .text-muted {
+  color: #94a3b8 !important;
+}

@@ -123,6 +123,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logoState = 'hidden';
   actionsState = 'hidden';
   ROLES_LABELS = ROLES_LABELS;
+  isDarkMode = false;
   
   // Items de navegación visibles según rol
   visibleNavItems: NavItem[] = [];
@@ -242,6 +243,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.logoState = 'visible';
     this.actionsState = 'visible';
     
+    // Verificar si está en modo oscuro
+    if (isPlatformBrowser(this.platformId)) {
+      this.isDarkMode = document.body.classList.contains('dark-mode');
+    }
+    
     // Suscribirse a los cambios del usuario actual
     this.userSubscription = this.authService.currentUser$.subscribe(user => {
       if (user && user !== this.currentUser) {
@@ -350,8 +356,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       const body = document.body;
       body.classList.toggle('dark-mode');
-      const isDarkMode = body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDarkMode ? 'true' : 'false');
+      this.isDarkMode = body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', this.isDarkMode ? 'true' : 'false');
     }
   }
 

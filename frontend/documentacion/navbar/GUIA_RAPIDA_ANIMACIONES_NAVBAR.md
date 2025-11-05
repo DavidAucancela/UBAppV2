@@ -251,3 +251,4 @@ Ahora tienes un navbar moderno y animado que mejora significativamente la experi
 
 **Documentación creada para UBApp** | Versión 1.0 | Octubre 2025
 
+

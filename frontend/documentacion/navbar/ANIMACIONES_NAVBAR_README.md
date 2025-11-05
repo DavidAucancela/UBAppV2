@@ -349,3 +349,4 @@ Implementado como parte de las mejoras del sistema UBApp con foco en UX/UI moder
 
 Este código es parte del proyecto UBApp y está sujeto a sus términos de licencia.
 
+

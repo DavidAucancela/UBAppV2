@@ -51,6 +51,10 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/usuarios/estadisticas/`);
   }
 
+  changePassword(userId: number, passwordData: { current_password: string, new_password: string }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/usuarios/${userId}/change_password/`, passwordData);
+  }
+
   // ===== MAPA DE COMPRADORES =====
   getMapaCompradores(ciudad?: string): Observable<any> {
     let params = new HttpParams();

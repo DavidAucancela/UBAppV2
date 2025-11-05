@@ -332,3 +332,4 @@ El sistema está listo para ser utilizado y puede ser extendido fácilmente con 
 **Versión:** 2.0
 **Estado:** ✅ Completado
 
+

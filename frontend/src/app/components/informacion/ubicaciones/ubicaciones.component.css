@@ -440,3 +440,73 @@
     font-size: 2.5rem;
   }
 }
+
+/* Modo Oscuro */
+:host-context(body.dark-mode) .ubicaciones-header {
+  background: linear-gradient(135deg, #4c1d95 0%, #581c87 100%);
+}
+
+:host-context(body.dark-mode) .list-group-item {
+  background-color: #334155;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .list-group-item:hover {
+  background-color: #475569;
+}
+
+:host-context(body.dark-mode) .list-group-item.active {
+  background: linear-gradient(135deg, #4c1d95 0%, #581c87 100%);
+}
+
+:host-context(body.dark-mode) .card {
+  background-color: #334155;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .card-header {
+  background: linear-gradient(135deg, #4c1d95 0%, #581c87 100%);
+  color: white;
+}
+
+:host-context(body.dark-mode) .info-item {
+  background: linear-gradient(135deg, #475569 0%, #334155 100%);
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .info-item strong {
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .info-item a {
+  color: #a78bfa;
+}
+
+:host-context(body.dark-mode) .info-item a:hover {
+  color: #c4b5fd;
+}
+
+:host-context(body.dark-mode) .map-container {
+  background: linear-gradient(135deg, #334155 0%, #475569 100%);
+}
+
+:host-context(body.dark-mode) .map-placeholder h5 {
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .feature-box {
+  background-color: #334155;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .feature-box:hover {
+  background: linear-gradient(135deg, #334155 0%, #475569 100%);
+}
+
+:host-context(body.dark-mode) .bg-light {
+  background: linear-gradient(180deg, #1e293b 0%, #334155 100%) !important;
+}
+
+:host-context(body.dark-mode) .cta-section {
+  background: linear-gradient(135deg, #4c1d95 0%, #581c87 100%);
+}

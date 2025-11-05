@@ -118,3 +118,6 @@ def obtener_coordenadas_view(request):
 
 
 
+
+
+

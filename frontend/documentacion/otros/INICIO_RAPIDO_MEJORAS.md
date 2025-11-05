@@ -296,3 +296,4 @@ Tu sistema ahora cuenta con:
 
 Para más información detallada, consulta: `MEJORAS_SISTEMA_ROLES_DASHBOARD.md`
 
+
