@@ -31,8 +31,16 @@ from apps.archivos.serializers import EnvioSerializer
 
 Usuario = get_user_model()
 
-# Inicializar cliente de OpenAI
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
+# Función para obtener el cliente de OpenAI (lazy initialization)
+def get_openai_client():
+    """Obtiene el cliente de OpenAI, inicializándolo solo cuando se necesita"""
+    try:
+        api_key = settings.OPENAI_API_KEY
+        if not api_key or api_key == 'sk-proj-temp-key-replace-with-your-key':
+            return None
+        return OpenAI(api_key=api_key)
+    except Exception:
+        return None
 
 
 class BusquedaViewSet(viewsets.ModelViewSet):
@@ -424,6 +432,10 @@ class BusquedaViewSet(viewsets.ModelViewSet):
 
     def _generar_embedding(self, texto):
         """Genera un embedding usando OpenAI"""
+        client = get_openai_client()
+        if not client:
+            raise ValueError("OpenAI API key no configurada. Por favor, configura OPENAI_API_KEY en el archivo .env")
+        
         try:
             response = client.embeddings.create(
                 model=settings.OPENAI_EMBEDDING_MODEL,

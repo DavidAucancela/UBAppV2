@@ -2,15 +2,21 @@ from pathlib import Path
 import os
 from decouple import config
 from datetime import timedelta
+from dotenv import load_dotenv
+
+# Cargar variables del entorno
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Seguridad
-SECRET_KEY = config('SECRET_KEY') # SECURITY WARNING:production!
-DEBUG = config('DEBUG', default=True, cast=bool) # SECURITY WARNING: don't run with debug turned on in production!
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',') if s.strip()])
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY', 'clave-por-defecto-solo-para-desarrollo')
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -62,15 +68,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'wsgi.application'
 
 
-# Database
+# Database Configuration
 DATABASES = {
     'default': {
-        'ENGINE': config('DB_ENGINE'),
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'equityDB'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'admin'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5434'),
     }
 }
 
@@ -183,5 +189,5 @@ CACHES = {
 
 # OpenAI
 OPENAI_API_KEY = config('OPENAI_API_KEY')
-OPENAI_EMBEDDING_MODEL = config('OPENAI_EMBEDDING_MODEL')
-OPENAI_EMBEDDING_DIMENSIONS = config('OPENAI_EMBEDDING_DIMENSIONS', cast=int)
+# OPENAI_EMBEDDING_MODEL = config('OPENAI_EMBEDDING_MODEL')
+# OPENAI_EMBEDDING_DIMENSIONS = config('OPENAI_EMBEDDING_DIMENSIONS', cast=int)
