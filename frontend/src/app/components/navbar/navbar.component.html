@@ -1,25 +1,18 @@
-<header class="animated-header">
-  <!-- Mensaje de Bienvenida -->
-  <div class="welcome-overlay" *ngIf="showWelcomeMessage" @welcomeMessage>
-    <div class="welcome-content">
-      <div class="welcome-icon">
-        <i class="fas fa-user-check"></i>
-      </div>
-      <h2>{{ welcomeMessageText }}</h2>
-      <p>{{ getRoleLabel(currentUser?.rol) }}</p>
-      <div class="welcome-loader">
-        <div class="loader-bar"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Barra de Navegación -->
+<header class="animated-header" *ngIf="!shouldHideNavbar">  <!-- Barra de Navegación -->
   <div class="header-content" [@navbarSlide]="navbarState">
     <!-- Logo con animación - Siempre visible -->
     <a class="logo" [routerLink]="authService.isAuthenticated() ? '/inicio' : '/informacion'" 
        [routerLinkActive]="'active'" 
-       aria-label="Ir al inicio de UBApp" [@logoAnimation]="logoState">
-      <i class="fas fa-shipping-fast" aria-hidden="true"></i>
+       aria-label="Ir al inicio de UBApp"
+       (click)="handleLogoClick($event)"
+       [@logoAnimation]="logoState">
+      <i class="fas fa-shipping-fast"
+         aria-hidden="true"
+         title="Mantén presionado 5 segundos para alternar el tema"
+         (pointerdown)="handleLogoPressStart($event)"
+         (pointerup)="handleLogoPressEnd($event)"
+         (pointerleave)="handleLogoPressEnd($event)"
+         (pointercancel)="handleLogoPressEnd($event)"></i>
       <span>UBApp</span>
       <div class="logo-glow"></div>
     </a>
@@ -28,28 +21,41 @@
     <nav class="nav-menu" aria-label="Navegación principal" *ngIf="authService.isAuthenticated()">
       <ul class="nav-list">
         <li class="nav-item" *ngFor="let item of visibleNavItems; let i = index" 
-            [@itemAnimation]="getAnimationDelay(i)">
-          <a [routerLink]="item.route" 
-             routerLinkActive="active" 
+            [@itemAnimation]="getAnimationDelay(i)"
+            [class.expanded]="isExpanded(item.label)">
+          <!-- Item principal -->
+          <a *ngIf="!item.subItems || item.subItems.length === 0"
+             [routerLink]="item.route" 
+             routerLinkActive="active"
              class="nav-link"
-             [class.has-submenu]="item.subItems && item.subItems.length > 0"
+             aria-current="page">
+            <i [class]="item.icon" aria-hidden="true"></i>
+            <span>{{ item.label }}</span>
+          </a>
+          <a *ngIf="item.subItems && item.subItems.length > 0"
+             class="nav-link has-submenu no-navigate"
+             (click)="handleItemClick(item, $event)"
              aria-current="page">
             <i [class]="item.icon" aria-hidden="true"></i>
             <span>{{ item.label }}</span>
             <i class="fas fa-chevron-down submenu-arrow" 
-               *ngIf="item.subItems && item.subItems.length > 0"
+               [class.rotated]="isExpanded(item.label)"
                aria-hidden="true"></i>
           </a>
           
-          <!-- Submenú si existe -->
-          <div class="dropdown-menu" *ngIf="item.subItems && item.subItems.length > 0">
-            <a *ngFor="let subItem of item.subItems" 
-               [routerLink]="subItem.route" 
-               class="dropdown-item">
-              <i [class]="subItem.icon" aria-hidden="true"></i>
-              <span>{{ subItem.label }}</span>
-            </a>
-          </div>
+          <!-- Submenú mejorado con animación -->
+          <ul class="dropdown-menu" 
+              *ngIf="item.subItems && item.subItems.length > 0 && isExpanded(item.label)">
+            <li *ngFor="let subItem of item.subItems">
+              <a [routerLink]="subItem.route" 
+                 routerLinkActive="active"
+                 class="dropdown-item"
+                 (click)="toggleSubmenu(item.label)">
+                <i [class]="subItem.icon" aria-hidden="true"></i>
+                <span>{{ subItem.label }}</span>
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
       
@@ -65,13 +71,17 @@
     
     <!-- Botones públicos cuando NO está autenticado -->
     <div class="public-actions" *ngIf="!authService.isAuthenticated()">
-      <a routerLink="/informacion" routerLinkActive="active" class="nav-link-public">
+      <!--<a routerLink="/informacion" routerLinkActive="active" class="nav-link-public">
         <i class="fas fa-info-circle"></i>
         <span>Información</span>
       </a>
       <a routerLink="/ubicaciones" routerLinkActive="active" class="nav-link-public">
         <i class="fas fa-map-marked-alt"></i>
         <span>Ubicaciones</span>
+      </a>-->
+      <a routerLink="/register" class="btn-register">
+        <i class="fas fa-user-plus me-2"></i>
+        <span>Crear cuenta</span>
       </a>
       <a routerLink="/login" class="btn-login">
         <i class="fas fa-sign-in-alt me-2"></i>
@@ -81,19 +91,71 @@
     
     <!-- Acciones del Header con animación - Solo si está autenticado -->
     <div class="header-actions" [@actionsAnimation]="actionsState" *ngIf="authService.isAuthenticated()">
-      <!-- Notificaciones -->
-      <div class="notification-wrapper">
-        <button class="action-btn" title="Notificaciones" aria-label="Ver notificaciones">
+      <!-- Notificaciones - Solo para Compradores -->
+      <div class="notification-wrapper" *ngIf="isComprador()">
+        <button 
+          class="action-btn" 
+          title="Notificaciones" 
+          aria-label="Ver notificaciones"
+          (click)="toggleNotificacionesDropdown()"
+          [class.has-notifications]="notificacionCount.no_leidas > 0">
           <i class="fas fa-bell" aria-hidden="true"></i>
-          <span class="badge">3</span>
-          <span class="pulse-ring"></span>
+          <span class="badge" *ngIf="notificacionCount.no_leidas > 0">
+            {{ notificacionCount.no_leidas > 99 ? '99+' : notificacionCount.no_leidas }}
+          </span>
+          <span class="pulse-ring" *ngIf="notificacionCount.no_leidas > 0"></span>
         </button>
+
+        <!-- Dropdown de Notificaciones -->
+        <div class="notificaciones-dropdown" *ngIf="showNotificacionesDropdown" (click)="$event.stopPropagation()">
+          <div class="dropdown-header">
+            <h4>Notificaciones</h4>
+            <button 
+              *ngIf="notificacionCount.no_leidas > 0"
+              class="btn-marcar-todas"
+              (click)="marcarTodasLeidas()"
+              title="Marcar todas como leídas">
+              Marcar todas como leídas
+            </button>
+          </div>
+
+          <div class="notificaciones-list">
+            <div 
+              *ngFor="let notificacion of notificaciones" 
+              class="notificacion-item"
+              [class.leida]="notificacion.leida"
+              (click)="marcarNotificacionLeida(notificacion, $event)">
+              <div class="notificacion-icon">
+                <i 
+                  [class]="getNotificacionIcon(notificacion.tipo)"
+                  [class.fa-circle]="!notificacion.leida">
+                </i>
+              </div>
+              <div class="notificacion-content">
+                <h5>{{ notificacion.titulo }}</h5>
+                <p>{{ notificacion.mensaje }}</p>
+                <span class="notificacion-time">{{ getTimeAgo(notificacion.fecha_creacion) }}</span>
+              </div>
+            </div>
+
+            <div class="no-notificaciones" *ngIf="notificaciones.length === 0">
+              <i class="fas fa-bell-slash"></i>
+              <p>No tienes notificaciones</p>
+            </div>
+          </div>
+
+          <div class="dropdown-footer" *ngIf="notificaciones.length > 0">
+            <a routerLink="/notificaciones" (click)="closeNotificacionesDropdown()">
+              Ver todas las notificaciones
+            </a>
+          </div>
+        </div>
       </div>
       
-      <!-- Búsqueda rápida -->
+      <!-- Búsqueda rápida 
       <button class="action-btn" title="Búsqueda rápida" aria-label="Abrir búsqueda rápida">
         <i class="fas fa-search" aria-hidden="true"></i>
-      </button>
+      </button>-->
       
       <!-- Menú de Usuario -->
       <div class="user-menu">
@@ -132,19 +194,6 @@
             <i class="fas fa-user"></i>
             <span>Mi Perfil</span>
           </a>
-          
-          <a routerLink="/configuracion" class="dropdown-item" (click)="closeUserMenu()">
-            <i class="fas fa-cog"></i>
-            <span>Configuración</span>
-          </a>
-          
-          <div class="dropdown-divider"></div>
-          
-          <button class="dropdown-item" (click)="toggleTheme()">
-            <i class="fas" [class.fa-moon]="!isDarkMode" [class.fa-sun]="isDarkMode"></i>
-            <span>{{ isDarkMode ? 'Modo Claro' : 'Modo Oscuro' }}</span>
-          </button>
-          
           <div class="dropdown-divider"></div>
           
           <button class="dropdown-item logout-btn" (click)="logout()">

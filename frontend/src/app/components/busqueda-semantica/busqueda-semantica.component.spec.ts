@@ -7,7 +7,7 @@ import { of, throwError } from 'rxjs';
 import { BusquedaSemanticaComponent } from './busqueda-semantica.component';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
-import { RespuestaSemantica, ResultadoSemantico, SugerenciaSemantica } from '../../models/busqueda-semantica';
+import { RespuestaSemantica, ResultadoSemantico, SugerenciaSemantica, HistorialBusquedaSemantica, ModeloEmbedding } from '../../models/busqueda-semantica';
 import { Envio, EstadosEnvio } from '../../models/envio';
 
 describe('BusquedaSemanticaComponent', () => {
@@ -41,8 +41,14 @@ describe('BusquedaSemanticaComponent', () => {
   const resultadoSemanticoMock: ResultadoSemantico = {
     envio: envioMock,
     puntuacionSimilitud: 0.85,
+    cosineSimilarity: 0.85,
+    dotProduct: 125.67,
+    euclideanDistance: 12.34,
+    manhattanDistance: 45.67,
+    scoreCombinado: 0.925,
     fragmentosRelevantes: ['Envío a Quito', 'Esta semana'],
-    razonRelevancia: 'Coincide con la búsqueda por ciudad y fecha'
+    razonRelevancia: 'Coincide con la búsqueda por ciudad y fecha',
+    textoIndexado: 'HAWB: HAWB001 | Comprador: Juan Pérez | Ciudad: Quito | Estado: En Tránsito'
   };
 
   const respuestaSemanticaMock: RespuestaSemantica = {
@@ -50,7 +56,9 @@ describe('BusquedaSemanticaComponent', () => {
     resultados: [resultadoSemanticoMock],
     totalEncontrados: 1,
     tiempoRespuesta: 150,
-    modeloUtilizado: 'GPT-4'
+    modeloUtilizado: 'text-embedding-3-small',
+    costoConsulta: 0.00002,
+    tokensUtilizados: 10
   };
 
   beforeEach(async () => {
@@ -110,7 +118,7 @@ describe('BusquedaSemanticaComponent', () => {
 
   it('✅ Debe realizar búsqueda semántica exitosamente', () => {
     apiService.buscarEnviosSemantica.and.returnValue(of(respuestaSemanticaMock));
-    apiService.guardarHistorialSemantico.and.returnValue(of({}));
+    apiService.obtenerHistorialSemantico.and.returnValue(of([]));
 
     component.textoConsulta = 'envíos a Quito esta semana';
     component.realizarBusquedaSemantica();
@@ -148,16 +156,19 @@ describe('BusquedaSemanticaComponent', () => {
     const respuestaConVariosResultados: RespuestaSemantica = {
       consulta: 'test',
       resultados: [
-        { ...resultadoSemanticoMock, puntuacionSimilitud: 0.9 },
-        { ...resultadoSemanticoMock, puntuacionSimilitud: 0.2 },
-        { ...resultadoSemanticoMock, puntuacionSimilitud: 0.5 }
+        { ...resultadoSemanticoMock, puntuacionSimilitud: 0.9, cosineSimilarity: 0.9 },
+        { ...resultadoSemanticoMock, puntuacionSimilitud: 0.2, cosineSimilarity: 0.2 },
+        { ...resultadoSemanticoMock, puntuacionSimilitud: 0.5, cosineSimilarity: 0.5 }
       ],
       totalEncontrados: 3,
-      tiempoRespuesta: 200
+      tiempoRespuesta: 200,
+      modeloUtilizado: 'text-embedding-3-small',
+      costoConsulta: 0.00002,
+      tokensUtilizados: 10
     };
 
     apiService.buscarEnviosSemantica.and.returnValue(of(respuestaConVariosResultados));
-    apiService.guardarHistorialSemantico.and.returnValue(of({}));
+    apiService.obtenerHistorialSemantico.and.returnValue(of([]));
 
     component.configuracion.umbralSimilitud = 0.3;
     component.textoConsulta = 'test';
@@ -191,7 +202,7 @@ describe('BusquedaSemanticaComponent', () => {
 
   it('✅ Debe seleccionar sugerencia y realizar búsqueda', () => {
     apiService.buscarEnviosSemantica.and.returnValue(of(respuestaSemanticaMock));
-    apiService.guardarHistorialSemantico.and.returnValue(of({}));
+    apiService.obtenerHistorialSemantico.and.returnValue(of([]));
 
     const sugerencia: SugerenciaSemantica = {
       texto: 'envíos entregados en Quito',
@@ -209,8 +220,17 @@ describe('BusquedaSemanticaComponent', () => {
   // ===== PRUEBAS DE HISTORIAL =====
 
   it('✅ Debe cargar historial de búsquedas', () => {
-    const historialMock = [
-      { id: '1', consulta: 'envíos a Quito', fecha: new Date(), totalResultados: 5 }
+    const historialMock: HistorialBusquedaSemantica[] = [
+      { 
+        id: 1, 
+        consulta: 'envíos a Quito', 
+        fecha: new Date(), 
+        totalResultados: 5,
+        tiempoRespuesta: 150,
+        modeloUtilizado: 'text-embedding-3-small',
+        costoConsulta: 0.00002,
+        tokensUtilizados: 10
+      }
     ];
 
     apiService.obtenerHistorialSemantico.and.returnValue(of(historialMock));
@@ -238,11 +258,15 @@ describe('BusquedaSemanticaComponent', () => {
     apiService.buscarEnviosSemantica.and.returnValue(of(respuestaSemanticaMock));
     apiService.guardarHistorialSemantico.and.returnValue(of({}));
 
-    const busquedaHistorial = {
-      id: '1',
+    const busquedaHistorial: HistorialBusquedaSemantica = {
+      id: 1,
       consulta: 'envíos a Guayaquil',
       fecha: new Date(),
-      totalResultados: 3
+      totalResultados: 3,
+      tiempoRespuesta: 120,
+      modeloUtilizado: 'text-embedding-3-small',
+      costoConsulta: 0.00002,
+      tokensUtilizados: 8
     };
 
     component.usarDelHistorial(busquedaHistorial);
@@ -303,7 +327,7 @@ describe('BusquedaSemanticaComponent', () => {
     component.estadoFiltro = 'en_transito';
 
     apiService.buscarEnviosSemantica.and.returnValue(of(respuestaSemanticaMock));
-    apiService.guardarHistorialSemantico.and.returnValue(of({}));
+    apiService.obtenerHistorialSemantico.and.returnValue(of([]));
 
     component.textoConsulta = 'test';
     component.realizarBusquedaSemantica();

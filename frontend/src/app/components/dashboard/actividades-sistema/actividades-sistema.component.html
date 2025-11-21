@@ -1,0 +1,35 @@
+<div class="actividades-container">
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="spinner">
+      <i class="fas fa-spinner fa-spin"></i>
+      <span>Cargando actividades...</span>
+    </div>
+  </div>
+
+  <!-- Activities Content -->
+  <div class="actividades-content" *ngIf="!loading">
+    <div class="page-header">
+      <h1>Actividades del Sistema</h1>
+      <p class="page-subtitle">Lista de todas las actividades recientes del sistema</p>
+    </div>
+
+    <div class="activities-section">
+      <div class="activity-list">
+        <div class="activity-item" *ngFor="let activity of activities">
+          <div class="activity-icon">
+            <i class="fas" [class]="getActivityIcon(activity.type)"></i>
+          </div>
+          <div class="activity-content">
+            <p class="activity-text">{{ activity.description }}</p>
+            <span class="activity-time">{{ activity.time }}</span>
+          </div>
+        </div>
+        <div class="empty-state" *ngIf="activities.length === 0">
+          <i class="fas fa-inbox"></i>
+          <p>No hay actividades disponibles</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

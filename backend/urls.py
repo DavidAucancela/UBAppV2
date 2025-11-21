@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/usuarios/', include('apps.usuarios.urls')),
     path('api/envios/', include('apps.archivos.urls')),
     path('api/busqueda/', include('apps.busqueda.urls')),
+    path('api/notificaciones/', include('apps.notificaciones.urls')),
     
     # OpenAPI schema y UIs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

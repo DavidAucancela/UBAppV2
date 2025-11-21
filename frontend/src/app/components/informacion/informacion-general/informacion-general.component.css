@@ -1,14 +1,60 @@
+:host {
+  display: block;
+  width: 100%;
+  background: radial-gradient(circle at top, rgba(102, 126, 234, 0.2), transparent 40%), #050517;
+}
+
+.informacion-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, rgb(255, 255, 255), transparent 45%), radial-gradient(circle at 80% 0%, rgba(118, 75, 162, 0.15), transparent 40%), #050517;
+  overflow: hidden;
+}
+
+.section-shell {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+}
+
+.section-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: -1;
+}
+
 /* Hero Section Mejorado */
 .hero-section {
   position: relative;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #313860 0%, #11162a 100%);
   color: white;
-  padding: 150px 0 100px 0;
+  padding: 120px 0;
   min-height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
-  margin-top: 70px; /* Espacio para el navbar */
+  --particle-opacity: 0.4;
+}
+
+.hero-section.particles-medium {
+  --particle-opacity: 0.25;
+}
+
+.hero-section.particles-low {
+  --particle-opacity: 0.15;
+}
+
+.hero-section.particles-high {
+  --particle-opacity: 0.6;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 2;
 }
 
 /* Efectos de fondo */
@@ -24,14 +70,15 @@
     radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 40% 20%, rgba(102, 126, 234, 0.3) 0%, transparent 50%);
   animation: bgPulse 15s ease-in-out infinite;
+  opacity: 0.7;
 }
-
+ /* Animación de pulso */
 @keyframes bgPulse {
   0%, 100% {
-    opacity: 0.5;
+    opacity: 0.9;
   }
   50% {
-    opacity: 0.8;
+    opacity: 1.1;
   }
 }
 
@@ -50,7 +97,9 @@
     radial-gradient(1px 1px at 33% 80%, white, transparent);
   background-size: 200% 200%;
   animation: sparkle 20s linear infinite;
-  opacity: 0.4;
+  opacity: var(--particle-opacity);
+  mix-blend-mode: screen;
+  z-index: 1;
 }
 
 @keyframes sparkle {
@@ -62,11 +111,53 @@
   }
 }
 
+.particle-overlay {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.particle-overlay.layer-one {
+  background-image: radial-gradient(1px 1px at 10% 20%, rgba(255, 255, 255, 0.35), transparent), radial-gradient(1px 1px at 70% 40%, rgba(255, 255, 255, 0.35), transparent);
+  background-size: 120px 120px;
+  opacity: 0.2;
+  animation: parallaxSlow 50s linear infinite;
+  z-index: 1;
+}
+
+.particle-overlay.layer-two {
+  background-image: radial-gradient(2px 2px at 30% 70%, rgba(255, 255, 255, 0.5), transparent), radial-gradient(1px 1px at 80% 10%, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 220px 220px;
+  opacity: 0.35;
+  animation: parallaxFast 35s linear infinite;
+  z-index: 1;
+}
+
+@keyframes parallaxSlow {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-200px, -200px, 0);
+  }
+}
+
+@keyframes parallaxFast {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(200px, 200px, 0);
+  }
+}
+
 .hero-icon {
   font-size: 20rem;
   opacity: 0.15;
   animation: float 4s ease-in-out infinite, rotate 20s linear infinite;
   filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+  z-index: 2;
 }
 
 @keyframes float {
@@ -270,12 +361,38 @@
   background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
 }
 
+.roles-row .col-md-6,
+.roles-row .col-lg-3 {
+  display: flex;
+  justify-content: center;
+}
+
+.roles-row .card {
+  text-align: center;
+}
+
+.roles-row .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Call to Action Mejorado */
 .cta-section {
   position: relative;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 100px 0;
   overflow: hidden;
+}
+
+.cta-section::after {
+  content: '';
+  position: absolute;
+  inset: 10%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  pointer-events: none;
 }
 
 .cta-section::before {
@@ -310,10 +427,167 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
+.informacion-footer {
+  background: #050517;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 /* Sección de Beneficios Mejorada */
 .bg-light {
   position: relative;
   background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%) !important;
+}
+
+.beneficios-dinamicos {
+  border-radius: 60px 60px 0 0;
+  margin-top: 0px;
+  position: relative;
+  isolation: isolate;
+}
+
+.beneficios-dinamicos::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgb(159, 159, 160), rgba(118, 75, 162, 0.12));
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.section-heading .eyebrow {
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: #6366f1;
+}
+
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  border-radius: 18px;
+  background: white;
+  width: 100%;
+  text-align: left;
+  color: #000;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+}
+
+.benefit-item .indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #cbd5f5;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.benefit-item.active {
+  border-color: transparent;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.797), rgb(255, 255, 255));
+  transform: translateX(10px);
+}
+
+.benefit-item.active .indicator {
+  background: #34d399;
+  transform: scale(1.4);
+}
+
+.benefit-item i {
+  color: #94a3b8;
+  transition: transform 0.3s ease;
+}
+
+.benefit-item.active i {
+  color: #4f46e5;
+  transform: translateX(4px);
+}
+
+/* Títulos de los beneficios en negro */
+.benefit-item h5 {
+  color: #000 !important;
+}
+
+.benefit-item .text-muted {
+  color: #000 !important;
+}
+
+.benefit-detail-card {
+  border-radius: 30px;
+  background: white;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-detail-card::after {
+  content: '';
+  position: absolute;
+  inset: -80px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.15), transparent 65%);
+  z-index: 0;
+}
+
+.benefit-detail-card .detail-media {
+  position: relative;
+}
+
+.benefit-detail-card img {
+  width: 100%;
+  object-fit: cover;
+  max-height: 260px;
+}
+
+.media-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(15, 23, 42, 0.85);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.benefit-detail-card .detail-list {
+  position: relative;
+  z-index: 1;
+}
+
+.benefit-detail-card .detail-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  font-weight: 500;
+  color: #000;
+}
+
+/* Textos dentro de benefit-detail-card en negro */
+.benefit-detail-card .text-muted {
+  color: #000 !important;
+}
+
+.benefit-detail-card p {
+  color: #000;
+}
+
+.benefit-detail-card h3,
+.benefit-detail-card h4 {
+  color: #000;
 }
 
 .list-unstyled li {
@@ -446,6 +720,20 @@ h2.fw-bold::after {
   .display-4 {
     font-size: 2.5rem;
   }
+
+  .beneficios-dinamicos {
+    border-radius: 30px 30px 0 0;
+    margin-top: -30px;
+  }
+
+  .benefit-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .benefit-detail-card {
+    padding: 24px;
+  }
 }
 
 /* Modo Oscuro */
@@ -504,4 +792,113 @@ h2.fw-bold::after {
 
 :host-context(body.dark-mode) .text-muted {
   color: #94a3b8 !important;
+}
+
+/* Footer */
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 3rem clamp(1rem, 4vw, 3rem);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-section h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #e0e0e0;
+}
+
+.footer-section p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Footer Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-links a:hover {
+  color: white;
+  transform: translateX(5px);
+}
+
+.footer-links a::before {
+  content: '→';
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Contact Info */
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.contact-info i {
+  color: #667eea;
+  width: 20px;
 }

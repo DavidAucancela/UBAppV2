@@ -6,12 +6,6 @@ import { ApiService } from '../../../services/api.service';
 import { Usuario, Roles } from '../../../models/usuario';
 import { ESTADOS_LABELS, EstadosEnvio } from '../../../models/envio';
 
-interface Activity {
-  type: string;
-  description: string;
-  time: string;
-}
-
 @Component({
   selector: 'app-inicio',
   standalone: true,
@@ -25,7 +19,6 @@ export class InicioComponent implements OnInit {
   currentUser: Usuario | null = null;
   stats: any = {};
   loading = true;
-  recentActivity: Activity[] = [];
 
   constructor(
     private authService: AuthService,
@@ -36,7 +29,6 @@ export class InicioComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
     this.loadStats();
-    this.loadRecentActivity();
   }
 
   loadStats(): void {
@@ -133,42 +125,6 @@ export class InicioComponent implements OnInit {
     });
   }
 
-  private loadRecentActivity(): void {
-    // Intentar cargar actividad real básica desde endpoints existentes como fallback
-    const actividades: Activity[] = [];
-    // Usuarios recientes
-    this.apiService.getUsuarios().subscribe({
-      next: (usuarios) => {
-        const lista = Array.isArray(usuarios) ? usuarios : (usuarios as any).results || [];
-        lista.slice(0, 3).forEach((u: any) => {
-          actividades.push({
-            type: 'usuario',
-            description: `Nuevo usuario: ${u.nombre || u.username}`,
-            time: u.fecha_creacion ? new Date(u.fecha_creacion).toLocaleString() : 'Reciente'
-          });
-        });
-        this.recentActivity = [...actividades, ...this.recentActivity];
-      },
-      error: () => {}
-    });
-    // Envíos recientes
-    this.apiService.getEnvios().subscribe({
-      next: (envios) => {
-        const lista = Array.isArray(envios) ? envios : (envios as any).results || [];
-        lista.slice(0, 3).forEach((e: any) => {
-          actividades.push({
-            type: 'envio',
-            description: `Envío ${e.hawb} (${e.estado_nombre || e.estado})`,
-            time: e.fecha_creacion ? new Date(e.fecha_creacion).toLocaleString() : 'Reciente'
-          });
-        });
-        this.recentActivity = actividades;
-      },
-      error: () => {
-        // Si falla, mantener vacío
-      }
-    });
-  }
 
   // Métodos de verificación de roles
   isAdmin(): boolean {
@@ -313,20 +269,6 @@ export class InicioComponent implements OnInit {
     return '';
   }
 
-  getActivityIcon(type: string): string {
-    switch (type) {
-      case 'envio':
-        return 'fa-truck';
-      case 'usuario':
-        return 'fa-user-plus';
-      case 'producto':
-        return 'fa-box';
-      case 'busqueda':
-        return 'fa-search';
-      default:
-        return 'fa-info-circle';
-    }
-  }
 
   // Navegación desde tarjetas
   goToUsuariosWithRole(roleLabel: string): void {

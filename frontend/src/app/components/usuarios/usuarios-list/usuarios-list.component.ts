@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
-import { UbicacionesService } from '../../../services/ubicaciones.service';
 import { Usuario, Roles, ROLES_LABELS } from '../../../models/usuario';
 
 @Component({
@@ -53,7 +52,6 @@ export class UsuariosListComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
-    private ubicacionesService: UbicacionesService,
     private fb: FormBuilder,
     private route: ActivatedRoute
   ) {
@@ -208,7 +206,7 @@ export class UsuariosListComponent implements OnInit {
     
     // Cargar cantones y ciudades si existen
     if (usuario.provincia) {
-      this.ubicacionesService.getCantones(usuario.provincia).subscribe({
+      this.apiService.getUbicacionesCantones(usuario.provincia).subscribe({
         next: (data) => {
           this.cantones = data.cantones || [];
         }
@@ -216,7 +214,7 @@ export class UsuariosListComponent implements OnInit {
     }
     
     if (usuario.provincia && usuario.canton) {
-      this.ubicacionesService.getCiudades(usuario.provincia, usuario.canton).subscribe({
+      this.apiService.getUbicacionesCiudades(usuario.provincia, usuario.canton).subscribe({
         next: (data) => {
           this.ciudades = data.ciudades || [];
         }
@@ -390,7 +388,7 @@ export class UsuariosListComponent implements OnInit {
 
   // Métodos de ubicaciones
   cargarProvincias(): void {
-    this.ubicacionesService.getProvincias().subscribe({
+    this.apiService.getUbicacionesProvincias().subscribe({
       next: (data) => {
         this.provincias = data.provincias || [];
       },
@@ -417,7 +415,7 @@ export class UsuariosListComponent implements OnInit {
     
     // Cargar cantones
     this.loadingCantones = true;
-    this.ubicacionesService.getCantones(provincia).subscribe({
+    this.apiService.getUbicacionesCantones(provincia).subscribe({
       next: (data) => {
         this.cantones = data.cantones || [];
         this.loadingCantones = false;
@@ -445,7 +443,7 @@ export class UsuariosListComponent implements OnInit {
     
     // Cargar ciudades
     this.loadingCiudades = true;
-    this.ubicacionesService.getCiudades(provincia, canton).subscribe({
+    this.apiService.getUbicacionesCiudades(provincia, canton).subscribe({
       next: (data) => {
         this.ciudades = data.ciudades || [];
         this.loadingCiudades = false;
@@ -465,7 +463,7 @@ export class UsuariosListComponent implements OnInit {
     if (!ciudad || !provincia || !canton) return;
     
     // Obtener coordenadas
-    this.ubicacionesService.getCoordenadas(provincia, canton, ciudad).subscribe({
+    this.apiService.getUbicacionesCoordenadas(provincia, canton, ciudad).subscribe({
       next: (data) => {
         this.usuarioForm.patchValue({
           latitud: data.latitud,

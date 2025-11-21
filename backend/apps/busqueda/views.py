@@ -10,6 +10,13 @@ from django.db import models
 import time
 import numpy as np
 from openai import OpenAI
+from .utils_embeddings import (
+    generar_embedding,
+    generar_texto_envio,
+    calcular_similitudes,
+    ordenar_por_metrica,
+    aplicar_umbral_similitud
+)
 
 from .models import (
     HistorialBusqueda, 
@@ -205,6 +212,12 @@ class BusquedaViewSet(viewsets.ModelViewSet):
         consulta_texto = request.data.get('texto', '').strip()
         limite = request.data.get('limite', 20)
         filtros_adicionales = request.data.get('filtrosAdicionales', {})
+        modelo_embedding = request.data.get('modeloEmbedding', settings.OPENAI_EMBEDDING_MODEL)
+        
+        # Validar modelo de embedding
+        modelos_validos = ['text-embedding-3-small', 'text-embedding-3-large', 'text-embedding-ada-002']
+        if modelo_embedding not in modelos_validos:
+            modelo_embedding = settings.OPENAI_EMBEDDING_MODEL
         
         if not consulta_texto:
             return Response(
@@ -217,35 +230,61 @@ class BusquedaViewSet(viewsets.ModelViewSet):
             envios_queryset = self._obtener_envios_filtrados(request.user, filtros_adicionales)
             
             if envios_queryset.count() == 0:
+                tiempo_respuesta = int((time.time() - tiempo_inicio) * 1000)
+                # Generar embedding para calcular costo incluso sin resultados
+                embedding_resultado = self._generar_embedding(consulta_texto, modelo_embedding)
+                
+                # Guardar búsqueda sin resultados
+                busqueda = BusquedaSemantica.objects.create(
+                    usuario=request.user,
+                    consulta=consulta_texto,
+                    resultados_encontrados=0,
+                    tiempo_respuesta=tiempo_respuesta,
+                    filtros_aplicados=filtros_adicionales if filtros_adicionales else None,
+                    modelo_utilizado=modelo_embedding,
+                    costo_consulta=embedding_resultado['costo'],
+                    tokens_utilizados=embedding_resultado['tokens']
+                )
+                
                 return Response({
                     'consulta': consulta_texto,
                     'resultados': [],
                     'totalEncontrados': 0,
-                    'tiempoRespuesta': int((time.time() - tiempo_inicio) * 1000),
-                    'modeloUtilizado': settings.OPENAI_EMBEDDING_MODEL
+                    'tiempoRespuesta': tiempo_respuesta,
+                    'modeloUtilizado': modelo_embedding,
+                    'costoConsulta': float(embedding_resultado['costo']),
+                    'tokensUtilizados': embedding_resultado['tokens'],
+                    'busquedaId': busqueda.id
                 })
             
-            # 2. Generar embedding de la consulta
-            embedding_consulta = self._generar_embedding(consulta_texto)
+            # 2. Generar embedding de la consulta y calcular costo
+            embedding_resultado = self._generar_embedding(consulta_texto, modelo_embedding)
+            embedding_consulta = embedding_resultado['embedding']
+            tokens_consulta = embedding_resultado['tokens']
+            costo_consulta = embedding_resultado['costo']
             
             # 3. Buscar envíos similares
             resultados = self._buscar_envios_similares(
                 envios_queryset,
                 embedding_consulta,
                 consulta_texto,
-                limite
+                limite,
+                modelo_embedding
             )
             
             # 4. Calcular tiempo de respuesta
             tiempo_respuesta = int((time.time() - tiempo_inicio) * 1000)
             
-            # 5. Guardar en historial
+            # 5. Guardar en historial con toda la información
             busqueda = BusquedaSemantica.objects.create(
                 usuario=request.user,
                 consulta=consulta_texto,
                 resultados_encontrados=len(resultados),
                 tiempo_respuesta=tiempo_respuesta,
-                filtros_aplicados=filtros_adicionales if filtros_adicionales else None
+                filtros_aplicados=filtros_adicionales if filtros_adicionales else None,
+                modelo_utilizado=modelo_embedding,
+                costo_consulta=costo_consulta,
+                tokens_utilizados=tokens_consulta
             )
             
             # 6. Retornar respuesta
@@ -254,7 +293,9 @@ class BusquedaViewSet(viewsets.ModelViewSet):
                 'resultados': resultados,
                 'totalEncontrados': len(resultados),
                 'tiempoRespuesta': tiempo_respuesta,
-                'modeloUtilizado': settings.OPENAI_EMBEDDING_MODEL,
+                'modeloUtilizado': modelo_embedding,
+                'costoConsulta': float(costo_consulta),
+                'tokensUtilizados': tokens_consulta,
                 'busquedaId': busqueda.id
             })
             
@@ -289,9 +330,25 @@ class BusquedaViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'], url_path='semantica/historial')
     def historial_semantico(self, request):
         """Obtiene el historial de búsquedas semánticas del usuario"""
-        historial = BusquedaSemantica.objects.filter(usuario=request.user)[:10]
+        historial = BusquedaSemantica.objects.filter(usuario=request.user).order_by('-fecha_busqueda')[:10]
         serializer = BusquedaSemanticaSerializer(historial, many=True)
-        return Response(serializer.data)
+        
+        # Formatear datos para el frontend
+        datos_formateados = []
+        for item in serializer.data:
+            datos_formateados.append({
+                'id': item['id'],
+                'consulta': item['consulta'],
+                'fecha': item['fecha_busqueda'],
+                'totalResultados': item['resultados_encontrados'],
+                'tiempoRespuesta': item['tiempo_respuesta'],
+                'modeloUtilizado': item.get('modelo_utilizado', 'text-embedding-3-small'),
+                'costoConsulta': float(item.get('costo_consulta', 0)),
+                'tokensUtilizados': item.get('tokens_utilizados', 0),
+                'filtrosAplicados': item.get('filtros_aplicados')
+            })
+        
+        return Response(datos_formateados)
 
     @action(detail=False, methods=['post'], url_path='semantica/historial')
     def guardar_historial_semantico(self, request):
@@ -430,19 +487,51 @@ class BusquedaViewSet(viewsets.ModelViewSet):
         
         return envios
 
-    def _generar_embedding(self, texto):
-        """Genera un embedding usando OpenAI"""
+    def _generar_embedding(self, texto, modelo=None):
+        """
+        Genera un embedding usando OpenAI y calcula el costo
+        
+        Returns:
+            dict: {
+                'embedding': lista de floats,
+                'tokens': int,
+                'costo': float
+            }
+        """
         client = get_openai_client()
         if not client:
             raise ValueError("OpenAI API key no configurada. Por favor, configura OPENAI_API_KEY en el archivo .env")
         
+        if modelo is None:
+            modelo = getattr(settings, 'OPENAI_EMBEDDING_MODEL', 'text-embedding-3-small')
+        
+        # Precios por 1K tokens según modelo (USD)
+        precios_modelos = {
+            'text-embedding-3-small': 0.00002,
+            'text-embedding-3-large': 0.00013,
+            'text-embedding-ada-002': 0.0001
+        }
+        
+        precio_por_1k = precios_modelos.get(modelo, 0.00002)
+        
         try:
             response = client.embeddings.create(
-                model=settings.OPENAI_EMBEDDING_MODEL,
+                model=modelo,
                 input=texto,
                 encoding_format="float"
             )
-            return response.data[0].embedding
+            
+            embedding = response.data[0].embedding
+            tokens_utilizados = response.usage.total_tokens
+            
+            # Calcular costo: (tokens / 1000) * precio_por_1k
+            costo = (tokens_utilizados / 1000.0) * precio_por_1k
+            
+            return {
+                'embedding': embedding,
+                'tokens': tokens_utilizados,
+                'costo': costo
+            }
         except Exception as e:
             print(f"Error generando embedding: {str(e)}")
             raise
@@ -471,59 +560,83 @@ class BusquedaViewSet(viewsets.ModelViewSet):
         
         return " | ".join(partes)
 
-    def _buscar_envios_similares(self, envios_queryset, embedding_consulta, texto_consulta, limite):
-        """Busca envíos similares usando similitud coseno"""
-        resultados = []
+    def _buscar_envios_similares(self, envios_queryset, embedding_consulta, texto_consulta, limite, modelo_embedding=None):
+        """
+        Busca envíos similares usando múltiples métricas de similitud
+        (cosine similarity, dot product, euclidean distance)
+        """
+        if modelo_embedding is None:
+            modelo_embedding = getattr(settings, 'OPENAI_EMBEDDING_MODEL', 'text-embedding-3-small')
+        
+        # Preparar datos para cálculo de similitudes
+        embeddings_envios = []
+        textos_indexados = {}
         
         for envio in envios_queryset[:500]:  # Limitar a 500 envíos para performance
             # Obtener o generar embedding del envío
             try:
-                envio_embedding = EnvioEmbedding.objects.get(envio=envio)
+                envio_embedding = EnvioEmbedding.objects.get(envio=envio, modelo_usado=modelo_embedding)
                 vector_envio = envio_embedding.get_vector()
                 texto_indexado = envio_embedding.texto_indexado
             except EnvioEmbedding.DoesNotExist:
-                # Generar embedding si no existe
-                texto_indexado = self._generar_texto_envio(envio)
-                vector_envio = self._generar_embedding(texto_indexado)
+                # Generar embedding si no existe o si el modelo cambió
+                texto_indexado = generar_texto_envio(envio)
+                embedding_resultado = generar_embedding(texto_indexado, modelo_embedding)
+                vector_envio = embedding_resultado['embedding']
                 
                 # Guardar para futuras búsquedas
                 envio_embedding = EnvioEmbedding.objects.create(
                     envio=envio,
                     texto_indexado=texto_indexado,
-                    modelo_usado=settings.OPENAI_EMBEDDING_MODEL
+                    modelo_usado=modelo_embedding
                 )
                 envio_embedding.set_vector(vector_envio)
                 envio_embedding.save()
             
-            # Calcular similitud coseno
-            similitud = self._similitud_coseno(embedding_consulta, vector_envio)
+            if vector_envio:
+                embeddings_envios.append((envio.id, vector_envio, envio))
+                textos_indexados[envio.id] = texto_indexado
+        
+        # Calcular todas las métricas de similitud
+        resultados_similitud = calcular_similitudes(embedding_consulta, embeddings_envios)
+        
+        # Aplicar umbral de similitud (cosine >= 0.3)
+        resultados_filtrados = aplicar_umbral_similitud(resultados_similitud, umbral_cosine=0.3)
+        
+        # Ordenar por similitud coseno (por defecto)
+        resultados_ordenados = ordenar_por_metrica(resultados_filtrados, metrica='cosine_similarity', limite=limite)
+        
+        # Formatear resultados para el frontend
+        resultados_finales = []
+        for resultado in resultados_ordenados:
+            envio = resultado['envio']
+            texto_indexado = textos_indexados.get(envio.id, "")
             
-            # Filtrar por umbral mínimo de similitud
-            if similitud >= 0.3:  # Umbral mínimo del 30%
-                # Extraer fragmentos relevantes
-                fragmentos = self._extraer_fragmentos(texto_consulta, texto_indexado)
-                
-                # Generar razón de relevancia
-                razon = self._generar_razon_relevancia(texto_consulta, envio, similitud)
-                
-                # Serializar envío
-                envio_data = EnvioSerializer(envio).data
-                
-                resultados.append({
-                    'envio': envio_data,
-                    'puntuacionSimilitud': round(similitud, 4),
-                    'fragmentosRelevantes': fragmentos,
-                    'razonRelevancia': razon
-                })
+            # Extraer fragmentos relevantes
+            fragmentos = self._extraer_fragmentos(texto_consulta, texto_indexado)
+            
+            # Generar razón de relevancia
+            razon = self._generar_razon_relevancia(texto_consulta, envio, resultado['cosine_similarity'])
+            
+            # Serializar envío
+            envio_data = EnvioSerializer(envio).data
+            
+            resultados_finales.append({
+                'envio': envio_data,
+                # Métricas principales
+                'puntuacionSimilitud': round(resultado['cosine_similarity'], 4),
+                'cosineSimilarity': round(resultado['cosine_similarity'], 4),
+                'dotProduct': round(resultado['dot_product'], 4),
+                'euclideanDistance': round(resultado['euclidean_distance'], 4),
+                'manhattanDistance': round(resultado['manhattan_distance'], 4),
+                'scoreCombinado': round(resultado['score_combinado'], 4),
+                # Información contextual
+                'fragmentosRelevantes': fragmentos,
+                'razonRelevancia': razon,
+                'textoIndexado': texto_indexado[:200] + "..." if len(texto_indexado) > 200 else texto_indexado
+            })
         
-        # Ordenar por similitud y limitar
-        resultados = sorted(
-            resultados,
-            key=lambda x: x['puntuacionSimilitud'],
-            reverse=True
-        )[:limite]
-        
-        return resultados
+        return resultados_finales
 
     def _similitud_coseno(self, vec1, vec2):
         """Calcula la similitud coseno entre dos vectores"""

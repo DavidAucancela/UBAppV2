@@ -7,6 +7,8 @@ from decimal import Decimal, InvalidOperation
 from typing import Dict, List, Tuple, Any
 from django.db import transaction
 from .models import ImportacionExcel, Envio, Producto
+from apps.notificaciones.utils import crear_notificacion_envio_asignado
+from apps.busqueda.utils_embeddings import generar_embedding_envio
 
 
 class ValidadorDatos:
@@ -88,9 +90,45 @@ class ProcesadorExcel:
             # Limpiar nombres de columnas
             self.df.columns = [str(col).strip() for col in self.df.columns]
             
+            # Propagar valores vacíos desde celdas superiores
+            self._propagar_valores_vacios()
+            
             return True, "Archivo leído correctamente"
         except Exception as e:
             return False, f"Error al leer el archivo: {str(e)}"
+    
+    def _propagar_valores_vacios(self):
+        """
+        Propaga valores desde celdas superiores cuando las celdas inferiores están vacías.
+        Esto es útil cuando en Excel se ponen datos como nombre, RUC, etc. una sola vez
+        y las celdas inferiores quedan en blanco.
+        """
+        if self.df is None or len(self.df) == 0:
+            return
+        
+        # Columnas que típicamente tienen valores que se propagan
+        # Buscar columnas que contengan estas palabras clave (case insensitive)
+        columnas_propagables = []
+        palabras_clave = [
+            'nombre', 'consignatario', 'comprador', 'cliente',
+            'ruc', 'cedula', 'cédula', 'identificacion', 'identificación',
+            'direccion', 'dirección', 'telefono', 'teléfono', 'correo', 'email'
+        ]
+        
+        for col in self.df.columns:
+            col_lower = str(col).lower()
+            # Verificar si la columna contiene alguna palabra clave
+            if any(palabra in col_lower for palabra in palabras_clave):
+                columnas_propagables.append(col)
+        
+        # Para cada columna propagable, usar ffill de pandas para propagar valores
+        for col in columnas_propagables:
+            # Convertir strings vacíos a NaN para que ffill funcione correctamente
+            self.df[col] = self.df[col].apply(
+                lambda x: pd.NA if (pd.isna(x) or (isinstance(x, str) and x.strip() == '')) else x
+            )
+            # Usar ffill (forward fill) para propagar valores hacia abajo
+            self.df[col] = self.df[col].ffill()
     
     def obtener_columnas(self) -> List[str]:
         """Obtiene las columnas del DataFrame"""
@@ -354,17 +392,36 @@ class ProcesadorExcel:
         if 'descripcion' in mapeo_inv:
             producto['descripcion'] = ValidadorDatos.limpiar_texto(row[mapeo_inv['descripcion']])
         
+        # Obtener cantidad del producto
+        cantidad_producto = 0
+        if 'cantidad' in mapeo_inv:
+            cantidad, _ = ValidadorDatos.validar_entero(row[mapeo_inv['cantidad']])
+            cantidad_producto = cantidad if cantidad is not None else 0
+            producto['cantidad'] = cantidad_producto
+        
+        # Obtener peso del producto
         if 'peso' in mapeo_inv:
             peso, _ = ValidadorDatos.validar_numero(row[mapeo_inv['peso']])
             producto['peso'] = Decimal(str(peso)) if peso is not None else Decimal('0')
+        elif 'peso_total' in mapeo_inv and cantidad_producto > 0:
+            # Si no hay peso del producto pero sí peso_total y cantidad, calcular peso unitario
+            peso_total = datos.get('peso_total', Decimal('0'))
+            if peso_total > 0:
+                producto['peso'] = peso_total / Decimal(str(cantidad_producto))
+            else:
+                producto['peso'] = Decimal('0')
         
-        if 'cantidad' in mapeo_inv:
-            cantidad, _ = ValidadorDatos.validar_entero(row[mapeo_inv['cantidad']])
-            producto['cantidad'] = cantidad if cantidad is not None else 0
-        
+        # Obtener valor del producto
         if 'valor' in mapeo_inv:
             valor, _ = ValidadorDatos.validar_numero(row[mapeo_inv['valor']])
             producto['valor'] = Decimal(str(valor)) if valor is not None else Decimal('0')
+        elif 'valor_total' in mapeo_inv and cantidad_producto > 0:
+            # Si no hay valor del producto pero sí valor_total y cantidad, calcular valor unitario
+            valor_total = datos.get('valor_total', Decimal('0'))
+            if valor_total > 0:
+                producto['valor'] = valor_total / Decimal(str(cantidad_producto))
+            else:
+                producto['valor'] = Decimal('0')
         
         if 'categoria' in mapeo_inv:
             categoria, _ = ValidadorDatos.validar_categoria(row[mapeo_inv['categoria']])
@@ -382,6 +439,18 @@ class ProcesadorExcel:
         # Extraer datos del producto si existe
         producto_datos = datos.pop('producto', None)
         
+        # Ajustar el nombre del campo comprador_id a comprador
+        if 'comprador_id' in datos:
+            comprador_id = datos.pop('comprador_id')
+            if comprador_id:
+                from django.contrib.auth import get_user_model
+                Usuario = get_user_model()
+                try:
+                    comprador = Usuario.objects.get(id=comprador_id)
+                    datos['comprador'] = comprador
+                except Usuario.DoesNotExist:
+                    raise ValueError(f"Comprador con ID {comprador_id} no existe")
+        
         # Crear el envío
         envio = Envio.objects.create(**datos)
         
@@ -390,6 +459,17 @@ class ProcesadorExcel:
             Producto.objects.create(envio=envio, **producto_datos)
             # Recalcular totales
             envio.calcular_totales()
+        
+        # Crear notificación cuando se asigna un envío a un comprador
+        if envio.comprador and envio.comprador.es_comprador:
+            crear_notificacion_envio_asignado(envio)
+        
+        # Generar embedding automáticamente para búsqueda semántica
+        try:
+            generar_embedding_envio(envio)
+        except Exception as e_embed:
+            # No fallar la importación si falla el embedding
+            print(f"Advertencia: No se pudo generar embedding para envío {envio.hawb}: {str(e_embed)}")
         
         return envio
 
@@ -421,6 +501,14 @@ def generar_reporte_errores(importacion: ImportacionExcel) -> Dict[str, Any]:
     }
     
     return reporte
+
+
+
+
+
+
+
+
 
 
 

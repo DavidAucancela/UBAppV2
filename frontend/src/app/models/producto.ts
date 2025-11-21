@@ -27,6 +27,7 @@ export interface ProductoUpdate {
   cantidad?: number;
   valor?: number;
   categoria?: string;
+  envio?: number;
 }
 
 export enum CategoriasProducto {

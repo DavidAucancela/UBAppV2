@@ -67,16 +67,17 @@ class UsuarioSerializer(serializers.ModelSerializer):
 
     def validate_telefono(self, value):
         """Valida formato de teléfono ecuatoriano"""
-        if value:
+        if value and isinstance(value, str) and value.strip():  # Solo validar si tiene valor y no está vacío
             # Formatos válidos: 09XXXXXXXX, 0X-XXXXXXX, 0XXXXXXXXX
             patron = r'^0[2-9]\d{7,8}$'
-            valor_limpio = value.replace('-', '').replace(' ', '')
+            valor_limpio = value.replace('-', '').replace(' ', '').strip()
             
             if not re.match(patron, valor_limpio):
                 raise serializers.ValidationError(
                     "Formato de teléfono inválido. Use formato ecuatoriano (ej: 0999999999 o 02-3456789)"
                 )
-        return value
+            return valor_limpio  # Retornar el valor limpio
+        return None  # Retornar None si está vacío o es None
 
     def validate_username(self, value):
         """Valida formato de username"""

@@ -53,10 +53,10 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   stats: any = {};
   loading = true;
   exportingData = false;
+  ultimaActualizacion: Date = new Date();
 
-  // Exponer Math y Date para usar en el template
+  // Exponer Math para usar en el template
   Math = Math;
-  Date = Date;
 
   // Control de pantalla completa
   fullscreenChart: string | null = null;
@@ -70,6 +70,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   private datosEnviosCargados = false;
   private datosProductosCargados = false;
   private datosUsuariosCargados = false;
+  private chartsUpdateScheduled = false;
+  private chartsUpdateTimeout: any = null;
+  private chartsInitialized = false;
+  private initializationAttempts = 0;
+  private readonly MAX_INIT_ATTEMPTS = 10;
+  private updateChartsRetryCount = 0;
+  private readonly MAX_UPDATE_RETRIES = 5;
+  private isInitializing = false;
 
   // Filtros
   filters: FilterOptions = {
@@ -87,6 +95,34 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     valorPromedio: 0,
     satisfaccionCliente: 0
   };
+
+  // Estadísticas de notificaciones
+  notificacionesStats = {
+    total: 0,
+    noLeidas: 0,
+    porTipo: {} as Record<string, number>
+  };
+
+  // Estadísticas de consultas semánticas
+  semanticasStats = {
+    totalConsultas: 0,
+    totalEmbeddings: 0,
+    totalTokens: 0,
+    datosVectorizados: 0,
+    promedioTiempoRespuesta: 0
+  };
+
+  // Estadísticas geográficas
+  geograficasStats = {
+    usuariosPorProvincia: {} as Record<string, number>,
+    usuariosPorCanton: {} as Record<string, number>,
+    usuariosPorCiudad: {} as Record<string, number>,
+    totalConUbicacion: 0
+  };
+
+  // Control de visualización de tarjetas
+  mostrarTodasLasTarjetas = true;
+  categoriaSeleccionada: string | null = null;
 
   // Opciones de filtros
   periodos = [
@@ -122,14 +158,22 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentUser = this.authService.getCurrentUser();
     this.loadStats();
     this.loadAllData();
+    this.loadNotificacionesStats();
+    this.loadSemanticasStats();
+    this.loadGeograficasStats();
   }
 
   ngAfterViewInit(): void {
-    // Los gráficos se actualizarán automáticamente cuando los datos estén cargados
-    // mediante el método checkAndUpdateCharts()
+    // Esperar a que el DOM esté completamente renderizado
+    setTimeout(() => {
+      this.initializeCharts();
+    }, 200);
   }
 
   ngOnDestroy(): void {
+    if (this.chartsUpdateTimeout) {
+      clearTimeout(this.chartsUpdateTimeout);
+    }
     this.destroyAllCharts();
   }
 
@@ -152,10 +196,12 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (userStats) => {
         this.stats.usuarios = userStats;
         this.loading = false;
+        this.ultimaActualizacion = new Date();
       },
       error: (error) => {
         console.error('Error cargando estadísticas de usuarios:', error);
         this.loading = false;
+        this.ultimaActualizacion = new Date();
       }
     });
 
@@ -163,11 +209,15 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.apiService.getEstadisticasEnvios().subscribe({
       next: (envioStats) => {
         this.stats.envios = this.normalizeEnviosStats(envioStats);
-        this.refreshEnviosPorEstadoFromList();
+        // Actualizar KPIs con los datos reales del backend
+        this.updateKPIsFromStats();
+        // refreshEnviosPorEstadoFromListData() se llamará desde loadAllData() cuando los datos estén disponibles
+        this.ultimaActualizacion = new Date();
       },
       error: (error) => {
         console.error('Error cargando estadísticas de envíos:', error);
-        this.refreshEnviosPorEstadoFromList();
+        // refreshEnviosPorEstadoFromListData() se llamará desde loadAllData() cuando los datos estén disponibles
+        this.ultimaActualizacion = new Date();
       }
     });
 
@@ -175,9 +225,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.apiService.getEstadisticasProductos().subscribe({
       next: (productoStats) => {
         this.stats.productos = productoStats;
+        // Actualizar KPIs con los datos reales del backend
+        this.updateKPIsFromStats();
+        this.ultimaActualizacion = new Date();
       },
       error: (error) => {
         console.error('Error cargando estadísticas de productos:', error);
+        this.ultimaActualizacion = new Date();
       }
     });
   }
@@ -187,13 +241,17 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.apiService.getEstadisticasEnvios().subscribe({
       next: (envioStats) => {
         this.stats.envios = this.normalizeEnviosStats(envioStats);
+        // Actualizar KPIs con los datos reales del backend
+        this.updateKPIsFromStats();
         this.loading = false;
-        this.refreshEnviosPorEstadoFromList();
+        // refreshEnviosPorEstadoFromListData() se llamará desde loadAllData() cuando los datos estén disponibles
+        this.ultimaActualizacion = new Date();
       },
       error: (error) => {
         console.error('Error cargando estadísticas de envíos:', error);
         this.loading = false;
-        this.refreshEnviosPorEstadoFromList();
+        // refreshEnviosPorEstadoFromListData() se llamará desde loadAllData() cuando los datos estén disponibles
+        this.ultimaActualizacion = new Date();
       }
     });
 
@@ -201,9 +259,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.apiService.getEstadisticasProductos().subscribe({
       next: (productoStats) => {
         this.stats.productos = productoStats;
+        // Actualizar KPIs con los datos reales del backend
+        this.updateKPIsFromStats();
+        this.ultimaActualizacion = new Date();
       },
       error: (error) => {
         console.error('Error cargando estadísticas de productos:', error);
+        this.ultimaActualizacion = new Date();
       }
     });
   }
@@ -212,17 +274,23 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     // Cargar estadísticas de envíos propios
     this.apiService.getMisEnvios().subscribe({
       next: (envios) => {
+        const listaEnvios = Array.isArray(envios) ? envios : (envios as any).results || [];
         this.stats.misEnvios = {
-          total: envios.length,
-          pendientes: envios.filter(e => e.estado === 'pendiente').length,
-          en_transito: envios.filter(e => e.estado === 'en_transito').length,
-          entregados: envios.filter(e => e.estado === 'entregado').length
+          total: listaEnvios.length,
+          pendientes: listaEnvios.filter((e: any) => e.estado === 'pendiente').length,
+          en_transito: listaEnvios.filter((e: any) => e.estado === 'en_transito').length,
+          entregados: listaEnvios.filter((e: any) => e.estado === 'entregado').length
         };
+        // Actualizar KPIs con los datos del comprador
+        this.kpis.totalEnvios = this.stats.misEnvios.total;
+        this.kpis.enviosPendientes = this.stats.misEnvios.pendientes;
         this.loading = false;
+        this.ultimaActualizacion = new Date();
       },
       error: (error) => {
         console.error('Error cargando envíos:', error);
         this.loading = false;
+        this.ultimaActualizacion = new Date();
       }
     });
   }
@@ -234,12 +302,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         this.enviosData = Array.isArray(envios) ? envios : (envios as any).results || [];
         this.datosEnviosCargados = true;
         this.calculateKPIs();
+        // Actualizar estadísticas de estado usando los datos cargados
+        this.refreshEnviosPorEstadoFromListData();
         this.checkAndUpdateCharts();
+        this.ultimaActualizacion = new Date();
       },
       error: (error) => {
         console.error('Error cargando envíos:', error);
         this.datosEnviosCargados = true;
         this.checkAndUpdateCharts();
+        this.ultimaActualizacion = new Date();
       }
     });
 
@@ -250,11 +322,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         this.datosProductosCargados = true;
         this.calculateKPIs();
         this.checkAndUpdateCharts();
+        this.ultimaActualizacion = new Date();
       },
       error: (error) => {
         console.error('Error cargando productos:', error);
         this.datosProductosCargados = true;
         this.checkAndUpdateCharts();
+        this.ultimaActualizacion = new Date();
       }
     });
 
@@ -266,11 +340,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
           this.datosUsuariosCargados = true;
           this.calculateKPIs();
           this.checkAndUpdateCharts();
+          this.ultimaActualizacion = new Date();
         },
         error: (error) => {
           console.error('Error cargando usuarios:', error);
           this.datosUsuariosCargados = true;
           this.checkAndUpdateCharts();
+          this.ultimaActualizacion = new Date();
         }
       });
     } else {
@@ -279,38 +355,142 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  private initializeCharts(): void {
+    // Evitar múltiples inicializaciones simultáneas
+    if (this.isInitializing) {
+      return;
+    }
+
+    // Si ya están inicializados, solo actualizar
+    if (this.chartsInitialized && this.areChartsReady()) {
+      this.updateCharts();
+      return;
+    }
+
+    // Verificar si los canvas están disponibles
+    if (this.areChartsReady()) {
+      this.isInitializing = true;
+      try {
+        this.updateCharts();
+        this.chartsInitialized = true;
+        this.initializationAttempts = 0;
+      } finally {
+        this.isInitializing = false;
+      }
+    } else {
+      // Reintentar si no se han excedido los intentos máximos
+      if (this.initializationAttempts < this.MAX_INIT_ATTEMPTS) {
+        this.initializationAttempts++;
+        setTimeout(() => this.initializeCharts(), 200);
+      } else {
+        console.warn('No se pudieron inicializar los gráficos después de múltiples intentos');
+        this.isInitializing = false;
+      }
+    }
+  }
+
+  private areChartsReady(): boolean {
+    // Verificar que los canvas estén disponibles en el DOM
+    // Solo verificamos los que están visibles según mostrarCategoria
+    const needsGraficos = this.mostrarCategoria('graficos');
+    
+    if (!needsGraficos) {
+      return false; // Los gráficos no están visibles aún
+    }
+
+    // Verificar que los ViewChild estén disponibles y que los elementos estén en el DOM
+    // Usar querySelector como respaldo si ViewChild no está disponible aún
+    const checkElement = (ref: ElementRef<HTMLCanvasElement> | undefined): boolean => {
+      if (!ref?.nativeElement) {
+        return false;
+      }
+      // Verificar que el elemento esté realmente en el DOM
+      return document.contains(ref.nativeElement);
+    };
+
+    return (
+      checkElement(this.enviosChartRef) &&
+      checkElement(this.productosChartRef) &&
+      checkElement(this.estadosChartRef) &&
+      checkElement(this.tendenciasChartRef) &&
+      checkElement(this.categoriasChartRef) &&
+      checkElement(this.kpiChartRef)
+    );
+  }
+
   private checkAndUpdateCharts(): void {
     // Verificar si todos los datos necesarios están cargados
     if (this.datosEnviosCargados && this.datosProductosCargados && this.datosUsuariosCargados) {
-      console.log('All data loaded, preparing to update charts...');
+      // Evitar múltiples llamadas simultáneas
+      if (this.chartsUpdateScheduled) {
+        return;
+      }
+      
+      this.chartsUpdateScheduled = true;
+      
+      // Limpiar timeout anterior si existe
+      if (this.chartsUpdateTimeout) {
+        clearTimeout(this.chartsUpdateTimeout);
+      }
+      
       // Esperar a que los ViewChild estén listos
-      setTimeout(() => {
-        this.updateCharts();
+      this.chartsUpdateTimeout = setTimeout(() => {
+        this.chartsUpdateScheduled = false;
+        
+        // Verificar si los gráficos están listos para ser creados/actualizados
+        if (this.areChartsReady()) {
+          if (this.chartsInitialized) {
+            // Actualizar gráficos existentes
+            this.updateCharts();
+          } else {
+            // Inicializar gráficos por primera vez
+            this.initializeCharts();
+          }
+        } else if (!this.chartsInitialized) {
+          // Si aún no están listos pero no se han inicializado, intentar inicializar
+          // Esto maneja el caso donde los datos están listos pero el DOM aún no
+          this.initializeCharts();
+        }
       }, 300);
     }
   }
 
   calculateKPIs(): void {
-    // Total de envíos
-    this.kpis.totalEnvios = this.enviosData.length;
+    // Este método se mantiene para compatibilidad, pero ahora usamos updateKPIsFromStats()
+    // que obtiene los datos reales del backend
+    this.updateKPIsFromStats();
+  }
 
-    // Total de productos
-    this.kpis.totalProductos = this.productosData.length;
+  updateKPIsFromStats(): void {
+    // Usar estadísticas del backend si están disponibles (datos reales)
+    if (this.stats.envios && this.stats.envios.total_envios !== undefined) {
+      this.kpis.totalEnvios = this.stats.envios.total_envios || 0;
+      this.kpis.enviosPendientes = this.stats.envios.envios_pendientes || 0;
+    } else {
+      // Fallback: usar datos cargados (puede estar paginado)
+      this.kpis.totalEnvios = this.enviosData.length;
+      this.kpis.enviosPendientes = this.enviosData.filter(e => 
+        e.estado === 'pendiente' || e.estado === 'Pendiente'
+      ).length;
+    }
 
-    // Envíos pendientes
-    this.kpis.enviosPendientes = this.enviosData.filter(e => 
-      e.estado === 'pendiente' || e.estado === 'Pendiente'
-    ).length;
+    // Total de productos desde estadísticas del backend si está disponible
+    if (this.stats.productos && this.stats.productos.total !== undefined) {
+      this.kpis.totalProductos = this.stats.productos.total || 0;
+    } else {
+      // Fallback: usar datos cargados
+      this.kpis.totalProductos = this.productosData.length;
+    }
 
     // Tasa de crecimiento (simulada basada en fechas)
     const enviosRecientes = this.filterByPeriod(this.enviosData, 'mes');
-    const enviosAnteriores = this.enviosData.length - enviosRecientes.length;
+    const enviosAnteriores = this.kpis.totalEnvios - enviosRecientes.length;
     this.kpis.tasaCrecimiento = enviosAnteriores > 0 
       ? ((enviosRecientes.length - enviosAnteriores) / enviosAnteriores) * 100 
       : 0;
 
     // Valor promedio (simulado)
-    this.kpis.valorPromedio = this.enviosData.length > 0 
+    this.kpis.valorPromedio = this.kpis.totalEnvios > 0 
       ? Math.round((Math.random() * 500 + 100) * 100) / 100 
       : 0;
 
@@ -346,36 +526,119 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onFilterChange(): void {
-    this.updateCharts();
+    // Cuando se aplica un filtro, ocultar todas las tarjetas y mostrar solo el gráfico seleccionado
+    this.mostrarTodasLasTarjetas = false;
+    // Esperar a que el DOM se actualice antes de actualizar los gráficos
+    setTimeout(() => {
+      if (this.areChartsReady()) {
+        this.updateCharts();
+      }
+    }, 100);
+  }
+
+  resetFilters(): void {
+    this.filters = {
+      periodo: 'mes',
+      tipoGrafico: 'barras',
+      metrica: 'envios'
+    };
+    // Restaurar visualización de todas las tarjetas
+    this.mostrarTodasLasTarjetas = true;
+    this.categoriaSeleccionada = null;
+    // Esperar a que el DOM se actualice antes de actualizar los gráficos
+    setTimeout(() => {
+      if (this.areChartsReady()) {
+        this.updateCharts();
+      }
+    }, 100);
+  }
+
+  seleccionarCategoria(categoria: string): void {
+    if (this.categoriaSeleccionada === categoria) {
+      // Si ya está seleccionada, restaurar vista completa
+      this.categoriaSeleccionada = null;
+      this.mostrarTodasLasTarjetas = true;
+    } else {
+      // Ocultar todas y mostrar solo la categoría seleccionada
+      this.categoriaSeleccionada = categoria;
+      this.mostrarTodasLasTarjetas = false;
+    }
+    // Si se selecciona la categoría de gráficos, asegurar que estén inicializados
+    if (categoria === 'graficos') {
+      setTimeout(() => {
+        if (!this.chartsInitialized && this.areChartsReady()) {
+          this.initializeCharts();
+        } else if (this.chartsInitialized && this.areChartsReady()) {
+          this.updateCharts();
+        }
+      }, 100);
+    }
+  }
+
+  mostrarCategoria(categoria: string): boolean {
+    if (this.mostrarTodasLasTarjetas) return true;
+    return this.categoriaSeleccionada === categoria;
   }
 
   updateCharts(): void {
-    // Verificar que todos los canvas estén disponibles
-    if (!this.enviosChartRef?.nativeElement || 
-        !this.productosChartRef?.nativeElement ||
-        !this.estadosChartRef?.nativeElement ||
-        !this.tendenciasChartRef?.nativeElement ||
-        !this.categoriasChartRef?.nativeElement ||
-        !this.kpiChartRef?.nativeElement) {
-      console.log('Charts canvas not ready yet');
+    // Verificar que los canvas estén disponibles antes de continuar
+    if (!this.areChartsReady()) {
+      // Evitar bucles infinitos
+      if (this.updateChartsRetryCount >= this.MAX_UPDATE_RETRIES) {
+        console.warn('Max retries reached for updateCharts, aborting');
+        this.updateChartsRetryCount = 0;
+        return;
+      }
+      
+      console.log('Charts canvas not ready yet, will retry...');
+      this.updateChartsRetryCount++;
+      
+      // Reintentar después de un breve delay
+      setTimeout(() => {
+        if (this.areChartsReady()) {
+          this.updateChartsRetryCount = 0; // Reset counter on success
+          this.updateCharts();
+        } else {
+          this.updateChartsRetryCount = 0; // Reset counter if still not ready
+        }
+      }, 200);
       return;
     }
 
+    // Reset retry counter when charts are ready
+    this.updateChartsRetryCount = 0;
+
+    // Destruir gráficos existentes de forma segura
     this.destroyAllCharts();
 
-    setTimeout(() => {
+    // Usar requestAnimationFrame para asegurar que el DOM esté listo
+    requestAnimationFrame(() => {
       try {
-        this.createEnviosChart();
-        this.createProductosChart();
-        this.createEstadosChart();
-        this.createTendenciasChart();
-        this.createCategoriasChart();
-        this.createKPIChart();
+        // Crear gráficos uno por uno con manejo de errores individual
+        if (this.enviosChartRef?.nativeElement) {
+          this.createEnviosChart();
+        }
+        if (this.productosChartRef?.nativeElement) {
+          this.createProductosChart();
+        }
+        if (this.estadosChartRef?.nativeElement) {
+          this.createEstadosChart();
+        }
+        if (this.tendenciasChartRef?.nativeElement) {
+          this.createTendenciasChart();
+        }
+        if (this.categoriasChartRef?.nativeElement) {
+          this.createCategoriasChart();
+        }
+        if (this.kpiChartRef?.nativeElement) {
+          this.createKPIChart();
+        }
         console.log('Charts created successfully');
       } catch (error) {
         console.error('Error creating charts:', error);
+        // No propagar el error para evitar cuelgues
       }
-    }, 100);
+    });
   }
 
   destroyAllCharts(): void {
@@ -406,7 +669,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   createEnviosChart(): void {
-    if (!this.enviosChartRef?.nativeElement) return;
+    if (!this.enviosChartRef?.nativeElement) {
+      console.warn('enviosChart canvas not available');
+      return;
+    }
+    
+    // Destruir gráfico existente si existe
+    if (this.enviosChart) {
+      this.enviosChart.destroy();
+      this.enviosChart = null;
+    }
 
     const filteredData = this.filterByPeriod(this.enviosData, this.filters.periodo);
     const groupedData = this.groupByDate(filteredData);
@@ -452,7 +724,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   createProductosChart(): void {
-    if (!this.productosChartRef?.nativeElement) return;
+    if (!this.productosChartRef?.nativeElement) {
+      console.warn('productosChart canvas not available');
+      return;
+    }
+    
+    // Destruir gráfico existente si existe
+    if (this.productosChart) {
+      this.productosChart.destroy();
+      this.productosChart = null;
+    }
 
     const categorias = this.groupByCategory(this.productosData);
 
@@ -497,7 +778,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   createEstadosChart(): void {
-    if (!this.estadosChartRef?.nativeElement) return;
+    if (!this.estadosChartRef?.nativeElement) {
+      console.warn('estadosChart canvas not available');
+      return;
+    }
+    
+    // Destruir gráfico existente si existe
+    if (this.estadosChart) {
+      this.estadosChart.destroy();
+      this.estadosChart = null;
+    }
 
     const estados = this.groupByEstado(this.enviosData);
 
@@ -536,7 +826,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   createTendenciasChart(): void {
-    if (!this.tendenciasChartRef?.nativeElement) return;
+    if (!this.tendenciasChartRef?.nativeElement) {
+      console.warn('tendenciasChart canvas not available');
+      return;
+    }
+    
+    // Destruir gráfico existente si existe
+    if (this.tendenciasChart) {
+      this.tendenciasChart.destroy();
+      this.tendenciasChart = null;
+    }
 
     const tendencias = this.calculateTrends();
 
@@ -591,7 +890,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   createCategoriasChart(): void {
-    if (!this.categoriasChartRef?.nativeElement) return;
+    if (!this.categoriasChartRef?.nativeElement) {
+      console.warn('categoriasChart canvas not available');
+      return;
+    }
+    
+    // Destruir gráfico existente si existe
+    if (this.categoriasChart) {
+      this.categoriasChart.destroy();
+      this.categoriasChart = null;
+    }
 
     const metricas = this.calculateMetricsRadar();
 
@@ -637,7 +945,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   createKPIChart(): void {
-    if (!this.kpiChartRef?.nativeElement) return;
+    if (!this.kpiChartRef?.nativeElement) {
+      console.warn('kpiChart canvas not available');
+      return;
+    }
+    
+    // Destruir gráfico existente si existe
+    if (this.kpiChart) {
+      this.kpiChart.destroy();
+      this.kpiChart = null;
+    }
 
     const kpiData = [
       this.kpis.tasaCrecimiento > 0 ? this.kpis.tasaCrecimiento : 0,
@@ -1056,13 +1373,100 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  resetFilters(): void {
-    this.filters = {
-      periodo: 'mes',
-      tipoGrafico: 'barras',
-      metrica: 'envios'
-    };
-    this.updateCharts();
+  loadNotificacionesStats(): void {
+    // Cargar estadísticas de notificaciones
+    this.apiService.getNotificaciones().subscribe({
+      next: (response: any) => {
+        const notificaciones = Array.isArray(response) ? response : (response.results || []);
+        this.notificacionesStats.total = notificaciones.length;
+        this.notificacionesStats.noLeidas = notificaciones.filter((n: any) => !n.leida).length;
+        
+        // Contar por tipo
+        const porTipo: Record<string, number> = {};
+        notificaciones.forEach((n: any) => {
+          porTipo[n.tipo] = (porTipo[n.tipo] || 0) + 1;
+        });
+        this.notificacionesStats.porTipo = porTipo;
+      },
+      error: (error) => {
+        console.error('Error cargando estadísticas de notificaciones:', error);
+      }
+    });
+  }
+
+  loadSemanticasStats(): void {
+    // Cargar estadísticas de consultas semánticas usando el endpoint de métricas
+    this.apiService.obtenerMetricasSemanticas().subscribe({
+      next: (stats: any) => {
+        this.semanticasStats.totalConsultas = stats.total_consultas || 0;
+        this.semanticasStats.totalEmbeddings = stats.total_embeddings || 0;
+        this.semanticasStats.totalTokens = stats.total_tokens || 0;
+        this.semanticasStats.datosVectorizados = stats.datos_vectorizados || 0;
+        this.semanticasStats.promedioTiempoRespuesta = stats.promedio_tiempo_respuesta || 0;
+      },
+      error: (error) => {
+        console.error('Error cargando estadísticas semánticas:', error);
+        // Si el endpoint no existe o falla, calcular desde los datos disponibles
+        this.calcularStatsSemanticasDesdeDatos();
+      }
+    });
+  }
+
+  calcularStatsSemanticasDesdeDatos(): void {
+    // Calcular estadísticas básicas desde los modelos disponibles
+    // Esto es un fallback si el endpoint no está disponible
+    this.apiService.obtenerHistorialSemantico().subscribe({
+      next: (historial: any) => {
+        const lista = Array.isArray(historial) ? historial : [];
+        this.semanticasStats.totalConsultas = lista.length;
+        
+        // Calcular tiempo promedio
+        if (lista.length > 0) {
+          const tiempos = lista.map((h: any) => h.tiempo_respuesta || 0).filter((t: number) => t > 0);
+          this.semanticasStats.promedioTiempoRespuesta = tiempos.length > 0
+            ? tiempos.reduce((a: number, b: number) => a + b, 0) / tiempos.length
+            : 0;
+        }
+      },
+      error: () => {
+        // Si también falla, dejar valores en 0
+      }
+    });
+  }
+
+  loadGeograficasStats(): void {
+    // Cargar estadísticas geográficas de usuarios
+    this.apiService.getUsuarios().subscribe({
+      next: (usuarios: any) => {
+        const listaUsuarios = Array.isArray(usuarios) ? usuarios : (usuarios.results || []);
+        
+        const porProvincia: Record<string, number> = {};
+        const porCanton: Record<string, number> = {};
+        const porCiudad: Record<string, number> = {};
+        let conUbicacion = 0;
+
+        listaUsuarios.forEach((usuario: any) => {
+          if (usuario.provincia) {
+            porProvincia[usuario.provincia] = (porProvincia[usuario.provincia] || 0) + 1;
+            conUbicacion++;
+          }
+          if (usuario.canton) {
+            porCanton[usuario.canton] = (porCanton[usuario.canton] || 0) + 1;
+          }
+          if (usuario.ciudad) {
+            porCiudad[usuario.ciudad] = (porCiudad[usuario.ciudad] || 0) + 1;
+          }
+        });
+
+        this.geograficasStats.usuariosPorProvincia = porProvincia;
+        this.geograficasStats.usuariosPorCanton = porCanton;
+        this.geograficasStats.usuariosPorCiudad = porCiudad;
+        this.geograficasStats.totalConUbicacion = conUbicacion;
+      },
+      error: (error) => {
+        console.error('Error cargando estadísticas geográficas:', error);
+      }
+    });
   }
 
   // Métodos de verificación de roles
@@ -1148,6 +1552,43 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     return keyNormalized === canonical || keyNormalized === label;
   }
 
+  // Método que usa los datos ya cargados (sin hacer llamada HTTP adicional)
+  private refreshEnviosPorEstadoFromListData(): void {
+    if (!this.enviosData || this.enviosData.length === 0) {
+      return; // Esperar a que loadAllData() cargue los datos
+    }
+    
+    const counts: Record<string, number> = {
+      'Entregado': 0,
+      'En tránsito': 0,
+      'Pendiente': 0,
+      'Cancelado': 0
+    };
+    
+    this.enviosData.forEach((e: any) => {
+      const key = this.normalizeText(e.estado);
+      
+      if (this.estadoMatches(key, EstadosEnvio.ENTREGADO)) {
+        counts['Entregado'] += 1;
+      }
+      else if (this.estadoMatches(key, EstadosEnvio.EN_TRANSITO)) {
+        counts['En tránsito'] += 1;
+      }
+      else if (this.estadoMatches(key, EstadosEnvio.PENDIENTE)) {
+        counts['Pendiente'] += 1;
+      }
+      else if (this.estadoMatches(key, EstadosEnvio.CANCELADO)) {
+        counts['Cancelado'] += 1;
+      }
+    });
+    
+    if (!this.stats.envios) this.stats.envios = {};
+    this.stats.envios.por_estado = counts;
+    this.stats.envios.total_envios = this.enviosData.length;
+    this.stats.envios.envios_pendientes = counts['Pendiente'];
+  }
+
+  // Método original mantenido por compatibilidad (pero no se usa en el flujo normal)
   private refreshEnviosPorEstadoFromList(): void {
     const compute = (lista: any[]) => {
       const counts: Record<string, number> = {
@@ -1233,5 +1674,51 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     else if (this.estadoMatches(normalized, EstadosEnvio.ENTREGADO)) estado = EstadosEnvio.ENTREGADO;
     else if (this.estadoMatches(normalized, EstadosEnvio.CANCELADO)) estado = EstadosEnvio.CANCELADO;
     this.router.navigate(['/envios'], { queryParams: estado ? { estado } : undefined });
+  }
+
+  // Métodos auxiliares para notificaciones
+  getNotificacionesTipos(): string[] {
+    return Object.keys(this.notificacionesStats.porTipo);
+  }
+
+  getNotificacionIcon(tipo: string): string {
+    const iconMap: Record<string, string> = {
+      'nuevo_envio': 'fa-truck',
+      'envio_asignado': 'fa-user-check',
+      'estado_cambiado': 'fa-exchange-alt',
+      'general': 'fa-info-circle'
+    };
+    return iconMap[tipo] || 'fa-bell';
+  }
+
+  getNotificacionLabel(tipo: string): string {
+    const labelMap: Record<string, string> = {
+      'nuevo_envio': 'Nuevo Envío',
+      'envio_asignado': 'Envío Asignado',
+      'estado_cambiado': 'Estado Cambiado',
+      'general': 'General'
+    };
+    return labelMap[tipo] || tipo;
+  }
+
+  // Métodos auxiliares para estadísticas geográficas
+  getTotalProvincias(): number {
+    return Object.keys(this.geograficasStats.usuariosPorProvincia).length;
+  }
+
+  getTotalCantones(): number {
+    return Object.keys(this.geograficasStats.usuariosPorCanton).length;
+  }
+
+  getTotalCiudades(): number {
+    return Object.keys(this.geograficasStats.usuariosPorCiudad).length;
+  }
+
+  getTopProvincias(): Array<{nombre: string, cantidad: number}> {
+    const provincias = Object.entries(this.geograficasStats.usuariosPorProvincia)
+      .map(([nombre, cantidad]) => ({ nombre, cantidad: cantidad as number }))
+      .sort((a, b) => b.cantidad - a.cantidad)
+      .slice(0, 5);
+    return provincias;
   }
 }

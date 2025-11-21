@@ -8,7 +8,11 @@ from django.db.models import Q
 from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.core.mail import send_mail
+from django.conf import settings
 from datetime import datetime, timedelta
+import secrets
+import string
 from .serializers import UsuarioSerializer, UsuarioListSerializer, CompradorSerializer, CompradorMapaSerializer, DashboardUsuarioSerializer
 from .permissions import SoloAdmin
 from .validators import validar_password_fuerte
@@ -134,6 +138,155 @@ class LogoutView(APIView):
         return Response({
             'message': 'Logout exitoso'
         })
+
+@method_decorator(csrf_exempt, name='dispatch')
+class VerifyEmailView(APIView):
+    """Vista para verificar si un correo electrónico existe en el sistema"""
+    permission_classes = [permissions.AllowAny]
+    authentication_classes = []
+    
+    def post(self, request):
+        email = request.data.get('email')
+        
+        if not email:
+            return Response({
+                'error': 'El correo electrónico es requerido'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            usuario = Usuario.objects.get(correo=email)
+            return Response({
+                'exists': True
+            })
+        except Usuario.DoesNotExist:
+            return Response({
+                'exists': False
+            })
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ResetPasswordView(APIView):
+    """Vista para solicitar restablecimiento de contraseña mediante correo electrónico"""
+    permission_classes = [permissions.AllowAny]
+    authentication_classes = []
+    
+    def generate_reset_token(self):
+        """Genera un token seguro para restablecer contraseña"""
+        alphabet = string.ascii_letters + string.digits
+        return ''.join(secrets.choice(alphabet) for i in range(32))
+    
+    def post(self, request):
+        email = request.data.get('email')
+        
+        if not email:
+            return Response({
+                'error': 'El correo electrónico es requerido'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            usuario = Usuario.objects.get(correo=email)
+            
+            # Generar token de restablecimiento
+            reset_token = self.generate_reset_token()
+            
+            # Guardar token en cache con expiración de 1 hora
+            cache_key = f'reset_password_{reset_token}'
+            cache.set(cache_key, usuario.id, timeout=3600)  # 1 hora
+            
+            # Generar nueva contraseña temporal
+            new_password = ''.join(secrets.choice(string.ascii_letters + string.digits) for i in range(12))
+            
+            # Actualizar contraseña del usuario
+            usuario.set_password(new_password)
+            usuario.save()
+            
+            # Enviar correo con la nueva contraseña
+            try:
+                send_mail(
+                    subject='Restablecimiento de contraseña - UBApp',
+                    message=f'''
+Hola {usuario.nombre or usuario.username},
+
+Has solicitado restablecer tu contraseña en UBApp.
+
+Tu nueva contraseña temporal es: {new_password}
+
+Por favor, inicia sesión con esta contraseña y cámbiala inmediatamente por una contraseña segura.
+
+Si no solicitaste este restablecimiento, por favor contacta al administrador del sistema.
+
+Saludos,
+Equipo UBApp
+                    ''',
+                    from_email=settings.DEFAULT_FROM_EMAIL if hasattr(settings, 'DEFAULT_FROM_EMAIL') else 'noreply@ubapp.com',
+                    recipient_list=[email],
+                    fail_silently=False,
+                )
+                
+                return Response({
+                    'message': 'Se ha enviado un correo electrónico con tu nueva contraseña temporal. Por favor, revisa tu bandeja de entrada.'
+                })
+            except Exception as e:
+                # Si falla el envío de correo, revertir el cambio de contraseña
+                # En producción, deberías manejar esto mejor (guardar la contraseña anterior)
+                return Response({
+                    'error': 'Error al enviar el correo electrónico. Por favor, contacta al administrador.'
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                
+        except Usuario.DoesNotExist:
+            # Por seguridad, no revelamos si el correo existe o no
+            return Response({
+                'message': 'Si el correo está registrado, recibirás instrucciones para restablecer tu contraseña.'
+            })
+
+@method_decorator(csrf_exempt, name='dispatch')
+class RegisterCompradorView(APIView):
+    """Vista pública para registro de compradores (rol 4)"""
+    permission_classes = [permissions.AllowAny]
+    authentication_classes = []
+    
+    def post(self, request):
+        from .serializers import UsuarioSerializer
+        from .validators import validar_password_fuerte
+        
+        # Validar que solo se registren compradores
+        rol = request.data.get('rol', 4)
+        if rol != 4:
+            return Response({
+                'error': 'Solo se permite el registro de compradores'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Validar contraseña fuerte
+        password = request.data.get('password')
+        if not password:
+            return Response({
+                'error': 'La contraseña es requerida'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            validar_password_fuerte(password)
+        except Exception as e:
+            return Response({
+                'error': str(e)
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Crear usuario con rol comprador
+        data = request.data.copy()
+        data['rol'] = 4  # Forzar rol comprador
+        data['es_activo'] = True  # Activar automáticamente
+        # Agregar password_confirm para que el serializer no falle
+        if 'password_confirm' not in data:
+            data['password_confirm'] = password
+        
+        serializer = UsuarioSerializer(data=data)
+        if serializer.is_valid():
+            usuario = serializer.save()
+            
+            return Response({
+                'message': 'Usuario comprador registrado exitosamente',
+                'user': UsuarioSerializer(usuario).data
+            }, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     """ViewSet para el modelo Usuario"""

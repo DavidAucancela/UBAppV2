@@ -148,4 +148,28 @@ export class AuthService {
     }
     return '';
   }
+
+  /**
+   * Solicitar restablecimiento de contraseña mediante correo electrónico
+   * @param email Correo electrónico del usuario
+   * @returns Observable con la respuesta del servidor
+   */
+  resetPassword(email: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.apiUrl}/usuarios/auth/reset-password/`,
+      { email }
+    );
+  }
+
+  /**
+   * Verificar si un correo electrónico existe en el sistema
+   * @param email Correo electrónico a verificar
+   * @returns Observable con la respuesta del servidor
+   */
+  verifyEmailExists(email: string): Observable<{ exists: boolean }> {
+    return this.http.post<{ exists: boolean }>(
+      `${this.apiUrl}/usuarios/auth/verify-email/`,
+      { email }
+    );
+  }
 }

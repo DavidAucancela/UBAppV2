@@ -1,9 +1,7 @@
 <div class="mapa-container">
   <div class="mapa-header">
-    <h1>🗺️ Mapa de Compradores - Ecuador</h1>
+    <h1>Mapa de Compradores</h1>
     <p class="mapa-descripcion">
-      Visualiza la ubicación de todos los compradores registrados en las principales ciudades del Ecuador.
-      Haz clic en una ciudad para ver los compradores individuales y sus envíos.
     </p>
   </div>
 
@@ -20,7 +18,7 @@
     <button (click)="recargarDatos()" class="btn-retry">Reintentar</button>
   </div>
 
-  <!-- Estadísticas -->
+  <!-- Estadísticas
   <div *ngIf="mapaData && !loading" class="estadisticas-panel">
     <div class="estadistica-card">
       <div class="estadistica-icon">👥</div>
@@ -45,47 +43,23 @@
         <span class="estadistica-label">Ciudad Seleccionada</span>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Controles del Mapa -->
   <div *ngIf="!loading" class="mapa-controles">
     <button (click)="volverVista()" class="btn-control" title="Volver a vista general">
       🏠 Vista General
     </button>
-    <button (click)="recargarDatos()" class="btn-control" title="Recargar datos">
-      🔄 Recargar
-    </button>
   </div>
 
-  <!-- Mapa -->
-  <div *ngIf="!loading && !error && isBrowser" class="mapa-wrapper">
-    <div id="mapa-ecuador" class="mapa-leaflet"></div>
-    
-    <!-- Leyenda -->
-    <div class="mapa-leyenda">
-      <h4>📋 Leyenda</h4>
-      <div class="leyenda-item">
-        <span class="leyenda-icono ciudad">📍</span>
-        <span>Ciudad (haz clic para ver compradores)</span>
-      </div>
-      <div class="leyenda-item">
-        <span class="leyenda-icono comprador">👤</span>
-        <span>Comprador Individual</span>
-      </div>
-      <div class="leyenda-estados">
-        <h5>Estados de Envío:</h5>
-        <div class="estado-item">
-          <span class="estado-badge pendiente">⏳ Pendiente</span>
-          <span class="estado-badge en-transito">🚚 En Tránsito</span>
-        </div>
-        <div class="estado-item">
-          <span class="estado-badge entregado">✅ Entregado</span>
-          <span class="estado-badge cancelado">❌ Cancelado</span>
-        </div>
-      </div>
+  <!-- Mapa y Panel Lateral -->
+  <div *ngIf="!loading && !error && isBrowser" class="mapa-layout">
+    <!-- Mapa -->
+    <div class="mapa-wrapper">
+      <div id="mapa-ecuador" class="mapa-leaflet"></div>
     </div>
-
-    <!-- Instrucciones -->
+    
+    <!-- Panel de Instrucciones (Lado Derecho) -->
     <div class="instrucciones-panel">
       <h4>💡 Cómo usar el mapa</h4>
       <ol>
@@ -97,7 +71,51 @@
     </div>
   </div>
 
-  <!-- Lista de Ciudades - Vista Mosaico -->
+  <!-- Lista de Compradores (Parte Inferior) -->
+  <div *ngIf="ciudadSeleccionada && compradoresCiudadSeleccionada.length > 0" class="compradores-lista">
+    <div class="compradores-header">
+      <h3>
+        <span class="ciudad-icon">📍</span>
+        Compradores en {{ ciudadSeleccionada }}
+        <span class="badge-compradores">{{ compradoresCiudadSeleccionada.length }}</span>
+      </h3>
+      <button (click)="volverVista()" class="btn-cerrar">✕ Cerrar</button>
+    </div>
+    <div class="compradores-grid">
+      <div class="comprador-card" *ngFor="let comprador of compradoresCiudadSeleccionada">
+        <div class="comprador-card-header">
+          <h4>👤 {{ comprador.nombre }}</h4>
+          <span class="badge-envios">{{ comprador.total_envios }} envíos</span>
+        </div>
+        <div class="comprador-info">
+          <p><strong>Usuario:</strong> {{ comprador.username }}</p>
+          <p><strong>Email:</strong> {{ comprador.correo }}</p>
+          <p *ngIf="comprador.telefono"><strong>Teléfono:</strong> {{ comprador.telefono }}</p>
+          <p><strong>Ubicación:</strong> {{ comprador.ubicacion_completa }}</p>
+        </div>
+        <div *ngIf="comprador.envios_recientes.length > 0" class="comprador-envios">
+          <h5>📦 Envíos Recientes</h5>
+          <div class="envios-lista">
+            <div class="envio-item" *ngFor="let envio of comprador.envios_recientes.slice(0, 3)">
+              <div class="envio-header">
+                <span class="envio-hawb"><strong>HAWB:</strong> {{ envio.hawb }}</span>
+                <span class="estado-badge" [ngClass]="'estado-' + envio.estado">
+                  {{ getEstadoDisplay(envio.estado) }}
+                </span>
+              </div>
+              <div class="envio-details">
+                <span>Peso: {{ envio.peso_total }} kg</span>
+                <span>Valor: ${{ envio.valor_total }}</span>
+                <span>Costo: ${{ envio.costo_servicio }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de Ciudades - Vista Mosaico
   <div *ngIf="mapaData && !loading" class="ciudades-lista">
     <h3>📊 Resumen por Ciudad</h3>
     <div class="ciudades-grid">
@@ -117,5 +135,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

@@ -20,6 +20,8 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   error: string | null = null;
   ciudadSeleccionada: string | null = null;
+  compradoresCiudadSeleccionada: CompradorMapa[] = [];
+  datosCiudadSeleccionada: CiudadConCompradores | null = null;
   isBrowser: boolean = false;
   
   // Iconos personalizados
@@ -174,6 +176,8 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
     marker.on('click', () => {
       console.log(`Click en ciudad: ${ciudad.nombre}`, datos);
       this.ciudadSeleccionada = ciudad.nombre;
+      this.compradoresCiudadSeleccionada = datos.compradores;
+      this.datosCiudadSeleccionada = datos;
       this.map.setView([ciudad.latitud, ciudad.longitud], 13);
       setTimeout(() => {
         this.mostrarCompradoresIndividuales(datos);
@@ -325,7 +329,7 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
     return colores[estado] || '#6b7280';
   }
 
-  private getEstadoDisplay(estado: string): string {
+  getEstadoDisplay(estado: string): string {
     const estados: { [key: string]: string } = {
       'pendiente': '⏳ Pendiente',
       'en_transito': '🚚 En Tránsito',
@@ -347,6 +351,8 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
     if (zoomLevel < 10) {
       this.limpiarMarcadoresCompradores();
       this.ciudadSeleccionada = null;
+      this.compradoresCiudadSeleccionada = [];
+      this.datosCiudadSeleccionada = null;
     }
   }
 
@@ -355,6 +361,8 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
       this.map.setView([-1.8312, -78.1834], 7);
       this.limpiarMarcadoresCompradores();
       this.ciudadSeleccionada = null;
+      this.compradoresCiudadSeleccionada = [];
+      this.datosCiudadSeleccionada = null;
     }
   }
 

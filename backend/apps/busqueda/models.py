@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
+from pgvector.django import VectorField
 import json
 
 Usuario = get_user_model()
@@ -30,9 +31,13 @@ class EnvioEmbedding(models.Model):
         related_name='embedding',
         verbose_name="Envío"
     )
-    embedding_vector = models.TextField(
+    # Campo vectorial nativo de pgvector (1536 dimensiones para text-embedding-3-small)
+    embedding_vector = VectorField(
+        dimensions=1536,
         verbose_name="Vector de Embedding",
-        help_text="Vector de embedding serializado como JSON"
+        help_text="Vector de embedding nativo de pgvector",
+        null=True,
+        blank=True
     )
     texto_indexado = models.TextField(
         verbose_name="Texto Indexado",
@@ -40,22 +45,36 @@ class EnvioEmbedding(models.Model):
     )
     fecha_generacion = models.DateTimeField(auto_now=True)
     modelo_usado = models.CharField(max_length=100, default='text-embedding-3-small')
+    
+    # Métricas de similitud precalculadas
+    cosine_similarity_avg = models.FloatField(
+        default=0.0,
+        verbose_name="Similitud Coseno Promedio",
+        help_text="Similitud coseno promedio con otros embeddings"
+    )
 
     class Meta:
         verbose_name = 'Embedding de Envío'
         verbose_name_plural = 'Embeddings de Envíos'
         ordering = ['-fecha_generacion']
+        indexes = [
+            models.Index(fields=['modelo_usado']),
+            models.Index(fields=['fecha_generacion']),
+        ]
 
     def __str__(self):
         return f"Embedding: {self.envio.hawb}"
 
     def set_vector(self, vector_list):
-        """Guarda el vector como JSON"""
-        self.embedding_vector = json.dumps(vector_list)
+        """Guarda el vector (compatible con pgvector)"""
+        self.embedding_vector = vector_list
 
     def get_vector(self):
         """Obtiene el vector como lista de Python"""
-        return json.loads(self.embedding_vector)
+        if self.embedding_vector is None:
+            return []
+        # pgvector devuelve el vector directamente como lista
+        return list(self.embedding_vector) if hasattr(self.embedding_vector, '__iter__') else []
 
 
 class BusquedaSemantica(models.Model):
@@ -72,6 +91,22 @@ class BusquedaSemantica(models.Model):
         null=True,
         blank=True,
         verbose_name="Filtros Aplicados"
+    )
+    modelo_utilizado = models.CharField(
+        max_length=100,
+        default='text-embedding-3-small',
+        verbose_name="Modelo de Embedding Utilizado"
+    )
+    costo_consulta = models.DecimalField(
+        max_digits=10,
+        decimal_places=8,
+        default=0.0,
+        verbose_name="Costo de la Consulta (USD)",
+        help_text="Costo en USD de la consulta según tokens utilizados"
+    )
+    tokens_utilizados = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Tokens Utilizados"
     )
 
     class Meta:

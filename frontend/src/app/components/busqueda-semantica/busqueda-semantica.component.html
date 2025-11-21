@@ -147,9 +147,24 @@
         >
           <div class="contenido-historial">
             <i class="fas fa-search"></i>
-            <span class="texto-historial">{{ busqueda.consulta }}</span>
+            <div class="info-busqueda-historial">
+              <span class="texto-historial">{{ busqueda.consulta }}</span>
+              <div class="meta-info-historial">
+                <span *ngIf="busqueda.modeloUtilizado" class="meta-item">
+                  <i class="fas fa-microchip"></i> {{ busqueda.modeloUtilizado }}
+                </span>
+                <span *ngIf="busqueda.costoConsulta" class="meta-item">
+                  <i class="fas fa-dollar-sign"></i> {{ formatearCosto(busqueda.costoConsulta) }}
+                </span>
+              </div>
+            </div>
           </div>
-          <span class="badge-resultados">{{ busqueda.totalResultados }} resultados</span>
+          <div class="badges-historial">
+            <span class="badge-resultados">{{ busqueda.totalResultados }} resultados</span>
+            <span *ngIf="busqueda.tiempoRespuesta" class="badge-tiempo">
+              {{ busqueda.tiempoRespuesta }}ms
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -158,33 +173,76 @@
     <div *ngIf="mostrarFiltrosAdicionales" class="filtros-adicionales-semanticos">
       <h3 class="titulo-filtros">
         <i class="fas fa-filter"></i>
-        Filtros Adicionales (Opcionales)
+        Configuración de Búsqueda Semántica
       </h3>
       
-      <div class="grid-filtros-adicionales">
-        <div class="campo-filtro">
-          <label>Fecha Desde:</label>
-          <input type="date" [(ngModel)]="fechaDesde" class="input-filtro">
+      <!-- Selector de Modelo de Embedding -->
+      <div class="seccion-filtro-modelo">
+        <h4 class="subtitulo-filtro">
+          <i class="fas fa-microchip"></i>
+          Modelo de Embedding
+        </h4>
+        <div class="grid-modelos-embedding">
+          <div 
+            *ngFor="let modeloInfo of modelosDisponibles"
+            class="card-modelo-embedding"
+            [class.seleccionado]="modeloSeleccionado === modeloInfo.modelo"
+            (click)="cambiarModeloEmbedding(modeloInfo.modelo)"
+          >
+            <div class="header-card-modelo">
+              <input 
+                type="radio" 
+                [checked]="modeloSeleccionado === modeloInfo.modelo"
+                (change)="cambiarModeloEmbedding(modeloInfo.modelo)"
+              >
+              <strong>{{ modeloInfo.nombre }}</strong>
+            </div>
+            <p class="descripcion-modelo">{{ modeloInfo.descripcion }}</p>
+            <div class="info-modelo-detalle">
+              <span class="badge-info">
+                <i class="fas fa-layer-group"></i>
+                {{ modeloInfo.dimensiones }} dimensiones
+              </span>
+              <span class="badge-info">
+                <i class="fas fa-dollar-sign"></i>
+                ${{ modeloInfo.costoPor1KTokens.toFixed(5) }}/1K tokens
+              </span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="campo-filtro">
-          <label>Fecha Hasta:</label>
-          <input type="date" [(ngModel)]="fechaHasta" class="input-filtro">
-        </div>
+      <!-- Filtros tradicionales -->
+      <div class="seccion-filtros-tradicionales">
+        <h4 class="subtitulo-filtro">
+          <i class="fas fa-sliders-h"></i>
+          Filtros Adicionales (Opcionales)
+        </h4>
+        <div class="grid-filtros-adicionales">
+          <div class="campo-filtro">
+            <label>Fecha Desde:</label>
+            <input type="date" [(ngModel)]="fechaDesde" class="input-filtro">
+          </div>
 
-        <div class="campo-filtro">
-          <label>Estado del Envío:</label>
-          <select [(ngModel)]="estadoFiltro" class="select-filtro">
-            <option value="">Todos los estados</option>
-            <option *ngFor="let estado of estadosDisponibles" [value]="estado.valor">
-              {{ estado.etiqueta }}
-            </option>
-          </select>
-        </div>
+          <div class="campo-filtro">
+            <label>Fecha Hasta:</label>
+            <input type="date" [(ngModel)]="fechaHasta" class="input-filtro">
+          </div>
 
-        <div class="campo-filtro">
-          <label>Ciudad Destino:</label>
-          <input type="text" [(ngModel)]="ciudadDestinoFiltro" class="input-filtro" placeholder="Ej: Quito">
+          <div class="campo-filtro">
+            <label>Estado del Envío:</label>
+            <select [(ngModel)]="estadoFiltro" class="select-filtro">
+              <option value="">Todos los estados</option>
+              <option *ngFor="let estado of estadosDisponibles" [value]="estado.valor">
+                {{ estado.etiqueta }}
+              </option>
+            </select>
+          </div>
+
+          <div class="campo-filtro">
+            <label>Ciudad Destino:</label>
+            <input type="text" [(ngModel)]="ciudadDestinoFiltro" class="input-filtro" placeholder="Ej: Quito">
+          </div>
         </div>
       </div>
     </div>
@@ -234,6 +292,14 @@
       <span class="info-tiempo" *ngIf="respuestaActual?.tiempoRespuesta">
         <i class="fas fa-clock"></i>
         {{ respuestaActual.tiempoRespuesta }}ms
+      </span>
+      <span class="info-costo" *ngIf="respuestaActual?.costoConsulta && configuracion.mostrarCosto">
+        <i class="fas fa-dollar-sign"></i>
+        Costo: {{ formatearCosto(respuestaActual.costoConsulta) }}
+      </span>
+      <span class="info-tokens" *ngIf="respuestaActual?.tokensUtilizados">
+        <i class="fas fa-hashtag"></i>
+        {{ respuestaActual.tokensUtilizados }} tokens
       </span>
     </div>
 

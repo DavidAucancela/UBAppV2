@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <!-- Panel de filtros -->
+      <!-- Panel de filtros y categorías -->
       <div class="filters-panel">
         <div class="filter-group">
           <label><i class="fas fa-calendar"></i> Período</label>
@@ -61,248 +61,372 @@
         </div>
       </div>
 
-      <!-- KPIs Cards -->
-      <div class="kpis-section">
-        <div class="kpi-card">
-          <div class="kpi-icon success">
-            <i class="fas fa-truck"></i>
-          </div>
-          <div class="kpi-content">
-            <h3>{{ kpis.totalEnvios }}</h3>
-            <p>Total Envíos</p>
-            <span class="kpi-trend positive" *ngIf="kpis.tasaCrecimiento > 0">
-              <i class="fas fa-arrow-up"></i> {{ kpis.tasaCrecimiento | number:'1.1-1' }}%
-            </span>
-            <span class="kpi-trend negative" *ngIf="kpis.tasaCrecimiento < 0">
-              <i class="fas fa-arrow-down"></i> {{ kpis.tasaCrecimiento | number:'1.1-1' }}%
-            </span>
-          </div>
+      <!-- Botones de categorías -->
+      <div class="category-buttons" *ngIf="mostrarTodasLasTarjetas">
+        <button 
+          class="category-btn"
+          [class.active]="categoriaSeleccionada === 'kpis'"
+          (click)="seleccionarCategoria('kpis')">
+          <i class="fas fa-tachometer-alt"></i> KPIs
+        </button>
+        <button 
+          class="category-btn"
+          [class.active]="categoriaSeleccionada === 'graficos'"
+          (click)="seleccionarCategoria('graficos')">
+          <i class="fas fa-chart-bar"></i> Gráficos
+        </button>
+        <button 
+          class="category-btn"
+          [class.active]="categoriaSeleccionada === 'estadisticas'"
+          (click)="seleccionarCategoria('estadisticas')">
+          <i class="fas fa-chart-pie"></i> Estadísticas
+        </button>
+      </div>
+
+      <!-- Sección KPIs -->
+      <div class="category-section" *ngIf="mostrarCategoria('kpis')">
+        <div class="section-title">
+          <h2><i class="fas fa-tachometer-alt"></i> Indicadores Clave de Rendimiento</h2>
         </div>
+        <div class="kpis-section">
+          <div class="kpi-card">
+            <div class="kpi-icon success">
+              <i class="fas fa-truck"></i>
+            </div>
+            <div class="kpi-content">
+              <h3>{{ kpis.totalEnvios }}</h3>
+              <p>Total Envíos</p>
+              <span class="kpi-trend positive" *ngIf="kpis.tasaCrecimiento > 0">
+                <i class="fas fa-arrow-up"></i> {{ kpis.tasaCrecimiento | number:'1.1-1' }}%
+              </span>
+              <span class="kpi-trend negative" *ngIf="kpis.tasaCrecimiento < 0">
+                <i class="fas fa-arrow-down"></i> {{ kpis.tasaCrecimiento | number:'1.1-1' }}%
+              </span>
+            </div>
+          </div>
 
-        <div class="kpi-card">
-          <div class="kpi-icon warning">
-            <i class="fas fa-clock"></i>
+          <div class="kpi-card">
+            <div class="kpi-icon warning">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="kpi-content">
+              <h3>{{ kpis.enviosPendientes }}</h3>
+              <p>Envíos Pendientes</p>
+              <span class="kpi-badge">Requiere atención</span>
+            </div>
           </div>
-          <div class="kpi-content">
-            <h3>{{ kpis.enviosPendientes }}</h3>
-            <p>Envíos Pendientes</p>
-            <span class="kpi-badge">Requiere atención</span>
-          </div>
-        </div>
 
+          <div class="kpi-card">
+            <div class="kpi-icon info">
+              <i class="fas fa-box"></i>
+            </div>
+            <div class="kpi-content">
+              <h3>{{ kpis.totalProductos }}</h3>
+              <p>Total Productos</p>
+            </div>
+          </div>
 
-        <div class="kpi-card">
-          <div class="kpi-icon info">
-            <i class="fas fa-dollar-sign"></i>
+          <div class="kpi-card">
+            <div class="kpi-icon info">
+              <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="kpi-content">
+              <h3>${{ kpis.valorPromedio | number:'1.2-2' }}</h3>
+              <p>Valor Promedio</p>
+            </div>
           </div>
-          <div class="kpi-content">
-            <h3>${{ kpis.valorPromedio | number:'1.2-2' }}</h3>
-            <p>Valor Promedio</p>
-          </div>
-        </div>
 
-        <div class="kpi-card">
-          <div class="kpi-icon success">
-            <i class="fas fa-star"></i>
-          </div>
-          <div class="kpi-content">
-            <h3>{{ kpis.satisfaccionCliente | number:'1.1-1' }}%</h3>
-            <p>Satisfacción Cliente</p>
-            <span class="kpi-badge success">Excelente</span>
+          <div class="kpi-card">
+            <div class="kpi-icon success">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="kpi-content">
+              <h3>{{ kpis.satisfaccionCliente | number:'1.1-1' }}%</h3>
+              <p>Satisfacción Cliente</p>
+              <span class="kpi-badge success">Excelente</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Charts Grids -->
-      <div class="charts-grid">
-        <!-- Gráfico principal de envíos -->
-        <div class="chart-container large" [class.fullscreen]="isFullscreen('envios')">
-          <div class="chart-header">
-            <h2><i class="fas fa-truck"></i> Evolución de Envíos</h2>
-            <div class="chart-actions">
-              <button class="icon-btn" title="Descargar" (click)="downloadChart('envios')">
-                <i class="fas fa-download"></i>
-              </button>
-              <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('envios')">
-                <i class="fas" [ngClass]="isFullscreen('envios') ? 'fa-compress' : 'fa-expand'"></i>
-              </button>
-            </div>
-          </div>
-          <div class="chart-body">
-            <canvas #enviosChart></canvas>
-          </div>
+      <!-- Sección Gráficos -->
+      <div class="category-section" *ngIf="mostrarCategoria('graficos')">
+        <div class="section-title">
+          <h2><i class="fas fa-chart-bar"></i> Visualizaciones y Análisis</h2>
         </div>
-
-        <!-- Gráfico de distribución por estados -->
-        <div class="chart-container medium" [class.fullscreen]="isFullscreen('estados')">
-          <div class="chart-header">
-            <h2><i class="fas fa-chart-pie"></i> Estados de Envíos</h2>
-            <div class="chart-actions">
-              <button class="icon-btn" title="Descargar" (click)="downloadChart('estados')">
-                <i class="fas fa-download"></i>
-              </button>
-              <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('estados')">
-                <i class="fas" [ngClass]="isFullscreen('estados') ? 'fa-compress' : 'fa-expand'"></i>
-              </button>
+        <div class="charts-grid">
+          <!-- Gráfico principal de envíos -->
+          <div class="chart-container large" [class.fullscreen]="isFullscreen('envios')">
+            <div class="chart-header">
+              <h2><i class="fas fa-truck"></i> Evolución de Envíos</h2>
+              <div class="chart-actions">
+                <button class="icon-btn" title="Descargar" (click)="downloadChart('envios')">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('envios')">
+                  <i class="fas" [ngClass]="isFullscreen('envios') ? 'fa-compress' : 'fa-expand'"></i>
+                </button>
+              </div>
+            </div>
+            <div class="chart-body">
+              <canvas #enviosChart></canvas>
             </div>
           </div>
-          <div class="chart-body">
-            <canvas #estadosChart></canvas>
-          </div>
-        </div>
 
-        <!-- Gráfico de productos por categoría -->
-        <div class="chart-container medium" [class.fullscreen]="isFullscreen('productos')">
-          <div class="chart-header">
-            <h2><i class="fas fa-box"></i> Productos por Categoría</h2>
-            <div class="chart-actions">
-              <button class="icon-btn" title="Descargar" (click)="downloadChart('productos')">
-                <i class="fas fa-download"></i>
-              </button>
-              <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('productos')">
-                <i class="fas" [ngClass]="isFullscreen('productos') ? 'fa-compress' : 'fa-expand'"></i>
-              </button>
+          <!-- Gráfico de distribución por estados -->
+          <div class="chart-container medium" [class.fullscreen]="isFullscreen('estados')">
+            <div class="chart-header">
+              <h2><i class="fas fa-chart-pie"></i> Estados de Envíos</h2>
+              <div class="chart-actions">
+                <button class="icon-btn" title="Descargar" (click)="downloadChart('estados')">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('estados')">
+                  <i class="fas" [ngClass]="isFullscreen('estados') ? 'fa-compress' : 'fa-expand'"></i>
+                </button>
+              </div>
+            </div>
+            <div class="chart-body">
+              <canvas #estadosChart></canvas>
             </div>
           </div>
-          <div class="chart-body">
-            <canvas #productosChart></canvas>
-          </div>
-        </div>
 
-        <!-- Gráfico de tendencias y proyección -->
-        <div class="chart-container large" [class.fullscreen]="isFullscreen('tendencias')">
-          <div class="chart-header">
-            <h2><i class="fas fa-chart-area"></i> Análisis de Tendencias y Proyección</h2>
-            <div class="chart-actions">
-              <button class="icon-btn" title="Descargar" (click)="downloadChart('tendencias')">
-                <i class="fas fa-download"></i>
-              </button>
-              <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('tendencias')">
-                <i class="fas" [ngClass]="isFullscreen('tendencias') ? 'fa-compress' : 'fa-expand'"></i>
-              </button>
+          <!-- Gráfico de productos por categoría -->
+          <div class="chart-container medium" [class.fullscreen]="isFullscreen('productos')">
+            <div class="chart-header">
+              <h2><i class="fas fa-box"></i> Productos por Categoría</h2>
+              <div class="chart-actions">
+                <button class="icon-btn" title="Descargar" (click)="downloadChart('productos')">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('productos')">
+                  <i class="fas" [ngClass]="isFullscreen('productos') ? 'fa-compress' : 'fa-expand'"></i>
+                </button>
+              </div>
+            </div>
+            <div class="chart-body">
+              <canvas #productosChart></canvas>
             </div>
           </div>
-          <div class="chart-body">
-            <canvas #tendenciasChart></canvas>
-          </div>
-          <div class="chart-footer">
-            <p class="chart-info">
-              <i class="fas fa-info-circle"></i>
-              Proyección basada en tendencias históricas usando regresión lineal
-            </p>
-          </div>
-        </div>
 
-        <!-- Gráfico radar de rendimiento -->
-        <div class="chart-container medium" [class.fullscreen]="isFullscreen('categorias')">
-          <div class="chart-header">
-            <h2><i class="fas fa-chart-area"></i> Rendimiento Multidimensional</h2>
-            <div class="chart-actions">
-              <button class="icon-btn" title="Descargar" (click)="downloadChart('categorias')">
-                <i class="fas fa-download"></i>
-              </button>
-              <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('categorias')">
-                <i class="fas" [ngClass]="isFullscreen('categorias') ? 'fa-compress' : 'fa-expand'"></i>
-              </button>
+          <!-- Gráfico de tendencias y proyección -->
+          <div class="chart-container large" [class.fullscreen]="isFullscreen('tendencias')">
+            <div class="chart-header">
+              <h2><i class="fas fa-chart-area"></i> Análisis de Tendencias</h2>
+              <div class="chart-actions">
+                <button class="icon-btn" title="Descargar" (click)="downloadChart('tendencias')">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('tendencias')">
+                  <i class="fas" [ngClass]="isFullscreen('tendencias') ? 'fa-compress' : 'fa-expand'"></i>
+                </button>
+              </div>
+            </div>
+            <div class="chart-body">
+              <canvas #tendenciasChart></canvas>
             </div>
           </div>
-          <div class="chart-body">
-            <canvas #categoriasChart></canvas>
-          </div>
-        </div>
 
-        <!-- Gráfico de KPIs -->
-        <div class="chart-container medium" [class.fullscreen]="isFullscreen('kpi')">
-          <div class="chart-header">
-            <h2><i class="fas fa-tachometer-alt"></i> Indicadores Clave (KPIs)</h2>
-            <div class="chart-actions">
-              <button class="icon-btn" title="Descargar" (click)="downloadChart('kpi')">
-                <i class="fas fa-download"></i>
-              </button>
-              <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('kpi')">
-                <i class="fas" [ngClass]="isFullscreen('kpi') ? 'fa-compress' : 'fa-expand'"></i>
-              </button>
+          <!-- Gráfico radar de rendimiento -->
+          <div class="chart-container medium" [class.fullscreen]="isFullscreen('categorias')">
+            <div class="chart-header">
+              <h2><i class="fas fa-chart-area"></i> Rendimiento Multidimensional</h2>
+              <div class="chart-actions">
+                <button class="icon-btn" title="Descargar" (click)="downloadChart('categorias')">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('categorias')">
+                  <i class="fas" [ngClass]="isFullscreen('categorias') ? 'fa-compress' : 'fa-expand'"></i>
+                </button>
+              </div>
+            </div>
+            <div class="chart-body">
+              <canvas #categoriasChart></canvas>
             </div>
           </div>
-          <div class="chart-body">
-            <canvas #kpiChart></canvas>
+
+          <!-- Gráfico de KPIs -->
+          <div class="chart-container medium" [class.fullscreen]="isFullscreen('kpi')">
+            <div class="chart-header">
+              <h2><i class="fas fa-tachometer-alt"></i> Indicadores Clave</h2>
+              <div class="chart-actions">
+                <button class="icon-btn" title="Descargar" (click)="downloadChart('kpi')">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="icon-btn" title="Pantalla completa" (click)="toggleFullscreen('kpi')">
+                  <i class="fas" [ngClass]="isFullscreen('kpi') ? 'fa-compress' : 'fa-expand'"></i>
+                </button>
+              </div>
+            </div>
+            <div class="chart-body">
+              <canvas #kpiChart></canvas>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Insights Section
-      <div class="insights-section">
-        <div class="section-header">
-          <h2><i class="fas fa-lightbulb"></i> Insights y Recomendaciones</h2>
+      <!-- Sección Estadísticas -->
+      <div class="category-section" *ngIf="mostrarCategoria('estadisticas')">
+        <div class="section-title">
+          <h2><i class="fas fa-chart-pie"></i> Estadísticas Detalladas</h2>
         </div>
-        <div class="insights-grid">
-          <div class="insight-card" *ngIf="kpis.tasaCrecimiento > 0">
-            <div class="insight-icon success">
-              <i class="fas fa-arrow-trend-up"></i>
-            </div>
-            <div class="insight-content">
-              <h3>Crecimiento Positivo</h3>
-              <p>Los envíos han aumentado un {{ kpis.tasaCrecimiento | number:'1.1-1' }}% este período. Mantén el buen trabajo.</p>
-            </div>
-          </div>
 
-          <div class="insight-card" *ngIf="kpis.enviosPendientes > kpis.totalEnvios * 0.2">
-            <div class="insight-icon warning">
-              <i class="fas fa-exclamation-triangle"></i>
+        <!-- Estadísticas de Notificaciones -->
+        <div class="stats-subsection">
+          <h3><i class="fas fa-bell"></i> Notificaciones</h3>
+          <div class="kpis-section">
+            <div class="kpi-card">
+              <div class="kpi-icon primary">
+                <i class="fas fa-bell"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ notificacionesStats.total }}</h3>
+                <p>Total Notificaciones</p>
+              </div>
             </div>
-            <div class="insight-content">
-              <h3>Atención Requerida</h3>
-              <p>Tienes {{ kpis.enviosPendientes }} envíos pendientes. Considera asignar más recursos.</p>
-            </div>
-          </div>
 
-          <div class="insight-card" *ngIf="kpis.satisfaccionCliente >= 85">
-            <div class="insight-icon success">
-              <i class="fas fa-smile"></i>
+            <div class="kpi-card">
+              <div class="kpi-icon warning">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ notificacionesStats.noLeidas }}</h3>
+                <p>No Leídas</p>
+                <span class="kpi-badge" *ngIf="notificacionesStats.noLeidas > 0">Nuevas</span>
+              </div>
             </div>
-            <div class="insight-content">
-              <h3>Alta Satisfacción</h3>
-              <p>La satisfacción del cliente es del {{ kpis.satisfaccionCliente | number:'1.1-1' }}%. ¡Excelente servicio!</p>
-            </div>
-          </div>
 
-          <div class="insight-card">
-            <div class="insight-icon info">
-              <i class="fas fa-chart-line"></i>
-            </div>
-            <div class="insight-content">
-              <h3>Análisis Predictivo</h3>
-              <p>Basado en tendencias, se esperan aproximadamente {{ (kpis.totalEnvios * 1.15) | number:'1.0-0' }} envíos el próximo período.</p>
-            </div>
-          </div>
-
-          <div class="insight-card">
-            <div class="insight-icon primary">
-              <i class="fas fa-trophy"></i>
-            </div>
-            <div class="insight-content">
-              <h3>Mejor Rendimiento</h3>
-              <p>El mejor día para envíos es típicamente entre martes y jueves.</p>
-            </div>
-          </div>
-
-          <div class="insight-card">
-            <div class="insight-icon gradient">
-              <i class="fas fa-bullseye"></i>
-            </div>
-            <div class="insight-content">
-              <h3>Objetivo del Mes</h3>
-              <p>Vas por buen camino para alcanzar el objetivo de {{ (kpis.totalEnvios * 1.5) | number:'1.0-0' }} envíos este mes.</p>
+            <div class="kpi-card" *ngFor="let tipo of getNotificacionesTipos()">
+              <div class="kpi-icon info">
+                <i class="fas" [ngClass]="getNotificacionIcon(tipo)"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ notificacionesStats.porTipo[tipo] || 0 }}</h3>
+                <p>{{ getNotificacionLabel(tipo) }}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div> -->
+
+        <!-- Estadísticas de Consultas Semánticas -->
+        <div class="stats-subsection">
+          <h3><i class="fas fa-brain"></i> Consultas Semánticas</h3>
+          <div class="kpis-section">
+            <div class="kpi-card">
+              <div class="kpi-icon gradient">
+                <i class="fas fa-search"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ semanticasStats.totalConsultas }}</h3>
+                <p>Total Consultas</p>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon primary">
+                <i class="fas fa-vector-square"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ semanticasStats.totalEmbeddings }}</h3>
+                <p>Embeddings Generados</p>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon info">
+                <i class="fas fa-coins"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ semanticasStats.totalTokens | number:'1.0-0' }}</h3>
+                <p>Tokens Usados</p>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon success">
+                <i class="fas fa-database"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ semanticasStats.datosVectorizados }}</h3>
+                <p>Datos Vectorizados</p>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon warning">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ semanticasStats.promedioTiempoRespuesta | number:'1.0-0' }}ms</h3>
+                <p>Tiempo Promedio</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estadísticas Geográficas -->
+        <div class="stats-subsection">
+          <h3><i class="fas fa-map-marked-alt"></i> Distribución Geográfica</h3>
+          <div class="kpis-section">
+            <div class="kpi-card">
+              <div class="kpi-icon success">
+                <i class="fas fa-map"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ geograficasStats.totalConUbicacion }}</h3>
+                <p>Usuarios con Ubicación</p>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon info">
+                <i class="fas fa-globe-americas"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ getTotalProvincias() }}</h3>
+                <p>Provincias</p>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon primary">
+                <i class="fas fa-city"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ getTotalCantones() }}</h3>
+                <p>Cantones</p>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon gradient">
+                <i class="fas fa-building"></i>
+              </div>
+              <div class="kpi-content">
+                <h3>{{ getTotalCiudades() }}</h3>
+                <p>Ciudades</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Provincias -->
+          <div class="top-locations" *ngIf="getTopProvincias().length > 0">
+            <h4><i class="fas fa-trophy"></i> Top Provincias</h4>
+            <div class="location-list">
+              <div class="location-item" *ngFor="let prov of getTopProvincias()">
+                <span class="location-name">{{ prov.nombre }}</span>
+                <span class="location-count">{{ prov.cantidad }} usuarios</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Footer con timestamp -->
       <div class="analytics-footer">
         <p>
           <i class="fas fa-clock"></i>
-          Última actualización: {{ Date.now() | date:'medium':'':'es-ES' }}
+          Última actualización: {{ ultimaActualizacion | date:'medium':'':'es-ES' }}
         </p>
       </div>
     </div>

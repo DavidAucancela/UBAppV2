@@ -1,23 +1,41 @@
 <div class="envios-container">
   <!-- Header -->
-  <div class="card">
-    <div class="card-header">
-      <h2 class="card-title">
-        <i class="fas fa-truck"></i>
-        Gestión de Envíos
-      </h2>
-      <button 
-        class="btn btn-primary"
-        (click)="openCreateModal()"
-        *ngIf="authService.canManageEnvios()"
-      >
-        <i class="fas fa-plus"></i>
-        Nuevo Envío
-      </button>
+  <div class="envios-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-icon">
+          <i class="fas fa-truck"></i>
+        </div>
+        <div class="header-text">
+          <h1>Gestión de Envíos</h1>
+          <p>Administra y gestiona todos los envíos del sistema</p>
+        </div>
+        <button 
+          class="btn btn-primary btn-header"
+          (click)="openCreateModal()"
+          *ngIf="authService.canManageEnvios()"
+        >
+          <i class="fas fa-plus"></i>
+          Nuevo Envío
+        </button>
+      </div>
     </div>
+  </div>
 
-    <!-- Filters -->
-    <div class="filters-section">
+  <!-- Main Content -->
+  <div class="container">
+    <div class="envios-content">
+      <!-- Filters Card -->
+      <div class="card">
+        <div class="card-header-filters">
+          <h3>
+            <i class="fas fa-filter"></i>
+            Filtros de Búsqueda
+          </h3>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-section">
       <div class="filter-row">
         <!-- Search -->
         <div class="filter-group">
@@ -70,38 +88,37 @@
             </option>
           </select>
         </div>
+        </div>
+
+        <!-- Results Summary -->
+        <div class="results-summary">
+          <span class="results-count">
+            <i class="fas fa-list"></i>
+            Mostrando {{ paginatedEnvios.length }} de {{ filteredEnvios.length }} envíos
+          </span>
+        </div>
       </div>
-    </div>
 
-    <!-- Results Summary -->
-    <div class="results-summary">
-      <span class="results-count">
-        <i class="fas fa-list"></i>
-        Mostrando {{ paginatedEnvios.length }} de {{ filteredEnvios.length }} envíos
-      </span>
-    </div>
-  </div>
+      <!-- Success Message -->
+      <div class="alert alert-success" *ngIf="successMessage">
+        <i class="fas fa-check-circle"></i>
+        {{ successMessage }}
+      </div>
 
-  <!-- Success Message -->
-  <div class="alert alert-success" *ngIf="successMessage">
-    <i class="fas fa-check-circle"></i>
-    {{ successMessage }}
-  </div>
+      <!-- Error Message -->
+      <div class="alert alert-error" *ngIf="errorMessage">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ errorMessage }}
+      </div>
 
-  <!-- Error Message -->
-  <div class="alert alert-error" *ngIf="errorMessage">
-    <i class="fas fa-exclamation-circle"></i>
-    {{ errorMessage }}
-  </div>
+      <!-- Loading State -->
+      <div class="loading-state" *ngIf="loading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <span>Cargando envíos...</span>
+      </div>
 
-  <!-- Loading State -->
-  <div class="loading-state" *ngIf="loading">
-    <i class="fas fa-spinner fa-spin"></i>
-    <span>Cargando envíos...</span>
-  </div>
-
-  <!-- Table -->
-  <div class="card" *ngIf="!loading">
+      <!-- Table -->
+      <div class="card" *ngIf="!loading">
     <div class="table-container">
       <table class="table">
         <thead>
@@ -114,6 +131,7 @@
             <th>Costo Envío</th>
             <th>Estado</th>
             <th>Fecha</th>
+            <th>Observaciones</th>
             <th class="actions-column">Acciones</th>
           </tr>
         </thead>
@@ -150,6 +168,12 @@
             <td>
               {{ envio.fecha_creacion | date:'dd/MM/yyyy' }}
             </td>
+            <td class="observaciones-cell">
+              <span *ngIf="envio.observaciones" class="observaciones-text" [title]="envio.observaciones">
+                {{ envio.observaciones.length > 50 ? (envio.observaciones.substring(0, 50) + '...') : envio.observaciones }}
+              </span>
+              <span *ngIf="!envio.observaciones" class="text-muted">-</span>
+            </td>
             <td class="actions-column">
               <div class="action-buttons">
                 <button 
@@ -171,31 +195,40 @@
 
                 <!-- Estado dropdown -->
                 <div class="dropdown-estado" *ngIf="canChangeEstado(envio)">
-                  <button class="btn-icon btn-status" title="Cambiar estado">
+                  <button 
+                    class="btn-icon btn-status" 
+                    title="Cambiar estado"
+                    (click)="toggleDropdownEstado(envio.id!, $event)"
+                    type="button"
+                  >
                     <i class="fas fa-exchange-alt"></i>
                   </button>
-                  <div class="dropdown-estado-menu">
+                  <div class="dropdown-estado-menu" *ngIf="isDropdownOpen(envio.id!)" (click)="$event.stopPropagation()">
                     <button 
                       (click)="cambiarEstado(envio, EstadosEnvio.PENDIENTE)"
                       [disabled]="envio.estado === EstadosEnvio.PENDIENTE"
+                      type="button"
                     >
                       Pendiente
                     </button>
                     <button 
                       (click)="cambiarEstado(envio, EstadosEnvio.EN_TRANSITO)"
                       [disabled]="envio.estado === EstadosEnvio.EN_TRANSITO"
+                      type="button"
                     >
                       En Tránsito
                     </button>
                     <button 
                       (click)="cambiarEstado(envio, EstadosEnvio.ENTREGADO)"
                       [disabled]="envio.estado === EstadosEnvio.ENTREGADO"
+                      type="button"
                     >
                       Entregado
                     </button>
                     <button 
                       (click)="cambiarEstado(envio, EstadosEnvio.CANCELADO)"
                       [disabled]="envio.estado === EstadosEnvio.CANCELADO"
+                      type="button"
                     >
                       Cancelado
                     </button>
@@ -214,7 +247,7 @@
             </td>
           </tr>
           <tr *ngIf="filteredEnvios.length === 0">
-            <td colspan="9" class="no-data">
+            <td colspan="10" class="no-data">
               <i class="fas fa-inbox"></i>
               <p>No se encontraron envíos</p>
             </td>
@@ -248,10 +281,12 @@
       </button>
     </div>
   </div>
+    </div>
+  </div>
 </div>
 
 <!-- Modal Create/Edit -->
-<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+<div class="modal-overlay" *ngIf="showModal">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h3>
@@ -275,18 +310,28 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">
+                <i class="fas fa-barcode"></i>
                 HAWB <span class="required">*</span>
+                <span class="hawb-auto-badge" *ngIf="!editingEnvio">
+                  <i class="fas fa-magic"></i>
+                  Auto-generado
+                </span>
               </label>
               <input 
                 type="text"
                 formControlName="hawb"
-                class="form-control"
-                placeholder="Ej: HAW123456"
+                class="form-control hawb-input"
+                [placeholder]="editingEnvio ? 'Ej: HAW123456' : 'Se generará automáticamente'"
                 [class.error]="envioForm.get('hawb')?.invalid && envioForm.get('hawb')?.touched"
+                [readonly]="!editingEnvio"
               >
               <div class="error-message" *ngIf="envioForm.get('hawb')?.invalid && envioForm.get('hawb')?.touched">
                 El HAWB es requerido
               </div>
+              <small class="hawb-help-text" *ngIf="!editingEnvio">
+                <i class="fas fa-info-circle"></i>
+                El número de registro se asigna automáticamente en secuencia. Puede visualizarlo antes de guardar.
+              </small>
             </div>
 
             <div class="form-group">
@@ -495,16 +540,43 @@
                 <span class="total-value">{{ totalValor | currency:'USD':'symbol':'1.2-2' }}</span>
               </div>
               <div class="total-item total-costo-servicio">
-                <span class="total-label">
-                  <i class="fas fa-shipping-fast"></i>
-                  Costo de Servicio:
-                </span>
-                <span class="total-value">
-                  <span *ngIf="calculandoCosto" class="loading-inline">
-                    <i class="fas fa-spinner fa-spin"></i> Calculando...
+                <div class="costo-servicio-header">
+                  <span class="total-label">
+                    <i class="fas fa-shipping-fast"></i>
+                    Costo de Servicio:
                   </span>
-                  <span *ngIf="!calculandoCosto">{{ costoServicioCalculado | currency:'USD':'symbol':'1.2-2' }}</span>
-                </span>
+                  <span class="total-value">
+                    <span *ngIf="calculandoCosto" class="loading-inline">
+                      <i class="fas fa-spinner fa-spin"></i> Calculando...
+                    </span>
+                    <span *ngIf="!calculandoCosto">{{ costoServicioCalculado | currency:'USD':'symbol':'1.2-2' }}</span>
+                  </span>
+                </div>
+                
+                <!-- Desglose de costos -->
+                <div class="costos-detalle" *ngIf="!calculandoCosto && detallesCostos.length > 0">
+                  <div class="costos-detalle-title">
+                    <i class="fas fa-list-ul"></i>
+                    Desglose por categoría:
+                  </div>
+                  <div class="costo-detalle-item" *ngFor="let detalle of detallesCostos">
+                    <div class="costo-detalle-categoria">
+                      <i [class]="'fas ' + getCategoriaIcon(detalle.categoria)"></i>
+                      <div>
+                        <div>{{ getCategoriaLabel(detalle.categoria) }}</div>
+                        <div class="costo-detalle-info" *ngIf="detalle.tarifa">
+                          {{ detalle.cantidad }} × {{ detalle.peso }} kg = {{ detalle.costo_unitario | currency:'USD':'symbol':'1.2-2' }}/unidad
+                        </div>
+                        <div class="costo-detalle-info text-error" *ngIf="detalle.error">
+                          {{ detalle.error }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="costo-detalle-valor">
+                      {{ detalle.costo_total | currency:'USD':'symbol':'1.2-2' }}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="total-final" *ngIf="costoServicioCalculado > 0">
@@ -694,12 +766,17 @@
       </div>
 
       <!-- Observaciones -->
-      <div class="detail-section" *ngIf="selectedEnvio.observaciones">
+      <div class="detail-section">
         <h4 class="section-title">
           <i class="fas fa-comment"></i>
           Observaciones
         </h4>
-        <p class="observaciones-text">{{ selectedEnvio.observaciones }}</p>
+        <p class="observaciones-text" *ngIf="selectedEnvio.observaciones">
+          {{ selectedEnvio.observaciones }}
+        </p>
+        <p class="text-muted" *ngIf="!selectedEnvio.observaciones">
+          <i>No hay observaciones registradas para este envío.</i>
+        </p>
       </div>
     </div>
 

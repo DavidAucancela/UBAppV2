@@ -131,7 +131,7 @@
 </div>
 
 <!-- Modal for View User Details -->
-<div class="modal-overlay" *ngIf="showViewModal" (click)="closeViewModal()">
+<div class="modal-overlay" *ngIf="showViewModal">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2>
@@ -234,7 +234,7 @@
 </div>
 
 <!-- Modal for Create/Edit User -->
-<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+<div class="modal-overlay" *ngIf="showModal">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2>

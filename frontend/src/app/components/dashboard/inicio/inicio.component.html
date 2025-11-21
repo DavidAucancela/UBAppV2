@@ -1,42 +1,6 @@
 <div class="dashboard-container">
   <!-- Pantalla de inicio profesional cuando no hay sesión -->
-  <div class="hero-landing" *ngIf="!currentUser">
-    <div class="hero-content">
-      <div class="hero-logo">
-        <i class="fas fa-boxes"></i>
-      </div>
-      <h1 class="hero-title">Universal Box</h1>
-      <p class="hero-subtitle">Sistema Profesional de Gestión de Envíos</p>
-      <p class="hero-description">
-        Administra tus envíos internacionales de manera eficiente y segura. 
-        Accede a tu dashboard personalizado y gestiona tu cupo anual.
-      </p>
-      <div class="hero-actions">
-        <a routerLink="/login" class="btn-hero btn-primary">
-          <i class="fas fa-sign-in-alt me-2"></i>
-          Iniciar Sesión
-        </a>
-        <a routerLink="/informacion" class="btn-hero btn-secondary">
-          <i class="fas fa-info-circle me-2"></i>
-          Más Información
-        </a>
-      </div>
-      <div class="hero-features">
-        <div class="feature-item">
-          <i class="fas fa-chart-line"></i>
-          <span>Dashboard Personalizado</span>
-        </div>
-        <div class="feature-item">
-          <i class="fas fa-search"></i>
-          <span>Búsqueda Inteligente</span>
-        </div>
-        <div class="feature-item">
-          <i class="fas fa-shield-check"></i>
-          <span>Seguro y Confiable</span>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <!-- Loading State -->
   <div class="loading-container" *ngIf="loading">
@@ -48,23 +12,7 @@
 
   <!-- Dashboard Content -->
   <div class="dashboard-content" *ngIf="!loading">
-    
-    <!-- Quick Stats Cards -->
     <div class="stats-grid">
-      <!-- Total Users Card (Admin/Gerente) 
-      <div class="stat-card" *ngIf="isAdmin() || isGerente()">
-        <div class="stat-icon">
-          <i class="fas fa-users"></i>
-        </div>
-        <div class="stat-content">
-          <h3>Total Usuarios</h3>
-          <p class="stat-number">{{ stats.usuarios?.total_usuarios || 0 }}</p>
-          <span class="stat-change positive">
-            <i class="fas fa-arrow-up"></i>
-            +5% este mes
-          </span>
-        </div>
-      </div>-->
 
       <!-- Total Envíos Card -->
       <div class="stat-card">
@@ -98,17 +46,6 @@
           <p class="stat-number">{{ stats.productos?.total_productos || 0 }}</p>
         </div>
       </div>
-
-      <!-- Mapa de Compradores Card -->
-      <div class="stat-card mapa-card" *ngIf="isAdmin() || isGerente() || isDigitador()" (click)="goToMapa()" style="cursor: pointer;">
-        <div class="stat-icon mapa">
-          <i class="fas fa-map-marked-alt"></i>
-        </div>
-        <div class="stat-content">
-          <h3>Mapa de Compradores</h3>
-          <p class="stat-description">Ver ubicaciones</p>
-        </div>
-      </div>
     </div>
 
     <!-- Detailed Statistics -->
@@ -133,6 +70,7 @@
             </div>
           </div>
         </div>
+        <br>
       </div>
 
       <!-- Envíos by Status -->
@@ -156,23 +94,6 @@
         </div>
       </div>
 
-      <!-- Recent Activity -->
-      <div class="stats-section">
-        <div class="section-header">
-          <h2>Actividad reciente</h2>
-        </div>
-        <div class="activity-list">
-          <div class="activity-item" *ngFor="let activity of recentActivity">
-            <div class="activity-icon">
-              <i class="fas" [class]="getActivityIcon(activity.type)"></i>
-            </div>
-            <div class="activity-content">
-              <p class="activity-text">{{ activity.description }}</p>
-              <span class="activity-time">{{ activity.time }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

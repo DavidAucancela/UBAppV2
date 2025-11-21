@@ -144,6 +144,11 @@
     <div class="card">
       <h3>🗺️ Paso 2: Mapear Columnas del Excel</h3>
       <p>Asocie las columnas de su archivo Excel con los campos del sistema</p>
+      <p class="info-text">
+        <i class="fas fa-info-circle"></i>
+        <strong>Nota:</strong> Las columnas que no se mapeen simplemente se ignorarán. 
+        Solo es obligatorio mapear el campo <strong>HAWB</strong>.
+      </p>
 
       <div class="mapeo-container">
         <div class="mapeo-grid">
@@ -284,14 +289,20 @@
         <h4>Asignar Comprador</h4>
         <div class="form-group">
           <label for="compradorSelect">Seleccione el comprador para estos envíos:</label>
-          <input 
-            type="number" 
+          <select 
             id="compradorSelect" 
             [(ngModel)]="compradorId" 
-            placeholder="ID del comprador"
-            class="input-text"
-          />
-          <small>Nota: En una versión completa, aquí habría un selector con lista de compradores disponibles</small>
+            class="select-mapeo"
+            [disabled]="cargandoCompradores">
+            <option [ngValue]="null">Sin comprador</option>
+            <option 
+              *ngFor="let comprador of compradores" 
+              [ngValue]="comprador.id">
+              {{ comprador.nombre }} ({{ comprador.cedula }})
+            </option>
+          </select>
+          <small *ngIf="cargandoCompradores">Cargando compradores...</small>
+          <small *ngIf="!cargandoCompradores && compradores.length === 0">No hay compradores disponibles</small>
         </div>
       </div>
 
@@ -302,7 +313,7 @@
         <button 
           class="btn btn-primary" 
           (click)="procesarDatos()"
-          [disabled]="registrosSeleccionados.size === 0 || !compradorId || cargando">
+          [disabled]="registrosSeleccionados.size === 0 || cargando || cargandoCompradores">
           <span *ngIf="!cargando">Importar Datos ({{ registrosSeleccionados.size }} registros) →</span>
           <span *ngIf="cargando">⏳ Importando...</span>
         </button>

@@ -7,13 +7,22 @@
         <i class="fas fa-box"></i>
         Gestión de Productos
       </h2>
-      <button 
-        class="btn btn-primary"
-        (click)="openCreateModal()"
-      >
-        <i class="fas fa-plus"></i>
-        Nuevo Producto
-      </button>
+      <div class="header-actions">
+        <button 
+          class="btn btn-icon-view"
+          (click)="toggleViewMode()"
+          [title]="viewMode === 'grid' ? 'Vista de tabla' : 'Vista de tarjetas'"
+        >
+          <i class="fas" [ngClass]="viewMode === 'grid' ? 'fa-table' : 'fa-th'"></i>
+        </button>
+        <button 
+          class="btn btn-primary"
+          (click)="openCreateModal()"
+        >
+          <i class="fas fa-plus"></i>
+          Nuevo Producto
+        </button>
+      </div>
     </div>
 
     <!-- Filters -->
@@ -62,6 +71,19 @@
         <i class="fas fa-list"></i>
         Mostrando {{ paginatedProductos.length }} de {{ filteredProductos.length }} productos
       </span>
+      <div class="sort-controls">
+        <label>Ordenar por:</label>
+        <select class="form-control form-control-sm" [(ngModel)]="sortBy" (change)="onSortChange(sortBy)">
+          <option value="descripcion">Descripción</option>
+          <option value="categoria">Categoría</option>
+          <option value="peso">Peso</option>
+          <option value="cantidad">Cantidad</option>
+          <option value="valor">Valor</option>
+        </select>
+        <button class="btn-sort" (click)="sortOrder = sortOrder === 'asc' ? 'desc' : 'asc'; applyFilters()">
+          <i class="fas" [ngClass]="sortOrder === 'asc' ? 'fa-sort-up' : 'fa-sort-down'"></i>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -83,10 +105,10 @@
     <span>Cargando productos...</span>
   </div>
 
-  <!-- Products Grid -->
-  <div class="productos-grid" *ngIf="!loading">
+  <!-- Products Grid View -->
+  <div class="productos-grid" *ngIf="!loading && viewMode === 'grid'">
     <div 
-      *ngFor="let producto of paginatedProductos" 
+      *ngFor="let producto of paginatedProductos; trackBy: trackByProductoId" 
       class="producto-card"
     >
       <div class="producto-card-header">
@@ -161,8 +183,103 @@
     </div>
 
     <!-- No Data -->
-    <div class="no-data-card" *ngIf="filteredProductos.length === 0">
+    <div class="no-data-card" *ngIf="!loading && filteredProductos.length === 0 && productos.length === 0">
       <i class="fas fa-box-open"></i>
+      <h3>No hay productos en el sistema</h3>
+      <p>Crea tu primer producto usando el botón "Nuevo Producto"</p>
+    </div>
+    <div class="no-data-card" *ngIf="!loading && filteredProductos.length === 0 && productos.length > 0">
+      <i class="fas fa-search"></i>
+      <h3>No se encontraron productos</h3>
+      <p>Intenta cambiar los filtros de búsqueda</p>
+    </div>
+  </div>
+
+  <!-- Products Table View -->
+  <div class="productos-table-container" *ngIf="!loading && viewMode === 'table'">
+    <div class="table-wrapper">
+      <table class="productos-table">
+        <thead>
+          <tr>
+            <th (click)="onSortChange('descripcion')" class="sortable">
+              Descripción
+              <i class="fas" 
+                 [ngClass]="sortBy === 'descripcion' ? (sortOrder === 'asc' ? 'fa-sort-up' : 'fa-sort-down') : 'fa-sort'"
+                 [class.active]="sortBy === 'descripcion'"></i>
+            </th>
+            <th (click)="onSortChange('categoria')" class="sortable">
+              Categoría
+              <i class="fas" 
+                 [ngClass]="sortBy === 'categoria' ? (sortOrder === 'asc' ? 'fa-sort-up' : 'fa-sort-down') : 'fa-sort'"
+                 [class.active]="sortBy === 'categoria'"></i>
+            </th>
+            <th (click)="onSortChange('peso')" class="sortable">
+              Peso Unit.
+              <i class="fas" 
+                 [ngClass]="sortBy === 'peso' ? (sortOrder === 'asc' ? 'fa-sort-up' : 'fa-sort-down') : 'fa-sort'"
+                 [class.active]="sortBy === 'peso'"></i>
+            </th>
+            <th (click)="onSortChange('cantidad')" class="sortable">
+              Cantidad
+              <i class="fas" 
+                 [ngClass]="sortBy === 'cantidad' ? (sortOrder === 'asc' ? 'fa-sort-up' : 'fa-sort-down') : 'fa-sort'"
+                 [class.active]="sortBy === 'cantidad'"></i>
+            </th>
+            <th>Peso Total</th>
+            <th (click)="onSortChange('valor')" class="sortable">
+              Valor Unit.
+              <i class="fas" 
+                 [ngClass]="sortBy === 'valor' ? (sortOrder === 'asc' ? 'fa-sort-up' : 'fa-sort-down') : 'fa-sort'"
+                 [class.active]="sortBy === 'valor'"></i>
+            </th>
+            <th>Valor Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of paginatedProductos; trackBy: trackByProductoId">
+            <td class="producto-descripcion">
+              <strong>{{ producto.descripcion }}</strong>
+            </td>
+            <td>
+              <span class="badge" [ngClass]="'categoria-' + producto.categoria">
+                {{ getCategoriaLabel(producto.categoria) }}
+              </span>
+            </td>
+            <td>{{ producto.peso | number:'1.2-2' }} kg</td>
+            <td>{{ producto.cantidad }}</td>
+            <td><strong>{{ getPesoTotal(producto) | number:'1.2-2' }} kg</strong></td>
+            <td>{{ producto.valor | currency:'USD':'symbol':'1.2-2' }}</td>
+            <td class="valor-total">
+              <strong>{{ getValorTotal(producto) | currency:'USD':'symbol':'1.2-2' }}</strong>
+            </td>
+            <td class="table-actions">
+              <button 
+                class="btn-icon btn-edit"
+                (click)="editProducto(producto)"
+                title="Editar"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button 
+                class="btn-icon btn-delete"
+                (click)="deleteProducto(producto)"
+                title="Eliminar"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="no-data-card" *ngIf="!loading && filteredProductos.length === 0 && productos.length === 0">
+      <i class="fas fa-box-open"></i>
+      <h3>No hay productos en el sistema</h3>
+      <p>Crea tu primer producto usando el botón "Nuevo Producto"</p>
+    </div>
+    <div class="no-data-card" *ngIf="!loading && filteredProductos.length === 0 && productos.length > 0">
+      <i class="fas fa-search"></i>
       <h3>No se encontraron productos</h3>
       <p>Intenta cambiar los filtros de búsqueda</p>
     </div>
@@ -197,7 +314,7 @@
 </div>
 
 <!-- Modal Create/Edit -->
-<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+<div class="modal-overlay" *ngIf="showModal">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h3>
@@ -229,6 +346,32 @@
 
         <div class="form-group">
           <label class="form-label">
+            Envío <span class="required">*</span>
+          </label>
+          <select 
+            formControlName="envio"
+            class="form-control"
+            [class.error]="productoForm.get('envio')?.invalid && productoForm.get('envio')?.touched"
+            [disabled]="editingProducto !== null || loadingEnvios"
+          >
+            <option value="">Seleccione un envío</option>
+            <option *ngFor="let envio of envios" [value]="envio.id">
+              HAWB: {{ envio.hawb }} - {{ envio.comprador_nombre || envio.comprador?.nombre || 'N/A' }} ({{ envio.estado }})
+            </option>
+          </select>
+          <div class="error-message" *ngIf="productoForm.get('envio')?.invalid && productoForm.get('envio')?.touched">
+            Debe seleccionar un envío
+          </div>
+          <small *ngIf="editingProducto" class="form-text text-muted">
+            El envío no puede ser modificado al editar un producto
+          </small>
+          <small *ngIf="loadingEnvios" class="form-text text-muted">
+            Cargando envíos...
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
             Categoría <span class="required">*</span>
           </label>
           <select 
@@ -237,21 +380,11 @@
             [class.error]="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched"
           >
             <option value="">Seleccione una categoría</option>
-            <option [value]="CategoriasProducto.ELECTRONICA">
-              <i class="fas fa-laptop"></i> Electrónica
-            </option>
-            <option [value]="CategoriasProducto.ROPA">
-              <i class="fas fa-tshirt"></i> Ropa
-            </option>
-            <option [value]="CategoriasProducto.HOGAR">
-              <i class="fas fa-home"></i> Hogar
-            </option>
-            <option [value]="CategoriasProducto.DEPORTES">
-              <i class="fas fa-futbol"></i> Deportes
-            </option>
-            <option [value]="CategoriasProducto.OTROS">
-              <i class="fas fa-box"></i> Otros
-            </option>
+            <option [value]="CategoriasProducto.ELECTRONICA">Electrónica</option>
+            <option [value]="CategoriasProducto.ROPA">Ropa</option>
+            <option [value]="CategoriasProducto.HOGAR">Hogar</option>
+            <option [value]="CategoriasProducto.DEPORTES">Deportes</option>
+            <option [value]="CategoriasProducto.OTROS">Otros</option>
           </select>
           <div class="error-message" *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched">
             Debe seleccionar una categoría

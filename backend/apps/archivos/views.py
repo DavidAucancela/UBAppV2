@@ -26,6 +26,11 @@ from .utils_importacion import (
     ProcesadorExcel,
     generar_reporte_errores
 )
+from apps.notificaciones.utils import (
+    crear_notificacion_envio_asignado,
+    crear_notificacion_estado_cambiado
+)
+from apps.busqueda.utils_embeddings import generar_embedding_envio
 
 # Create your views here.
 
@@ -49,7 +54,7 @@ class EnvioViewSet(viewsets.ModelViewSet):
         return EnvioSerializer
     
     def create(self, request, *args, **kwargs):
-        """Crear envío con mejor manejo de errores"""
+        """Crear envío con mejor manejo de errores y generación automática de embedding"""
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
             # Retornar errores detallados
@@ -59,7 +64,19 @@ class EnvioViewSet(viewsets.ModelViewSet):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            self.perform_create(serializer)
+            envio = serializer.save()
+            
+            # Crear notificación cuando se asigna un envío a un comprador
+            if envio.comprador and envio.comprador.es_comprador:
+                crear_notificacion_envio_asignado(envio)
+            
+            # Generar embedding automáticamente para búsqueda semántica
+            try:
+                generar_embedding_envio(envio)
+            except Exception as e_embed:
+                # No fallar la creación si falla el embedding
+                print(f"Advertencia: No se pudo generar embedding para envío {envio.hawb}: {str(e_embed)}")
+            
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         except Exception as e:
@@ -67,6 +84,33 @@ class EnvioViewSet(viewsets.ModelViewSet):
                 'error': 'Error al crear el envío',
                 'detalle': str(e)
             }, status=status.HTTP_400_BAD_REQUEST)
+    
+    def update(self, request, *args, **kwargs):
+        """Actualizar envío y crear notificaciones si es necesario"""
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        
+        # Guardar valores anteriores
+        comprador_anterior = instance.comprador
+        estado_anterior = instance.estado
+        
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        
+        envio = serializer.instance
+        
+        # Crear notificación si cambió el comprador
+        if comprador_anterior != envio.comprador:
+            if envio.comprador and envio.comprador.es_comprador:
+                crear_notificacion_envio_asignado(envio)
+        
+        # Crear notificación si cambió el estado
+        if estado_anterior != envio.estado:
+            if envio.comprador and envio.comprador.es_comprador:
+                crear_notificacion_estado_cambiado(envio, estado_anterior)
+        
+        return Response(serializer.data)
 
     def get_queryset(self):
         """Filtra el queryset según el usuario y su rol"""
@@ -95,8 +139,15 @@ class EnvioViewSet(viewsets.ModelViewSet):
         if nuevo_estado not in dict(Envio._meta.get_field('estado').choices):
             return Response({'error': 'Estado inválido'}, status=status.HTTP_400_BAD_REQUEST)
         
+        # Guardar estado anterior para la notificación
+        estado_anterior = envio.estado
+        
         envio.estado = nuevo_estado
         envio.save()
+        
+        # Crear notificación si el estado cambió y hay un comprador asignado
+        if estado_anterior != nuevo_estado and envio.comprador and envio.comprador.es_comprador:
+            crear_notificacion_estado_cambiado(envio, estado_anterior)
         
         return Response({'message': f'Estado cambiado a {nuevo_estado}'})
 

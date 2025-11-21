@@ -5,6 +5,8 @@ import { RouterLink } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ImportacionExcelService } from '../../services/importacion-excel.service';
+import { ApiService } from '../../services/api.service';
+import { Usuario } from '../../models/usuario';
 import {
   ImportacionExcel,
   PreviewExcel,
@@ -57,25 +59,30 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
   
   // Comprador seleccionado
   compradorId: number | null = null;
+  compradores: Usuario[] = [];
+  cargandoCompradores: boolean = false;
   
   // Paginación de la tabla
   paginaActual: number = 1;
   filasPorPagina: number = 10;
 
-  constructor(private importacionExcelService: ImportacionExcelService) {}
+  constructor(
+    private importacionExcelService: ImportacionExcelService,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
     // Suscribirse a cambios en la importación actual
     this.importacionExcelService.importacionActual$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(importacion => {
+      .subscribe((importacion: ImportacionExcel) => {
         this.importacionActual = importacion;
       });
 
     // Suscribirse a cambios en preview
     this.importacionExcelService.previewDatos$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(preview => {
+      .subscribe((preview: PreviewExcel) => {
         this.previewDatos = preview;
       });
   }
@@ -138,25 +145,88 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
 
     this.mapeoColumnas = {};
     
+    // Mapeo de variaciones de nombres de columnas (ordenado por prioridad)
+    // Las variaciones más específicas primero
+    const mapeoVariaciones: { [key: string]: string[] } = {
+      'hawb': ['hawb', 'numero guia', 'numero_guia', 'guia', 'n° guía', 'n° guia', 'numero de guia'],
+      'peso_total': ['peso total', 'peso_total', 'peso kg', 'peso_kg', 'peso en kg', 'peso_en_kg'],
+      'peso': ['peso producto', 'peso_producto'],
+      'cantidad_total': ['cantidad total', 'cantidad_total', 'total unidades', 'total_unidades'],
+      'cantidad': ['cantidad producto', 'cantidad_producto', 'unidades fisicas', 'unidades_fisicas', 'unidades', 'cantidad'],
+      'valor_total': ['valor total', 'valor_total', 'valor fob', 'valor_fob', 'valor en usd', 'valor_en_usd'],
+      'valor': ['valor producto', 'valor_producto', 'valor unitario', 'valor_unitario', 'precio', 'precio unitario'],
+      'descripcion': ['descripcion', 'descripción', 'descripcion producto', 'descripcion_producto', 'producto', 'nombre producto', 'nombre_producto'],
+      'categoria': ['categoria', 'categoría', 'categoria producto', 'categoria_producto', 'tipo', 'tipo producto'],
+      'estado': ['estado', 'estado envio', 'estado_envio', 'status'],
+      'observaciones': ['observaciones', 'notas', 'comentarios', 'observacion', 'comentario']
+    };
+    
+    // Detectar si el formato es el nuevo (tiene CONSIGNATARIO, RUC, etc.)
+    const tieneConsignatario = this.previewDatos.columnas.some(c => 
+      c.toLowerCase().includes('consignatario')
+    );
+    
     this.previewDatos.columnas.forEach(columna => {
+      const columnaOriginal = columna;
       const columnaNormalizada = columna.toLowerCase().trim()
         .replace(/\s+/g, '_')
         .replace(/[áàäâ]/g, 'a')
         .replace(/[éèëê]/g, 'e')
         .replace(/[íìïî]/g, 'i')
         .replace(/[óòöô]/g, 'o')
-        .replace(/[úùüû]/g, 'u');
+        .replace(/[úùüû]/g, 'u')
+        .replace(/ñ/g, 'n')
+        .replace(/[^a-z0-9_]/g, ''); // Eliminar caracteres especiales
 
-      // Buscar coincidencias
-      const campo = this.camposDisponibles.find(c => 
-        columnaNormalizada.includes(c.valor) || 
-        c.valor.includes(columnaNormalizada) ||
-        c.etiqueta.toLowerCase().replace(/\s+/g, '_') === columnaNormalizada
-      );
-
-      if (campo) {
-        this.mapeoColumnas[columna] = campo.valor;
+      // Buscar coincidencias exactas primero
+      let campoEncontrado: CampoDisponible | undefined;
+      
+      // Si es el nuevo formato, priorizar mapeos específicos
+      if (tieneConsignatario) {
+        // En el nuevo formato, "PESO KG" es peso_total, no peso de producto
+        if (columnaNormalizada.includes('peso') && columnaNormalizada.includes('kg')) {
+          campoEncontrado = this.camposDisponibles.find(c => c.valor === 'peso_total');
+        }
+        // "VALOR FOB" es valor_total
+        else if (columnaNormalizada.includes('valor') && columnaNormalizada.includes('fob')) {
+          campoEncontrado = this.camposDisponibles.find(c => c.valor === 'valor_total');
+        }
+        // "UNIDADES FISICAS" es cantidad (de producto)
+        else if (columnaNormalizada.includes('unidades') || columnaNormalizada.includes('fisicas')) {
+          campoEncontrado = this.camposDisponibles.find(c => c.valor === 'cantidad');
+        }
+        // "DESCRIPCIÓN" es descripción de producto
+        else if (columnaNormalizada.includes('descripcion') || columnaNormalizada.includes('descripción')) {
+          campoEncontrado = this.camposDisponibles.find(c => c.valor === 'descripcion');
+        }
       }
+      
+      // Si no se encontró con la lógica específica, buscar en variaciones
+      if (!campoEncontrado) {
+        for (const [campoValor, variaciones] of Object.entries(mapeoVariaciones)) {
+          if (variaciones.some(v => columnaNormalizada.includes(v) || v.includes(columnaNormalizada))) {
+            campoEncontrado = this.camposDisponibles.find(c => c.valor === campoValor);
+            if (campoEncontrado) break;
+          }
+        }
+      }
+      
+      // Si no se encontró, buscar coincidencias parciales
+      if (!campoEncontrado) {
+        campoEncontrado = this.camposDisponibles.find(c => {
+          const valorNormalizado = c.valor.toLowerCase();
+          const etiquetaNormalizada = c.etiqueta.toLowerCase().replace(/\s+/g, '_');
+          return columnaNormalizada.includes(valorNormalizado) || 
+                 valorNormalizado.includes(columnaNormalizada) ||
+                 etiquetaNormalizada === columnaNormalizada ||
+                 columnaNormalizada.includes(etiquetaNormalizada);
+        });
+      }
+
+      if (campoEncontrado) {
+        this.mapeoColumnas[columnaOriginal] = campoEncontrado.valor;
+      }
+      // Si no se encuentra, simplemente no se mapea (se ignora)
     });
 
     console.log('Mapeo automático:', this.mapeoColumnas);
@@ -177,14 +247,14 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
     this.importacionExcelService.subirArchivo(this.archivoSeleccionado)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (importacion) => {
+        next: (importacion: ImportacionExcel) => {
           this.importacionActual = importacion;
           this.mostrarExito('✅ Archivo subido correctamente');
           
           // Obtener preview del backend
           this.obtenerPreviewBackend(importacion.id);
         },
-        error: (error) => {
+        error: (error: any) => {
           this.mostrarError('Error al subir el archivo: ' + (error.error?.error || error.message));
           this.cargando = false;
         }
@@ -198,7 +268,7 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
     this.importacionExcelService.obtenerPreview(importacionId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (preview) => {
+        next: (preview: PreviewExcel) => {
           this.previewDatos = preview;
           this.duplicados = preview.duplicados || [];
           
@@ -209,7 +279,7 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
           this.paso = 2; // Avanzar a mapeo
           this.cargando = false;
         },
-        error: (error) => {
+        error: (error: any) => {
           this.mostrarError('Error al obtener vista previa: ' + (error.error?.error || error.message));
           this.cargando = false;
         }
@@ -238,7 +308,7 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
     this.importacionExcelService.validarDatos(this.importacionActual.id, this.mapeoColumnas)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (resultado) => {
+        next: (resultado: any) => {
           this.erroresValidacion = resultado.errores;
           
           if (resultado.errores.length === 0) {
@@ -252,10 +322,32 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
           
           // Inicializar todos como seleccionados
           this.seleccionarTodos(true);
+          
+          // Cargar lista de compradores
+          this.cargarCompradores();
         },
-        error: (error) => {
+        error: (error: any) => {
           this.mostrarError('Error al validar: ' + (error.error?.error || error.message));
           this.cargando = false;
+        }
+      });
+  }
+
+  /**
+   * Carga la lista de compradores desde el backend
+   */
+  cargarCompradores(): void {
+    this.cargandoCompradores = true;
+    this.apiService.getCompradores()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (compradores: Usuario[]) => {
+          this.compradores = compradores;
+          this.cargandoCompradores = false;
+        },
+        error: (error: any) => {
+          this.mostrarError('Error al cargar compradores: ' + (error.error?.error || error.message));
+          this.cargandoCompradores = false;
         }
       });
   }
@@ -269,10 +361,8 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (!this.compradorId) {
-      this.mostrarError('Por favor seleccione un comprador');
-      return;
-    }
+    // Permitir null para "Sin comprador"
+    // La validación se hace en el backend
 
     const registrosSeleccionados = this.todosSeleccionados 
       ? undefined 
@@ -287,12 +377,12 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
       registrosSeleccionados
     ).pipe(takeUntil(this.destroy$))
     .subscribe({
-      next: (resultado) => {
+      next: (resultado: any) => {
         this.mostrarExito('✅ ' + resultado.mensaje);
         this.paso = 4; // Completado
         this.cargando = false;
       },
-      error: (error) => {
+      error: (error: any) => {
         this.mostrarError('Error al procesar: ' + (error.error?.error || error.message));
         this.cargando = false;
       }
@@ -369,11 +459,11 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
     this.importacionExcelService.obtenerReporteErrores(this.importacionActual.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (reporte) => {
+        next: (reporte: any) => {
           this.importacionExcelService.exportarErrores(reporte);
           this.mostrarExito('✅ Reporte de errores descargado');
         },
-        error: (error) => {
+        error: (error: any) => {
           this.mostrarError('Error al descargar reporte: ' + error.message);
         }
       });
@@ -391,6 +481,9 @@ export class ImportacionExcelComponent implements OnInit, OnDestroy {
     this.erroresValidacion = [];
     this.duplicados = [];
     this.registrosSeleccionados.clear();
+    this.compradorId = null;
+    this.compradores = [];
+    this.cargandoCompradores = false;
     this.mensajeError = '';
     this.mensajeExito = '';
     this.importacionExcelService.limpiarEstado();

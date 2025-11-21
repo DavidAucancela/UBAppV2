@@ -1,21 +1,36 @@
-<div class="container-fluid p-4">
-  <!-- Header -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <h2 class="mb-1">Mi Dashboard</h2>
-      <p class="text-muted">Bienvenido, {{ dashboard?.usuario?.nombre || 'Usuario' }}</p>
+<div class="dashboard-container">
+  <!-- Header Mejorado 
+  <div class="dashboard-header">
+    <div class="header-content">
+      <div class="header-text">
+        <h1 class="dashboard-title">
+          <i class="bi bi-speedometer2 me-3"></i>
+          Mi Dashboard
+        </h1>
+        <p class="dashboard-subtitle">
+          <i class="bi bi-person-circle me-2"></i>
+          Bienvenido, <strong>{{ dashboard?.usuario?.nombre || 'Usuario' }}</strong>
+        </p>
+      </div>
+      <div class="header-decoration">
+        <div class="decoration-circle circle-1"></div>
+        <div class="decoration-circle circle-2"></div>
+        <div class="decoration-circle circle-3"></div>
+      </div>
     </div>
-  </div>
+  </div>-->
 
   <!-- Loading y Error -->
-  <div *ngIf="loading" class="text-center p-5">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Cargando...</span>
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner-wrapper">
+      <div class="spinner-border text-primary spinner-large" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="loading-text">Cargando estadísticas...</p>
     </div>
-    <p class="mt-3 text-muted">Cargando estadísticas...</p>
   </div>
 
-  <div *ngIf="error" class="alert alert-danger" role="alert">
+  <div *ngIf="error" class="error-alert">
     <i class="bi bi-exclamation-triangle-fill me-2"></i>
     {{ error }}
   </div>
@@ -23,198 +38,209 @@
   <!-- Dashboard Content -->
   <div *ngIf="!loading && dashboard">
     <!-- Tarjeta de Cupo Anual (Solo para Compradores) -->
-    <div *ngIf="authService.isComprador()" class="row mb-4">
-      <div class="col-12">
-        <div class="card shadow-sm cupo-card">
-          <div class="card-body">
-            <h5 class="card-title mb-4">
-              <i class="bi bi-speedometer2 me-2"></i>
-              Cupo Anual {{ anioActual }}
-            </h5>
-            
-            <!-- Barra de Progreso Grande Mejorada -->
-            <div class="cupo-progress-container mb-3">
-              <div class="d-flex justify-content-between mb-3">
-                <div class="cupo-info-item">
-                  <i class="bi bi-box-fill text-primary me-2"></i>
-                  <span class="fw-bold fs-5 text-primary">{{ dashboard.peso_usado | number:'1.2-2' }} kg</span>
-                  <span class="text-muted ms-1">usados</span>
-                </div>
-                <div class="cupo-info-item">
-                  <i class="bi bi-check-circle-fill text-success me-2"></i>
-                  <span class="fw-bold fs-5 text-success">{{ dashboard.peso_disponible | number:'1.2-2' }} kg</span>
-                  <span class="text-muted ms-1">disponibles</span>
-                </div>
+    <div *ngIf="authService.isComprador()" class="dashboard-section">
+      <div class="cupo-card-modern">
+        <div class="cupo-card-header">
+          <div class="cupo-header-icon">
+            <i class="bi bi-calendar-check-fill"></i>
+          </div>
+          <div class="cupo-header-text">
+            <h3 class="cupo-title">Cupo Anual {{ anioActual }}</h3>
+            <p class="cupo-subtitle">Resumen de tu consumo anual</p>
+          </div>
+        </div>
+        
+        <!-- Barra de Progreso Grande Mejorada -->
+        <div class="cupo-progress-container mb-3">
+          <div class="d-flex justify-content-between mb-3">
+            <div class="cupo-info-item">
+              <i class="bi bi-box-fill text-primary me-2"></i>
+              <span class="fw-bold fs-5 text-primary">{{ (dashboard.peso_usado || 0) | number:'1.2-2' }} kg</span>
+              <span class="text-muted ms-1">usados</span>
+            </div>
+            <div class="cupo-info-item">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              <span class="fw-bold fs-5 text-success">{{ (dashboard.peso_disponible || 0) | number:'1.2-2' }} kg</span>
+              <span class="text-muted ms-1">disponibles</span>
+            </div>
+          </div>
+          
+          <!-- Barra de progreso personalizada -->
+          <div class="cupo-progress-bar-wrapper">
+            <div class="cupo-progress-track">
+              <!-- Parte usada -->
+              <div 
+                class="cupo-progress-fill"
+                [class.low-usage]="(dashboard.porcentaje_usado || 0) < 50"
+                [class.medium-usage]="(dashboard.porcentaje_usado || 0) >= 50 && (dashboard.porcentaje_usado || 0) < 80"
+                [class.high-usage]="(dashboard.porcentaje_usado || 0) >= 80 && (dashboard.porcentaje_usado || 0) < 90"
+                [class.critical-usage]="(dashboard.porcentaje_usado || 0) >= 90"
+                [style.width.%]="dashboard.porcentaje_usado || 0">
+                <span class="progress-label">{{ (dashboard.porcentaje_usado || 0) | number:'1.1-1' }}% USADO</span>
               </div>
-              
-              <!-- Barra de progreso personalizada -->
-              <div class="cupo-progress-bar-wrapper">
-                <div class="cupo-progress-track">
-                  <!-- Parte usada -->
-                  <div 
-                    class="cupo-progress-fill"
-                    [class.low-usage]="dashboard.porcentaje_usado < 50"
-                    [class.medium-usage]="dashboard.porcentaje_usado >= 50 && dashboard.porcentaje_usado < 80"
-                    [class.high-usage]="dashboard.porcentaje_usado >= 80 && dashboard.porcentaje_usado < 90"
-                    [class.critical-usage]="dashboard.porcentaje_usado >= 90"
-                    [style.width.%]="dashboard.porcentaje_usado">
-                    <span class="progress-label">{{ dashboard.porcentaje_usado | number:'1.1-1' }}% USADO</span>
-                  </div>
-                  <!-- Indicador de límite -->
-                  <div class="cupo-limit-indicator" [style.left.%]="dashboard.porcentaje_usado">
-                    <div class="limit-marker"></div>
-                    <div class="limit-tooltip">{{ dashboard.peso_usado | number:'1.2-2' }} kg</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Leyenda -->
-              <div class="d-flex justify-content-between mt-3 cupo-legend">
-                <div class="legend-item">
-                  <div class="legend-color low-usage"></div>
-                  <span>Óptimo (&lt;50%)</span>
-                </div>
-                <div class="legend-item">
-                  <div class="legend-color medium-usage"></div>
-                  <span>Moderado (50-79%)</span>
-                </div>
-                <div class="legend-item">
-                  <div class="legend-color high-usage"></div>
-                  <span>Alto (80-89%)</span>
-                </div>
-                <div class="legend-item">
-                  <div class="legend-color critical-usage"></div>
-                  <span>Crítico (≥90%)</span>
-                </div>
+              <!-- Indicador de límite -->
+              <div class="cupo-limit-indicator" [style.left.%]="dashboard.porcentaje_usado || 0">
+                <div class="limit-marker"></div>
+                <div class="limit-tooltip">{{ (dashboard.peso_usado || 0) | number:'1.2-2' }} kg</div>
               </div>
             </div>
+          </div>
 
-            <!-- Información Adicional -->
-            <div class="row text-center mt-4">
-              <div class="col-4">
-                <div class="stat-box">
-                  <i class="bi bi-check-circle-fill text-success fs-3"></i>
-                  <h6 class="mt-2 mb-0">Disponible</h6>
-                  <p class="fs-5 fw-bold mb-0">{{ dashboard.peso_disponible | number:'1.2-2' }} kg</p>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="stat-box">
-                  <i class="bi bi-box-seam-fill text-primary fs-3"></i>
-                  <h6 class="mt-2 mb-0">Total Envíos</h6>
-                  <p class="fs-5 fw-bold mb-0">{{ dashboard.total_envios }}</p>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="stat-box">
-                  <i class="bi bi-currency-dollar text-info fs-3"></i>
-                  <h6 class="mt-2 mb-0">Valor Total</h6>
-                  <p class="fs-5 fw-bold mb-0">${{ dashboard.valor_total | number:'1.2-2' }}</p>
-                </div>
-              </div>
+          <!-- Leyenda -->
+          <div class="d-flex justify-content-between mt-3 cupo-legend">
+            <div class="legend-item">
+              <div class="legend-color low-usage"></div>
+              <span>Óptimo (&lt;50%)</span>
             </div>
+            <div class="legend-item">
+              <div class="legend-color medium-usage"></div>
+              <span>Moderado (50-79%)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color high-usage"></div>
+              <span>Alto (80-89%)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color critical-usage"></div>
+              <span>Crítico (≥90%)</span>
+            </div>
+          </div>
+        </div>
 
-            <!-- Alerta si está cerca del límite -->
-            <div *ngIf="dashboard.porcentaje_usado >= 80" class="alert alert-warning mt-3 mb-0" role="alert">
-              <i class="bi bi-exclamation-triangle-fill me-2"></i>
-              <strong>¡Atención!</strong> Has utilizado más del {{ dashboard.porcentaje_usado | number:'1.0-0' }}% de tu cupo anual.
+        <!-- Información Adicional Mejorada -->
+        <div class="cupo-stats-grid">
+          <div class="cupo-stat-item stat-available">
+            <div class="stat-icon-wrapper">
+              <i class="bi bi-check-circle-fill"></i>
+            </div>
+            <div class="stat-content">
+              <p class="stat-label">Disponible</p>
+              <h4 class="stat-value">{{ (dashboard.peso_disponible || 0) | number:'1.2-2' }} kg</h4>
+            </div>
+          </div>
+          <div class="cupo-stat-item stat-total">
+            <div class="stat-icon-wrapper">
+              <i class="bi bi-box-seam-fill"></i>
+            </div>
+            <div class="stat-content">
+              <p class="stat-label">Total Envíos</p>
+              <h4 class="stat-value">{{ dashboard.total_envios || 0 }}</h4>
+            </div>
+          </div>
+          <div class="cupo-stat-item stat-currency">
+            <div class="stat-icon-wrapper">
+              <i class="bi bi-currency-dollar"></i>
+            </div>
+            <div class="stat-content">
+              <p class="stat-label">Valor Total</p>
+              <h4 class="stat-value">${{ (dashboard.valor_total || 0) | number:'1.2-2' }}</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alerta si está cerca del límite -->
+        <div *ngIf="(dashboard.porcentaje_usado || 0) >= 80" class="cupo-alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <strong>¡Atención!</strong> Has utilizado más del {{ (dashboard.porcentaje_usado || 0) | number:'1.0-0' }}% de tu cupo anual.
+        </div>
+      </div>
+    </div>
+
+    <!-- Estadísticas de Envíos Mejoradas -->
+    <div class="dashboard-section">
+      <h2 class="section-title">
+        <i class="bi bi-graph-up-arrow me-2"></i>
+        Estadísticas de Envíos
+      </h2>
+      <div class="stats-grid">
+        <div class="stat-card-modern stat-pending">
+          <div class="stat-card-background"></div>
+          <div class="stat-card-content">
+            <div class="stat-icon-modern">
+              <i class="bi bi-clock-fill"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label-modern">Pendientes</p>
+              <h2 class="stat-number">{{ dashboard.envios_pendientes || 0 }}</h2>
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card-modern stat-transit">
+          <div class="stat-card-background"></div>
+          <div class="stat-card-content">
+            <div class="stat-icon-modern">
+              <i class="bi bi-truck"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label-modern">En Tránsito</p>
+              <h2 class="stat-number">{{ dashboard.envios_en_transito || 0 }}</h2>
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card-modern stat-delivered">
+          <div class="stat-card-background"></div>
+          <div class="stat-card-content">
+            <div class="stat-icon-modern">
+              <i class="bi bi-check-circle-fill"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label-modern">Entregados</p>
+              <h2 class="stat-number">{{ dashboard.envios_entregados || 0 }}</h2>
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card-modern stat-cancelled">
+          <div class="stat-card-background"></div>
+          <div class="stat-card-content">
+            <div class="stat-icon-modern">
+              <i class="bi bi-x-circle-fill"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label-modern">Cancelados</p>
+              <h2 class="stat-number">{{ dashboard.envios_cancelados || 0 }}</h2>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Estadísticas de Envíos -->
-    <div class="row mb-4">
-      <div class="col-md-3 mb-3">
-        <div class="card stat-card text-center shadow-sm">
-          <div class="card-body">
-            <i class="bi bi-clock-fill text-warning fs-1"></i>
-            <h6 class="mt-3 mb-2 text-muted">Pendientes</h6>
-            <h3 class="mb-0">{{ dashboard.envios_pendientes }}</h3>
+    <!-- Gráficos de Visualización -->
+    <div class="dashboard-section">
+      <h2 class="section-title">
+        <i class="bi bi-bar-chart-fill me-2"></i>
+        Visualizaciones
+      </h2>
+      <div class="charts-container">
+        <!-- Gráfico de Estados -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="bi bi-pie-chart-fill me-2"></i>Distribución de Envíos por Estado</h3>
+          </div>
+          <div class="chart-body">
+            <canvas #estadosChart></canvas>
           </div>
         </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card stat-card text-center shadow-sm">
-          <div class="card-body">
-            <i class="bi bi-truck text-info fs-1"></i>
-            <h6 class="mt-3 mb-2 text-muted">En Tránsito</h6>
-            <h3 class="mb-0">{{ dashboard.envios_en_transito }}</h3>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card stat-card text-center shadow-sm">
-          <div class="card-body">
-            <i class="bi bi-check-circle-fill text-success fs-1"></i>
-            <h6 class="mt-3 mb-2 text-muted">Entregados</h6>
-            <h3 class="mb-0">{{ dashboard.envios_entregados }}</h3>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card stat-card text-center shadow-sm">
-          <div class="card-body">
-            <i class="bi bi-x-circle-fill text-secondary fs-1"></i>
-            <h6 class="mt-3 mb-2 text-muted">Cancelados</h6>
-            <h3 class="mb-0">{{ dashboard.envios_cancelados }}</h3>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Envíos Recientes -->
-    <div class="row">
-      <div class="col-12">
-        <div class="card shadow-sm">
-          <div class="card-header bg-white">
-            <h5 class="mb-0">
-              <i class="bi bi-clock-history me-2"></i>
-              Envíos Recientes
-            </h5>
+        <!-- Gráfico de Tendencias -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="bi bi-graph-up me-2"></i>Tendencias de Envíos</h3>
           </div>
-          <div class="card-body">
-            <div *ngIf="enviosRecientes.length === 0" class="text-center p-4 text-muted">
-              <i class="bi bi-inbox fs-1"></i>
-              <p class="mt-3">No tienes envíos registrados</p>
-            </div>
+          <div class="chart-body">
+            <canvas #tendenciasChart></canvas>
+          </div>
+        </div>
 
-            <div *ngIf="enviosRecientes.length > 0" class="table-responsive">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>HAWB</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                    <th class="text-end">Peso</th>
-                    <th class="text-end">Valor</th>
-                    <th class="text-end">Costo Servicio</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let envio of enviosRecientes">
-                    <td><strong>{{ envio.hawb }}</strong></td>
-                    <td>{{ envio.fecha_emision | date:'dd/MM/yyyy' }}</td>
-                    <td>
-                      <span [class]="obtenerClaseEstado(envio.estado)">
-                        {{ obtenerEstadoEnvio(envio.estado) }}
-                      </span>
-                    </td>
-                    <td class="text-end">{{ envio.peso_total | number:'1.2-2' }} kg</td>
-                    <td class="text-end">${{ envio.valor_total | number:'1.2-2' }}</td>
-                    <td class="text-end">${{ envio.costo_servicio | number:'1.2-2' }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="text-center mt-3">
-              <a routerLink="/mis-envios" class="btn btn-outline-primary">
-                <i class="bi bi-eye me-2"></i>
-                Ver Todos Mis Envíos
-              </a>
-            </div>
+        <!-- Gráfico de Cupo (Solo para Compradores) -->
+        <div *ngIf="authService.isComprador()" class="chart-card">
+          <div class="chart-header">
+            <h3><i class="bi bi-bar-chart-line me-2"></i>Uso de Cupo Anual</h3>
+          </div>
+          <div class="chart-body">
+            <canvas #cupoChart></canvas>
           </div>
         </div>
       </div>

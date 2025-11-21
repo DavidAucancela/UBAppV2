@@ -8,6 +8,20 @@ import { FiltrosBusquedaEnvio, RespuestaBusquedaEnvio, EstadisticasBusqueda } fr
 import { ConsultaSemantica, RespuestaSemantica, SugerenciaSemantica, HistorialBusquedaSemantica, MetricasSemanticas } from '../models/busqueda-semantica';
 import { environment } from '../environments/environment';
 
+export interface UbicacionesResponse {
+  provincias?: string[];
+  cantones?: string[];
+  ciudades?: string[];
+  total: number;
+}
+
+export interface CoordenaddasResponse {
+  provincia: string;
+  canton: string;
+  ciudad: string;
+  latitud: number;
+  longitud: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +42,10 @@ export class ApiService {
 
   createUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(`${this.apiUrl}/usuarios/`, usuario);
+  }
+
+  registerComprador(usuario: Usuario): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/usuarios/auth/register/`, usuario);
   }
 
   updateUsuario(id: number, usuario: Usuario): Observable<Usuario> {
@@ -53,6 +71,28 @@ export class ApiService {
 
   changePassword(userId: number, passwordData: { current_password: string, new_password: string }): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/usuarios/${userId}/change_password/`, passwordData);
+  }
+
+  getUbicacionesProvincias(): Observable<UbicacionesResponse> {
+    return this.http.get<UbicacionesResponse>(`${this.apiUrl}/usuarios/ubicaciones/provincias/`);
+  }
+
+  getUbicacionesCantones(provincia: string): Observable<UbicacionesResponse> {
+    return this.http.get<UbicacionesResponse>(`${this.apiUrl}/usuarios/ubicaciones/cantones/`, {
+      params: { provincia }
+    });
+  }
+
+  getUbicacionesCiudades(provincia: string, canton: string): Observable<UbicacionesResponse> {
+    return this.http.get<UbicacionesResponse>(`${this.apiUrl}/usuarios/ubicaciones/ciudades/`, {
+      params: { provincia, canton }
+    });
+  }
+
+  getUbicacionesCoordenadas(provincia: string, canton: string, ciudad: string): Observable<CoordenaddasResponse> {
+    return this.http.get<CoordenaddasResponse>(`${this.apiUrl}/usuarios/ubicaciones/coordenadas/`, {
+      params: { provincia, canton, ciudad }
+    });
   }
 
   // ===== MAPA DE COMPRADORES =====
@@ -344,5 +384,23 @@ export class ApiService {
       resultadoId,
       esRelevante
     });
+  }
+
+  // ===== NOTIFICACIONES =====
+  
+  /**
+   * Obtiene las notificaciones del usuario autenticado
+   * @returns Observable con lista de notificaciones
+   */
+  getNotificaciones(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/notificaciones/`);
+  }
+
+  /**
+   * Obtiene el contador de notificaciones no leídas
+   * @returns Observable con total y no leídas
+   */
+  getContadorNotificaciones(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/notificaciones/contador/`);
   }
 }

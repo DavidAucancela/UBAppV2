@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -45,6 +45,9 @@ export class EnviosListComponent implements OnInit {
   // Messages
   successMessage = '';
   errorMessage = '';
+  
+  // Dropdown estado
+  openDropdownEnvioId: number | null = null;
   
   // Form
   envioForm: FormGroup;
@@ -245,6 +248,7 @@ export class EnviosListComponent implements OnInit {
 
   openCreateModal(): void {
     this.editingEnvio = null;
+    this.generateNextHAWB();
     this.envioForm.reset({
       estado: EstadosEnvio.PENDIENTE
     });
@@ -254,6 +258,48 @@ export class EnviosListComponent implements OnInit {
     this.addProducto(); // Agregar un producto por defecto
     this.loadProductosExistentes();
     this.showModal = true;
+  }
+
+  generateNextHAWB(): void {
+    // Obtener todos los HAWBs existentes
+    this.apiService.getEnvios().subscribe({
+      next: (response) => {
+        const envios = Array.isArray(response) ? response : (response as any).results || [];
+        const hawbNumbers: number[] = [];
+        
+        // Extraer números de HAWBs existentes
+        envios.forEach((envio: Envio) => {
+          const match = envio.hawb.match(/(\d+)$/);
+          if (match) {
+            hawbNumbers.push(parseInt(match[1], 10));
+          }
+        });
+        
+        // Generar el siguiente HAWB
+        let nextNumber = 1;
+        if (hawbNumbers.length > 0) {
+          const maxNumber = Math.max(...hawbNumbers);
+          nextNumber = maxNumber + 1;
+        }
+        
+        // Formatear HAWB (ej: HAW000001, HAW000002, etc.)
+        const nextHAWB = `HAW${String(nextNumber).padStart(6, '0')}`;
+        
+        // Establecer el HAWB en el formulario
+        this.envioForm.patchValue({
+          hawb: nextHAWB
+        });
+      },
+      error: (error) => {
+        console.error('Error generando HAWB:', error);
+        // En caso de error, usar un HAWB por defecto basado en timestamp
+        const timestamp = Date.now();
+        const defaultHAWB = `HAW${String(timestamp % 1000000).padStart(6, '0')}`;
+        this.envioForm.patchValue({
+          hawb: defaultHAWB
+        });
+      }
+    });
   }
 
   editEnvio(envio: Envio): void {
@@ -326,16 +372,29 @@ export class EnviosListComponent implements OnInit {
     }
   }
 
+  toggleDropdownEstado(envioId: number, event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.openDropdownEnvioId = this.openDropdownEnvioId === envioId ? null : envioId;
+  }
+
+  isDropdownOpen(envioId: number): boolean {
+    return this.openDropdownEnvioId === envioId;
+  }
+
   cambiarEstado(envio: Envio, nuevoEstado: string): void {
     this.apiService.cambiarEstadoEnvio(envio.id!, nuevoEstado).subscribe({
       next: () => {
         this.successMessage = 'Estado actualizado exitosamente';
+        this.openDropdownEnvioId = null; // Cerrar dropdown
         this.loadEnvios();
         setTimeout(() => this.successMessage = '', 3000);
       },
       error: (error) => {
         console.error('Error cambiando estado:', error);
         this.errorMessage = 'Error al cambiar el estado';
+        this.openDropdownEnvioId = null; // Cerrar dropdown
         setTimeout(() => this.errorMessage = '', 3000);
       }
     });
@@ -394,6 +453,15 @@ export class EnviosListComponent implements OnInit {
   closeDetailModal(): void {
     this.showDetailModal = false;
     this.selectedEnvio = null;
+  }
+
+  // Cerrar dropdown cuando se hace click fuera
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.dropdown-estado')) {
+      this.openDropdownEnvioId = null;
+    }
   }
 
   onSubmit(): void {

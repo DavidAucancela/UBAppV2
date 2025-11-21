@@ -33,7 +33,8 @@ class BusquedaSemanticaSerializer(serializers.ModelSerializer):
         model = BusquedaSemantica
         fields = [
             'id', 'usuario', 'consulta', 'resultados_encontrados',
-            'tiempo_respuesta', 'fecha_busqueda', 'filtros_aplicados'
+            'tiempo_respuesta', 'fecha_busqueda', 'filtros_aplicados',
+            'modelo_utilizado', 'costo_consulta', 'tokens_utilizados'
         ]
         read_only_fields = ['id', 'usuario', 'fecha_busqueda']
 

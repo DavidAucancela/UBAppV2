@@ -74,8 +74,9 @@ class EnvioCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Envio
         fields = [
-            'hawb', 'comprador', 'estado', 'observaciones', 'productos'
+            'id', 'hawb', 'comprador', 'estado', 'observaciones', 'productos'
         ]
+        read_only_fields = ['id']
     
     def create(self, validated_data):
         productos_data = validated_data.pop('productos', [])
@@ -99,7 +100,6 @@ class EnvioCreateSerializer(serializers.ModelSerializer):
         
         return envio
 
-
 class TarifaSerializer(serializers.ModelSerializer):
     """Serializer para el modelo Tarifa"""
     categoria_nombre = serializers.CharField(source='get_categoria_display', read_only=True)
@@ -111,7 +111,6 @@ class TarifaSerializer(serializers.ModelSerializer):
             'precio_por_kg', 'cargo_base', 'activa', 'fecha_creacion', 'fecha_actualizacion'
         ]
         read_only_fields = ['id', 'fecha_creacion', 'fecha_actualizacion']
-
 
 class ImportacionExcelSerializer(serializers.ModelSerializer):
     """Serializer para el modelo ImportacionExcel"""
@@ -141,7 +140,6 @@ class ImportacionExcelSerializer(serializers.ModelSerializer):
             return round((obj.registros_validos / obj.total_registros) * 100, 2)
         return 0
 
-
 class ImportacionExcelCreateSerializer(serializers.ModelSerializer):
     """Serializer para crear importaciones de Excel"""
     
@@ -158,7 +156,6 @@ class ImportacionExcelCreateSerializer(serializers.ModelSerializer):
             )
         return value
 
-
 class PreviewExcelSerializer(serializers.Serializer):
     """Serializer para la vista previa de datos del Excel"""
     columnas = serializers.ListField(child=serializers.CharField())
@@ -166,7 +163,6 @@ class PreviewExcelSerializer(serializers.Serializer):
     total_filas = serializers.IntegerField()
     errores_detectados = serializers.ListField(child=serializers.DictField(), required=False)
     duplicados = serializers.ListField(child=serializers.IntegerField(), required=False)
-
 
 class ProcesarExcelSerializer(serializers.Serializer):
     """Serializer para procesar datos del Excel"""

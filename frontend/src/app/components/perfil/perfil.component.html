@@ -1,45 +1,14 @@
 <div class="perfil-container">
-  <!-- Header -->
-  <div class="perfil-header">
-    <div class="container">
-      <div class="header-content">
-        <div class="header-icon">
-          <i class="fas fa-user-circle"></i>
-        </div>
-        <div class="header-text">
-          <h1>Mi Perfil</h1>
-          <p>Administra tu información personal y configuración de cuenta</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Main Content -->
   <div class="container">
     <div class="perfil-content">
       
-      <!-- Información del Usuario -->
-      <div class="user-card">
-        <div class="user-avatar-large">
-          <i class="fas fa-user-circle"></i>
-          <div class="avatar-badge">
-            <i class="fas fa-check"></i>
-          </div>
-        </div>
-        <h3 *ngIf="currentUser">{{ currentUser.nombre }}</h3>
-        <p class="user-email" *ngIf="currentUser">{{ currentUser.correo }}</p>
-        <span class="role-badge" *ngIf="currentUser">
-          <i class="fas fa-shield-alt"></i>
-          {{ currentUser.rol_nombre }}
-        </span>
-      </div>
-
-      <!-- Formulario de Perfil -->
+      <!-- Formulario Unificado -->
       <div class="form-card">
         <div class="card-header">
           <h3>
             <i class="fas fa-user-edit"></i>
-            Información Personal
+            Información del Perfil
           </h3>
         </div>
         
@@ -99,6 +68,20 @@
             </div>
 
             <div class="form-group">
+              <label for="fecha_nacimiento">
+                <i class="fas fa-birthday-cake"></i>
+                Fecha de Nacimiento
+              </label>
+              <input
+                type="date"
+                id="fecha_nacimiento"
+                formControlName="fecha_nacimiento"
+                class="form-control">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
               <label for="direccion">
                 <i class="fas fa-map-marker-alt"></i>
                 Dirección
@@ -109,6 +92,166 @@
                 formControlName="direccion"
                 class="form-control"
                 placeholder="Tu dirección">
+            </div>
+          </div>
+
+          <!-- Ubicación Geográfica -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="provincia">
+                <i class="fas fa-globe-americas"></i>
+                Provincia
+              </label>
+              <select
+                id="provincia"
+                formControlName="provincia"
+                class="form-control"
+                [disabled]="loadingUbicaciones">
+                <option value="">Seleccione una provincia</option>
+                <option *ngFor="let provincia of provincias" [value]="provincia">
+                  {{ provincia }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="canton">
+                <i class="fas fa-map"></i>
+                Cantón
+              </label>
+              <select
+                id="canton"
+                formControlName="canton"
+                class="form-control"
+                [disabled]="!profileForm.get('provincia')?.value || loadingUbicaciones">
+                <option value="">Seleccione un cantón</option>
+                <option *ngFor="let canton of cantones" [value]="canton">
+                  {{ canton }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="ciudad">
+                <i class="fas fa-city"></i>
+                Ciudad
+              </label>
+              <select
+                id="ciudad"
+                formControlName="ciudad"
+                class="form-control"
+                [disabled]="!profileForm.get('canton')?.value || loadingUbicaciones">
+                <option value="">Seleccione una ciudad</option>
+                <option *ngFor="let ciudad of ciudades" [value]="ciudad">
+                  {{ ciudad }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Cupo Anual (solo para administradores) -->
+          <div class="form-row" *ngIf="isAdmin()">
+            <div class="form-group">
+              <label for="cupo_anual">
+                <i class="fas fa-weight"></i>
+                Cupo Anual (kg)
+              </label>
+              <input
+                type="number"
+                id="cupo_anual"
+                formControlName="cupo_anual"
+                class="form-control"
+                placeholder="1000.00"
+                step="0.01"
+                min="0">
+              <small class="form-text">Límite de peso anual que puede enviar</small>
+            </div>
+          </div>
+
+          <!-- Cambio de Contraseña -->
+          <div class="form-row">
+            <div class="form-group checkbox-group">
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  id="changePassword"
+                  [checked]="changePasswordEnabled"
+                  (change)="onPasswordCheckboxChange($event)">
+                <span class="checkbox-custom"></span>
+                <i class="fas fa-lock"></i>
+                Cambiar Contraseña
+              </label>
+            </div>
+          </div>
+
+          <div class="form-row" *ngIf="changePasswordEnabled">
+            <div class="form-group">
+              <label for="currentPassword">
+                <i class="fas fa-key"></i>
+                Contraseña Actual <span class="required">*</span>
+              </label>
+              <div class="password-input-wrapper">
+                <input
+                  [type]="showCurrentPassword ? 'text' : 'password'"
+                  id="currentPassword"
+                  formControlName="currentPassword"
+                  class="form-control"
+                  [class.error]="isFieldInvalid(profileForm, 'currentPassword')"
+                  placeholder="Ingresa tu contraseña actual">
+                <button type="button" class="password-toggle" (click)="togglePasswordVisibility('current')">
+                  <i class="fas" [class.fa-eye]="!showCurrentPassword" [class.fa-eye-slash]="showCurrentPassword"></i>
+                </button>
+              </div>
+              <span class="error-message" *ngIf="isFieldInvalid(profileForm, 'currentPassword')">
+                {{ getFieldError(profileForm, 'currentPassword') }}
+              </span>
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">
+                <i class="fas fa-lock"></i>
+                Nueva Contraseña <span class="required">*</span>
+              </label>
+              <div class="password-input-wrapper">
+                <input
+                  [type]="showNewPassword ? 'text' : 'password'"
+                  id="newPassword"
+                  formControlName="newPassword"
+                  class="form-control"
+                  [class.error]="isFieldInvalid(profileForm, 'newPassword')"
+                  placeholder="Mínimo 6 caracteres">
+                <button type="button" class="password-toggle" (click)="togglePasswordVisibility('new')">
+                  <i class="fas" [class.fa-eye]="!showNewPassword" [class.fa-eye-slash]="showNewPassword"></i>
+                </button>
+              </div>
+              <span class="error-message" *ngIf="isFieldInvalid(profileForm, 'newPassword')">
+                {{ getFieldError(profileForm, 'newPassword') }}
+              </span>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">
+                <i class="fas fa-lock"></i>
+                Confirmar Nueva Contraseña <span class="required">*</span>
+              </label>
+              <div class="password-input-wrapper">
+                <input
+                  [type]="showConfirmPassword ? 'text' : 'password'"
+                  id="confirmPassword"
+                  formControlName="confirmPassword"
+                  class="form-control"
+                  [class.error]="isFieldInvalid(profileForm, 'confirmPassword') || profileForm.errors?.['passwordMismatch']"
+                  placeholder="Confirma tu nueva contraseña">
+                <button type="button" class="password-toggle" (click)="togglePasswordVisibility('confirm')">
+                  <i class="fas" [class.fa-eye]="!showConfirmPassword" [class.fa-eye-slash]="showConfirmPassword"></i>
+                </button>
+              </div>
+              <span class="error-message" *ngIf="isFieldInvalid(profileForm, 'confirmPassword')">
+                {{ getFieldError(profileForm, 'confirmPassword') }}
+              </span>
+              <span class="error-message" *ngIf="profileForm.errors?.['passwordMismatch'] && profileForm.get('confirmPassword')?.touched">
+                Las contraseñas no coinciden
+              </span>
             </div>
           </div>
 
@@ -124,129 +267,16 @@
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="btn btn-primary" [disabled]="loading || profileForm.invalid">
+            <button type="submit" class="btn btn-primary" [disabled]="loading || !hasFormChanges() || profileForm.invalid">
               <i class="fas fa-save"></i>
-              <span *ngIf="!loading">Guardar Cambios</span>
+              <span *ngIf="!loading">Actualizar Datos</span>
               <span *ngIf="loading">
                 <i class="fas fa-spinner fa-spin"></i>
-                Guardando...
+                Actualizando...
               </span>
             </button>
           </div>
         </form>
-      </div>
-
-      <!-- Formulario de Contraseña -->
-      <div class="form-card">
-        <div class="card-header">
-          <h3>
-            <i class="fas fa-lock"></i>
-            Seguridad
-          </h3>
-          <button class="btn-toggle" (click)="togglePasswordForm()">
-            <i class="fas" [class.fa-chevron-down]="!showPasswordForm" [class.fa-chevron-up]="showPasswordForm"></i>
-            {{ showPasswordForm ? 'Ocultar' : 'Cambiar Contraseña' }}
-          </button>
-        </div>
-
-        <div class="password-section" *ngIf="showPasswordForm">
-          <form [formGroup]="passwordForm" (ngSubmit)="onSubmitPassword()">
-            <div class="form-group">
-              <label for="currentPassword">
-                <i class="fas fa-key"></i>
-                Contraseña Actual <span class="required">*</span>
-              </label>
-              <div class="password-input-wrapper">
-                <input
-                  [type]="showCurrentPassword ? 'text' : 'password'"
-                  id="currentPassword"
-                  formControlName="currentPassword"
-                  class="form-control"
-                  [class.error]="isFieldInvalid(passwordForm, 'currentPassword')"
-                  placeholder="Ingresa tu contraseña actual">
-                <button type="button" class="password-toggle" (click)="togglePasswordVisibility('current')">
-                  <i class="fas" [class.fa-eye]="!showCurrentPassword" [class.fa-eye-slash]="showCurrentPassword"></i>
-                </button>
-              </div>
-              <span class="error-message" *ngIf="isFieldInvalid(passwordForm, 'currentPassword')">
-                {{ getFieldError(passwordForm, 'currentPassword') }}
-              </span>
-            </div>
-
-            <div class="form-group">
-              <label for="newPassword">
-                <i class="fas fa-lock"></i>
-                Nueva Contraseña <span class="required">*</span>
-              </label>
-              <div class="password-input-wrapper">
-                <input
-                  [type]="showNewPassword ? 'text' : 'password'"
-                  id="newPassword"
-                  formControlName="newPassword"
-                  class="form-control"
-                  [class.error]="isFieldInvalid(passwordForm, 'newPassword')"
-                  placeholder="Mínimo 6 caracteres">
-                <button type="button" class="password-toggle" (click)="togglePasswordVisibility('new')">
-                  <i class="fas" [class.fa-eye]="!showNewPassword" [class.fa-eye-slash]="showNewPassword"></i>
-                </button>
-              </div>
-              <span class="error-message" *ngIf="isFieldInvalid(passwordForm, 'newPassword')">
-                {{ getFieldError(passwordForm, 'newPassword') }}
-              </span>
-            </div>
-
-            <div class="form-group">
-              <label for="confirmPassword">
-                <i class="fas fa-lock"></i>
-                Confirmar Nueva Contraseña <span class="required">*</span>
-              </label>
-              <div class="password-input-wrapper">
-                <input
-                  [type]="showConfirmPassword ? 'text' : 'password'"
-                  id="confirmPassword"
-                  formControlName="confirmPassword"
-                  class="form-control"
-                  [class.error]="isFieldInvalid(passwordForm, 'confirmPassword') || passwordForm.errors?.['mismatch']"
-                  placeholder="Confirma tu nueva contraseña">
-                <button type="button" class="password-toggle" (click)="togglePasswordVisibility('confirm')">
-                  <i class="fas" [class.fa-eye]="!showConfirmPassword" [class.fa-eye-slash]="showConfirmPassword"></i>
-                </button>
-              </div>
-              <span class="error-message" *ngIf="isFieldInvalid(passwordForm, 'confirmPassword')">
-                {{ getFieldError(passwordForm, 'confirmPassword') }}
-              </span>
-              <span class="error-message" *ngIf="passwordForm.errors?.['mismatch'] && passwordForm.get('confirmPassword')?.touched">
-                Las contraseñas no coinciden
-              </span>
-            </div>
-
-            <!-- Mensajes de éxito/error -->
-            <div class="alert alert-success" *ngIf="passwordSuccess">
-              <i class="fas fa-check-circle"></i>
-              <span>Contraseña actualizada correctamente</span>
-            </div>
-
-            <div class="alert alert-error" *ngIf="passwordError">
-              <i class="fas fa-exclamation-circle"></i>
-              <span>{{ passwordError }}</span>
-            </div>
-
-            <div class="form-actions">
-              <button type="button" class="btn btn-secondary" (click)="togglePasswordForm()" [disabled]="loading">
-                <i class="fas fa-times"></i>
-                Cancelar
-              </button>
-              <button type="submit" class="btn btn-primary" [disabled]="loading || passwordForm.invalid">
-                <i class="fas fa-check"></i>
-                <span *ngIf="!loading">Cambiar Contraseña</span>
-                <span *ngIf="loading">
-                  <i class="fas fa-spinner fa-spin"></i>
-                  Actualizando...
-                </span>
-              </button>
-            </div>
-          </form>
-        </div>
       </div>
 
     </div>

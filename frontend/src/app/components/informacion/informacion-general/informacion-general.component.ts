@@ -44,12 +44,64 @@ export class InformacionGeneralComponent {
   ];
 
   beneficios = [
-    'Control total de tu cupo anual de envíos',
-    'Notificaciones en tiempo real del estado de tus paquetes',
-    'Reportes detallados de costos y estadísticas',
-    'Soporte técnico especializado',
-    'Interfaz intuitiva y fácil de usar',
-    'Acceso desde cualquier dispositivo'
+    {
+      titulo: 'Control total del cupo anual',
+      resumen: 'Visualiza consumos, alertas y proyecciones en tiempo real.',
+      descripcion: 'Compara el cupo asignado con el cupo utilizado y recibe recomendaciones automáticas para evitar sobrecostos.',
+      categoria: 'Planeación operativa',
+      imagen: 'https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&w=900&q=70',
+      detalles: [
+        'Tableros interactivos con indicadores diarios',
+        'Alertas inteligentes configurables según perfil',
+        'Exportación inmediata de reportes en PDF y Excel'
+      ]
+    },
+    {
+      titulo: 'Notificaciones en tiempo real',
+      resumen: 'Sigue cada hito crítico del envío desde cualquier dispositivo.',
+      descripcion: 'Orquesta flujos de comunicación automáticos con compradores y aliados logísticos para garantizar transparencia.',
+      categoria: 'Seguimiento inteligente',
+      imagen: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=70',
+      detalles: [
+        'Alertas push, correo y panel unificado',
+        'Historial auditado de cada interacción',
+        'Reglas personalizadas por tipo de envío'
+      ]
+    },
+    {
+      titulo: 'Analítica avanzada de costos',
+      resumen: 'Identifica tendencias y puntos de ahorro automáticamente.',
+      descripcion: 'Nuestro motor analítico cruza datos financieros y operativos para detectar desvíos y crear escenarios de simulación.',
+      categoria: 'Inteligencia de negocios',
+      imagen: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=70',
+      detalles: [
+        'KPIs financieros listos para presentar a dirección',
+        'Simulaciones de tarifas con IA en segundos',
+        'Alertas predictivas frente a costos atípicos'
+      ]
+    },
+    {
+      titulo: 'Soporte especializado 24/7',
+      resumen: 'Acompañamiento humano y automatizado para cada rol.',
+      descripcion: 'Nuestro equipo conoce tus procesos y responde con guías, tutoriales y sesiones en vivo para reducir tiempos muertos.',
+      categoria: 'Experiencia de usuario',
+      imagen: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=900&q=70',
+      detalles: [
+        'Base de conocimiento contextual dentro del sistema',
+        'Chat integrado con especialistas certificados',
+        'Tableros de salud del servicio para anticipar incidentes'
+      ]
+    }
   ];
+
+  beneficioSeleccionadoIndex = 0;
+
+  get beneficioSeleccionado() {
+    return this.beneficios[this.beneficioSeleccionadoIndex];
+  }
+
+  seleccionarBeneficio(indice: number): void {
+    this.beneficioSeleccionadoIndex = indice;
+  }
 }
 

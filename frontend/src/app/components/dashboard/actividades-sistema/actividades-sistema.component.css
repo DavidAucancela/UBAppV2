@@ -1,0 +1,202 @@
+.actividades-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Page Header */
+.page-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.page-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.page-subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  color: #6b7280;
+}
+
+.spinner i {
+  font-size: 2rem;
+  color: #667eea;
+}
+
+/* Activities Section */
+.activities-section {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Activity List */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.activity-item:hover {
+  background: #f1f5f9;
+  transform: translateX(5px);
+}
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #667eea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-text {
+  margin: 0 0 4px 0;
+  font-size: 0.9rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.activity-time {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .actividades-container {
+    padding: 15px;
+  }
+
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .activities-section {
+    padding: 16px;
+  }
+
+  .activity-item {
+    padding: 12px;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.actividades-content {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Modo Oscuro */
+:host-context(body.dark-mode) .actividades-container {
+  background-color: transparent;
+}
+
+:host-context(body.dark-mode) .page-header h1 {
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .page-subtitle {
+  color: #94a3b8;
+}
+
+:host-context(body.dark-mode) .activities-section {
+  background-color: #334155;
+  color: #e5e7eb;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+:host-context(body.dark-mode) .activity-item {
+  background-color: #475569;
+}
+
+:host-context(body.dark-mode) .activity-item:hover {
+  background-color: #64748b;
+}
+
+:host-context(body.dark-mode) .activity-text {
+  color: #cbd5e1;
+}
+
+:host-context(body.dark-mode) .activity-time {
+  color: #94a3b8;
+}
+
+:host-context(body.dark-mode) .spinner {
+  color: #94a3b8;
+}
+
+:host-context(body.dark-mode) .empty-state {
+  color: #94a3b8;
+}
+

@@ -1,0 +1,173 @@
+<div class="register-page">
+  <div class="register-pattern layer-one"></div>
+  <div class="register-pattern layer-two"></div>
+
+  <div class="register-shell">
+    <section class="register-info">
+      <div class="badge">Nuevo acceso</div>
+      <h1>Crea tu cuenta en Universal Box</h1>
+      <p class="lead">
+        Utilizamos el mismo formulario operativo que el equipo administrativo para garantizar
+        consistencia en la información de cada usuario.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <span>01</span>
+          <div>
+            <h3>Datos personales y credenciales</h3>
+            <p>Define tu usuario, nombre, correo y contraseña segura.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span>02</span>
+          <div>
+            <h3>Ubicación y contacto</h3>
+            <p>Selecciona provincia, cantón y ciudad exactamente igual que en los envíos.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span>03</span>
+          <div>
+            <h3>Confirmación</h3>
+            <p>Te redirigiremos al inicio de sesión para activar tu cuenta.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <p>¿Ya tienes acceso?</p>
+        <a routerLink="/login" class="btn btn-light">
+          <i class="fas fa-arrow-left"></i>
+          Volver a iniciar sesión
+        </a>
+      </div>
+    </section>
+
+    <section class="register-form">
+      <div class="form-card">
+        <header class="form-header">
+          <div>
+            <p class="eyebrow">Formulario oficial</p>
+            <h2>Registro de usuarios</h2>
+            <p class="helper-text">
+              Completa todos los campos requeridos para crear tu cuenta de comprador.
+            </p>
+          </div>
+        </header>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-body">
+          <div class="grid two-columns">
+            <div class="input-field" [class.error]="getControlError('username')">
+              <label for="username">Usuario</label>
+              <input id="username" formControlName="username" placeholder="Ej. comprador.ec">
+              <small *ngIf="getControlError('username')">{{ getControlError('username') }}</small>
+            </div>
+
+            <div class="input-field" [class.error]="getControlError('nombre')">
+              <label for="nombre">Nombre completo</label>
+              <input id="nombre" formControlName="nombre" placeholder="Nombre y Apellido">
+              <small *ngIf="getControlError('nombre')">{{ getControlError('nombre') }}</small>
+            </div>
+          </div>
+
+          <div class="grid two-columns">
+            <div class="input-field" [class.error]="getControlError('correo')">
+              <label for="correo">Correo electrónico</label>
+              <input id="correo" type="email" formControlName="correo" placeholder="correo@dominio.com">
+              <small *ngIf="getControlError('correo')">{{ getControlError('correo') }}</small>
+            </div>
+
+            <div class="input-field" [class.error]="getControlError('telefono')">
+              <label for="telefono">Teléfono</label>
+              <input id="telefono" formControlName="telefono" placeholder="+593 99 999 9999">
+              <small *ngIf="getControlError('telefono')">{{ getControlError('telefono') }}</small>
+            </div>
+          </div>
+
+          <div class="input-field" [class.error]="getControlError('cedula')">
+            <label for="cedula">Cédula / RUC</label>
+            <input id="cedula" formControlName="cedula" placeholder="0102030405">
+            <small *ngIf="getControlError('cedula')">{{ getControlError('cedula') }}</small>
+          </div>
+
+          <div class="grid two-columns">
+            <div class="input-field" [class.error]="getControlError('password')">
+              <label for="password">Contraseña</label>
+              <input id="password" type="password" formControlName="password" placeholder="Mínimo 6 caracteres">
+              <small *ngIf="getControlError('password')">{{ getControlError('password') }}</small>
+            </div>
+
+            <div class="input-field" [class.error]="getControlError('password_confirm')">
+              <label for="password_confirm">Confirmar contraseña</label>
+              <input id="password_confirm" type="password" formControlName="password_confirm" placeholder="Repite la contraseña">
+              <small *ngIf="getControlError('password_confirm')">{{ getControlError('password_confirm') }}</small>
+            </div>
+          </div>
+
+          <div class="grid three-columns">
+            <div class="input-field" [class.error]="getControlError('provincia')">
+              <label for="provincia">Provincia</label>
+              <div class="select-wrapper">
+                <select id="provincia" formControlName="provincia" (change)="onProvinciaChange($event)">
+                  <option value="">Selecciona provincia</option>
+                  <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
+                </select>
+              </div>
+              <small *ngIf="getControlError('provincia')">{{ getControlError('provincia') }}</small>
+            </div>
+
+            <div class="input-field" [class.error]="getControlError('canton')">
+              <label for="canton">Cantón</label>
+              <div class="select-wrapper">
+                <select
+                  id="canton"
+                  formControlName="canton"
+                  (change)="onCantonChange($event)"
+                  [disabled]="loadingCantones || !cantones.length"
+                >
+                  <option value="">Selecciona cantón</option>
+                  <option *ngFor="let canton of cantones" [value]="canton">{{ canton }}</option>
+                </select>
+              </div>
+              <small *ngIf="getControlError('canton')">{{ getControlError('canton') }}</small>
+            </div>
+
+            <div class="input-field" [class.error]="getControlError('ciudad')">
+              <label for="ciudad">Ciudad</label>
+              <div class="select-wrapper">
+                <select
+                  id="ciudad"
+                  formControlName="ciudad"
+                  (change)="onCiudadChange($event)"
+                  [disabled]="loadingCiudades || !ciudades.length"
+                >
+                  <option value="">Selecciona ciudad</option>
+                  <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
+                </select>
+              </div>
+              <small *ngIf="getControlError('ciudad')">{{ getControlError('ciudad') }}</small>
+            </div>
+          </div>
+
+          <div class="alert alert-success" *ngIf="successMessage">
+            <i class="fas fa-check-circle"></i>
+            {{ successMessage }}
+          </div>
+
+          <div class="alert alert-error" *ngIf="errorMessage">
+            <i class="fas fa-exclamation-triangle"></i>
+            {{ errorMessage }}
+          </div>
+
+          <button type="submit" class="btn btn-primary submit-btn" [disabled]="registerForm.invalid || loading">
+            <i class="fas fa-spinner fa-spin" *ngIf="loading"></i>
+            <span *ngIf="!loading">Crear cuenta</span>
+            <span *ngIf="loading">Guardando...</span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+

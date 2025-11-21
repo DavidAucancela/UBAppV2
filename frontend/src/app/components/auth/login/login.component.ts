@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { LoginRequest } from '../../../models/usuario';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +13,13 @@ import { LoginRequest } from '../../../models/usuario';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   loginForm: FormGroup;
   resetForm: FormGroup;
   loading = false;
@@ -26,6 +29,9 @@ export class LoginComponent {
   showResetPassword = false;
   resetSuccess = false;
   resetError = '';
+  emailExists = false;
+  checkingEmail = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +46,22 @@ export class LoginComponent {
     this.resetForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
+
+    // Verificar si el correo existe cuando cambia
+    this.resetForm.get('email')?.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(email => {
+        if (email && this.resetForm.get('email')?.valid) {
+          this.checkEmailExists(email);
+        } else {
+          this.emailExists = false;
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   onSubmit(): void {
@@ -48,7 +70,9 @@ export class LoginComponent {
       this.errorMessage = '';
       const credentials: LoginRequest = this.loginForm.value;
 
-      this.authService.login(credentials).subscribe({
+      this.authService.login(credentials)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
         next: (response) => {
           this.loading = false;
           console.log('Login exitoso:', response);
@@ -122,42 +146,73 @@ export class LoginComponent {
     this.resetSuccess = false;
     this.resetError = '';
     this.errorMessage = '';
+    this.emailExists = false;
+    this.checkingEmail = false;
     this.resetForm.reset();
+  }
+
+  checkEmailExists(email: string): void {
+    this.checkingEmail = true;
+    this.authService.verifyEmailExists(email)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+      next: (response) => {
+        this.checkingEmail = false;
+        this.emailExists = response.exists;
+        if (!response.exists) {
+          this.resetError = 'El correo electrónico no está registrado en el sistema.';
+        } else {
+          this.resetError = '';
+        }
+      },
+      error: (error) => {
+        this.checkingEmail = false;
+        console.error('Error al verificar correo:', error);
+        // No mostrar error si falla la verificación, solo continuar
+        this.emailExists = true;
+      }
+    });
   }
 
   onResetPassword(): void {
     if (this.resetForm.valid) {
+      // Verificar que el correo existe antes de enviar
+      if (!this.emailExists) {
+        this.resetError = 'Por favor, verifica que el correo electrónico esté registrado en el sistema.';
+        return;
+      }
+
       this.loadingReset = true;
       this.resetError = '';
       this.resetSuccess = false;
 
-      // Simular envío de correo (aquí deberías implementar la lógica real)
-      setTimeout(() => {
-        this.loadingReset = false;
-        this.resetSuccess = true;
-        
-        // Volver al login después de 3 segundos
-        setTimeout(() => {
-          this.toggleResetPassword();
-        }, 3000);
-      }, 2000);
-
-      // Implementación real cuando tengas el endpoint en el backend:
-      /*
-      this.authService.resetPassword(this.resetForm.value.email).subscribe({
+      this.authService.resetPassword(this.resetForm.value.email)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
         next: () => {
           this.loadingReset = false;
           this.resetSuccess = true;
+          
+          // Volver al login después de 5 segundos
           setTimeout(() => {
             this.toggleResetPassword();
-          }, 3000);
+          }, 5000);
         },
         error: (error) => {
           this.loadingReset = false;
-          this.resetError = error.error?.message || 'Error al enviar el correo. Verifica la dirección.';
+          console.error('Error al enviar correo de recuperación:', error);
+          
+          if (error.status === 404) {
+            this.resetError = 'El correo electrónico no está registrado en el sistema.';
+          } else if (error.status === 400) {
+            this.resetError = error.error?.error || error.error?.message || 'Error al procesar la solicitud.';
+          } else if (error.status === 0) {
+            this.resetError = 'Error de conexión. Verifica que el servidor esté funcionando.';
+          } else {
+            this.resetError = error.error?.error || error.error?.message || 'Error al enviar el correo. Intenta nuevamente.';
+          }
         }
       });
-      */
     } else {
       this.resetForm.get('email')?.markAsTouched();
     }

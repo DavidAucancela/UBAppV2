@@ -151,10 +151,14 @@ export class ImportacionExcelService {
    */
   procesarDatos(
     importacionId: number, 
-    compradorId: number,
+    compradorId: number | null,
     registrosSeleccionados?: number[]
   ): Observable<ResultadoProcesamiento> {
-    const body: any = { comprador_id: compradorId };
+    const body: any = {};
+    // Solo incluir comprador_id si no es null
+    if (compradorId !== null) {
+      body.comprador_id = compradorId;
+    }
     if (registrosSeleccionados && registrosSeleccionados.length > 0) {
       body.registros_seleccionados = registrosSeleccionados;
     }

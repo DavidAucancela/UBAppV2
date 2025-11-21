@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { trigger, state, style, transition, animate, stagger, query, animateChild } from '@angular/animations';
 import { AuthService } from '../../services/auth.service';
+import { NotificacionService } from '../../services/notificacion.service';
 import { Usuario, ROLES_LABELS, Roles } from '../../models/usuario';
-import { Subscription } from 'rxjs';
+import { Notificacion, NotificacionCount } from '../../models/notificacion';
+import { Subscription, combineLatest, filter } from 'rxjs';
 
 interface NavItem {
   label: string;
@@ -93,155 +95,116 @@ interface NavSubItem {
       ])
     ]),
     
-    // Animación de mensaje de bienvenida
-    trigger('welcomeMessage', [
-      transition(':enter', [
-        style({
-          opacity: 0,
-          transform: 'translateY(-30px)'
-        }),
-        animate('600ms ease-out', style({
-          opacity: 1,
-          transform: 'translateY(0)'
-        }))
-      ]),
-      transition(':leave', [
-        animate('400ms ease-in', style({
-          opacity: 0,
-          transform: 'translateY(-20px)'
-        }))
-      ])
-    ])
   ]
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   currentUser: Usuario | null = null;
   showUserMenu = false;
-  showWelcomeMessage = false;
-  welcomeMessageText = '';
   navbarState = 'hidden';
   logoState = 'hidden';
   actionsState = 'hidden';
   ROLES_LABELS = ROLES_LABELS;
+  shouldHideNavbar = false;
   isDarkMode = false;
+  private logoPressTimeoutId: ReturnType<typeof setTimeout> | null = null;
+  private logoPressIntervalId: ReturnType<typeof setInterval> | null = null;
+  private logoClickSuppressTimeoutId: ReturnType<typeof setTimeout> | null = null;
+  private isLogoPressActive = false;
+  private logoHoldActivated = false;
   
   // Items de navegación visibles según rol
   visibleNavItems: NavItem[] = [];
   isLoadingNav = false;
+  expandedItems: Set<string> = new Set();
   
   private userSubscription: Subscription | null = null;
+  private notificacionSubscription: Subscription | null = null;
   
-  // Definición de todos los items de navegación con sus roles permitidos
+  // Notificaciones
+  notificaciones: Notificacion[] = [];
+  notificacionCount: NotificacionCount = { total: 0, no_leidas: 0 };
+  showNotificacionesDropdown = false;
+  
+  // Definición de todos los items de navegación organizados por categorías
   private allNavItems: NavItem[] = [
+    // ========== DASHBOARD ==========
     {
       label: 'Dashboard',
       icon: 'fas fa-home',
       route: '/dashboard',
-      roles: [Roles.ADMIN, Roles.GERENTE],
-      order: 1
+      roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR],
+      order: 3
     },
     {
-      label: 'Dashboard Usuario',
+      label: 'Mi Dashboard',
       icon: 'fas fa-chart-line',
       route: '/dashboard-usuario',
       roles: [Roles.COMPRADOR],
-      order: 1
+      order: 3
     },
     {
-      label: 'Mis Envíos',
-      icon: 'fas fa-truck',
+      label: 'Mis Envios',
+      icon: 'fas fa-truck-loading',
       route: '/mis-envios',
       roles: [Roles.COMPRADOR],
-      order: 2
+      order: 1
     },
-    {
-      label: 'Usuarios',
-      icon: 'fas fa-users',
-      route: '/usuarios',
-      roles: [Roles.ADMIN, Roles.GERENTE],
-      order: 2
-    },
+    // ========== ENVÍOS ==========
     {
       label: 'Envíos',
-      icon: 'fas fa-truck',
+      icon: 'fas fa-truck-loading',
       route: '/envios',
       roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR],
-      order: 3,
+      order: 1,
       subItems: [
-        { label: 'Envíos Activos', icon: 'fas fa-play-circle', route: '/envios/activos' },
-        { label: 'Envíos Pendientes', icon: 'fas fa-clock', route: '/envios/pendientes' },
-        { label: 'Envíos Completados', icon: 'fas fa-check-circle', route: '/envios/completados' },
-        { label: 'Historial', icon: 'fas fa-history', route: '/envios/historial' }
+        { label: 'Cargar envíos manualmente', icon: 'fas fa-list', route: '/envios' },
+        { label: 'Cargar Archivo de Envíos', icon: 'fas fa-upload', route: '/importacion-excel' },
+        { label: 'Productos', icon: 'fas fa-box', route: '/productos' },
+
       ]
     },
+    // ========== BÚSQUEDAS ==========
     {
       label: 'Búsqueda',
       icon: 'fas fa-search',
       route: '/busqueda',
       roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR, Roles.COMPRADOR],
+      order: 2,
+    },
+
+    // ========== Otros ==========
+    {
+      label: 'Otros',
+      icon: 'fas fa-users',
+      route: '/usuarios',
+      roles: [Roles.ADMIN, Roles.GERENTE],
       order: 4,
       subItems: [
-        { label: 'Búsqueda Semántica', icon: 'fas fa-brain', route: '/busqueda-semantica' },
-        { label: 'Búsqueda Tradicional', icon: 'fas fa-filter', route: '/busqueda-envios' },
-        { label: 'Búsqueda Avanzada', icon: 'fas fa-search-plus', route: '/busqueda-avanzada' }
-      ]
-    },
-    {
-      label: 'Mapa',
-      icon: 'fas fa-map-marked-alt',
-      route: '/mapa-compradores',
-      roles: [Roles.ADMIN, Roles.GERENTE],
-      order: 5,
-      subItems: [
-        { label: 'Rutas de Entrega', icon: 'fas fa-route', route: '/mapa/rutas' },
-        { label: 'Áreas de Cobertura', icon: 'fas fa-map', route: '/mapa/cobertura' },
-        { label: 'Tiempos de Entrega', icon: 'fas fa-clock', route: '/mapa/tiempos' }
-      ]
-    },
-    {
-      label: 'Productos',
-      icon: 'fas fa-box',
-      route: '/productos',
-      roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR],
-      order: 6,
-      subItems: [
-        { label: 'Inventario', icon: 'fas fa-boxes', route: '/productos/inventario' },
-        { label: 'Categorías', icon: 'fas fa-tags', route: '/productos/categorias' },
-        { label: 'Almacenes', icon: 'fas fa-warehouse', route: '/productos/almacenes' }
-      ]
-    },
-    {
-      label: 'Importar Excel',
-      icon: 'fas fa-file-excel',
-      route: '/importacion-excel',
-      roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR],
-      order: 7
-    },
-    {
-      label: 'Reportes',
-      icon: 'fas fa-chart-bar',
-      route: '/reportes',
-      roles: [Roles.ADMIN, Roles.GERENTE],
-      order: 8,
-      subItems: [
-        { label: 'Reportes de Envíos', icon: 'fas fa-truck', route: '/reportes/envios' },
-        { label: 'Reportes de Ventas', icon: 'fas fa-dollar-sign', route: '/reportes/ventas' },
-        { label: 'Rendimiento', icon: 'fas fa-tachometer-alt', route: '/reportes/rendimiento' }
+        { label: 'Mapa de Compradores', icon: 'fas fa-map-marked-alt', route: '/mapa-compradores' },
+        { label: 'Gestionar Usuarios', icon: 'fas fa-users', route: '/usuarios' },
+        { label: 'Actividad del sistema', icon: 'fas fa-chart-line', route: '/actividades' },
       ]
     }
   ];
 
   constructor(
     public authService: AuthService,
+    private notificacionService: NotificacionService,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
-    // La navbar siempre está visible
+    // La navbar siempre está visible y fija
     this.navbarState = 'visible';
     this.logoState = 'visible';
     this.actionsState = 'visible';
+
+    this.router.events
+    .pipe(filter((event: any) => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.checkRouteAndToggleNavbar();
+    });
     
     // Verificar si está en modo oscuro
     if (isPlatformBrowser(this.platformId)) {
@@ -249,41 +212,135 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
     
     // Suscribirse a los cambios del usuario actual
-    this.userSubscription = this.authService.currentUser$.subscribe(user => {
+    this.userSubscription = this.authService.currentUser$.subscribe((user: Usuario | null) => {
       if (user && user !== this.currentUser) {
         // Usuario acaba de iniciar sesión o cambió
         this.currentUser = user;
         this.animateNavbarEntry();
+        this.setupNotificaciones();
       } else if (!user && this.currentUser) {
         // Usuario cerró sesión
         this.currentUser = null;
         this.resetNavItems();
+        this.clearNotificaciones();
       } else {
         this.currentUser = user;
         if (user) {
           // Usuario ya estaba logueado (recarga de página)
           this.loadNavItemsByRole();
+          this.setupNotificaciones();
         }
       }
     });
   }
-
+  /**
+   * Verificar la ruta actual y ocultar/mostrar la navbar
+   */
+  private checkRouteAndToggleNavbar(): void {
+    const currentRoute = this.router.url;
+    this.shouldHideNavbar = currentRoute === '/login' || currentRoute === '/register';
+    
+    if (this.shouldHideNavbar) {
+      this.navbarState = 'hidden';
+      this.logoState = 'hidden';
+      this.actionsState = 'hidden';
+    } else {
+      this.navbarState = 'visible';
+      this.logoState = 'visible';
+      this.actionsState = 'visible';
+    }
+  }
   ngOnDestroy(): void {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
+    if (this.notificacionSubscription) {
+      this.notificacionSubscription.unsubscribe();
+    }
+    this.clearLogoPressTimers();
+    this.clearLogoClickSuppressionTimeout();
+  }
+
+  /**
+   * Configurar suscripciones de notificaciones para compradores
+   */
+  private setupNotificaciones(): void {
+    if (!this.currentUser || this.currentUser.rol !== Roles.COMPRADOR) {
+      this.clearNotificaciones();
+      return;
+    }
+
+    // Suscribirse a cambios de notificaciones
+    this.notificacionSubscription = combineLatest([
+      this.notificacionService.notificaciones$,
+      this.notificacionService.count$
+    ]).subscribe(([notificaciones, count]: [Notificacion[], NotificacionCount]) => {
+      this.notificaciones = notificaciones;
+      this.notificacionCount = count;
+    });
+
+    // Cargar notificaciones iniciales
+    this.notificacionService.obtenerNotificaciones().subscribe();
+  }
+
+  /**
+   * Limpiar notificaciones cuando el usuario cierra sesión
+   */
+  private clearNotificaciones(): void {
+    this.notificaciones = [];
+    this.notificacionCount = { total: 0, no_leidas: 0 };
+    this.showNotificacionesDropdown = false;
+    if (this.notificacionSubscription) {
+      this.notificacionSubscription.unsubscribe();
+      this.notificacionSubscription = null;
+    }
+  }
+
+  /**
+   * Toggle del dropdown de notificaciones
+   */
+  toggleNotificacionesDropdown(): void {
+    this.showNotificacionesDropdown = !this.showNotificacionesDropdown;
+  }
+
+  /**
+   * Cerrar dropdown de notificaciones
+   */
+  closeNotificacionesDropdown(): void {
+    this.showNotificacionesDropdown = false;
+  }
+
+  /**
+   * Marcar notificación como leída
+   */
+  marcarNotificacionLeida(notificacion: Notificacion, event: Event): void {
+    event.stopPropagation();
+    if (!notificacion.leida) {
+      this.notificacionService.marcarComoLeida(notificacion.id).subscribe();
+    }
+    
+    // Si tiene enlace, navegar
+    if (notificacion.enlace) {
+      this.router.navigate([notificacion.enlace]);
+      this.closeNotificacionesDropdown();
+    }
+  }
+
+  /**
+   * Marcar todas las notificaciones como leídas
+   */
+  marcarTodasLeidas(): void {
+    this.notificacionService.marcarTodasComoLeidas().subscribe();
+  }
+
+  /**
+   * Verificar si el usuario es comprador
+   */
+  isComprador(): boolean {
+    return this.currentUser?.rol === Roles.COMPRADOR;
   }
 
   private animateNavbarEntry(): void {
-    // Mostrar mensaje de bienvenida
-    this.showWelcomeMessage = true;
-    this.welcomeMessageText = `¡Bienvenido${this.currentUser?.nombre ? ', ' + this.currentUser.nombre : ''}!`;
-    
-    // Ocultar mensaje después de 3 segundos
-    setTimeout(() => {
-      this.showWelcomeMessage = false;
-    }, 3000);
-    
     // Animar la entrada del navbar
     setTimeout(() => {
       this.logoState = 'visible';
@@ -309,9 +366,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.isLoadingNav = true;
     const userRole = this.currentUser.rol;
     
-    // Filtrar items según el rol
+    // Filtrar items según el rol con mejor filtrado
     const itemsForRole = this.allNavItems
-      .filter(item => item.roles.includes(userRole))
+      .filter(item => {
+        if (!item.roles.includes(userRole)) {
+          return false;
+        }
+        // Filtrar subitems también si es necesario
+        if (item.subItems) {
+          // Por ahora todos los subitems son accesibles si el item principal lo es
+        }
+        return true;
+      })
       .sort((a, b) => a.order - b.order);
     
     // Agregar items uno por uno con delay
@@ -333,14 +399,62 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
     
     const userRole = this.currentUser.rol;
+    // Filtrar items según el rol y también filtrar subitems si tienen restricciones
     this.visibleNavItems = this.allNavItems
-      .filter(item => item.roles.includes(userRole))
+      .filter(item => {
+        // Verificar si el rol tiene acceso al item principal
+        if (!item.roles.includes(userRole)) {
+          return false;
+        }
+        
+        // Filtrar subitems también por rol (si en el futuro tienen roles específicos)
+        if (item.subItems) {
+          // Por ahora todos los subitems son accesibles si el item principal lo es
+          // Pero podemos agregar lógica aquí si es necesario
+        }
+        
+        return true;
+      })
       .sort((a, b) => a.order - b.order);
+  }
+  
+  /**
+   * Toggle para expandir/colapsar subitems
+   */
+  toggleSubmenu(itemLabel: string, event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    
+    if (this.expandedItems.has(itemLabel)) {
+      this.expandedItems.delete(itemLabel);
+    } else {
+      this.expandedItems.add(itemLabel);
+    }
+  }
+  
+  /**
+   * Verificar si un item está expandido
+   */
+  isExpanded(itemLabel: string): boolean {
+    return this.expandedItems.has(itemLabel);
+  }
+  
+  /**
+   * Manejar click en item con subitems
+   */
+  handleItemClick(item: NavItem, event: Event): void {
+    if (item.subItems && item.subItems.length > 0) {
+      // Si tiene subitems, expandir/colapsar en lugar de navegar
+      this.toggleSubmenu(item.label, event);
+    }
+    // Si no tiene subitems, el routerLink normal manejará la navegación
   }
 
   private resetNavItems(): void {
     this.visibleNavItems = [];
-    this.showWelcomeMessage = false;
+    this.expandedItems.clear();
     // La navbar permanece visible, solo se limpian los items
   }
 
@@ -352,12 +466,90 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.showUserMenu = false;
   }
 
+  handleLogoPressStart(event: PointerEvent): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    if (event.pointerType !== 'touch' && event.button !== 0) {
+      return;
+    }
+
+    this.isLogoPressActive = true;
+    this.clearLogoPressTimers();
+    this.clearLogoClickSuppressionTimeout();
+
+    this.logoPressTimeoutId = setTimeout(() => {
+      if (!this.isLogoPressActive) {
+        return;
+      }
+
+      this.performLogoHoldToggle();
+      this.logoPressIntervalId = setInterval(() => {
+        if (this.isLogoPressActive) {
+          this.performLogoHoldToggle();
+        }
+      }, 5000);
+    }, 5000);
+  }
+
+  handleLogoPressEnd(event?: PointerEvent): void {
+    if (!this.isLogoPressActive && !this.logoPressTimeoutId && !this.logoPressIntervalId) {
+      return;
+    }
+
+    this.isLogoPressActive = false;
+    this.clearLogoPressTimers();
+
+    if (this.logoHoldActivated && !this.logoClickSuppressTimeoutId) {
+      this.logoClickSuppressTimeoutId = setTimeout(() => {
+        this.logoHoldActivated = false;
+        this.logoClickSuppressTimeoutId = null;
+      }, 400);
+    }
+  }
+
+  handleLogoClick(event: MouseEvent): void {
+    if (!this.logoHoldActivated) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    this.logoHoldActivated = false;
+    this.clearLogoClickSuppressionTimeout();
+  }
+
   toggleTheme(): void {
     if (isPlatformBrowser(this.platformId)) {
       const body = document.body;
       body.classList.toggle('dark-mode');
       this.isDarkMode = body.classList.contains('dark-mode');
       localStorage.setItem('darkMode', this.isDarkMode ? 'true' : 'false');
+    }
+  }
+
+  private performLogoHoldToggle(): void {
+    this.logoHoldActivated = true;
+    this.toggleTheme();
+  }
+
+  private clearLogoPressTimers(): void {
+    if (this.logoPressTimeoutId !== null) {
+      clearTimeout(this.logoPressTimeoutId);
+      this.logoPressTimeoutId = null;
+    }
+
+    if (this.logoPressIntervalId !== null) {
+      clearInterval(this.logoPressIntervalId);
+      this.logoPressIntervalId = null;
+    }
+  }
+
+  private clearLogoClickSuppressionTimeout(): void {
+    if (this.logoClickSuppressTimeoutId !== null) {
+      clearTimeout(this.logoClickSuppressTimeoutId);
+      this.logoClickSuppressTimeoutId = null;
     }
   }
 
@@ -375,4 +567,45 @@ export class NavbarComponent implements OnInit, OnDestroy {
   getAnimationDelay(index: number): any {
     return { value: '', params: { delay: index * 150 } };
   }
+
+  /**
+   * Obtener icono según el tipo de notificación
+   */
+  getNotificacionIcon(tipo: string): string {
+    switch (tipo) {
+      case 'nuevo_envio':
+      case 'envio_asignado':
+        return 'fas fa-truck';
+      case 'estado_cambiado':
+        return 'fas fa-sync-alt';
+      default:
+        return 'fas fa-info-circle';
+    }
+  }
+
+  /**
+   * Obtener tiempo relativo desde la fecha
+   */
+  getTimeAgo(fecha: string): string {
+    if (!fecha) return '';
+    
+    const ahora = new Date();
+    const fechaNotificacion = new Date(fecha);
+    const diferencia = ahora.getTime() - fechaNotificacion.getTime();
+    const segundos = Math.floor(diferencia / 1000);
+    const minutos = Math.floor(segundos / 60);
+    const horas = Math.floor(minutos / 60);
+    const dias = Math.floor(horas / 24);
+
+    if (segundos < 60) return 'Hace un momento';
+    if (minutos < 60) return `Hace ${minutos} minuto${minutos > 1 ? 's' : ''}`;
+    if (horas < 24) return `Hace ${horas} hora${horas > 1 ? 's' : ''}`;
+    if (dias < 7) return `Hace ${dias} día${dias > 1 ? 's' : ''}`;
+    
+    return fechaNotificacion.toLocaleDateString('es-ES', { 
+      day: '2-digit', 
+      month: 'short' 
+    });
+  }
 }
+

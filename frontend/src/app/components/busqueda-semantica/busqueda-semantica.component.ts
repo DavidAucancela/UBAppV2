@@ -14,7 +14,10 @@ import {
   HistorialBusquedaSemantica,
   ConfiguracionSemantica,
   CONFIGURACION_DEFAULT,
-  TipoVistaResultados
+  TipoVistaResultados,
+  ModeloEmbedding,
+  MODELOS_EMBEDDING_INFO,
+  InfoModeloEmbedding
 } from '../../models/busqueda-semantica';
 import { Envio, ESTADOS_LABELS } from '../../models/envio';
 
@@ -66,6 +69,10 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   estadoFiltro = '';
   ciudadDestinoFiltro = '';
   
+  // Modelo de embedding seleccionado
+  modeloSeleccionado: ModeloEmbedding = ModeloEmbedding.SMALL;
+  modelosDisponibles = MODELOS_EMBEDDING_INFO;
+  
   // Estados disponibles
   estadosDisponibles = Object.entries(ESTADOS_LABELS).map(([valor, etiqueta]) => ({
     valor,
@@ -90,6 +97,8 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
     this.configurarAutocompletado();
     this.cargarHistorial();
     this.cargarConfiguracion();
+    // Cargar modelo seleccionado desde configuración
+    this.modeloSeleccionado = this.configuracion.modeloEmbedding || ModeloEmbedding.SMALL;
   }
 
   ngOnDestroy(): void {
@@ -186,17 +195,21 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
     const consulta: ConsultaSemantica = {
       texto: this.textoConsulta.trim(),
       limite: this.configuracion.limiteResultados,
+      modeloEmbedding: this.modeloSeleccionado,
       filtrosAdicionales: this.construirFiltrosAdicionales()
     };
 
     this.apiService.buscarEnviosSemantica(consulta).subscribe({
       next: (respuesta) => {
         this.procesarRespuestaSemantica(respuesta);
-        this.guardarEnHistorial(this.textoConsulta, respuesta.totalEncontrados);
+        // Guardar en historial con toda la información
+        this.guardarEnHistorialCompleto(respuesta);
         this.analizando = false;
         
-        this.mensajeExito = `✅ Búsqueda semántica completada correctamente. ${respuesta.totalEncontrados} resultado(s) encontrado(s) en ${respuesta.tiempoRespuesta}ms.`;
-        setTimeout(() => this.mensajeExito = '', 4000);
+        const costoTexto = respuesta.costoConsulta ? 
+          ` Costo: $${respuesta.costoConsulta.toFixed(6)} USD` : '';
+        this.mensajeExito = `✅ Búsqueda semántica completada correctamente. ${respuesta.totalEncontrados} resultado(s) encontrado(s) en ${respuesta.tiempoRespuesta}ms.${costoTexto}`;
+        setTimeout(() => this.mensajeExito = '', 5000);
       },
       error: (error) => {
         console.error('Error en búsqueda semántica:', error);
@@ -241,7 +254,7 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Guarda la búsqueda en el historial
+   * Guarda la búsqueda en el historial (método simplificado)
    */
   private guardarEnHistorial(consulta: string, totalResultados: number): void {
     this.apiService.guardarHistorialSemantico(consulta, totalResultados).subscribe({
@@ -252,6 +265,14 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
         console.error('Error guardando historial:', error);
       }
     });
+  }
+
+  /**
+   * Guarda la búsqueda completa en el historial con toda la información
+   */
+  private guardarEnHistorialCompleto(respuesta: RespuestaSemantica): void {
+    // El backend ya guarda automáticamente en busqueda_semantica, solo recargamos
+    this.cargarHistorial();
   }
 
   /**
@@ -451,6 +472,33 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
    */
   formatearPorcentajeSimilitud(puntuacion: number): string {
     return `${(puntuacion * 100).toFixed(0)}%`;
+  }
+
+  /**
+   * Formatea costo en USD
+   */
+  formatearCosto(costo: number | undefined): string {
+    if (costo === undefined || costo === null) return 'N/A';
+    if (costo < 0.0001) {
+      return `$${(costo * 1000).toFixed(4)} mil USD`;
+    }
+    return `$${costo.toFixed(6)} USD`;
+  }
+
+  /**
+   * Obtiene información del modelo seleccionado
+   */
+  obtenerInfoModelo(modelo: ModeloEmbedding): InfoModeloEmbedding | undefined {
+    return this.modelosDisponibles.find(m => m.modelo === modelo);
+  }
+
+  /**
+   * Cambia el modelo de embedding seleccionado
+   */
+  cambiarModeloEmbedding(modelo: ModeloEmbedding): void {
+    this.modeloSeleccionado = modelo;
+    this.configuracion.modeloEmbedding = modelo;
+    this.guardarConfiguracion();
   }
 
   /**

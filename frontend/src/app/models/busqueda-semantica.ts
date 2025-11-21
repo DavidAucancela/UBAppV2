@@ -1,10 +1,58 @@
 import { Envio } from './envio';
 
 /**
+ * Modelos de embedding disponibles de OpenAI
+ */
+export enum ModeloEmbedding {
+  SMALL = 'text-embedding-3-small',
+  LARGE = 'text-embedding-3-large',
+  ADA = 'text-embedding-ada-002'
+}
+
+/**
+ * Información sobre modelos de embedding
+ */
+export interface InfoModeloEmbedding {
+  modelo: ModeloEmbedding;
+  nombre: string;
+  dimensiones: number;
+  costoPor1KTokens: number; // Costo en USD por 1,000 tokens
+  descripcion: string;
+}
+
+/**
+ * Información de modelos disponibles
+ */
+export const MODELOS_EMBEDDING_INFO: InfoModeloEmbedding[] = [
+  {
+    modelo: ModeloEmbedding.SMALL,
+    nombre: 'text-embedding-3-small',
+    dimensiones: 1536,
+    costoPor1KTokens: 0.00002,
+    descripcion: 'Modelo rápido y económico (recomendado)'
+  },
+  {
+    modelo: ModeloEmbedding.LARGE,
+    nombre: 'text-embedding-3-large',
+    dimensiones: 3072,
+    costoPor1KTokens: 0.00013,
+    descripcion: 'Modelo más preciso con mayor dimensionalidad'
+  },
+  {
+    modelo: ModeloEmbedding.ADA,
+    nombre: 'text-embedding-ada-002',
+    dimensiones: 1536,
+    costoPor1KTokens: 0.0001,
+    descripcion: 'Modelo legacy, estable y confiable'
+  }
+];
+
+/**
  * Interface para consulta de búsqueda semántica
  */
 export interface ConsultaSemantica {
   texto: string;
+  modeloEmbedding?: ModeloEmbedding; // Modelo de embedding a usar
   filtrosAdicionales?: FiltrosAdicionalesSemantica;
   limite?: number;
 }
@@ -25,9 +73,19 @@ export interface FiltrosAdicionalesSemantica {
  */
 export interface ResultadoSemantico {
   envio: Envio;
-  puntuacionSimilitud: number; // 0.0 a 1.0
-  fragmentosRelevantes: string[]; // Fragmentos de texto que coinciden
-  razonRelevancia?: string; // Explicación de por qué es relevante
+  puntuacionSimilitud: number; // 0.0 a 1.0 (Cosine Similarity)
+  
+  // Múltiples métricas de similitud
+  cosineSimilarity: number;      // Similitud coseno [-1, 1]
+  dotProduct: number;            // Producto punto [0, infinito]
+  euclideanDistance: number;     // Distancia euclidiana [0, infinito]
+  manhattanDistance?: number;    // Distancia Manhattan [0, infinito]
+  scoreCombinado?: number;       // Score normalizado [0, 1]
+  
+  // Información contextual
+  fragmentosRelevantes: string[];   // Fragmentos de texto que coinciden
+  razonRelevancia?: string;         // Explicación de por qué es relevante
+  textoIndexado?: string;           // Texto completo que fue indexado
 }
 
 /**
@@ -39,6 +97,9 @@ export interface RespuestaSemantica {
   totalEncontrados: number;
   tiempoRespuesta: number; // en milisegundos
   modeloUtilizado?: string; // Nombre del modelo de IA usado
+  costoConsulta?: number; // Costo de la consulta en USD
+  tokensUtilizados?: number; // Número de tokens utilizados
+  busquedaId?: number; // ID de la búsqueda guardada en historial
 }
 
 /**
@@ -116,10 +177,15 @@ export const SUGERENCIAS_PREDEFINIDAS: SugerenciaSemantica[] = [
  * Interface para historial de búsquedas semánticas
  */
 export interface HistorialBusquedaSemantica {
-  id: string;
+  id: number;
   consulta: string;
-  fecha: Date;
+  fecha: Date | string;
   totalResultados: number;
+  tiempoRespuesta?: number;
+  modeloUtilizado?: string;
+  costoConsulta?: number;
+  tokensUtilizados?: number;
+  filtrosAplicados?: any;
 }
 
 /**
@@ -142,15 +208,29 @@ export enum TipoVistaResultados {
 }
 
 /**
+ * Métricas de similitud disponibles para ordenamiento
+ */
+export enum MetricaSimilitud {
+  COSINE = 'cosine_similarity',
+  DOT_PRODUCT = 'dot_product',
+  EUCLIDEAN = 'euclidean_distance',
+  MANHATTAN = 'manhattan_distance'
+}
+
+/**
  * Interface para configuración de búsqueda semántica
  */
 export interface ConfiguracionSemantica {
   mostrarPuntuacion: boolean;
   mostrarFragmentos: boolean;
   mostrarRazonRelevancia: boolean;
+  mostrarMetricasDetalladas: boolean;  // Mostrar todas las métricas de similitud
   limiteResultados: number;
   umbralSimilitud: number; // 0.0 a 1.0, mínimo score para mostrar
   tipoVista: TipoVistaResultados;
+  modeloEmbedding: ModeloEmbedding; // Modelo de embedding por defecto
+  mostrarCosto: boolean; // Mostrar costo de consulta
+  metricaOrdenamiento: MetricaSimilitud; // Métrica principal para ordenar
 }
 
 /**
@@ -160,9 +240,13 @@ export const CONFIGURACION_DEFAULT: ConfiguracionSemantica = {
   mostrarPuntuacion: true,
   mostrarFragmentos: true,
   mostrarRazonRelevancia: true,
+  mostrarMetricasDetalladas: false,
   limiteResultados: 20,
   umbralSimilitud: 0.3,
-  tipoVista: TipoVistaResultados.TARJETAS
+  tipoVista: TipoVistaResultados.TARJETAS,
+  modeloEmbedding: ModeloEmbedding.SMALL,
+  mostrarCosto: true,
+  metricaOrdenamiento: MetricaSimilitud.COSINE
 };
 
 
