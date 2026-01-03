@@ -1,0 +1,1722 @@
+[
+  {
+    "id": 514,
+    "envio_id": 16,
+    "texto_indexado": "HAWB: HAW000012 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 0.56 kg | Valor: $0.42 | Productos: zapatos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:46:20.233060+00:00"
+  },
+  {
+    "id": 513,
+    "envio_id": 9,
+    "texto_indexado": "HAWB: HAW000005 | Comprador: Pedro Paul Pacheco Lopez Lopez | Ciudad: No especificada | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 0.92 kg | Valor: $1.17 | Productos: focos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:46:17.924073+00:00"
+  },
+  {
+    "id": 512,
+    "envio_id": 17,
+    "texto_indexado": "HAWB: HAW000013 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 0.62 kg | Valor: $0.50 | Productos: peinillas",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:46:13.229163+00:00"
+  },
+  {
+    "id": 511,
+    "envio_id": 15,
+    "texto_indexado": "HAWB: HAW000011 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 0.50 kg | Valor: $0.25 | Productos: laptop",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:46:00.603755+00:00"
+  },
+  {
+    "id": 510,
+    "envio_id": 14,
+    "texto_indexado": "HAWB: HAW000010 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 0.50 kg | Valor: $0.25 | Productos: cargador",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:58.679522+00:00"
+  },
+  {
+    "id": 509,
+    "envio_id": 13,
+    "texto_indexado": "HAWB: HAW000009 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 0.33 kg | Valor: $0.25 | Productos: audifonos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:56.688373+00:00"
+  },
+  {
+    "id": 508,
+    "envio_id": 12,
+    "texto_indexado": "HAWB: HAW000008 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 0.25 kg | Valor: $0.33 | Productos: celular",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:55.200779+00:00"
+  },
+  {
+    "id": 507,
+    "envio_id": 11,
+    "texto_indexado": "HAWB: HAW000007 | Comprador: Pedro Paul Pacheco Lopez Lopez | Ciudad: No especificada | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 1.83 kg | Valor: $2.67 | Productos: cinturón",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:53.282821+00:00"
+  },
+  {
+    "id": 506,
+    "envio_id": 7,
+    "texto_indexado": "HAWB: HAW000003 | Comprador: Pedro Paul Pacheco Lopez Lopez | Ciudad: No especificada | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 1.00 kg | Valor: $1.09 | Productos: toallas",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:51.654964+00:00"
+  },
+  {
+    "id": 505,
+    "envio_id": 10,
+    "texto_indexado": "HAWB: HAW000006 | Comprador: Pedro Paul Pacheco Lopez Lopez | Ciudad: No especificada | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 2.20 kg | Valor: $3.00 | Productos: vitaminas",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:49.409496+00:00"
+  },
+  {
+    "id": 504,
+    "envio_id": 8,
+    "texto_indexado": "HAWB: HAW000004 | Comprador: Pedro Paul Pacheco Lopez Lopez | Ciudad: No especificada | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 0.92 kg | Valor: $1.08 | Productos: estampillas",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:47.914502+00:00"
+  },
+  {
+    "id": 503,
+    "envio_id": 1,
+    "texto_indexado": "HAWB: HAW000001 | Comprador: Pedro Pascal | Ciudad: Samborondón | Estado: Entregado | Fecha: 2025-11-21 | Peso: 1.00 kg | Valor: $10.00 | Productos: Shampoo | Observaciones: Productos de limpieza",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:45.350245+00:00"
+  },
+  {
+    "id": 502,
+    "envio_id": 2,
+    "texto_indexado": "HAWB: HAW000002 | Comprador: Pedro Pascal | Ciudad: Samborondón | Estado: En Tránsito | Fecha: 2025-11-21 | Peso: 11.00 kg | Valor: $11.00 | Productos: Pepsi",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:43.918250+00:00"
+  },
+  {
+    "id": 501,
+    "envio_id": 3,
+    "texto_indexado": "HAWB: 111877.0 | Comprador: Pedro Pascal | Ciudad: Samborondón | Estado: Pendiente | Fecha: 2025-11-22 | Peso: 1.23 kg | Valor: $8.04 | Productos: COMSUMIBLES PARA ANTORCHA",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:42.390244+00:00"
+  },
+  {
+    "id": 500,
+    "envio_id": 4,
+    "texto_indexado": "HAWB: 111878.0 | Comprador: Pedro Pascal | Ciudad: Samborondón | Estado: Pendiente | Fecha: 2025-11-22 | Peso: 4.17 kg | Valor: $8.42 | Productos: filtro aceite",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:41.139190+00:00"
+  },
+  {
+    "id": 499,
+    "envio_id": 18,
+    "texto_indexado": "HAWB: HAW000014 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.50 kg | Valor: $100.00 | Productos: Laptop Dell | Observaciones: Envío urgente",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:39.399421+00:00"
+  },
+  {
+    "id": 498,
+    "envio_id": 19,
+    "texto_indexado": "HAWB: HAW000015 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.40 kg | Valor: $45.50 | Productos: Camiseta Nike",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:37.253973+00:00"
+  },
+  {
+    "id": 497,
+    "envio_id": 20,
+    "texto_indexado": "HAWB: HAW000016 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.80 kg | Valor: $80.00 | Productos: Tablet Samsung",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:35.803612+00:00"
+  },
+  {
+    "id": 496,
+    "envio_id": 21,
+    "texto_indexado": "HAWB: HAW000017 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.18 kg | Valor: $25.00 | Productos: Lápices Faber Castell",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:33.843616+00:00"
+  },
+  {
+    "id": 495,
+    "envio_id": 22,
+    "texto_indexado": "HAWB: HAW000018 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 6.20 kg | Valor: $220.00 | Productos: Monitor LG 24’’ | Observaciones: Frágil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:32.027273+00:00"
+  },
+  {
+    "id": 494,
+    "envio_id": 23,
+    "texto_indexado": "HAWB: HAW000019 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.70 kg | Valor: $15.00 | Productos: Cargador USB-C",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:30.043466+00:00"
+  },
+  {
+    "id": 493,
+    "envio_id": 24,
+    "texto_indexado": "HAWB: HAW000020 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.53 kg | Valor: $60.00 | Productos: Taza cerámica",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:27.556017+00:00"
+  },
+  {
+    "id": 492,
+    "envio_id": 25,
+    "texto_indexado": "HAWB: HAW000021 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.15 kg | Valor: $130.00 | Productos: Teclado mecánico | Observaciones: Urgente",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:25.718191+00:00"
+  },
+  {
+    "id": 491,
+    "envio_id": 26,
+    "texto_indexado": "HAWB: HAW000022 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.50 kg | Valor: $12.00 | Productos: Cuaderno rayado",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:23.948558+00:00"
+  },
+  {
+    "id": 490,
+    "envio_id": 27,
+    "texto_indexado": "HAWB: HAW000023 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.23 kg | Valor: $180.00 | Productos: Zapatos Adidas",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:21.858619+00:00"
+  },
+  {
+    "id": 489,
+    "envio_id": 28,
+    "texto_indexado": "HAWB: HAW000024 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 9.80 kg | Valor: $350.00 | Productos: Drone DJI Mini | Observaciones: Revisión aduanal",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:19.218324+00:00"
+  },
+  {
+    "id": 488,
+    "envio_id": 29,
+    "texto_indexado": "HAWB: HAW000025 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.55 kg | Valor: $32.00 | Productos: Gorro invierno",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:17.453765+00:00"
+  },
+  {
+    "id": 487,
+    "envio_id": 30,
+    "texto_indexado": "HAWB: HAW000026 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 7.40 kg | Valor: $200.00 | Productos: Aspiradora Xiaomi",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:15.273900+00:00"
+  },
+  {
+    "id": 486,
+    "envio_id": 31,
+    "texto_indexado": "HAWB: HAW000027 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.60 kg | Valor: $18.00 | Productos: Mouse inalámbrico",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:13.304910+00:00"
+  },
+  {
+    "id": 485,
+    "envio_id": 32,
+    "texto_indexado": "HAWB: HAW000028 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.77 kg | Valor: $70.00 | Productos: Cables HDMI",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:09.999255+00:00"
+  },
+  {
+    "id": 484,
+    "envio_id": 33,
+    "texto_indexado": "HAWB: HAW000029 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 5.00 kg | Valor: $95.00 | Productos: Silla plegable",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:07.473959+00:00"
+  },
+  {
+    "id": 483,
+    "envio_id": 34,
+    "texto_indexado": "HAWB: HAW000030 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.60 kg | Valor: $110.00 | Productos: Bolso Puma",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:04.571498+00:00"
+  },
+  {
+    "id": 482,
+    "envio_id": 35,
+    "texto_indexado": "HAWB: HAW000031 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.20 kg | Valor: $10.00 | Productos: Marcadores permanentes",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:02.676556+00:00"
+  },
+  {
+    "id": 481,
+    "envio_id": 36,
+    "texto_indexado": "HAWB: HAW000032 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 14.60 kg | Valor: $400.00 | Productos: TV Samsung 32’’ | Observaciones: Frágil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:45:00.897908+00:00"
+  },
+  {
+    "id": 480,
+    "envio_id": 37,
+    "texto_indexado": "HAWB: HAW000033 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.63 kg | Valor: $55.00 | Productos: Juego de calcetines",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:59.458040+00:00"
+  },
+  {
+    "id": 479,
+    "envio_id": 38,
+    "texto_indexado": "HAWB: HAW000034 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.70 kg | Valor: $75.00 | Productos: Parlante Bluetooth",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:56.534146+00:00"
+  },
+  {
+    "id": 478,
+    "envio_id": 39,
+    "texto_indexado": "HAWB: HAW000035 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.15 kg | Valor: $8.00 | Productos: Borradores escolares",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:54.768508+00:00"
+  },
+  {
+    "id": 477,
+    "envio_id": 40,
+    "texto_indexado": "HAWB: HAW000036 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.45 kg | Valor: $140.00 | Productos: Reloj Casio",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:53.028912+00:00"
+  },
+  {
+    "id": 476,
+    "envio_id": 41,
+    "texto_indexado": "HAWB: HAW000037 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 11.20 kg | Valor: $260.00 | Productos: Horno eléctrico pequeño",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:50.558803+00:00"
+  },
+  {
+    "id": 475,
+    "envio_id": 42,
+    "texto_indexado": "HAWB: HAW000038 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.50 kg | Valor: $48.00 | Productos: Cajas organizadoras",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:47.609070+00:00"
+  },
+  {
+    "id": 474,
+    "envio_id": 43,
+    "texto_indexado": "HAWB: HAW000039 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.65 kg | Valor: $30.00 | Productos: Libreta de bocetos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:45.058540+00:00"
+  },
+  {
+    "id": 473,
+    "envio_id": 44,
+    "texto_indexado": "HAWB: HAW000040 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.60 kg | Valor: $90.00 | Productos: Plancha de ropa",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:43.679183+00:00"
+  },
+  {
+    "id": 472,
+    "envio_id": 45,
+    "texto_indexado": "HAWB: HAW000041 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.80 kg | Valor: $22.00 | Productos: Memoria USB 64GB",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:40.058813+00:00"
+  },
+  {
+    "id": 471,
+    "envio_id": 46,
+    "texto_indexado": "HAWB: HAW000042 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 6.10 kg | Valor: $150.00 | Productos: Procesador Ryzen 5 | Observaciones: Control aduanal",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:37.868741+00:00"
+  },
+  {
+    "id": 470,
+    "envio_id": 47,
+    "texto_indexado": "HAWB: HAW000043 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.80 kg | Valor: $72.00 | Productos: Termo acero",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:35.458794+00:00"
+  },
+  {
+    "id": 469,
+    "envio_id": 48,
+    "texto_indexado": "HAWB: HAW000044 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 4.00 kg | Valor: $100.00 | Productos: Smartwatch Huawei",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:32.104078+00:00"
+  },
+  {
+    "id": 468,
+    "envio_id": 49,
+    "texto_indexado": "HAWB: HAW000045 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.30 kg | Valor: $50.00 | Productos: Lápices de colores",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:29.162043+00:00"
+  },
+  {
+    "id": 467,
+    "envio_id": 50,
+    "texto_indexado": "HAWB: HAW000046 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.60 kg | Valor: $180.00 | Productos: Zapatos Timberland",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:44:25.508864+00:00"
+  },
+  {
+    "id": 466,
+    "envio_id": 51,
+    "texto_indexado": "HAWB: HAW000047 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.60 kg | Valor: $16.00 | Productos: Cable Lightning",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:38.818970+00:00"
+  },
+  {
+    "id": 465,
+    "envio_id": 52,
+    "texto_indexado": "HAWB: HAW000048 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.65 kg | Valor: $80.00 | Productos: Mochila escolar",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:36.253682+00:00"
+  },
+  {
+    "id": 464,
+    "envio_id": 53,
+    "texto_indexado": "HAWB: HAW000049 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 12.00 kg | Valor: $300.00 | Productos: Impresora Epson",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:34.291351+00:00"
+  },
+  {
+    "id": 463,
+    "envio_id": 54,
+    "texto_indexado": "HAWB: HAW000050 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.57 kg | Valor: $42.00 | Productos: Calcetines térmicos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:32.677323+00:00"
+  },
+  {
+    "id": 462,
+    "envio_id": 55,
+    "texto_indexado": "HAWB: HAW000051 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.90 kg | Valor: $95.00 | Productos: Licuadora Oster",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:31.199107+00:00"
+  },
+  {
+    "id": 461,
+    "envio_id": 56,
+    "texto_indexado": "HAWB: HAW000052 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.23 kg | Valor: $14.00 | Productos: Marcadores fluorescentes",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:29.833205+00:00"
+  },
+  {
+    "id": 460,
+    "envio_id": 57,
+    "texto_indexado": "HAWB: HAW000053 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 8.80 kg | Valor: $210.00 | Productos: Microondas LG",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:28.188734+00:00"
+  },
+  {
+    "id": 459,
+    "envio_id": 58,
+    "texto_indexado": "HAWB: HAW000054 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.30 kg | Valor: $70.00 | Productos: Bolso de mano",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:25.773623+00:00"
+  },
+  {
+    "id": 458,
+    "envio_id": 59,
+    "texto_indexado": "HAWB: HAW000055 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 1.00 kg | Valor: $25.00 | Productos: Funda para tablet",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:23.883804+00:00"
+  },
+  {
+    "id": 457,
+    "envio_id": 60,
+    "texto_indexado": "HAWB: HAW000056 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.85 kg | Valor: $145.00 | Productos: Teclado inalámbrico",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:22.179084+00:00"
+  },
+  {
+    "id": 456,
+    "envio_id": 61,
+    "texto_indexado": "HAWB: HAW000057 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.40 kg | Valor: $12.00 | Productos: Lápiz óptico tablet",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:20.778888+00:00"
+  },
+  {
+    "id": 455,
+    "envio_id": 62,
+    "texto_indexado": "HAWB: HAW000058 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 6.30 kg | Valor: $160.00 | Productos: Aspiradora portátil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:19.188828+00:00"
+  },
+  {
+    "id": 454,
+    "envio_id": 63,
+    "texto_indexado": "HAWB: HAW000059 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.63 kg | Valor: $60.00 | Productos: Bufanda invierno",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:16.859173+00:00"
+  },
+  {
+    "id": 453,
+    "envio_id": 64,
+    "texto_indexado": "HAWB: HAW000060 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 4.10 kg | Valor: $110.00 | Productos: Parlante portátil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:14.863666+00:00"
+  },
+  {
+    "id": 452,
+    "envio_id": 65,
+    "texto_indexado": "HAWB: HAW000061 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 9.30 kg | Valor: $240.00 | Productos: Silla gaming",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:13.186303+00:00"
+  },
+  {
+    "id": 451,
+    "envio_id": 66,
+    "texto_indexado": "HAWB: HAW000062 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.55 kg | Valor: $14.00 | Productos: Cuaderno A5",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:11.226089+00:00"
+  },
+  {
+    "id": 450,
+    "envio_id": 67,
+    "texto_indexado": "HAWB: HAW000063 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.50 kg | Valor: $85.00 | Productos: Botas senderismo",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:09.498448+00:00"
+  },
+  {
+    "id": 449,
+    "envio_id": 68,
+    "texto_indexado": "HAWB: HAW000064 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.20 kg | Valor: $65.00 | Productos: Tableta gráfica",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:06.674248+00:00"
+  },
+  {
+    "id": 448,
+    "envio_id": 69,
+    "texto_indexado": "HAWB: HAW000065 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.35 kg | Valor: $18.00 | Productos: Correctores líquidos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:04.823535+00:00"
+  },
+  {
+    "id": 447,
+    "envio_id": 70,
+    "texto_indexado": "HAWB: HAW000066 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 7.70 kg | Valor: $190.00 | Productos: Cafetera Philips",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:02.958939+00:00"
+  },
+  {
+    "id": 446,
+    "envio_id": 71,
+    "texto_indexado": "HAWB: HAW000067 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.47 kg | Valor: $45.00 | Productos: Gorros deportivos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:43:01.379294+00:00"
+  },
+  {
+    "id": 445,
+    "envio_id": 72,
+    "texto_indexado": "HAWB: HAW000068 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 4.20 kg | Valor: $105.00 | Productos: Auriculares Sony",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:59.772256+00:00"
+  },
+  {
+    "id": 444,
+    "envio_id": 73,
+    "texto_indexado": "HAWB: HAW000069 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.90 kg | Valor: $20.00 | Productos: Mouse gamer",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:58.283880+00:00"
+  },
+  {
+    "id": 443,
+    "envio_id": 74,
+    "texto_indexado": "HAWB: HAW000070 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 10.50 kg | Valor: $280.00 | Productos: Carrito de cocina",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:56.568884+00:00"
+  },
+  {
+    "id": 442,
+    "envio_id": 75,
+    "texto_indexado": "HAWB: HAW000071 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.28 kg | Valor: $32.00 | Productos: Resaltadores",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:54.713884+00:00"
+  },
+  {
+    "id": 441,
+    "envio_id": 76,
+    "texto_indexado": "HAWB: HAW000072 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.40 kg | Valor: $150.00 | Productos: Chaqueta Columbia",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:52.301083+00:00"
+  },
+  {
+    "id": 440,
+    "envio_id": 77,
+    "texto_indexado": "HAWB: HAW000073 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.70 kg | Valor: $95.00 | Productos: Impresora térmica",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:50.373504+00:00"
+  },
+  {
+    "id": 439,
+    "envio_id": 78,
+    "texto_indexado": "HAWB: HAW000074 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.60 kg | Valor: $15.00 | Productos: Adaptador HDMI",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:47.802989+00:00"
+  },
+  {
+    "id": 438,
+    "envio_id": 79,
+    "texto_indexado": "HAWB: HAW000075 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.70 kg | Valor: $135.00 | Productos: Decoración navideña",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:45.683703+00:00"
+  },
+  {
+    "id": 437,
+    "envio_id": 80,
+    "texto_indexado": "HAWB: HAW000076 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 2.00 kg | Valor: $40.00 | Productos: Agenda 2025",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:44.068707+00:00"
+  },
+  {
+    "id": 436,
+    "envio_id": 81,
+    "texto_indexado": "HAWB: HAW000077 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 8.20 kg | Valor: $210.00 | Productos: Horno tostador",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:42.578597+00:00"
+  },
+  {
+    "id": 435,
+    "envio_id": 82,
+    "texto_indexado": "HAWB: HAW000078 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.80 kg | Valor: $50.00 | Productos: Camiseta deportiva",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:40.849531+00:00"
+  },
+  {
+    "id": 434,
+    "envio_id": 83,
+    "texto_indexado": "HAWB: HAW000079 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 4.50 kg | Valor: $120.00 | Productos: Router WiFi",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:38.993717+00:00"
+  },
+  {
+    "id": 433,
+    "envio_id": 84,
+    "texto_indexado": "HAWB: HAW000080 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.25 kg | Valor: $21.00 | Productos: Colores pastel",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:37.799035+00:00"
+  },
+  {
+    "id": 432,
+    "envio_id": 85,
+    "texto_indexado": "HAWB: HAW000081 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 7.90 kg | Valor: $195.00 | Productos: Procesador Intel i7",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:36.398600+00:00"
+  },
+  {
+    "id": 431,
+    "envio_id": 86,
+    "texto_indexado": "HAWB: HAW000082 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.40 kg | Valor: $85.00 | Productos: Mini ventilador",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:34.599152+00:00"
+  },
+  {
+    "id": 430,
+    "envio_id": 87,
+    "texto_indexado": "HAWB: HAW000083 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 1.15 kg | Valor: $60.00 | Productos: Gorra Nike",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:33.158712+00:00"
+  },
+  {
+    "id": 429,
+    "envio_id": 88,
+    "texto_indexado": "HAWB: HAW000084 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 5.10 kg | Valor: $130.00 | Productos: Disco externo 1TB",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:31.078960+00:00"
+  },
+  {
+    "id": 428,
+    "envio_id": 89,
+    "texto_indexado": "HAWB: HAW000085 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.50 kg | Valor: $25.00 | Productos: Estuche lápices",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:29.158629+00:00"
+  },
+  {
+    "id": 427,
+    "envio_id": 90,
+    "texto_indexado": "HAWB: HAW000086 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 6.00 kg | Valor: $155.00 | Productos: Mochila Samsonite",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:27.588858+00:00"
+  },
+  {
+    "id": 426,
+    "envio_id": 91,
+    "texto_indexado": "HAWB: HAW000087 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.50 kg | Valor: $14.00 | Productos: Cable micro USB",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:26.004026+00:00"
+  },
+  {
+    "id": 425,
+    "envio_id": 92,
+    "texto_indexado": "HAWB: HAW000088 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.95 kg | Valor: $98.00 | Productos: Juego de tazas",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:24.203899+00:00"
+  },
+  {
+    "id": 424,
+    "envio_id": 93,
+    "texto_indexado": "HAWB: HAW000089 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 12.90 kg | Valor: $350.00 | Productos: Monitor Curvo MSI | Observaciones: Frágil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:21.633513+00:00"
+  },
+  {
+    "id": 423,
+    "envio_id": 94,
+    "texto_indexado": "HAWB: HAW000090 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.60 kg | Valor: $48.00 | Productos: Calcetines deportivos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:19.632435+00:00"
+  },
+  {
+    "id": 422,
+    "envio_id": 95,
+    "texto_indexado": "HAWB: HAW000091 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 4.60 kg | Valor: $115.00 | Productos: Altavoz inteligente",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:18.138636+00:00"
+  },
+  {
+    "id": 421,
+    "envio_id": 96,
+    "texto_indexado": "HAWB: HAW000092 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.33 kg | Valor: $16.00 | Productos: Reglas escolares",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:15.940008+00:00"
+  },
+  {
+    "id": 420,
+    "envio_id": 97,
+    "texto_indexado": "HAWB: HAW000093 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 9.10 kg | Valor: $240.00 | Productos: Licuadora Ninja",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:13.803658+00:00"
+  },
+  {
+    "id": 419,
+    "envio_id": 98,
+    "texto_indexado": "HAWB: HAW000094 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 2.80 kg | Valor: $72.00 | Productos: Bolso cuero",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:11.198374+00:00"
+  },
+  {
+    "id": 418,
+    "envio_id": 99,
+    "texto_indexado": "HAWB: HAW000095 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 5.90 kg | Valor: $165.00 | Productos: Antena WiFi",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:08.466309+00:00"
+  },
+  {
+    "id": 417,
+    "envio_id": 100,
+    "texto_indexado": "HAWB: HAW000096 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.40 kg | Valor: $10.00 | Productos: Lápiz grafito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:06.418354+00:00"
+  },
+  {
+    "id": 416,
+    "envio_id": 101,
+    "texto_indexado": "HAWB: HAW000097 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.75 kg | Valor: $175.00 | Productos: Pantalones Levi’s",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:04.278862+00:00"
+  },
+  {
+    "id": 415,
+    "envio_id": 102,
+    "texto_indexado": "HAWB: HAW000098 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.10 kg | Valor: $82.00 | Productos: Teclado multimedia",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:02.249298+00:00"
+  },
+  {
+    "id": 414,
+    "envio_id": 103,
+    "texto_indexado": "HAWB: HAW000099 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.40 kg | Valor: $33.00 | Productos: Set de marcadores",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:42:00.343642+00:00"
+  },
+  {
+    "id": 413,
+    "envio_id": 104,
+    "texto_indexado": "HAWB: HAW000100 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 8.40 kg | Valor: $220.00 | Productos: Horno eléctrico",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:58.613874+00:00"
+  },
+  {
+    "id": 412,
+    "envio_id": 105,
+    "texto_indexado": "HAWB: HAW000101 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.25 kg | Valor: $68.00 | Productos: Camiseta Lacoste",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:57.069007+00:00"
+  },
+  {
+    "id": 411,
+    "envio_id": 106,
+    "texto_indexado": "HAWB: HAW000102 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 6.60 kg | Valor: $170.00 | Productos: SSD 1TB",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:54.884148+00:00"
+  },
+  {
+    "id": 410,
+    "envio_id": 107,
+    "texto_indexado": "HAWB: HAW000103 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.95 kg | Valor: $18.00 | Productos: Cuchillo cocina",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:53.360075+00:00"
+  },
+  {
+    "id": 409,
+    "envio_id": 108,
+    "texto_indexado": "HAWB: HAW000104 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 4.40 kg | Valor: $112.00 | Productos: Bocina JBL",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:51.179269+00:00"
+  },
+  {
+    "id": 408,
+    "envio_id": 109,
+    "texto_indexado": "HAWB: HAW000105 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.65 kg | Valor: $36.00 | Productos: Plumones borrables",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:49.458762+00:00"
+  },
+  {
+    "id": 407,
+    "envio_id": 110,
+    "texto_indexado": "HAWB: HAW000106 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.50 kg | Valor: $160.00 | Productos: Zapatos Vans",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:47.703788+00:00"
+  },
+  {
+    "id": 406,
+    "envio_id": 111,
+    "texto_indexado": "HAWB: HAW000107 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.50 kg | Valor: $88.00 | Productos: Cámara Web HD",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:46.073530+00:00"
+  },
+  {
+    "id": 405,
+    "envio_id": 112,
+    "texto_indexado": "HAWB: HAW000108 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.85 kg | Valor: $22.00 | Productos: Hub USB 4 puertos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:44.323955+00:00"
+  },
+  {
+    "id": 404,
+    "envio_id": 113,
+    "texto_indexado": "HAWB: HAW000109 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 10.70 kg | Valor: $290.00 | Productos: Refrigerador mini",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:42.383918+00:00"
+  },
+  {
+    "id": 403,
+    "envio_id": 114,
+    "texto_indexado": "HAWB: HAW000110 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.70 kg | Valor: $54.00 | Productos: Calcetines algodón",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:40.548016+00:00"
+  },
+  {
+    "id": 402,
+    "envio_id": 115,
+    "texto_indexado": "HAWB: HAW000111 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 5.60 kg | Valor: $140.00 | Productos: Smart Home Hub",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:38.916407+00:00"
+  },
+  {
+    "id": 401,
+    "envio_id": 116,
+    "texto_indexado": "HAWB: HAW000112 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.30 kg | Valor: $17.00 | Productos: Lápiz tinta gel",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:37.243783+00:00"
+  },
+  {
+    "id": 400,
+    "envio_id": 117,
+    "texto_indexado": "HAWB: HAW000113 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 9.90 kg | Valor: $260.00 | Productos: Aspiradora Dyson | Observaciones: Frágil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:34.910166+00:00"
+  },
+  {
+    "id": 399,
+    "envio_id": 251,
+    "texto_indexado": "HAWB: HAW000114 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.50 kg | Valor: $100.00 | Productos: Laptop Dell | Observaciones: Envío urgente",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:32.008790+00:00"
+  },
+  {
+    "id": 398,
+    "envio_id": 252,
+    "texto_indexado": "HAWB: HAW000115 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.40 kg | Valor: $45.50 | Productos: Camiseta Nike",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:29.818264+00:00"
+  },
+  {
+    "id": 397,
+    "envio_id": 253,
+    "texto_indexado": "HAWB: HAW000116 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.80 kg | Valor: $80.00 | Productos: Tablet Samsung",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:28.104854+00:00"
+  },
+  {
+    "id": 396,
+    "envio_id": 254,
+    "texto_indexado": "HAWB: HAW000117 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.18 kg | Valor: $25.00 | Productos: Lápices Faber Castell",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:26.809253+00:00"
+  },
+  {
+    "id": 395,
+    "envio_id": 255,
+    "texto_indexado": "HAWB: HAW000118 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 6.20 kg | Valor: $220.00 | Productos: Monitor LG 24’’ | Observaciones: Frágil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:25.149410+00:00"
+  },
+  {
+    "id": 394,
+    "envio_id": 256,
+    "texto_indexado": "HAWB: HAW000119 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.70 kg | Valor: $15.00 | Productos: Cargador USB-C",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:23.698303+00:00"
+  },
+  {
+    "id": 393,
+    "envio_id": 257,
+    "texto_indexado": "HAWB: HAW000120 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.53 kg | Valor: $60.00 | Productos: Taza cerámica",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:22.125157+00:00"
+  },
+  {
+    "id": 392,
+    "envio_id": 258,
+    "texto_indexado": "HAWB: HAW000121 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.15 kg | Valor: $130.00 | Productos: Teclado mecánico | Observaciones: Urgente",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:20.477861+00:00"
+  },
+  {
+    "id": 391,
+    "envio_id": 259,
+    "texto_indexado": "HAWB: HAW000122 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.50 kg | Valor: $12.00 | Productos: Cuaderno rayado",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:18.803590+00:00"
+  },
+  {
+    "id": 390,
+    "envio_id": 260,
+    "texto_indexado": "HAWB: HAW000123 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.23 kg | Valor: $180.00 | Productos: Zapatos Adidas",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:17.103561+00:00"
+  },
+  {
+    "id": 389,
+    "envio_id": 261,
+    "texto_indexado": "HAWB: HAW000124 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 9.80 kg | Valor: $350.00 | Productos: Drone DJI Mini | Observaciones: Revisión aduanal",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:14.926283+00:00"
+  },
+  {
+    "id": 388,
+    "envio_id": 262,
+    "texto_indexado": "HAWB: HAW000125 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.55 kg | Valor: $32.00 | Productos: Gorro invierno",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:13.263644+00:00"
+  },
+  {
+    "id": 387,
+    "envio_id": 263,
+    "texto_indexado": "HAWB: HAW000126 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 7.40 kg | Valor: $200.00 | Productos: Aspiradora Xiaomi",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:11.528691+00:00"
+  },
+  {
+    "id": 386,
+    "envio_id": 264,
+    "texto_indexado": "HAWB: HAW000127 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.60 kg | Valor: $18.00 | Productos: Mouse inalámbrico",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:09.859309+00:00"
+  },
+  {
+    "id": 385,
+    "envio_id": 265,
+    "texto_indexado": "HAWB: HAW000128 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.77 kg | Valor: $70.00 | Productos: Cables HDMI",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:08.333736+00:00"
+  },
+  {
+    "id": 384,
+    "envio_id": 266,
+    "texto_indexado": "HAWB: HAW000129 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 5.00 kg | Valor: $95.00 | Productos: Silla plegable",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:06.624195+00:00"
+  },
+  {
+    "id": 383,
+    "envio_id": 267,
+    "texto_indexado": "HAWB: HAW000130 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.60 kg | Valor: $110.00 | Productos: Bolso Puma",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:04.816390+00:00"
+  },
+  {
+    "id": 382,
+    "envio_id": 268,
+    "texto_indexado": "HAWB: HAW000131 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.20 kg | Valor: $10.00 | Productos: Marcadores permanentes",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:03.293956+00:00"
+  },
+  {
+    "id": 381,
+    "envio_id": 269,
+    "texto_indexado": "HAWB: HAW000132 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 14.60 kg | Valor: $400.00 | Productos: TV Samsung 32’’ | Observaciones: Frágil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:01.993602+00:00"
+  },
+  {
+    "id": 380,
+    "envio_id": 270,
+    "texto_indexado": "HAWB: HAW000133 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.63 kg | Valor: $55.00 | Productos: Juego de calcetines",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:41:00.319145+00:00"
+  },
+  {
+    "id": 379,
+    "envio_id": 271,
+    "texto_indexado": "HAWB: HAW000134 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.70 kg | Valor: $75.00 | Productos: Parlante Bluetooth",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:58.237931+00:00"
+  },
+  {
+    "id": 378,
+    "envio_id": 272,
+    "texto_indexado": "HAWB: HAW000135 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.15 kg | Valor: $8.00 | Productos: Borradores escolares",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:57.083775+00:00"
+  },
+  {
+    "id": 377,
+    "envio_id": 273,
+    "texto_indexado": "HAWB: HAW000136 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.45 kg | Valor: $140.00 | Productos: Reloj Casio",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:55.864007+00:00"
+  },
+  {
+    "id": 376,
+    "envio_id": 274,
+    "texto_indexado": "HAWB: HAW000137 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 11.20 kg | Valor: $260.00 | Productos: Horno eléctrico pequeño",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:54.493834+00:00"
+  },
+  {
+    "id": 375,
+    "envio_id": 275,
+    "texto_indexado": "HAWB: HAW000138 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.50 kg | Valor: $48.00 | Productos: Cajas organizadoras",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:52.989086+00:00"
+  },
+  {
+    "id": 374,
+    "envio_id": 276,
+    "texto_indexado": "HAWB: HAW000139 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.65 kg | Valor: $30.00 | Productos: Libreta de bocetos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:51.338969+00:00"
+  },
+  {
+    "id": 373,
+    "envio_id": 277,
+    "texto_indexado": "HAWB: HAW000140 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.60 kg | Valor: $90.00 | Productos: Plancha de ropa",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:49.319657+00:00"
+  },
+  {
+    "id": 372,
+    "envio_id": 278,
+    "texto_indexado": "HAWB: HAW000141 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.80 kg | Valor: $22.00 | Productos: Memoria USB 64GB",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:47.938675+00:00"
+  },
+  {
+    "id": 371,
+    "envio_id": 279,
+    "texto_indexado": "HAWB: HAW000142 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 6.10 kg | Valor: $150.00 | Productos: Procesador Ryzen 5 | Observaciones: Control aduanal",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:46.528805+00:00"
+  },
+  {
+    "id": 370,
+    "envio_id": 280,
+    "texto_indexado": "HAWB: HAW000143 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.80 kg | Valor: $72.00 | Productos: Termo acero",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:44.488830+00:00"
+  },
+  {
+    "id": 369,
+    "envio_id": 281,
+    "texto_indexado": "HAWB: HAW000144 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 4.00 kg | Valor: $100.00 | Productos: Smartwatch Huawei",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:41.363746+00:00"
+  },
+  {
+    "id": 368,
+    "envio_id": 282,
+    "texto_indexado": "HAWB: HAW000145 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.30 kg | Valor: $50.00 | Productos: Lápices de colores",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:39.303787+00:00"
+  },
+  {
+    "id": 367,
+    "envio_id": 283,
+    "texto_indexado": "HAWB: HAW000146 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.60 kg | Valor: $180.00 | Productos: Zapatos Timberland",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:37.669058+00:00"
+  },
+  {
+    "id": 366,
+    "envio_id": 284,
+    "texto_indexado": "HAWB: HAW000147 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.60 kg | Valor: $16.00 | Productos: Cable Lightning",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:36.248634+00:00"
+  },
+  {
+    "id": 365,
+    "envio_id": 285,
+    "texto_indexado": "HAWB: HAW000148 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.65 kg | Valor: $80.00 | Productos: Mochila escolar",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:34.584364+00:00"
+  },
+  {
+    "id": 364,
+    "envio_id": 286,
+    "texto_indexado": "HAWB: HAW000149 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 12.00 kg | Valor: $300.00 | Productos: Impresora Epson",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:32.958950+00:00"
+  },
+  {
+    "id": 363,
+    "envio_id": 287,
+    "texto_indexado": "HAWB: HAW000150 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.57 kg | Valor: $42.00 | Productos: Calcetines térmicos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:31.384788+00:00"
+  },
+  {
+    "id": 362,
+    "envio_id": 288,
+    "texto_indexado": "HAWB: HAW000151 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.90 kg | Valor: $95.00 | Productos: Licuadora Oster",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:29.809203+00:00"
+  },
+  {
+    "id": 361,
+    "envio_id": 289,
+    "texto_indexado": "HAWB: HAW000152 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.23 kg | Valor: $14.00 | Productos: Marcadores fluorescentes",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:27.138631+00:00"
+  },
+  {
+    "id": 360,
+    "envio_id": 290,
+    "texto_indexado": "HAWB: HAW000153 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 8.80 kg | Valor: $210.00 | Productos: Microondas LG",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:25.523688+00:00"
+  },
+  {
+    "id": 359,
+    "envio_id": 291,
+    "texto_indexado": "HAWB: HAW000154 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.30 kg | Valor: $70.00 | Productos: Bolso de mano",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:23.118676+00:00"
+  },
+  {
+    "id": 358,
+    "envio_id": 292,
+    "texto_indexado": "HAWB: HAW000155 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 1.00 kg | Valor: $25.00 | Productos: Funda para tablet",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:21.838859+00:00"
+  },
+  {
+    "id": 357,
+    "envio_id": 293,
+    "texto_indexado": "HAWB: HAW000156 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.85 kg | Valor: $145.00 | Productos: Teclado inalámbrico",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:20.648913+00:00"
+  },
+  {
+    "id": 356,
+    "envio_id": 294,
+    "texto_indexado": "HAWB: HAW000157 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.40 kg | Valor: $12.00 | Productos: Lápiz óptico tablet",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:19.333550+00:00"
+  },
+  {
+    "id": 355,
+    "envio_id": 295,
+    "texto_indexado": "HAWB: HAW000158 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 6.30 kg | Valor: $160.00 | Productos: Aspiradora portátil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:17.738690+00:00"
+  },
+  {
+    "id": 354,
+    "envio_id": 296,
+    "texto_indexado": "HAWB: HAW000159 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.63 kg | Valor: $60.00 | Productos: Bufanda invierno",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:16.198839+00:00"
+  },
+  {
+    "id": 353,
+    "envio_id": 297,
+    "texto_indexado": "HAWB: HAW000160 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 4.10 kg | Valor: $110.00 | Productos: Parlante portátil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:14.638947+00:00"
+  },
+  {
+    "id": 352,
+    "envio_id": 298,
+    "texto_indexado": "HAWB: HAW000161 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 9.30 kg | Valor: $240.00 | Productos: Silla gaming",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:12.843965+00:00"
+  },
+  {
+    "id": 351,
+    "envio_id": 299,
+    "texto_indexado": "HAWB: HAW000162 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.55 kg | Valor: $14.00 | Productos: Cuaderno A5",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:10.828905+00:00"
+  },
+  {
+    "id": 350,
+    "envio_id": 300,
+    "texto_indexado": "HAWB: HAW000163 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.50 kg | Valor: $85.00 | Productos: Botas senderismo",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:08.698647+00:00"
+  },
+  {
+    "id": 349,
+    "envio_id": 301,
+    "texto_indexado": "HAWB: HAW000164 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.20 kg | Valor: $65.00 | Productos: Tableta gráfica",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:06.483974+00:00"
+  },
+  {
+    "id": 348,
+    "envio_id": 302,
+    "texto_indexado": "HAWB: HAW000165 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.35 kg | Valor: $18.00 | Productos: Correctores líquidos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:05.048923+00:00"
+  },
+  {
+    "id": 347,
+    "envio_id": 303,
+    "texto_indexado": "HAWB: HAW000166 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 7.70 kg | Valor: $190.00 | Productos: Cafetera Philips",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:03.678928+00:00"
+  },
+  {
+    "id": 346,
+    "envio_id": 304,
+    "texto_indexado": "HAWB: HAW000167 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.47 kg | Valor: $45.00 | Productos: Gorros deportivos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:02.068254+00:00"
+  },
+  {
+    "id": 345,
+    "envio_id": 305,
+    "texto_indexado": "HAWB: HAW000168 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 4.20 kg | Valor: $105.00 | Productos: Auriculares Sony",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:40:00.759023+00:00"
+  },
+  {
+    "id": 344,
+    "envio_id": 306,
+    "texto_indexado": "HAWB: HAW000169 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.90 kg | Valor: $20.00 | Productos: Mouse gamer",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:59.468839+00:00"
+  },
+  {
+    "id": 343,
+    "envio_id": 307,
+    "texto_indexado": "HAWB: HAW000170 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 10.50 kg | Valor: $280.00 | Productos: Carrito de cocina",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:57.853810+00:00"
+  },
+  {
+    "id": 342,
+    "envio_id": 308,
+    "texto_indexado": "HAWB: HAW000171 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.28 kg | Valor: $32.00 | Productos: Resaltadores",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:55.728116+00:00"
+  },
+  {
+    "id": 341,
+    "envio_id": 309,
+    "texto_indexado": "HAWB: HAW000172 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.40 kg | Valor: $150.00 | Productos: Chaqueta Columbia",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:53.684074+00:00"
+  },
+  {
+    "id": 340,
+    "envio_id": 310,
+    "texto_indexado": "HAWB: HAW000173 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.70 kg | Valor: $95.00 | Productos: Impresora térmica",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:50.959004+00:00"
+  },
+  {
+    "id": 339,
+    "envio_id": 311,
+    "texto_indexado": "HAWB: HAW000174 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.60 kg | Valor: $15.00 | Productos: Adaptador HDMI",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:48.319095+00:00"
+  },
+  {
+    "id": 338,
+    "envio_id": 312,
+    "texto_indexado": "HAWB: HAW000175 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 2.70 kg | Valor: $135.00 | Productos: Decoración navideña",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:46.642830+00:00"
+  },
+  {
+    "id": 337,
+    "envio_id": 313,
+    "texto_indexado": "HAWB: HAW000176 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 2.00 kg | Valor: $40.00 | Productos: Agenda 2025",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:45.049291+00:00"
+  },
+  {
+    "id": 336,
+    "envio_id": 314,
+    "texto_indexado": "HAWB: HAW000177 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 8.20 kg | Valor: $210.00 | Productos: Horno tostador",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:41.666314+00:00"
+  },
+  {
+    "id": 335,
+    "envio_id": 315,
+    "texto_indexado": "HAWB: HAW000178 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.80 kg | Valor: $50.00 | Productos: Camiseta deportiva",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:39.688842+00:00"
+  },
+  {
+    "id": 334,
+    "envio_id": 316,
+    "texto_indexado": "HAWB: HAW000179 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 4.50 kg | Valor: $120.00 | Productos: Router WiFi",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:38.007009+00:00"
+  },
+  {
+    "id": 333,
+    "envio_id": 317,
+    "texto_indexado": "HAWB: HAW000180 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.25 kg | Valor: $21.00 | Productos: Colores pastel",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:36.348227+00:00"
+  },
+  {
+    "id": 332,
+    "envio_id": 318,
+    "texto_indexado": "HAWB: HAW000181 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 7.90 kg | Valor: $195.00 | Productos: Procesador Intel i7",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:34.674384+00:00"
+  },
+  {
+    "id": 331,
+    "envio_id": 319,
+    "texto_indexado": "HAWB: HAW000182 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.40 kg | Valor: $85.00 | Productos: Mini ventilador",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:32.948829+00:00"
+  },
+  {
+    "id": 330,
+    "envio_id": 320,
+    "texto_indexado": "HAWB: HAW000183 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 1.15 kg | Valor: $60.00 | Productos: Gorra Nike",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:31.308874+00:00"
+  },
+  {
+    "id": 329,
+    "envio_id": 321,
+    "texto_indexado": "HAWB: HAW000184 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 5.10 kg | Valor: $130.00 | Productos: Disco externo 1TB",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:29.433602+00:00"
+  },
+  {
+    "id": 328,
+    "envio_id": 322,
+    "texto_indexado": "HAWB: HAW000185 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.50 kg | Valor: $25.00 | Productos: Estuche lápices",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:28.128233+00:00"
+  },
+  {
+    "id": 327,
+    "envio_id": 323,
+    "texto_indexado": "HAWB: HAW000186 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 6.00 kg | Valor: $155.00 | Productos: Mochila Samsonite",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:26.518748+00:00"
+  },
+  {
+    "id": 326,
+    "envio_id": 324,
+    "texto_indexado": "HAWB: HAW000187 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.50 kg | Valor: $14.00 | Productos: Cable micro USB",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:24.045272+00:00"
+  },
+  {
+    "id": 325,
+    "envio_id": 325,
+    "texto_indexado": "HAWB: HAW000188 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.95 kg | Valor: $98.00 | Productos: Juego de tazas",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:22.678779+00:00"
+  },
+  {
+    "id": 324,
+    "envio_id": 326,
+    "texto_indexado": "HAWB: HAW000189 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 12.90 kg | Valor: $350.00 | Productos: Monitor Curvo MSI | Observaciones: Frágil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:21.379000+00:00"
+  },
+  {
+    "id": 323,
+    "envio_id": 327,
+    "texto_indexado": "HAWB: HAW000190 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.60 kg | Valor: $48.00 | Productos: Calcetines deportivos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:19.730755+00:00"
+  },
+  {
+    "id": 322,
+    "envio_id": 328,
+    "texto_indexado": "HAWB: HAW000191 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 4.60 kg | Valor: $115.00 | Productos: Altavoz inteligente",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:18.339024+00:00"
+  },
+  {
+    "id": 321,
+    "envio_id": 329,
+    "texto_indexado": "HAWB: HAW000192 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.33 kg | Valor: $16.00 | Productos: Reglas escolares",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:16.963701+00:00"
+  },
+  {
+    "id": 320,
+    "envio_id": 330,
+    "texto_indexado": "HAWB: HAW000193 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 9.10 kg | Valor: $240.00 | Productos: Licuadora Ninja",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:14.258872+00:00"
+  },
+  {
+    "id": 319,
+    "envio_id": 331,
+    "texto_indexado": "HAWB: HAW000194 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 2.80 kg | Valor: $72.00 | Productos: Bolso cuero",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:12.409016+00:00"
+  },
+  {
+    "id": 318,
+    "envio_id": 332,
+    "texto_indexado": "HAWB: HAW000195 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 5.90 kg | Valor: $165.00 | Productos: Antena WiFi",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:11.023913+00:00"
+  },
+  {
+    "id": 317,
+    "envio_id": 333,
+    "texto_indexado": "HAWB: HAW000196 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.40 kg | Valor: $10.00 | Productos: Lápiz grafito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:09.408601+00:00"
+  },
+  {
+    "id": 316,
+    "envio_id": 334,
+    "texto_indexado": "HAWB: HAW000197 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.75 kg | Valor: $175.00 | Productos: Pantalones Levi’s",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:08.098933+00:00"
+  },
+  {
+    "id": 315,
+    "envio_id": 335,
+    "texto_indexado": "HAWB: HAW000198 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.10 kg | Valor: $82.00 | Productos: Teclado multimedia",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:06.459114+00:00"
+  },
+  {
+    "id": 314,
+    "envio_id": 336,
+    "texto_indexado": "HAWB: HAW000199 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.40 kg | Valor: $33.00 | Productos: Set de marcadores",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:04.779924+00:00"
+  },
+  {
+    "id": 313,
+    "envio_id": 337,
+    "texto_indexado": "HAWB: HAW000200 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 8.40 kg | Valor: $220.00 | Productos: Horno eléctrico",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:02.603549+00:00"
+  },
+  {
+    "id": 312,
+    "envio_id": 338,
+    "texto_indexado": "HAWB: HAW000201 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 1.25 kg | Valor: $68.00 | Productos: Camiseta Lacoste",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:39:00.012707+00:00"
+  },
+  {
+    "id": 311,
+    "envio_id": 339,
+    "texto_indexado": "HAWB: HAW000202 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 6.60 kg | Valor: $170.00 | Productos: SSD 1TB",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:57.952685+00:00"
+  },
+  {
+    "id": 310,
+    "envio_id": 340,
+    "texto_indexado": "HAWB: HAW000203 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.95 kg | Valor: $18.00 | Productos: Cuchillo cocina",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:56.893945+00:00"
+  },
+  {
+    "id": 309,
+    "envio_id": 341,
+    "texto_indexado": "HAWB: HAW000204 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 4.40 kg | Valor: $112.00 | Productos: Bocina JBL",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:53.840193+00:00"
+  },
+  {
+    "id": 308,
+    "envio_id": 342,
+    "texto_indexado": "HAWB: HAW000205 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.65 kg | Valor: $36.00 | Productos: Plumones borrables",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:52.075215+00:00"
+  },
+  {
+    "id": 307,
+    "envio_id": 343,
+    "texto_indexado": "HAWB: HAW000206 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.50 kg | Valor: $160.00 | Productos: Zapatos Vans",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:49.924175+00:00"
+  },
+  {
+    "id": 306,
+    "envio_id": 344,
+    "texto_indexado": "HAWB: HAW000207 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 3.50 kg | Valor: $88.00 | Productos: Cámara Web HD",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:48.409172+00:00"
+  },
+  {
+    "id": 305,
+    "envio_id": 345,
+    "texto_indexado": "HAWB: HAW000208 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.85 kg | Valor: $22.00 | Productos: Hub USB 4 puertos",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:46.106693+00:00"
+  },
+  {
+    "id": 304,
+    "envio_id": 346,
+    "texto_indexado": "HAWB: HAW000209 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 10.70 kg | Valor: $290.00 | Productos: Refrigerador mini",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:44.512792+00:00"
+  },
+  {
+    "id": 303,
+    "envio_id": 347,
+    "texto_indexado": "HAWB: HAW000210 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 0.70 kg | Valor: $54.00 | Productos: Calcetines algodón",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:41.408991+00:00"
+  },
+  {
+    "id": 302,
+    "envio_id": 348,
+    "texto_indexado": "HAWB: HAW000211 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 5.60 kg | Valor: $140.00 | Productos: Smart Home Hub",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:39.169241+00:00"
+  },
+  {
+    "id": 301,
+    "envio_id": 349,
+    "texto_indexado": "HAWB: HAW000212 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Entregado | Fecha: 2025-11-29 | Peso: 0.30 kg | Valor: $17.00 | Productos: Lápiz tinta gel",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:36.211604+00:00"
+  },
+  {
+    "id": 300,
+    "envio_id": 350,
+    "texto_indexado": "HAWB: HAW000213 | Comprador: COMERCIO EXTERIOR Y SOLUCIONES LOGISTICAS COMEXTERSOL ECUADOR CIA. LTDA. | Ciudad: No especificada | Estado: Pendiente | Fecha: 2025-11-29 | Peso: 9.90 kg | Valor: $260.00 | Productos: Aspiradora Dyson | Observaciones: Frágil",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2025-12-19T06:38:33.713909+00:00"
+  }
+]

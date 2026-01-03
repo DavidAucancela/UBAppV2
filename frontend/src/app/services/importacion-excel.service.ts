@@ -10,7 +10,8 @@ import {
   ResultadoValidacion,
   ResultadoProcesamiento,
   ReporteErrores,
-  FilaExcel
+  FilaExcel,
+  ActualizacionFila
 } from '../models/importacion-excel.model';
 import { environment } from '../environments/environment';
 
@@ -150,17 +151,20 @@ export class ImportacionExcelService {
    * Procesa e importa los datos a la base de datos
    */
   procesarDatos(
-    importacionId: number, 
-    compradorId: number | null,
-    registrosSeleccionados?: number[]
+    importacionId: number,
+    registrosSeleccionados?: number[],
+    datosActualizados?: ActualizacionFila[],
+    compradorId?: number | null
   ): Observable<ResultadoProcesamiento> {
     const body: any = {};
-    // Solo incluir comprador_id si no es null
-    if (compradorId !== null) {
+    if (compradorId !== undefined && compradorId !== null) {
       body.comprador_id = compradorId;
     }
     if (registrosSeleccionados && registrosSeleccionados.length > 0) {
       body.registros_seleccionados = registrosSeleccionados;
+    }
+    if (datosActualizados && datosActualizados.length > 0) {
+      body.datos_actualizados = datosActualizados;
     }
     
     return this.http.post<ResultadoProcesamiento>(`${this.apiUrl}/${importacionId}/procesar/`, body).pipe(
@@ -221,40 +225,71 @@ export class ImportacionExcelService {
    * Descarga un archivo de ejemplo para importación
    */
   descargarPlantillaEjemplo(): void {
-    // Crear datos de ejemplo
+    // Crear datos de ejemplo con todas las columnas disponibles
     const datosEjemplo = [
       {
         'HAWB': 'HAWB001',
+        'Consignatario': 'Juan Pérez García',
+        'RUC / Cédula': '1234567890',
+        'Correo': 'juan.perez@ejemplo.com',
+        'Teléfono': '0991234567',
+        'Ciudad': 'Quito',
+        'Dirección': 'Av. Principal 123',
         'Peso Total': 5.5,
         'Cantidad Total': 2,
         'Valor Total': 150.00,
         'Estado': 'pendiente',
-        'Descripción Producto': 'Laptop Dell',
+        'Descripción Producto': 'Laptop Dell Inspiron 15',
         'Peso Producto': 2.5,
         'Cantidad Producto': 1,
         'Valor Producto': 100.00,
         'Categoría': 'electronica',
-        'Observaciones': 'Envío urgente'
+        'Observaciones': 'Envío urgente - Manejar con cuidado'
       },
       {
         'HAWB': 'HAWB002',
+        'Consignatario': 'María González López',
+        'RUC / Cédula': '0987654321',
+        'Correo': 'maria.gonzalez@ejemplo.com',
+        'Teléfono': '0987654321',
+        'Ciudad': 'Guayaquil',
+        'Dirección': 'Calle 10 de Agosto 456',
         'Peso Total': 1.2,
         'Cantidad Total': 3,
         'Valor Total': 45.50,
         'Estado': 'pendiente',
-        'Descripción Producto': 'Camiseta Nike',
+        'Descripción Producto': 'Camiseta Nike Deportiva',
         'Peso Producto': 0.4,
         'Cantidad Producto': 3,
         'Valor Producto': 45.50,
         'Categoría': 'ropa',
         'Observaciones': ''
+      },
+      {
+        'HAWB': 'HAWB003',
+        'Consignatario': 'Carlos Rodríguez Martínez',
+        'RUC / Cédula': '1712345678',
+        'Correo': 'carlos.rodriguez@ejemplo.com',
+        'Teléfono': '0976543210',
+        'Ciudad': 'Cuenca',
+        'Dirección': 'Av. España 789',
+        'Peso Total': 8.3,
+        'Cantidad Total': 1,
+        'Valor Total': 250.00,
+        'Estado': 'pendiente',
+        'Descripción Producto': 'Monitor Samsung 27"',
+        'Peso Producto': 8.3,
+        'Cantidad Producto': 1,
+        'Valor Producto': 250.00,
+        'Categoría': 'electronica',
+        'Observaciones': 'Producto frágil'
       }
     ];
     
     // Crear workbook
     const ws = XLSX.utils.json_to_sheet(datosEjemplo);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Datos');
+    XLSX.utils.book_append_sheet(wb, ws, 'Datos de Envíos');
     
     // Descargar
     XLSX.writeFile(wb, 'plantilla_importacion_envios.xlsx');

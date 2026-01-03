@@ -1,16 +1,15 @@
 from django.contrib import admin
 from .models import (
-    HistorialBusqueda,
-    BusquedaSemantica,
-    FeedbackSemantico,
-    SugerenciaSemantica,
+    BusquedaTradicional,
+    EmbeddingBusqueda,
+    HistorialSemantica,
     EnvioEmbedding
 )
 
 
-@admin.register(HistorialBusqueda)
-class HistorialBusquedaAdmin(admin.ModelAdmin):
-    """Admin para el modelo HistorialBusqueda"""
+@admin.register(BusquedaTradicional)
+class BusquedaTradicionalAdmin(admin.ModelAdmin):
+    """Admin para el modelo BusquedaTradicional"""
     list_display = ['usuario', 'termino_busqueda', 'tipo_busqueda', 'resultados_encontrados', 'fecha_busqueda']
     list_filter = ['tipo_busqueda', 'fecha_busqueda', 'usuario']
     search_fields = ['termino_busqueda', 'usuario__username']
@@ -24,45 +23,66 @@ class HistorialBusquedaAdmin(admin.ModelAdmin):
         ('Resultados', {
             'fields': ('resultados_encontrados', 'fecha_busqueda')
         }),
+        ('Resultados JSON', {
+            'fields': ('resultados_json',),
+            'classes': ('collapse',),
+            'description': 'Resultados completos en formato JSON para generación de PDF'
+        }),
     )
 
 
-@admin.register(BusquedaSemantica)
-class BusquedaSemanticaAdmin(admin.ModelAdmin):
-    """Admin para búsquedas semánticas"""
-    list_display = ['usuario', 'consulta_truncada', 'resultados_encontrados', 'tiempo_respuesta', 'fecha_busqueda']
-    list_filter = ['fecha_busqueda', 'usuario']
+@admin.register(EmbeddingBusqueda)
+class EmbeddingBusquedaAdmin(admin.ModelAdmin):
+    """Admin para búsquedas semánticas con embeddings"""
+    list_display = ['usuario', 'consulta_truncada', 'resultados_encontrados', 'tiempo_respuesta', 'costo_consulta', 'fecha_busqueda']
+    list_filter = ['fecha_busqueda', 'usuario', 'modelo_utilizado']
     search_fields = ['consulta', 'usuario__username']
     ordering = ['-fecha_busqueda']
-    readonly_fields = ['fecha_busqueda']
+    readonly_fields = ['fecha_busqueda', 'embedding_vector']
     
     def consulta_truncada(self, obj):
         return obj.consulta[:50] + '...' if len(obj.consulta) > 50 else obj.consulta
     consulta_truncada.short_description = 'Consulta'
+    
+    fieldsets = (
+        ('Información de Búsqueda', {
+            'fields': ('usuario', 'consulta', 'modelo_utilizado')
+        }),
+        ('Resultados', {
+            'fields': ('resultados_encontrados', 'tiempo_respuesta', 'tokens_utilizados', 'costo_consulta', 'fecha_busqueda')
+        }),
+        ('Filtros Aplicados', {
+            'fields': ('filtros_aplicados',),
+            'classes': ('collapse',)
+        }),
+        ('Resultados JSON', {
+            'fields': ('resultados_json',),
+            'classes': ('collapse',),
+            'description': 'Resultados completos en formato JSON para generación de PDF'
+        }),
+        ('Vector de Embedding', {
+            'fields': ('embedding_vector',),
+            'classes': ('collapse',),
+            'description': 'Vector de embedding de la consulta'
+        }),
+    )
 
 
-@admin.register(FeedbackSemantico)
-class FeedbackSemanticoAdmin(admin.ModelAdmin):
-    """Admin para feedback semántico"""
-    list_display = ['usuario', 'envio', 'es_relevante', 'puntuacion_similitud', 'fecha_feedback']
-    list_filter = ['es_relevante', 'fecha_feedback', 'usuario']
-    search_fields = ['usuario__username', 'envio__hawb']
-    ordering = ['-fecha_feedback']
-    readonly_fields = ['fecha_feedback']
-
-
-@admin.register(SugerenciaSemantica)
-class SugerenciaSemanticaAdmin(admin.ModelAdmin):
-    """Admin para sugerencias semánticas"""
-    list_display = ['texto', 'categoria', 'icono', 'orden', 'activa', 'fecha_creacion']
+@admin.register(HistorialSemantica)
+class HistorialSemanticaAdmin(admin.ModelAdmin):
+    """Admin para historial semántico (sugerencias)"""
+    list_display = ['texto', 'categoria', 'icono', 'orden', 'veces_usada', 'activa', 'fecha_creacion']
     list_filter = ['categoria', 'activa', 'fecha_creacion']
     search_fields = ['texto']
-    ordering = ['orden', '-fecha_creacion']
-    readonly_fields = ['fecha_creacion']
+    ordering = ['orden', '-veces_usada', '-fecha_creacion']
+    readonly_fields = ['fecha_creacion', 'veces_usada']
     
     fieldsets = (
         ('Información de Sugerencia', {
             'fields': ('texto', 'categoria', 'icono', 'orden')
+        }),
+        ('Estadísticas', {
+            'fields': ('veces_usada',)
         }),
         ('Estado', {
             'fields': ('activa', 'fecha_creacion')

@@ -267,7 +267,7 @@
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="btn btn-primary" [disabled]="loading || !hasFormChanges() || profileForm.invalid">
+            <button type="submit" class="btn btn-primary" [disabled]="loading || !hasChanges || profileForm.invalid">
               <i class="fas fa-save"></i>
               <span *ngIf="!loading">Actualizar Datos</span>
               <span *ngIf="loading">

@@ -214,8 +214,9 @@ export class ProductosListComponent implements OnInit {
     this.loadingEnvios = true;
     if (this.authService.isComprador()) {
       this.apiService.getMisEnvios().subscribe({
-        next: (response) => {
-          this.envios = Array.isArray(response) ? response : (response as any).results || [];
+        next: (envios) => {
+          // getMisEnvios() ahora siempre devuelve un array
+          this.envios = envios;
           this.loadingEnvios = false;
         },
         error: (error) => {
@@ -225,8 +226,9 @@ export class ProductosListComponent implements OnInit {
       });
     } else {
       this.apiService.getEnvios().subscribe({
-        next: (response) => {
-          this.envios = Array.isArray(response) ? response : (response as any).results || [];
+        next: (envios) => {
+          // getEnvios() ahora siempre devuelve un array
+          this.envios = envios;
           this.loadingEnvios = false;
         },
         error: (error) => {

@@ -6,17 +6,24 @@ import json
 
 Usuario = get_user_model()
 
-class HistorialBusqueda(models.Model):
-    """Modelo para almacenar historial de búsquedas"""
+class BusquedaTradicional(models.Model):
+    """Modelo para almacenar historial de búsquedas tradicionales"""
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     termino_busqueda = models.CharField(max_length=255)
     tipo_busqueda = models.CharField(max_length=50, default='general')
     fecha_busqueda = models.DateTimeField(auto_now_add=True)
     resultados_encontrados = models.PositiveIntegerField(default=0)
+    resultados_json = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name="Resultados en JSON",
+        help_text="Resultados completos para generación de PDF"
+    )
 
     class Meta:
-        verbose_name = 'Historial de Búsqueda'
-        verbose_name_plural = 'Historial de Búsquedas'
+        db_table = 'busqueda_tradicional'
+        verbose_name = 'Búsqueda Tradicional'
+        verbose_name_plural = 'Búsquedas Tradicionales'
         ordering = ['-fecha_busqueda']
 
     def __str__(self):
@@ -54,6 +61,7 @@ class EnvioEmbedding(models.Model):
     )
 
     class Meta:
+        db_table = 'embedding_envio'
         verbose_name = 'Embedding de Envío'
         verbose_name_plural = 'Embeddings de Envíos'
         ordering = ['-fecha_generacion']
@@ -77,10 +85,20 @@ class EnvioEmbedding(models.Model):
         return list(self.embedding_vector) if hasattr(self.embedding_vector, '__iter__') else []
 
 
-class BusquedaSemantica(models.Model):
-    """Modelo para almacenar historial de búsquedas semánticas"""
+class EmbeddingBusqueda(models.Model):
+    """Modelo para almacenar historial de búsquedas semánticas con sus embeddings"""
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     consulta = models.TextField(verbose_name="Consulta")
+    
+    # Campo vectorial para almacenar el embedding de la consulta
+    embedding_vector = VectorField(
+        dimensions=1536,
+        verbose_name="Vector de Embedding de la Consulta",
+        help_text="Vector embedding de la consulta para reutilización",
+        null=True,
+        blank=True
+    )
+    
     resultados_encontrados = models.PositiveIntegerField(default=0)
     tiempo_respuesta = models.IntegerField(
         help_text="Tiempo de respuesta en milisegundos",
@@ -108,54 +126,39 @@ class BusquedaSemantica(models.Model):
         default=0,
         verbose_name="Tokens Utilizados"
     )
+    resultados_json = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name="Resultados en JSON",
+        help_text="Resultados completos con métricas para generación de PDF"
+    )
 
     class Meta:
-        verbose_name = 'Búsqueda Semántica'
-        verbose_name_plural = 'Búsquedas Semánticas'
+        db_table = 'embedding_busqueda'
+        verbose_name = 'Búsqueda Semántica (Embedding)'
+        verbose_name_plural = 'Búsquedas Semánticas (Embeddings)'
         ordering = ['-fecha_busqueda']
+        indexes = [
+            models.Index(fields=['usuario', '-fecha_busqueda']),
+            models.Index(fields=['modelo_utilizado']),
+        ]
 
     def __str__(self):
         return f"{self.usuario.username} - {self.consulta[:50]}"
+    
+    def set_vector(self, vector_list):
+        """Guarda el vector de embedding de la consulta"""
+        self.embedding_vector = vector_list
+
+    def get_vector(self):
+        """Obtiene el vector como lista de Python"""
+        if self.embedding_vector is None:
+            return []
+        return list(self.embedding_vector) if hasattr(self.embedding_vector, '__iter__') else []
 
 
-class FeedbackSemantico(models.Model):
-    """Modelo para almacenar feedback de resultados semánticos"""
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    busqueda = models.ForeignKey(
-        BusquedaSemantica,
-        on_delete=models.CASCADE,
-        related_name='feedbacks',
-        null=True,
-        blank=True
-    )
-    envio = models.ForeignKey(
-        'archivos.Envio',
-        on_delete=models.CASCADE,
-        verbose_name="Envío"
-    )
-    es_relevante = models.BooleanField(
-        verbose_name="Es Relevante",
-        help_text="Indica si el usuario consideró relevante este resultado"
-    )
-    puntuacion_similitud = models.FloatField(
-        verbose_name="Puntuación de Similitud",
-        help_text="Puntuación de similitud original del resultado"
-    )
-    fecha_feedback = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Feedback Semántico'
-        verbose_name_plural = 'Feedbacks Semánticos'
-        ordering = ['-fecha_feedback']
-        unique_together = [['usuario', 'envio', 'busqueda']]
-
-    def __str__(self):
-        relevancia = "Relevante" if self.es_relevante else "No relevante"
-        return f"{self.usuario.username} - {self.envio.hawb} - {relevancia}"
-
-
-class SugerenciaSemantica(models.Model):
-    """Modelo para sugerencias predefinidas de búsqueda semántica"""
+class HistorialSemantica(models.Model):
+    """Modelo para sugerencias y historial de búsquedas semánticas populares"""
     texto = models.CharField(max_length=200, verbose_name="Texto de Sugerencia")
     categoria = models.CharField(
         max_length=50,
@@ -176,11 +179,17 @@ class SugerenciaSemantica(models.Model):
     orden = models.IntegerField(default=0)
     activa = models.BooleanField(default=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
+    veces_usada = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Veces Usada",
+        help_text="Contador de veces que se ha usado esta sugerencia"
+    )
 
     class Meta:
-        verbose_name = 'Sugerencia Semántica'
-        verbose_name_plural = 'Sugerencias Semánticas'
-        ordering = ['orden', '-fecha_creacion']
+        db_table = 'historial_semantica'
+        verbose_name = 'Historial Semántico'
+        verbose_name_plural = 'Historial Semántico'
+        ordering = ['orden', '-veces_usada', '-fecha_creacion']
 
     def __str__(self):
         return f"{self.texto} ({self.categoria})"

@@ -45,26 +45,47 @@ export class InicioComponent implements OnInit {
   }
 
   private loadAdminStats(): void {
+    let completedCalls = 0;
+    const totalCalls = 3;
+    
     // Cargar estadísticas de usuarios
     this.apiService.getEstadisticasUsuarios().subscribe({
       next: (userStats) => {
-        this.stats.usuarios = userStats;
-        this.loading = false;
+        this.stats.usuarios = userStats || {};
+        completedCalls++;
+        if (completedCalls === totalCalls) {
+          this.loading = false;
+        }
       },
       error: (error) => {
         console.error('Error cargando estadísticas de usuarios:', error);
-        this.loading = false;
+        this.stats.usuarios = {};
+        completedCalls++;
+        if (completedCalls === totalCalls) {
+          this.loading = false;
+        }
       }
     });
 
     // Cargar estadísticas de envíos
     this.apiService.getEstadisticasEnvios().subscribe({
       next: (envioStats) => {
-        this.stats.envios = this.normalizeEnviosStats(envioStats);
+        this.stats.envios = this.normalizeEnviosStats(envioStats || {});
+        completedCalls++;
+        if (completedCalls === totalCalls) {
+          this.loading = false;
+        }
+        // También refrescar desde la lista como respaldo
         this.refreshEnviosPorEstadoFromList();
       },
       error: (error) => {
         console.error('Error cargando estadísticas de envíos:', error);
+        this.stats.envios = { total_envios: 0, envios_pendientes: 0, por_estado: {} };
+        completedCalls++;
+        if (completedCalls === totalCalls) {
+          this.loading = false;
+        }
+        // Intentar refrescar desde la lista como respaldo
         this.refreshEnviosPorEstadoFromList();
       }
     });
@@ -72,25 +93,46 @@ export class InicioComponent implements OnInit {
     // Cargar estadísticas de productos
     this.apiService.getEstadisticasProductos().subscribe({
       next: (productoStats) => {
-        this.stats.productos = productoStats;
+        this.stats.productos = productoStats || { total_productos: 0 };
+        completedCalls++;
+        if (completedCalls === totalCalls) {
+          this.loading = false;
+        }
       },
       error: (error) => {
         console.error('Error cargando estadísticas de productos:', error);
+        this.stats.productos = { total_productos: 0 };
+        completedCalls++;
+        if (completedCalls === totalCalls) {
+          this.loading = false;
+        }
       }
     });
   }
 
   private loadDigitadorStats(): void {
+    let completedCalls = 0;
+    const totalCalls = 2;
+    
     // Cargar estadísticas de envíos y productos
     this.apiService.getEstadisticasEnvios().subscribe({
       next: (envioStats) => {
-        this.stats.envios = this.normalizeEnviosStats(envioStats);
-        this.loading = false;
+        this.stats.envios = this.normalizeEnviosStats(envioStats || {});
+        completedCalls++;
+        if (completedCalls === totalCalls) {
+          this.loading = false;
+        }
+        // También refrescar desde la lista como respaldo
         this.refreshEnviosPorEstadoFromList();
       },
       error: (error) => {
         console.error('Error cargando estadísticas de envíos:', error);
-        this.loading = false;
+        this.stats.envios = { total_envios: 0, envios_pendientes: 0, por_estado: {} };
+        completedCalls++;
+        if (completedCalls === totalCalls) {
+          this.loading = false;
+        }
+        // Intentar refrescar desde la lista como respaldo
         this.refreshEnviosPorEstadoFromList();
       }
     });
@@ -98,10 +140,19 @@ export class InicioComponent implements OnInit {
     // Cargar estadísticas de productos
     this.apiService.getEstadisticasProductos().subscribe({
       next: (productoStats) => {
-        this.stats.productos = productoStats;
+        this.stats.productos = productoStats || { total_productos: 0 };
+        completedCalls++;
+        if (completedCalls === totalCalls) {
+          this.loading = false;
+        }
       },
       error: (error) => {
         console.error('Error cargando estadísticas de productos:', error);
+        this.stats.productos = { total_productos: 0 };
+        completedCalls++;
+        if (completedCalls === totalCalls) {
+          this.loading = false;
+        }
       }
     });
   }
@@ -235,24 +286,29 @@ export class InicioComponent implements OnInit {
         }
       });
       
-      if (!this.stats.envios) this.stats.envios = {};
-      this.stats.envios.por_estado = counts;
-      this.stats.envios.total_envios = lista.length;
-      this.stats.envios.envios_pendientes = counts['Pendiente'];
+      // Solo actualizar si no hay datos o si los datos están vacíos
+      if (!this.stats.envios || !this.stats.envios.por_estado || 
+          Object.keys(this.stats.envios.por_estado).length === 0 ||
+          this.stats.envios.total_envios === 0) {
+        if (!this.stats.envios) this.stats.envios = {};
+        this.stats.envios.por_estado = counts;
+        this.stats.envios.total_envios = lista.length;
+        this.stats.envios.envios_pendientes = counts['Pendiente'];
+      }
     };
 
     if (this.isComprador()) {
       this.apiService.getMisEnvios().subscribe({
-        next: (resp) => {
-          const lista = Array.isArray(resp) ? resp : (resp as any).results || [];
+        next: (lista) => {
+          // getMisEnvios() ahora siempre devuelve un array
           compute(lista);
         },
         error: () => {}
       });
     } else {
       this.apiService.getEnvios().subscribe({
-        next: (resp) => {
-          const lista = Array.isArray(resp) ? resp : (resp as any).results || [];
+        next: (lista) => {
+          // getEnvios() ahora siempre devuelve un array
           compute(lista);
         },
         error: () => {}
@@ -299,6 +355,32 @@ export class InicioComponent implements OnInit {
 
   goToMapa(): void {
     this.router.navigate(['/mapa-compradores']);
+  }
+
+  // Métodos auxiliares para el template mejorado
+  getTotalUsuarios(): number {
+    if (!this.stats.usuarios) return 0;
+    const valores = Object.values(this.stats.usuarios) as (string | number)[];
+    return valores.reduce<number>((sum: number, val: string | number): number => {
+      const numVal = typeof val === 'number' ? val : Number(val) || 0;
+      return sum + numVal;
+    }, 0);
+  }
+
+  getRoleClass(role: string): string {
+    const roleMap: Record<string, string> = {
+      'Admin': 'admin',
+      'Gerente': 'gerente',
+      'Digitador': 'digitador',
+      'Comprador': 'comprador'
+    };
+    return roleMap[role] || 'default';
+  }
+
+  getPercentage(value: number, total: number): string {
+    if (!total || total === 0) return '0';
+    const percentage = (value / total) * 100;
+    return percentage.toFixed(1);
   }
 }
 

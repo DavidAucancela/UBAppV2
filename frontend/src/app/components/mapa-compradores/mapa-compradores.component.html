@@ -1,5 +1,8 @@
 <div class="mapa-container">
   <div class="mapa-header">
+    <br>
+    <br>
+    <br>
     <h1>Mapa de Compradores</h1>
     <p class="mapa-descripcion">
     </p>
@@ -18,7 +21,7 @@
     <button (click)="recargarDatos()" class="btn-retry">Reintentar</button>
   </div>
 
-  <!-- Estadísticas
+  <!-- Estadísticas -->
   <div *ngIf="mapaData && !loading" class="estadisticas-panel">
     <div class="estadistica-card">
       <div class="estadistica-icon">👥</div>
@@ -31,19 +34,19 @@
     <div class="estadistica-card">
       <div class="estadistica-icon">📍</div>
       <div class="estadistica-info">
-        <span class="estadistica-valor">{{ mapaData.ciudades.length }}</span>
-        <span class="estadistica-label">Ciudades con Compradores</span>
+        <span class="estadistica-valor">{{ mapaData.provincias.length }}</span>
+        <span class="estadistica-label">Provincias con Compradores</span>
       </div>
     </div>
 
-    <div *ngIf="ciudadSeleccionada" class="estadistica-card ciudad-activa">
+    <div *ngIf="provinciaSeleccionada" class="estadistica-card provincia-activa">
       <div class="estadistica-icon">🎯</div>
       <div class="estadistica-info">
-        <span class="estadistica-valor">{{ ciudadSeleccionada }}</span>
-        <span class="estadistica-label">Ciudad Seleccionada</span>
+        <span class="estadistica-valor">{{ provinciaSeleccionada }}</span>
+        <span class="estadistica-label">Provincia Seleccionada</span>
       </div>
     </div>
-  </div> -->
+  </div>
 
   <!-- Controles del Mapa -->
   <div *ngIf="!loading" class="mapa-controles">
@@ -63,7 +66,7 @@
     <div class="instrucciones-panel">
       <h4>💡 Cómo usar el mapa</h4>
       <ol>
-        <li>Haz clic en un marcador de ciudad (📍) para ver los compradores</li>
+        <li>Haz clic en un marcador de provincia (📍) para ver los compradores</li>
         <li>Usa la rueda del mouse para hacer zoom</li>
         <li>Arrastra el mapa para moverte por Ecuador</li>
         <li>Haz clic en un comprador (👤) para ver sus envíos</li>
@@ -72,17 +75,17 @@
   </div>
 
   <!-- Lista de Compradores (Parte Inferior) -->
-  <div *ngIf="ciudadSeleccionada && compradoresCiudadSeleccionada.length > 0" class="compradores-lista">
+  <div *ngIf="provinciaSeleccionada && compradoresProvinciaSeleccionada.length > 0" class="compradores-lista">
     <div class="compradores-header">
       <h3>
-        <span class="ciudad-icon">📍</span>
-        Compradores en {{ ciudadSeleccionada }}
-        <span class="badge-compradores">{{ compradoresCiudadSeleccionada.length }}</span>
+        <span class="provincia-icon">📍</span>
+        Compradores en {{ provinciaSeleccionada }}
+        <span class="badge-compradores">{{ compradoresProvinciaSeleccionada.length }}</span>
       </h3>
       <button (click)="volverVista()" class="btn-cerrar">✕ Cerrar</button>
     </div>
     <div class="compradores-grid">
-      <div class="comprador-card" *ngFor="let comprador of compradoresCiudadSeleccionada">
+      <div class="comprador-card" *ngFor="let comprador of compradoresProvinciaSeleccionada">
         <div class="comprador-card-header">
           <h4>👤 {{ comprador.nombre }}</h4>
           <span class="badge-envios">{{ comprador.total_envios }} envíos</span>
@@ -115,25 +118,25 @@
     </div>
   </div>
 
-  <!-- Lista de Ciudades - Vista Mosaico
-  <div *ngIf="mapaData && !loading" class="ciudades-lista">
-    <h3>📊 Resumen por Ciudad</h3>
-    <div class="ciudades-grid">
-      <div class="ciudad-card" *ngFor="let ciudad of mapaData.ciudades">
-        <div class="ciudad-header">
-          <h4>{{ ciudad.ciudad }}</h4>
-          <span class="badge-compradores">{{ ciudad.total_compradores }}</span>
+  <!-- Lista de Provincias - Vista Mosaico -->
+  <div *ngIf="mapaData && !loading" class="provincias-lista">
+    <h3>📊 Resumen por Provincia</h3>
+    <div class="provincias-grid">
+      <div class="provincia-card" *ngFor="let provincia of mapaData.provincias">
+        <div class="provincia-header">
+          <h4>{{ provincia.provincia }}</h4>
+          <span class="badge-compradores">{{ provincia.total_compradores }}</span>
         </div>
-        <div class="ciudad-compradores">
-          <div class="comprador-mini" *ngFor="let comprador of ciudad.compradores.slice(0, 3)">
+        <div class="provincia-compradores">
+          <div class="comprador-mini" *ngFor="let comprador of provincia.compradores.slice(0, 3)">
             <span class="comprador-nombre">{{ comprador.nombre }}</span>
             <span class="comprador-envios">{{ comprador.total_envios }}</span>
           </div>
-          <p *ngIf="ciudad.compradores.length > 3" class="mas-compradores">
-            + {{ ciudad.compradores.length - 3 }} compradores más
+          <p *ngIf="provincia.compradores.length > 3" class="mas-compradores">
+            + {{ provincia.compradores.length - 3 }} compradores más
           </p>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </div>

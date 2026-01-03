@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
 import { InicioComponent } from './components/dashboard/inicio/inicio.component';
 import { DashboardUsuarioComponent } from './components/dashboard/dashboard-usuario/dashboard-usuario.component';
 import { UsuariosListComponent } from './components/usuarios/usuarios-list/usuarios-list.component';
@@ -17,6 +16,7 @@ import { UbicacionesComponent } from './components/informacion/ubicaciones/ubica
 import { RegisterComponent } from './components/auth/register/register.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { ActividadesSistemaComponent } from './components/dashboard/actividades-sistema/actividades-sistema.component';
+import { TarifasListComponent } from './components/tarifas/tarifas-list.component';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { Roles } from './models/usuario';
@@ -45,11 +45,6 @@ export const routes: Routes = [
     path: 'perfil', 
     component: PerfilComponent,
     canActivate: [authGuard]
-  },
-  { 
-    path: 'dashboard', 
-    component: DashboardComponent,
-    canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE])]
   },
   { 
     path: 'dashboard-usuario', 
@@ -100,6 +95,11 @@ export const routes: Routes = [
     path: 'importacion-excel', 
     component: ImportacionExcelComponent,
     canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR])]
+  },
+  { 
+    path: 'tarifas', 
+    component: TarifasListComponent,
+    canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE])]
   },
   { path: '**', redirectTo: '/informacion' }
 ];

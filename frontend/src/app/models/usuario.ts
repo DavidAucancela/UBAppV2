@@ -13,8 +13,6 @@ export interface Usuario {
   canton?: string;
   ciudad?: string;
   ubicacion_completa?: string;
-  latitud?: number;
-  longitud?: number;
   cupo_anual?: number;
   es_activo: boolean;
   fecha_creacion?: string;

@@ -18,8 +18,6 @@ export interface Envio {
     rol_nombre: string;
     telefono?: string;
     ciudad?: string;
-    latitud?: number;
-    longitud?: number;
   };
   estado: string;
   estado_nombre?: string;

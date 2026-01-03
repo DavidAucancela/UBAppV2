@@ -1,0 +1,3227 @@
+[
+{
+  "model": "archivos.producto",
+  "pk": 216,
+  "fields": {
+    "descripcion": "Aspiradora Dyson",
+    "peso": "9.90",
+    "cantidad": 1,
+    "valor": "260.00",
+    "costo_envio": "0.00",
+    "envio": 350,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:48:56.341Z",
+    "fecha_actualizacion": "2025-11-29T08:48:56.341Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 215,
+  "fields": {
+    "descripcion": "Lápiz tinta gel",
+    "peso": "0.30",
+    "cantidad": 2,
+    "valor": "17.00",
+    "costo_envio": "0.00",
+    "envio": 349,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:48:53.624Z",
+    "fecha_actualizacion": "2025-11-29T08:48:53.624Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 214,
+  "fields": {
+    "descripcion": "Smart Home Hub",
+    "peso": "5.60",
+    "cantidad": 1,
+    "valor": "140.00",
+    "costo_envio": "0.00",
+    "envio": 348,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:48:50.853Z",
+    "fecha_actualizacion": "2025-11-29T08:48:50.853Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 213,
+  "fields": {
+    "descripcion": "Calcetines algodón",
+    "peso": "0.70",
+    "cantidad": 3,
+    "valor": "54.00",
+    "costo_envio": "0.00",
+    "envio": 347,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:48:48.176Z",
+    "fecha_actualizacion": "2025-11-29T08:48:48.176Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 212,
+  "fields": {
+    "descripcion": "Refrigerador mini",
+    "peso": "10.70",
+    "cantidad": 1,
+    "valor": "290.00",
+    "costo_envio": "0.00",
+    "envio": 346,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:48:45.332Z",
+    "fecha_actualizacion": "2025-11-29T08:48:45.332Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 211,
+  "fields": {
+    "descripcion": "Hub USB 4 puertos",
+    "peso": "0.85",
+    "cantidad": 1,
+    "valor": "22.00",
+    "costo_envio": "0.00",
+    "envio": 345,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:48:42.469Z",
+    "fecha_actualizacion": "2025-11-29T08:48:42.469Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 210,
+  "fields": {
+    "descripcion": "Cámara Web HD",
+    "peso": "3.50",
+    "cantidad": 1,
+    "valor": "88.00",
+    "costo_envio": "0.00",
+    "envio": 344,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:48:39.597Z",
+    "fecha_actualizacion": "2025-11-29T08:48:39.597Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 209,
+  "fields": {
+    "descripcion": "Zapatos Vans",
+    "peso": "3.50",
+    "cantidad": 2,
+    "valor": "160.00",
+    "costo_envio": "0.00",
+    "envio": 343,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:48:36.833Z",
+    "fecha_actualizacion": "2025-11-29T08:48:36.833Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 208,
+  "fields": {
+    "descripcion": "Plumones borrables",
+    "peso": "0.65",
+    "cantidad": 2,
+    "valor": "36.00",
+    "costo_envio": "0.00",
+    "envio": 342,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:48:33.993Z",
+    "fecha_actualizacion": "2025-11-29T08:48:33.993Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 207,
+  "fields": {
+    "descripcion": "Bocina JBL",
+    "peso": "4.40",
+    "cantidad": 1,
+    "valor": "112.00",
+    "costo_envio": "0.00",
+    "envio": 341,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:48:31.184Z",
+    "fecha_actualizacion": "2025-11-29T08:48:31.184Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 206,
+  "fields": {
+    "descripcion": "Cuchillo cocina",
+    "peso": "0.95",
+    "cantidad": 1,
+    "valor": "18.00",
+    "costo_envio": "0.00",
+    "envio": 340,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:48:28.433Z",
+    "fecha_actualizacion": "2025-11-29T08:48:28.433Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 205,
+  "fields": {
+    "descripcion": "SSD 1TB",
+    "peso": "6.60",
+    "cantidad": 1,
+    "valor": "170.00",
+    "costo_envio": "0.00",
+    "envio": 339,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:48:25.613Z",
+    "fecha_actualizacion": "2025-11-29T08:48:25.613Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 204,
+  "fields": {
+    "descripcion": "Camiseta Lacoste",
+    "peso": "1.25",
+    "cantidad": 2,
+    "valor": "68.00",
+    "costo_envio": "0.00",
+    "envio": 338,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:48:22.933Z",
+    "fecha_actualizacion": "2025-11-29T08:48:22.933Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 203,
+  "fields": {
+    "descripcion": "Horno eléctrico",
+    "peso": "8.40",
+    "cantidad": 1,
+    "valor": "220.00",
+    "costo_envio": "0.00",
+    "envio": 337,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:48:20.324Z",
+    "fecha_actualizacion": "2025-11-29T08:48:20.324Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 202,
+  "fields": {
+    "descripcion": "Set de marcadores",
+    "peso": "0.40",
+    "cantidad": 3,
+    "valor": "33.00",
+    "costo_envio": "0.00",
+    "envio": 336,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:48:17.633Z",
+    "fecha_actualizacion": "2025-11-29T08:48:17.633Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 201,
+  "fields": {
+    "descripcion": "Teclado multimedia",
+    "peso": "3.10",
+    "cantidad": 1,
+    "valor": "82.00",
+    "costo_envio": "0.00",
+    "envio": 335,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:48:14.805Z",
+    "fecha_actualizacion": "2025-11-29T08:48:14.805Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 200,
+  "fields": {
+    "descripcion": "Pantalones Levi’s",
+    "peso": "3.75",
+    "cantidad": 2,
+    "valor": "175.00",
+    "costo_envio": "0.00",
+    "envio": 334,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:48:12.092Z",
+    "fecha_actualizacion": "2025-11-29T08:48:12.092Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 199,
+  "fields": {
+    "descripcion": "Lápiz grafito",
+    "peso": "0.40",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 333,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:48:09.280Z",
+    "fecha_actualizacion": "2025-11-29T08:48:09.280Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 198,
+  "fields": {
+    "descripcion": "Antena WiFi",
+    "peso": "5.90",
+    "cantidad": 1,
+    "valor": "165.00",
+    "costo_envio": "0.00",
+    "envio": 332,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:48:06.554Z",
+    "fecha_actualizacion": "2025-11-29T08:48:06.554Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 197,
+  "fields": {
+    "descripcion": "Bolso cuero",
+    "peso": "2.80",
+    "cantidad": 1,
+    "valor": "72.00",
+    "costo_envio": "0.00",
+    "envio": 331,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:48:02.792Z",
+    "fecha_actualizacion": "2025-11-29T08:48:02.792Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 196,
+  "fields": {
+    "descripcion": "Licuadora Ninja",
+    "peso": "9.10",
+    "cantidad": 1,
+    "valor": "240.00",
+    "costo_envio": "0.00",
+    "envio": 330,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:48:00.108Z",
+    "fecha_actualizacion": "2025-11-29T08:48:00.108Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 195,
+  "fields": {
+    "descripcion": "Reglas escolares",
+    "peso": "0.33",
+    "cantidad": 2,
+    "valor": "16.00",
+    "costo_envio": "0.00",
+    "envio": 329,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:47:57.344Z",
+    "fecha_actualizacion": "2025-11-29T08:47:57.344Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 194,
+  "fields": {
+    "descripcion": "Altavoz inteligente",
+    "peso": "4.60",
+    "cantidad": 1,
+    "valor": "115.00",
+    "costo_envio": "0.00",
+    "envio": 328,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:47:54.537Z",
+    "fecha_actualizacion": "2025-11-29T08:47:54.537Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 193,
+  "fields": {
+    "descripcion": "Calcetines deportivos",
+    "peso": "0.60",
+    "cantidad": 3,
+    "valor": "48.00",
+    "costo_envio": "0.00",
+    "envio": 327,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:47:51.829Z",
+    "fecha_actualizacion": "2025-11-29T08:47:51.829Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 192,
+  "fields": {
+    "descripcion": "Monitor Curvo MSI",
+    "peso": "12.90",
+    "cantidad": 1,
+    "valor": "350.00",
+    "costo_envio": "0.00",
+    "envio": 326,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:47:49.064Z",
+    "fecha_actualizacion": "2025-11-29T08:47:49.064Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 191,
+  "fields": {
+    "descripcion": "Juego de tazas",
+    "peso": "1.95",
+    "cantidad": 2,
+    "valor": "98.00",
+    "costo_envio": "0.00",
+    "envio": 325,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:47:46.393Z",
+    "fecha_actualizacion": "2025-11-29T08:47:46.393Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 190,
+  "fields": {
+    "descripcion": "Cable micro USB",
+    "peso": "0.50",
+    "cantidad": 1,
+    "valor": "14.00",
+    "costo_envio": "0.00",
+    "envio": 324,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:47:43.744Z",
+    "fecha_actualizacion": "2025-11-29T08:47:43.744Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 189,
+  "fields": {
+    "descripcion": "Mochila Samsonite",
+    "peso": "6.00",
+    "cantidad": 1,
+    "valor": "155.00",
+    "costo_envio": "0.00",
+    "envio": 323,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:47:40.993Z",
+    "fecha_actualizacion": "2025-11-29T08:47:40.993Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 188,
+  "fields": {
+    "descripcion": "Estuche lápices",
+    "peso": "0.50",
+    "cantidad": 2,
+    "valor": "25.00",
+    "costo_envio": "0.00",
+    "envio": 322,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:47:38.216Z",
+    "fecha_actualizacion": "2025-11-29T08:47:38.216Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 187,
+  "fields": {
+    "descripcion": "Disco externo 1TB",
+    "peso": "5.10",
+    "cantidad": 1,
+    "valor": "130.00",
+    "costo_envio": "0.00",
+    "envio": 321,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:47:35.518Z",
+    "fecha_actualizacion": "2025-11-29T08:47:35.518Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 186,
+  "fields": {
+    "descripcion": "Gorra Nike",
+    "peso": "1.15",
+    "cantidad": 2,
+    "valor": "60.00",
+    "costo_envio": "0.00",
+    "envio": 320,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:47:32.773Z",
+    "fecha_actualizacion": "2025-11-29T08:47:32.773Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 185,
+  "fields": {
+    "descripcion": "Mini ventilador",
+    "peso": "3.40",
+    "cantidad": 1,
+    "valor": "85.00",
+    "costo_envio": "0.00",
+    "envio": 319,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:47:29.961Z",
+    "fecha_actualizacion": "2025-11-29T08:47:29.961Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 184,
+  "fields": {
+    "descripcion": "Procesador Intel i7",
+    "peso": "7.90",
+    "cantidad": 1,
+    "valor": "195.00",
+    "costo_envio": "0.00",
+    "envio": 318,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:47:27.197Z",
+    "fecha_actualizacion": "2025-11-29T08:47:27.197Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 183,
+  "fields": {
+    "descripcion": "Colores pastel",
+    "peso": "0.25",
+    "cantidad": 3,
+    "valor": "21.00",
+    "costo_envio": "0.00",
+    "envio": 317,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:47:24.484Z",
+    "fecha_actualizacion": "2025-11-29T08:47:24.484Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 182,
+  "fields": {
+    "descripcion": "Router WiFi",
+    "peso": "4.50",
+    "cantidad": 1,
+    "valor": "120.00",
+    "costo_envio": "0.00",
+    "envio": 316,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:47:21.669Z",
+    "fecha_actualizacion": "2025-11-29T08:47:21.669Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 181,
+  "fields": {
+    "descripcion": "Camiseta deportiva",
+    "peso": "0.80",
+    "cantidad": 2,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 315,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:47:18.859Z",
+    "fecha_actualizacion": "2025-11-29T08:47:18.859Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 180,
+  "fields": {
+    "descripcion": "Horno tostador",
+    "peso": "8.20",
+    "cantidad": 1,
+    "valor": "210.00",
+    "costo_envio": "0.00",
+    "envio": 314,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:47:16.193Z",
+    "fecha_actualizacion": "2025-11-29T08:47:16.193Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 179,
+  "fields": {
+    "descripcion": "Agenda 2025",
+    "peso": "2.00",
+    "cantidad": 1,
+    "valor": "40.00",
+    "costo_envio": "0.00",
+    "envio": 313,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:47:13.424Z",
+    "fecha_actualizacion": "2025-11-29T08:47:13.424Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 178,
+  "fields": {
+    "descripcion": "Decoración navideña",
+    "peso": "2.70",
+    "cantidad": 2,
+    "valor": "135.00",
+    "costo_envio": "0.00",
+    "envio": 312,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:47:10.653Z",
+    "fecha_actualizacion": "2025-11-29T08:47:10.653Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 177,
+  "fields": {
+    "descripcion": "Adaptador HDMI",
+    "peso": "0.60",
+    "cantidad": 1,
+    "valor": "15.00",
+    "costo_envio": "0.00",
+    "envio": 311,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:47:07.787Z",
+    "fecha_actualizacion": "2025-11-29T08:47:07.787Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 176,
+  "fields": {
+    "descripcion": "Impresora térmica",
+    "peso": "3.70",
+    "cantidad": 1,
+    "valor": "95.00",
+    "costo_envio": "0.00",
+    "envio": 310,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:47:04.982Z",
+    "fecha_actualizacion": "2025-11-29T08:47:04.982Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 175,
+  "fields": {
+    "descripcion": "Chaqueta Columbia",
+    "peso": "3.40",
+    "cantidad": 2,
+    "valor": "150.00",
+    "costo_envio": "0.00",
+    "envio": 309,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:47:02.183Z",
+    "fecha_actualizacion": "2025-11-29T08:47:02.183Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 174,
+  "fields": {
+    "descripcion": "Resaltadores",
+    "peso": "0.28",
+    "cantidad": 4,
+    "valor": "32.00",
+    "costo_envio": "0.00",
+    "envio": 308,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:46:59.153Z",
+    "fecha_actualizacion": "2025-11-29T08:46:59.153Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 173,
+  "fields": {
+    "descripcion": "Carrito de cocina",
+    "peso": "10.50",
+    "cantidad": 1,
+    "valor": "280.00",
+    "costo_envio": "0.00",
+    "envio": 307,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:46:56.334Z",
+    "fecha_actualizacion": "2025-11-29T08:46:56.334Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 172,
+  "fields": {
+    "descripcion": "Mouse gamer",
+    "peso": "0.90",
+    "cantidad": 1,
+    "valor": "20.00",
+    "costo_envio": "0.00",
+    "envio": 306,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:46:53.204Z",
+    "fecha_actualizacion": "2025-11-29T08:46:53.204Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 171,
+  "fields": {
+    "descripcion": "Auriculares Sony",
+    "peso": "4.20",
+    "cantidad": 1,
+    "valor": "105.00",
+    "costo_envio": "0.00",
+    "envio": 305,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:46:50.484Z",
+    "fecha_actualizacion": "2025-11-29T08:46:50.484Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 170,
+  "fields": {
+    "descripcion": "Gorros deportivos",
+    "peso": "0.47",
+    "cantidad": 3,
+    "valor": "45.00",
+    "costo_envio": "0.00",
+    "envio": 304,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:46:47.667Z",
+    "fecha_actualizacion": "2025-11-29T08:46:47.667Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 169,
+  "fields": {
+    "descripcion": "Cafetera Philips",
+    "peso": "7.70",
+    "cantidad": 1,
+    "valor": "190.00",
+    "costo_envio": "0.00",
+    "envio": 303,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:46:43.842Z",
+    "fecha_actualizacion": "2025-11-29T08:46:43.842Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 168,
+  "fields": {
+    "descripcion": "Correctores líquidos",
+    "peso": "0.35",
+    "cantidad": 2,
+    "valor": "18.00",
+    "costo_envio": "0.00",
+    "envio": 302,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:46:40.866Z",
+    "fecha_actualizacion": "2025-11-29T08:46:40.866Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 167,
+  "fields": {
+    "descripcion": "Tableta gráfica",
+    "peso": "2.20",
+    "cantidad": 1,
+    "valor": "65.00",
+    "costo_envio": "0.00",
+    "envio": 301,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:46:37.901Z",
+    "fecha_actualizacion": "2025-11-29T08:46:37.901Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 166,
+  "fields": {
+    "descripcion": "Botas senderismo",
+    "peso": "1.50",
+    "cantidad": 2,
+    "valor": "85.00",
+    "costo_envio": "0.00",
+    "envio": 300,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:46:33.933Z",
+    "fecha_actualizacion": "2025-11-29T08:46:33.933Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 165,
+  "fields": {
+    "descripcion": "Cuaderno A5",
+    "peso": "0.55",
+    "cantidad": 1,
+    "valor": "14.00",
+    "costo_envio": "0.00",
+    "envio": 299,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:46:31.160Z",
+    "fecha_actualizacion": "2025-11-29T08:46:31.160Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 164,
+  "fields": {
+    "descripcion": "Silla gaming",
+    "peso": "9.30",
+    "cantidad": 1,
+    "valor": "240.00",
+    "costo_envio": "0.00",
+    "envio": 298,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:46:28.465Z",
+    "fecha_actualizacion": "2025-11-29T08:46:28.465Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 163,
+  "fields": {
+    "descripcion": "Parlante portátil",
+    "peso": "4.10",
+    "cantidad": 1,
+    "valor": "110.00",
+    "costo_envio": "0.00",
+    "envio": 297,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:46:24.991Z",
+    "fecha_actualizacion": "2025-11-29T08:46:24.991Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 162,
+  "fields": {
+    "descripcion": "Bufanda invierno",
+    "peso": "0.63",
+    "cantidad": 3,
+    "valor": "60.00",
+    "costo_envio": "0.00",
+    "envio": 296,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:46:22.132Z",
+    "fecha_actualizacion": "2025-11-29T08:46:22.132Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 161,
+  "fields": {
+    "descripcion": "Aspiradora portátil",
+    "peso": "6.30",
+    "cantidad": 1,
+    "valor": "160.00",
+    "costo_envio": "0.00",
+    "envio": 295,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:46:19.358Z",
+    "fecha_actualizacion": "2025-11-29T08:46:19.358Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 160,
+  "fields": {
+    "descripcion": "Lápiz óptico tablet",
+    "peso": "0.40",
+    "cantidad": 1,
+    "valor": "12.00",
+    "costo_envio": "0.00",
+    "envio": 294,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:46:15.973Z",
+    "fecha_actualizacion": "2025-11-29T08:46:15.973Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 159,
+  "fields": {
+    "descripcion": "Teclado inalámbrico",
+    "peso": "2.85",
+    "cantidad": 2,
+    "valor": "145.00",
+    "costo_envio": "0.00",
+    "envio": 293,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:46:12.752Z",
+    "fecha_actualizacion": "2025-11-29T08:46:12.752Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 158,
+  "fields": {
+    "descripcion": "Funda para tablet",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "25.00",
+    "costo_envio": "0.00",
+    "envio": 292,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:46:09.991Z",
+    "fecha_actualizacion": "2025-11-29T08:46:09.991Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 157,
+  "fields": {
+    "descripcion": "Bolso de mano",
+    "peso": "1.30",
+    "cantidad": 2,
+    "valor": "70.00",
+    "costo_envio": "0.00",
+    "envio": 291,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:46:07.263Z",
+    "fecha_actualizacion": "2025-11-29T08:46:07.263Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 156,
+  "fields": {
+    "descripcion": "Microondas LG",
+    "peso": "8.80",
+    "cantidad": 1,
+    "valor": "210.00",
+    "costo_envio": "0.00",
+    "envio": 290,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:46:04.000Z",
+    "fecha_actualizacion": "2025-11-29T08:46:04.000Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 155,
+  "fields": {
+    "descripcion": "Marcadores fluorescentes",
+    "peso": "0.23",
+    "cantidad": 2,
+    "valor": "14.00",
+    "costo_envio": "0.00",
+    "envio": 289,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:46:01.162Z",
+    "fecha_actualizacion": "2025-11-29T08:46:01.162Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 154,
+  "fields": {
+    "descripcion": "Licuadora Oster",
+    "peso": "3.90",
+    "cantidad": 1,
+    "valor": "95.00",
+    "costo_envio": "0.00",
+    "envio": 288,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:45:58.414Z",
+    "fecha_actualizacion": "2025-11-29T08:45:58.414Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 153,
+  "fields": {
+    "descripcion": "Calcetines térmicos",
+    "peso": "0.57",
+    "cantidad": 3,
+    "valor": "42.00",
+    "costo_envio": "0.00",
+    "envio": 287,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:45:55.513Z",
+    "fecha_actualizacion": "2025-11-29T08:45:55.513Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 152,
+  "fields": {
+    "descripcion": "Impresora Epson",
+    "peso": "12.00",
+    "cantidad": 1,
+    "valor": "300.00",
+    "costo_envio": "0.00",
+    "envio": 286,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:45:52.334Z",
+    "fecha_actualizacion": "2025-11-29T08:45:52.334Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 151,
+  "fields": {
+    "descripcion": "Mochila escolar",
+    "peso": "1.65",
+    "cantidad": 2,
+    "valor": "80.00",
+    "costo_envio": "0.00",
+    "envio": 285,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:45:49.474Z",
+    "fecha_actualizacion": "2025-11-29T08:45:49.474Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 150,
+  "fields": {
+    "descripcion": "Cable Lightning",
+    "peso": "0.60",
+    "cantidad": 1,
+    "valor": "16.00",
+    "costo_envio": "0.00",
+    "envio": 284,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:45:46.252Z",
+    "fecha_actualizacion": "2025-11-29T08:45:46.252Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 149,
+  "fields": {
+    "descripcion": "Zapatos Timberland",
+    "peso": "3.60",
+    "cantidad": 2,
+    "valor": "180.00",
+    "costo_envio": "0.00",
+    "envio": 283,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:45:42.944Z",
+    "fecha_actualizacion": "2025-11-29T08:45:42.944Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 148,
+  "fields": {
+    "descripcion": "Lápices de colores",
+    "peso": "0.30",
+    "cantidad": 5,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 282,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:45:38.822Z",
+    "fecha_actualizacion": "2025-11-29T08:45:38.822Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 147,
+  "fields": {
+    "descripcion": "Smartwatch Huawei",
+    "peso": "4.00",
+    "cantidad": 1,
+    "valor": "100.00",
+    "costo_envio": "0.00",
+    "envio": 281,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:45:34.153Z",
+    "fecha_actualizacion": "2025-11-29T08:45:34.153Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 146,
+  "fields": {
+    "descripcion": "Termo acero",
+    "peso": "0.80",
+    "cantidad": 3,
+    "valor": "72.00",
+    "costo_envio": "0.00",
+    "envio": 280,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:45:29.982Z",
+    "fecha_actualizacion": "2025-11-29T08:45:29.982Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 145,
+  "fields": {
+    "descripcion": "Procesador Ryzen 5",
+    "peso": "6.10",
+    "cantidad": 1,
+    "valor": "150.00",
+    "costo_envio": "0.00",
+    "envio": 279,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:45:26.514Z",
+    "fecha_actualizacion": "2025-11-29T08:45:26.514Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 144,
+  "fields": {
+    "descripcion": "Memoria USB 64GB",
+    "peso": "0.80",
+    "cantidad": 1,
+    "valor": "22.00",
+    "costo_envio": "0.00",
+    "envio": 278,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:45:23.361Z",
+    "fecha_actualizacion": "2025-11-29T08:45:23.361Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 143,
+  "fields": {
+    "descripcion": "Plancha de ropa",
+    "peso": "3.60",
+    "cantidad": 1,
+    "valor": "90.00",
+    "costo_envio": "0.00",
+    "envio": 277,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:45:20.414Z",
+    "fecha_actualizacion": "2025-11-29T08:45:20.414Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 142,
+  "fields": {
+    "descripcion": "Libreta de bocetos",
+    "peso": "0.65",
+    "cantidad": 2,
+    "valor": "30.00",
+    "costo_envio": "0.00",
+    "envio": 276,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:45:16.909Z",
+    "fecha_actualizacion": "2025-11-29T08:45:16.909Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 141,
+  "fields": {
+    "descripcion": "Cajas organizadoras",
+    "peso": "0.50",
+    "cantidad": 4,
+    "valor": "48.00",
+    "costo_envio": "0.00",
+    "envio": 275,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:45:13.972Z",
+    "fecha_actualizacion": "2025-11-29T08:45:13.972Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 140,
+  "fields": {
+    "descripcion": "Horno eléctrico pequeño",
+    "peso": "11.20",
+    "cantidad": 1,
+    "valor": "260.00",
+    "costo_envio": "0.00",
+    "envio": 274,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:45:11.204Z",
+    "fecha_actualizacion": "2025-11-29T08:45:11.204Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 139,
+  "fields": {
+    "descripcion": "Reloj Casio",
+    "peso": "2.45",
+    "cantidad": 2,
+    "valor": "140.00",
+    "costo_envio": "0.00",
+    "envio": 273,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:45:08.504Z",
+    "fecha_actualizacion": "2025-11-29T08:45:08.504Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 138,
+  "fields": {
+    "descripcion": "Borradores escolares",
+    "peso": "0.15",
+    "cantidad": 2,
+    "valor": "8.00",
+    "costo_envio": "0.00",
+    "envio": 272,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:45:05.476Z",
+    "fecha_actualizacion": "2025-11-29T08:45:05.476Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 137,
+  "fields": {
+    "descripcion": "Parlante Bluetooth",
+    "peso": "2.70",
+    "cantidad": 1,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 271,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:45:02.793Z",
+    "fecha_actualizacion": "2025-11-29T08:45:02.793Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 136,
+  "fields": {
+    "descripcion": "Juego de calcetines",
+    "peso": "0.63",
+    "cantidad": 3,
+    "valor": "55.00",
+    "costo_envio": "0.00",
+    "envio": 270,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:44:59.824Z",
+    "fecha_actualizacion": "2025-11-29T08:44:59.824Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 135,
+  "fields": {
+    "descripcion": "TV Samsung 32’’",
+    "peso": "14.60",
+    "cantidad": 1,
+    "valor": "400.00",
+    "costo_envio": "0.00",
+    "envio": 269,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:44:57.083Z",
+    "fecha_actualizacion": "2025-11-29T08:44:57.083Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 134,
+  "fields": {
+    "descripcion": "Marcadores permanentes",
+    "peso": "0.20",
+    "cantidad": 2,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 268,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:44:54.300Z",
+    "fecha_actualizacion": "2025-11-29T08:44:54.300Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 133,
+  "fields": {
+    "descripcion": "Bolso Puma",
+    "peso": "1.60",
+    "cantidad": 2,
+    "valor": "110.00",
+    "costo_envio": "0.00",
+    "envio": 267,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:44:51.573Z",
+    "fecha_actualizacion": "2025-11-29T08:44:51.573Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 132,
+  "fields": {
+    "descripcion": "Silla plegable",
+    "peso": "5.00",
+    "cantidad": 1,
+    "valor": "95.00",
+    "costo_envio": "0.00",
+    "envio": 266,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:44:48.055Z",
+    "fecha_actualizacion": "2025-11-29T08:44:48.055Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 131,
+  "fields": {
+    "descripcion": "Cables HDMI",
+    "peso": "0.77",
+    "cantidad": 3,
+    "valor": "70.00",
+    "costo_envio": "0.00",
+    "envio": 265,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:44:45.294Z",
+    "fecha_actualizacion": "2025-11-29T08:44:45.294Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 130,
+  "fields": {
+    "descripcion": "Mouse inalámbrico",
+    "peso": "0.60",
+    "cantidad": 1,
+    "valor": "18.00",
+    "costo_envio": "0.00",
+    "envio": 264,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:44:42.533Z",
+    "fecha_actualizacion": "2025-11-29T08:44:42.533Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 129,
+  "fields": {
+    "descripcion": "Aspiradora Xiaomi",
+    "peso": "7.40",
+    "cantidad": 1,
+    "valor": "200.00",
+    "costo_envio": "0.00",
+    "envio": 263,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:44:39.814Z",
+    "fecha_actualizacion": "2025-11-29T08:44:39.814Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 128,
+  "fields": {
+    "descripcion": "Gorro invierno",
+    "peso": "0.55",
+    "cantidad": 2,
+    "valor": "32.00",
+    "costo_envio": "0.00",
+    "envio": 262,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:44:36.994Z",
+    "fecha_actualizacion": "2025-11-29T08:44:36.994Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 127,
+  "fields": {
+    "descripcion": "Drone DJI Mini",
+    "peso": "9.80",
+    "cantidad": 1,
+    "valor": "350.00",
+    "costo_envio": "0.00",
+    "envio": 261,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:44:34.285Z",
+    "fecha_actualizacion": "2025-11-29T08:44:34.285Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 126,
+  "fields": {
+    "descripcion": "Zapatos Adidas",
+    "peso": "2.23",
+    "cantidad": 3,
+    "valor": "180.00",
+    "costo_envio": "0.00",
+    "envio": 260,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:44:31.514Z",
+    "fecha_actualizacion": "2025-11-29T08:44:31.514Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 125,
+  "fields": {
+    "descripcion": "Cuaderno rayado",
+    "peso": "0.50",
+    "cantidad": 1,
+    "valor": "12.00",
+    "costo_envio": "0.00",
+    "envio": 259,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:44:28.764Z",
+    "fecha_actualizacion": "2025-11-29T08:44:28.764Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 124,
+  "fields": {
+    "descripcion": "Teclado mecánico",
+    "peso": "2.15",
+    "cantidad": 2,
+    "valor": "130.00",
+    "costo_envio": "0.00",
+    "envio": 258,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:44:26.032Z",
+    "fecha_actualizacion": "2025-11-29T08:44:26.040Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 123,
+  "fields": {
+    "descripcion": "Taza cerámica",
+    "peso": "0.53",
+    "cantidad": 4,
+    "valor": "60.00",
+    "costo_envio": "0.00",
+    "envio": 257,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:44:23.254Z",
+    "fecha_actualizacion": "2025-11-29T08:44:23.254Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 122,
+  "fields": {
+    "descripcion": "Cargador USB-C",
+    "peso": "0.70",
+    "cantidad": 1,
+    "valor": "15.00",
+    "costo_envio": "0.00",
+    "envio": 256,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:44:20.383Z",
+    "fecha_actualizacion": "2025-11-29T08:44:20.383Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 121,
+  "fields": {
+    "descripcion": "Monitor LG 24’’",
+    "peso": "6.20",
+    "cantidad": 2,
+    "valor": "220.00",
+    "costo_envio": "0.00",
+    "envio": 255,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:44:17.524Z",
+    "fecha_actualizacion": "2025-11-29T08:44:17.524Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 120,
+  "fields": {
+    "descripcion": "Lápices Faber Castell",
+    "peso": "0.18",
+    "cantidad": 5,
+    "valor": "25.00",
+    "costo_envio": "0.00",
+    "envio": 254,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:44:14.777Z",
+    "fecha_actualizacion": "2025-11-29T08:44:14.777Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 119,
+  "fields": {
+    "descripcion": "Tablet Samsung",
+    "peso": "3.80",
+    "cantidad": 1,
+    "valor": "80.00",
+    "costo_envio": "0.00",
+    "envio": 253,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:44:11.044Z",
+    "fecha_actualizacion": "2025-11-29T08:44:11.044Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 118,
+  "fields": {
+    "descripcion": "Camiseta Nike",
+    "peso": "0.40",
+    "cantidad": 3,
+    "valor": "45.50",
+    "costo_envio": "0.00",
+    "envio": 252,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:44:07.457Z",
+    "fecha_actualizacion": "2025-11-29T08:44:07.457Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 117,
+  "fields": {
+    "descripcion": "Laptop Dell",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "100.00",
+    "costo_envio": "0.00",
+    "envio": 251,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:44:04.708Z",
+    "fecha_actualizacion": "2025-11-29T08:44:04.708Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 116,
+  "fields": {
+    "descripcion": "Aspiradora Dyson",
+    "peso": "9.90",
+    "cantidad": 1,
+    "valor": "260.00",
+    "costo_envio": "0.00",
+    "envio": 117,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:27:38.180Z",
+    "fecha_actualizacion": "2025-11-29T08:27:38.180Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 115,
+  "fields": {
+    "descripcion": "Lápiz tinta gel",
+    "peso": "0.30",
+    "cantidad": 2,
+    "valor": "17.00",
+    "costo_envio": "0.00",
+    "envio": 116,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:27:32.843Z",
+    "fecha_actualizacion": "2025-11-29T08:27:32.843Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 114,
+  "fields": {
+    "descripcion": "Smart Home Hub",
+    "peso": "5.60",
+    "cantidad": 1,
+    "valor": "140.00",
+    "costo_envio": "0.00",
+    "envio": 115,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:27:27.107Z",
+    "fecha_actualizacion": "2025-11-29T08:27:27.107Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 113,
+  "fields": {
+    "descripcion": "Calcetines algodón",
+    "peso": "0.70",
+    "cantidad": 3,
+    "valor": "54.00",
+    "costo_envio": "0.00",
+    "envio": 114,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:27:21.934Z",
+    "fecha_actualizacion": "2025-11-29T08:27:21.934Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 112,
+  "fields": {
+    "descripcion": "Refrigerador mini",
+    "peso": "10.70",
+    "cantidad": 1,
+    "valor": "290.00",
+    "costo_envio": "0.00",
+    "envio": 113,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:27:16.726Z",
+    "fecha_actualizacion": "2025-11-29T08:27:16.726Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 111,
+  "fields": {
+    "descripcion": "Hub USB 4 puertos",
+    "peso": "0.85",
+    "cantidad": 1,
+    "valor": "22.00",
+    "costo_envio": "0.00",
+    "envio": 112,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:27:11.395Z",
+    "fecha_actualizacion": "2025-11-29T08:27:11.395Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 110,
+  "fields": {
+    "descripcion": "Cámara Web HD",
+    "peso": "3.50",
+    "cantidad": 1,
+    "valor": "88.00",
+    "costo_envio": "0.00",
+    "envio": 111,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:27:06.332Z",
+    "fecha_actualizacion": "2025-11-29T08:27:06.332Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 109,
+  "fields": {
+    "descripcion": "Zapatos Vans",
+    "peso": "3.50",
+    "cantidad": 2,
+    "valor": "160.00",
+    "costo_envio": "0.00",
+    "envio": 110,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:27:01.354Z",
+    "fecha_actualizacion": "2025-11-29T08:27:01.354Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 108,
+  "fields": {
+    "descripcion": "Plumones borrables",
+    "peso": "0.65",
+    "cantidad": 2,
+    "valor": "36.00",
+    "costo_envio": "0.00",
+    "envio": 109,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:26:56.602Z",
+    "fecha_actualizacion": "2025-11-29T08:26:56.602Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 107,
+  "fields": {
+    "descripcion": "Bocina JBL",
+    "peso": "4.40",
+    "cantidad": 1,
+    "valor": "112.00",
+    "costo_envio": "0.00",
+    "envio": 108,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:26:51.434Z",
+    "fecha_actualizacion": "2025-11-29T08:26:51.434Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 106,
+  "fields": {
+    "descripcion": "Cuchillo cocina",
+    "peso": "0.95",
+    "cantidad": 1,
+    "valor": "18.00",
+    "costo_envio": "0.00",
+    "envio": 107,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:26:46.666Z",
+    "fecha_actualizacion": "2025-11-29T08:26:46.666Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 105,
+  "fields": {
+    "descripcion": "SSD 1TB",
+    "peso": "6.60",
+    "cantidad": 1,
+    "valor": "170.00",
+    "costo_envio": "0.00",
+    "envio": 106,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:26:41.901Z",
+    "fecha_actualizacion": "2025-11-29T08:26:41.901Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 104,
+  "fields": {
+    "descripcion": "Camiseta Lacoste",
+    "peso": "1.25",
+    "cantidad": 2,
+    "valor": "68.00",
+    "costo_envio": "0.00",
+    "envio": 105,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:26:36.965Z",
+    "fecha_actualizacion": "2025-11-29T08:26:36.965Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 103,
+  "fields": {
+    "descripcion": "Horno eléctrico",
+    "peso": "8.40",
+    "cantidad": 1,
+    "valor": "220.00",
+    "costo_envio": "0.00",
+    "envio": 104,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:26:32.364Z",
+    "fecha_actualizacion": "2025-11-29T08:26:32.364Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 102,
+  "fields": {
+    "descripcion": "Set de marcadores",
+    "peso": "0.40",
+    "cantidad": 3,
+    "valor": "33.00",
+    "costo_envio": "0.00",
+    "envio": 103,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:26:27.734Z",
+    "fecha_actualizacion": "2025-11-29T08:26:27.734Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 101,
+  "fields": {
+    "descripcion": "Teclado multimedia",
+    "peso": "3.10",
+    "cantidad": 1,
+    "valor": "82.00",
+    "costo_envio": "0.00",
+    "envio": 102,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:26:22.805Z",
+    "fecha_actualizacion": "2025-11-29T08:26:22.805Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 100,
+  "fields": {
+    "descripcion": "Pantalones Levi’s",
+    "peso": "3.75",
+    "cantidad": 2,
+    "valor": "175.00",
+    "costo_envio": "0.00",
+    "envio": 101,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:26:18.002Z",
+    "fecha_actualizacion": "2025-11-29T08:26:18.002Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 99,
+  "fields": {
+    "descripcion": "Lápiz grafito",
+    "peso": "0.40",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 100,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:26:13.074Z",
+    "fecha_actualizacion": "2025-11-29T08:26:13.074Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 98,
+  "fields": {
+    "descripcion": "Antena WiFi",
+    "peso": "5.90",
+    "cantidad": 1,
+    "valor": "165.00",
+    "costo_envio": "0.00",
+    "envio": 99,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:26:07.878Z",
+    "fecha_actualizacion": "2025-11-29T08:26:07.878Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 97,
+  "fields": {
+    "descripcion": "Bolso cuero",
+    "peso": "2.80",
+    "cantidad": 1,
+    "valor": "72.00",
+    "costo_envio": "0.00",
+    "envio": 98,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:26:02.249Z",
+    "fecha_actualizacion": "2025-11-29T08:26:02.249Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 96,
+  "fields": {
+    "descripcion": "Licuadora Ninja",
+    "peso": "9.10",
+    "cantidad": 1,
+    "valor": "240.00",
+    "costo_envio": "0.00",
+    "envio": 97,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:25:57.084Z",
+    "fecha_actualizacion": "2025-11-29T08:25:57.084Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 95,
+  "fields": {
+    "descripcion": "Reglas escolares",
+    "peso": "0.33",
+    "cantidad": 2,
+    "valor": "16.00",
+    "costo_envio": "0.00",
+    "envio": 96,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:25:51.844Z",
+    "fecha_actualizacion": "2025-11-29T08:25:51.844Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 94,
+  "fields": {
+    "descripcion": "Altavoz inteligente",
+    "peso": "4.60",
+    "cantidad": 1,
+    "valor": "115.00",
+    "costo_envio": "0.00",
+    "envio": 95,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:25:47.074Z",
+    "fecha_actualizacion": "2025-11-29T08:25:47.074Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 93,
+  "fields": {
+    "descripcion": "Calcetines deportivos",
+    "peso": "0.60",
+    "cantidad": 3,
+    "valor": "48.00",
+    "costo_envio": "0.00",
+    "envio": 94,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:25:42.403Z",
+    "fecha_actualizacion": "2025-11-29T08:25:42.403Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 92,
+  "fields": {
+    "descripcion": "Monitor Curvo MSI",
+    "peso": "12.90",
+    "cantidad": 1,
+    "valor": "350.00",
+    "costo_envio": "0.00",
+    "envio": 93,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:25:37.243Z",
+    "fecha_actualizacion": "2025-11-29T08:25:37.243Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 91,
+  "fields": {
+    "descripcion": "Juego de tazas",
+    "peso": "1.95",
+    "cantidad": 2,
+    "valor": "98.00",
+    "costo_envio": "0.00",
+    "envio": 92,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:25:32.523Z",
+    "fecha_actualizacion": "2025-11-29T08:25:32.523Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 90,
+  "fields": {
+    "descripcion": "Cable micro USB",
+    "peso": "0.50",
+    "cantidad": 1,
+    "valor": "14.00",
+    "costo_envio": "0.00",
+    "envio": 91,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:25:27.695Z",
+    "fecha_actualizacion": "2025-11-29T08:25:27.695Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 89,
+  "fields": {
+    "descripcion": "Mochila Samsonite",
+    "peso": "6.00",
+    "cantidad": 1,
+    "valor": "155.00",
+    "costo_envio": "0.00",
+    "envio": 90,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:25:22.414Z",
+    "fecha_actualizacion": "2025-11-29T08:25:22.414Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 88,
+  "fields": {
+    "descripcion": "Estuche lápices",
+    "peso": "0.50",
+    "cantidad": 2,
+    "valor": "25.00",
+    "costo_envio": "0.00",
+    "envio": 89,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:25:17.572Z",
+    "fecha_actualizacion": "2025-11-29T08:25:17.572Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 87,
+  "fields": {
+    "descripcion": "Disco externo 1TB",
+    "peso": "5.10",
+    "cantidad": 1,
+    "valor": "130.00",
+    "costo_envio": "0.00",
+    "envio": 88,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:25:12.653Z",
+    "fecha_actualizacion": "2025-11-29T08:25:12.653Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 86,
+  "fields": {
+    "descripcion": "Gorra Nike",
+    "peso": "1.15",
+    "cantidad": 2,
+    "valor": "60.00",
+    "costo_envio": "0.00",
+    "envio": 87,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:25:07.784Z",
+    "fecha_actualizacion": "2025-11-29T08:25:07.784Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 85,
+  "fields": {
+    "descripcion": "Mini ventilador",
+    "peso": "3.40",
+    "cantidad": 1,
+    "valor": "85.00",
+    "costo_envio": "0.00",
+    "envio": 86,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:25:03.043Z",
+    "fecha_actualizacion": "2025-11-29T08:25:03.043Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 84,
+  "fields": {
+    "descripcion": "Procesador Intel i7",
+    "peso": "7.90",
+    "cantidad": 1,
+    "valor": "195.00",
+    "costo_envio": "0.00",
+    "envio": 85,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:24:58.164Z",
+    "fecha_actualizacion": "2025-11-29T08:24:58.164Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 83,
+  "fields": {
+    "descripcion": "Colores pastel",
+    "peso": "0.25",
+    "cantidad": 3,
+    "valor": "21.00",
+    "costo_envio": "0.00",
+    "envio": 84,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:24:53.284Z",
+    "fecha_actualizacion": "2025-11-29T08:24:53.284Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 82,
+  "fields": {
+    "descripcion": "Router WiFi",
+    "peso": "4.50",
+    "cantidad": 1,
+    "valor": "120.00",
+    "costo_envio": "0.00",
+    "envio": 83,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:24:48.243Z",
+    "fecha_actualizacion": "2025-11-29T08:24:48.243Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 81,
+  "fields": {
+    "descripcion": "Camiseta deportiva",
+    "peso": "0.80",
+    "cantidad": 2,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 82,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:24:43.174Z",
+    "fecha_actualizacion": "2025-11-29T08:24:43.174Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 80,
+  "fields": {
+    "descripcion": "Horno tostador",
+    "peso": "8.20",
+    "cantidad": 1,
+    "valor": "210.00",
+    "costo_envio": "0.00",
+    "envio": 81,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:24:37.848Z",
+    "fecha_actualizacion": "2025-11-29T08:24:37.848Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 79,
+  "fields": {
+    "descripcion": "Agenda 2025",
+    "peso": "2.00",
+    "cantidad": 1,
+    "valor": "40.00",
+    "costo_envio": "0.00",
+    "envio": 80,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:24:32.531Z",
+    "fecha_actualizacion": "2025-11-29T08:24:32.531Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 78,
+  "fields": {
+    "descripcion": "Decoración navideña",
+    "peso": "2.70",
+    "cantidad": 2,
+    "valor": "135.00",
+    "costo_envio": "0.00",
+    "envio": 79,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:24:26.788Z",
+    "fecha_actualizacion": "2025-11-29T08:24:26.788Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 77,
+  "fields": {
+    "descripcion": "Adaptador HDMI",
+    "peso": "0.60",
+    "cantidad": 1,
+    "valor": "15.00",
+    "costo_envio": "0.00",
+    "envio": 78,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:24:20.972Z",
+    "fecha_actualizacion": "2025-11-29T08:24:20.972Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 76,
+  "fields": {
+    "descripcion": "Impresora térmica",
+    "peso": "3.70",
+    "cantidad": 1,
+    "valor": "95.00",
+    "costo_envio": "0.00",
+    "envio": 77,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:24:13.985Z",
+    "fecha_actualizacion": "2025-11-29T08:24:13.985Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 75,
+  "fields": {
+    "descripcion": "Chaqueta Columbia",
+    "peso": "3.40",
+    "cantidad": 2,
+    "valor": "150.00",
+    "costo_envio": "0.00",
+    "envio": 76,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:24:06.830Z",
+    "fecha_actualizacion": "2025-11-29T08:24:06.830Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 74,
+  "fields": {
+    "descripcion": "Resaltadores",
+    "peso": "0.28",
+    "cantidad": 4,
+    "valor": "32.00",
+    "costo_envio": "0.00",
+    "envio": 75,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:24:00.929Z",
+    "fecha_actualizacion": "2025-11-29T08:24:00.929Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 73,
+  "fields": {
+    "descripcion": "Carrito de cocina",
+    "peso": "10.50",
+    "cantidad": 1,
+    "valor": "280.00",
+    "costo_envio": "0.00",
+    "envio": 74,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:23:55.575Z",
+    "fecha_actualizacion": "2025-11-29T08:23:55.575Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 72,
+  "fields": {
+    "descripcion": "Mouse gamer",
+    "peso": "0.90",
+    "cantidad": 1,
+    "valor": "20.00",
+    "costo_envio": "0.00",
+    "envio": 73,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:23:50.434Z",
+    "fecha_actualizacion": "2025-11-29T08:23:50.434Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 71,
+  "fields": {
+    "descripcion": "Auriculares Sony",
+    "peso": "4.20",
+    "cantidad": 1,
+    "valor": "105.00",
+    "costo_envio": "0.00",
+    "envio": 72,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:23:45.514Z",
+    "fecha_actualizacion": "2025-11-29T08:23:45.514Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 70,
+  "fields": {
+    "descripcion": "Gorros deportivos",
+    "peso": "0.47",
+    "cantidad": 3,
+    "valor": "45.00",
+    "costo_envio": "0.00",
+    "envio": 71,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:23:40.352Z",
+    "fecha_actualizacion": "2025-11-29T08:23:40.352Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 69,
+  "fields": {
+    "descripcion": "Cafetera Philips",
+    "peso": "7.70",
+    "cantidad": 1,
+    "valor": "190.00",
+    "costo_envio": "0.00",
+    "envio": 70,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:23:34.450Z",
+    "fecha_actualizacion": "2025-11-29T08:23:34.450Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 68,
+  "fields": {
+    "descripcion": "Correctores líquidos",
+    "peso": "0.35",
+    "cantidad": 2,
+    "valor": "18.00",
+    "costo_envio": "0.00",
+    "envio": 69,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:23:29.554Z",
+    "fecha_actualizacion": "2025-11-29T08:23:29.554Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 67,
+  "fields": {
+    "descripcion": "Tableta gráfica",
+    "peso": "2.20",
+    "cantidad": 1,
+    "valor": "65.00",
+    "costo_envio": "0.00",
+    "envio": 68,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:23:24.753Z",
+    "fecha_actualizacion": "2025-11-29T08:23:24.753Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 66,
+  "fields": {
+    "descripcion": "Botas senderismo",
+    "peso": "1.50",
+    "cantidad": 2,
+    "valor": "85.00",
+    "costo_envio": "0.00",
+    "envio": 67,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:23:19.794Z",
+    "fecha_actualizacion": "2025-11-29T08:23:19.794Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 65,
+  "fields": {
+    "descripcion": "Cuaderno A5",
+    "peso": "0.55",
+    "cantidad": 1,
+    "valor": "14.00",
+    "costo_envio": "0.00",
+    "envio": 66,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:23:14.794Z",
+    "fecha_actualizacion": "2025-11-29T08:23:14.794Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 64,
+  "fields": {
+    "descripcion": "Silla gaming",
+    "peso": "9.30",
+    "cantidad": 1,
+    "valor": "240.00",
+    "costo_envio": "0.00",
+    "envio": 65,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:23:10.121Z",
+    "fecha_actualizacion": "2025-11-29T08:23:10.121Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 63,
+  "fields": {
+    "descripcion": "Parlante portátil",
+    "peso": "4.10",
+    "cantidad": 1,
+    "valor": "110.00",
+    "costo_envio": "0.00",
+    "envio": 64,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:23:02.513Z",
+    "fecha_actualizacion": "2025-11-29T08:23:02.514Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 62,
+  "fields": {
+    "descripcion": "Bufanda invierno",
+    "peso": "0.63",
+    "cantidad": 3,
+    "valor": "60.00",
+    "costo_envio": "0.00",
+    "envio": 63,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:22:57.494Z",
+    "fecha_actualizacion": "2025-11-29T08:22:57.494Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 61,
+  "fields": {
+    "descripcion": "Aspiradora portátil",
+    "peso": "6.30",
+    "cantidad": 1,
+    "valor": "160.00",
+    "costo_envio": "0.00",
+    "envio": 62,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:22:51.973Z",
+    "fecha_actualizacion": "2025-11-29T08:22:51.973Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 60,
+  "fields": {
+    "descripcion": "Lápiz óptico tablet",
+    "peso": "0.40",
+    "cantidad": 1,
+    "valor": "12.00",
+    "costo_envio": "0.00",
+    "envio": 61,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:22:46.014Z",
+    "fecha_actualizacion": "2025-11-29T08:22:46.014Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 59,
+  "fields": {
+    "descripcion": "Teclado inalámbrico",
+    "peso": "2.85",
+    "cantidad": 2,
+    "valor": "145.00",
+    "costo_envio": "0.00",
+    "envio": 60,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:22:40.804Z",
+    "fecha_actualizacion": "2025-11-29T08:22:40.804Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 58,
+  "fields": {
+    "descripcion": "Funda para tablet",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "25.00",
+    "costo_envio": "0.00",
+    "envio": 59,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:22:36.073Z",
+    "fecha_actualizacion": "2025-11-29T08:22:36.073Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 57,
+  "fields": {
+    "descripcion": "Bolso de mano",
+    "peso": "1.30",
+    "cantidad": 2,
+    "valor": "70.00",
+    "costo_envio": "0.00",
+    "envio": 58,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:22:30.923Z",
+    "fecha_actualizacion": "2025-11-29T08:22:30.923Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 56,
+  "fields": {
+    "descripcion": "Microondas LG",
+    "peso": "8.80",
+    "cantidad": 1,
+    "valor": "210.00",
+    "costo_envio": "0.00",
+    "envio": 57,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:22:25.451Z",
+    "fecha_actualizacion": "2025-11-29T08:22:25.451Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 55,
+  "fields": {
+    "descripcion": "Marcadores fluorescentes",
+    "peso": "0.23",
+    "cantidad": 2,
+    "valor": "14.00",
+    "costo_envio": "0.00",
+    "envio": 56,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:22:20.224Z",
+    "fecha_actualizacion": "2025-11-29T08:22:20.224Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 54,
+  "fields": {
+    "descripcion": "Licuadora Oster",
+    "peso": "3.90",
+    "cantidad": 1,
+    "valor": "95.00",
+    "costo_envio": "0.00",
+    "envio": 55,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:22:15.462Z",
+    "fecha_actualizacion": "2025-11-29T08:22:15.462Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 53,
+  "fields": {
+    "descripcion": "Calcetines térmicos",
+    "peso": "0.57",
+    "cantidad": 3,
+    "valor": "42.00",
+    "costo_envio": "0.00",
+    "envio": 54,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:22:10.103Z",
+    "fecha_actualizacion": "2025-11-29T08:22:10.103Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 52,
+  "fields": {
+    "descripcion": "Impresora Epson",
+    "peso": "12.00",
+    "cantidad": 1,
+    "valor": "300.00",
+    "costo_envio": "0.00",
+    "envio": 53,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:22:04.242Z",
+    "fecha_actualizacion": "2025-11-29T08:22:04.242Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 51,
+  "fields": {
+    "descripcion": "Mochila escolar",
+    "peso": "1.65",
+    "cantidad": 2,
+    "valor": "80.00",
+    "costo_envio": "0.00",
+    "envio": 52,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:21:59.524Z",
+    "fecha_actualizacion": "2025-11-29T08:21:59.524Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 50,
+  "fields": {
+    "descripcion": "Cable Lightning",
+    "peso": "0.60",
+    "cantidad": 1,
+    "valor": "16.00",
+    "costo_envio": "0.00",
+    "envio": 51,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:21:54.334Z",
+    "fecha_actualizacion": "2025-11-29T08:21:54.334Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 49,
+  "fields": {
+    "descripcion": "Zapatos Timberland",
+    "peso": "3.60",
+    "cantidad": 2,
+    "valor": "180.00",
+    "costo_envio": "0.00",
+    "envio": 50,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:21:49.604Z",
+    "fecha_actualizacion": "2025-11-29T08:21:49.604Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 48,
+  "fields": {
+    "descripcion": "Lápices de colores",
+    "peso": "0.30",
+    "cantidad": 5,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 49,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:21:44.747Z",
+    "fecha_actualizacion": "2025-11-29T08:21:44.747Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 47,
+  "fields": {
+    "descripcion": "Smartwatch Huawei",
+    "peso": "4.00",
+    "cantidad": 1,
+    "valor": "100.00",
+    "costo_envio": "0.00",
+    "envio": 48,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:21:39.474Z",
+    "fecha_actualizacion": "2025-11-29T08:21:39.474Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 46,
+  "fields": {
+    "descripcion": "Termo acero",
+    "peso": "0.80",
+    "cantidad": 3,
+    "valor": "72.00",
+    "costo_envio": "0.00",
+    "envio": 47,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:21:34.543Z",
+    "fecha_actualizacion": "2025-11-29T08:21:34.543Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 45,
+  "fields": {
+    "descripcion": "Procesador Ryzen 5",
+    "peso": "6.10",
+    "cantidad": 1,
+    "valor": "150.00",
+    "costo_envio": "0.00",
+    "envio": 46,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:21:29.730Z",
+    "fecha_actualizacion": "2025-11-29T08:21:29.730Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 44,
+  "fields": {
+    "descripcion": "Memoria USB 64GB",
+    "peso": "0.80",
+    "cantidad": 1,
+    "valor": "22.00",
+    "costo_envio": "0.00",
+    "envio": 45,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:21:24.731Z",
+    "fecha_actualizacion": "2025-11-29T08:21:24.731Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 43,
+  "fields": {
+    "descripcion": "Plancha de ropa",
+    "peso": "3.60",
+    "cantidad": 1,
+    "valor": "90.00",
+    "costo_envio": "0.00",
+    "envio": 44,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:21:19.824Z",
+    "fecha_actualizacion": "2025-11-29T08:21:19.824Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 42,
+  "fields": {
+    "descripcion": "Libreta de bocetos",
+    "peso": "0.65",
+    "cantidad": 2,
+    "valor": "30.00",
+    "costo_envio": "0.00",
+    "envio": 43,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:21:15.023Z",
+    "fecha_actualizacion": "2025-11-29T08:21:15.023Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 41,
+  "fields": {
+    "descripcion": "Cajas organizadoras",
+    "peso": "0.50",
+    "cantidad": 4,
+    "valor": "48.00",
+    "costo_envio": "0.00",
+    "envio": 42,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:21:09.165Z",
+    "fecha_actualizacion": "2025-11-29T08:21:09.165Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 40,
+  "fields": {
+    "descripcion": "Horno eléctrico pequeño",
+    "peso": "11.20",
+    "cantidad": 1,
+    "valor": "260.00",
+    "costo_envio": "0.00",
+    "envio": 41,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:21:03.630Z",
+    "fecha_actualizacion": "2025-11-29T08:21:03.630Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 39,
+  "fields": {
+    "descripcion": "Reloj Casio",
+    "peso": "2.45",
+    "cantidad": 2,
+    "valor": "140.00",
+    "costo_envio": "0.00",
+    "envio": 40,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:20:58.694Z",
+    "fecha_actualizacion": "2025-11-29T08:20:58.694Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 38,
+  "fields": {
+    "descripcion": "Borradores escolares",
+    "peso": "0.15",
+    "cantidad": 2,
+    "valor": "8.00",
+    "costo_envio": "0.00",
+    "envio": 39,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:20:53.373Z",
+    "fecha_actualizacion": "2025-11-29T08:20:53.373Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 37,
+  "fields": {
+    "descripcion": "Parlante Bluetooth",
+    "peso": "2.70",
+    "cantidad": 1,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 38,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:20:48.014Z",
+    "fecha_actualizacion": "2025-11-29T08:20:48.014Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 36,
+  "fields": {
+    "descripcion": "Juego de calcetines",
+    "peso": "0.63",
+    "cantidad": 3,
+    "valor": "55.00",
+    "costo_envio": "0.00",
+    "envio": 37,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:20:42.313Z",
+    "fecha_actualizacion": "2025-11-29T08:20:42.313Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 35,
+  "fields": {
+    "descripcion": "TV Samsung 32’’",
+    "peso": "14.60",
+    "cantidad": 1,
+    "valor": "400.00",
+    "costo_envio": "0.00",
+    "envio": 36,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:20:36.391Z",
+    "fecha_actualizacion": "2025-11-29T08:20:36.391Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 34,
+  "fields": {
+    "descripcion": "Marcadores permanentes",
+    "peso": "0.20",
+    "cantidad": 2,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 35,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:20:30.754Z",
+    "fecha_actualizacion": "2025-11-29T08:20:30.754Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 33,
+  "fields": {
+    "descripcion": "Bolso Puma",
+    "peso": "1.60",
+    "cantidad": 2,
+    "valor": "110.00",
+    "costo_envio": "0.00",
+    "envio": 34,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:20:25.045Z",
+    "fecha_actualizacion": "2025-11-29T08:20:25.045Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 32,
+  "fields": {
+    "descripcion": "Silla plegable",
+    "peso": "5.00",
+    "cantidad": 1,
+    "valor": "95.00",
+    "costo_envio": "0.00",
+    "envio": 33,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:20:20.317Z",
+    "fecha_actualizacion": "2025-11-29T08:20:20.317Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 31,
+  "fields": {
+    "descripcion": "Cables HDMI",
+    "peso": "0.77",
+    "cantidad": 3,
+    "valor": "70.00",
+    "costo_envio": "0.00",
+    "envio": 32,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:20:14.694Z",
+    "fecha_actualizacion": "2025-11-29T08:20:14.694Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 30,
+  "fields": {
+    "descripcion": "Mouse inalámbrico",
+    "peso": "0.60",
+    "cantidad": 1,
+    "valor": "18.00",
+    "costo_envio": "0.00",
+    "envio": 31,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:20:07.924Z",
+    "fecha_actualizacion": "2025-11-29T08:20:07.924Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 29,
+  "fields": {
+    "descripcion": "Aspiradora Xiaomi",
+    "peso": "7.40",
+    "cantidad": 1,
+    "valor": "200.00",
+    "costo_envio": "0.00",
+    "envio": 30,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:20:02.239Z",
+    "fecha_actualizacion": "2025-11-29T08:20:02.239Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 28,
+  "fields": {
+    "descripcion": "Gorro invierno",
+    "peso": "0.55",
+    "cantidad": 2,
+    "valor": "32.00",
+    "costo_envio": "0.00",
+    "envio": 29,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:19:56.946Z",
+    "fecha_actualizacion": "2025-11-29T08:19:56.946Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 27,
+  "fields": {
+    "descripcion": "Drone DJI Mini",
+    "peso": "9.80",
+    "cantidad": 1,
+    "valor": "350.00",
+    "costo_envio": "0.00",
+    "envio": 28,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:19:50.113Z",
+    "fecha_actualizacion": "2025-11-29T08:19:50.113Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 26,
+  "fields": {
+    "descripcion": "Zapatos Adidas",
+    "peso": "2.23",
+    "cantidad": 3,
+    "valor": "180.00",
+    "costo_envio": "0.00",
+    "envio": 27,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:19:44.773Z",
+    "fecha_actualizacion": "2025-11-29T08:19:44.773Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 25,
+  "fields": {
+    "descripcion": "Cuaderno rayado",
+    "peso": "0.50",
+    "cantidad": 1,
+    "valor": "12.00",
+    "costo_envio": "0.00",
+    "envio": 26,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:19:39.607Z",
+    "fecha_actualizacion": "2025-11-29T08:19:39.607Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 24,
+  "fields": {
+    "descripcion": "Teclado mecánico",
+    "peso": "2.15",
+    "cantidad": 2,
+    "valor": "130.00",
+    "costo_envio": "0.00",
+    "envio": 25,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:19:34.693Z",
+    "fecha_actualizacion": "2025-11-29T08:19:34.693Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 23,
+  "fields": {
+    "descripcion": "Taza cerámica",
+    "peso": "0.53",
+    "cantidad": 4,
+    "valor": "60.00",
+    "costo_envio": "0.00",
+    "envio": 24,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-29T08:19:29.135Z",
+    "fecha_actualizacion": "2025-11-29T08:19:29.135Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 22,
+  "fields": {
+    "descripcion": "Cargador USB-C",
+    "peso": "0.70",
+    "cantidad": 1,
+    "valor": "15.00",
+    "costo_envio": "0.00",
+    "envio": 23,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:19:23.665Z",
+    "fecha_actualizacion": "2025-11-29T08:19:23.665Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 21,
+  "fields": {
+    "descripcion": "Monitor LG 24’’",
+    "peso": "6.20",
+    "cantidad": 2,
+    "valor": "220.00",
+    "costo_envio": "0.00",
+    "envio": 22,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:19:17.753Z",
+    "fecha_actualizacion": "2025-11-29T08:19:17.753Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 20,
+  "fields": {
+    "descripcion": "Lápices Faber Castell",
+    "peso": "0.18",
+    "cantidad": 5,
+    "valor": "25.00",
+    "costo_envio": "0.00",
+    "envio": 21,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-29T08:19:07.294Z",
+    "fecha_actualizacion": "2025-11-29T08:19:07.294Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 19,
+  "fields": {
+    "descripcion": "Tablet Samsung",
+    "peso": "3.80",
+    "cantidad": 1,
+    "valor": "80.00",
+    "costo_envio": "0.00",
+    "envio": 20,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:19:00.702Z",
+    "fecha_actualizacion": "2025-11-29T08:19:00.702Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 18,
+  "fields": {
+    "descripcion": "Camiseta Nike",
+    "peso": "0.40",
+    "cantidad": 3,
+    "valor": "45.50",
+    "costo_envio": "0.00",
+    "envio": 19,
+    "categoria": "ropa",
+    "fecha_creacion": "2025-11-29T08:18:55.006Z",
+    "fecha_actualizacion": "2025-11-29T08:18:55.006Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 17,
+  "fields": {
+    "descripcion": "Laptop Dell",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "100.00",
+    "costo_envio": "0.00",
+    "envio": 18,
+    "categoria": "electronica",
+    "fecha_creacion": "2025-11-29T08:18:40.681Z",
+    "fecha_actualizacion": "2025-11-29T08:18:40.681Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 16,
+  "fields": {
+    "descripcion": "peinillas",
+    "peso": "0.62",
+    "cantidad": 12,
+    "valor": "0.50",
+    "costo_envio": "0.00",
+    "envio": 17,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:08:11.549Z",
+    "fecha_actualizacion": "2025-11-25T22:08:11.549Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 15,
+  "fields": {
+    "descripcion": "zapatos",
+    "peso": "0.56",
+    "cantidad": 12,
+    "valor": "0.42",
+    "costo_envio": "0.00",
+    "envio": 16,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:08:01.500Z",
+    "fecha_actualizacion": "2025-11-25T22:08:01.500Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 14,
+  "fields": {
+    "descripcion": "laptop",
+    "peso": "0.50",
+    "cantidad": 12,
+    "valor": "0.25",
+    "costo_envio": "0.00",
+    "envio": 15,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:07:52.752Z",
+    "fecha_actualizacion": "2025-11-25T22:07:52.752Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 13,
+  "fields": {
+    "descripcion": "cargador",
+    "peso": "0.50",
+    "cantidad": 12,
+    "valor": "0.25",
+    "costo_envio": "0.00",
+    "envio": 14,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:07:43.480Z",
+    "fecha_actualizacion": "2025-11-25T22:07:43.480Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 12,
+  "fields": {
+    "descripcion": "audifonos",
+    "peso": "0.33",
+    "cantidad": 12,
+    "valor": "0.25",
+    "costo_envio": "0.00",
+    "envio": 13,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:07:30.836Z",
+    "fecha_actualizacion": "2025-11-25T22:07:30.836Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 11,
+  "fields": {
+    "descripcion": "celular",
+    "peso": "0.25",
+    "cantidad": 12,
+    "valor": "0.33",
+    "costo_envio": "0.00",
+    "envio": 12,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:07:17.372Z",
+    "fecha_actualizacion": "2025-11-25T22:07:17.372Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 10,
+  "fields": {
+    "descripcion": "cinturón",
+    "peso": "1.83",
+    "cantidad": 6,
+    "valor": "2.67",
+    "costo_envio": "0.00",
+    "envio": 11,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:07:03.248Z",
+    "fecha_actualizacion": "2025-11-25T22:07:03.248Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 9,
+  "fields": {
+    "descripcion": "vitaminas",
+    "peso": "2.20",
+    "cantidad": 5,
+    "valor": "3.00",
+    "costo_envio": "0.00",
+    "envio": 10,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:06:52.034Z",
+    "fecha_actualizacion": "2025-11-25T22:06:52.034Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 8,
+  "fields": {
+    "descripcion": "focos",
+    "peso": "0.92",
+    "cantidad": 12,
+    "valor": "1.17",
+    "costo_envio": "0.00",
+    "envio": 9,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:06:39.894Z",
+    "fecha_actualizacion": "2025-11-25T22:06:39.894Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 7,
+  "fields": {
+    "descripcion": "estampillas",
+    "peso": "0.92",
+    "cantidad": 12,
+    "valor": "1.08",
+    "costo_envio": "0.00",
+    "envio": 8,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:06:31.058Z",
+    "fecha_actualizacion": "2025-11-25T22:06:31.059Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 6,
+  "fields": {
+    "descripcion": "toallas",
+    "peso": "1.00",
+    "cantidad": 11,
+    "valor": "1.09",
+    "costo_envio": "0.00",
+    "envio": 7,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-25T22:06:16.393Z",
+    "fecha_actualizacion": "2025-11-25T22:06:16.394Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 4,
+  "fields": {
+    "descripcion": "filtro aceite",
+    "peso": "4.17",
+    "cantidad": 24,
+    "valor": "8.42",
+    "costo_envio": "0.00",
+    "envio": 4,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-22T12:28:41.779Z",
+    "fecha_actualizacion": "2025-11-22T12:28:41.779Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3,
+  "fields": {
+    "descripcion": "COMSUMIBLES PARA ANTORCHA",
+    "peso": "1.23",
+    "cantidad": 62,
+    "valor": "8.04",
+    "costo_envio": "0.00",
+    "envio": 3,
+    "categoria": "otros",
+    "fecha_creacion": "2025-11-22T12:28:27.060Z",
+    "fecha_actualizacion": "2025-11-22T12:28:27.060Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 2,
+  "fields": {
+    "descripcion": "Pepsi",
+    "peso": "11.00",
+    "cantidad": 11,
+    "valor": "11.00",
+    "costo_envio": "0.00",
+    "envio": 2,
+    "categoria": "deportes",
+    "fecha_creacion": "2025-11-21T22:14:37.522Z",
+    "fecha_actualizacion": "2025-11-21T22:14:37.522Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 1,
+  "fields": {
+    "descripcion": "Shampoo",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 1,
+    "categoria": "hogar",
+    "fecha_creacion": "2025-11-21T21:39:02.363Z",
+    "fecha_actualizacion": "2025-11-21T21:39:02.363Z"
+  }
+}
+]

@@ -26,6 +26,7 @@ export class PerfilComponent implements OnInit {
   loadingUbicaciones = false;
   profileSuccess = false;
   profileError: string | null = null;
+  hasChanges = false;
 
   // Listas para selectores en cascada
   provincias: string[] = [];
@@ -56,8 +57,6 @@ export class PerfilComponent implements OnInit {
       provincia: [''],
       canton: [''],
       ciudad: [''],
-      latitud: [null],
-      longitud: [null],
       cupo_anual: [null],
       // Campos de contraseña (opcionales)
       currentPassword: [''],
@@ -72,7 +71,7 @@ export class PerfilComponent implements OnInit {
       } else {
         this.cantones = [];
         this.ciudades = [];
-        this.profileForm.patchValue({ canton: '', ciudad: '', latitud: null, longitud: null }, { emitEvent: false });
+        this.profileForm.patchValue({ canton: '', ciudad: '' }, { emitEvent: false });
       }
     });
 
@@ -81,18 +80,17 @@ export class PerfilComponent implements OnInit {
         this.onCantonChange(this.profileForm.get('provincia')?.value, canton);
       } else {
         this.ciudades = [];
-        this.profileForm.patchValue({ ciudad: '', latitud: null, longitud: null }, { emitEvent: false });
+        this.profileForm.patchValue({ ciudad: '' }, { emitEvent: false });
       }
     });
 
     this.profileForm.get('ciudad')?.valueChanges.subscribe(ciudad => {
-      if (ciudad && this.profileForm.get('provincia')?.value && this.profileForm.get('canton')?.value) {
-        this.onCiudadChange(
-          this.profileForm.get('provincia')?.value,
-          this.profileForm.get('canton')?.value,
-          ciudad
-        );
-      }
+      // No se requiere acción adicional al cambiar la ciudad
+    });
+
+    // Suscribirse a cambios en el formulario para detectar modificaciones
+    this.profileForm.valueChanges.subscribe(() => {
+      this.hasChanges = this.hasFormChanges();
     });
   }
 
@@ -126,17 +124,36 @@ export class PerfilComponent implements OnInit {
 
   loadUserData(): void {
     if (this.currentUser) {
+      // Formatear fecha de nacimiento para input type="date" (YYYY-MM-DD)
+      let fechaNacimiento = '';
+      if (this.currentUser.fecha_nacimiento) {
+        try {
+          // Si viene como string ISO, extraer solo la fecha
+          const fecha = new Date(this.currentUser.fecha_nacimiento);
+          if (!isNaN(fecha.getTime())) {
+            // Formatear a YYYY-MM-DD
+            const year = fecha.getFullYear();
+            const month = String(fecha.getMonth() + 1).padStart(2, '0');
+            const day = String(fecha.getDate()).padStart(2, '0');
+            fechaNacimiento = `${year}-${month}-${day}`;
+          }
+        } catch (e) {
+          // Si ya está en formato YYYY-MM-DD, usarlo directamente
+          if (typeof this.currentUser.fecha_nacimiento === 'string' && /^\d{4}-\d{2}-\d{2}/.test(this.currentUser.fecha_nacimiento)) {
+            fechaNacimiento = this.currentUser.fecha_nacimiento.split('T')[0]; // Tomar solo la parte de fecha
+          }
+        }
+      }
+
       const formData = {
-        nombre: this.currentUser.nombre,
-        correo: this.currentUser.correo,
+        nombre: this.currentUser.nombre || '',
+        correo: this.currentUser.correo || '',
         telefono: this.currentUser.telefono || '',
         direccion: this.currentUser.direccion || '',
-        fecha_nacimiento: this.currentUser.fecha_nacimiento || '',
+        fecha_nacimiento: fechaNacimiento,
         provincia: this.currentUser.provincia || '',
         canton: this.currentUser.canton || '',
         ciudad: this.currentUser.ciudad || '',
-        latitud: this.currentUser.latitud || null,
-        longitud: this.currentUser.longitud || null,
         cupo_anual: this.currentUser.cupo_anual || null,
         currentPassword: '',
         newPassword: '',
@@ -145,11 +162,14 @@ export class PerfilComponent implements OnInit {
 
       this.profileForm.patchValue(formData, { emitEvent: false });
       
-      // Guardar valores iniciales para comparar cambios
-      this.initialFormValues = { ...formData };
+      // Guardar valores iniciales para comparar cambios (usar JSON para deep copy)
+      this.initialFormValues = JSON.parse(JSON.stringify(formData));
       delete this.initialFormValues.currentPassword;
       delete this.initialFormValues.newPassword;
       delete this.initialFormValues.confirmPassword;
+      
+      // Inicializar estado de cambios
+      this.hasChanges = false;
 
       // Cargar cantones y ciudades si ya tiene ubicación
       if (this.currentUser.provincia) {
@@ -209,9 +229,7 @@ export class PerfilComponent implements OnInit {
     this.ciudades = [];
     this.profileForm.patchValue({ 
       canton: '', 
-      ciudad: '', 
-      latitud: null, 
-      longitud: null 
+      ciudad: ''
     }, { emitEvent: false });
     this.loadCantones(provincia);
   }
@@ -219,26 +237,9 @@ export class PerfilComponent implements OnInit {
   onCantonChange(provincia: string, canton: string): void {
     this.ciudades = [];
     this.profileForm.patchValue({ 
-      ciudad: '', 
-      latitud: null, 
-      longitud: null 
+      ciudad: ''
     }, { emitEvent: false });
     this.loadCiudades(provincia, canton);
-  }
-
-  onCiudadChange(provincia: string, canton: string, ciudad: string): void {
-    // Obtener coordenadas de la ciudad seleccionada
-    this.apiService.getUbicacionesCoordenadas(provincia, canton, ciudad).subscribe({
-      next: (response) => {
-        this.profileForm.patchValue({
-          latitud: response.latitud,
-          longitud: response.longitud
-        }, { emitEvent: false });
-      },
-      error: (error) => {
-        console.error('Error al obtener coordenadas:', error);
-      }
-    });
   }
 
   isAdmin(): boolean {
@@ -284,7 +285,7 @@ export class PerfilComponent implements OnInit {
     
     // Solo incluir campos que se pueden actualizar
     const allowedFields = ['nombre', 'correo', 'telefono', 'fecha_nacimiento', 'direccion', 
-                          'provincia', 'canton', 'ciudad', 'latitud', 'longitud', 'cupo_anual'];
+                          'provincia', 'canton', 'ciudad', 'cupo_anual'];
     
     allowedFields.forEach(field => {
       const value = formData[field];
@@ -296,17 +297,18 @@ export class PerfilComponent implements OnInit {
       }
     });
 
-    // Primero actualizar el perfil
-    this.apiService.updateUsuario(userId, cleanData).subscribe({
+    // Usar el endpoint correcto de actualizar perfil
+    this.apiService.actualizarPerfil(cleanData).subscribe({
       next: (response) => {
         // Si el checkbox está activado y se proporcionó contraseña, actualizarla también
         if (this.changePasswordEnabled && currentPassword && newPassword) {
           const passwordData = {
-            current_password: currentPassword,
-            new_password: newPassword
+            password_actual: currentPassword,
+            password_nuevo: newPassword,
+            password_confirm: newPassword
           };
 
-          this.apiService.changePassword(userId, passwordData).subscribe({
+          this.apiService.cambiarPasswordPerfil(passwordData).subscribe({
             next: () => {
               this.profileSuccess = true;
               this.loading = false;
@@ -319,19 +321,32 @@ export class PerfilComponent implements OnInit {
                 confirmPassword: ''
               }, { emitEvent: false });
               
-              // Actualizar valores iniciales
-              this.initialFormValues = { ...cleanData };
+              // Actualizar valores iniciales con los datos actualizados
+              const updatedFormData = {
+                nombre: response.nombre || '',
+                correo: response.correo || '',
+                telefono: response.telefono || '',
+                direccion: response.direccion || '',
+                fecha_nacimiento: response.fecha_nacimiento ? this.formatDateForInput(response.fecha_nacimiento) : '',
+                provincia: response.provincia || '',
+                canton: response.canton || '',
+                ciudad: response.ciudad || '',
+                cupo_anual: response.cupo_anual || null
+              };
+              this.initialFormValues = JSON.parse(JSON.stringify(updatedFormData));
+              this.hasChanges = false;
               
               // Actualizar el usuario en el servicio de autenticación
-              const updatedUser = { ...this.currentUser, ...cleanData };
+              const updatedUser = { ...this.currentUser, ...response };
               this.authService.updateCurrentUser(updatedUser as Usuario);
+              this.currentUser = updatedUser as Usuario;
               
               setTimeout(() => {
                 this.profileSuccess = false;
               }, 5000);
             },
             error: (error) => {
-              this.profileError = error.error?.message || 'Error al cambiar la contraseña. Verifica tu contraseña actual.';
+              this.profileError = error.error?.error || error.error?.password_actual || 'Error al cambiar la contraseña. Verifica tu contraseña actual.';
               this.loading = false;
             }
           });
@@ -340,12 +355,25 @@ export class PerfilComponent implements OnInit {
           this.profileSuccess = true;
           this.loading = false;
           
-          // Actualizar valores iniciales
-          this.initialFormValues = { ...cleanData };
+          // Actualizar valores iniciales con los datos actualizados
+          const updatedFormData = {
+            nombre: response.nombre || '',
+            correo: response.correo || '',
+            telefono: response.telefono || '',
+            direccion: response.direccion || '',
+            fecha_nacimiento: response.fecha_nacimiento ? this.formatDateForInput(response.fecha_nacimiento) : '',
+            provincia: response.provincia || '',
+            canton: response.canton || '',
+            ciudad: response.ciudad || '',
+            cupo_anual: response.cupo_anual || null
+          };
+          this.initialFormValues = JSON.parse(JSON.stringify(updatedFormData));
+          this.hasChanges = false;
           
           // Actualizar el usuario en el servicio de autenticación
-          const updatedUser = { ...this.currentUser, ...cleanData };
+          const updatedUser = { ...this.currentUser, ...response };
           this.authService.updateCurrentUser(updatedUser as Usuario);
+          this.currentUser = updatedUser as Usuario;
           
           setTimeout(() => {
             this.profileSuccess = false;
@@ -413,26 +441,43 @@ export class PerfilComponent implements OnInit {
   }
 
   hasFormChanges(): boolean {
-    if (!this.currentUser) return false;
+    if (!this.currentUser || !this.initialFormValues) return false;
 
     const currentValues = this.profileForm.value;
     
+    // Normalizar valores para comparación
+    const normalize = (value: any): string => {
+      if (value === null || value === undefined) return '';
+      if (typeof value === 'number') return String(value);
+      return String(value).trim();
+    };
+    
     // Comparar campos básicos
-    if (currentValues.nombre !== this.initialFormValues.nombre) return true;
-    if (currentValues.correo !== this.initialFormValues.correo) return true;
-    if ((currentValues.telefono || '') !== (this.initialFormValues.telefono || '')) return true;
-    if ((currentValues.direccion || '') !== (this.initialFormValues.direccion || '')) return true;
-    if ((currentValues.fecha_nacimiento || '') !== (this.initialFormValues.fecha_nacimiento || '')) return true;
-    if ((currentValues.provincia || '') !== (this.initialFormValues.provincia || '')) return true;
-    if ((currentValues.canton || '') !== (this.initialFormValues.canton || '')) return true;
-    if ((currentValues.ciudad || '') !== (this.initialFormValues.ciudad || '')) return true;
-    if (currentValues.cupo_anual !== this.initialFormValues.cupo_anual) return true;
+    if (normalize(currentValues.nombre) !== normalize(this.initialFormValues.nombre)) return true;
+    if (normalize(currentValues.correo) !== normalize(this.initialFormValues.correo)) return true;
+    if (normalize(currentValues.telefono) !== normalize(this.initialFormValues.telefono)) return true;
+    if (normalize(currentValues.direccion) !== normalize(this.initialFormValues.direccion)) return true;
+    
+    // Comparar fecha de nacimiento (normalizar formato)
+    const fechaActual = normalize(currentValues.fecha_nacimiento);
+    const fechaInicial = normalize(this.initialFormValues.fecha_nacimiento);
+    if (fechaActual !== fechaInicial) return true;
+    
+    if (normalize(currentValues.provincia) !== normalize(this.initialFormValues.provincia)) return true;
+    if (normalize(currentValues.canton) !== normalize(this.initialFormValues.canton)) return true;
+    if (normalize(currentValues.ciudad) !== normalize(this.initialFormValues.ciudad)) return true;
+    
+    // Comparar cupo_anual (manejar números y null)
+    const cupoActual = currentValues.cupo_anual === null || currentValues.cupo_anual === '' ? null : Number(currentValues.cupo_anual);
+    const cupoInicial = this.initialFormValues.cupo_anual === null || this.initialFormValues.cupo_anual === '' ? null : Number(this.initialFormValues.cupo_anual);
+    if (cupoActual !== cupoInicial) return true;
     
     // Si el checkbox de contraseña está activado, verificar si hay cambios
     if (this.changePasswordEnabled) {
-      if (currentValues.currentPassword || currentValues.newPassword || currentValues.confirmPassword) {
-        return true;
-      }
+      const hasPasswordFields = normalize(currentValues.currentPassword) || 
+                                normalize(currentValues.newPassword) || 
+                                normalize(currentValues.confirmPassword);
+      if (hasPasswordFields) return true;
     }
     
     return false;
@@ -449,6 +494,27 @@ export class PerfilComponent implements OnInit {
       case 'confirm':
         this.showConfirmPassword = !this.showConfirmPassword;
         break;
+    }
+  }
+
+  /**
+   * Formatea una fecha para el input type="date" (YYYY-MM-DD)
+   */
+  formatDateForInput(date: string | Date): string {
+    if (!date) return '';
+    try {
+      const fecha = typeof date === 'string' ? new Date(date) : date;
+      if (isNaN(fecha.getTime())) return '';
+      const year = fecha.getFullYear();
+      const month = String(fecha.getMonth() + 1).padStart(2, '0');
+      const day = String(fecha.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    } catch (e) {
+      // Si ya está en formato YYYY-MM-DD, retornarlo
+      if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}/.test(date)) {
+        return date.split('T')[0];
+      }
+      return '';
     }
   }
 

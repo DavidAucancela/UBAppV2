@@ -127,14 +127,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   
   // Definición de todos los items de navegación organizados por categorías
   private allNavItems: NavItem[] = [
-    // ========== DASHBOARD ==========
-    {
-      label: 'Dashboard',
-      icon: 'fas fa-home',
-      route: '/dashboard',
-      roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR],
-      order: 3
-    },
     {
       label: 'Mi Dashboard',
       icon: 'fas fa-chart-line',
@@ -182,6 +174,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       subItems: [
         { label: 'Mapa de Compradores', icon: 'fas fa-map-marked-alt', route: '/mapa-compradores' },
         { label: 'Gestionar Usuarios', icon: 'fas fa-users', route: '/usuarios' },
+        { label: 'Tarifas', icon: 'fas fa-dollar-sign', route: '/tarifas' },
         { label: 'Actividad del sistema', icon: 'fas fa-chart-line', route: '/actividades' },
       ]
     }
@@ -209,6 +202,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // Verificar si está en modo oscuro
     if (isPlatformBrowser(this.platformId)) {
       this.isDarkMode = document.body.classList.contains('dark-mode');
+      
+      // Agregar listener global para cerrar dropdowns al hacer clic afuera
+      document.addEventListener('click', this.handleGlobalClick.bind(this));
     }
     
     // Suscribirse a los cambios del usuario actual
@@ -259,6 +255,42 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
     this.clearLogoPressTimers();
     this.clearLogoClickSuppressionTimeout();
+    
+    // Remover listener global
+    if (isPlatformBrowser(this.platformId)) {
+      document.removeEventListener('click', this.handleGlobalClick.bind(this));
+    }
+  }
+
+  /**
+   * Manejar clicks globales para cerrar dropdowns
+   */
+  handleGlobalClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    
+    // Cerrar menú de usuario si el click es afuera
+    if (this.showUserMenu) {
+      const userMenu = target.closest('.user-menu');
+      if (!userMenu) {
+        this.showUserMenu = false;
+      }
+    }
+    
+    // Cerrar menú de notificaciones si el click es afuera
+    if (this.showNotificacionesDropdown) {
+      const notificationWrapper = target.closest('.notification-wrapper');
+      if (!notificationWrapper) {
+        this.showNotificacionesDropdown = false;
+      }
+    }
+    
+    // Cerrar submenús expandidos si el click es afuera
+    if (this.expandedItems.size > 0) {
+      const navItem = target.closest('.nav-item');
+      if (!navItem) {
+        this.expandedItems.clear();
+      }
+    }
   }
 
   /**
@@ -420,6 +452,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   
   /**
    * Toggle para expandir/colapsar subitems
+   * Colapsa automáticamente otras categorías cuando se abre una nueva
    */
   toggleSubmenu(itemLabel: string, event?: Event): void {
     if (event) {
@@ -428,8 +461,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
     
     if (this.expandedItems.has(itemLabel)) {
+      // Si ya está expandido, colapsarlo
       this.expandedItems.delete(itemLabel);
     } else {
+      // Si no está expandido, colapsar todas las demás y expandir esta
+      this.expandedItems.clear();
       this.expandedItems.add(itemLabel);
     }
   }

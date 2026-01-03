@@ -102,12 +102,12 @@
               <i class="fas fa-map-marker-alt"></i>
               Ciudad de Destino
             </label>
-            <select formControlName="ciudadDestino" class="select-filtro">
-              <option value="">Todas las ciudades</option>
-              <option *ngFor="let ciudad of ciudadesEcuador" [value]="ciudad">
-                {{ ciudad }}
-              </option>
-            </select>
+            <input
+              type="text"
+              formControlName="ciudadDestino"
+              class="input-filtro"
+              placeholder="Ej: Quito, Guayaquil..."
+            />
           </div>
 
           <!-- Estado del envío -->

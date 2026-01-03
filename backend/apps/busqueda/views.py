@@ -1,155 +1,147 @@
-from django.shortcuts import render
+"""
+Views para la app de búsqueda
+Usan la arquitectura en capas (servicios y repositorios)
+"""
 from rest_framework import viewsets, permissions, status, filters
-from rest_framework.decorators import action
+from rest_framework.decorators import action, throttle_classes
 from rest_framework.response import Response
-from django.db.models import Q
 from django.contrib.auth import get_user_model
-from django.conf import settings
-from django.utils import timezone
-from django.db import models
-import time
-import numpy as np
-from openai import OpenAI
-from .utils_embeddings import (
-    generar_embedding,
-    generar_texto_envio,
-    calcular_similitudes,
-    ordenar_por_metrica,
-    aplicar_umbral_similitud
-)
+from django.http import HttpResponse
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter
+from drf_spectacular.types import OpenApiTypes
 
-from .models import (
-    HistorialBusqueda, 
-    BusquedaSemantica, 
-    FeedbackSemantico,
-    SugerenciaSemantica,
-    EnvioEmbedding
-)
+from .models import BusquedaTradicional, EmbeddingBusqueda
 from .serializers import (
-    HistorialBusquedaSerializer, 
-    HistorialBusquedaListSerializer,
-    BusquedaSemanticaSerializer,
-    FeedbackSemanticoSerializer,
-    SugerenciaSemanticaSerializer,
-    EnvioEmbeddingSerializer
+    BusquedaTradicionalSerializer, 
+    BusquedaTradicionalListSerializer,
+    EmbeddingBusquedaSerializer,
+    HistorialSemanticaSerializer
 )
-from apps.archivos.models import Envio, Producto
-from apps.archivos.serializers import EnvioSerializer
+from .services import BusquedaTradicionalService, BusquedaSemanticaService
+from .repositories import busqueda_tradicional_repository, embedding_busqueda_repository
+from .pdf_service import PDFBusquedaService
+from apps.core.throttling import BusquedaRateThrottle, BusquedaSemanticaRateThrottle
 
 Usuario = get_user_model()
 
-# Función para obtener el cliente de OpenAI (lazy initialization)
-def get_openai_client():
-    """Obtiene el cliente de OpenAI, inicializándolo solo cuando se necesita"""
-    try:
-        api_key = settings.OPENAI_API_KEY
-        if not api_key or api_key == 'sk-proj-temp-key-replace-with-your-key':
-            return None
-        return OpenAI(api_key=api_key)
-    except Exception:
-        return None
 
-
+@extend_schema_view(
+    list=extend_schema(
+        summary="Listar historial de búsquedas",
+        description="Obtiene el historial de búsquedas tradicionales del usuario autenticado",
+        tags=['busqueda']
+    ),
+    retrieve=extend_schema(
+        summary="Obtener búsqueda por ID",
+        description="Obtiene los detalles de una búsqueda específica del historial",
+        tags=['busqueda']
+    ),
+    destroy=extend_schema(
+        summary="Eliminar búsqueda del historial",
+        description="Elimina una búsqueda específica del historial del usuario",
+        tags=['busqueda']
+    ),
+)
 class BusquedaViewSet(viewsets.ModelViewSet):
-    """ViewSet para búsquedas y historial"""
-    queryset = HistorialBusqueda.objects.all()
-    serializer_class = HistorialBusquedaSerializer
+    """
+    ViewSet para búsquedas tradicionales y semánticas.
+    
+    Permite realizar búsquedas en usuarios, envíos y productos, así como
+    búsquedas semánticas usando IA con OpenAI embeddings.
+    
+    **Arquitectura**: Usa servicios y repositorios (capa de lógica de negocio).
+    """
+    queryset = BusquedaTradicional.objects.all()
+    serializer_class = BusquedaTradicionalSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['termino_busqueda']
-    ordering_fields = ['fecha_busqueda', 'terminos_busqueda']
+    ordering_fields = ['fecha_busqueda']
     ordering = ['-fecha_busqueda']
 
     def get_serializer_class(self):
         """Retorna el serializer apropiado según la acción"""
         if self.action == 'list':
-            return HistorialBusquedaListSerializer
-        return HistorialBusquedaSerializer
+            return BusquedaTradicionalListSerializer
+        return BusquedaTradicionalSerializer
 
     def get_queryset(self):
-        """Filtra el queryset según el usuario"""
-        return HistorialBusqueda.objects.filter(usuario=self.request.user)
+        """Filtra el queryset según el usuario - usa repositorio"""
+        return busqueda_tradicional_repository.filtrar_por_usuario(self.request.user)
 
+    # ==================== BÚSQUEDA TRADICIONAL ====================
+
+    @extend_schema(
+        summary="Búsqueda tradicional",
+        description="""
+        Realiza una búsqueda tradicional (texto) en usuarios, envíos y productos.
+        
+        **Tipos de búsqueda disponibles:**
+        - `general`: Busca en todos los tipos de entidades
+        - `usuarios`: Solo busca en usuarios
+        - `envios`: Solo busca en envíos
+        - `productos`: Solo busca en productos
+        
+        **Permisos:** Los resultados se filtran según el rol del usuario autenticado.
+        """,
+        parameters=[
+            OpenApiParameter(
+                name='q',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                required=True,
+                description='Término de búsqueda',
+            ),
+            OpenApiParameter(
+                name='tipo',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                required=False,
+                description='Tipo de búsqueda: general, usuarios, envios, productos',
+                enum=['general', 'usuarios', 'envios', 'productos'],
+            ),
+        ],
+        tags=['busqueda'],
+        responses={
+            200: {
+                'description': 'Resultados de la búsqueda',
+                'examples': {
+                    'application/json': {
+                        'query': 'ejemplo',
+                        'tipo': 'general',
+                        'total_resultados': 5,
+                        'resultados': {
+                            'usuarios': [],
+                            'envios': [],
+                            'productos': []
+                        }
+                    }
+                }
+            }
+        }
+    )
     @action(detail=False, methods=['get'])
     def buscar(self, request):
-        """Realiza una búsqueda tradicional en usuarios, envíos y productos"""
+        """
+        Realiza una búsqueda tradicional en usuarios, envíos y productos.
+        Delegado al servicio BusquedaTradicionalService.
+        """
         query = request.query_params.get('q', '')
         tipo = request.query_params.get('tipo', 'general')
         
         if not query:
-            return Response({'error': 'Término de búsqueda requerido'}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Realizar búsqueda según el tipo
-        resultados = {}
+            return Response(
+                {'error': 'Término de búsqueda requerido'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         
-        if tipo in ['general', 'usuarios']:
-            usuarios = Usuario.objects.filter(
-                Q(nombre__icontains=query) | 
-                Q(correo__icontains=query) |
-                Q(cedula__icontains=query) |
-                Q(username__icontains=query)
-            )
-            
-            # Filtrar por permisos del usuario
-            user = request.user
-            if user.es_comprador:
-                usuarios = usuarios.filter(id=user.id)
-            elif user.es_digitador:
-                usuarios = usuarios.filter(rol__in=[3, 4])
-            elif user.es_gerente:
-                usuarios = usuarios.exclude(rol=1)
-            
-            from apps.usuarios.serializers import UsuarioListSerializer
-            usuarios_serializer = UsuarioListSerializer(usuarios, many=True)
-            resultados['usuarios'] = usuarios_serializer.data
-
-        if tipo in ['general', 'envios']:
-            envios = Envio.objects.filter(
-                Q(hawb__icontains=query) | 
-                Q(comprador__nombre__icontains=query) |
-                Q(estado__icontains=query)
-            )
-            
-            # Filtrar por permisos del usuario
-            user = request.user
-            if user.es_comprador:
-                envios = envios.filter(comprador=user)
-            
-            from apps.archivos.serializers import EnvioListSerializer
-            envios_serializer = EnvioListSerializer(envios, many=True)
-            resultados['envios'] = envios_serializer.data
-
-        if tipo in ['general', 'productos']:
-            productos = Producto.objects.filter(
-                Q(descripcion__icontains=query) | 
-                Q(categoria__icontains=query) |
-                Q(envio__hawb__icontains=query)
-            )
-            
-            # Filtrar por permisos del usuario
-            user = request.user
-            if user.es_comprador:
-                productos = productos.filter(envio__comprador=user)
-            
-            from apps.archivos.serializers import ProductoListSerializer
-            productos_serializer = ProductoListSerializer(productos, many=True)
-            resultados['productos'] = productos_serializer.data
-
-        # Guardar en historial
-        total_resultados = sum(len(resultados.get(key, [])) for key in resultados)
-        HistorialBusqueda.objects.create(
-            usuario=request.user,
-            termino_busqueda=query,
-            tipo_busqueda=tipo,
-            resultados_encontrados=total_resultados
+        resultado = BusquedaTradicionalService.buscar(
+            query=query,
+            tipo=tipo,
+            usuario=request.user
         )
-
-        return Response({
-            'query': query,
-            'tipo': tipo,
-            'total_resultados': total_resultados,
-            'resultados': resultados
-        })
+        
+        return Response(resultado)
 
     @action(detail=False, methods=['get'])
     def historial(self, request):
@@ -165,59 +157,119 @@ class BusquedaViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['delete'])
     def limpiar_historial(self, request):
         """Limpia el historial de búsquedas del usuario"""
-        self.get_queryset().delete()
+        busqueda_tradicional_repository.limpiar_historial_usuario(request.user)
         return Response({'message': 'Historial limpiado correctamente'})
 
     @action(detail=False, methods=['get'])
     def estadisticas(self, request):
         """Obtiene estadísticas de búsquedas del usuario"""
-        user = request.user
-        total_busquedas = HistorialBusqueda.objects.filter(usuario=user).count()
-        busquedas_hoy = HistorialBusqueda.objects.filter(
-            usuario=user,
+        busquedas_populares = busqueda_tradicional_repository.obtener_busquedas_populares(
+            request.user, limite=5
+        )
+        total = busqueda_tradicional_repository.contar(usuario=request.user)
+        
+        from django.utils import timezone
+        busquedas_hoy = busqueda_tradicional_repository.filtrar(
+            usuario=request.user,
             fecha_busqueda__date=timezone.now().date()
         ).count()
-        
-        # Búsquedas más populares
-        busquedas_populares = HistorialBusqueda.objects.filter(
-            usuario=user
-        ).values('termino_busqueda').annotate(
-            count=models.Count('termino_busqueda')
-        ).order_by('-count')[:5]
 
         return Response({
-            'total_busquedas': total_busquedas,
+            'total_busquedas': total,
             'busquedas_hoy': busquedas_hoy,
             'busquedas_populares': busquedas_populares
         })
 
     # ==================== BÚSQUEDA SEMÁNTICA ====================
-    @action(detail=False, methods=['post'], url_path='semantica')
-    def busqueda_semantica(self, request):
-        """
-        Búsqueda semántica de envíos usando OpenAI embeddings
+    
+    @extend_schema(
+        summary="Búsqueda semántica con IA",
+        description="""
+        Realiza una búsqueda semántica de envíos usando embeddings de OpenAI.
         
-        Request body:
-        {
-            "texto": "envíos entregados en Quito la semana pasada",
-            "limite": 20,
-            "filtrosAdicionales": {
-                "fechaDesde": "2025-01-01",
-                "estado": "entregado"
+        Esta búsqueda utiliza procesamiento de lenguaje natural para encontrar
+        envíos relevantes basándose en el significado de la consulta, no solo
+        en coincidencias exactas de texto.
+        
+        **Características:**
+        - Usa embeddings de OpenAI (text-embedding-3-small por defecto)
+        - Calcula similitud semántica usando múltiples métricas
+        - Incluye boost por coincidencias exactas de palabras
+        - Filtra resultados por umbral adaptativo de similitud
+        - Registra costo y tokens utilizados
+        
+        **Modelos disponibles:**
+        - `text-embedding-3-small`: Más económico, recomendado
+        - `text-embedding-3-large`: Mayor precisión, más costoso
+        - `text-embedding-ada-002`: Modelo anterior
+        """,
+        request={
+            'application/json': {
+                'type': 'object',
+                'properties': {
+                    'texto': {
+                        'type': 'string',
+                        'description': 'Consulta en lenguaje natural',
+                        'example': 'envíos entregados en Quito la semana pasada'
+                    },
+                    'limite': {
+                        'type': 'integer',
+                        'description': 'Número máximo de resultados (default: 20)',
+                        'default': 20,
+                        'minimum': 1,
+                        'maximum': 100
+                    },
+                    'modeloEmbedding': {
+                        'type': 'string',
+                        'description': 'Modelo de embedding a usar',
+                        'enum': ['text-embedding-3-small', 'text-embedding-3-large', 'text-embedding-ada-002'],
+                        'default': 'text-embedding-3-small'
+                    },
+                    'filtrosAdicionales': {
+                        'type': 'object',
+                        'description': 'Filtros adicionales para la búsqueda',
+                        'properties': {
+                            'fechaDesde': {'type': 'string', 'format': 'date'},
+                            'fechaHasta': {'type': 'string', 'format': 'date'},
+                            'estado': {'type': 'string'},
+                            'ciudadDestino': {'type': 'string'}
+                        }
+                    }
+                },
+                'required': ['texto']
+            }
+        },
+        tags=['busqueda'],
+        responses={
+            200: {
+                'description': 'Resultados de la búsqueda semántica',
+                'examples': {
+                    'application/json': {
+                        'consulta': 'envíos entregados en Quito',
+                        'resultados': [],
+                        'totalEncontrados': 5,
+                        'tiempoRespuesta': 1234,
+                        'modeloUtilizado': 'text-embedding-3-small',
+                        'costoConsulta': 0.0001,
+                        'tokensUtilizados': 10,
+                        'busquedaId': 123
+                    }
+                }
             }
         }
+    )
+    @action(detail=False, methods=['post'], url_path='semantica', throttle_classes=[BusquedaSemanticaRateThrottle])
+    def busqueda_semantica(self, request):
         """
-        tiempo_inicio = time.time()
-        
+        Búsqueda semántica de envíos usando OpenAI embeddings.
+        Delegado al servicio BusquedaSemanticaService.
+        Rate limited: 30 búsquedas/minuto debido al costo de OpenAI.
+        """
         consulta_texto = request.data.get('texto', '').strip()
         limite = request.data.get('limite', 20)
-        filtros_adicionales = request.data.get('filtrosAdicionales', {})
-        modelo_embedding = request.data.get('modeloEmbedding', settings.OPENAI_EMBEDDING_MODEL)
-        
-        # Validar modelo de embedding
-        modelos_validos = ['text-embedding-3-small', 'text-embedding-3-large', 'text-embedding-ada-002']
-        if modelo_embedding not in modelos_validos:
-            modelo_embedding = settings.OPENAI_EMBEDDING_MODEL
+        filtros = request.data.get('filtrosAdicionales', {})
+        modelo = request.data.get('modeloEmbedding')
+        metrica_ordenamiento = request.data.get('metricaOrdenamiento', 'score_combinado')
         
         if not consulta_texto:
             return Response(
@@ -226,489 +278,257 @@ class BusquedaViewSet(viewsets.ModelViewSet):
             )
         
         try:
-            # 1. Obtener envíos base (aplicar filtros de permisos)
-            envios_queryset = self._obtener_envios_filtrados(request.user, filtros_adicionales)
-            
-            if envios_queryset.count() == 0:
-                tiempo_respuesta = int((time.time() - tiempo_inicio) * 1000)
-                # Generar embedding para calcular costo incluso sin resultados
-                embedding_resultado = self._generar_embedding(consulta_texto, modelo_embedding)
-                
-                # Guardar búsqueda sin resultados
-                busqueda = BusquedaSemantica.objects.create(
-                    usuario=request.user,
+            resultado = BusquedaSemanticaService.buscar(
                     consulta=consulta_texto,
-                    resultados_encontrados=0,
-                    tiempo_respuesta=tiempo_respuesta,
-                    filtros_aplicados=filtros_adicionales if filtros_adicionales else None,
-                    modelo_utilizado=modelo_embedding,
-                    costo_consulta=embedding_resultado['costo'],
-                    tokens_utilizados=embedding_resultado['tokens']
-                )
-                
-                return Response({
-                    'consulta': consulta_texto,
-                    'resultados': [],
-                    'totalEncontrados': 0,
-                    'tiempoRespuesta': tiempo_respuesta,
-                    'modeloUtilizado': modelo_embedding,
-                    'costoConsulta': float(embedding_resultado['costo']),
-                    'tokensUtilizados': embedding_resultado['tokens'],
-                    'busquedaId': busqueda.id
-                })
-            
-            # 2. Generar embedding de la consulta y calcular costo
-            embedding_resultado = self._generar_embedding(consulta_texto, modelo_embedding)
-            embedding_consulta = embedding_resultado['embedding']
-            tokens_consulta = embedding_resultado['tokens']
-            costo_consulta = embedding_resultado['costo']
-            
-            # 3. Buscar envíos similares
-            resultados = self._buscar_envios_similares(
-                envios_queryset,
-                embedding_consulta,
-                consulta_texto,
-                limite,
-                modelo_embedding
-            )
-            
-            # 4. Calcular tiempo de respuesta
-            tiempo_respuesta = int((time.time() - tiempo_inicio) * 1000)
-            
-            # 5. Guardar en historial con toda la información
-            busqueda = BusquedaSemantica.objects.create(
                 usuario=request.user,
-                consulta=consulta_texto,
-                resultados_encontrados=len(resultados),
-                tiempo_respuesta=tiempo_respuesta,
-                filtros_aplicados=filtros_adicionales if filtros_adicionales else None,
-                modelo_utilizado=modelo_embedding,
-                costo_consulta=costo_consulta,
-                tokens_utilizados=tokens_consulta
+                filtros=filtros,
+                limite=limite,
+                modelo_embedding=modelo,
+                metrica_ordenamiento=metrica_ordenamiento
             )
-            
-            # 6. Retornar respuesta
-            return Response({
-                'consulta': consulta_texto,
-                'resultados': resultados,
-                'totalEncontrados': len(resultados),
-                'tiempoRespuesta': tiempo_respuesta,
-                'modeloUtilizado': modelo_embedding,
-                'costoConsulta': float(costo_consulta),
-                'tokensUtilizados': tokens_consulta,
-                'busquedaId': busqueda.id
-            })
+            return Response(resultado)
             
         except Exception as e:
-            print(f"Error en búsqueda semántica: {str(e)}")
             return Response(
                 {'error': f'Error procesando búsqueda semántica: {str(e)}'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
+    @extend_schema(
+        summary="Obtener sugerencias para búsqueda semántica",
+        description="Retorna sugerencias predefinidas para mejorar las búsquedas semánticas",
+        parameters=[
+            OpenApiParameter(
+                name='q',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                required=False,
+                description='Término de búsqueda para filtrar sugerencias',
+            ),
+        ],
+        tags=['busqueda'],
+    )
     @action(detail=False, methods=['get'], url_path='semantica/sugerencias')
     def sugerencias_semanticas(self, request):
-        """
-        Obtiene sugerencias para búsqueda semántica
-        """
+        """Obtiene sugerencias para búsqueda semántica"""
         query = request.query_params.get('q', '').lower()
-        
-        # Obtener sugerencias predefinidas activas
-        sugerencias = SugerenciaSemantica.objects.filter(activa=True)
-        
-        # Filtrar si hay query
-        if query and len(query) >= 2:
-            sugerencias = sugerencias.filter(
-                Q(texto__icontains=query) | Q(categoria__icontains=query)
-            )
-        
-        sugerencias = sugerencias[:10]
-        serializer = SugerenciaSemanticaSerializer(sugerencias, many=True)
-        
-        return Response(serializer.data)
+        sugerencias = BusquedaSemanticaService.obtener_sugerencias(query)
+        return Response(sugerencias)
 
-    @action(detail=False, methods=['get'], url_path='semantica/historial')
+    @action(detail=False, methods=['get', 'post', 'delete'], url_path='semantica/historial')
     def historial_semantico(self, request):
-        """Obtiene el historial de búsquedas semánticas del usuario"""
-        historial = BusquedaSemantica.objects.filter(usuario=request.user).order_by('-fecha_busqueda')[:10]
-        serializer = BusquedaSemanticaSerializer(historial, many=True)
-        
-        # Formatear datos para el frontend
-        datos_formateados = []
-        for item in serializer.data:
-            datos_formateados.append({
-                'id': item['id'],
-                'consulta': item['consulta'],
-                'fecha': item['fecha_busqueda'],
-                'totalResultados': item['resultados_encontrados'],
-                'tiempoRespuesta': item['tiempo_respuesta'],
-                'modeloUtilizado': item.get('modelo_utilizado', 'text-embedding-3-small'),
-                'costoConsulta': float(item.get('costo_consulta', 0)),
-                'tokensUtilizados': item.get('tokens_utilizados', 0),
-                'filtrosAplicados': item.get('filtros_aplicados')
-            })
-        
-        return Response(datos_formateados)
-
-    @action(detail=False, methods=['post'], url_path='semantica/historial')
-    def guardar_historial_semantico(self, request):
-        """Guarda una búsqueda en el historial semántico"""
-        consulta = request.data.get('consulta', '')
-        total_resultados = request.data.get('totalResultados', 0)
-        
-        if not consulta:
-            return Response(
-                {'error': 'Consulta requerida'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        
-        busqueda = BusquedaSemantica.objects.create(
-            usuario=request.user,
-            consulta=consulta,
-            resultados_encontrados=total_resultados
-        )
-        
-        serializer = BusquedaSemanticaSerializer(busqueda)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    @action(detail=False, methods=['delete'], url_path='semantica/historial')
-    def limpiar_historial_semantico(self, request):
-        """Limpia el historial semántico del usuario"""
-        BusquedaSemantica.objects.filter(usuario=request.user).delete()
-        return Response({'message': 'Historial semántico limpiado correctamente'})
-
-    @action(detail=False, methods=['post'], url_path='semantica/feedback')
-    def feedback_semantico(self, request):
         """
-        Registra feedback sobre un resultado semántico
+        Gestiona el historial de búsquedas semánticas.
         
-        Request body:
-        {
-            "resultadoId": 123,
-            "esRelevante": true,
-            "busquedaId": 456,
-            "puntuacionSimilitud": 0.85
-        }
+        GET: Obtiene el historial
+        POST: Guarda una búsqueda (aunque esto se hace automáticamente)
+        DELETE: Limpia el historial
         """
-        resultado_id = request.data.get('resultadoId')
-        es_relevante = request.data.get('esRelevante')
-        busqueda_id = request.data.get('busquedaId')
-        puntuacion = request.data.get('puntuacionSimilitud', 0)
+        # GET - Obtener historial
+        if request.method == 'GET':
+            try:
+                historial = BusquedaSemanticaService.obtener_historial(request.user)
+                return Response(historial)
+            except Exception as e:
+                return Response(
+                    {'error': f'Error obteniendo historial: {str(e)}'},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
         
-        if resultado_id is None or es_relevante is None:
-            return Response(
-                {'error': 'resultadoId y esRelevante son requeridos'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        
-        try:
-            envio = Envio.objects.get(id=resultado_id)
-            busqueda = None
+        # POST - Guardar búsqueda (aunque el servicio ya lo hace automáticamente)
+        elif request.method == 'POST':
+            consulta = request.data.get('consulta', '')
+            total_resultados = request.data.get('totalResultados', 0)
             
-            if busqueda_id:
-                busqueda = BusquedaSemantica.objects.get(id=busqueda_id, usuario=request.user)
+            if not consulta:
+                return Response(
+                    {'error': 'Consulta requerida'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
             
-            # Crear o actualizar feedback
-            feedback, created = FeedbackSemantico.objects.update_or_create(
+            busqueda = embedding_busqueda_repository.crear(
                 usuario=request.user,
-                envio=envio,
-                busqueda=busqueda,
-                defaults={
-                    'es_relevante': es_relevante,
-                    'puntuacion_similitud': puntuacion
-                }
+                consulta=consulta,
+                resultados_encontrados=total_resultados
             )
             
-            serializer = FeedbackSemanticoSerializer(feedback)
-            return Response(serializer.data, status=status.HTTP_201_CREATED if created else status.HTTP_200_OK)
-            
-        except Envio.DoesNotExist:
-            return Response(
-                {'error': 'Envío no encontrado'},
-                status=status.HTTP_404_NOT_FOUND
-            )
-        except BusquedaSemantica.DoesNotExist:
-            return Response(
-                {'error': 'Búsqueda no encontrada'},
-                status=status.HTTP_404_NOT_FOUND
-            )
+            serializer = EmbeddingBusquedaSerializer(busqueda)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        # DELETE - Limpiar historial
+        elif request.method == 'DELETE':
+            BusquedaSemanticaService.limpiar_historial(request.user)
+            return Response({'message': 'Historial semántico limpiado correctamente'})
 
+    @extend_schema(
+        summary="Obtener métricas de búsquedas semánticas",
+        description="""
+        Obtiene estadísticas y métricas sobre las búsquedas semánticas del usuario.
+        
+        Incluye:
+        - Total de búsquedas realizadas
+        - Tiempo promedio de respuesta
+        - Feedback positivo/negativo
+        - Total de embeddings generados
+        """,
+        tags=['busqueda'],
+    )
     @action(detail=False, methods=['get'], url_path='semantica/metricas')
     def metricas_semanticas(self, request):
         """Obtiene métricas de búsquedas semánticas"""
-        user = request.user
-        
-        total_busquedas = BusquedaSemantica.objects.filter(usuario=user).count()
-        
-        # Tiempo promedio de respuesta
-        busquedas = BusquedaSemantica.objects.filter(usuario=user)
-        tiempo_promedio = busquedas.aggregate(
-            promedio=models.Avg('tiempo_respuesta')
-        )['promedio'] or 0
-        
-        # Total de feedback
-        total_feedback = FeedbackSemantico.objects.filter(usuario=user).count()
-        feedback_positivo = FeedbackSemantico.objects.filter(
-            usuario=user,
-            es_relevante=True
-        ).count()
-        
-        # Embeddings generados
-        total_embeddings = EnvioEmbedding.objects.count()
-        
-        return Response({
-            'totalBusquedas': total_busquedas,
-            'tiempoPromedioRespuesta': round(tiempo_promedio, 2),
-            'totalFeedback': total_feedback,
-            'feedbackPositivo': feedback_positivo,
-            'feedbackNegativo': total_feedback - feedback_positivo,
-            'totalEmbeddings': total_embeddings
-        })
+        metricas = BusquedaSemanticaService.obtener_metricas(request.user)
+        return Response(metricas)
 
-    # ==================== MÉTODOS AUXILIARES ====================
-    def _obtener_envios_filtrados(self, user, filtros):
-        """Obtiene envíos filtrados según permisos y filtros adicionales"""
-        envios = Envio.objects.all().select_related('comprador').prefetch_related('productos')
+    #
+    @extend_schema(
+        summary="Análisis comparativo de métricas de similitud",
+        description="""
+        Muestra un análisis comparativo detallado de las diferentes métricas de similitud
+        utilizadas en la búsqueda semántica, justificando la elección de cosine similarity.
         
-        # Filtrar por permisos del usuario
-        if user.es_comprador:
-            envios = envios.filter(comprador=user)
+        Este endpoint es útil para:
+        - Documentación académica
+        - Análisis de resultados
+        - Justificación técnica de la elección de métricas
+        - Ejemplos educativos
         
-        # Aplicar filtros adicionales
-        if filtros:
-            if 'fechaDesde' in filtros:
-                envios = envios.filter(fecha_emision__gte=filtros['fechaDesde'])
-            if 'fechaHasta' in filtros:
-                envios = envios.filter(fecha_emision__lte=filtros['fechaHasta'])
-            if 'estado' in filtros:
-                envios = envios.filter(estado=filtros['estado'])
-            if 'ciudadDestino' in filtros:
-                envios = envios.filter(comprador__ciudad__icontains=filtros['ciudadDestino'])
-        
-        return envios
-
-    def _generar_embedding(self, texto, modelo=None):
-        """
-        Genera un embedding usando OpenAI y calcula el costo
-        
-        Returns:
-            dict: {
-                'embedding': lista de floats,
-                'tokens': int,
-                'costo': float
+        Retorna un ejemplo de análisis con valores típicos y explicaciones detalladas.
+        """,
+        tags=['busqueda'],
+        responses={
+            200: {
+                'description': 'Análisis comparativo de métricas',
             }
+        }
+    )
+    @action(detail=False, methods=['get'], url_path='semantica/analisis-metricas')
+    def analisis_comparativo_metricas(self, request):
         """
-        client = get_openai_client()
-        if not client:
-            raise ValueError("OpenAI API key no configurada. Por favor, configura OPENAI_API_KEY en el archivo .env")
-        
-        if modelo is None:
-            modelo = getattr(settings, 'OPENAI_EMBEDDING_MODEL', 'text-embedding-3-small')
-        
-        # Precios por 1K tokens según modelo (USD)
-        precios_modelos = {
-            'text-embedding-3-small': 0.00002,
-            'text-embedding-3-large': 0.00013,
-            'text-embedding-ada-002': 0.0001
+        Retorna un análisis comparativo resumido de las métricas de similitud.
+        Muestra las 4 métricas principales (cosine, dot product, euclidean, manhattan) 
+        y el score combinado con justificación breve de por qué cosine similarity es la mejor.
+        """
+        # Ejemplo de resultado con valores típicos
+        ejemplo_resultado = {
+            'cosine_similarity': 0.85,
+            'dot_product': 12.5,
+            'euclidean_distance': 0.45,
+            'manhattan_distance': 2.1,
+            'score_combinado': 0.92,
+            'boost_exactas': 0.07,
+            'boost_productos': 0.0,
+            'coincidencias_exactas': 0.5
         }
         
-        precio_por_1k = precios_modelos.get(modelo, 0.00002)
+        # Usar método resumido para mostrar métricas de forma clara
+        analisis = BusquedaSemanticaService._generar_analisis_metricas_resumido(ejemplo_resultado)
         
+        return Response(analisis)
+
+
+    # ==================== DESCARGAR PDF ====================
+
+    @extend_schema(
+        summary="Descargar PDF de búsqueda tradicional",
+        description="Genera y descarga un PDF con los resultados de una búsqueda tradicional específica",
+        tags=['busqueda'],
+    )
+    @action(detail=True, methods=['get'], url_path='descargar-pdf')
+    def descargar_pdf_tradicional(self, request, pk=None):
+        """Descarga PDF de una búsqueda tradicional"""
         try:
-            response = client.embeddings.create(
-                model=modelo,
-                input=texto,
-                encoding_format="float"
-            )
+            # Obtener la búsqueda
+            busqueda = busqueda_tradicional_repository.obtener_por_id(pk)
             
-            embedding = response.data[0].embedding
-            tokens_utilizados = response.usage.total_tokens
-            
-            # Calcular costo: (tokens / 1000) * precio_por_1k
-            costo = (tokens_utilizados / 1000.0) * precio_por_1k
-            
-            return {
-                'embedding': embedding,
-                'tokens': tokens_utilizados,
-                'costo': costo
-            }
-        except Exception as e:
-            print(f"Error generando embedding: {str(e)}")
-            raise
-
-    def _generar_texto_envio(self, envio):
-        """Genera texto descriptivo del envío para indexación"""
-        partes = [
-            f"HAWB: {envio.hawb}",
-            f"Comprador: {envio.comprador.nombre}",
-            f"Ciudad: {envio.comprador.ciudad or 'No especificada'}",
-            f"Estado: {envio.get_estado_display()}",
-            f"Fecha: {envio.fecha_emision.strftime('%Y-%m-%d')}",
-            f"Peso: {envio.peso_total} kg",
-            f"Valor: ${envio.valor_total}",
-        ]
-        
-        # Agregar información de productos
-        productos = envio.productos.all()
-        if productos:
-            descripciones = [p.descripcion for p in productos[:5]]
-            partes.append(f"Productos: {', '.join(descripciones)}")
-        
-        # Agregar observaciones si existen
-        if envio.observaciones:
-            partes.append(f"Observaciones: {envio.observaciones}")
-        
-        return " | ".join(partes)
-
-    def _buscar_envios_similares(self, envios_queryset, embedding_consulta, texto_consulta, limite, modelo_embedding=None):
-        """
-        Busca envíos similares usando múltiples métricas de similitud
-        (cosine similarity, dot product, euclidean distance)
-        """
-        if modelo_embedding is None:
-            modelo_embedding = getattr(settings, 'OPENAI_EMBEDDING_MODEL', 'text-embedding-3-small')
-        
-        # Preparar datos para cálculo de similitudes
-        embeddings_envios = []
-        textos_indexados = {}
-        
-        for envio in envios_queryset[:500]:  # Limitar a 500 envíos para performance
-            # Obtener o generar embedding del envío
-            try:
-                envio_embedding = EnvioEmbedding.objects.get(envio=envio, modelo_usado=modelo_embedding)
-                vector_envio = envio_embedding.get_vector()
-                texto_indexado = envio_embedding.texto_indexado
-            except EnvioEmbedding.DoesNotExist:
-                # Generar embedding si no existe o si el modelo cambió
-                texto_indexado = generar_texto_envio(envio)
-                embedding_resultado = generar_embedding(texto_indexado, modelo_embedding)
-                vector_envio = embedding_resultado['embedding']
-                
-                # Guardar para futuras búsquedas
-                envio_embedding = EnvioEmbedding.objects.create(
-                    envio=envio,
-                    texto_indexado=texto_indexado,
-                    modelo_usado=modelo_embedding
+            if not busqueda:
+                return Response(
+                    {'error': 'Búsqueda no encontrada'},
+                    status=status.HTTP_404_NOT_FOUND
                 )
-                envio_embedding.set_vector(vector_envio)
-                envio_embedding.save()
             
-            if vector_envio:
-                embeddings_envios.append((envio.id, vector_envio, envio))
-                textos_indexados[envio.id] = texto_indexado
-        
-        # Calcular todas las métricas de similitud
-        resultados_similitud = calcular_similitudes(embedding_consulta, embeddings_envios)
-        
-        # Aplicar umbral de similitud (cosine >= 0.3)
-        resultados_filtrados = aplicar_umbral_similitud(resultados_similitud, umbral_cosine=0.3)
-        
-        # Ordenar por similitud coseno (por defecto)
-        resultados_ordenados = ordenar_por_metrica(resultados_filtrados, metrica='cosine_similarity', limite=limite)
-        
-        # Formatear resultados para el frontend
-        resultados_finales = []
-        for resultado in resultados_ordenados:
-            envio = resultado['envio']
-            texto_indexado = textos_indexados.get(envio.id, "")
+            # Verificar que pertenece al usuario
+            if busqueda.usuario != request.user and not request.user.is_staff:
+                return Response(
+                    {'error': 'No tiene permiso para acceder a esta búsqueda'},
+                    status=status.HTTP_403_FORBIDDEN
+                )
             
-            # Extraer fragmentos relevantes
-            fragmentos = self._extraer_fragmentos(texto_consulta, texto_indexado)
+            # Preparar datos para PDF
+            busqueda_data = {
+                'termino_busqueda': busqueda.termino_busqueda,
+                'tipo_busqueda': busqueda.tipo_busqueda,
+                'fecha_busqueda': busqueda.fecha_busqueda.strftime('%Y-%m-%d %H:%M:%S'),
+                'resultados_encontrados': busqueda.resultados_encontrados,
+                'usuario_nombre': busqueda.usuario.get_full_name() or busqueda.usuario.username,
+                'resultados_json': busqueda.resultados_json or {}
+            }
             
-            # Generar razón de relevancia
-            razon = self._generar_razon_relevancia(texto_consulta, envio, resultado['cosine_similarity'])
+            # Generar PDF
+            pdf_buffer = PDFBusquedaService.generar_pdf_busqueda_tradicional(busqueda_data)
             
-            # Serializar envío
-            envio_data = EnvioSerializer(envio).data
+            # Crear respuesta HTTP
+            response = HttpResponse(pdf_buffer.getvalue(), content_type='application/pdf')
+            filename = f"busqueda_tradicional_{pk}_{busqueda.fecha_busqueda.strftime('%Y%m%d')}.pdf"
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
             
-            resultados_finales.append({
-                'envio': envio_data,
-                # Métricas principales
-                'puntuacionSimilitud': round(resultado['cosine_similarity'], 4),
-                'cosineSimilarity': round(resultado['cosine_similarity'], 4),
-                'dotProduct': round(resultado['dot_product'], 4),
-                'euclideanDistance': round(resultado['euclidean_distance'], 4),
-                'manhattanDistance': round(resultado['manhattan_distance'], 4),
-                'scoreCombinado': round(resultado['score_combinado'], 4),
-                # Información contextual
-                'fragmentosRelevantes': fragmentos,
-                'razonRelevancia': razon,
-                'textoIndexado': texto_indexado[:200] + "..." if len(texto_indexado) > 200 else texto_indexado
-            })
-        
-        return resultados_finales
+            return response
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Error generando PDF: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
-    def _similitud_coseno(self, vec1, vec2):
-        """Calcula la similitud coseno entre dos vectores"""
-        vec1 = np.array(vec1)
-        vec2 = np.array(vec2)
-        
-        dot_product = np.dot(vec1, vec2)
-        norm1 = np.linalg.norm(vec1)
-        norm2 = np.linalg.norm(vec2)
-        
-        if norm1 == 0 or norm2 == 0:
-            return 0.0
-        
-        return float(dot_product / (norm1 * norm2))
-
-    def _extraer_fragmentos(self, consulta, texto, max_fragmentos=3):
-        """Extrae fragmentos relevantes del texto basados en la consulta"""
-        fragmentos = []
-        palabras_consulta = consulta.lower().split()
-        texto_lower = texto.lower()
-        
-        for palabra in palabras_consulta:
-            if len(palabra) < 3:  # Ignorar palabras muy cortas
-                continue
-                
-            if palabra in texto_lower:
-                # Encontrar posición y extraer contexto
-                pos = texto_lower.find(palabra)
-                inicio = max(0, pos - 30)
-                fin = min(len(texto), pos + 50)
-                fragmento = texto[inicio:fin].strip()
-                
-                if fragmento and fragmento not in fragmentos:
-                    # Agregar puntos suspensivos si es necesario
-                    if inicio > 0:
-                        fragmento = "..." + fragmento
-                    if fin < len(texto):
-                        fragmento = fragmento + "..."
-                    
-                    fragmentos.append(fragmento)
-                    
-                    if len(fragmentos) >= max_fragmentos:
-                        break
-        
-        return fragmentos if fragmentos else [texto[:100] + "..."]
-
-    def _generar_razon_relevancia(self, consulta, envio, similitud):
-        """Genera una explicación de por qué el resultado es relevante"""
-        razones = []
-        consulta_lower = consulta.lower()
-        
-        # Verificar coincidencias específicas
-        if envio.comprador.ciudad and envio.comprador.ciudad.lower() in consulta_lower:
-            razones.append(f"ciudad {envio.comprador.ciudad}")
-        
-        if envio.get_estado_display().lower() in consulta_lower:
-            razones.append(f"estado {envio.get_estado_display()}")
-        
-        if envio.comprador.nombre.lower() in consulta_lower:
-            razones.append(f"comprador {envio.comprador.nombre}")
-        
-        if envio.hawb.lower() in consulta_lower:
-            razones.append(f"código {envio.hawb}")
-        
-        # Verificar productos
-        for producto in envio.productos.all()[:3]:
-            if producto.descripcion.lower() in consulta_lower:
-                razones.append(f"producto {producto.descripcion}")
-                break
-        
-        if razones:
-            return f"Coincide con: {', '.join(razones)}"
-        else:
-            porcentaje = int(similitud * 100)
-            return f"Similitud semántica: {porcentaje}%"
+    @extend_schema(
+        summary="Descargar PDF de búsqueda semántica",
+        description="Genera y descarga un PDF con los resultados y métricas de una búsqueda semántica específica",
+        tags=['busqueda'],
+    )
+    @action(detail=False, methods=['get'], url_path='semantica/(?P<busqueda_id>[^/.]+)/descargar-pdf')
+    def descargar_pdf_semantica(self, request, busqueda_id=None):
+        """Descarga PDF de una búsqueda semántica"""
+        try:
+            # Obtener la búsqueda
+            busqueda = embedding_busqueda_repository.obtener_por_id(busqueda_id)
+            
+            if not busqueda:
+                return Response(
+                    {'error': 'Búsqueda semántica no encontrada'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            
+            # Verificar que pertenece al usuario
+            if busqueda.usuario != request.user and not request.user.is_staff:
+                return Response(
+                    {'error': 'No tiene permiso para acceder a esta búsqueda'},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            
+            # Preparar datos para PDF
+            busqueda_data = {
+                'consulta': busqueda.consulta,
+                'modelo_utilizado': busqueda.modelo_utilizado,
+                'fecha_busqueda': busqueda.fecha_busqueda.strftime('%Y-%m-%d %H:%M:%S'),
+                'resultados_encontrados': busqueda.resultados_encontrados,
+                'tiempo_respuesta': busqueda.tiempo_respuesta,
+                'tokens_utilizados': busqueda.tokens_utilizados,
+                'costo_consulta': float(busqueda.costo_consulta) if busqueda.costo_consulta else 0,
+                'usuario_nombre': busqueda.usuario.get_full_name() or busqueda.usuario.username,
+                'resultados_json': busqueda.resultados_json or []
+            }
+            
+            # Generar PDF
+            pdf_buffer = PDFBusquedaService.generar_pdf_busqueda_semantica(busqueda_data)
+            
+            # Crear respuesta HTTP
+            response = HttpResponse(pdf_buffer.getvalue(), content_type='application/pdf')
+            filename = f"busqueda_semantica_{busqueda_id}_{busqueda.fecha_busqueda.strftime('%Y%m%d')}.pdf"
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            
+            return response
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Error generando PDF: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

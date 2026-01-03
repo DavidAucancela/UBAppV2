@@ -16,7 +16,7 @@ def log_usuario_creado(sender, instance, created, **kwargs):
         except Exception:
             rol_nombre = str(getattr(instance, 'rol', ''))
         logger.info(
-            f"Usuario creado: username={instance.username} id={instance.id} rol={rol_nombre} activo={instance.es_activo}"
+            f"Usuario creado: username={instance.username} id={instance.id} rol={rol_nombre} activo={instance.is_active}"
         )
 
 
@@ -41,9 +41,9 @@ def log_cambio_rol(sender, instance, **kwargs):
             f"Cambio de rol: username={instance.username} {anterior_rol} -> {nuevo_rol}"
         )
 
-    if anterior.es_activo != instance.es_activo:
+    if anterior.is_active != instance.is_active:
         logger.warning(
-            f"Cambio de estado activo: username={instance.username} {anterior.es_activo} -> {instance.es_activo}"
+            f"Cambio de estado activo: username={instance.username} {anterior.is_active} -> {instance.is_active}"
         )
 
 

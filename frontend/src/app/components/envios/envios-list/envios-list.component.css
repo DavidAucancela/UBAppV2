@@ -148,6 +148,11 @@
   padding: 16px 24px;
   border-top: 1px solid #e5e7eb;
   background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .results-count {
@@ -156,6 +161,37 @@
   gap: 8px;
   color: #6b7280;
   font-size: 0.9rem;
+}
+
+.controles-paginacion-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controles-paginacion-header label {
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.select-elementos {
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.select-elementos:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 /* Alerts */
@@ -514,21 +550,81 @@
 }
 
 /* Pagination */
-.pagination {
+.paginacion {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 0;
   border-top: 1px solid #e5e7eb;
 }
 
-.pagination-info {
-  font-weight: 500;
-  color: #374151;
+.btn-pagina {
+  padding: 0.6rem 1.25rem;
+  background: #ecf0f1;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
 }
 
-.pagination .btn {
-  min-width: 120px;
+.btn-pagina:hover:not(:disabled) {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-pagina:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.numeros-pagina {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.btn-numero {
+  width: 40px;
+  height: 40px;
+  background: #ecf0f1;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.btn-numero:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-numero.activo {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.puntos-suspension {
+  padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  color: #7f8c8d;
+  font-weight: 600;
 }
 
 /* Modal */
@@ -568,6 +664,10 @@
   flex-direction: column;
   animation: slideUp 0.3s ease-out;
   overflow: hidden;
+}
+
+.modal-content.modal-large {
+  max-width: 1400px;
 }
 
 .modal-large {
@@ -1227,6 +1327,32 @@ textarea.form-control {
   .section-header .btn {
     width: 100%;
   }
+
+  .results-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .controles-paginacion-header {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .paginacion {
+    gap: 0.25rem;
+  }
+
+  .btn-pagina {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .btn-numero {
+    width: 35px;
+    height: 35px;
+    font-size: 0.85rem;
+  }
 }
 
 /* Utilities */
@@ -1344,12 +1470,50 @@ textarea.form-control {
   color: #94a3b8;
 }
 
-:host-context(body.dark-mode) .pagination {
+:host-context(body.dark-mode) .paginacion {
   border-top-color: #64748b;
 }
 
-:host-context(body.dark-mode) .pagination-info {
+:host-context(body.dark-mode) .btn-pagina {
+  background: #475569;
   color: #cbd5e1;
+}
+
+:host-context(body.dark-mode) .btn-pagina:hover:not(:disabled) {
+  background: #6366f1;
+  color: white;
+}
+
+:host-context(body.dark-mode) .btn-numero {
+  background: #475569;
+  color: #cbd5e1;
+}
+
+:host-context(body.dark-mode) .btn-numero:hover {
+  background: #6366f1;
+  color: white;
+}
+
+:host-context(body.dark-mode) .btn-numero.activo {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+:host-context(body.dark-mode) .puntos-suspension {
+  color: #94a3b8;
+}
+
+:host-context(body.dark-mode) .controles-paginacion-header label {
+  color: #cbd5e1;
+}
+
+:host-context(body.dark-mode) .select-elementos {
+  background-color: #475569;
+  border-color: #64748b;
+  color: #e5e7eb;
+}
+
+:host-context(body.dark-mode) .select-elementos:focus {
+  border-color: #a78bfa;
 }
 
 :host-context(body.dark-mode) .modal-content {

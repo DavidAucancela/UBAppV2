@@ -1,35 +1,448 @@
-<div class="actividades-container">
+<div class="dashboard-container">
   <!-- Loading State -->
   <div class="loading-container" *ngIf="loading">
     <div class="spinner">
       <i class="fas fa-spinner fa-spin"></i>
-      <span>Cargando actividades...</span>
+      <span>Cargando métricas...</span>
     </div>
   </div>
 
-  <!-- Activities Content -->
-  <div class="actividades-content" *ngIf="!loading">
+  <!-- Dashboard Content -->
+  <div class="dashboard-content" *ngIf="!loading">
+    <!-- Page Header -->
     <div class="page-header">
-      <h1>Actividades del Sistema</h1>
-      <p class="page-subtitle">Lista de todas las actividades recientes del sistema</p>
+      <h1>Dashboard de Pruebas y Métricas</h1>
+      <p class="page-subtitle">Sistema experimental para evaluación del desempeño y módulo de búsqueda semántica</p>
     </div>
 
-    <div class="activities-section">
-      <div class="activity-list">
-        <div class="activity-item" *ngFor="let activity of activities">
-          <div class="activity-icon">
-            <i class="fas" [class]="getActivityIcon(activity.type)"></i>
-          </div>
-          <div class="activity-content">
-            <p class="activity-text">{{ activity.description }}</p>
-            <span class="activity-time">{{ activity.time }}</span>
-          </div>
+    <!-- Tabs Navigation -->
+    <div class="tabs-container">
+      <button 
+        class="tab-button" 
+        [class.active]="seccionActiva === 'semanticas'"
+        (click)="cambiarSeccion('semanticas')">
+        <i class="fas fa-brain"></i>
+        Métricas Semánticas
+      </button>
+      <button 
+        class="tab-button" 
+        [class.active]="seccionActiva === 'rendimiento'"
+        (click)="cambiarSeccion('rendimiento')">
+        <i class="fas fa-tachometer-alt"></i>
+        Métricas de Eficiencia y Rendimiento
+      </button>
+    </div>
+
+    <!-- Filtros Globales -->
+    <div class="filtros-section">
+      <h3>Filtros</h3>
+      <div class="filtros-grid">
+        <div class="filtro-item">
+          <label>Fecha Desde:</label>
+          <input type="date" [(ngModel)]="filtroFechaDesde" />
         </div>
-        <div class="empty-state" *ngIf="activities.length === 0">
-          <i class="fas fa-inbox"></i>
-          <p>No hay actividades disponibles</p>
+        <div class="filtro-item">
+          <label>Fecha Hasta:</label>
+          <input type="date" [(ngModel)]="filtroFechaHasta" />
+        </div>
+        <div class="filtro-item" *ngIf="seccionActiva === 'rendimiento'">
+          <label>Nivel de Carga:</label>
+          <select [(ngModel)]="filtroNivelCarga">
+            <option [value]="null">Todos</option>
+            <option [value]="1">1</option>
+            <option [value]="10">10</option>
+            <option [value]="30">30</option>
+          </select>
+        </div>
+        <div class="filtro-item">
+          <button class="btn btn-primary" (click)="aplicarFiltros()">
+            <i class="fas fa-filter"></i> Aplicar Filtros
+          </button>
         </div>
       </div>
     </div>
+
+    <!-- ==================== SECCIÓN: MÉTRICAS SEMÁNTICAS ==================== -->
+    <div class="seccion-content" *ngIf="seccionActiva === 'semanticas'">
+      
+      <!-- Estadísticas Resumen -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #667eea;">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ estadisticasSemanticas.mrr_promedio?.toFixed(4) || '0.0000' }}</h3>
+            <p>MRR Promedio</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #ec4899;">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ estadisticasSemanticas.ndcg_10_promedio?.toFixed(4) || '0.0000' }}</h3>
+            <p>nDCG&#64;10 Promedio</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #22c55e;">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ estadisticasSemanticas.precision_5_promedio?.toFixed(4) || '0.0000' }}</h3>
+            <p>Precision&#64;5 Promedio</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #f59e0b;">
+            <i class="fas fa-database"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ estadisticasSemanticas.total_metricas || 0 }}</h3>
+            <p>Total Métricas</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico de Métricas Semánticas -->
+      <div class="chart-section">
+        <div class="chart-header">
+          <h3>Evolución de Métricas Semánticas</h3>
+          <button class="btn btn-secondary" (click)="exportarCSV('semanticas')">
+            <i class="fas fa-download"></i> Exportar CSV
+          </button>
+        </div>
+        <div class="chart-container">
+          <canvas #chartMetricasSemanticas></canvas>
+        </div>
+      </div>
+
+      <!-- Lista de Métricas Semánticas -->
+      <div class="table-section">
+        <h3>Métricas Semánticas Registradas</h3>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Consulta</th>
+                <th>MRR</th>
+                <th>nDCG&#64;10</th>
+                <th>Precision&#64;5</th>
+                <th>Resultados</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let metrica of metricasSemanticas.slice(0, 20)">
+                <td>{{ metrica.id }}</td>
+                <td class="text-truncate">{{ metrica.consulta?.substring(0, 50) }}...</td>
+                <td>{{ metrica.mrr?.toFixed(4) || '-' }}</td>
+                <td>{{ metrica.ndcg_10?.toFixed(4) || '-' }}</td>
+                <td>{{ metrica.precision_5?.toFixed(4) || '-' }}</td>
+                <td>{{ metrica.total_resultados }}</td>
+                <td>{{ formatearFecha(metrica.fecha_calculo) }}</td>
+              </tr>
+              <tr *ngIf="metricasSemanticas.length === 0">
+                <td colspan="7" class="empty-cell">No hay métricas registradas</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Registros de Generación de Embeddings -->
+      <div class="table-section">
+        <h3>Registros de Generación de Embeddings</h3>
+        <div class="stats-grid-small">
+          <div class="stat-small">
+            <span class="stat-label">Total:</span>
+            <span class="stat-value">{{ estadisticasEmbedding.total_registros || 0 }}</span>
+          </div>
+          <div class="stat-small">
+            <span class="stat-label">Exitosos:</span>
+            <span class="stat-value success">{{ estadisticasEmbedding.exitosos || 0 }}</span>
+          </div>
+          <div class="stat-small">
+            <span class="stat-label">Errores:</span>
+            <span class="stat-value error">{{ estadisticasEmbedding.errores || 0 }}</span>
+          </div>
+          <div class="stat-small">
+            <span class="stat-label">Tiempo Promedio:</span>
+            <span class="stat-value">{{ formatearTiempo(estadisticasEmbedding.tiempo_promedio_ms || 0) }}</span>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>HAWB</th>
+                <th>Estado</th>
+                <th>Tiempo (ms)</th>
+                <th>Modelo</th>
+                <th>Tipo Proceso</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let registro of registrosEmbedding.slice(0, 20)">
+                <td>{{ registro.id }}</td>
+                <td>{{ registro.envio_hawb }}</td>
+                <td>
+                  <span class="badge" [class.success]="registro.estado === 'generado'"
+                        [class.error]="registro.estado === 'error'"
+                        [class.warning]="registro.estado === 'omitido'">
+                    {{ registro.estado }}
+                  </span>
+                </td>
+                <td>{{ registro.tiempo_generacion_ms }}</td>
+                <td>{{ registro.modelo_usado }}</td>
+                <td>{{ registro.tipo_proceso }}</td>
+                <td>{{ formatearFecha(registro.fecha_generacion) }}</td>
+              </tr>
+              <tr *ngIf="registrosEmbedding.length === 0">
+                <td colspan="7" class="empty-cell">No hay registros disponibles</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== SECCIÓN: MÉTRICAS DE RENDIMIENTO ==================== -->
+    <div class="seccion-content" *ngIf="seccionActiva === 'rendimiento'">
+      
+      <!-- Estadísticas Resumen -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #3b82f6;">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ formatearTiempo(estadisticasRendimiento.tiempo_promedio_ms || 0) }}</h3>
+            <p>Tiempo Promedio</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #ef4444;">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ estadisticasRendimiento.cpu_promedio?.toFixed(2) || '0.00' }}%</h3>
+            <p>CPU Promedio</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #22c55e;">
+            <i class="fas fa-memory"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ estadisticasRendimiento.ram_promedio_mb?.toFixed(2) || '0.00' }} MB</h3>
+            <p>RAM Promedio</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #f59e0b;">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ estadisticasRendimiento.total_exitosos || 0 }}</h3>
+            <p>Operaciones Exitosas</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráficos de Rendimiento -->
+      <div class="charts-grid">
+        <div class="chart-section">
+          <div class="chart-header">
+            <h3>Tiempos de Respuesta</h3>
+          </div>
+          <div class="chart-container">
+            <canvas #chartTiemposRendimiento></canvas>
+          </div>
+        </div>
+        <div class="chart-section">
+          <div class="chart-header">
+            <h3>Utilización de Recursos</h3>
+          </div>
+          <div class="chart-container">
+            <canvas #chartRecursos></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pruebas de Carga -->
+      <div class="section-card">
+        <div class="section-header">
+          <h3>Ejecutar Prueba de Carga</h3>
+        </div>
+        <div class="form-grid">
+          <div class="form-item">
+            <label>Nivel de Carga:</label>
+            <select [(ngModel)]="nuevaPruebaCarga.nivel_carga">
+              <option [value]="1">1 búsqueda</option>
+              <option [value]="10">10 búsquedas</option>
+              <option [value]="30">30 búsquedas</option>
+            </select>
+          </div>
+          <div class="form-item">
+            <label>Nombre de la Prueba (opcional):</label>
+            <input type="text" [(ngModel)]="nuevaPruebaCarga.nombre_prueba" placeholder="Ej: Prueba carga 10 búsquedas" />
+          </div>
+        </div>
+        <div class="consultas-section">
+          <label>Consultas a Ejecutar:</label>
+          <div class="consultas-list">
+            <div class="consulta-item" *ngFor="let consulta of nuevaPruebaCarga.consultas; let i = index">
+              <input type="text" [(ngModel)]="nuevaPruebaCarga.consultas[i]" placeholder="Ingrese consulta..." />
+              <button class="btn-icon" (click)="eliminarConsulta(i)" *ngIf="nuevaPruebaCarga.consultas.length > 1">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <button class="btn btn-secondary" (click)="agregarConsulta()">
+            <i class="fas fa-plus"></i> Agregar Consulta
+          </button>
+        </div>
+        <button class="btn btn-primary" (click)="ejecutarPruebaCarga()" [disabled]="ejecutandoPrueba">
+          <i class="fas fa-play"></i> {{ ejecutandoPrueba ? 'Ejecutando...' : 'Ejecutar Prueba' }}
+        </button>
+      </div>
+
+      <!-- Historial de Pruebas de Carga -->
+      <div class="table-section">
+        <div class="section-header">
+          <h3>Historial de Pruebas de Carga</h3>
+          <button class="btn btn-secondary" (click)="exportarCSV('rendimiento')">
+            <i class="fas fa-download"></i> Exportar CSV
+          </button>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Nivel Carga</th>
+                <th>Tiempo Promedio</th>
+                <th>CPU Promedio</th>
+                <th>RAM Promedio</th>
+                <th>Exitosos</th>
+                <th>Errores</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prueba of pruebasCarga.slice(0, 20)">
+                <td>{{ prueba.id }}</td>
+                <td>{{ prueba.nombre }}</td>
+                <td>{{ prueba.tipo_prueba }}</td>
+                <td>{{ prueba.nivel_carga }}</td>
+                <td>{{ formatearTiempo(prueba.tiempo_promedio_ms) }}</td>
+                <td>{{ prueba.cpu_promedio?.toFixed(2) }}%</td>
+                <td>{{ prueba.ram_promedio_mb?.toFixed(2) }} MB</td>
+                <td><span class="badge success">{{ prueba.total_exitosos }}</span></td>
+                <td><span class="badge error">{{ prueba.total_errores }}</span></td>
+                <td>{{ formatearFecha(prueba.fecha_ejecucion) }}</td>
+              </tr>
+              <tr *ngIf="pruebasCarga.length === 0">
+                <td colspan="10" class="empty-cell">No hay pruebas de carga registradas</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Registro Manual de Envíos -->
+      <div class="section-card">
+        <div class="section-header">
+          <h3>Registro Manual de Envíos</h3>
+        </div>
+        <div class="form-grid">
+          <div class="form-item">
+            <label>HAWB:</label>
+            <input type="text" [(ngModel)]="nuevoRegistroManual.hawb" placeholder="Ej: ABC123" />
+          </div>
+          <div class="form-item">
+            <label>Tiempo de Registro (segundos):</label>
+            <input type="number" [(ngModel)]="nuevoRegistroManual.tiempo_registro_segundos" min="0" step="0.1" />
+          </div>
+          <div class="form-item full-width">
+            <label>Notas (opcional):</label>
+            <textarea [(ngModel)]="nuevoRegistroManual.notas" rows="3" placeholder="Observaciones sobre el registro manual..."></textarea>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="registrarEnvioManual()">
+          <i class="fas fa-save"></i> Guardar Registro Manual
+        </button>
+      </div>
+
+      <!-- Estadísticas de Registros Manuales -->
+      <div class="stats-grid-small" *ngIf="estadisticasRegistrosManuales.total_registros > 0">
+        <div class="stat-small">
+          <span class="stat-label">Total Registros:</span>
+          <span class="stat-value">{{ estadisticasRegistrosManuales.total_registros }}</span>
+        </div>
+        <div class="stat-small">
+          <span class="stat-label">Tiempo Promedio:</span>
+          <span class="stat-value">{{ estadisticasRegistrosManuales.tiempo_promedio_segundos?.toFixed(2) }}s</span>
+        </div>
+        <div class="stat-small">
+          <span class="stat-label">Tiempo Mínimo:</span>
+          <span class="stat-value">{{ estadisticasRegistrosManuales.tiempo_minimo_segundos?.toFixed(2) }}s</span>
+        </div>
+        <div class="stat-small">
+          <span class="stat-label">Tiempo Máximo:</span>
+          <span class="stat-value">{{ estadisticasRegistrosManuales.tiempo_maximo_segundos?.toFixed(2) }}s</span>
+        </div>
+      </div>
+
+      <!-- Lista de Métricas de Rendimiento -->
+      <div class="table-section">
+        <h3>Métricas de Rendimiento Individuales</h3>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Proceso</th>
+                <th>Tiempo (ms)</th>
+                <th>CPU (%)</th>
+                <th>RAM (MB)</th>
+                <th>Nivel Carga</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let metrica of metricasRendimiento.slice(0, 30)">
+                <td>{{ metrica.id }}</td>
+                <td>{{ metrica.proceso }}</td>
+                <td>{{ metrica.tiempo_respuesta_ms }}</td>
+                <td>{{ metrica.uso_cpu?.toFixed(2) }}</td>
+                <td>{{ metrica.uso_ram_mb?.toFixed(2) }}</td>
+                <td>{{ metrica.nivel_carga || '-' }}</td>
+                <td>
+                  <span class="badge" [class.success]="metrica.exito" [class.error]="!metrica.exito">
+                    {{ metrica.exito ? 'Éxito' : 'Error' }}
+                  </span>
+                </td>
+                <td>{{ formatearFecha(metrica.fecha_medicion) }}</td>
+              </tr>
+              <tr *ngIf="metricasRendimiento.length === 0">
+                <td colspan="8" class="empty-cell">No hay métricas de rendimiento registradas</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </div>

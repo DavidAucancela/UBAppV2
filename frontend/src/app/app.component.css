@@ -279,10 +279,7 @@ margin: 8px 0;
   min-height: calc(100vh - 70px);
 }
 
-.main-content.with-header {
-  /* Ajustar padding-top para que el contenido no quede debajo de la navbar fija */
-  padding-top: 75px;
-}
+
 
 
 /* Loading Overlay */
@@ -692,7 +689,7 @@ body {
 
 .dropdown-item:hover {
   background-color: #f8f9fa;
-  color: #3498db;
+  color: #b6cbd9;
 }
 
 .header-actions {

@@ -1,8 +1,11 @@
 <div class="importacion-excel-container">
-  <!-- Encabezado -->
-  <div class="header">
-    <h2>📊 Módulo de Carga y Procesamiento de Archivos Excel</h2>
-    <p class="subtitle">Importe datos masivos de envíos desde archivos Excel con validación y limpieza automática</p>
+  <!-- Encabezado mejorado con estilo de otros módulos -->
+  <div class="encabezado">
+    <h1 class="titulo-principal">
+      <i class="fas fa-file-excel"></i>
+      Importación de Envíos desde Excel
+    </h1>
+    <p class="subtitulo">Importe datos masivos de envíos desde archivos Excel con validación y limpieza automática</p>
   </div>
 
   <!-- Mensajes de alerta -->
@@ -22,17 +25,17 @@
   <div class="progress-steps">
     <div class="step" [class.active]="paso >= 1" [class.completed]="paso > 1">
       <div class="step-number">1</div>
-      <div class="step-label">Cargar Archivo</div>
+      <div class="step-label">Cargar archivo</div>
     </div>
     <div class="step-line" [class.completed]="paso > 1"></div>
     <div class="step" [class.active]="paso >= 2" [class.completed]="paso > 2">
       <div class="step-number">2</div>
-      <div class="step-label">Mapear Columnas</div>
+      <div class="step-label">Mapear columnas</div>
     </div>
     <div class="step-line" [class.completed]="paso > 2"></div>
     <div class="step" [class.active]="paso >= 3" [class.completed]="paso > 3">
       <div class="step-number">3</div>
-      <div class="step-label">Validar y Seleccionar</div>
+      <div class="step-label">Validar y seleccionar</div>
     </div>
     <div class="step-line" [class.completed]="paso > 3"></div>
     <div class="step" [class.active]="paso >= 4">
@@ -44,7 +47,7 @@
   <!-- PASO 1: Cargar Archivo -->
   <div *ngIf="paso === 1" class="paso-container">
     <div class="card">
-      <h3>📁 Paso 1: Cargar Archivo Excel</h3>
+      <h3>Cargar archivo</h3>
       
       <div class="upload-area">
         <input 
@@ -126,14 +129,14 @@
 
       <div class="acciones">
         <button class="btn btn-secondary" (click)="descargarPlantilla()">
-          📥 Descargar Plantilla de Ejemplo
+          Descargar plantilla de ejemplo
         </button>
         <button 
           class="btn btn-primary" 
           (click)="subirArchivo()"
           [disabled]="!archivoSeleccionado || cargando">
-          <span *ngIf="!cargando">Continuar →</span>
-          <span *ngIf="cargando">⏳ Procesando...</span>
+          <span *ngIf="!cargando">Continuar</span>
+          <span *ngIf="cargando">Procesando...</span>
         </button>
       </div>
     </div>
@@ -142,23 +145,31 @@
   <!-- PASO 2: Mapear Columnas -->
   <div *ngIf="paso === 2" class="paso-container">
     <div class="card">
-      <h3>🗺️ Paso 2: Mapear Columnas del Excel</h3>
+      <h3>Mapear columnas del archivo</h3>
       <p>Asocie las columnas de su archivo Excel con los campos del sistema</p>
-      <p class="info-text">
-        <i class="fas fa-info-circle"></i>
-        <strong>Nota:</strong> Las columnas que no se mapeen simplemente se ignorarán. 
-        Solo es obligatorio mapear el campo <strong>HAWB</strong>.
-      </p>
+
+      <!-- Alerta cuando no hay columnas de consignatario -->
+      <div *ngIf="mostrarSeleccionComprador && !tieneColumnasConsignatario" class="alerta alerta-warning">
+        <span class="icono">⚠️</span>
+        <span>
+          <strong>Archivo sin información de consignatario:</strong> 
+          El archivo no contiene columnas de consignatario y RUC/Cédula. 
+          Debe seleccionar un comprador del sistema o crear uno nuevo para asignar los envíos.
+        </span>
+      </div>
 
       <div class="mapeo-container">
         <div class="mapeo-grid">
           <div *ngFor="let columna of previewDatos?.columnas" class="mapeo-item">
             <label>{{ columna }}</label>
-            <select [(ngModel)]="mapeoColumnas[columna]" class="select-mapeo">
+            <select 
+              [(ngModel)]="mapeoColumnas[columna]" 
+              class="select-mapeo"
+              (ngModelChange)="onMapeoCambiado()">
               <option [ngValue]="null">-- No mapear --</option>
               <option 
                 *ngFor="let campo of camposDisponibles" 
-                [value]="campo.valor"
+                [ngValue]="campo.valor"
                 [title]="campo.descripcion">
                 {{ campo.etiqueta }} {{ campo.requerido ? '(*)' : '' }}
               </option>
@@ -168,21 +179,109 @@
             </span>
           </div>
         </div>
+      </div>
 
-        <div *ngIf="!mapeoValido" class="alerta alerta-warning">
-          ⚠️ El campo <strong>HAWB</strong> es obligatorio. Por favor mapearlo antes de continuar.
+      <!-- Sección de selección de comprador cuando no hay columnas de consignatario -->
+      <div *ngIf="mostrarSeleccionComprador && !tieneColumnasConsignatario" class="seleccion-comprador-container">
+        <h4>Asignar envíos a un comprador</h4>
+        
+        <!-- Modo selección de usuario existente -->
+        <div *ngIf="!modoCrearUsuario" class="seleccion-usuario">
+          <label>
+            <strong>Seleccionar comprador existente:</strong>
+            <select 
+              [(ngModel)]="compradorSeleccionadoId" 
+              class="select-comprador"
+              [ngModelOptions]="{standalone: true}">
+              <option [ngValue]="null">-- Seleccione un comprador --</option>
+              <option 
+                *ngFor="let usuario of usuariosDisponibles" 
+                [ngValue]="usuario.id">
+                {{ usuario.nombre }} - {{ usuario.cedula }} {{ usuario.correo ? ' (' + usuario.correo + ')' : '' }}
+              </option>
+            </select>
+          </label>
+          
+          <div class="acciones-comprador">
+            <button 
+              class="btn btn-secondary" 
+              (click)="activarModoCrearUsuario()">
+              ➕ Crear nuevo comprador
+            </button>
+          </div>
+        </div>
+
+        <!-- Modo crear nuevo usuario -->
+        <div *ngIf="modoCrearUsuario" class="crear-usuario">
+          <h5>Crear nuevo comprador</h5>
+          <div class="form-grid">
+            <label>
+              Nombre completo <span class="required">*</span>
+              <input 
+                type="text" 
+                [(ngModel)]="nuevoUsuario.nombre"
+                [ngModelOptions]="{standalone: true}"
+                placeholder="Nombre del comprador"
+                required
+              />
+            </label>
+            <label>
+              Cédula <span class="required">*</span>
+              <input 
+                type="text" 
+                [(ngModel)]="nuevoUsuario.cedula"
+                [ngModelOptions]="{standalone: true}"
+                placeholder="1234567890"
+                required
+              />
+            </label>
+            <label>
+              Correo electrónico
+              <input 
+                type="email" 
+                [(ngModel)]="nuevoUsuario.correo"
+                [ngModelOptions]="{standalone: true}"
+                placeholder="correo@ejemplo.com"
+              />
+            </label>
+            <label>
+              Teléfono
+              <input 
+                type="text" 
+                [(ngModel)]="nuevoUsuario.telefono"
+                [ngModelOptions]="{standalone: true}"
+                placeholder="0999999999"
+              />
+            </label>
+            <label class="full-row">
+              Dirección
+              <input 
+                type="text" 
+                [(ngModel)]="nuevoUsuario.direccion"
+                [ngModelOptions]="{standalone: true}"
+                placeholder="Dirección del comprador"
+              />
+            </label>
+          </div>
+          <div class="acciones-comprador">
+            <button 
+              class="btn btn-secondary" 
+              (click)="cancelarCrearUsuario()">
+              ← Volver a selección
+            </button>
+          </div>
         </div>
       </div>
 
       <div class="acciones">
         <button class="btn btn-secondary" (click)="paso = 1">
-          ← Atrás
+          Atrás
         </button>
         <button 
           class="btn btn-primary" 
           (click)="validarDatos()"
-          [disabled]="!mapeoValido || cargando">
-          <span *ngIf="!cargando">Validar Datos →</span>
+          [disabled]="!mapeoValido || cargando || (mostrarSeleccionComprador && !compradorSeleccionadoId && !modoCrearUsuario)">
+          <span *ngIf="!cargando">Validar </span>
           <span *ngIf="cargando">⏳ Validando...</span>
         </button>
       </div>
@@ -192,7 +291,7 @@
   <!-- PASO 3: Validar y Seleccionar -->
   <div *ngIf="paso === 3" class="paso-container">
     <div class="card">
-      <h3>✅ Paso 3: Validar y Seleccionar Registros</h3>
+      <h3>Validar y seleccionar registros</h3>
 
       <!-- Estadísticas de validación -->
       <div *ngIf="importacionActual" class="stats-grid">
@@ -216,7 +315,7 @@
 
       <!-- Errores de validación -->
       <div *ngIf="erroresValidacion.length > 0" class="errores-container">
-        <h4>⚠️ Errores Detectados</h4>
+        <h4>Errores detectados</h4>
         <div class="errores-lista">
           <div *ngFor="let error of erroresValidacion.slice(0, 10)" class="error-item">
             <span class="error-fila">Fila {{ error.fila }}</span>
@@ -235,6 +334,9 @@
       <!-- Selección de registros -->
       <div class="seleccion-container">
         <h4>Seleccionar Registros a Importar</h4>
+        <p class="info-text">
+          Edite directamente los datos de producto antes de importarlos. Los cambios se aplicarán solo a los registros seleccionados.
+        </p>
         <div class="seleccion-opciones">
           <label class="checkbox-label">
             <input 
@@ -254,7 +356,13 @@
                 <th>Sel.</th>
                 <th>#</th>
                 <th>Estado</th>
-                <th *ngFor="let columna of columnasMapeadas.slice(0, 5)">{{ columna }}</th>
+                <th *ngIf="columnaHawb">HAWB</th>
+                <th *ngIf="columnaConsignatario">Consignatario</th>
+                <th *ngIf="columnaRuc">RUC / Cédula</th>
+                <th *ngIf="columnaDescripcion">Descripción Producto</th>
+                <th *ngIf="columnaPesoProducto">Peso Producto (kg)</th>
+                <th *ngIf="columnaCantidadProducto">Cantidad</th>
+                <th *ngIf="columnaValorProducto">Valor (USD)</th>
               </tr>
             </thead>
             <tbody>
@@ -275,34 +383,81 @@
                   <span *ngIf="esDuplicado(fila._indice) && !tieneError(fila._indice)" class="badge badge-warning">Duplicado</span>
                   <span *ngIf="!tieneError(fila._indice) && !esDuplicado(fila._indice)" class="badge badge-success">OK</span>
                 </td>
-                <td *ngFor="let columna of columnasMapeadas.slice(0, 5)">
-                  {{ fila[columna] || '-' }}
+                <td *ngIf="columnaHawb as colHawb">
+                  {{ fila[colHawb] !== undefined && fila[colHawb] !== null ? fila[colHawb] : '-' }}
+                </td>
+                <td *ngIf="columnaConsignatario as colConsignatario">
+                  {{ fila[colConsignatario] !== undefined && fila[colConsignatario] !== null ? fila[colConsignatario] : '-' }}
+                </td>
+                <td *ngIf="columnaRuc as colRuc">
+                  {{ fila[colRuc] !== undefined && fila[colRuc] !== null ? fila[colRuc] : '-' }}
+                </td>
+                <td *ngIf="columnaDescripcion as colDescripcion">
+                  <input 
+                    class="input-table"
+                    type="text"
+                    [(ngModel)]="fila[colDescripcion]"
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="registrarCambio(fila._indice, colDescripcion, $event)"
+                  />
+                </td>
+                <td *ngIf="columnaPesoProducto as colPeso">
+                  <input 
+                    class="input-table"
+                    type="number"
+                    step="0.01"
+                    [(ngModel)]="fila[colPeso]"
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="registrarCambio(fila._indice, colPeso, $event)"
+                  />
+                </td>
+                <td *ngIf="columnaCantidadProducto as colCantidad">
+                  <input 
+                    class="input-table"
+                    type="number"
+                    step="1"
+                    [(ngModel)]="fila[colCantidad]"
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="registrarCambio(fila._indice, colCantidad, $event)"
+                  />
+                </td>
+                <td *ngIf="columnaValorProducto as colValor">
+                  <input 
+                    class="input-table"
+                    type="number"
+                    step="0.01"
+                    [(ngModel)]="fila[colValor]"
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="registrarCambio(fila._indice, colValor, $event)"
+                  />
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-      </div>
-
-      <!-- Selección de comprador -->
-      <div class="comprador-container">
-        <h4>Asignar Comprador</h4>
-        <div class="form-group">
-          <label for="compradorSelect">Seleccione el comprador para estos envíos:</label>
-          <select 
-            id="compradorSelect" 
-            [(ngModel)]="compradorId" 
-            class="select-mapeo"
-            [disabled]="cargandoCompradores">
-            <option [ngValue]="null">Sin comprador</option>
-            <option 
-              *ngFor="let comprador of compradores" 
-              [ngValue]="comprador.id">
-              {{ comprador.nombre }} ({{ comprador.cedula }})
-            </option>
-          </select>
-          <small *ngIf="cargandoCompradores">Cargando compradores...</small>
-          <small *ngIf="!cargandoCompradores && compradores.length === 0">No hay compradores disponibles</small>
+        
+        <!-- Paginación -->
+        <div *ngIf="totalPaginas > 1" class="paginacion">
+          <button 
+            (click)="paginaActual = paginaActual - 1" 
+            [disabled]="paginaActual === 1"
+            class="btn-paginacion">
+            ← Anterior
+          </button>
+          <span class="pagina-info">
+            Página {{ paginaActual }} de {{ totalPaginas }} 
+            (Mostrando {{ (paginaActual - 1) * filasPorPagina + 1 }} - {{ Math.min(paginaActual * filasPorPagina, previewDatos?.total_filas || 0) }} de {{ previewDatos?.total_filas || 0 }} registros)
+          </span>
+          <button 
+            (click)="paginaActual = paginaActual + 1" 
+            [disabled]="paginaActual === totalPaginas"
+            class="btn-paginacion">
+            Siguiente →
+          </button>
+        </div>
+        
+        <div *ngIf="columnaPesoProducto && !pesosCompletos" class="alerta alerta-warning">
+          ⚠️ Debe ingresar el peso para todos los productos seleccionados antes de importar.
         </div>
       </div>
 
@@ -313,7 +468,7 @@
         <button 
           class="btn btn-primary" 
           (click)="procesarDatos()"
-          [disabled]="registrosSeleccionados.size === 0 || cargando || cargandoCompradores">
+          [disabled]="registrosSeleccionados.size === 0 || cargando || !pesosCompletos">
           <span *ngIf="!cargando">Importar Datos ({{ registrosSeleccionados.size }} registros) →</span>
           <span *ngIf="cargando">⏳ Importando...</span>
         </button>
@@ -347,12 +502,64 @@
         </div>
       </div>
 
+      <div *ngIf="compradoresPendientes.length > 0" class="compradores-pendientes">
+        <h4>Completar datos de compradores creados</h4>
+        <p>Estos compradores fueron generados automáticamente a partir del consignatario. Complete su información de contacto.</p>
+
+        <div class="comprador-form" *ngFor="let comprador of compradoresPendientes">
+          <div class="comprador-form__header">
+            <strong>{{ comprador.nombre || 'Sin nombre' }}</strong>
+            <span>{{ comprador.cedula }}</span>
+          </div>
+          <div class="comprador-form__grid">
+            <label>
+              Correo electrónico
+              <input 
+                type="email" 
+                [(ngModel)]="comprador.correo" 
+                [ngModelOptions]="{standalone: true}"
+                placeholder="correo@ejemplo.com"
+              />
+            </label>
+            <label>
+              Teléfono
+              <input 
+                type="text" 
+                [(ngModel)]="comprador.telefono" 
+                [ngModelOptions]="{standalone: true}"
+                placeholder="0999999999"
+              />
+            </label>
+            <label class="full-row">
+              Dirección
+              <input 
+                type="text" 
+                [(ngModel)]="comprador.direccion" 
+                [ngModelOptions]="{standalone: true}"
+                placeholder="Dirección del comprador"
+              />
+            </label>
+          </div>
+          <div class="comprador-form__acciones">
+            <button 
+              class="btn btn-primary"
+              (click)="guardarCompradorPendiente(comprador)"
+              [disabled]="estadoCompradores[comprador.id || 0] === 'guardando'">
+              <span *ngIf="estadoCompradores[comprador.id || 0] !== 'guardando'">Guardar datos</span>
+              <span *ngIf="estadoCompradores[comprador.id || 0] === 'guardando'">Guardando...</span>
+            </button>
+            <span *ngIf="estadoCompradores[comprador.id || 0] === 'guardado'" class="badge badge-success">Datos guardados</span>
+            <span *ngIf="estadoCompradores[comprador.id || 0] === 'error'" class="badge badge-error">Error al guardar</span>
+          </div>
+        </div>
+      </div>
+
       <div class="acciones">
         <button class="btn btn-primary" (click)="reiniciar()">
           🔄 Importar Otro Archivo
         </button>
-        <button class="btn btn-secondary" routerLink="/dashboard">
-          🏠 Volver al Dashboard
+        <button class="btn btn-secondary" routerLink="/inicio">
+          🏠 Volver al Inicio
         </button>
       </div>
     </div>

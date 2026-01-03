@@ -56,7 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.router.navigate(['/inicio']);
         break;
       case 2: // Gerente
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/inicio']);
         break;
       case 3: // Digitador
         this.router.navigate(['/envios']);

@@ -73,7 +73,7 @@ export interface FiltrosAdicionalesSemantica {
  */
 export interface ResultadoSemantico {
   envio: Envio;
-  puntuacionSimilitud: number; // 0.0 a 1.0 (Cosine Similarity)
+  puntuacionSimilitud: number; // 0.0 a 1.0 (Score Combinado)
   
   // Múltiples métricas de similitud
   cosineSimilarity: number;      // Similitud coseno [-1, 1]
@@ -82,10 +82,91 @@ export interface ResultadoSemantico {
   manhattanDistance?: number;    // Distancia Manhattan [0, infinito]
   scoreCombinado?: number;       // Score normalizado [0, 1]
   
+  // Métricas de boost
+  boostExactas?: number;
+  boostProductos?: number;
+  coincidenciasExactas?: number;
+  
+  // NUEVO: Análisis comparativo de métricas
+  analisisMetricas?: AnalisisMetricas;
+  
   // Información contextual
   fragmentosRelevantes: string[];   // Fragmentos de texto que coinciden
   razonRelevancia?: string;         // Explicación de por qué es relevante
   textoIndexado?: string;           // Texto completo que fue indexado
+}
+
+/**
+ * Interface para análisis comparativo de métricas de similitud
+ */
+export interface AnalisisMetricas {
+  metricaSeleccionada: string;
+  justificacion: {
+    teorica: string;
+    practica: string;
+    ventajas: string[];
+    referenciasAcademicas: string[];
+  };
+  comparacion: {
+    cosine: MetricaComparacion;
+    dotProduct: MetricaComparacion;
+    euclidean: MetricaDistancia;
+    manhattan: MetricaDistancia;
+  };
+  scoreCombinado: {
+    valor: number;
+    porcentaje: number;
+    descripcion: string;
+    formula: string;
+    componentes: {
+      cosineNormalizado: number;
+      boostExactas: number;
+      contribucionBoost: string;
+    };
+    ventaja: string;
+  };
+  conclusion: {
+    metricaOptima: string;
+    razon: string;
+    evidencia: {
+      correlacionEuclidean: number;
+      diferenciaPorcentual: number;
+      nota: string;
+    };
+    recomendacion: string;
+  };
+}
+
+/**
+ * Interface para métrica de similitud (cosine, dotProduct)
+ */
+export interface MetricaComparacion {
+  valor: number;
+  rango: string;
+  porcentaje?: number;
+  interpretacion: string;
+  nivelRelevancia?: string;
+  ventaja?: string;
+  limitacion?: string;
+  problema?: string;
+  formula: string;
+  casoUso?: string;
+  cuandoUsar?: string;
+}
+
+/**
+ * Interface para métrica de distancia (euclidean, manhattan)
+ */
+export interface MetricaDistancia {
+  valor: number;
+  rango: string;
+  similitudNormalizada: number;
+  porcentajeNormalizado: number;
+  interpretacion: string;
+  limitacion: string;
+  problema: string;
+  formula: string;
+  cuandoUsar: string;
 }
 
 /**

@@ -1,0 +1,336 @@
+<div class="tarifas-container">
+  <!-- Header -->
+  <div class="tarifas-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-icon">
+          <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="header-text">
+          <h1>Gestión de Tarifas</h1>
+          <p>Administra las tarifas de envío por categoría y peso</p>
+        </div>
+        <button 
+          class="btn btn-primary btn-header"
+          (click)="openCreateModal()"
+          *ngIf="authService.isAdmin() || authService.isGerente()"
+        >
+          <i class="fas fa-plus"></i>
+          Nueva Tarifa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="tarifas-content">
+      <!-- Messages -->
+      <div class="messages" *ngIf="successMessage || errorMessage">
+        <div class="alert alert-success" *ngIf="successMessage">
+          <i class="fas fa-check-circle"></i>
+          {{ successMessage }}
+        </div>
+        <div class="alert alert-error" *ngIf="errorMessage">
+          <i class="fas fa-exclamation-triangle"></i>
+          {{ errorMessage }}
+        </div>
+      </div>
+
+      <!-- Filters Card -->
+      <div class="card">
+        <div class="card-header-filters">
+          <h3>
+            <i class="fas fa-filter"></i>
+            Filtros
+          </h3>
+        </div>
+
+        <div class="filters-section">
+          <div class="filter-row">
+            <!-- Categoría Filter -->
+            <div class="filter-group">
+              <label class="filter-label">
+                <i class="fas fa-tags"></i>
+                Categoría
+              </label>
+              <select 
+                class="form-control"
+                [(ngModel)]="selectedCategoria"
+                (change)="onCategoriaFilterChange()"
+              >
+                <option value="">Todas las categorías</option>
+                <option *ngFor="let cat of categoriasDisponibles" [value]="cat.valor">
+                  {{ cat.etiqueta }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Activas Only Filter -->
+            <div class="filter-group">
+              <label class="filter-label">
+                <i class="fas fa-toggle-on"></i>
+                Estado
+              </label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input 
+                    type="checkbox"
+                    [(ngModel)]="showActivasOnly"
+                    (change)="onActivasFilterChange()"
+                  >
+                  <span>Mostrar solo tarifas activas</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Summary -->
+        <div class="results-summary">
+          <span class="results-count">
+            <i class="fas fa-list"></i>
+            Mostrando {{ filteredTarifas.length }} de {{ tarifas.length }} tarifas
+          </span>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-container" *ngIf="loading">
+        <div class="spinner">
+          <i class="fas fa-spinner fa-spin"></i>
+          <span>Cargando tarifas...</span>
+        </div>
+      </div>
+
+      <!-- Tarifas Table -->
+      <div class="card" *ngIf="!loading">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Categoría</th>
+                <th>Rango de Peso (kg)</th>
+                <th class="text-right">Precio por Kg</th>
+                <th class="text-right">Cargo Base</th>
+                <th class="text-right">Ejemplo (1kg)</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tarifa of filteredTarifas" [class.inactive]="!tarifa.activa">
+                <td>
+                  <div class="categoria-cell">
+                    <i class="fas {{ getCategoriaIcon(tarifa.categoria) }}"></i>
+                    <span>{{ getCategoriaLabel(tarifa.categoria) }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="peso-range">
+                    {{ tarifa.peso_minimo }} - {{ tarifa.peso_maximo }} kg
+                  </span>
+                </td>
+                <td class="text-right">
+                  <span class="price-value">${{ tarifa.precio_por_kg | number:'1.2-2' }}</span>
+                </td>
+                <td class="text-right">
+                  <span class="price-value">${{ tarifa.cargo_base | number:'1.2-2' }}</span>
+                </td>
+                <td class="text-right">
+                  <span class="price-value example">
+                    ${{ calcularCostoEjemplo(tarifa, 1) | number:'1.2-2' }}
+                  </span>
+                </td>
+                <td class="text-center">
+                  <span 
+                    class="badge"
+                    [class.badge-success]="tarifa.activa"
+                    [class.badge-secondary]="!tarifa.activa"
+                  >
+                    {{ tarifa.activa ? 'Activa' : 'Inactiva' }}
+                  </span>
+                </td>
+                <td class="text-center">
+                  <div class="action-buttons">
+                    <button 
+                      class="btn-icon btn-toggle"
+                      (click)="toggleActiva(tarifa)"
+                      [title]="tarifa.activa ? 'Desactivar tarifa' : 'Activar tarifa'"
+                      *ngIf="authService.isAdmin() || authService.isGerente()"
+                    >
+                      <i class="fas" [class.fa-toggle-on]="tarifa.activa" [class.fa-toggle-off]="!tarifa.activa"></i>
+                    </button>
+                    <button 
+                      class="btn-icon btn-edit"
+                      (click)="editTarifa(tarifa)"
+                      title="Editar tarifa"
+                      *ngIf="authService.isAdmin() || authService.isGerente()"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button 
+                      class="btn-icon btn-delete"
+                      (click)="deleteTarifa(tarifa)"
+                      title="Eliminar tarifa"
+                      *ngIf="authService.isAdmin() || authService.isGerente()"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="filteredTarifas.length === 0">
+                <td colspan="7" class="no-data">
+                  <i class="fas fa-inbox"></i>
+                  <p>No se encontraron tarifas</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Create/Edit -->
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>
+        <i class="fas fa-dollar-sign"></i>
+        {{ editingTarifa ? 'Editar Tarifa' : 'Nueva Tarifa' }}
+      </h3>
+      <button class="btn-close" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <form [formGroup]="tarifaForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <div class="form-section">
+          <h4 class="section-title">
+            <i class="fas fa-info-circle"></i>
+            Información de la Tarifa
+          </h4>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">
+                Categoría <span class="required">*</span>
+              </label>
+              <select 
+                formControlName="categoria"
+                class="form-control"
+                [class.error]="tarifaForm.get('categoria')?.invalid && tarifaForm.get('categoria')?.touched"
+              >
+                <option value="">Seleccionar categoría</option>
+                <option *ngFor="let cat of categoriasDisponibles" [value]="cat.valor">
+                  {{ cat.etiqueta }}
+                </option>
+              </select>
+              <div class="error-message" *ngIf="tarifaForm.get('categoria')?.invalid && tarifaForm.get('categoria')?.touched">
+                Debe seleccionar una categoría
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">
+                Peso Mínimo (kg) <span class="required">*</span>
+              </label>
+              <input 
+                type="number"
+                formControlName="peso_minimo"
+                class="form-control"
+                min="0.01"
+                step="0.01"
+                placeholder="0.00"
+                [class.error]="tarifaForm.get('peso_minimo')?.invalid && tarifaForm.get('peso_minimo')?.touched"
+              >
+              <div class="error-message" *ngIf="tarifaForm.get('peso_minimo')?.invalid && tarifaForm.get('peso_minimo')?.touched">
+                El peso mínimo es requerido y debe ser mayor a 0
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Peso Máximo (kg) <span class="required">*</span>
+              </label>
+              <input 
+                type="number"
+                formControlName="peso_maximo"
+                class="form-control"
+                min="0.01"
+                step="0.01"
+                placeholder="0.00"
+                [class.error]="tarifaForm.get('peso_maximo')?.invalid && tarifaForm.get('peso_maximo')?.touched"
+              >
+              <div class="error-message" *ngIf="tarifaForm.get('peso_maximo')?.invalid && tarifaForm.get('peso_maximo')?.touched">
+                El peso máximo es requerido y debe ser mayor a 0
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">
+                Precio por Kg ($) <span class="required">*</span>
+              </label>
+              <input 
+                type="number"
+                formControlName="precio_por_kg"
+                class="form-control"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+                [class.error]="tarifaForm.get('precio_por_kg')?.invalid && tarifaForm.get('precio_por_kg')?.touched"
+              >
+              <div class="error-message" *ngIf="tarifaForm.get('precio_por_kg')?.invalid && tarifaForm.get('precio_por_kg')?.touched">
+                El precio por kg es requerido
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Cargo Base ($) <span class="required">*</span>
+              </label>
+              <input 
+                type="number"
+                formControlName="cargo_base"
+                class="form-control"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+                [class.error]="tarifaForm.get('cargo_base')?.invalid && tarifaForm.get('cargo_base')?.touched"
+              >
+              <div class="error-message" *ngIf="tarifaForm.get('cargo_base')?.invalid && tarifaForm.get('cargo_base')?.touched">
+                El cargo base es requerido
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="activa">
+              <span>Tarifa activa</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="submitting">
+          <i class="fas fa-save"></i>
+          {{ submitting ? 'Guardando...' : (editingTarifa ? 'Actualizar' : 'Crear') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

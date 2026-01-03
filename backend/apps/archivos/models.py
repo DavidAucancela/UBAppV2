@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 import json
 
 Usuario = get_user_model()
@@ -49,6 +50,7 @@ class Tarifa(models.Model):
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
     class Meta:
+        db_table = 'tarifa'
         verbose_name = 'Tarifa'
         verbose_name_plural = 'Tarifas'
         ordering = ['categoria', 'peso_minimo']
@@ -66,7 +68,6 @@ class Tarifa(models.Model):
         """Calcula el costo para un peso dado"""
         return float(self.cargo_base) + (float(peso) * float(self.precio_por_kg))
 
-
 class Envio(models.Model):
     """Modelo para gestionar envíos"""
     hawb = models.CharField(max_length=50, unique=True, verbose_name="HAWB")
@@ -80,7 +81,10 @@ class Envio(models.Model):
         verbose_name="Costo del Servicio",
         help_text="Costo calculado automáticamente según tarifas"
     )
-    fecha_emision = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Emisión")
+    fecha_emision = models.DateTimeField(
+        default=timezone.now,
+        verbose_name="Fecha de Emisión"
+    )
     
     # Relación con comprador
     comprador = models.ForeignKey(
@@ -108,6 +112,7 @@ class Envio(models.Model):
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
     class Meta:
+        db_table = 'envio'
         verbose_name = 'Envío'
         verbose_name_plural = 'Envíos'
         ordering = ['-fecha_emision']
@@ -192,6 +197,7 @@ class Producto(models.Model):
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
     class Meta:
+        db_table = 'producto'
         verbose_name = 'Producto'
         verbose_name_plural = 'Productos'
         ordering = ['-fecha_creacion']
@@ -206,7 +212,6 @@ class Producto(models.Model):
         # (evita recursión cuando se actualiza solo costo_envio)
         if not kwargs.get('update_fields'):
             self.envio.calcular_totales()
-
 
 class ImportacionExcel(models.Model):
     """Modelo para gestionar importaciones de archivos Excel"""
@@ -308,9 +313,11 @@ class ImportacionExcel(models.Model):
     )
     
     class Meta:
+        db_table = 'archivo'
         verbose_name = 'Importación de Excel'
         verbose_name_plural = 'Importaciones de Excel'
         ordering = ['-fecha_creacion']
+    
     
     def __str__(self):
         return f"{self.nombre_original} - {self.get_estado_display()} ({self.fecha_creacion.strftime('%d/%m/%Y %H:%M')})"

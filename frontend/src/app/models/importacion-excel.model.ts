@@ -64,6 +64,7 @@ export interface ResultadoValidacion {
 export interface ResultadoProcesamiento {
   mensaje: string;
   estadisticas: EstadisticasImportacion;
+  compradores_pendientes?: CompradorPendiente[];
 }
 
 export interface EstadisticasImportacion {
@@ -92,11 +93,29 @@ export interface CampoDisponible {
   requerido: boolean;
 }
 
+export interface ActualizacionFila {
+  indice: number;
+  valores: { [columna: string]: any };
+}
+
+export interface CompradorPendiente {
+  id: number;
+  username: string;
+  nombre: string;
+  cedula: string;
+  correo?: string;
+  telefono?: string;
+  direccion?: string;
+}
+
 export const CAMPOS_DISPONIBLES: CampoDisponible[] = [
-  { valor: 'hawb', etiqueta: 'HAWB', descripcion: 'Número de guía (obligatorio)', requerido: true },
+  { valor: 'hawb', etiqueta: 'HAWB', descripcion: 'Número de guía (obligatorio, se genera automáticamente si está vacío)', requerido: true },
+  { valor: 'consignatario_nombre', etiqueta: 'Consignatario', descripcion: 'Nombre completo del consignatario', requerido: false },
+  { valor: 'consignatario_identificacion', etiqueta: 'RUC/Cédula', descripcion: 'Documento del consignatario (10, 13 o 14 dígitos)', requerido: false },
   { valor: 'peso_total', etiqueta: 'Peso Total', descripcion: 'Peso total del envío en kg', requerido: false },
   { valor: 'cantidad_total', etiqueta: 'Cantidad Total', descripcion: 'Cantidad total de productos', requerido: false },
   { valor: 'valor_total', etiqueta: 'Valor Total', descripcion: 'Valor total del envío en USD', requerido: false },
+  { valor: 'fecha_emision', etiqueta: 'Fecha de Emisión', descripcion: 'Fecha del documento o factura', requerido: false },
   { valor: 'estado', etiqueta: 'Estado', descripcion: 'Estado del envío (pendiente, en_transito, entregado)', requerido: false },
   { valor: 'observaciones', etiqueta: 'Observaciones', descripcion: 'Notas adicionales del envío', requerido: false },
   { valor: 'descripcion', etiqueta: 'Descripción Producto', descripcion: 'Descripción del producto', requerido: false },
@@ -105,6 +124,8 @@ export const CAMPOS_DISPONIBLES: CampoDisponible[] = [
   { valor: 'valor', etiqueta: 'Valor Producto', descripcion: 'Valor del producto en USD', requerido: false },
   { valor: 'categoria', etiqueta: 'Categoría', descripcion: 'Categoría del producto (electronica, ropa, hogar, deportes, otros)', requerido: false },
 ];
+
+
 
 
 

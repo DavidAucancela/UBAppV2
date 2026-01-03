@@ -13,6 +13,13 @@ class Usuario(AbstractUser):
         (4, 'Comprador'),
     ]
     
+    # Eliminar campos heredados de AbstractUser que no existen en la BD
+    first_name = None
+    last_name = None
+    email = None
+    # Nota: is_active se hereda de AbstractUser y mapea a columna 'is_active' en BD
+    # Usamos propiedad es_activo como alias en español
+    
     # Campos básicos requeridos
     nombre = models.CharField(
         max_length=100,
@@ -67,28 +74,13 @@ class Usuario(AbstractUser):
         verbose_name="Ciudad",
         help_text="Ciudad de residencia del usuario"
     )
-    latitud = models.DecimalField(
-        max_digits=9,
-        decimal_places=6,
-        blank=True,
-        null=True,
-        verbose_name="Latitud",
-        help_text="Coordenada de latitud para ubicación en mapa"
-    )
-    longitud = models.DecimalField(
-        max_digits=9,
-        decimal_places=6,
-        blank=True,
-        null=True,
-        verbose_name="Longitud",
-        help_text="Coordenada de longitud para ubicación en mapa"
-    )
     
-    es_activo = models.BooleanField(default=True)
+    # NO redefinir es_activo como campo - usar propiedad que apunta a is_active heredado
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
     class Meta:
+        db_table = 'usuarios'
         verbose_name = 'Usuario'
         verbose_name_plural = 'Usuarios'
         ordering = ['-fecha_creacion']
@@ -127,6 +119,17 @@ class Usuario(AbstractUser):
     @property
     def es_comprador(self):
         return self.rol == 4
+    
+    # Propiedad es_activo como alias del campo heredado is_active
+    @property
+    def es_activo(self):
+        """Alias en español para is_active (campo heredado de AbstractUser)"""
+        return self.is_active
+    
+    @es_activo.setter
+    def es_activo(self, value):
+        """Setter para es_activo: actualiza is_active"""
+        self.is_active = value
     
     def obtener_peso_usado_anual(self, anio=None):
         """Calcula el peso total de envíos del comprador en un año específico"""

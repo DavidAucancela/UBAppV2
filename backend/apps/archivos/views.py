@@ -1,20 +1,29 @@
-from django.shortcuts import render
+"""
+Views para la app de archivos
+Usan la arquitectura en capas (servicios y repositorios)
+"""
 from rest_framework import viewsets, permissions, status, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from django_filters.rest_framework import DjangoFilterBackend
-from django.db.models import Q
-from django.db import models
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiTypes
 from datetime import datetime
-from django.http import HttpResponse
-import os
+from django.db import models
+
 from .models import Envio, Producto, Tarifa, ImportacionExcel
 from .serializers import (
     EnvioSerializer, EnvioListSerializer, EnvioCreateSerializer,
     ProductoSerializer, ProductoListSerializer, TarifaSerializer,
     ImportacionExcelSerializer, ImportacionExcelCreateSerializer,
     PreviewExcelSerializer, ProcesarExcelSerializer
+)
+from .services import EnvioService, ProductoService, TarifaService
+from .repositories import (
+    envio_repository, 
+    producto_repository, 
+    tarifa_repository,
+    importacion_repository
 )
 from .utils_exportacion import (
     exportar_envios_excel,
@@ -26,16 +35,55 @@ from .utils_importacion import (
     ProcesadorExcel,
     generar_reporte_errores
 )
-from apps.notificaciones.utils import (
-    crear_notificacion_envio_asignado,
-    crear_notificacion_estado_cambiado
+
+
+@extend_schema_view(
+    list=extend_schema(
+        summary="Listar envíos",
+        description="Obtiene la lista de envíos según los permisos del usuario",
+        tags=['envios']
+    ),
+    create=extend_schema(
+        summary="Crear envío",
+        description="""
+        Crea un nuevo envío con productos asociados.
+        
+        **Validaciones:**
+        - HAWB debe ser único
+        - Validación de cupo anual del comprador
+        - Cálculo automático de costo del servicio
+        - Generación automática de embedding para búsqueda semántica
+        """,
+        tags=['envios']
+    ),
+    retrieve=extend_schema(
+        summary="Obtener envío por ID",
+        description="Obtiene los detalles completos de un envío específico",
+        tags=['envios']
+    ),
+    update=extend_schema(
+        summary="Actualizar envío completo",
+        tags=['envios']
+    ),
+    partial_update=extend_schema(
+        summary="Actualizar envío parcialmente",
+        tags=['envios']
+    ),
+    destroy=extend_schema(
+        summary="Eliminar envío",
+        tags=['envios']
+    ),
 )
-from apps.busqueda.utils_embeddings import generar_embedding_envio
-
-# Create your views here.
-
 class EnvioViewSet(viewsets.ModelViewSet):
-    """ViewSet para el modelo Envío"""
+    """
+    ViewSet para gestión de envíos.
+    
+    **Arquitectura**: Usa servicios y repositorios.
+    
+    **Permisos:**
+    - **Admin/Gerente/Digitador**: Pueden ver y gestionar todos los envíos
+    - **Comprador**: Solo puede ver sus propios envíos
+    """
     queryset = Envio.objects.all()
     serializer_class = EnvioSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -46,39 +94,32 @@ class EnvioViewSet(viewsets.ModelViewSet):
     ordering = ['-fecha_emision']
 
     def get_serializer_class(self):
-        """Retorna el serializer apropiado según la acción"""
         if self.action == 'list':
             return EnvioListSerializer
         elif self.action == 'create':
             return EnvioCreateSerializer
         return EnvioSerializer
+
+    def get_queryset(self):
+        """Usa repositorio para filtrar por permisos"""
+        return envio_repository.filtrar_por_permisos_usuario(self.request.user)
     
     def create(self, request, *args, **kwargs):
-        """Crear envío con mejor manejo de errores y generación automática de embedding"""
+        """Crear envío - delegado al servicio"""
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
-            # Retornar errores detallados
             return Response({
                 'error': 'Datos inválidos',
                 'detalles': serializer.errors
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            envio = serializer.save()
-            
-            # Crear notificación cuando se asigna un envío a un comprador
-            if envio.comprador and envio.comprador.es_comprador:
-                crear_notificacion_envio_asignado(envio)
-            
-            # Generar embedding automáticamente para búsqueda semántica
-            try:
-                generar_embedding_envio(envio)
-            except Exception as e_embed:
-                # No fallar la creación si falla el embedding
-                print(f"Advertencia: No se pudo generar embedding para envío {envio.hawb}: {str(e_embed)}")
-            
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+            envio = EnvioService.crear_envio(
+                data=serializer.validated_data,
+                usuario_creador=request.user
+            )
+            response_serializer = EnvioSerializer(envio)
+            return Response(response_serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({
                 'error': 'Error al crear el envío',
@@ -86,78 +127,71 @@ class EnvioViewSet(viewsets.ModelViewSet):
             }, status=status.HTTP_400_BAD_REQUEST)
     
     def update(self, request, *args, **kwargs):
-        """Actualizar envío y crear notificaciones si es necesario"""
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        
-        # Guardar valores anteriores
-        comprador_anterior = instance.comprador
-        estado_anterior = instance.estado
-        
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        
-        envio = serializer.instance
-        
-        # Crear notificación si cambió el comprador
-        if comprador_anterior != envio.comprador:
-            if envio.comprador and envio.comprador.es_comprador:
-                crear_notificacion_envio_asignado(envio)
-        
-        # Crear notificación si cambió el estado
-        if estado_anterior != envio.estado:
-            if envio.comprador and envio.comprador.es_comprador:
-                crear_notificacion_estado_cambiado(envio, estado_anterior)
-        
-        return Response(serializer.data)
+        """Actualizar envío - delegado al servicio"""
+        try:
+            envio = EnvioService.actualizar_envio(
+                envio_id=kwargs.get('pk'),
+                data=request.data,
+                usuario_actual=request.user
+            )
+            serializer = EnvioSerializer(envio)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-    def get_queryset(self):
-        """Filtra el queryset según el usuario y su rol"""
-        user = self.request.user
+    @extend_schema(
+        summary="Cambiar estado de envío",
+        description="""
+        Cambia el estado de un envío aplicando validaciones de transición.
         
-        # Admins y gerentes pueden ver todos los envíos
-        if user.es_admin or user.es_gerente:
-            return Envio.objects.all()
+        **Transiciones válidas:**
+        - `pendiente` → `en_transito` o `cancelado`
+        - `en_transito` → `entregado` o `cancelado`
+        - `entregado` → (estado final)
+        - `cancelado` → (estado final)
         
-        # Digitadores pueden ver todos los envíos
-        if user.es_digitador:
-            return Envio.objects.all()
-        
-        # Compradores solo pueden ver sus propios envíos
-        if user.es_comprador:
-            return Envio.objects.filter(comprador=user)
-        
-        return Envio.objects.none()
-
+        Genera notificación automática al comprador si cambia el estado.
+        """,
+        request={
+            'application/json': {
+                'type': 'object',
+                'properties': {
+                    'estado': {
+                        'type': 'string',
+                        'enum': ['pendiente', 'en_transito', 'entregado', 'cancelado'],
+                        'description': 'Nuevo estado del envío'
+                    }
+                },
+                'required': ['estado']
+            }
+        },
+        tags=['envios'],
+    )
     @action(detail=True, methods=['post'])
     def cambiar_estado(self, request, pk=None):
-        """Cambia el estado del envío"""
-        envio = self.get_object()
+        """Cambia el estado - delegado al servicio"""
         nuevo_estado = request.data.get('estado')
         
-        if nuevo_estado not in dict(Envio._meta.get_field('estado').choices):
-            return Response({'error': 'Estado inválido'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Guardar estado anterior para la notificación
-        estado_anterior = envio.estado
-        
-        envio.estado = nuevo_estado
-        envio.save()
-        
-        # Crear notificación si el estado cambió y hay un comprador asignado
-        if estado_anterior != nuevo_estado and envio.comprador and envio.comprador.es_comprador:
-            crear_notificacion_estado_cambiado(envio, estado_anterior)
-        
-        return Response({'message': f'Estado cambiado a {nuevo_estado}'})
+        try:
+            EnvioService.cambiar_estado(
+                envio_id=pk,
+                nuevo_estado=nuevo_estado,
+                usuario_actual=request.user
+            )
+            return Response({'message': f'Estado cambiado a {nuevo_estado}'})
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=['get'])
     def mis_envios(self, request):
-        """Obtiene solo los envíos del usuario actual (si es comprador)"""
+        """Obtiene envíos del usuario actual"""
         if not request.user.es_comprador:
-            return Response({'error': 'Solo compradores pueden acceder'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {'error': 'Solo compradores pueden acceder'},
+                status=status.HTTP_403_FORBIDDEN
+            )
         
-        envios = self.get_queryset().filter(comprador=request.user)
+        envios = envio_repository.filtrar_por_comprador(request.user.id)
         page = self.paginate_queryset(envios)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
@@ -170,52 +204,47 @@ class EnvioViewSet(viewsets.ModelViewSet):
         """Obtiene envíos filtrados por estado"""
         estado = request.query_params.get('estado')
         if estado:
-            envios = self.get_queryset().filter(estado=estado)
+            envios = envio_repository.filtrar_por_estado(estado, request.user)
             page = self.paginate_queryset(envios)
             if page is not None:
                 serializer = self.get_serializer(page, many=True)
                 return self.get_paginated_response(serializer.data)
             serializer = self.get_serializer(envios, many=True)
             return Response(serializer.data)
-        return Response({'error': 'Parámetro estado requerido'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {'error': 'Parámetro estado requerido'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     @action(detail=False, methods=['get'])
     def estadisticas(self, request):
-        """Obtiene estadísticas de envíos"""
+        """Obtiene estadísticas - usa repositorio"""
         if not (request.user.es_admin or request.user.es_gerente or request.user.es_digitador):
-            return Response({'error': 'No tienes permisos'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {'error': 'No tienes permisos'},
+                status=status.HTTP_403_FORBIDDEN
+            )
         
-        queryset = self.get_queryset()
-        
-        # Estadísticas generales
-        total_envios = queryset.count()
-        envios_pendientes = queryset.filter(estado='pendiente').count()
-        envios_en_transito = queryset.filter(estado='en_transito').count()
-        envios_entregados = queryset.filter(estado='entregado').count()
-        envios_cancelados = queryset.filter(estado='cancelado').count()
-        
-        # Totales
-        total_peso = queryset.aggregate(total=models.Sum('peso_total'))['total'] or 0
-        total_valor = queryset.aggregate(total=models.Sum('valor_total'))['total'] or 0
+        stats = envio_repository.obtener_estadisticas(request.user)
         
         return Response({
-            'total_envios': total_envios,
-            'envios_pendientes': envios_pendientes,
-            'envios_en_transito': envios_en_transito,
-            'envios_entregados': envios_entregados,
-            'total_peso': float(total_peso),
-            'total_valor': float(total_valor),
+            'total_envios': stats['total_envios'],
+            'envios_pendientes': stats['envios_pendientes'],
+            'envios_en_transito': stats['envios_en_transito'],
+            'envios_entregados': stats['envios_entregados'],
+            'total_peso': stats['total_peso'],
+            'total_valor': stats['total_valor'],
             'por_estado': {
-                'Pendiente': envios_pendientes,
-                'En tránsito': envios_en_transito,
-                'Entregado': envios_entregados,
-                'Cancelado': envios_cancelados
+                'Pendiente': stats['envios_pendientes'],
+                'En tránsito': stats['envios_en_transito'],
+                'Entregado': stats['envios_entregados'],
+                'Cancelado': stats['envios_cancelados']
             }
         })
     
     @action(detail=False, methods=['post'])
     def calcular_costo(self, request):
-        """Calcula el costo de envío sin crear el envío"""
+        """Calcula el costo de envío - usa servicio"""
         productos_data = request.data.get('productos', [])
         
         if not productos_data:
@@ -223,36 +252,26 @@ class EnvioViewSet(viewsets.ModelViewSet):
                 'error': 'Se requiere al menos un producto'
             }, status=status.HTTP_400_BAD_REQUEST)
         
-        costo_total = 0
         detalles = []
+        costo_total = 0
         
         for producto in productos_data:
             categoria = producto.get('categoria')
             peso = float(producto.get('peso', 0))
             cantidad = int(producto.get('cantidad', 1))
             
-            # Buscar tarifa aplicable
-            tarifa = Tarifa.objects.filter(
-                categoria=categoria,
-                peso_minimo__lte=peso,
-                peso_maximo__gte=peso,
-                activa=True
-            ).first()
+            resultado = TarifaService.buscar_tarifa(categoria, peso)
             
-            if tarifa:
-                costo_producto = tarifa.calcular_costo(peso) * cantidad
+            if resultado:
+                costo_producto = resultado['costo_calculado'] * cantidad
                 costo_total += costo_producto
                 detalles.append({
                     'descripcion': producto.get('descripcion', 'Producto'),
                     'categoria': categoria,
                     'peso': peso,
                     'cantidad': cantidad,
-                    'costo_unitario': round(tarifa.calcular_costo(peso), 2),
-                    'costo_total': round(costo_producto, 2),
-                    'tarifa': {
-                        'precio_por_kg': float(tarifa.precio_por_kg),
-                        'cargo_base': float(tarifa.cargo_base)
-                    }
+                    'costo_unitario': resultado['costo_calculado'],
+                    'costo_total': round(costo_producto, 2)
                 })
             else:
                 detalles.append({
@@ -262,7 +281,7 @@ class EnvioViewSet(viewsets.ModelViewSet):
                     'cantidad': cantidad,
                     'costo_unitario': 0,
                     'costo_total': 0,
-                    'error': 'No hay tarifa disponible para esta categoría y peso'
+                    'error': 'No hay tarifa disponible'
                 })
         
         return Response({
@@ -270,17 +289,33 @@ class EnvioViewSet(viewsets.ModelViewSet):
             'detalles': detalles
         })
     
+    @extend_schema(
+        summary="Exportar envíos",
+        description="""
+        Exporta los envíos filtrados a diferentes formatos.
+        
+        **Formatos disponibles:**
+        - `excel`: Archivo Excel (.xlsx)
+        - `csv`: Archivo CSV
+        - `pdf`: Documento PDF
+        
+        Los filtros aplicados en la lista se mantienen para la exportación.
+        """,
+        parameters=[
+            OpenApiParameter(
+                name='formato',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                required=True,
+                description='Formato de exportación',
+                enum=['excel', 'csv', 'pdf'],
+            ),
+        ],
+        tags=['envios'],
+    )
     @action(detail=False, methods=['get'])
     def exportar(self, request):
-        """
-        Exporta los envíos filtrados a Excel, CSV o PDF
-        
-        Parámetros de query:
-        - formato: 'excel', 'csv' o 'pdf' (requerido)
-        - Todos los parámetros de filtrado disponibles (hawb, estado, comprador, etc.)
-        
-        Ejemplo: /api/envios/envios/exportar/?formato=excel&estado=pendiente
-        """
+        """Exporta los envíos filtrados a Excel, CSV o PDF"""
         formato = request.query_params.get('formato', '').lower()
         
         if formato not in ['excel', 'csv', 'pdf']:
@@ -288,29 +323,22 @@ class EnvioViewSet(viewsets.ModelViewSet):
                 'error': 'Formato inválido. Use: excel, csv o pdf'
             }, status=status.HTTP_400_BAD_REQUEST)
         
-        # Obtener queryset filtrado (usa los mismos filtros que list)
         queryset = self.filter_queryset(self.get_queryset())
         
-        # Verificar que haya resultados
         if not queryset.exists():
             return Response({
                 'error': 'No hay envíos para exportar con los filtros aplicados'
             }, status=status.HTTP_404_NOT_FOUND)
         
-        # Generar nombre de archivo con timestamp
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         
-        # Exportar según el formato solicitado
         try:
             if formato == 'excel':
-                filename = f'envios_{timestamp}.xlsx'
-                return exportar_envios_excel(queryset, filename)
+                return exportar_envios_excel(queryset, f'envios_{timestamp}.xlsx')
             elif formato == 'csv':
-                filename = f'envios_{timestamp}.csv'
-                return exportar_envios_csv(queryset, filename)
+                return exportar_envios_csv(queryset, f'envios_{timestamp}.csv')
             elif formato == 'pdf':
-                filename = f'envios_{timestamp}.pdf'
-                return exportar_envios_pdf(queryset, filename)
+                return exportar_envios_pdf(queryset, f'envios_{timestamp}.pdf')
         except Exception as e:
             return Response({
                 'error': f'Error al generar el archivo: {str(e)}'
@@ -318,11 +346,7 @@ class EnvioViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['get'])
     def comprobante(self, request, pk=None):
-        """
-        Genera y descarga el comprobante de un envío específico en PDF
-        
-        Ejemplo: /api/envios/envios/123/comprobante/
-        """
+        """Genera comprobante de un envío"""
         try:
             envio = self.get_object()
             filename = f'comprobante_{envio.hawb}.pdf'
@@ -336,8 +360,9 @@ class EnvioViewSet(viewsets.ModelViewSet):
                 'error': f'Error al generar el comprobante: {str(e)}'
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 class ProductoViewSet(viewsets.ModelViewSet):
-    """ViewSet para el modelo Producto"""
+    """ViewSet para Producto - usa servicios y repositorios"""
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -348,68 +373,46 @@ class ProductoViewSet(viewsets.ModelViewSet):
     ordering = ['-fecha_creacion']
 
     def get_serializer_class(self):
-        """Retorna el serializer apropiado según la acción"""
         if self.action == 'list':
             return ProductoListSerializer
         return ProductoSerializer
 
     def get_queryset(self):
-        """Filtra el queryset según el usuario y su rol"""
-        user = self.request.user
-        
-        # Admins, gerentes y digitadores pueden ver todos los productos
-        if user.es_admin or user.es_gerente or user.es_digitador:
-            return Producto.objects.all()
-        
-        # Compradores solo pueden ver productos de sus envíos
-        if user.es_comprador:
-            return Producto.objects.filter(envio__comprador=user)
-        
-        return Producto.objects.none()
+        """Usa repositorio para filtrar por permisos"""
+        return producto_repository.filtrar_por_permisos_usuario(self.request.user)
 
     @action(detail=False, methods=['get'])
     def por_categoria(self, request):
-        """Obtiene productos filtrados por categoría"""
+        """Obtiene productos por categoría"""
         categoria = request.query_params.get('categoria')
         if categoria:
-            productos = self.get_queryset().filter(categoria=categoria)
+            productos = producto_repository.filtrar_por_categoria(categoria, request.user)
             page = self.paginate_queryset(productos)
             if page is not None:
                 serializer = self.get_serializer(page, many=True)
                 return self.get_paginated_response(serializer.data)
             serializer = self.get_serializer(productos, many=True)
             return Response(serializer.data)
-        return Response({'error': 'Parámetro categoria requerido'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {'error': 'Parámetro categoria requerido'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     @action(detail=False, methods=['get'])
     def estadisticas(self, request):
-        """Obtiene estadísticas de productos"""
+        """Obtiene estadísticas - usa repositorio"""
         if not (request.user.es_admin or request.user.es_gerente or request.user.es_digitador):
-            return Response({'error': 'No tienes permisos'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {'error': 'No tienes permisos'},
+                status=status.HTTP_403_FORBIDDEN
+            )
         
-        queryset = self.get_queryset()
-        
-        # Estadísticas por categoría
-        stats_por_categoria = {}
-        for categoria_id, categoria_nombre in Producto._meta.get_field('categoria').choices:
-            count = queryset.filter(categoria=categoria_id).count()
-            if count > 0:
-                stats_por_categoria[categoria_nombre] = count
-        
-        # Totales
-        total_productos = queryset.count()
-        total_peso = queryset.aggregate(total=models.Sum('peso'))['total'] or 0
-        total_valor = queryset.aggregate(total=models.Sum('valor'))['total'] or 0
-        
-        return Response({
-            'total_productos': total_productos,
-            'total_peso': float(total_peso),
-            'total_valor': float(total_valor),
-            'por_categoria': stats_por_categoria
-        })
+        stats = producto_repository.obtener_estadisticas(request.user)
+        return Response(stats)
+
 
 class TarifaViewSet(viewsets.ModelViewSet):
-    """ViewSet para el modelo Tarifa"""
+    """ViewSet para Tarifa"""
     queryset = Tarifa.objects.all()
     serializer_class = TarifaSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -420,17 +423,20 @@ class TarifaViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def por_categoria(self, request):
-        """Obtiene tarifas activas de una categoría específica"""
+        """Obtiene tarifas de una categoría - usa repositorio"""
         categoria = request.query_params.get('categoria')
         if categoria:
-            tarifas = Tarifa.objects.filter(categoria=categoria, activa=True).order_by('peso_minimo')
+            tarifas = tarifa_repository.obtener_tarifas_por_categoria(categoria)
             serializer = self.get_serializer(tarifas, many=True)
             return Response(serializer.data)
-        return Response({'error': 'Parámetro categoria requerido'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {'error': 'Parámetro categoria requerido'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
     
     @action(detail=False, methods=['post'])
     def buscar_tarifa(self, request):
-        """Busca la tarifa aplicable para una categoría y peso específico"""
+        """Busca tarifa aplicable - usa servicio"""
         categoria = request.data.get('categoria')
         peso = request.data.get('peso')
         
@@ -446,28 +452,22 @@ class TarifaViewSet(viewsets.ModelViewSet):
                 'error': 'El peso debe ser un número válido'
             }, status=status.HTTP_400_BAD_REQUEST)
         
-        tarifa = Tarifa.objects.filter(
-            categoria=categoria,
-            peso_minimo__lte=peso,
-            peso_maximo__gte=peso,
-            activa=True
-        ).first()
+        resultado = TarifaService.buscar_tarifa(categoria, peso)
         
-        if tarifa:
-            serializer = self.get_serializer(tarifa)
-            costo = tarifa.calcular_costo(peso)
+        if resultado:
+            serializer = TarifaSerializer(resultado['tarifa'])
             return Response({
                 'tarifa': serializer.data,
-                'costo_calculado': round(costo, 2)
+                'costo_calculado': resultado['costo_calculado']
             })
         else:
             return Response({
-                'error': f'No se encontró tarifa activa para {categoria} con peso {peso}kg',
-                'sugerencia': 'Verifique las tarifas disponibles o contacte al administrador'
+                'error': f'No se encontró tarifa activa para {categoria} con peso {peso}kg'
             }, status=status.HTTP_404_NOT_FOUND)
 
+
 class ImportacionExcelViewSet(viewsets.ModelViewSet):
-    """ViewSet para gestionar importaciones de archivos Excel"""
+    """ViewSet para importaciones de Excel"""
     queryset = ImportacionExcel.objects.all()
     serializer_class = ImportacionExcelSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -478,31 +478,16 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
     ordering = ['-fecha_creacion']
     
     def get_queryset(self):
-        """Filtra las importaciones según el usuario y rol"""
-        user = self.request.user
-        
-        # Admins y gerentes pueden ver todas las importaciones
-        if user.es_admin or user.es_gerente:
-            return ImportacionExcel.objects.all()
-        
-        # Digitadores y compradores solo ven sus propias importaciones
-        return ImportacionExcel.objects.filter(usuario=user)
+        """Usa repositorio para filtrar por permisos"""
+        return importacion_repository.filtrar_por_permisos_usuario(self.request.user)
     
     def get_serializer_class(self):
-        """Retorna el serializer apropiado según la acción"""
         if self.action == 'create':
             return ImportacionExcelCreateSerializer
         return ImportacionExcelSerializer
     
     def create(self, request, *args, **kwargs):
-        """
-        Sube un archivo Excel y crea una importación
-        
-        POST /api/importaciones-excel/
-        Body (multipart/form-data):
-            - archivo: archivo Excel (.xlsx o .xls)
-            - nombre_original: nombre del archivo (opcional)
-        """
+        """Sube archivo Excel y crea importación"""
         serializer = self.get_serializer(data=request.data)
         
         if not serializer.is_valid():
@@ -512,10 +497,8 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            # Crear la importación
             importacion = serializer.save(usuario=request.user)
             
-            # Procesar el archivo para obtener preview
             procesador = ProcesadorExcel(importacion.archivo.path)
             exito, mensaje = procesador.leer_archivo()
             
@@ -523,15 +506,11 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
                 importacion.estado = 'error'
                 importacion.mensaje_resultado = mensaje
                 importacion.save()
-                return Response({
-                    'error': mensaje
-                }, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': mensaje}, status=status.HTTP_400_BAD_REQUEST)
             
-            # Actualizar estado
             importacion.estado = 'validando'
             importacion.save()
             
-            # Retornar la importación creada
             response_serializer = ImportacionExcelSerializer(importacion)
             return Response(response_serializer.data, status=status.HTTP_201_CREATED)
             
@@ -542,37 +521,25 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['get'])
     def preview(self, request, pk=None):
-        """
-        Obtiene una vista previa de los datos del archivo Excel
-        
-        GET /api/importaciones-excel/{id}/preview/
-        Query params:
-            - limite: número máximo de filas a retornar (default: 50)
-        """
+        """Obtiene vista previa de los datos"""
         try:
             importacion = self.get_object()
             limite = int(request.query_params.get('limite', 50))
             
-            # Procesar el archivo
             procesador = ProcesadorExcel(importacion.archivo.path)
             exito, mensaje = procesador.leer_archivo()
             
             if not exito:
-                return Response({
-                    'error': mensaje
-                }, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': mensaje}, status=status.HTTP_400_BAD_REQUEST)
             
-            # Obtener preview
             preview_data = procesador.obtener_preview(limite=limite)
             
-            # Detectar duplicados si existe columna HAWB
             columnas = preview_data['columnas']
             if 'HAWB' in columnas or 'hawb' in columnas:
                 columna_hawb = 'HAWB' if 'HAWB' in columnas else 'hawb'
                 duplicados = procesador.detectar_duplicados(columna_hawb)
                 preview_data['duplicados'] = duplicados
                 
-                # Actualizar estadísticas
                 importacion.registros_duplicados = len(set(duplicados))
                 importacion.save()
             
@@ -585,26 +552,7 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['post'])
     def validar(self, request, pk=None):
-        """
-        Valida los datos del archivo Excel según el mapeo de columnas
-        
-        POST /api/importaciones-excel/{id}/validar/
-        Body:
-            {
-                "columnas_mapeadas": {
-                    "HAWB": "hawb",
-                    "Peso Total": "peso_total",
-                    "Cantidad": "cantidad_total",
-                    "Valor": "valor_total",
-                    "Estado": "estado",
-                    "Descripción": "descripcion",
-                    "Peso": "peso",
-                    "Cantidad Producto": "cantidad",
-                    "Valor Producto": "valor",
-                    "Categoría": "categoria"
-                }
-            }
-        """
+        """Valida los datos del archivo Excel"""
         try:
             importacion = self.get_object()
             mapeo_columnas = request.data.get('columnas_mapeadas', {})
@@ -614,24 +562,18 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
                     'error': 'El mapeo de columnas es requerido'
                 }, status=status.HTTP_400_BAD_REQUEST)
             
-            # Guardar el mapeo
             importacion.columnas_mapeadas = mapeo_columnas
             importacion.estado = 'validando'
             importacion.save()
             
-            # Procesar el archivo
             procesador = ProcesadorExcel(importacion.archivo.path)
             exito, mensaje = procesador.leer_archivo()
             
             if not exito:
-                return Response({
-                    'error': mensaje
-                }, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': mensaje}, status=status.HTTP_400_BAD_REQUEST)
             
-            # Validar datos
             resultado_validacion = procesador.validar_datos(mapeo_columnas)
             
-            # Actualizar estadísticas
             errores_dict = {}
             for error in resultado_validacion.get('errores', []):
                 fila_key = f"fila_{error['fila']}"
@@ -666,11 +608,8 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
                 importacion.estado = 'error'
                 importacion.mensaje_resultado = f'Error en validación: {str(e)}'
                 importacion.save()
-            except:
+            except Exception:
                 pass
-            
-            import traceback
-            traceback.print_exc()
             
             return Response({
                 'error': f'Error al validar: {str(e)}'
@@ -678,20 +617,10 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['post'])
     def procesar(self, request, pk=None):
-        """
-        Procesa e importa los datos del archivo Excel a la base de datos
-        
-        POST /api/importaciones-excel/{id}/procesar/
-        Body:
-            {
-                "registros_seleccionados": [0, 1, 2, 3],  // opcional, vacío = todos
-                "comprador_id": 123  // ID del comprador para asignar a los envíos
-            }
-        """
+        """Procesa e importa los datos del archivo Excel"""
         try:
             importacion = self.get_object()
             
-            # Validar que esté en estado correcto
             if importacion.estado not in ['validado', 'error']:
                 return Response({
                     'error': 'La importación debe estar validada antes de procesar'
@@ -699,52 +628,55 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
             
             registros_seleccionados = request.data.get('registros_seleccionados', None)
             comprador_id = request.data.get('comprador_id')
+            datos_actualizados = request.data.get('datos_actualizados', None)
             
-            if not comprador_id:
+            if datos_actualizados and not isinstance(datos_actualizados, list):
                 return Response({
-                    'error': 'El ID del comprador es requerido'
+                    'error': 'El formato de datos_actualizados es inválido'
                 }, status=status.HTTP_400_BAD_REQUEST)
             
-            # Guardar registros seleccionados
             if registros_seleccionados:
                 importacion.registros_seleccionados = registros_seleccionados
                 importacion.save()
             
-            # Procesar el archivo
             procesador = ProcesadorExcel(importacion.archivo.path)
             exito, mensaje = procesador.leer_archivo()
             
             if not exito:
-                return Response({
-                    'error': mensaje
-                }, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': mensaje}, status=status.HTTP_400_BAD_REQUEST)
             
-            # Importar datos
-            exito, mensaje = procesador.procesar_e_importar(
+            exito, mensaje, extras = procesador.procesar_e_importar(
                 importacion=importacion,
                 mapeo_columnas=importacion.columnas_mapeadas,
                 indices_seleccionados=registros_seleccionados,
-                comprador_id=comprador_id
+                comprador_id=comprador_id,
+                actualizaciones=datos_actualizados
             )
             
             if exito:
-                return Response({
+                respuesta = {
                     'mensaje': mensaje,
                     'estadisticas': {
                         'total_registros': importacion.total_registros,
                         'registros_procesados': importacion.registros_procesados,
                         'registros_errores': importacion.registros_errores
                     }
-                })
+                }
+                if extras:
+                    respuesta.update(extras)
+                return Response(respuesta)
             else:
-                return Response({
+                respuesta = {
                     'error': mensaje,
                     'estadisticas': {
                         'total_registros': importacion.total_registros,
                         'registros_procesados': importacion.registros_procesados,
                         'registros_errores': importacion.registros_errores
                     }
-                }, status=status.HTTP_400_BAD_REQUEST)
+                }
+                if extras:
+                    respuesta.update(extras)
+                return Response(respuesta, status=status.HTTP_400_BAD_REQUEST)
             
         except Exception as e:
             return Response({
@@ -753,17 +685,11 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['get'])
     def reporte_errores(self, request, pk=None):
-        """
-        Genera y descarga un reporte de errores de la importación
-        
-        GET /api/importaciones-excel/{id}/reporte_errores/
-        """
+        """Genera reporte de errores de la importación"""
         try:
             importacion = self.get_object()
             reporte = generar_reporte_errores(importacion)
-            
             return Response(reporte)
-            
         except Exception as e:
             return Response({
                 'error': f'Error al generar reporte: {str(e)}'
@@ -771,26 +697,6 @@ class ImportacionExcelViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['get'])
     def estadisticas(self, request):
-        """
-        Obtiene estadísticas generales de las importaciones
-        
-        GET /api/importaciones-excel/estadisticas/
-        """
-        queryset = self.get_queryset()
-        
-        total_importaciones = queryset.count()
-        importaciones_completadas = queryset.filter(estado='completado').count()
-        importaciones_error = queryset.filter(estado='error').count()
-        importaciones_pendientes = queryset.filter(estado__in=['pendiente', 'validando', 'validado', 'procesando']).count()
-        
-        total_registros_procesados = sum(imp.registros_procesados for imp in queryset)
-        total_registros_error = sum(imp.registros_errores for imp in queryset)
-        
-        return Response({
-            'total_importaciones': total_importaciones,
-            'importaciones_completadas': importaciones_completadas,
-            'importaciones_error': importaciones_error,
-            'importaciones_pendientes': importaciones_pendientes,
-            'total_registros_procesados': total_registros_procesados,
-            'total_registros_error': total_registros_error
-        })
+        """Obtiene estadísticas de importaciones"""
+        stats = importacion_repository.obtener_estadisticas()
+        return Response(stats)

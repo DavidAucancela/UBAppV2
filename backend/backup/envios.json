@@ -1,0 +1,3657 @@
+[
+{
+  "model": "archivos.envio",
+  "pk": 350,
+  "fields": {
+    "hawb": "HAW000213",
+    "peso_total": "9.90",
+    "cantidad_total": 1,
+    "valor_total": "260.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:56.132Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "Frágil",
+    "fecha_creacion": "2025-11-29T08:48:56.132Z",
+    "fecha_actualizacion": "2025-11-29T08:48:58.123Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 349,
+  "fields": {
+    "hawb": "HAW000212",
+    "peso_total": "0.30",
+    "cantidad_total": 2,
+    "valor_total": "17.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:53.453Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:53.453Z",
+    "fecha_actualizacion": "2025-11-29T08:48:55.406Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 348,
+  "fields": {
+    "hawb": "HAW000211",
+    "peso_total": "5.60",
+    "cantidad_total": 1,
+    "valor_total": "140.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:50.604Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:50.604Z",
+    "fecha_actualizacion": "2025-11-29T08:48:52.660Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 347,
+  "fields": {
+    "hawb": "HAW000210",
+    "peso_total": "0.70",
+    "cantidad_total": 3,
+    "valor_total": "54.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:47.996Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:47.997Z",
+    "fecha_actualizacion": "2025-11-29T08:48:49.893Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 346,
+  "fields": {
+    "hawb": "HAW000209",
+    "peso_total": "10.70",
+    "cantidad_total": 1,
+    "valor_total": "290.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:45.161Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:45.161Z",
+    "fecha_actualizacion": "2025-11-29T08:48:47.204Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 345,
+  "fields": {
+    "hawb": "HAW000208",
+    "peso_total": "0.85",
+    "cantidad_total": 1,
+    "valor_total": "22.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:42.294Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:42.294Z",
+    "fecha_actualizacion": "2025-11-29T08:48:44.364Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 344,
+  "fields": {
+    "hawb": "HAW000207",
+    "peso_total": "3.50",
+    "cantidad_total": 1,
+    "valor_total": "88.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:39.433Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:39.433Z",
+    "fecha_actualizacion": "2025-11-29T08:48:41.483Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 343,
+  "fields": {
+    "hawb": "HAW000206",
+    "peso_total": "3.50",
+    "cantidad_total": 2,
+    "valor_total": "160.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:36.672Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:36.673Z",
+    "fecha_actualizacion": "2025-11-29T08:48:38.673Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 342,
+  "fields": {
+    "hawb": "HAW000205",
+    "peso_total": "0.65",
+    "cantidad_total": 2,
+    "valor_total": "36.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:33.814Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:33.814Z",
+    "fecha_actualizacion": "2025-11-29T08:48:35.893Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 341,
+  "fields": {
+    "hawb": "HAW000204",
+    "peso_total": "4.40",
+    "cantidad_total": 1,
+    "valor_total": "112.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:31.024Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:31.024Z",
+    "fecha_actualizacion": "2025-11-29T08:48:32.984Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 340,
+  "fields": {
+    "hawb": "HAW000203",
+    "peso_total": "0.95",
+    "cantidad_total": 1,
+    "valor_total": "18.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:28.266Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:28.266Z",
+    "fecha_actualizacion": "2025-11-29T08:48:30.263Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 339,
+  "fields": {
+    "hawb": "HAW000202",
+    "peso_total": "6.60",
+    "cantidad_total": 1,
+    "valor_total": "170.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:25.451Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:25.451Z",
+    "fecha_actualizacion": "2025-11-29T08:48:27.471Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 338,
+  "fields": {
+    "hawb": "HAW000201",
+    "peso_total": "1.25",
+    "cantidad_total": 2,
+    "valor_total": "68.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:22.759Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:22.760Z",
+    "fecha_actualizacion": "2025-11-29T08:48:24.750Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 337,
+  "fields": {
+    "hawb": "HAW000200",
+    "peso_total": "8.40",
+    "cantidad_total": 1,
+    "valor_total": "220.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:20.096Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:20.096Z",
+    "fecha_actualizacion": "2025-11-29T08:48:22.075Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 336,
+  "fields": {
+    "hawb": "HAW000199",
+    "peso_total": "0.40",
+    "cantidad_total": 3,
+    "valor_total": "33.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:17.434Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:17.434Z",
+    "fecha_actualizacion": "2025-11-29T08:48:19.403Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 335,
+  "fields": {
+    "hawb": "HAW000198",
+    "peso_total": "3.10",
+    "cantidad_total": 1,
+    "valor_total": "82.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:14.604Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:14.604Z",
+    "fecha_actualizacion": "2025-11-29T08:48:16.643Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 334,
+  "fields": {
+    "hawb": "HAW000197",
+    "peso_total": "3.75",
+    "cantidad_total": 2,
+    "valor_total": "175.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:11.894Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:11.894Z",
+    "fecha_actualizacion": "2025-11-29T08:48:13.923Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 333,
+  "fields": {
+    "hawb": "HAW000196",
+    "peso_total": "0.40",
+    "cantidad_total": 1,
+    "valor_total": "10.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:09.056Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:09.056Z",
+    "fecha_actualizacion": "2025-11-29T08:48:11.214Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 332,
+  "fields": {
+    "hawb": "HAW000195",
+    "peso_total": "5.90",
+    "cantidad_total": 1,
+    "valor_total": "165.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:06.354Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:06.354Z",
+    "fecha_actualizacion": "2025-11-29T08:48:08.398Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 331,
+  "fields": {
+    "hawb": "HAW000194",
+    "peso_total": "2.80",
+    "cantidad_total": 1,
+    "valor_total": "72.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:48:02.624Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:48:02.624Z",
+    "fecha_actualizacion": "2025-11-29T08:48:05.641Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 330,
+  "fields": {
+    "hawb": "HAW000193",
+    "peso_total": "9.10",
+    "cantidad_total": 1,
+    "valor_total": "240.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:59.927Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:59.927Z",
+    "fecha_actualizacion": "2025-11-29T08:48:01.909Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 329,
+  "fields": {
+    "hawb": "HAW000192",
+    "peso_total": "0.33",
+    "cantidad_total": 2,
+    "valor_total": "16.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:57.173Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:57.173Z",
+    "fecha_actualizacion": "2025-11-29T08:47:59.196Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 328,
+  "fields": {
+    "hawb": "HAW000191",
+    "peso_total": "4.60",
+    "cantidad_total": 1,
+    "valor_total": "115.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:54.381Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:54.381Z",
+    "fecha_actualizacion": "2025-11-29T08:47:56.463Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 327,
+  "fields": {
+    "hawb": "HAW000190",
+    "peso_total": "0.60",
+    "cantidad_total": 3,
+    "valor_total": "48.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:51.664Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:51.664Z",
+    "fecha_actualizacion": "2025-11-29T08:47:53.670Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 326,
+  "fields": {
+    "hawb": "HAW000189",
+    "peso_total": "12.90",
+    "cantidad_total": 1,
+    "valor_total": "350.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:48.904Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "Frágil",
+    "fecha_creacion": "2025-11-29T08:47:48.904Z",
+    "fecha_actualizacion": "2025-11-29T08:47:50.910Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 325,
+  "fields": {
+    "hawb": "HAW000188",
+    "peso_total": "1.95",
+    "cantidad_total": 2,
+    "valor_total": "98.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:46.194Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:46.194Z",
+    "fecha_actualizacion": "2025-11-29T08:47:48.147Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 324,
+  "fields": {
+    "hawb": "HAW000187",
+    "peso_total": "0.50",
+    "cantidad_total": 1,
+    "valor_total": "14.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:43.562Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:43.563Z",
+    "fecha_actualizacion": "2025-11-29T08:47:45.473Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 323,
+  "fields": {
+    "hawb": "HAW000186",
+    "peso_total": "6.00",
+    "cantidad_total": 1,
+    "valor_total": "155.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:40.775Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:40.775Z",
+    "fecha_actualizacion": "2025-11-29T08:47:42.814Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 322,
+  "fields": {
+    "hawb": "HAW000185",
+    "peso_total": "0.50",
+    "cantidad_total": 2,
+    "valor_total": "25.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:38.054Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:38.054Z",
+    "fecha_actualizacion": "2025-11-29T08:47:40.054Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 321,
+  "fields": {
+    "hawb": "HAW000184",
+    "peso_total": "5.10",
+    "cantidad_total": 1,
+    "valor_total": "130.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:35.334Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:35.334Z",
+    "fecha_actualizacion": "2025-11-29T08:47:37.315Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 320,
+  "fields": {
+    "hawb": "HAW000183",
+    "peso_total": "1.15",
+    "cantidad_total": 2,
+    "valor_total": "60.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:32.573Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:32.573Z",
+    "fecha_actualizacion": "2025-11-29T08:47:34.524Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 319,
+  "fields": {
+    "hawb": "HAW000182",
+    "peso_total": "3.40",
+    "cantidad_total": 1,
+    "valor_total": "85.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:29.803Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:29.803Z",
+    "fecha_actualizacion": "2025-11-29T08:47:31.794Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 318,
+  "fields": {
+    "hawb": "HAW000181",
+    "peso_total": "7.90",
+    "cantidad_total": 1,
+    "valor_total": "195.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:27.034Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:27.034Z",
+    "fecha_actualizacion": "2025-11-29T08:47:29.047Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 317,
+  "fields": {
+    "hawb": "HAW000180",
+    "peso_total": "0.25",
+    "cantidad_total": 3,
+    "valor_total": "21.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:24.283Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:24.284Z",
+    "fecha_actualizacion": "2025-11-29T08:47:26.324Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 316,
+  "fields": {
+    "hawb": "HAW000179",
+    "peso_total": "4.50",
+    "cantidad_total": 1,
+    "valor_total": "120.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:21.505Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:21.506Z",
+    "fecha_actualizacion": "2025-11-29T08:47:23.514Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 315,
+  "fields": {
+    "hawb": "HAW000178",
+    "peso_total": "0.80",
+    "cantidad_total": 2,
+    "valor_total": "50.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:18.664Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:18.664Z",
+    "fecha_actualizacion": "2025-11-29T08:47:20.796Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 314,
+  "fields": {
+    "hawb": "HAW000177",
+    "peso_total": "8.20",
+    "cantidad_total": 1,
+    "valor_total": "210.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:16.000Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:16.003Z",
+    "fecha_actualizacion": "2025-11-29T08:47:17.984Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 313,
+  "fields": {
+    "hawb": "HAW000176",
+    "peso_total": "2.00",
+    "cantidad_total": 1,
+    "valor_total": "40.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:13.234Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:13.235Z",
+    "fecha_actualizacion": "2025-11-29T08:47:15.273Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 312,
+  "fields": {
+    "hawb": "HAW000175",
+    "peso_total": "2.70",
+    "cantidad_total": 2,
+    "valor_total": "135.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:10.390Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:10.391Z",
+    "fecha_actualizacion": "2025-11-29T08:47:12.505Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 311,
+  "fields": {
+    "hawb": "HAW000174",
+    "peso_total": "0.60",
+    "cantidad_total": 1,
+    "valor_total": "15.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:07.611Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:07.611Z",
+    "fecha_actualizacion": "2025-11-29T08:47:09.570Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 310,
+  "fields": {
+    "hawb": "HAW000173",
+    "peso_total": "3.70",
+    "cantidad_total": 1,
+    "valor_total": "95.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:04.816Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:04.816Z",
+    "fecha_actualizacion": "2025-11-29T08:47:06.819Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 309,
+  "fields": {
+    "hawb": "HAW000172",
+    "peso_total": "3.40",
+    "cantidad_total": 2,
+    "valor_total": "150.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:47:02.015Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:47:02.016Z",
+    "fecha_actualizacion": "2025-11-29T08:47:04.100Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 308,
+  "fields": {
+    "hawb": "HAW000171",
+    "peso_total": "0.28",
+    "cantidad_total": 4,
+    "valor_total": "32.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:58.985Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:58.985Z",
+    "fecha_actualizacion": "2025-11-29T08:47:01.283Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 307,
+  "fields": {
+    "hawb": "HAW000170",
+    "peso_total": "10.50",
+    "cantidad_total": 1,
+    "valor_total": "280.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:56.170Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:56.170Z",
+    "fecha_actualizacion": "2025-11-29T08:46:58.163Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 306,
+  "fields": {
+    "hawb": "HAW000169",
+    "peso_total": "0.90",
+    "cantidad_total": 1,
+    "valor_total": "20.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:53.041Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:53.043Z",
+    "fecha_actualizacion": "2025-11-29T08:46:55.006Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 305,
+  "fields": {
+    "hawb": "HAW000168",
+    "peso_total": "4.20",
+    "cantidad_total": 1,
+    "valor_total": "105.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:50.313Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:50.313Z",
+    "fecha_actualizacion": "2025-11-29T08:46:52.280Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 304,
+  "fields": {
+    "hawb": "HAW000167",
+    "peso_total": "0.47",
+    "cantidad_total": 3,
+    "valor_total": "45.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:47.431Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:47.433Z",
+    "fecha_actualizacion": "2025-11-29T08:46:49.514Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 303,
+  "fields": {
+    "hawb": "HAW000166",
+    "peso_total": "7.70",
+    "cantidad_total": 1,
+    "valor_total": "190.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:43.662Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:43.662Z",
+    "fecha_actualizacion": "2025-11-29T08:46:46.604Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 302,
+  "fields": {
+    "hawb": "HAW000165",
+    "peso_total": "0.35",
+    "cantidad_total": 2,
+    "valor_total": "18.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:40.703Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:40.703Z",
+    "fecha_actualizacion": "2025-11-29T08:46:42.834Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 301,
+  "fields": {
+    "hawb": "HAW000164",
+    "peso_total": "2.20",
+    "cantidad_total": 1,
+    "valor_total": "65.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:37.678Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:37.678Z",
+    "fecha_actualizacion": "2025-11-29T08:46:39.846Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 300,
+  "fields": {
+    "hawb": "HAW000163",
+    "peso_total": "1.50",
+    "cantidad_total": 2,
+    "valor_total": "85.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:33.773Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:33.773Z",
+    "fecha_actualizacion": "2025-11-29T08:46:36.071Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 299,
+  "fields": {
+    "hawb": "HAW000162",
+    "peso_total": "0.55",
+    "cantidad_total": 1,
+    "valor_total": "14.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:30.944Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:30.944Z",
+    "fecha_actualizacion": "2025-11-29T08:46:33.030Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 298,
+  "fields": {
+    "hawb": "HAW000161",
+    "peso_total": "9.30",
+    "cantidad_total": 1,
+    "valor_total": "240.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:28.304Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:28.304Z",
+    "fecha_actualizacion": "2025-11-29T08:46:30.259Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 297,
+  "fields": {
+    "hawb": "HAW000160",
+    "peso_total": "4.10",
+    "cantidad_total": 1,
+    "valor_total": "110.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:24.798Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:24.798Z",
+    "fecha_actualizacion": "2025-11-29T08:46:27.436Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 296,
+  "fields": {
+    "hawb": "HAW000159",
+    "peso_total": "0.63",
+    "cantidad_total": 3,
+    "valor_total": "60.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:21.970Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:21.970Z",
+    "fecha_actualizacion": "2025-11-29T08:46:23.966Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 295,
+  "fields": {
+    "hawb": "HAW000158",
+    "peso_total": "6.30",
+    "cantidad_total": 1,
+    "valor_total": "160.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:19.182Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:19.182Z",
+    "fecha_actualizacion": "2025-11-29T08:46:21.238Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 294,
+  "fields": {
+    "hawb": "HAW000157",
+    "peso_total": "0.40",
+    "cantidad_total": 1,
+    "valor_total": "12.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:15.773Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:15.773Z",
+    "fecha_actualizacion": "2025-11-29T08:46:18.382Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 293,
+  "fields": {
+    "hawb": "HAW000156",
+    "peso_total": "2.85",
+    "cantidad_total": 2,
+    "valor_total": "145.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:12.585Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:12.585Z",
+    "fecha_actualizacion": "2025-11-29T08:46:14.975Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 292,
+  "fields": {
+    "hawb": "HAW000155",
+    "peso_total": "1.00",
+    "cantidad_total": 1,
+    "valor_total": "25.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:09.831Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:09.831Z",
+    "fecha_actualizacion": "2025-11-29T08:46:11.874Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 291,
+  "fields": {
+    "hawb": "HAW000154",
+    "peso_total": "1.30",
+    "cantidad_total": 2,
+    "valor_total": "70.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:07.081Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:07.081Z",
+    "fecha_actualizacion": "2025-11-29T08:46:09.113Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 290,
+  "fields": {
+    "hawb": "HAW000153",
+    "peso_total": "8.80",
+    "cantidad_total": 1,
+    "valor_total": "210.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:03.803Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:03.803Z",
+    "fecha_actualizacion": "2025-11-29T08:46:06.350Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 289,
+  "fields": {
+    "hawb": "HAW000152",
+    "peso_total": "0.23",
+    "cantidad_total": 2,
+    "valor_total": "14.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:46:00.975Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:46:00.975Z",
+    "fecha_actualizacion": "2025-11-29T08:46:03.117Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 288,
+  "fields": {
+    "hawb": "HAW000151",
+    "peso_total": "3.90",
+    "cantidad_total": 1,
+    "valor_total": "95.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:58.258Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:58.258Z",
+    "fecha_actualizacion": "2025-11-29T08:46:00.261Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 287,
+  "fields": {
+    "hawb": "HAW000150",
+    "peso_total": "0.57",
+    "cantidad_total": 3,
+    "valor_total": "42.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:54.962Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:54.962Z",
+    "fecha_actualizacion": "2025-11-29T08:45:57.440Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 286,
+  "fields": {
+    "hawb": "HAW000149",
+    "peso_total": "12.00",
+    "cantidad_total": 1,
+    "valor_total": "300.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:52.166Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:52.166Z",
+    "fecha_actualizacion": "2025-11-29T08:45:54.209Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 285,
+  "fields": {
+    "hawb": "HAW000148",
+    "peso_total": "1.65",
+    "cantidad_total": 2,
+    "valor_total": "80.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:49.301Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:49.301Z",
+    "fecha_actualizacion": "2025-11-29T08:45:51.314Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 284,
+  "fields": {
+    "hawb": "HAW000147",
+    "peso_total": "0.60",
+    "cantidad_total": 1,
+    "valor_total": "16.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:46.074Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:46.074Z",
+    "fecha_actualizacion": "2025-11-29T08:45:48.523Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 283,
+  "fields": {
+    "hawb": "HAW000146",
+    "peso_total": "3.60",
+    "cantidad_total": 2,
+    "valor_total": "180.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:42.735Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:42.735Z",
+    "fecha_actualizacion": "2025-11-29T08:45:45.281Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 282,
+  "fields": {
+    "hawb": "HAW000145",
+    "peso_total": "0.30",
+    "cantidad_total": 5,
+    "valor_total": "50.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:38.232Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:38.232Z",
+    "fecha_actualizacion": "2025-11-29T08:45:41.935Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 281,
+  "fields": {
+    "hawb": "HAW000144",
+    "peso_total": "4.00",
+    "cantidad_total": 1,
+    "valor_total": "100.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:33.881Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:33.883Z",
+    "fecha_actualizacion": "2025-11-29T08:45:36.644Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 280,
+  "fields": {
+    "hawb": "HAW000143",
+    "peso_total": "0.80",
+    "cantidad_total": 3,
+    "valor_total": "72.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:29.717Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:29.717Z",
+    "fecha_actualizacion": "2025-11-29T08:45:32.706Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 279,
+  "fields": {
+    "hawb": "HAW000142",
+    "peso_total": "6.10",
+    "cantidad_total": 1,
+    "valor_total": "150.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:26.314Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "Control aduanal",
+    "fecha_creacion": "2025-11-29T08:45:26.314Z",
+    "fecha_actualizacion": "2025-11-29T08:45:28.544Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 278,
+  "fields": {
+    "hawb": "HAW000141",
+    "peso_total": "0.80",
+    "cantidad_total": 1,
+    "valor_total": "22.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:23.160Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:23.160Z",
+    "fecha_actualizacion": "2025-11-29T08:45:25.594Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 277,
+  "fields": {
+    "hawb": "HAW000140",
+    "peso_total": "3.60",
+    "cantidad_total": 1,
+    "valor_total": "90.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:19.869Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:19.869Z",
+    "fecha_actualizacion": "2025-11-29T08:45:22.434Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 276,
+  "fields": {
+    "hawb": "HAW000139",
+    "peso_total": "0.65",
+    "cantidad_total": 2,
+    "valor_total": "30.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:16.734Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:16.734Z",
+    "fecha_actualizacion": "2025-11-29T08:45:19.126Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 275,
+  "fields": {
+    "hawb": "HAW000138",
+    "peso_total": "0.50",
+    "cantidad_total": 4,
+    "valor_total": "48.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:13.814Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:13.814Z",
+    "fecha_actualizacion": "2025-11-29T08:45:15.964Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 274,
+  "fields": {
+    "hawb": "HAW000137",
+    "peso_total": "11.20",
+    "cantidad_total": 1,
+    "valor_total": "260.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:11.051Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:11.052Z",
+    "fecha_actualizacion": "2025-11-29T08:45:13.103Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 273,
+  "fields": {
+    "hawb": "HAW000136",
+    "peso_total": "2.45",
+    "cantidad_total": 2,
+    "valor_total": "140.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:08.341Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:08.341Z",
+    "fecha_actualizacion": "2025-11-29T08:45:10.271Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 272,
+  "fields": {
+    "hawb": "HAW000135",
+    "peso_total": "0.15",
+    "cantidad_total": 2,
+    "valor_total": "8.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:05.312Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:05.312Z",
+    "fecha_actualizacion": "2025-11-29T08:45:07.204Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 271,
+  "fields": {
+    "hawb": "HAW000134",
+    "peso_total": "2.70",
+    "cantidad_total": 1,
+    "valor_total": "75.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:45:02.634Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:45:02.634Z",
+    "fecha_actualizacion": "2025-11-29T08:45:04.603Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 270,
+  "fields": {
+    "hawb": "HAW000133",
+    "peso_total": "0.63",
+    "cantidad_total": 3,
+    "valor_total": "55.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:59.662Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:59.662Z",
+    "fecha_actualizacion": "2025-11-29T08:45:01.740Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 269,
+  "fields": {
+    "hawb": "HAW000132",
+    "peso_total": "14.60",
+    "cantidad_total": 1,
+    "valor_total": "400.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:56.923Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "Frágil",
+    "fecha_creacion": "2025-11-29T08:44:56.923Z",
+    "fecha_actualizacion": "2025-11-29T08:44:58.924Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 268,
+  "fields": {
+    "hawb": "HAW000131",
+    "peso_total": "0.20",
+    "cantidad_total": 2,
+    "valor_total": "10.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:54.136Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:54.136Z",
+    "fecha_actualizacion": "2025-11-29T08:44:56.203Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 267,
+  "fields": {
+    "hawb": "HAW000130",
+    "peso_total": "1.60",
+    "cantidad_total": 2,
+    "valor_total": "110.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:51.404Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:51.404Z",
+    "fecha_actualizacion": "2025-11-29T08:44:53.386Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 266,
+  "fields": {
+    "hawb": "HAW000129",
+    "peso_total": "5.00",
+    "cantidad_total": 1,
+    "valor_total": "95.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:47.894Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:47.894Z",
+    "fecha_actualizacion": "2025-11-29T08:44:50.289Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 265,
+  "fields": {
+    "hawb": "HAW000128",
+    "peso_total": "0.77",
+    "cantidad_total": 3,
+    "valor_total": "70.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:45.061Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:45.061Z",
+    "fecha_actualizacion": "2025-11-29T08:44:47.137Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 264,
+  "fields": {
+    "hawb": "HAW000127",
+    "peso_total": "0.60",
+    "cantidad_total": 1,
+    "valor_total": "18.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:42.378Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:42.378Z",
+    "fecha_actualizacion": "2025-11-29T08:44:44.344Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 263,
+  "fields": {
+    "hawb": "HAW000126",
+    "peso_total": "7.40",
+    "cantidad_total": 1,
+    "valor_total": "200.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:39.615Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:39.615Z",
+    "fecha_actualizacion": "2025-11-29T08:44:41.603Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 262,
+  "fields": {
+    "hawb": "HAW000125",
+    "peso_total": "0.55",
+    "cantidad_total": 2,
+    "valor_total": "32.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:36.833Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:36.833Z",
+    "fecha_actualizacion": "2025-11-29T08:44:38.854Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 261,
+  "fields": {
+    "hawb": "HAW000124",
+    "peso_total": "9.80",
+    "cantidad_total": 1,
+    "valor_total": "350.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:34.094Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "Revisión aduanal",
+    "fecha_creacion": "2025-11-29T08:44:34.094Z",
+    "fecha_actualizacion": "2025-11-29T08:44:36.073Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 260,
+  "fields": {
+    "hawb": "HAW000123",
+    "peso_total": "2.23",
+    "cantidad_total": 3,
+    "valor_total": "180.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:31.333Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:31.333Z",
+    "fecha_actualizacion": "2025-11-29T08:44:33.371Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 259,
+  "fields": {
+    "hawb": "HAW000122",
+    "peso_total": "0.50",
+    "cantidad_total": 1,
+    "valor_total": "12.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:28.603Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:28.603Z",
+    "fecha_actualizacion": "2025-11-29T08:44:30.593Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 258,
+  "fields": {
+    "hawb": "HAW000121",
+    "peso_total": "2.15",
+    "cantidad_total": 2,
+    "valor_total": "130.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:25.873Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "Urgente",
+    "fecha_creacion": "2025-11-29T08:44:25.873Z",
+    "fecha_actualizacion": "2025-11-29T08:44:27.883Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 257,
+  "fields": {
+    "hawb": "HAW000120",
+    "peso_total": "0.53",
+    "cantidad_total": 4,
+    "valor_total": "60.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:23.083Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:23.083Z",
+    "fecha_actualizacion": "2025-11-29T08:44:25.174Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 256,
+  "fields": {
+    "hawb": "HAW000119",
+    "peso_total": "0.70",
+    "cantidad_total": 1,
+    "valor_total": "15.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:20.166Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:20.166Z",
+    "fecha_actualizacion": "2025-11-29T08:44:22.361Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 255,
+  "fields": {
+    "hawb": "HAW000118",
+    "peso_total": "6.20",
+    "cantidad_total": 2,
+    "valor_total": "220.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:17.354Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "Frágil",
+    "fecha_creacion": "2025-11-29T08:44:17.354Z",
+    "fecha_actualizacion": "2025-11-29T08:44:19.435Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 254,
+  "fields": {
+    "hawb": "HAW000117",
+    "peso_total": "0.18",
+    "cantidad_total": 5,
+    "valor_total": "25.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:14.574Z",
+    "comprador": 7,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:14.574Z",
+    "fecha_actualizacion": "2025-11-29T08:44:16.662Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 253,
+  "fields": {
+    "hawb": "HAW000116",
+    "peso_total": "3.80",
+    "cantidad_total": 1,
+    "valor_total": "80.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:10.834Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:10.842Z",
+    "fecha_actualizacion": "2025-11-29T08:44:13.818Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 252,
+  "fields": {
+    "hawb": "HAW000115",
+    "peso_total": "0.40",
+    "cantidad_total": 3,
+    "valor_total": "45.50",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:07.264Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:44:07.264Z",
+    "fecha_actualizacion": "2025-11-29T08:44:10.041Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 251,
+  "fields": {
+    "hawb": "HAW000114",
+    "peso_total": "2.50",
+    "cantidad_total": 1,
+    "valor_total": "100.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:44:04.544Z",
+    "comprador": 7,
+    "estado": "pendiente",
+    "observaciones": "Envío urgente",
+    "fecha_creacion": "2025-11-29T08:44:04.544Z",
+    "fecha_actualizacion": "2025-11-29T08:44:06.534Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 117,
+  "fields": {
+    "hawb": "HAW000113",
+    "peso_total": "9.90",
+    "cantidad_total": 1,
+    "valor_total": "260.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:27:38.004Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "Frágil",
+    "fecha_creacion": "2025-11-29T08:27:38.004Z",
+    "fecha_actualizacion": "2025-11-29T08:27:40.034Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 116,
+  "fields": {
+    "hawb": "HAW000112",
+    "peso_total": "0.30",
+    "cantidad_total": 2,
+    "valor_total": "17.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:27:32.653Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:27:32.653Z",
+    "fecha_actualizacion": "2025-11-29T08:27:34.604Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 115,
+  "fields": {
+    "hawb": "HAW000111",
+    "peso_total": "5.60",
+    "cantidad_total": 1,
+    "valor_total": "140.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:27:26.924Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:27:26.924Z",
+    "fecha_actualizacion": "2025-11-29T08:27:28.961Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 114,
+  "fields": {
+    "hawb": "HAW000110",
+    "peso_total": "0.70",
+    "cantidad_total": 3,
+    "valor_total": "54.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:27:21.693Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:27:21.693Z",
+    "fecha_actualizacion": "2025-11-29T08:27:23.773Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 113,
+  "fields": {
+    "hawb": "HAW000109",
+    "peso_total": "10.70",
+    "cantidad_total": 1,
+    "valor_total": "290.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:27:16.484Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:27:16.484Z",
+    "fecha_actualizacion": "2025-11-29T08:27:18.657Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 112,
+  "fields": {
+    "hawb": "HAW000108",
+    "peso_total": "0.85",
+    "cantidad_total": 1,
+    "valor_total": "22.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:27:11.183Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:27:11.183Z",
+    "fecha_actualizacion": "2025-11-29T08:27:13.202Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 111,
+  "fields": {
+    "hawb": "HAW000107",
+    "peso_total": "3.50",
+    "cantidad_total": 1,
+    "valor_total": "88.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:27:06.164Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:27:06.164Z",
+    "fecha_actualizacion": "2025-11-29T08:27:08.164Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 110,
+  "fields": {
+    "hawb": "HAW000106",
+    "peso_total": "3.50",
+    "cantidad_total": 2,
+    "valor_total": "160.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:27:01.103Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:27:01.103Z",
+    "fecha_actualizacion": "2025-11-29T08:27:03.259Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 109,
+  "fields": {
+    "hawb": "HAW000105",
+    "peso_total": "0.65",
+    "cantidad_total": 2,
+    "valor_total": "36.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:56.424Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:56.424Z",
+    "fecha_actualizacion": "2025-11-29T08:26:58.463Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 108,
+  "fields": {
+    "hawb": "HAW000104",
+    "peso_total": "4.40",
+    "cantidad_total": 1,
+    "valor_total": "112.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:51.263Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:51.263Z",
+    "fecha_actualizacion": "2025-11-29T08:26:53.264Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 107,
+  "fields": {
+    "hawb": "HAW000103",
+    "peso_total": "0.95",
+    "cantidad_total": 1,
+    "valor_total": "18.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:46.493Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:46.493Z",
+    "fecha_actualizacion": "2025-11-29T08:26:48.567Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 106,
+  "fields": {
+    "hawb": "HAW000102",
+    "peso_total": "6.60",
+    "cantidad_total": 1,
+    "valor_total": "170.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:41.643Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:41.643Z",
+    "fecha_actualizacion": "2025-11-29T08:26:43.754Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 105,
+  "fields": {
+    "hawb": "HAW000101",
+    "peso_total": "1.25",
+    "cantidad_total": 2,
+    "valor_total": "68.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:36.753Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:36.753Z",
+    "fecha_actualizacion": "2025-11-29T08:26:38.791Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 104,
+  "fields": {
+    "hawb": "HAW000100",
+    "peso_total": "8.40",
+    "cantidad_total": 1,
+    "valor_total": "220.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:32.207Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:32.207Z",
+    "fecha_actualizacion": "2025-11-29T08:26:34.202Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 103,
+  "fields": {
+    "hawb": "HAW000099",
+    "peso_total": "0.40",
+    "cantidad_total": 3,
+    "valor_total": "33.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:27.574Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:27.574Z",
+    "fecha_actualizacion": "2025-11-29T08:26:29.564Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 102,
+  "fields": {
+    "hawb": "HAW000098",
+    "peso_total": "3.10",
+    "cantidad_total": 1,
+    "valor_total": "82.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:22.604Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:22.604Z",
+    "fecha_actualizacion": "2025-11-29T08:26:24.603Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 101,
+  "fields": {
+    "hawb": "HAW000097",
+    "peso_total": "3.75",
+    "cantidad_total": 2,
+    "valor_total": "175.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:17.834Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:17.834Z",
+    "fecha_actualizacion": "2025-11-29T08:26:19.871Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 100,
+  "fields": {
+    "hawb": "HAW000096",
+    "peso_total": "0.40",
+    "cantidad_total": 1,
+    "valor_total": "10.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:12.861Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:12.861Z",
+    "fecha_actualizacion": "2025-11-29T08:26:15.103Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 99,
+  "fields": {
+    "hawb": "HAW000095",
+    "peso_total": "5.90",
+    "cantidad_total": 1,
+    "valor_total": "165.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:07.694Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:07.694Z",
+    "fecha_actualizacion": "2025-11-29T08:26:09.833Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 98,
+  "fields": {
+    "hawb": "HAW000094",
+    "peso_total": "2.80",
+    "cantidad_total": 1,
+    "valor_total": "72.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:26:02.023Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:26:02.023Z",
+    "fecha_actualizacion": "2025-11-29T08:26:04.083Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 97,
+  "fields": {
+    "hawb": "HAW000093",
+    "peso_total": "9.10",
+    "cantidad_total": 1,
+    "valor_total": "240.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:56.902Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:56.903Z",
+    "fecha_actualizacion": "2025-11-29T08:25:59.054Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 96,
+  "fields": {
+    "hawb": "HAW000092",
+    "peso_total": "0.33",
+    "cantidad_total": 2,
+    "valor_total": "16.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:51.684Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:51.684Z",
+    "fecha_actualizacion": "2025-11-29T08:25:53.834Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 95,
+  "fields": {
+    "hawb": "HAW000091",
+    "peso_total": "4.60",
+    "cantidad_total": 1,
+    "valor_total": "115.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:46.914Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:46.914Z",
+    "fecha_actualizacion": "2025-11-29T08:25:48.993Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 94,
+  "fields": {
+    "hawb": "HAW000090",
+    "peso_total": "0.60",
+    "cantidad_total": 3,
+    "valor_total": "48.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:42.162Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:42.162Z",
+    "fecha_actualizacion": "2025-11-29T08:25:44.213Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 93,
+  "fields": {
+    "hawb": "HAW000089",
+    "peso_total": "12.90",
+    "cantidad_total": 1,
+    "valor_total": "350.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:37.033Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "Frágil",
+    "fecha_creacion": "2025-11-29T08:25:37.033Z",
+    "fecha_actualizacion": "2025-11-29T08:25:39.288Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 92,
+  "fields": {
+    "hawb": "HAW000088",
+    "peso_total": "1.95",
+    "cantidad_total": 2,
+    "valor_total": "98.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:32.324Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:32.324Z",
+    "fecha_actualizacion": "2025-11-29T08:25:34.274Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 91,
+  "fields": {
+    "hawb": "HAW000087",
+    "peso_total": "0.50",
+    "cantidad_total": 1,
+    "valor_total": "14.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:27.524Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:27.524Z",
+    "fecha_actualizacion": "2025-11-29T08:25:29.502Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 90,
+  "fields": {
+    "hawb": "HAW000086",
+    "peso_total": "6.00",
+    "cantidad_total": 1,
+    "valor_total": "155.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:22.203Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:22.203Z",
+    "fecha_actualizacion": "2025-11-29T08:25:24.330Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 89,
+  "fields": {
+    "hawb": "HAW000085",
+    "peso_total": "0.50",
+    "cantidad_total": 2,
+    "valor_total": "25.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:17.374Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:17.374Z",
+    "fecha_actualizacion": "2025-11-29T08:25:19.305Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 88,
+  "fields": {
+    "hawb": "HAW000084",
+    "peso_total": "5.10",
+    "cantidad_total": 1,
+    "valor_total": "130.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:12.489Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:12.489Z",
+    "fecha_actualizacion": "2025-11-29T08:25:14.451Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 87,
+  "fields": {
+    "hawb": "HAW000083",
+    "peso_total": "1.15",
+    "cantidad_total": 2,
+    "valor_total": "60.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:07.624Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:07.624Z",
+    "fecha_actualizacion": "2025-11-29T08:25:09.633Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 86,
+  "fields": {
+    "hawb": "HAW000082",
+    "peso_total": "3.40",
+    "cantidad_total": 1,
+    "valor_total": "85.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:25:02.883Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:25:02.883Z",
+    "fecha_actualizacion": "2025-11-29T08:25:04.843Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 85,
+  "fields": {
+    "hawb": "HAW000081",
+    "peso_total": "7.90",
+    "cantidad_total": 1,
+    "valor_total": "195.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:58.004Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:58.004Z",
+    "fecha_actualizacion": "2025-11-29T08:24:59.864Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 84,
+  "fields": {
+    "hawb": "HAW000080",
+    "peso_total": "0.25",
+    "cantidad_total": 3,
+    "valor_total": "21.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:53.104Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:53.104Z",
+    "fecha_actualizacion": "2025-11-29T08:24:55.105Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 83,
+  "fields": {
+    "hawb": "HAW000079",
+    "peso_total": "4.50",
+    "cantidad_total": 1,
+    "valor_total": "120.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:48.082Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:48.083Z",
+    "fecha_actualizacion": "2025-11-29T08:24:50.029Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 82,
+  "fields": {
+    "hawb": "HAW000078",
+    "peso_total": "0.80",
+    "cantidad_total": 2,
+    "valor_total": "50.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:42.973Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:42.973Z",
+    "fecha_actualizacion": "2025-11-29T08:24:45.112Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 81,
+  "fields": {
+    "hawb": "HAW000077",
+    "peso_total": "8.20",
+    "cantidad_total": 1,
+    "valor_total": "210.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:37.671Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:37.671Z",
+    "fecha_actualizacion": "2025-11-29T08:24:39.742Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 80,
+  "fields": {
+    "hawb": "HAW000076",
+    "peso_total": "2.00",
+    "cantidad_total": 1,
+    "valor_total": "40.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:32.363Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:32.363Z",
+    "fecha_actualizacion": "2025-11-29T08:24:34.373Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 79,
+  "fields": {
+    "hawb": "HAW000075",
+    "peso_total": "2.70",
+    "cantidad_total": 2,
+    "valor_total": "135.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:26.604Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:26.604Z",
+    "fecha_actualizacion": "2025-11-29T08:24:28.651Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 78,
+  "fields": {
+    "hawb": "HAW000074",
+    "peso_total": "0.60",
+    "cantidad_total": 1,
+    "valor_total": "15.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:20.796Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:20.804Z",
+    "fecha_actualizacion": "2025-11-29T08:24:22.812Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 77,
+  "fields": {
+    "hawb": "HAW000073",
+    "peso_total": "3.70",
+    "cantidad_total": 1,
+    "valor_total": "95.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:13.807Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:13.807Z",
+    "fecha_actualizacion": "2025-11-29T08:24:15.835Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 76,
+  "fields": {
+    "hawb": "HAW000072",
+    "peso_total": "3.40",
+    "cantidad_total": 2,
+    "valor_total": "150.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:06.670Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:06.670Z",
+    "fecha_actualizacion": "2025-11-29T08:24:08.832Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 75,
+  "fields": {
+    "hawb": "HAW000071",
+    "peso_total": "0.28",
+    "cantidad_total": 4,
+    "valor_total": "32.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:24:00.763Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:24:00.763Z",
+    "fecha_actualizacion": "2025-11-29T08:24:02.765Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 74,
+  "fields": {
+    "hawb": "HAW000070",
+    "peso_total": "10.50",
+    "cantidad_total": 1,
+    "valor_total": "280.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:55.410Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:55.410Z",
+    "fecha_actualizacion": "2025-11-29T08:23:57.384Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 73,
+  "fields": {
+    "hawb": "HAW000069",
+    "peso_total": "0.90",
+    "cantidad_total": 1,
+    "valor_total": "20.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:50.265Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:50.265Z",
+    "fecha_actualizacion": "2025-11-29T08:23:52.280Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 72,
+  "fields": {
+    "hawb": "HAW000068",
+    "peso_total": "4.20",
+    "cantidad_total": 1,
+    "valor_total": "105.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:45.314Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:45.314Z",
+    "fecha_actualizacion": "2025-11-29T08:23:47.304Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 71,
+  "fields": {
+    "hawb": "HAW000067",
+    "peso_total": "0.47",
+    "cantidad_total": 3,
+    "valor_total": "45.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:40.144Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:40.144Z",
+    "fecha_actualizacion": "2025-11-29T08:23:42.194Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 70,
+  "fields": {
+    "hawb": "HAW000066",
+    "peso_total": "7.70",
+    "cantidad_total": 1,
+    "valor_total": "190.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:34.287Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:34.287Z",
+    "fecha_actualizacion": "2025-11-29T08:23:36.313Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 69,
+  "fields": {
+    "hawb": "HAW000065",
+    "peso_total": "0.35",
+    "cantidad_total": 2,
+    "valor_total": "18.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:29.383Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:29.383Z",
+    "fecha_actualizacion": "2025-11-29T08:23:31.383Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 68,
+  "fields": {
+    "hawb": "HAW000064",
+    "peso_total": "2.20",
+    "cantidad_total": 1,
+    "valor_total": "65.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:24.574Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:24.574Z",
+    "fecha_actualizacion": "2025-11-29T08:23:26.564Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 67,
+  "fields": {
+    "hawb": "HAW000063",
+    "peso_total": "1.50",
+    "cantidad_total": 2,
+    "valor_total": "85.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:19.613Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:19.613Z",
+    "fecha_actualizacion": "2025-11-29T08:23:21.614Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 66,
+  "fields": {
+    "hawb": "HAW000062",
+    "peso_total": "0.55",
+    "cantidad_total": 1,
+    "valor_total": "14.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:14.614Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:14.614Z",
+    "fecha_actualizacion": "2025-11-29T08:23:16.653Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 65,
+  "fields": {
+    "hawb": "HAW000061",
+    "peso_total": "9.30",
+    "cantidad_total": 1,
+    "valor_total": "240.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:09.924Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:09.924Z",
+    "fecha_actualizacion": "2025-11-29T08:23:11.853Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 64,
+  "fields": {
+    "hawb": "HAW000060",
+    "peso_total": "4.10",
+    "cantidad_total": 1,
+    "valor_total": "110.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:23:02.303Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:23:02.303Z",
+    "fecha_actualizacion": "2025-11-29T08:23:04.353Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 63,
+  "fields": {
+    "hawb": "HAW000059",
+    "peso_total": "0.63",
+    "cantidad_total": 3,
+    "valor_total": "60.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:57.334Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:57.335Z",
+    "fecha_actualizacion": "2025-11-29T08:22:59.434Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 62,
+  "fields": {
+    "hawb": "HAW000058",
+    "peso_total": "6.30",
+    "cantidad_total": 1,
+    "valor_total": "160.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:51.804Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:51.804Z",
+    "fecha_actualizacion": "2025-11-29T08:22:53.813Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 61,
+  "fields": {
+    "hawb": "HAW000057",
+    "peso_total": "0.40",
+    "cantidad_total": 1,
+    "valor_total": "12.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:45.813Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:45.813Z",
+    "fecha_actualizacion": "2025-11-29T08:22:48.214Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 60,
+  "fields": {
+    "hawb": "HAW000056",
+    "peso_total": "2.85",
+    "cantidad_total": 2,
+    "valor_total": "145.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:40.632Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:40.633Z",
+    "fecha_actualizacion": "2025-11-29T08:22:42.650Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 59,
+  "fields": {
+    "hawb": "HAW000055",
+    "peso_total": "1.00",
+    "cantidad_total": 1,
+    "valor_total": "25.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:35.908Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:35.908Z",
+    "fecha_actualizacion": "2025-11-29T08:22:37.884Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 58,
+  "fields": {
+    "hawb": "HAW000054",
+    "peso_total": "1.30",
+    "cantidad_total": 2,
+    "valor_total": "70.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:30.751Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:30.759Z",
+    "fecha_actualizacion": "2025-11-29T08:22:32.722Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 57,
+  "fields": {
+    "hawb": "HAW000053",
+    "peso_total": "8.80",
+    "cantidad_total": 1,
+    "valor_total": "210.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:25.284Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:25.284Z",
+    "fecha_actualizacion": "2025-11-29T08:22:27.272Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 56,
+  "fields": {
+    "hawb": "HAW000052",
+    "peso_total": "0.23",
+    "cantidad_total": 2,
+    "valor_total": "14.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:20.022Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:20.023Z",
+    "fecha_actualizacion": "2025-11-29T08:22:22.064Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 55,
+  "fields": {
+    "hawb": "HAW000051",
+    "peso_total": "3.90",
+    "cantidad_total": 1,
+    "valor_total": "95.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:15.303Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:15.303Z",
+    "fecha_actualizacion": "2025-11-29T08:22:17.304Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 54,
+  "fields": {
+    "hawb": "HAW000050",
+    "peso_total": "0.57",
+    "cantidad_total": 3,
+    "valor_total": "42.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:09.924Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:09.924Z",
+    "fecha_actualizacion": "2025-11-29T08:22:12.023Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 53,
+  "fields": {
+    "hawb": "HAW000049",
+    "peso_total": "12.00",
+    "cantidad_total": 1,
+    "valor_total": "300.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:22:04.073Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:22:04.073Z",
+    "fecha_actualizacion": "2025-11-29T08:22:06.093Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 52,
+  "fields": {
+    "hawb": "HAW000048",
+    "peso_total": "1.65",
+    "cantidad_total": 2,
+    "valor_total": "80.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:59.353Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:59.353Z",
+    "fecha_actualizacion": "2025-11-29T08:22:01.282Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 51,
+  "fields": {
+    "hawb": "HAW000047",
+    "peso_total": "0.60",
+    "cantidad_total": 1,
+    "valor_total": "16.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:54.163Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:54.163Z",
+    "fecha_actualizacion": "2025-11-29T08:21:56.159Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 50,
+  "fields": {
+    "hawb": "HAW000046",
+    "peso_total": "3.60",
+    "cantidad_total": 2,
+    "valor_total": "180.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:49.432Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:49.433Z",
+    "fecha_actualizacion": "2025-11-29T08:21:51.391Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 49,
+  "fields": {
+    "hawb": "HAW000045",
+    "peso_total": "0.30",
+    "cantidad_total": 5,
+    "valor_total": "50.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:44.583Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:44.584Z",
+    "fecha_actualizacion": "2025-11-29T08:21:46.584Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 48,
+  "fields": {
+    "hawb": "HAW000044",
+    "peso_total": "4.00",
+    "cantidad_total": 1,
+    "valor_total": "100.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:39.308Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:39.308Z",
+    "fecha_actualizacion": "2025-11-29T08:21:41.332Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 47,
+  "fields": {
+    "hawb": "HAW000043",
+    "peso_total": "0.80",
+    "cantidad_total": 3,
+    "valor_total": "72.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:34.354Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:34.354Z",
+    "fecha_actualizacion": "2025-11-29T08:21:36.341Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 46,
+  "fields": {
+    "hawb": "HAW000042",
+    "peso_total": "6.10",
+    "cantidad_total": 1,
+    "valor_total": "150.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:29.544Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "Control aduanal",
+    "fecha_creacion": "2025-11-29T08:21:29.544Z",
+    "fecha_actualizacion": "2025-11-29T08:21:31.525Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 45,
+  "fields": {
+    "hawb": "HAW000041",
+    "peso_total": "0.80",
+    "cantidad_total": 1,
+    "valor_total": "22.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:24.532Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:24.533Z",
+    "fecha_actualizacion": "2025-11-29T08:21:26.572Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 44,
+  "fields": {
+    "hawb": "HAW000040",
+    "peso_total": "3.60",
+    "cantidad_total": 1,
+    "valor_total": "90.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:19.623Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:19.623Z",
+    "fecha_actualizacion": "2025-11-29T08:21:21.653Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 43,
+  "fields": {
+    "hawb": "HAW000039",
+    "peso_total": "0.65",
+    "cantidad_total": 2,
+    "valor_total": "30.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:14.822Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:14.823Z",
+    "fecha_actualizacion": "2025-11-29T08:21:16.843Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 42,
+  "fields": {
+    "hawb": "HAW000038",
+    "peso_total": "0.50",
+    "cantidad_total": 4,
+    "valor_total": "48.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:08.963Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:08.963Z",
+    "fecha_actualizacion": "2025-11-29T08:21:11.012Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 41,
+  "fields": {
+    "hawb": "HAW000037",
+    "peso_total": "11.20",
+    "cantidad_total": 1,
+    "valor_total": "260.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:21:03.436Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:21:03.436Z",
+    "fecha_actualizacion": "2025-11-29T08:21:05.470Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 40,
+  "fields": {
+    "hawb": "HAW000036",
+    "peso_total": "2.45",
+    "cantidad_total": 2,
+    "valor_total": "140.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:58.523Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:20:58.523Z",
+    "fecha_actualizacion": "2025-11-29T08:21:00.502Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 39,
+  "fields": {
+    "hawb": "HAW000035",
+    "peso_total": "0.15",
+    "cantidad_total": 2,
+    "valor_total": "8.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:53.194Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:20:53.194Z",
+    "fecha_actualizacion": "2025-11-29T08:20:55.234Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 38,
+  "fields": {
+    "hawb": "HAW000034",
+    "peso_total": "2.70",
+    "cantidad_total": 1,
+    "valor_total": "75.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:47.843Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:20:47.843Z",
+    "fecha_actualizacion": "2025-11-29T08:20:49.824Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 37,
+  "fields": {
+    "hawb": "HAW000033",
+    "peso_total": "0.63",
+    "cantidad_total": 3,
+    "valor_total": "55.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:42.123Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:20:42.123Z",
+    "fecha_actualizacion": "2025-11-29T08:20:44.124Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 36,
+  "fields": {
+    "hawb": "HAW000032",
+    "peso_total": "14.60",
+    "cantidad_total": 1,
+    "valor_total": "400.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:36.223Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "Frágil",
+    "fecha_creacion": "2025-11-29T08:20:36.223Z",
+    "fecha_actualizacion": "2025-11-29T08:20:38.283Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 35,
+  "fields": {
+    "hawb": "HAW000031",
+    "peso_total": "0.20",
+    "cantidad_total": 2,
+    "valor_total": "10.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:30.564Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:20:30.564Z",
+    "fecha_actualizacion": "2025-11-29T08:20:32.594Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 34,
+  "fields": {
+    "hawb": "HAW000030",
+    "peso_total": "1.60",
+    "cantidad_total": 2,
+    "valor_total": "110.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:24.874Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:20:24.874Z",
+    "fecha_actualizacion": "2025-11-29T08:20:26.862Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 33,
+  "fields": {
+    "hawb": "HAW000029",
+    "peso_total": "5.00",
+    "cantidad_total": 1,
+    "valor_total": "95.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:20.122Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:20:20.122Z",
+    "fecha_actualizacion": "2025-11-29T08:20:22.074Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 32,
+  "fields": {
+    "hawb": "HAW000028",
+    "peso_total": "0.77",
+    "cantidad_total": 3,
+    "valor_total": "70.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:14.528Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:20:14.528Z",
+    "fecha_actualizacion": "2025-11-29T08:20:16.513Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 31,
+  "fields": {
+    "hawb": "HAW000027",
+    "peso_total": "0.60",
+    "cantidad_total": 1,
+    "valor_total": "18.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:07.747Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:20:07.747Z",
+    "fecha_actualizacion": "2025-11-29T08:20:09.788Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 30,
+  "fields": {
+    "hawb": "HAW000026",
+    "peso_total": "7.40",
+    "cantidad_total": 1,
+    "valor_total": "200.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:20:02.068Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:20:02.068Z",
+    "fecha_actualizacion": "2025-11-29T08:20:04.051Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 29,
+  "fields": {
+    "hawb": "HAW000025",
+    "peso_total": "0.55",
+    "cantidad_total": 2,
+    "valor_total": "32.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:19:56.784Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:19:56.784Z",
+    "fecha_actualizacion": "2025-11-29T08:19:58.825Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 28,
+  "fields": {
+    "hawb": "HAW000024",
+    "peso_total": "9.80",
+    "cantidad_total": 1,
+    "valor_total": "350.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:19:49.944Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "Revisión aduanal",
+    "fecha_creacion": "2025-11-29T08:19:49.944Z",
+    "fecha_actualizacion": "2025-11-29T08:19:51.961Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 27,
+  "fields": {
+    "hawb": "HAW000023",
+    "peso_total": "2.23",
+    "cantidad_total": 3,
+    "valor_total": "180.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:19:44.572Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:19:44.572Z",
+    "fecha_actualizacion": "2025-11-29T08:19:46.633Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 26,
+  "fields": {
+    "hawb": "HAW000022",
+    "peso_total": "0.50",
+    "cantidad_total": 1,
+    "valor_total": "12.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:19:39.443Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:19:39.443Z",
+    "fecha_actualizacion": "2025-11-29T08:19:41.493Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 25,
+  "fields": {
+    "hawb": "HAW000021",
+    "peso_total": "2.15",
+    "cantidad_total": 2,
+    "valor_total": "130.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:19:34.521Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "Urgente",
+    "fecha_creacion": "2025-11-29T08:19:34.521Z",
+    "fecha_actualizacion": "2025-11-29T08:19:36.488Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 24,
+  "fields": {
+    "hawb": "HAW000020",
+    "peso_total": "0.53",
+    "cantidad_total": 4,
+    "valor_total": "60.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:19:28.964Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:19:28.964Z",
+    "fecha_actualizacion": "2025-11-29T08:19:31.052Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 23,
+  "fields": {
+    "hawb": "HAW000019",
+    "peso_total": "0.70",
+    "cantidad_total": 1,
+    "valor_total": "15.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:19:23.485Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:19:23.486Z",
+    "fecha_actualizacion": "2025-11-29T08:19:25.519Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 22,
+  "fields": {
+    "hawb": "HAW000018",
+    "peso_total": "6.20",
+    "cantidad_total": 2,
+    "valor_total": "220.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:19:17.591Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "Frágil",
+    "fecha_creacion": "2025-11-29T08:19:17.592Z",
+    "fecha_actualizacion": "2025-11-29T08:19:19.634Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 21,
+  "fields": {
+    "hawb": "HAW000017",
+    "peso_total": "0.18",
+    "cantidad_total": 5,
+    "valor_total": "25.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:19:07.104Z",
+    "comprador": 6,
+    "estado": "entregado",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:19:07.104Z",
+    "fecha_actualizacion": "2025-11-29T08:19:10.253Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 20,
+  "fields": {
+    "hawb": "HAW000016",
+    "peso_total": "3.80",
+    "cantidad_total": 1,
+    "valor_total": "80.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:19:00.535Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:19:00.535Z",
+    "fecha_actualizacion": "2025-11-29T08:19:02.574Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 19,
+  "fields": {
+    "hawb": "HAW000015",
+    "peso_total": "0.40",
+    "cantidad_total": 3,
+    "valor_total": "45.50",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:18:54.822Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_creacion": "2025-11-29T08:18:54.823Z",
+    "fecha_actualizacion": "2025-11-29T08:18:56.855Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 18,
+  "fields": {
+    "hawb": "HAW000014",
+    "peso_total": "2.50",
+    "cantidad_total": 1,
+    "valor_total": "100.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-29T08:18:40.488Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": "Envío urgente",
+    "fecha_creacion": "2025-11-29T08:18:40.488Z",
+    "fecha_actualizacion": "2025-11-29T08:18:42.513Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 4,
+  "fields": {
+    "hawb": "111878.0",
+    "peso_total": "4.17",
+    "cantidad_total": 24,
+    "valor_total": "8.42",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-22T12:28:41.580Z",
+    "comprador": 2,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-22T12:28:41.580Z",
+    "fecha_actualizacion": "2025-11-22T12:28:44.120Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 3,
+  "fields": {
+    "hawb": "111877.0",
+    "peso_total": "1.23",
+    "cantidad_total": 62,
+    "valor_total": "8.04",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-22T12:28:26.873Z",
+    "comprador": 2,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-22T12:28:26.873Z",
+    "fecha_actualizacion": "2025-11-22T12:28:29.100Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 2,
+  "fields": {
+    "hawb": "HAW000002",
+    "peso_total": "11.00",
+    "cantidad_total": 11,
+    "valor_total": "11.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-21T22:14:37.306Z",
+    "comprador": 2,
+    "estado": "en_transito",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-21T22:14:37.306Z",
+    "fecha_actualizacion": "2025-11-21T22:14:39.563Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 1,
+  "fields": {
+    "hawb": "HAW000001",
+    "peso_total": "1.00",
+    "cantidad_total": 1,
+    "valor_total": "10.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2025-11-21T21:39:02.169Z",
+    "comprador": 2,
+    "estado": "entregado",
+    "observaciones": "Productos de limpieza",
+    "fecha_creacion": "2025-11-21T21:39:02.169Z",
+    "fecha_actualizacion": "2025-11-22T01:21:30.318Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 8,
+  "fields": {
+    "hawb": "HAW000004",
+    "peso_total": "0.92",
+    "cantidad_total": 12,
+    "valor_total": "1.08",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 5,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:06:30.832Z",
+    "fecha_actualizacion": "2025-11-25T22:06:32.859Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 10,
+  "fields": {
+    "hawb": "HAW000006",
+    "peso_total": "2.20",
+    "cantidad_total": 5,
+    "valor_total": "3.00",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 5,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:06:51.851Z",
+    "fecha_actualizacion": "2025-11-25T22:06:53.875Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 7,
+  "fields": {
+    "hawb": "HAW000003",
+    "peso_total": "1.00",
+    "cantidad_total": 11,
+    "valor_total": "1.09",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 5,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:06:16.186Z",
+    "fecha_actualizacion": "2025-11-25T22:06:18.238Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 11,
+  "fields": {
+    "hawb": "HAW000007",
+    "peso_total": "1.83",
+    "cantidad_total": 6,
+    "valor_total": "2.67",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 5,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:07:03.070Z",
+    "fecha_actualizacion": "2025-11-25T22:07:05.153Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 12,
+  "fields": {
+    "hawb": "HAW000008",
+    "peso_total": "0.25",
+    "cantidad_total": 12,
+    "valor_total": "0.33",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:07:17.207Z",
+    "fecha_actualizacion": "2025-11-25T22:07:19.200Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 13,
+  "fields": {
+    "hawb": "HAW000009",
+    "peso_total": "0.33",
+    "cantidad_total": 12,
+    "valor_total": "0.25",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:07:30.631Z",
+    "fecha_actualizacion": "2025-11-25T22:07:32.682Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 14,
+  "fields": {
+    "hawb": "HAW000010",
+    "peso_total": "0.50",
+    "cantidad_total": 12,
+    "valor_total": "0.25",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:07:43.276Z",
+    "fecha_actualizacion": "2025-11-25T22:07:45.292Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 15,
+  "fields": {
+    "hawb": "HAW000011",
+    "peso_total": "0.50",
+    "cantidad_total": 12,
+    "valor_total": "0.25",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:07:52.590Z",
+    "fecha_actualizacion": "2025-11-25T22:07:54.693Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 17,
+  "fields": {
+    "hawb": "HAW000013",
+    "peso_total": "0.62",
+    "cantidad_total": 12,
+    "valor_total": "0.50",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:08:11.371Z",
+    "fecha_actualizacion": "2025-11-25T22:08:13.442Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 9,
+  "fields": {
+    "hawb": "HAW000005",
+    "peso_total": "0.92",
+    "cantidad_total": 12,
+    "valor_total": "1.17",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 5,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:06:39.726Z",
+    "fecha_actualizacion": "2025-11-25T22:06:41.722Z"
+  }
+},
+{
+  "model": "archivos.envio",
+  "pk": 16,
+  "fields": {
+    "hawb": "HAW000012",
+    "peso_total": "0.56",
+    "cantidad_total": 12,
+    "valor_total": "0.42",
+    "costo_servicio": "0.00",
+    "fecha_emision": "2024-09-22T06:00:00Z",
+    "comprador": 6,
+    "estado": "pendiente",
+    "observaciones": null,
+    "fecha_creacion": "2025-11-25T22:08:01.251Z",
+    "fecha_actualizacion": "2025-11-25T22:08:03.303Z"
+  }
+}
+]

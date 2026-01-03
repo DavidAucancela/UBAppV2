@@ -2,6 +2,10 @@
   <!-- Header Section -->
   <div class="header-section">
     <div class="header-content">
+      <br>
+      <br>
+      <br>
+      <br>
       <h1>Gestión de usuarios</h1>
       <p>Administra los usuarios del sistema</p>
     </div>
@@ -235,7 +239,7 @@
 
 <!-- Modal for Create/Edit User -->
 <div class="modal-overlay" *ngIf="showModal">
-  <div class="modal-content" (click)="$event.stopPropagation()">
+  <div class="modal-content modal-large" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h2>
         <i class="fas" [class.fa-user-plus]="!editingUsuario" [class.fa-user-edit]="editingUsuario"></i>
@@ -409,17 +413,6 @@
           </select>
         </div>
 
-        <!-- Mostrar coordenadas si están disponibles -->
-        <div class="form-group" *ngIf="usuarioForm.get('latitud')?.value">
-          <label>Coordenadas</label>
-          <div class="coordenadas-badge">
-            <i class="fas fa-map-pin"></i>
-            <span>
-              {{ usuarioForm.get('latitud')?.value | number:'1.4-4' }}, 
-              {{ usuarioForm.get('longitud')?.value | number:'1.4-4' }}
-            </span>
-          </div>
-        </div>
       </div>
 
       <div class="form-group" *ngIf="!editingUsuario">

@@ -3,6 +3,34 @@
 ## Descripción
 Sistema completo de gestión de envíos con roles de usuarios, productos y funcionalidades de búsqueda desarrollado con Django REST Framework.
 
+## 📚 Documentación de Arquitectura
+
+### Documentos Principales
+
+1. **[RESUMEN_ARQUITECTURA.md](./RESUMEN_ARQUITECTURA.md)** ⭐ **COMENZAR AQUÍ**
+   - Resumen ejecutivo de la arquitectura en capas
+   - Visión general de las 4 capas
+   - Plan de implementación
+   - Métricas de éxito
+
+2. **[ARQUITECTURA_EN_CAPAS.md](./ARQUITECTURA_EN_CAPAS.md)**
+   - Documentación completa de arquitectura
+   - Detalles de cada capa (Presentación, Negocio, Datos, Semántica)
+   - Diagramas de flujo
+   - Recomendaciones y correcciones
+
+3. **[PATRONES_DISENO_IMPLEMENTACION.md](./PATRONES_DISENO_IMPLEMENTACION.md)**
+   - Patrones de diseño identificados
+   - Guía de implementación con ejemplos de código
+   - Estrategia de migración gradual
+   - Checklist de implementación
+
+### Otros Documentos
+
+- [ANALISIS_COMPLETO_SISTEMA.md](./ANALISIS_COMPLETO_SISTEMA.md) - Análisis del sistema actual
+- [RECOMENDACIONES_TECNICAS.md](./RECOMENDACIONES_TECNICAS.md) - Recomendaciones técnicas
+- [BUSQUEDA_SEMANTICA_IMPLEMENTADA.md](./BUSQUEDA_SEMANTICA_IMPLEMENTADA.md) - Búsqueda semántica
+
 ## Características
 
 ### 🔐 **Gestión de Usuarios con Roles**

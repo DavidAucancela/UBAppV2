@@ -107,7 +107,7 @@ class Command(BaseCommand):
                 if not forzar:
                     if EnvioEmbedding.objects.filter(envio=envio, modelo_usado=modelo).exists():
                         omitidos += 1
-                        self.stdout.write(f'  [{i}/{total_envios}] ⏭️  Omitido: {envio.hawb} (ya existe)')
+                        self.stdout.write(f'  [{i}/{total_envios}] [OMITIDO] {envio.hawb} (ya existe)')
                         continue
 
                 # Generar embedding
@@ -115,7 +115,7 @@ class Command(BaseCommand):
                 
                 exitosos += 1
                 self.stdout.write(
-                    self.style.SUCCESS(f'  [{i}/{total_envios}] ✅ Generado: {envio.hawb}')
+                    self.style.SUCCESS(f'  [{i}/{total_envios}] [OK] Generado: {envio.hawb}')
                 )
 
                 # Pausa para evitar rate limits de OpenAI
@@ -129,7 +129,7 @@ class Command(BaseCommand):
                     tiempo_restante = promedio_por_envio * (total_envios - i)
                     
                     self.stdout.write(
-                        f'\n📊 Progreso: {i}/{total_envios} ({(i/total_envios)*100:.1f}%)'
+                        f'\n[PROGRESO] {i}/{total_envios} ({(i/total_envios)*100:.1f}%)'
                     )
                     self.stdout.write(
                         f'   Tiempo restante estimado: {tiempo_restante/60:.1f} minutos\n'
@@ -138,7 +138,7 @@ class Command(BaseCommand):
             except Exception as e:
                 errores += 1
                 self.stdout.write(
-                    self.style.ERROR(f'  [{i}/{total_envios}] ❌ Error en {envio.hawb}: {str(e)}')
+                    self.style.ERROR(f'  [{i}/{total_envios}] [ERROR] {envio.hawb}: {str(e)}')
                 )
                 # Continuar con el siguiente envío
 
@@ -148,16 +148,16 @@ class Command(BaseCommand):
         self.stdout.write('\n' + '='*60)
         self.stdout.write(self.style.SUCCESS('=== Resumen de Generación ==='))
         self.stdout.write(f'Total procesados: {total_envios}')
-        self.stdout.write(self.style.SUCCESS(f'✅ Exitosos: {exitosos}'))
+        self.stdout.write(self.style.SUCCESS(f'[OK] Exitosos: {exitosos}'))
         if omitidos > 0:
-            self.stdout.write(self.style.WARNING(f'⏭️  Omitidos: {omitidos}'))
+            self.stdout.write(self.style.WARNING(f'[OMITIDOS] {omitidos}'))
         if errores > 0:
-            self.stdout.write(self.style.ERROR(f'❌ Errores: {errores}'))
-        self.stdout.write(f'⏱️  Tiempo total: {tiempo_total/60:.2f} minutos')
-        self.stdout.write(f'⚡ Promedio por envío: {tiempo_total/total_envios:.2f} segundos')
+            self.stdout.write(self.style.ERROR(f'[ERRORES] {errores}'))
+        self.stdout.write(f'Tiempo total: {tiempo_total/60:.2f} minutos')
+        self.stdout.write(f'Promedio por envio: {tiempo_total/total_envios:.2f} segundos')
         
         # Mostrar estadísticas finales
         total_embeddings = EnvioEmbedding.objects.filter(modelo_usado=modelo).count()
-        self.stdout.write(f'\n📈 Total de embeddings en BD (modelo {modelo}): {total_embeddings}')
+        self.stdout.write(f'\nTotal de embeddings en BD (modelo {modelo}): {total_embeddings}')
         self.stdout.write('='*60)
 

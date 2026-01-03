@@ -48,6 +48,14 @@ class EnvioSerializer(serializers.ModelSerializer):
             'observaciones', 'productos', 'fecha_creacion', 'fecha_actualizacion'
         ]
         read_only_fields = ['id', 'costo_servicio', 'fecha_emision', 'fecha_creacion', 'fecha_actualizacion']
+    
+    def update(self, instance, validated_data):
+        """Actualiza el envío incluyendo observaciones"""
+        # Actualizar todos los campos permitidos
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
 
 class EnvioListSerializer(serializers.ModelSerializer):
     """Serializer para listar envíos (versión simplificada)"""

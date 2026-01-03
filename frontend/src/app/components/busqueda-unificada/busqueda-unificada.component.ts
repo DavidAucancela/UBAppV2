@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BusquedaEnviosComponent } from '../busqueda-envios/busqueda-envios.component';
 import { BusquedaSemanticaComponent } from '../busqueda-semantica/busqueda-semantica.component';
@@ -15,7 +15,7 @@ import { BusquedaSemanticaComponent } from '../busqueda-semantica/busqueda-seman
   templateUrl: './busqueda-unificada.component.html',
   styleUrl: './busqueda-unificada.component.css'
 })
-export class BusquedaUnificadaComponent {
+export class BusquedaUnificadaComponent implements OnInit {
   // Modo de búsqueda actual
   modoActual: 'exacta' | 'semantica' = 'exacta';
 

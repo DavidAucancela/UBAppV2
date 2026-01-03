@@ -65,8 +65,6 @@ export class UsuariosListComponent implements OnInit {
       provincia: [''],
       canton: [''],
       ciudad: [''],
-      latitud: [null],
-      longitud: [null],
       password: ['', [Validators.required, Validators.minLength(6)]],
       es_activo: [true]
     });
@@ -198,8 +196,6 @@ export class UsuariosListComponent implements OnInit {
       provincia: usuario.provincia || '',
       canton: usuario.canton || '',
       ciudad: usuario.ciudad || '',
-      latitud: usuario.latitud,
-      longitud: usuario.longitud,
       es_activo: usuario.es_activo,
       password: '' // No mostrar contraseña al editar
     });
@@ -281,7 +277,38 @@ export class UsuariosListComponent implements OnInit {
   onSubmit(): void {
     if (this.usuarioForm.valid) {
       this.submitting = true;
-      const formData = this.usuarioForm.value;
+      const formData: any = { ...this.usuarioForm.value };
+
+      // Limpiar y preparar datos antes de enviar
+      // Convertir rol a número si existe
+      if (formData.rol && formData.rol !== '') {
+        formData.rol = parseInt(formData.rol, 10);
+      }
+
+      // Remover campos vacíos, null o undefined
+      Object.keys(formData).forEach(key => {
+        const value = formData[key];
+        if (value === '' || value === null || value === undefined) {
+          delete formData[key];
+        }
+      });
+
+      // Si estamos editando, no enviar password si está vacío
+      if (this.editingUsuario) {
+        if (!formData.password || formData.password === '') {
+          delete formData.password;
+        }
+        // En edición, no enviar campos de ubicación vacíos si ya existen en el usuario
+        if (!formData.provincia && !this.editingUsuario.provincia) {
+          delete formData.provincia;
+        }
+        if (!formData.canton && !this.editingUsuario.canton) {
+          delete formData.canton;
+        }
+        if (!formData.ciudad && !this.editingUsuario.ciudad) {
+          delete formData.ciudad;
+        }
+      }
 
       if (this.editingUsuario) {
         // Update existing user
@@ -404,9 +431,7 @@ export class UsuariosListComponent implements OnInit {
     // Limpiar cantones y ciudades
     this.usuarioForm.patchValue({
       canton: '',
-      ciudad: '',
-      latitud: null,
-      longitud: null
+      ciudad: ''
     });
     this.cantones = [];
     this.ciudades = [];
@@ -433,9 +458,7 @@ export class UsuariosListComponent implements OnInit {
     
     // Limpiar ciudades
     this.usuarioForm.patchValue({
-      ciudad: '',
-      latitud: null,
-      longitud: null
+      ciudad: ''
     });
     this.ciudades = [];
     
@@ -455,25 +478,13 @@ export class UsuariosListComponent implements OnInit {
     });
   }
 
+  /**
+   * Maneja el cambio de ciudad (por si se necesita alguna lógica adicional)
+   */
   onCiudadChange(event: Event): void {
     const ciudad = (event.target as HTMLSelectElement).value;
-    const provincia = this.usuarioForm.get('provincia')?.value;
-    const canton = this.usuarioForm.get('canton')?.value;
-    
-    if (!ciudad || !provincia || !canton) return;
-    
-    // Obtener coordenadas
-    this.apiService.getUbicacionesCoordenadas(provincia, canton, ciudad).subscribe({
-      next: (data) => {
-        this.usuarioForm.patchValue({
-          latitud: data.latitud,
-          longitud: data.longitud
-        });
-        console.log('Coordenadas asignadas:', data);
-      },
-      error: (error) => {
-        console.error('Error obteniendo coordenadas:', error);
-      }
-    });
+    // Por ahora no se necesita lógica adicional, pero el método debe existir
+    // para evitar el error en el template
   }
+
 }

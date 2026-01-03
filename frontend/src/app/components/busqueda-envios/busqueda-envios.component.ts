@@ -12,7 +12,6 @@ import {
   OpcionOrdenamiento 
 } from '../../models/busqueda-envio';
 import { Envio, EstadosEnvio, ESTADOS_LABELS } from '../../models/envio';
-import { CIUDADES_ECUADOR } from '../../models/mapa';
 
 /**
  * Componente para búsqueda avanzada de envíos
@@ -52,7 +51,6 @@ export class BusquedaEnviosComponent implements OnInit, OnDestroy {
     valor,
     etiqueta
   }));
-  ciudadesEcuador = CIUDADES_ECUADOR.map(ciudad => ciudad.nombre).sort();
   
   // Control de vistas
   mostrarFiltrosAvanzados = false;

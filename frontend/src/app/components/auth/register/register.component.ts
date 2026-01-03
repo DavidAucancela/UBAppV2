@@ -38,13 +38,11 @@ export class RegisterComponent implements OnInit {
       cedula: ['', [Validators.required]],
       telefono: [''],
       rol: [Roles.COMPRADOR, [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8), this.passwordStrengthValidator]],
       password_confirm: ['', [Validators.required]],
       provincia: ['', [Validators.required]],
       canton: ['', [Validators.required]],
       ciudad: ['', [Validators.required]],
-      latitud: [null],
-      longitud: [null],
       es_activo: [true]
     }, { validators: this.passwordsMatchValidator });
   }
@@ -68,9 +66,7 @@ export class RegisterComponent implements OnInit {
     const provincia = (event.target as HTMLSelectElement).value;
     this.registerForm.patchValue({
       canton: '',
-      ciudad: '',
-      latitud: null,
-      longitud: null
+      ciudad: ''
     });
     this.cantones = [];
     this.ciudades = [];
@@ -96,8 +92,6 @@ export class RegisterComponent implements OnInit {
 
     this.registerForm.patchValue({
       ciudad: '',
-      latitud: null,
-      longitud: null
     });
     this.ciudades = [];
 
@@ -112,23 +106,6 @@ export class RegisterComponent implements OnInit {
       error: () => {
         this.loadingCiudades = false;
         this.errorMessage = 'No pudimos cargar las ciudades seleccionadas.';
-      }
-    });
-  }
-
-  onCiudadChange(event: Event): void {
-    const ciudad = (event.target as HTMLSelectElement).value;
-    const provincia = this.registerForm.get('provincia')?.value;
-    const canton = this.registerForm.get('canton')?.value;
-
-    if (!provincia || !canton || !ciudad) return;
-
-    this.apiService.getUbicacionesCoordenadas(provincia, canton, ciudad).subscribe({
-      next: (data) => {
-        this.registerForm.patchValue({
-          latitud: data.latitud,
-          longitud: data.longitud
-        });
       }
     });
   }
@@ -174,14 +151,6 @@ export class RegisterComponent implements OnInit {
       rol: 4,  // Siempre comprador para registros públicos
       es_activo: true
     };
-    
-    // Solo agregar latitud y longitud si tienen valores
-    if (formValue.latitud !== null && formValue.latitud !== undefined) {
-      payload.latitud = formValue.latitud;
-    }
-    if (formValue.longitud !== null && formValue.longitud !== undefined) {
-      payload.longitud = formValue.longitud;
-    }
 
     this.apiService.registerComprador(payload).subscribe({
       next: () => {
@@ -217,6 +186,40 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  passwordStrengthValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) return null;
+
+    const errors: any = {};
+
+    // Al menos 8 caracteres
+    if (value.length < 8) {
+      errors.minLength = true;
+    }
+
+    // Al menos una mayúscula
+    if (!/[A-Z]/.test(value)) {
+      errors.uppercase = true;
+    }
+
+    // Al menos una minúscula
+    if (!/[a-z]/.test(value)) {
+      errors.lowercase = true;
+    }
+
+    // Al menos un número
+    if (!/[0-9]/.test(value)) {
+      errors.number = true;
+    }
+
+    // Al menos un carácter especial
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+      errors.special = true;
+    }
+
+    return Object.keys(errors).length > 0 ? errors : null;
+  }
+
   getControlError(controlName: string): string {
     const control = this.registerForm.get(controlName);
     if (!control || !control.errors || !control.touched) return '';
@@ -224,6 +227,16 @@ export class RegisterComponent implements OnInit {
     if (control.errors['required']) return 'Campo requerido';
     if (control.errors['email']) return 'Correo inválido';
     if (control.errors['minlength']) return 'Ingresa al menos ' + control.errors['minlength'].requiredLength + ' caracteres';
+    
+    // Errores de contraseña
+    if (controlName === 'password') {
+      if (control.errors['minLength']) return 'La contraseña debe tener al menos 8 caracteres';
+      if (control.errors['uppercase']) return 'Debe contener al menos una letra mayúscula';
+      if (control.errors['lowercase']) return 'Debe contener al menos una letra minúscula';
+      if (control.errors['number']) return 'Debe contener al menos un número';
+      if (control.errors['special']) return 'Debe contener al menos un carácter especial (!@#$%^&*...)';
+    }
+    
     if (controlName === 'password_confirm' && this.registerForm.errors?.['passwordMismatch']) return 'Las contraseñas no coinciden';
     return '';
   }

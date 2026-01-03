@@ -3,6 +3,9 @@
   
   <!-- Toggle de modo de búsqueda -->
   <div class="selector-modo-busqueda">
+    <br>
+    <br>
+    <br>
     <div class="tabs-modo">
       <button 
         class="tab-modo"
@@ -53,12 +56,12 @@
   <!-- Componentes de búsqueda -->
   <div class="contenedor-componentes">
     <!-- Búsqueda Exacta -->
-    <div *ngIf="modoActual === 'exacta'" class="componente-busqueda" [@fadeIn]>
+    <div *ngIf="modoActual === 'exacta'" class="componente-busqueda">
       <app-busqueda-envios></app-busqueda-envios>
     </div>
 
     <!-- Búsqueda Semántica -->
-    <div *ngIf="modoActual === 'semantica'" class="componente-busqueda" [@fadeIn]>
+    <div *ngIf="modoActual === 'semantica'" class="componente-busqueda">
       <app-busqueda-semantica 
         [modoIntegrado]="true"
         (cambiarModo)="cambiarModo($event)">

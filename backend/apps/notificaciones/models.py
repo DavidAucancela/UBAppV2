@@ -80,6 +80,7 @@ class Notificacion(models.Model):
     )
     
     class Meta:
+        db_table = 'notificaciones'
         verbose_name = 'Notificación'
         verbose_name_plural = 'Notificaciones'
         ordering = ['-fecha_creacion']

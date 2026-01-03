@@ -36,7 +36,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         router.navigate(['/login']);
       } else if (error.status === 403) {
         // Prohibido: redirigir al dashboard
-        router.navigate(['/dashboard']);
+        router.navigate(['/inicio']);
       } else if (error.status === 0) {
         // Error de conexión
         console.error('Error de conexión con el servidor');

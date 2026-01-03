@@ -38,9 +38,11 @@ export class EnviosListComponent implements OnInit {
   selectedComprador = '';
   
   // Pagination
-  currentPage = 1;
-  itemsPerPage = 10;
-  totalPages = 1;
+  paginaActual = 1;
+  itemsPerPage = 50;
+  totalPaginas = 1;
+  totalResultados = 0;
+  opcionesElementosPorPagina = [25, 50, 100, 200];
   
   // Messages
   successMessage = '';
@@ -93,9 +95,9 @@ export class EnviosListComponent implements OnInit {
     // Si es comprador, solo cargar sus envíos
     if (this.authService.isComprador()) {
       this.apiService.getMisEnvios().subscribe({
-        next: (response) => {
-          // El backend puede devolver un array o un objeto con 'results'
-          this.envios = Array.isArray(response) ? response : (response as any).results || [];
+        next: (envios) => {
+          // getMisEnvios() ahora siempre devuelve un array
+          this.envios = envios;
           this.applyFilters();
           this.loading = false;
         },
@@ -108,9 +110,9 @@ export class EnviosListComponent implements OnInit {
     } else {
       // Admin, Gerente, Digitador pueden ver todos
       this.apiService.getEnvios().subscribe({
-        next: (response) => {
-          // El backend puede devolver un array o un objeto con 'results'
-          this.envios = Array.isArray(response) ? response : (response as any).results || [];
+        next: (envios) => {
+          // getEnvios() ahora siempre devuelve un array
+          this.envios = envios;
           this.applyFilters();
           this.loading = false;
         },
@@ -214,36 +216,74 @@ export class EnviosListComponent implements OnInit {
   }
 
   calculatePagination(): void {
-    this.totalPages = Math.ceil(this.filteredEnvios.length / this.itemsPerPage);
-    this.currentPage = Math.min(this.currentPage, this.totalPages);
-    if (this.totalPages === 0) this.currentPage = 1;
+    this.totalResultados = this.filteredEnvios.length;
+    this.totalPaginas = Math.ceil(this.filteredEnvios.length / this.itemsPerPage);
+    if (this.totalPaginas === 0) {
+      this.totalPaginas = 1;
+      this.paginaActual = 1;
+    }
+    // Asegurar que la página actual no exceda el total
+    if (this.paginaActual > this.totalPaginas) {
+      this.paginaActual = this.totalPaginas;
+    }
   }
 
   onSearchChange(): void {
-    this.currentPage = 1;
+    this.paginaActual = 1;
     this.applyFilters();
   }
 
   onEstadoFilterChange(): void {
-    this.currentPage = 1;
+    this.paginaActual = 1;
     this.applyFilters();
   }
 
   onCompradorFilterChange(): void {
-    this.currentPage = 1;
+    this.paginaActual = 1;
     this.applyFilters();
   }
 
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
+  cambiarElementosPorPagina(cantidad: number): void {
+    this.itemsPerPage = cantidad;
+    this.paginaActual = 1;
+    this.calculatePagination();
+  }
+
+  obtenerRangoPaginas(): number[] {
+    const rango = 2; // Páginas a mostrar antes y después de la actual
+    const inicio = Math.max(1, this.paginaActual - rango);
+    const fin = Math.min(this.totalPaginas, this.paginaActual + rango);
+    
+    const paginas: number[] = [];
+    for (let i = inicio; i <= fin; i++) {
+      paginas.push(i);
+    }
+    return paginas;
+  }
+
+  paginaAnterior(): void {
+    if (this.paginaActual > 1) {
+      this.paginaActual--;
+      this.scrollAlInicio();
     }
   }
 
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
+  paginaSiguiente(): void {
+    if (this.paginaActual < this.totalPaginas) {
+      this.paginaActual++;
+      this.scrollAlInicio();
     }
+  }
+
+  irAPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPaginas) {
+      this.paginaActual = pagina;
+      this.scrollAlInicio();
+    }
+  }
+
+  private scrollAlInicio(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   openCreateModal(): void {
@@ -263,8 +303,8 @@ export class EnviosListComponent implements OnInit {
   generateNextHAWB(): void {
     // Obtener todos los HAWBs existentes
     this.apiService.getEnvios().subscribe({
-      next: (response) => {
-        const envios = Array.isArray(response) ? response : (response as any).results || [];
+      next: (envios) => {
+        // getEnvios() ahora siempre devuelve un array
         const hawbNumbers: number[] = [];
         
         // Extraer números de HAWBs existentes
@@ -467,12 +507,26 @@ export class EnviosListComponent implements OnInit {
   onSubmit(): void {
     if (this.envioForm.valid) {
       this.submitting = true;
+      // Asegurar que comprador sea un número
+      const compradorId = typeof this.envioForm.value.comprador === 'string' 
+        ? parseInt(this.envioForm.value.comprador, 10) 
+        : this.envioForm.value.comprador;
+      
+      // Filtrar productos válidos y remover productoExistenteId
+      const productosData = this.envioForm.value.productos.map((p: any) => ({
+        descripcion: p.descripcion,
+        categoria: p.categoria,
+        peso: parseFloat(p.peso) || 0,
+        cantidad: parseInt(p.cantidad) || 1,
+        valor: parseFloat(p.valor) || 0
+      })).filter((p: any) => p.descripcion && p.categoria && p.peso > 0 && p.cantidad > 0);
+      
       const formData: EnvioCreate = {
         hawb: this.envioForm.value.hawb,
-        comprador: this.envioForm.value.comprador,
+        comprador: compradorId,
         estado: this.envioForm.value.estado,
-        observaciones: this.envioForm.value.observaciones,
-        productos: this.envioForm.value.productos
+        observaciones: this.envioForm.value.observaciones || '',
+        productos: productosData
       };
 
       if (this.editingEnvio) {
@@ -577,9 +631,18 @@ export class EnviosListComponent implements OnInit {
   }
 
   get paginatedEnvios(): Envio[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const startIndex = (this.paginaActual - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.filteredEnvios.slice(startIndex, endIndex);
+  }
+
+  get inicioRango(): number {
+    if (this.totalResultados === 0) return 0;
+    return (this.paginaActual - 1) * this.itemsPerPage + 1;
+  }
+
+  get finRango(): number {
+    return Math.min(this.paginaActual * this.itemsPerPage, this.totalResultados);
   }
 
   // Calcular totales del formulario

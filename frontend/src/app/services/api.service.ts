@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario';
 import { Envio, EnvioCreate, EnvioUpdate } from '../models/envio';
 import { Producto, ProductoCreate, ProductoUpdate } from '../models/producto';
@@ -19,8 +20,6 @@ export interface CoordenaddasResponse {
   provincia: string;
   canton: string;
   ciudad: string;
-  latitud: number;
-  longitud: number;
 }
 
 @Injectable({
@@ -52,6 +51,10 @@ export class ApiService {
     return this.http.put<Usuario>(`${this.apiUrl}/usuarios/${id}/`, usuario);
   }
 
+  actualizarUsuarioParcial(id: number, usuario: Partial<Usuario>): Observable<Usuario> {
+    return this.http.patch<Usuario>(`${this.apiUrl}/usuarios/${id}/`, usuario);
+  }
+
   deleteUsuario(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/usuarios/${id}/`);
   }
@@ -71,6 +74,14 @@ export class ApiService {
 
   changePassword(userId: number, passwordData: { current_password: string, new_password: string }): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/usuarios/${userId}/change_password/`, passwordData);
+  }
+
+  actualizarPerfil(data: Partial<Usuario>): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.apiUrl}/usuarios/actualizar_perfil/`, data);
+  }
+
+  cambiarPasswordPerfil(passwordData: { password_actual: string, password_nuevo: string, password_confirm: string }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/usuarios/cambiar_password/`, passwordData);
   }
 
   getUbicacionesProvincias(): Observable<UbicacionesResponse> {
@@ -96,10 +107,10 @@ export class ApiService {
   }
 
   // ===== MAPA DE COMPRADORES =====
-  getMapaCompradores(ciudad?: string): Observable<any> {
+  getMapaCompradores(provincia?: string): Observable<any> {
     let params = new HttpParams();
-    if (ciudad) {
-      params = params.set('ciudad', ciudad);
+    if (provincia) {
+      params = params.set('provincia', provincia);
     }
     return this.http.get<any>(`${this.apiUrl}/usuarios/mapa_compradores/`, { params });
   }
@@ -114,7 +125,19 @@ export class ApiService {
 
   // ===== ENVÍOS =====
   getEnvios(): Observable<Envio[]> {
-    return this.http.get<Envio[]>(`${this.apiUrl}/envios/envios/`);
+    // Solicitar un page_size grande para obtener todos los envíos
+    const params = new HttpParams().set('page_size', '10000');
+    return this.http.get<any>(`${this.apiUrl}/envios/envios/`, { params }).pipe(
+      // Manejar respuesta paginada del backend
+      map((response: any) => {
+        // Si la respuesta tiene 'results', es una respuesta paginada
+        if (response && response.results) {
+          return response.results as Envio[];
+        }
+        // Si es un array directo, devolverlo
+        return Array.isArray(response) ? response : [];
+      })
+    );
   }
 
   getEnvio(id: number): Observable<Envio> {
@@ -134,7 +157,23 @@ export class ApiService {
   }
 
   getMisEnvios(): Observable<Envio[]> {
-    return this.http.get<Envio[]>(`${this.apiUrl}/envios/envios/mis_envios/`);
+    // Solicitar un page_size grande para obtener todos los envíos
+    const params = new HttpParams().set('page_size', '10000');
+    return this.http.get<any>(`${this.apiUrl}/envios/envios/mis_envios/`, { params }).pipe(
+      // Manejar respuesta paginada del backend
+      map((response: any) => {
+        // Si la respuesta tiene 'results', es una respuesta paginada
+        if (response && response.results) {
+          return response.results as Envio[];
+        }
+        // Si la respuesta tiene 'envios', es del endpoint mis_envios
+        if (response && response.envios) {
+          return response.envios as Envio[];
+        }
+        // Si es un array directo, devolverlo
+        return Array.isArray(response) ? response : [];
+      })
+    );
   }
 
   getEnviosPorEstado(estado: string): Observable<Envio[]> {
@@ -187,6 +226,27 @@ export class ApiService {
   // ===== TARIFAS =====
   getTarifas(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/envios/tarifas/`);
+  }
+
+  getTarifa(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/envios/tarifas/${id}/`);
+  }
+
+  createTarifa(tarifa: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/envios/tarifas/`, tarifa);
+  }
+
+  updateTarifa(id: number, tarifa: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/envios/tarifas/${id}/`, tarifa);
+  }
+
+  deleteTarifa(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/envios/tarifas/${id}/`);
+  }
+
+  getTarifasPorCategoria(categoria: string): Observable<any[]> {
+    const params = new HttpParams().set('categoria', categoria);
+    return this.http.get<any[]>(`${this.apiUrl}/envios/tarifas/por_categoria/`, { params });
   }
 
   buscarTarifa(categoria: string, peso: number): Observable<any> {

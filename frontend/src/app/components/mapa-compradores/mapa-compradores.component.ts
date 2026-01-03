@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ApiService } from '../../services/api.service';
-import { CIUDADES_ECUADOR, CiudadEcuador, MapaResponse, CompradorMapa, CiudadConCompradores } from '../../models/mapa';
+import { PROVINCIAS_ECUADOR, ProvinciaEcuador, MapaResponse, CompradorMapa, ProvinciaConCompradores } from '../../models/mapa';
 
 @Component({
   selector: 'app-mapa-compradores',
@@ -13,15 +13,15 @@ import { CIUDADES_ECUADOR, CiudadEcuador, MapaResponse, CompradorMapa, CiudadCon
 export class MapaCompradoresComponent implements OnInit, OnDestroy {
   private map: any;
   private markers: any[] = [];
-  private ciudadesMarkers: Map<string, any> = new Map();
+  private provinciasMarkers: Map<string, any> = new Map();
   private L: any; // Leaflet será cargado dinámicamente
   
   mapaData: MapaResponse | null = null;
   loading: boolean = true;
   error: string | null = null;
-  ciudadSeleccionada: string | null = null;
-  compradoresCiudadSeleccionada: CompradorMapa[] = [];
-  datosCiudadSeleccionada: CiudadConCompradores | null = null;
+  provinciaSeleccionada: string | null = null;
+  compradoresProvinciaSeleccionada: CompradorMapa[] = [];
+  datosProvinciaSeleccionada: ProvinciaConCompradores | null = null;
   isBrowser: boolean = false;
   
   // Iconos personalizados
@@ -56,8 +56,8 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
   private crearIconosPersonalizados(): void {
     if (!this.L) return;
     
-    // Icono para ciudad (cluster de compradores) - SVG con ícono de ubicación
-    const svgCiudad = `
+    // Icono para provincia (cluster de compradores) - SVG con ícono de ubicación
+    const svgProvincia = `
       <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
         <circle cx="20" cy="20" r="18" fill="#3b82f6" stroke="#1e40af" stroke-width="2" opacity="0.8"/>
         <path d="M20 10 C 16 10 13 13 13 17 C 13 22 20 30 20 30 C 20 30 27 22 27 17 C 27 13 24 10 20 10 Z M 20 20 C 18.3 20 17 18.7 17 17 C 17 15.3 18.3 14 20 14 C 21.7 14 23 15.3 23 17 C 23 18.7 21.7 20 20 20 Z" fill="white"/>
@@ -65,7 +65,7 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
     `;
     
     this.iconoCiudad = this.L.icon({
-      iconUrl: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svgCiudad),
+      iconUrl: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svgProvincia),
       iconSize: [40, 40],
       iconAnchor: [20, 40],
       popupAnchor: [0, -40]
@@ -129,8 +129,8 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
       attribution: '© OpenStreetMap contributors'
     }).addTo(this.map);
 
-    // Agregar marcadores de ciudades
-    this.agregarMarcadoresCiudades();
+    // Agregar marcadores de provincias
+    this.agregarMarcadoresProvincias();
 
     // Escuchar eventos de zoom
     this.map.on('zoomend', () => {
@@ -138,60 +138,59 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
     });
   }
 
-  private agregarMarcadoresCiudades(): void {
+  private agregarMarcadoresProvincias(): void {
     if (!this.mapaData) return;
 
-    // Crear un mapa de ciudades con compradores
-    const ciudadesConCompradores = new Map<string, CiudadConCompradores>();
-    this.mapaData.ciudades.forEach(ciudad => {
-      ciudadesConCompradores.set(ciudad.ciudad, ciudad);
+    // Crear un mapa de provincias con compradores
+    const provinciasConCompradores = new Map<string, ProvinciaConCompradores>();
+    this.mapaData.provincias.forEach(provincia => {
+      provinciasConCompradores.set(provincia.provincia, provincia);
     });
 
-    // Agregar marcadores para cada ciudad de Ecuador
-    CIUDADES_ECUADOR.forEach(ciudad => {
-      const datosCiudad = ciudadesConCompradores.get(ciudad.nombre);
+    // Agregar marcadores para cada provincia de Ecuador
+    PROVINCIAS_ECUADOR.forEach(provincia => {
+      const datosProvincia = provinciasConCompradores.get(provincia.nombre);
       
-      if (datosCiudad && datosCiudad.total_compradores > 0) {
-        this.agregarMarcadorCiudad(ciudad, datosCiudad);
+      if (datosProvincia && datosProvincia.total_compradores > 0) {
+        this.agregarMarcadorProvincia(provincia, datosProvincia);
       }
     });
   }
 
-  private agregarMarcadorCiudad(ciudad: CiudadEcuador, datos: CiudadConCompradores): void {
+  private agregarMarcadorProvincia(provincia: ProvinciaEcuador, datos: ProvinciaConCompradores): void {
     if (!this.L) return;
     
-    const marker = this.L.marker([ciudad.latitud, ciudad.longitud], {
+    const marker = this.L.marker([provincia.latitud, provincia.longitud], {
       icon: this.iconoCiudad
     }).addTo(this.map);
 
-    // Popup para la ciudad con mayor tamaño
-    const popupContent = this.crearPopupCiudad(ciudad, datos);
+    // Popup para la provincia con mayor tamaño
+    const popupContent = this.crearPopupProvincia(provincia, datos);
     marker.bindPopup(popupContent, { 
       maxWidth: 400,
       minWidth: 300,
-      className: 'popup-ciudad-custom'
+      className: 'popup-provincia-custom'
     });
 
     // Al hacer clic, hacer zoom y mostrar compradores individuales
     marker.on('click', () => {
-      console.log(`Click en ciudad: ${ciudad.nombre}`, datos);
-      this.ciudadSeleccionada = ciudad.nombre;
-      this.compradoresCiudadSeleccionada = datos.compradores;
-      this.datosCiudadSeleccionada = datos;
-      this.map.setView([ciudad.latitud, ciudad.longitud], 13);
+      console.log(`Click en provincia: ${provincia.nombre}`, datos);
+      this.provinciaSeleccionada = provincia.nombre;
+      this.compradoresProvinciaSeleccionada = datos.compradores;
+      this.datosProvinciaSeleccionada = datos;
+      this.map.setView([provincia.latitud, provincia.longitud], 9);
       setTimeout(() => {
         this.mostrarCompradoresIndividuales(datos);
       }, 500);
     });
 
-    this.ciudadesMarkers.set(ciudad.nombre, marker);
+    this.provinciasMarkers.set(provincia.nombre, marker);
   }
 
-  private crearPopupCiudad(ciudad: CiudadEcuador, datos: CiudadConCompradores): string {
+  private crearPopupProvincia(provincia: ProvinciaEcuador, datos: ProvinciaConCompradores): string {
     return `
-      <div class="popup-ciudad">
-        <h3 style="margin: 0 0 10px 0; color: #1e40af; font-size: 18px;">📍 ${ciudad.nombre}</h3>
-        <p style="margin: 5px 0; color: #4b5563;"><strong>Provincia:</strong> ${ciudad.provincia}</p>
+      <div class="popup-provincia">
+        <h3 style="margin: 0 0 10px 0; color: #1e40af; font-size: 18px;">📍 ${provincia.nombre}</h3>
         <p style="margin: 5px 0; color: #4b5563;"><strong>Compradores:</strong> ${datos.total_compradores}</p>
         <button 
           style="
@@ -212,39 +211,25 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
     `;
   }
 
-  private mostrarCompradoresIndividuales(ciudadDatos: CiudadConCompradores): void {
+  private mostrarCompradoresIndividuales(provinciaDatos: ProvinciaConCompradores): void {
     if (!this.L) return;
     
     // Limpiar marcadores anteriores de compradores
     this.limpiarMarcadoresCompradores();
 
-    // Contar compradores válidos con ubicación
-    let compradoresConUbicacion = 0;
+    // Obtener coordenadas de la provincia
+    const provinciaCoords = PROVINCIAS_ECUADOR.find(p => p.nombre === provinciaDatos.provincia);
+    if (!provinciaCoords) {
+      console.error(`No se encontraron coordenadas para la provincia: ${provinciaDatos.provincia}`);
+      return;
+    }
 
-    // Agregar marcador para cada comprador
-    ciudadDatos.compradores.forEach((comprador, index) => {
-      // Verificar que el comprador tenga coordenadas válidas
-      if (!comprador.latitud || !comprador.longitud) {
-        console.warn(`Comprador ${comprador.nombre} no tiene coordenadas`, comprador);
-        return; // Saltar este comprador
-      }
-
-      compradoresConUbicacion++;
-
-      // Convertir coordenadas a números (pueden venir como strings del backend)
-      const latBase = Number(comprador.latitud);
-      const lngBase = Number(comprador.longitud);
-
-      // Verificar que las conversiones sean válidas
-      if (isNaN(latBase) || isNaN(lngBase)) {
-        console.error(`Coordenadas inválidas para ${comprador.nombre}:`, { latitud: comprador.latitud, longitud: comprador.longitud });
-        return;
-      }
-
-      // Agregar pequeño offset para evitar superposición
-      const offset = this.calcularOffset(index, ciudadDatos.compradores.length);
-      const lat = latBase + offset.lat;
-      const lng = lngBase + offset.lng;
+    // Agregar marcador para cada comprador distribuido alrededor del centro de la provincia
+    provinciaDatos.compradores.forEach((comprador, index) => {
+      // Agregar offset para distribuir compradores en círculo alrededor del centro de la provincia
+      const offset = this.calcularOffset(index, provinciaDatos.compradores.length);
+      const lat = provinciaCoords.latitud + offset.lat;
+      const lng = provinciaCoords.longitud + offset.lng;
 
       const marker = this.L.marker([lat, lng], {
         icon: this.iconoComprador
@@ -260,12 +245,12 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
       this.markers.push(marker);
     });
 
-    console.log(`Mostrados ${compradoresConUbicacion} compradores de ${ciudadDatos.compradores.length} total`);
+    console.log(`Mostrados ${provinciaDatos.compradores.length} compradores de ${provinciaDatos.provincia}`);
   }
 
   private calcularOffset(index: number, total: number): { lat: number; lng: number } {
     // Distribuir compradores en círculo para evitar superposición
-    const radius = 0.01; // Radio en grados (aproximadamente 1 km)
+    const radius = 0.05; // Radio en grados (aproximadamente 5 km para provincias)
     const angle = (index / total) * 2 * Math.PI;
     
     return {
@@ -347,12 +332,12 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
   private manejarCambioZoom(): void {
     const zoomLevel = this.map.getZoom();
     
-    // Mostrar ciudades cuando zoom < 10, compradores cuando zoom >= 10
-    if (zoomLevel < 10) {
+    // Mostrar provincias cuando zoom < 9, compradores cuando zoom >= 9
+    if (zoomLevel < 9) {
       this.limpiarMarcadoresCompradores();
-      this.ciudadSeleccionada = null;
-      this.compradoresCiudadSeleccionada = [];
-      this.datosCiudadSeleccionada = null;
+      this.provinciaSeleccionada = null;
+      this.compradoresProvinciaSeleccionada = [];
+      this.datosProvinciaSeleccionada = null;
     }
   }
 
@@ -360,17 +345,17 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
     if (this.map) {
       this.map.setView([-1.8312, -78.1834], 7);
       this.limpiarMarcadoresCompradores();
-      this.ciudadSeleccionada = null;
-      this.compradoresCiudadSeleccionada = [];
-      this.datosCiudadSeleccionada = null;
+      this.provinciaSeleccionada = null;
+      this.compradoresProvinciaSeleccionada = [];
+      this.datosProvinciaSeleccionada = null;
     }
   }
 
   recargarDatos(): void {
     // Limpiar marcadores existentes
     this.limpiarMarcadoresCompradores();
-    this.ciudadesMarkers.forEach(marker => marker.remove());
-    this.ciudadesMarkers.clear();
+    this.provinciasMarkers.forEach(marker => marker.remove());
+    this.provinciasMarkers.clear();
     
     // Si el mapa existe, eliminarlo completamente
     if (this.map) {

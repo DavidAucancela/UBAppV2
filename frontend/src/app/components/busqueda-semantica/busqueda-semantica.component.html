@@ -1,22 +1,5 @@
 <!-- Contenedor principal de búsqueda semántica -->
 <div class="busqueda-semantica-container">
-  
-  <!-- Encabezado -->
-  <div class="encabezado">
-    <h1 class="titulo-principal">
-      <i class="fas fa-brain"></i>
-      Búsqueda Semántica de Envíos
-    </h1>
-    <p class="subtitulo">Encuentra envíos usando lenguaje natural - Describe lo que buscas y nuestro IA lo encontrará</p>
-  </div>
-
-  <!-- Botón cambiar a búsqueda exacta (si está integrado) -->
-  <div *ngIf="modoIntegrado" class="toggle-modo">
-    <button class="btn-cambiar-modo" (click)="cambiarAModoExacto()">
-      <i class="fas fa-exchange-alt"></i>
-      Cambiar a Búsqueda Exacta
-    </button>
-  </div>
 
   <!-- Mensajes de estado -->
   <div class="mensajes">
@@ -27,6 +10,60 @@
     <div *ngIf="errorMensaje" class="alerta alerta-error">
       <i class="fas fa-exclamation-triangle"></i>
       {{ errorMensaje }}
+    </div>
+  </div>
+
+  <!-- Historial de búsquedas recientes - mejorado y profesional -->
+  <div class="seccion-historial-mejorado" *ngIf="historialBusquedas.length > 0">
+    <div class="header-historial-mejorado">
+      <div class="titulo-historial">
+        <i class="fas fa-history"></i>
+        <h3>Historial de Búsquedas Recientes</h3>
+      </div>
+      <button 
+        class="btn-limpiar-historial"
+        (click)="limpiarHistorial()"
+        title="Limpiar todo el historial"
+      >
+        <i class="fas fa-trash-alt"></i>
+        Limpiar
+      </button>
+    </div>
+    
+    <div class="grid-historial">
+      <div 
+        *ngFor="let busqueda of historialBusquedas.slice(0, 6)" 
+        class="card-historial"
+        (click)="usarDelHistorial(busqueda)"
+        title="Clic para reutilizar esta búsqueda"
+      >
+        <div class="card-historial-header">
+          <i class="fas fa-search icono-busqueda-historial"></i>
+          <span class="fecha-historial-badge">{{ formatearFecha(busqueda.fechaConsulta) }}</span>
+        </div>
+        <div class="consulta-historial">
+          <p class="texto-consulta-historial">
+            {{ busqueda.consulta.length > 60 ? (busqueda.consulta.substring(0, 60) + '...') : busqueda.consulta }}
+          </p>
+        </div>
+        <div class="metadatos-historial">
+          <span class="badge-resultados-historial">
+            <i class="fas fa-list"></i>
+            {{ busqueda.totalResultados || 0 }} resultado(s)
+          </span>
+          <span class="badge-tiempo-historial" *ngIf="busqueda.tiempoRespuesta">
+            <i class="fas fa-clock"></i>
+            {{ busqueda.tiempoRespuesta }}ms
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-historial-mejorado" *ngIf="historialBusquedas.length > 6">
+      <p class="texto-footer-historial">
+        <i class="fas fa-info-circle"></i>
+        Mostrando las 6 búsquedas más recientes de {{ historialBusquedas.length }} total
+      </p>
     </div>
   </div>
 
@@ -69,18 +106,10 @@
 
         <button 
           class="btn btn-secundario"
-          (click)="toggleHistorial()"
-        >
-          <i class="fas fa-history"></i>
-          Historial
-        </button>
-
-        <button 
-          class="btn btn-secundario"
           (click)="toggleFiltrosAdicionales()"
         >
           <i class="fas fa-sliders-h"></i>
-          Filtros Opcionales
+          {{ mostrarFiltrosAdicionales ? 'Ocultar' : 'Mostrar' }} Filtros Opcionales
         </button>
       </div>
     </div>
@@ -113,58 +142,6 @@
         >
           <i class="fas {{ sugerencia.icono || 'fa-search' }}"></i>
           <span class="texto-sugerencia">{{ sugerencia.texto }}</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Panel de historial -->
-    <div *ngIf="mostrarHistorial" class="panel-historial">
-      <div class="header-historial">
-        <span>
-          <i class="fas fa-history"></i>
-          Búsquedas Recientes
-        </span>
-        <button 
-          class="btn-limpiar-historial"
-          (click)="limpiarHistorial()"
-          *ngIf="historialBusquedas.length > 0"
-        >
-          <i class="fas fa-trash"></i>
-          Limpiar
-        </button>
-      </div>
-      
-      <div *ngIf="historialBusquedas.length === 0" class="historial-vacio">
-        <i class="fas fa-inbox"></i>
-        <p>No hay búsquedas recientes</p>
-      </div>
-
-      <div *ngIf="historialBusquedas.length > 0" class="lista-historial">
-        <div 
-          *ngFor="let busqueda of historialBusquedas"
-          class="item-historial"
-          (click)="usarDelHistorial(busqueda)"
-        >
-          <div class="contenido-historial">
-            <i class="fas fa-search"></i>
-            <div class="info-busqueda-historial">
-              <span class="texto-historial">{{ busqueda.consulta }}</span>
-              <div class="meta-info-historial">
-                <span *ngIf="busqueda.modeloUtilizado" class="meta-item">
-                  <i class="fas fa-microchip"></i> {{ busqueda.modeloUtilizado }}
-                </span>
-                <span *ngIf="busqueda.costoConsulta" class="meta-item">
-                  <i class="fas fa-dollar-sign"></i> {{ formatearCosto(busqueda.costoConsulta) }}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="badges-historial">
-            <span class="badge-resultados">{{ busqueda.totalResultados }} resultados</span>
-            <span *ngIf="busqueda.tiempoRespuesta" class="badge-tiempo">
-              {{ busqueda.tiempoRespuesta }}ms
-            </span>
-          </div>
         </div>
       </div>
     </div>
@@ -212,25 +189,32 @@
         </div>
       </div>
 
-      <!-- Filtros tradicionales -->
+      <!-- Filtros tradicionales expandidos -->
       <div class="seccion-filtros-tradicionales">
         <h4 class="subtitulo-filtro">
           <i class="fas fa-sliders-h"></i>
-          Filtros Adicionales (Opcionales)
+          Filtros Adicionales para Segmentación Avanzada
         </h4>
         <div class="grid-filtros-adicionales">
-          <div class="campo-filtro">
-            <label>Fecha Desde:</label>
-            <input type="date" [(ngModel)]="fechaDesde" class="input-filtro">
+          <!-- Información del Envío -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-barcode"></i>
+              Número de Guía (HAWB)
+            </label>
+            <input 
+              type="text" 
+              [(ngModel)]="numeroGuia" 
+              class="input-filtro"
+              placeholder="Ej: HAWB123456"
+            >
           </div>
 
-          <div class="campo-filtro">
-            <label>Fecha Hasta:</label>
-            <input type="date" [(ngModel)]="fechaHasta" class="input-filtro">
-          </div>
-
-          <div class="campo-filtro">
-            <label>Estado del Envío:</label>
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-info-circle"></i>
+              Estado del Envío
+            </label>
             <select [(ngModel)]="estadoFiltro" class="select-filtro">
               <option value="">Todos los estados</option>
               <option *ngFor="let estado of estadosDisponibles" [value]="estado.valor">
@@ -239,10 +223,183 @@
             </select>
           </div>
 
-          <div class="campo-filtro">
-            <label>Ciudad Destino:</label>
-            <input type="text" [(ngModel)]="ciudadDestinoFiltro" class="input-filtro" placeholder="Ej: Quito">
+          <!-- Información del Destinatario/Comprador -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-user"></i>
+              Nombre del Destinatario
+            </label>
+            <input 
+              type="text" 
+              [(ngModel)]="nombreDestinatario" 
+              class="input-filtro"
+              placeholder="Nombre del comprador"
+            >
           </div>
+
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-id-card"></i>
+              Cédula del Destinatario
+            </label>
+            <input 
+              type="text" 
+              [(ngModel)]="cedulaDestinatario" 
+              class="input-filtro"
+              placeholder="Ej: 1234567890"
+            >
+          </div>
+
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-phone"></i>
+              Teléfono del Destinatario
+            </label>
+            <input 
+              type="text" 
+              [(ngModel)]="telefonoDestinatario" 
+              class="input-filtro"
+              placeholder="Ej: 0987654321"
+            >
+          </div>
+
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-envelope"></i>
+              Correo del Destinatario
+            </label>
+            <input 
+              type="email" 
+              [(ngModel)]="correoDestinatario" 
+              class="input-filtro"
+              placeholder="Ej: correo@ejemplo.com"
+            >
+          </div>
+
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-map-marker-alt"></i>
+              Ciudad de Destino
+            </label>
+            <input 
+              type="text" 
+              [(ngModel)]="ciudadDestinoFiltro" 
+              class="input-filtro"
+              placeholder="Ej: Quito, Guayaquil..."
+            >
+          </div>
+
+          <!-- Información del Producto -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-tags"></i>
+              Categoría del Producto
+            </label>
+            <select [(ngModel)]="categoriaProducto" class="select-filtro">
+              <option value="">Todas las categorías</option>
+              <option *ngFor="let categoria of categoriasDisponibles" [value]="categoria.valor">
+                {{ categoria.etiqueta }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Filtros Numéricos -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-weight-hanging"></i>
+              Peso Mínimo (kg)
+            </label>
+            <input 
+              type="number" 
+              [(ngModel)]="pesoMinimo" 
+              class="input-filtro"
+              placeholder="Ej: 1.5"
+              step="0.01"
+              min="0"
+            >
+          </div>
+
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-weight-hanging"></i>
+              Peso Máximo (kg)
+            </label>
+            <input 
+              type="number" 
+              [(ngModel)]="pesoMaximo" 
+              class="input-filtro"
+              placeholder="Ej: 10.0"
+              step="0.01"
+              min="0"
+            >
+          </div>
+
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-dollar-sign"></i>
+              Valor Mínimo ($)
+            </label>
+            <input 
+              type="number" 
+              [(ngModel)]="valorMinimo" 
+              class="input-filtro"
+              placeholder="Ej: 50.00"
+              step="0.01"
+              min="0"
+            >
+          </div>
+
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-dollar-sign"></i>
+              Valor Máximo ($)
+            </label>
+            <input 
+              type="number" 
+              [(ngModel)]="valorMaximo" 
+              class="input-filtro"
+              placeholder="Ej: 500.00"
+              step="0.01"
+              min="0"
+            >
+          </div>
+
+          <!-- Filtros de Fecha -->
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-calendar-alt"></i>
+              Fecha Desde
+            </label>
+            <input 
+              type="date" 
+              [(ngModel)]="fechaDesde" 
+              class="input-filtro"
+            >
+          </div>
+
+          <div class="grupo-filtro">
+            <label class="etiqueta-filtro">
+              <i class="fas fa-calendar-alt"></i>
+              Fecha Hasta
+            </label>
+            <input 
+              type="date" 
+              [(ngModel)]="fechaHasta" 
+              class="input-filtro"
+            >
+          </div>
+        </div>
+
+        <!-- Botones de acción de filtros -->
+        <div class="acciones-filtros">
+          <button type="button" class="btn btn-primario" (click)="realizarBusquedaSemantica()">
+            <i class="fas fa-search"></i>
+            Aplicar Filtros y Buscar
+          </button>
+          <button type="button" class="btn btn-secundario" (click)="limpiarFiltrosAdicionales()">
+            <i class="fas fa-eraser"></i>
+            Limpiar Filtros
+          </button>
         </div>
       </div>
     </div>
@@ -284,6 +441,9 @@
     <div class="info-resultados-semanticos">
       <span class="contador-resultados">
         <strong>{{ resultadosSemanticos.length }}</strong> resultado(s) encontrado(s)
+        <span *ngIf="totalPaginas > 1">
+          (Mostrando {{ (paginaActual - 1) * elementosPorPagina + 1 }} - {{ Math.min(paginaActual * elementosPorPagina, resultadosSemanticos.length) }})
+        </span>
       </span>
       <span class="info-modelo" *ngIf="respuestaActual?.modeloUtilizado">
         <i class="fas fa-microchip"></i>
@@ -302,209 +462,180 @@
         {{ respuestaActual.tokensUtilizados }} tokens
       </span>
     </div>
-
-    <div class="botones-vista">
-      <button 
-        class="btn-vista"
-        [class.activo]="configuracion.tipoVista === TipoVistaResultados.TARJETAS"
-        (click)="cambiarTipoVista(TipoVistaResultados.TARJETAS)"
-        title="Vista de tarjetas"
-      >
-        <i class="fas fa-th-large"></i>
-      </button>
-      <button 
-        class="btn-vista"
-        [class.activo]="configuracion.tipoVista === TipoVistaResultados.LISTA"
-        (click)="cambiarTipoVista(TipoVistaResultados.LISTA)"
-        title="Vista de lista"
-      >
+    <div class="controles-paginacion-header">
+      <label>
         <i class="fas fa-list"></i>
-      </button>
-      <button 
-        class="btn-vista"
-        [class.activo]="configuracion.tipoVista === TipoVistaResultados.COMPACTA"
-        (click)="cambiarTipoVista(TipoVistaResultados.COMPACTA)"
-        title="Vista compacta"
+        Mostrar:
+      </label>
+      <select 
+        class="select-elementos"
+        [value]="elementosPorPagina"
+        (change)="cambiarElementosPorPagina(+$any($event.target).value)"
       >
-        <i class="fas fa-bars"></i>
-      </button>
+        <option *ngFor="let opcion of opcionesElementosPorPagina" [value]="opcion">
+          {{ opcion }}
+        </option>
+      </select>
     </div>
   </div>
 
-  <!-- Resultados semánticos - Vista de Tarjetas -->
-  <div *ngIf="!analizando && !sinResultados && configuracion.tipoVista === TipoVistaResultados.TARJETAS" class="resultados-tarjetas">
-    <div *ngFor="let resultado of resultadosSemanticos" class="tarjeta-resultado">
-      <!-- Cabecera con puntuación -->
-      <div class="cabecera-tarjeta">
-        <div class="info-principal">
-          <span class="hawb-destac">{{ resultado.envio.hawb }}</span>
-          <span class="badge-estado" [ngClass]="obtenerClaseEstado(resultado.envio.estado)">
-            {{ obtenerEtiquetaEstado(resultado.envio.estado) }}
-          </span>
-        </div>
-        <div class="puntuacion-similitud" *ngIf="configuracion.mostrarPuntuacion">
-          <div class="barra-similitud">
-            <div 
-              class="relleno-similitud"
-              [style.width.%]="resultado.puntuacionSimilitud * 100"
-              [style.background-color]="obtenerColorSimilitud(resultado.puntuacionSimilitud)"
-            ></div>
-          </div>
-          <span class="texto-similitud" [ngClass]="obtenerClaseSimilitud(resultado.puntuacionSimilitud)">
-            {{ formatearPorcentajeSimilitud(resultado.puntuacionSimilitud) }} relevante
-          </span>
-        </div>
-      </div>
+  <!-- Tabla de resultados (formato igual a busqueda-envios) -->
+  <div *ngIf="!analizando && !sinResultados && resultadosSemanticos.length > 0" class="seccion-resultados">
+    <div class="tabla-responsive">
+      <table class="tabla-envios">
+        <thead>
+          <tr>
+            <th *ngIf="configuracion.mostrarPuntuacion">Relevancia</th>
+            <th>N° Guía (HAWB)</th>
+            <th>Destinatario</th>
+            <th>Ciudad Destino</th>
+            <th>Estado</th>
+            <th>Fecha Emisión</th>
+            <th class="text-right">Peso Total</th>
+            <th class="text-right">Valor Total</th>
+            <th class="text-right">Costo Servicio</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let resultado of resultadosPaginados" class="fila-envio">
+            <td *ngIf="configuracion.mostrarPuntuacion" class="celda-relevancia">
+              <div class="indicador-relevancia">
+                <div class="barra-relevancia">
+                  <div 
+                    class="relleno-relevancia"
+                    [style.width.%]="resultado.puntuacionSimilitud * 100"
+                    [style.background-color]="obtenerColorSimilitud(resultado.puntuacionSimilitud)"
+                  ></div>
+                </div>
+                <span class="texto-relevancia" [ngClass]="obtenerClaseSimilitud(resultado.puntuacionSimilitud)">
+                  {{ formatearPorcentajeSimilitud(resultado.puntuacionSimilitud) }}
+                </span>
+              </div>
+            </td>
+            <td class="celda-hawb">
+              <strong>{{ resultado.envio.hawb }}</strong>
+            </td>
+            <td>
+              <div class="info-destinatario">
+                <div class="nombre">{{ resultado.envio.comprador_info?.nombre || 'N/A' }}</div>
+                <div class="cedula" *ngIf="resultado.envio.comprador_info?.cedula">
+                  {{ resultado.envio.comprador_info.cedula }}
+                </div>
+              </div>
+            </td>
+            <td>
+              <i class="fas fa-map-marker-alt"></i>
+              {{ resultado.envio.comprador_info?.ciudad || 'N/A' }}
+            </td>
+            <td>
+              <span class="badge-estado" [ngClass]="obtenerClaseEstado(resultado.envio.estado)">
+                {{ obtenerEtiquetaEstado(resultado.envio.estado) }}
+              </span>
+            </td>
+            <td class="celda-fecha">
+              {{ formatearFecha(resultado.envio.fecha_emision) }}
+            </td>
+            <td class="text-right celda-peso">
+              {{ formatearPeso(resultado.envio.peso_total) }}
+            </td>
+            <td class="text-right celda-valor">
+              {{ formatearMoneda(resultado.envio.valor_total) }}
+            </td>
+            <td class="text-right celda-costo">
+              {{ formatearMoneda(resultado.envio.costo_servicio) }}
+            </td>
+            <td class="text-center celda-acciones">
+              <div class="botones-accion">
+                <button 
+                  class="btn-icono btn-ver"
+                  (click)="verDetalles(resultado)"
+                  title="Ver detalles"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button 
+                  class="btn-icono btn-descargar"
+                  (click)="descargarComprobante(resultado.envio)"
+                  title="Descargar comprobante"
+                >
+                  <i class="fas fa-download"></i>
+                </button>
+                <button 
+                  class="btn-icono btn-imprimir"
+                  (click)="imprimirComprobante(resultado.envio)"
+                  title="Imprimir comprobante"
+                >
+                  <i class="fas fa-print"></i>
+                </button>
+                <button 
+                  class="btn-icono btn-mapa"
+                  (click)="verEnMapa(resultado.envio)"
+                  title="Ver en mapa"
+                  *ngIf="resultado.envio.comprador_info?.ciudad"
+                >
+                  <i class="fas fa-map-marked-alt"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Paginación -->
+    <div class="paginacion" *ngIf="totalPaginas > 1">
+      <button 
+        class="btn-pagina"
+        (click)="paginaAnterior()"
+        [disabled]="paginaActual === 1"
+      >
+        <i class="fas fa-chevron-left"></i>
+        Anterior
+      </button>
 
-      <!-- Información del envío -->
-      <div class="contenido-tarjeta">
-        <div class="campo-info">
-          <i class="fas fa-user"></i>
-          <span class="etiqueta">Destinatario:</span>
-          <strong>{{ resultado.envio.comprador_info?.nombre || 'N/A' }}</strong>
-        </div>
-
-        <div class="campo-info">
-          <i class="fas fa-map-marker-alt"></i>
-          <span class="etiqueta">Ciudad:</span>
-          <strong>{{ resultado.envio.comprador_info?.ciudad || 'N/A' }}</strong>
-        </div>
-
-        <div class="campo-info">
-          <i class="fas fa-calendar"></i>
-          <span class="etiqueta">Fecha:</span>
-          <strong>{{ formatearFecha(resultado.envio.fecha_emision) }}</strong>
-        </div>
-
-        <div class="campo-info">
-          <i class="fas fa-weight-hanging"></i>
-          <span class="etiqueta">Peso:</span>
-          <strong>{{ formatearPeso(resultado.envio.peso_total) }}</strong>
-        </div>
-
-        <div class="campo-info">
-          <i class="fas fa-dollar-sign"></i>
-          <span class="etiqueta">Valor:</span>
-          <strong class="texto-valor">{{ formatearMoneda(resultado.envio.valor_total) }}</strong>
-        </div>
-
-        <!-- Fragmentos relevantes -->
-        <div *ngIf="configuracion.mostrarFragmentos && resultado.fragmentosRelevantes.length > 0" class="fragmentos-relevantes">
-          <div class="titulo-fragmentos">
-            <i class="fas fa-quote-left"></i>
-            Coincidencias encontradas:
-          </div>
-          <div *ngFor="let fragmento of resultado.fragmentosRelevantes" class="fragmento">
-            {{ fragmento }}
-          </div>
-        </div>
-
-        <!-- Razón de relevancia -->
-        <div *ngIf="configuracion.mostrarRazonRelevancia && resultado.razonRelevancia" class="razon-relevancia">
-          <i class="fas fa-info-circle"></i>
-          {{ resultado.razonRelevancia }}
-        </div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="pie-tarjeta">
-        <button class="btn btn-primario btn-sm" (click)="verDetalles(resultado)">
-          <i class="fas fa-eye"></i>
-          Ver Detalle
+      <div class="numeros-pagina">
+        <button 
+          *ngIf="paginaActual > 3"
+          class="btn-numero"
+          (click)="irAPagina(1)"
+        >
+          1
         </button>
-        
-        <div class="feedback-botones">
-          <button 
-            class="btn-feedback btn-feedback-positivo"
-            (click)="enviarFeedback(resultado, true)"
-            title="Resultado relevante"
-          >
-            <i class="fas fa-thumbs-up"></i>
-          </button>
-          <button 
-            class="btn-feedback btn-feedback-negativo"
-            (click)="enviarFeedback(resultado, false)"
-            title="Resultado no relevante"
-          >
-            <i class="fas fa-thumbs-down"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+        <span *ngIf="paginaActual > 3" class="puntos-suspension">...</span>
 
-  <!-- Resultados semánticos - Vista de Lista (similar estructura pero diferente layout) -->
-  <div *ngIf="!analizando && !sinResultados && configuracion.tipoVista === TipoVistaResultados.LISTA" class="resultados-lista">
-    <!-- Similar a tarjetas pero con layout más compacto -->
-    <div *ngFor="let resultado of resultadosSemanticos" class="item-lista-resultado">
-      <div class="contenido-lista">
-        <div class="cabecera-lista">
-          <span class="hawb-lista">{{ resultado.envio.hawb }}</span>
-          <span class="badge-estado" [ngClass]="obtenerClaseEstado(resultado.envio.estado)">
-            {{ obtenerEtiquetaEstado(resultado.envio.estado) }}
-          </span>
-          <span class="similitud-lista" *ngIf="configuracion.mostrarPuntuacion">
-            {{ formatearPorcentajeSimilitud(resultado.puntuacionSimilitud) }}
-          </span>
-        </div>
-        
-        <div class="info-lista">
-          <span>{{ resultado.envio.comprador_info?.nombre || 'N/A' }}</span>
-          <span>·</span>
-          <span>{{ resultado.envio.comprador_info?.ciudad || 'N/A' }}</span>
-          <span>·</span>
-          <span>{{ formatearFecha(resultado.envio.fecha_emision) }}</span>
-        </div>
+        <button 
+          *ngFor="let pagina of obtenerRangoPaginas()"
+          class="btn-numero"
+          [class.activo]="pagina === paginaActual"
+          (click)="irAPagina(pagina)"
+        >
+          {{ pagina }}
+        </button>
+
+        <span *ngIf="paginaActual < totalPaginas - 2" class="puntos-suspension">...</span>
+        <button 
+          *ngIf="paginaActual < totalPaginas - 2"
+          class="btn-numero"
+          (click)="irAPagina(totalPaginas)"
+        >
+          {{ totalPaginas }}
+        </button>
       </div>
-      
-      <button class="btn btn-sm" (click)="verDetalles(resultado)">
-        Ver Detalle
+
+      <button 
+        class="btn-pagina"
+        (click)="paginaSiguiente()"
+        [disabled]="paginaActual === totalPaginas"
+      >
+        Siguiente
+        <i class="fas fa-chevron-right"></i>
       </button>
     </div>
-  </div>
-
-  <!-- Resultados semánticos - Vista Compacta -->
-  <div *ngIf="!analizando && !sinResultados && configuracion.tipoVista === TipoVistaResultados.COMPACTA" class="resultados-compactos">
-    <table class="tabla-compacta">
-      <thead>
-        <tr>
-          <th *ngIf="configuracion.mostrarPuntuacion">Relevancia</th>
-          <th>HAWB</th>
-          <th>Destinatario</th>
-          <th>Ciudad</th>
-          <th>Estado</th>
-          <th>Fecha</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let resultado of resultadosSemanticos">
-          <td *ngIf="configuracion.mostrarPuntuacion">
-            <span class="badge-similitud" [ngClass]="obtenerClaseSimilitud(resultado.puntuacionSimilitud)">
-              {{ formatearPorcentajeSimilitud(resultado.puntuacionSimilitud) }}
-            </span>
-          </td>
-          <td><strong>{{ resultado.envio.hawb }}</strong></td>
-          <td>{{ resultado.envio.comprador_info?.nombre || 'N/A' }}</td>
-          <td>{{ resultado.envio.comprador_info?.ciudad || 'N/A' }}</td>
-          <td>
-            <span class="badge-estado" [ngClass]="obtenerClaseEstado(resultado.envio.estado)">
-              {{ obtenerEtiquetaEstado(resultado.envio.estado) }}
-            </span>
-          </td>
-          <td>{{ formatearFecha(resultado.envio.fecha_emision) }}</td>
-          <td>
-            <button class="btn-icono" (click)="verDetalles(resultado)" title="Ver detalle">
-              <i class="fas fa-eye"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </div>
 
-<!-- Modal de detalles (reutil Envío) -->
+<!-- Modal de detalles del envío (igual formato que busqueda-envios) -->
 <div class="modal-overlay" *ngIf="mostrarDetalleModal" (click)="cerrarDetalleModal()">
   <div class="modal-contenido" (click)="$event.stopPropagation()">
     <div class="modal-header">
@@ -520,10 +651,13 @@
     <div class="modal-body" *ngIf="envioSeleccionado">
       <!-- Información general -->
       <div class="seccion-detalle">
-        <h3><i class="fas fa-info-circle"></i> Información General</h3>
+        <h3 class="subtitulo-detalle">
+          <i class="fas fa-info-circle"></i>
+          Información General
+        </h3>
         <div class="grid-detalle">
           <div class="campo-detalle">
-            <label>HAWB:</label>
+            <label>Número de Guía (HAWB):</label>
             <strong>{{ envioSeleccionado.hawb }}</strong>
           </div>
           <div class="campo-detalle">
@@ -533,15 +667,22 @@
             </span>
           </div>
           <div class="campo-detalle">
-            <label>Fecha Emisión:</label>
+            <label>Fecha de Emisión:</label>
             <span>{{ formatearFecha(envioSeleccionado.fecha_emision) }}</span>
+          </div>
+          <div class="campo-detalle">
+            <label>Fecha de Actualización:</label>
+            <span>{{ formatearFecha(envioSeleccionado.fecha_actualizacion) }}</span>
           </div>
         </div>
       </div>
 
       <!-- Información del destinatario -->
       <div class="seccion-detalle" *ngIf="envioSeleccionado.comprador_info">
-        <h3><i class="fas fa-user"></i> Destinatario</h3>
+        <h3 class="subtitulo-detalle">
+          <i class="fas fa-user"></i>
+          Información del Destinatario
+        </h3>
         <div class="grid-detalle">
           <div class="campo-detalle">
             <label>Nombre:</label>
@@ -552,6 +693,14 @@
             <span>{{ envioSeleccionado.comprador_info.cedula }}</span>
           </div>
           <div class="campo-detalle">
+            <label>Correo:</label>
+            <span>{{ envioSeleccionado.comprador_info.correo }}</span>
+          </div>
+          <div class="campo-detalle">
+            <label>Teléfono:</label>
+            <span>{{ envioSeleccionado.comprador_info.telefono || 'N/A' }}</span>
+          </div>
+          <div class="campo-detalle">
             <label>Ciudad:</label>
             <span>{{ envioSeleccionado.comprador_info.ciudad || 'N/A' }}</span>
           </div>
@@ -560,21 +709,67 @@
 
       <!-- Información del envío -->
       <div class="seccion-detalle">
-        <h3><i class="fas fa-box-open"></i> Información del Envío</h3>
+        <h3 class="subtitulo-detalle">
+          <i class="fas fa-box-open"></i>
+          Información del Envío
+        </h3>
         <div class="grid-detalle">
           <div class="campo-detalle">
             <label>Peso Total:</label>
             <strong>{{ formatearPeso(envioSeleccionado.peso_total) }}</strong>
           </div>
           <div class="campo-detalle">
+            <label>Cantidad Total:</label>
+            <strong>{{ envioSeleccionado.cantidad_total }} unidades</strong>
+          </div>
+          <div class="campo-detalle">
             <label>Valor Total:</label>
             <strong class="texto-valor">{{ formatearMoneda(envioSeleccionado.valor_total) }}</strong>
           </div>
           <div class="campo-detalle">
-            <label>Costo Servicio:</label>
-            <strong>{{ formatearMoneda(envioSeleccionado.costo_servicio) }}</strong>
+            <label>Costo del Servicio:</label>
+            <strong class="texto-costo">{{ formatearMoneda(envioSeleccionado.costo_servicio) }}</strong>
           </div>
         </div>
+      </div>
+
+      <!-- Productos -->
+      <div class="seccion-detalle" *ngIf="envioSeleccionado.productos && envioSeleccionado.productos.length > 0">
+        <h3 class="subtitulo-detalle">
+          <i class="fas fa-boxes"></i>
+          Productos ({{ envioSeleccionado.productos.length }})
+        </h3>
+        <div class="tabla-productos">
+          <table>
+            <thead>
+              <tr>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th class="text-right">Peso</th>
+                <th class="text-right">Cantidad</th>
+                <th class="text-right">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of envioSeleccionado.productos">
+                <td>{{ producto.descripcion }}</td>
+                <td>{{ producto.categoria_nombre || producto.categoria }}</td>
+                <td class="text-right">{{ formatearPeso(producto.peso) }}</td>
+                <td class="text-right">{{ producto.cantidad }}</td>
+                <td class="text-right">{{ formatearMoneda(producto.valor) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Observaciones -->
+      <div class="seccion-detalle" *ngIf="envioSeleccionado.observaciones">
+        <h3 class="subtitulo-detalle">
+          <i class="fas fa-comment-alt"></i>
+          Observaciones
+        </h3>
+        <p class="texto-observaciones">{{ envioSeleccionado.observaciones }}</p>
       </div>
     </div>
 
@@ -583,9 +778,11 @@
         <i class="fas fa-times"></i>
         Cerrar
       </button>
+      <button class="btn btn-primario" (click)="descargarComprobante(envioSeleccionado!)">
+        <i class="fas fa-download"></i>
+        Descargar Comprobante
+      </button>
     </div>
   </div>
 </div>
-
-
 

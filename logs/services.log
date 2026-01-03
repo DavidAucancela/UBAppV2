@@ -1,0 +1,929 @@
+[INFO] 2025-11-25 16:46:49 - apps.core.base.base_service:log_info:118 - Usuario actualizado: pedrito
+[INFO] 2025-11-26 09:22:27 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 3
+[INFO] 2025-11-26 09:22:27 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 7770 ms
+[INFO] 2025-11-26 09:22:27 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-11-26 09:22:54 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 3
+[INFO] 2025-11-26 09:22:55 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3408 ms
+[INFO] 2025-11-26 09:22:55 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-11-26 15:49:35 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-11-26 15:49:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 12186 ms
+[INFO] 2025-11-26 15:49:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.0000000000000002e-07 USD
+[INFO] 2025-11-26 16:02:03 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-11-26 16:02:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 8248 ms
+[INFO] 2025-11-26 16:02:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.0000000000000002e-07 USD
+[INFO] 2025-11-26 16:05:03 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-11-26 16:05:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5700 ms
+[INFO] 2025-11-26 16:05:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.0000000000000002e-07 USD
+[INFO] 2025-11-29 03:52:06 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-11-29 03:52:06 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 137741 ms
+[INFO] 2025-11-29 03:52:06 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.0000000000000002e-07 USD
+[INFO] 2025-11-30 01:04:31 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-11-30 01:04:31 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 43135 ms
+[INFO] 2025-11-30 01:04:31 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.2e-07 USD
+[INFO] 2025-11-30 01:16:09 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-11-30 01:16:09 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 42814 ms
+[INFO] 2025-11-30 01:16:09 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.2e-07 USD
+[INFO] 2025-11-30 01:23:50 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-11-30 01:23:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 41117 ms
+[INFO] 2025-11-30 01:23:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.0000000000000002e-07 USD
+[INFO] 2025-11-30 01:29:16 - apps.core.base.base_service:log_info:118 - Usuario actualizado: Tefa
+[INFO] 2025-11-30 01:39:54 - apps.core.base.base_service:log_info:118 - Usuario actualizado: Tefa
+[INFO] 2025-12-10 03:33:05 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-10 03:33:05 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 85259 ms
+[INFO] 2025-12-10 03:33:05 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.0000000000000002e-07 USD
+[INFO] 2025-12-10 03:33:46 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-10 03:33:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 57395 ms
+[INFO] 2025-12-10 03:33:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.2e-07 USD
+[INFO] 2025-12-10 03:33:48 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-10 03:33:48 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 60654 ms
+[INFO] 2025-12-10 03:33:48 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.2e-07 USD
+[INFO] 2025-12-18 08:10:24 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-18 08:10:24 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 64705 ms
+[INFO] 2025-12-18 08:10:24 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.0000000000000002e-07 USD
+[INFO] 2025-12-19 02:43:47 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:43:47 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 15124 ms
+[INFO] 2025-12-19 02:43:47 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:43:54 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:43:54 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5609 ms
+[INFO] 2025-12-19 02:43:54 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-19 02:44:00 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:44:00 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4961 ms
+[INFO] 2025-12-19 02:44:00 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:44:06 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:44:06 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5881 ms
+[INFO] 2025-12-19 02:44:06 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.2000000000000002e-07 USD
+[INFO] 2025-12-19 02:44:12 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:44:12 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4998 ms
+[INFO] 2025-12-19 02:44:12 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-19 02:44:18 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:44:18 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3678 ms
+[INFO] 2025-12-19 02:44:18 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:44:24 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:44:24 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4384 ms
+[INFO] 2025-12-19 02:44:24 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:44:28 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:44:28 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3464 ms
+[INFO] 2025-12-19 02:44:28 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-19 02:44:34 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:44:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4043 ms
+[INFO] 2025-12-19 02:44:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:44:42 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:44:42 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4497 ms
+[INFO] 2025-12-19 02:44:42 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.2000000000000002e-07 USD
+[INFO] 2025-12-19 02:45:42 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:45:42 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 14051 ms
+[INFO] 2025-12-19 02:45:42 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:45:49 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:45:49 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5876 ms
+[INFO] 2025-12-19 02:45:49 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-19 02:45:55 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:45:55 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5031 ms
+[INFO] 2025-12-19 02:45:55 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:46:00 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:46:00 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4836 ms
+[INFO] 2025-12-19 02:46:00 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.2000000000000002e-07 USD
+[INFO] 2025-12-19 02:46:07 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:46:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 6417 ms
+[INFO] 2025-12-19 02:46:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-19 02:46:12 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:46:12 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4682 ms
+[INFO] 2025-12-19 02:46:12 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:46:17 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:46:17 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3750 ms
+[INFO] 2025-12-19 02:46:17 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:46:21 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:46:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3072 ms
+[INFO] 2025-12-19 02:46:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-19 02:46:25 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:46:25 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3766 ms
+[INFO] 2025-12-19 02:46:25 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:46:30 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:46:30 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4019 ms
+[INFO] 2025-12-19 02:46:30 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.2000000000000002e-07 USD
+[INFO] 2025-12-19 02:50:02 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 352) por usuario 1
+[INFO] 2025-12-19 02:50:02 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 02:50:10 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 353) por usuario 1
+[INFO] 2025-12-19 02:50:10 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 02:50:19 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 354) por usuario 1
+[INFO] 2025-12-19 02:50:19 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 02:50:26 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 355) por usuario 1
+[INFO] 2025-12-19 02:50:26 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 02:50:37 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 356) por usuario 1
+[INFO] 2025-12-19 02:50:37 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 02:50:45 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 357) por usuario 1
+[INFO] 2025-12-19 02:50:45 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 02:50:53 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 358) por usuario 1
+[INFO] 2025-12-19 02:50:53 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 02:51:01 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 359) por usuario 1
+[INFO] 2025-12-19 02:51:01 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 02:51:08 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 360) por usuario 1
+[INFO] 2025-12-19 02:51:08 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 02:51:17 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 361) por usuario 1
+[INFO] 2025-12-19 02:51:17 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 02:51:33 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:51:33 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 6348 ms
+[INFO] 2025-12-19 02:51:33 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:51:38 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:51:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4575 ms
+[INFO] 2025-12-19 02:51:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-19 02:51:44 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:51:44 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4597 ms
+[INFO] 2025-12-19 02:51:44 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:51:49 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:51:49 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4341 ms
+[INFO] 2025-12-19 02:51:49 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.2000000000000002e-07 USD
+[INFO] 2025-12-19 02:51:53 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:51:53 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3242 ms
+[INFO] 2025-12-19 02:51:53 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-19 02:51:58 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:51:58 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4100 ms
+[INFO] 2025-12-19 02:51:58 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:52:02 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:52:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3471 ms
+[INFO] 2025-12-19 02:52:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:52:07 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:52:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4312 ms
+[INFO] 2025-12-19 02:52:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-19 02:52:15 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:52:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 7195 ms
+[INFO] 2025-12-19 02:52:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 02:52:21 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 02:52:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4488 ms
+[INFO] 2025-12-19 02:52:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.2000000000000002e-07 USD
+[INFO] 2025-12-19 03:04:25 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 362) por usuario 1
+[INFO] 2025-12-19 03:04:25 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 03:04:31 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 363) por usuario 1
+[INFO] 2025-12-19 03:04:31 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 03:04:39 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 364) por usuario 1
+[INFO] 2025-12-19 03:04:39 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 03:04:46 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 365) por usuario 1
+[INFO] 2025-12-19 03:04:46 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 03:04:57 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 366) por usuario 1
+[INFO] 2025-12-19 03:04:57 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 03:05:02 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 367) por usuario 1
+[INFO] 2025-12-19 03:05:02 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 03:05:09 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 368) por usuario 1
+[INFO] 2025-12-19 03:05:09 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 03:05:17 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 369) por usuario 1
+[INFO] 2025-12-19 03:05:17 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 03:05:26 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 370) por usuario 1
+[INFO] 2025-12-19 03:05:26 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 03:05:32 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 371) por usuario 1
+[INFO] 2025-12-19 03:05:32 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-19 03:05:51 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 03:05:51 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 13161 ms
+[INFO] 2025-12-19 03:05:51 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 03:05:57 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 03:05:57 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5270 ms
+[INFO] 2025-12-19 03:05:57 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-19 03:06:03 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 03:06:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5526 ms
+[INFO] 2025-12-19 03:06:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 03:06:09 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 03:06:09 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5088 ms
+[INFO] 2025-12-19 03:06:09 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.2000000000000002e-07 USD
+[INFO] 2025-12-19 03:06:14 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 03:06:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5408 ms
+[INFO] 2025-12-19 03:06:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-19 03:06:21 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 03:06:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5026 ms
+[INFO] 2025-12-19 03:06:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 03:06:26 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 03:06:26 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3917 ms
+[INFO] 2025-12-19 03:06:26 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 03:06:29 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 03:06:29 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3281 ms
+[INFO] 2025-12-19 03:06:30 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-19 03:06:36 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 03:06:36 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5012 ms
+[INFO] 2025-12-19 03:06:36 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-19 03:06:41 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-19 03:06:41 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4675 ms
+[INFO] 2025-12-19 03:06:41 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.2000000000000002e-07 USD
+[INFO] 2025-12-23 15:14:06 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 372) por usuario 1
+[INFO] 2025-12-23 15:14:06 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:14:12 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 373) por usuario 1
+[INFO] 2025-12-23 15:14:12 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:14:18 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 374) por usuario 1
+[INFO] 2025-12-23 15:14:18 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:14:24 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 375) por usuario 1
+[INFO] 2025-12-23 15:14:24 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:14:30 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 376) por usuario 1
+[INFO] 2025-12-23 15:14:30 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:14:35 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 377) por usuario 1
+[INFO] 2025-12-23 15:14:35 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:14:41 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 378) por usuario 1
+[INFO] 2025-12-23 15:14:41 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:14:47 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 379) por usuario 1
+[INFO] 2025-12-23 15:14:47 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:14:52 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 380) por usuario 1
+[INFO] 2025-12-23 15:14:52 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:14:59 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 381) por usuario 1
+[INFO] 2025-12-23 15:14:59 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:15:05 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 382) por usuario 1
+[INFO] 2025-12-23 15:15:05 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:15:10 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 383) por usuario 1
+[INFO] 2025-12-23 15:15:10 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:15:16 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 384) por usuario 1
+[INFO] 2025-12-23 15:15:16 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:15:21 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 385) por usuario 1
+[INFO] 2025-12-23 15:15:21 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:15:27 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 386) por usuario 1
+[INFO] 2025-12-23 15:15:27 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:15:32 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 387) por usuario 1
+[INFO] 2025-12-23 15:15:32 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:15:39 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 388) por usuario 1
+[INFO] 2025-12-23 15:15:39 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:15:44 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 389) por usuario 1
+[INFO] 2025-12-23 15:15:44 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:15:50 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 390) por usuario 1
+[INFO] 2025-12-23 15:15:50 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:15:55 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 391) por usuario 1
+[INFO] 2025-12-23 15:15:55 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 15:16:11 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:11 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 6412 ms
+[INFO] 2025-12-23 15:16:11 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 15:16:18 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:18 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5902 ms
+[INFO] 2025-12-23 15:16:18 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-23 15:16:22 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:22 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3676 ms
+[INFO] 2025-12-23 15:16:22 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 15:16:27 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:27 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4335 ms
+[INFO] 2025-12-23 15:16:27 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 15:16:32 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:32 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4550 ms
+[INFO] 2025-12-23 15:16:32 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 15:16:35 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2911 ms
+[INFO] 2025-12-23 15:16:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 15:16:38 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2718 ms
+[INFO] 2025-12-23 15:16:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 15:16:41 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:41 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2852 ms
+[INFO] 2025-12-23 15:16:41 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-23 15:16:45 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:45 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2828 ms
+[INFO] 2025-12-23 15:16:45 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 15:16:48 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:48 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2952 ms
+[INFO] 2025-12-23 15:16:48 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 15:16:51 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:51 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3016 ms
+[INFO] 2025-12-23 15:16:51 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 15:16:55 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:55 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3480 ms
+[INFO] 2025-12-23 15:16:55 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-23 15:16:59 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:16:59 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3429 ms
+[INFO] 2025-12-23 15:16:59 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 15:17:03 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:17:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3274 ms
+[INFO] 2025-12-23 15:17:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 15:17:07 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:17:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3243 ms
+[INFO] 2025-12-23 15:17:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 15:17:10 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:17:10 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3196 ms
+[INFO] 2025-12-23 15:17:10 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 15:17:14 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:17:14 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3241 ms
+[INFO] 2025-12-23 15:17:14 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 15:17:17 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:17:17 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3069 ms
+[INFO] 2025-12-23 15:17:17 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-23 15:17:21 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:17:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3670 ms
+[INFO] 2025-12-23 15:17:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 15:17:25 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 15:17:25 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3621 ms
+[INFO] 2025-12-23 15:17:25 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 16:33:55 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 392) por usuario 1
+[INFO] 2025-12-23 16:33:55 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:01 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 393) por usuario 1
+[INFO] 2025-12-23 16:34:01 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:07 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 394) por usuario 1
+[INFO] 2025-12-23 16:34:07 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:13 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 395) por usuario 1
+[INFO] 2025-12-23 16:34:13 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:19 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 396) por usuario 1
+[INFO] 2025-12-23 16:34:19 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:25 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 397) por usuario 1
+[INFO] 2025-12-23 16:34:25 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:31 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 398) por usuario 1
+[INFO] 2025-12-23 16:34:31 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:36 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 399) por usuario 1
+[INFO] 2025-12-23 16:34:36 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:42 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 400) por usuario 1
+[INFO] 2025-12-23 16:34:42 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:48 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 401) por usuario 1
+[INFO] 2025-12-23 16:34:48 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:54 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 402) por usuario 1
+[INFO] 2025-12-23 16:34:54 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:34:59 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 403) por usuario 1
+[INFO] 2025-12-23 16:34:59 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:35:05 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 404) por usuario 1
+[INFO] 2025-12-23 16:35:05 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:35:11 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 405) por usuario 1
+[INFO] 2025-12-23 16:35:11 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:35:17 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 406) por usuario 1
+[INFO] 2025-12-23 16:35:17 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:35:22 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 407) por usuario 1
+[INFO] 2025-12-23 16:35:22 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:35:28 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 408) por usuario 1
+[INFO] 2025-12-23 16:35:28 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:35:33 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 409) por usuario 1
+[INFO] 2025-12-23 16:35:33 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:35:39 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 410) por usuario 1
+[INFO] 2025-12-23 16:35:39 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:35:45 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 411) por usuario 1
+[INFO] 2025-12-23 16:35:45 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:36:02 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 7291 ms
+[INFO] 2025-12-23 16:36:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 16:36:07 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5100 ms
+[INFO] 2025-12-23 16:36:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-23 16:36:12 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:12 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4105 ms
+[INFO] 2025-12-23 16:36:12 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 16:36:15 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3111 ms
+[INFO] 2025-12-23 16:36:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 16:36:19 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:19 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2848 ms
+[INFO] 2025-12-23 16:36:19 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 16:36:22 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:22 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3020 ms
+[INFO] 2025-12-23 16:36:22 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 16:36:25 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:25 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2878 ms
+[INFO] 2025-12-23 16:36:25 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 16:36:29 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:29 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2969 ms
+[INFO] 2025-12-23 16:36:29 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-23 16:36:32 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:32 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3159 ms
+[INFO] 2025-12-23 16:36:32 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 16:36:36 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:36 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3113 ms
+[INFO] 2025-12-23 16:36:36 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 16:36:39 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:39 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3059 ms
+[INFO] 2025-12-23 16:36:39 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 16:36:43 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:43 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3325 ms
+[INFO] 2025-12-23 16:36:43 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-23 16:36:47 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:47 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3642 ms
+[INFO] 2025-12-23 16:36:47 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 16:36:50 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2851 ms
+[INFO] 2025-12-23 16:36:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 16:36:54 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:54 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3059 ms
+[INFO] 2025-12-23 16:36:54 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 16:36:57 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:36:57 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2846 ms
+[INFO] 2025-12-23 16:36:57 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 16:37:01 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:37:01 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3076 ms
+[INFO] 2025-12-23 16:37:01 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 16:37:04 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:37:04 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2891 ms
+[INFO] 2025-12-23 16:37:04 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-23 16:37:08 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:37:08 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3137 ms
+[INFO] 2025-12-23 16:37:08 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 16:37:11 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:37:11 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3250 ms
+[INFO] 2025-12-23 16:37:11 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-23 16:51:38 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 412) por usuario 1
+[INFO] 2025-12-23 16:51:38 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 16:51:44 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 16:51:44 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3708 ms
+[INFO] 2025-12-23 16:51:44 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-23 21:34:07 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 413) por usuario 1
+[INFO] 2025-12-23 21:34:07 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-23 21:34:50 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-23 21:34:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 38488 ms
+[INFO] 2025-12-23 21:34:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 09:24:10 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 414) por usuario 1
+[INFO] 2025-12-24 09:24:10 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:24:15 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 415) por usuario 1
+[INFO] 2025-12-24 09:24:15 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:24:20 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 416) por usuario 1
+[INFO] 2025-12-24 09:24:20 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:24:29 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 417) por usuario 1
+[INFO] 2025-12-24 09:24:29 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:24:36 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 418) por usuario 1
+[INFO] 2025-12-24 09:24:36 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:24:44 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 419) por usuario 1
+[INFO] 2025-12-24 09:24:44 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:24:52 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 420) por usuario 1
+[INFO] 2025-12-24 09:24:52 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:25:02 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 421) por usuario 1
+[INFO] 2025-12-24 09:25:02 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:25:09 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 422) por usuario 1
+[INFO] 2025-12-24 09:25:09 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:25:14 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 423) por usuario 1
+[INFO] 2025-12-24 09:25:14 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:25:30 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:25:30 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 9300 ms
+[INFO] 2025-12-24 09:25:30 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 09:25:35 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:25:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4226 ms
+[INFO] 2025-12-24 09:25:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 09:25:40 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:25:40 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4545 ms
+[INFO] 2025-12-24 09:25:40 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 09:25:43 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:25:43 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2504 ms
+[INFO] 2025-12-24 09:25:43 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 09:25:47 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:25:47 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3773 ms
+[INFO] 2025-12-24 09:25:47 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 09:25:50 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:25:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2467 ms
+[INFO] 2025-12-24 09:25:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 09:25:53 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:25:53 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2388 ms
+[INFO] 2025-12-24 09:25:53 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 09:25:56 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:25:56 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2351 ms
+[INFO] 2025-12-24 09:25:56 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 09:25:59 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:25:59 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2768 ms
+[INFO] 2025-12-24 09:25:59 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 09:26:02 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:26:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2412 ms
+[INFO] 2025-12-24 09:26:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 09:45:24 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 424) por usuario 1
+[INFO] 2025-12-24 09:45:24 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:45:32 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:45:32 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5746 ms
+[INFO] 2025-12-24 09:45:32 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 09:46:37 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 425) por usuario 1
+[INFO] 2025-12-24 09:46:37 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:46:42 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 426) por usuario 1
+[INFO] 2025-12-24 09:46:42 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:46:47 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 427) por usuario 1
+[INFO] 2025-12-24 09:46:47 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:46:52 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 428) por usuario 1
+[INFO] 2025-12-24 09:46:52 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:46:57 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 429) por usuario 1
+[INFO] 2025-12-24 09:46:57 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:47:03 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 430) por usuario 1
+[INFO] 2025-12-24 09:47:03 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:47:08 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 431) por usuario 1
+[INFO] 2025-12-24 09:47:08 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:47:15 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 432) por usuario 1
+[INFO] 2025-12-24 09:47:15 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:47:19 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 433) por usuario 1
+[INFO] 2025-12-24 09:47:19 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:47:24 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 434) por usuario 1
+[INFO] 2025-12-24 09:47:24 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 09:47:33 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:47:33 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3574 ms
+[INFO] 2025-12-24 09:47:33 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 09:47:36 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:47:36 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2536 ms
+[INFO] 2025-12-24 09:47:36 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 09:47:39 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:47:39 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2393 ms
+[INFO] 2025-12-24 09:47:39 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 09:47:42 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:47:42 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2536 ms
+[INFO] 2025-12-24 09:47:42 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 09:47:45 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:47:45 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3113 ms
+[INFO] 2025-12-24 09:47:45 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 09:47:48 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:47:48 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2566 ms
+[INFO] 2025-12-24 09:47:48 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 09:47:51 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:47:51 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2441 ms
+[INFO] 2025-12-24 09:47:51 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 09:47:54 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:47:54 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2057 ms
+[INFO] 2025-12-24 09:47:54 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 09:47:57 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:47:57 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3125 ms
+[INFO] 2025-12-24 09:47:57 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 09:48:00 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 09:48:00 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2785 ms
+[INFO] 2025-12-24 09:48:00 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:49:36 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 435) por usuario 1
+[INFO] 2025-12-24 10:49:36 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:49:42 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 436) por usuario 1
+[INFO] 2025-12-24 10:49:42 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:49:48 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 437) por usuario 1
+[INFO] 2025-12-24 10:49:48 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:49:54 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 438) por usuario 1
+[INFO] 2025-12-24 10:49:54 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:00 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 439) por usuario 1
+[INFO] 2025-12-24 10:50:00 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:06 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 440) por usuario 1
+[INFO] 2025-12-24 10:50:06 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:12 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 441) por usuario 1
+[INFO] 2025-12-24 10:50:12 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:18 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 442) por usuario 1
+[INFO] 2025-12-24 10:50:18 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:23 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 443) por usuario 1
+[INFO] 2025-12-24 10:50:23 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:29 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 444) por usuario 1
+[INFO] 2025-12-24 10:50:29 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:34 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 445) por usuario 1
+[INFO] 2025-12-24 10:50:34 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:40 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 446) por usuario 1
+[INFO] 2025-12-24 10:50:40 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:45 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 447) por usuario 1
+[INFO] 2025-12-24 10:50:45 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:51 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 448) por usuario 1
+[INFO] 2025-12-24 10:50:51 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:50:57 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 449) por usuario 1
+[INFO] 2025-12-24 10:50:57 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:02 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 450) por usuario 1
+[INFO] 2025-12-24 10:51:02 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:07 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 451) por usuario 1
+[INFO] 2025-12-24 10:51:07 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:12 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 452) por usuario 1
+[INFO] 2025-12-24 10:51:12 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:17 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 453) por usuario 1
+[INFO] 2025-12-24 10:51:17 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:22 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 454) por usuario 1
+[INFO] 2025-12-24 10:51:22 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:28 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 455) por usuario 1
+[INFO] 2025-12-24 10:51:28 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:33 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 456) por usuario 1
+[INFO] 2025-12-24 10:51:33 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:38 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 457) por usuario 1
+[INFO] 2025-12-24 10:51:38 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:43 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 458) por usuario 1
+[INFO] 2025-12-24 10:51:43 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:48 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 459) por usuario 1
+[INFO] 2025-12-24 10:51:48 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:54 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 460) por usuario 1
+[INFO] 2025-12-24 10:51:54 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:51:59 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 461) por usuario 1
+[INFO] 2025-12-24 10:51:59 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:52:04 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 462) por usuario 1
+[INFO] 2025-12-24 10:52:04 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:52:09 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 463) por usuario 1
+[INFO] 2025-12-24 10:52:09 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:52:14 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 464) por usuario 1
+[INFO] 2025-12-24 10:52:14 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 10:52:33 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:52:33 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5404 ms
+[INFO] 2025-12-24 10:52:33 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:52:39 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:52:39 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5420 ms
+[INFO] 2025-12-24 10:52:39 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 10:52:44 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:52:44 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4640 ms
+[INFO] 2025-12-24 10:52:44 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:52:49 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:52:49 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4747 ms
+[INFO] 2025-12-24 10:52:49 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:52:53 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:52:53 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3281 ms
+[INFO] 2025-12-24 10:52:53 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:52:58 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:52:58 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4763 ms
+[INFO] 2025-12-24 10:52:58 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:53:02 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3462 ms
+[INFO] 2025-12-24 10:53:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:53:07 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4510 ms
+[INFO] 2025-12-24 10:53:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 10:53:10 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:10 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3210 ms
+[INFO] 2025-12-24 10:53:10 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:53:15 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4162 ms
+[INFO] 2025-12-24 10:53:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:53:19 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:19 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3380 ms
+[INFO] 2025-12-24 10:53:19 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:53:23 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:23 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4234 ms
+[INFO] 2025-12-24 10:53:23 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 10:53:27 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:27 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2770 ms
+[INFO] 2025-12-24 10:53:27 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:53:30 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:30 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3048 ms
+[INFO] 2025-12-24 10:53:30 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:53:34 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3758 ms
+[INFO] 2025-12-24 10:53:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:53:38 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3169 ms
+[INFO] 2025-12-24 10:53:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:53:43 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:43 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4584 ms
+[INFO] 2025-12-24 10:53:43 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:53:46 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2948 ms
+[INFO] 2025-12-24 10:53:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 10:53:50 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3439 ms
+[INFO] 2025-12-24 10:53:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:53:54 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:54 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3600 ms
+[INFO] 2025-12-24 10:53:54 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:53:58 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:53:58 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3298 ms
+[INFO] 2025-12-24 10:53:58 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:54:01 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:54:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3259 ms
+[INFO] 2025-12-24 10:54:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 10:54:05 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:54:05 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3049 ms
+[INFO] 2025-12-24 10:54:05 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:54:09 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:54:09 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3415 ms
+[INFO] 2025-12-24 10:54:09 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:54:12 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:54:12 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2690 ms
+[INFO] 2025-12-24 10:54:12 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:54:15 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:54:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3003 ms
+[INFO] 2025-12-24 10:54:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:54:20 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:54:20 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3608 ms
+[INFO] 2025-12-24 10:54:20 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 10:54:23 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:54:23 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2961 ms
+[INFO] 2025-12-24 10:54:23 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 10:54:26 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:54:26 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2706 ms
+[INFO] 2025-12-24 10:54:26 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 10:54:29 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 10:54:29 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2911 ms
+[INFO] 2025-12-24 10:54:29 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 11:20:52 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 465) por usuario 1
+[INFO] 2025-12-24 11:20:52 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 11:20:58 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 466) por usuario 1
+[INFO] 2025-12-24 11:20:58 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 11:21:03 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 467) por usuario 1
+[INFO] 2025-12-24 11:21:03 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 11:21:09 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 468) por usuario 1
+[INFO] 2025-12-24 11:21:09 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 11:21:14 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 469) por usuario 1
+[INFO] 2025-12-24 11:21:14 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 11:21:20 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 470) por usuario 1
+[INFO] 2025-12-24 11:21:20 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 11:21:25 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 471) por usuario 1
+[INFO] 2025-12-24 11:21:25 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 11:21:30 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 472) por usuario 1
+[INFO] 2025-12-24 11:21:30 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 11:21:36 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 473) por usuario 1
+[INFO] 2025-12-24 11:21:36 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 11:21:41 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 474) por usuario 1
+[INFO] 2025-12-24 11:21:41 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 11:21:52 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 11:21:52 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4432 ms
+[INFO] 2025-12-24 11:21:52 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 11:21:56 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 11:21:56 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3479 ms
+[INFO] 2025-12-24 11:21:56 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 11:21:59 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 11:21:59 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3041 ms
+[INFO] 2025-12-24 11:21:59 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 11:22:02 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 11:22:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2915 ms
+[INFO] 2025-12-24 11:22:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 11:22:07 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 11:22:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3847 ms
+[INFO] 2025-12-24 11:22:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 11:22:10 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 11:22:10 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3253 ms
+[INFO] 2025-12-24 11:22:10 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 11:22:14 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 11:22:14 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3147 ms
+[INFO] 2025-12-24 11:22:14 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 11:22:18 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 11:22:18 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3069 ms
+[INFO] 2025-12-24 11:22:18 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 11:22:21 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 11:22:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2839 ms
+[INFO] 2025-12-24 11:22:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 11:22:24 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 11:22:24 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2772 ms
+[INFO] 2025-12-24 11:22:24 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 12:28:13 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 475) por usuario 1
+[INFO] 2025-12-24 12:28:13 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 12:28:19 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 476) por usuario 1
+[INFO] 2025-12-24 12:28:19 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 12:28:25 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 477) por usuario 1
+[INFO] 2025-12-24 12:28:25 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 12:28:31 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 478) por usuario 1
+[INFO] 2025-12-24 12:28:31 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 12:28:37 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 479) por usuario 1
+[INFO] 2025-12-24 12:28:37 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 12:28:44 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 480) por usuario 1
+[INFO] 2025-12-24 12:28:44 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 12:28:50 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 481) por usuario 1
+[INFO] 2025-12-24 12:28:50 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 12:28:55 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 482) por usuario 1
+[INFO] 2025-12-24 12:28:55 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 12:29:01 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 483) por usuario 1
+[INFO] 2025-12-24 12:29:01 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 12:29:07 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 484) por usuario 1
+[INFO] 2025-12-24 12:29:07 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-24 12:30:56 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 12:30:56 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 103469 ms
+[INFO] 2025-12-24 12:30:56 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 12:32:35 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 12:32:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 98220 ms
+[INFO] 2025-12-24 12:32:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 12:34:04 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 12:34:04 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 88161 ms
+[INFO] 2025-12-24 12:34:04 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 12:35:43 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 12:35:43 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 98842 ms
+[INFO] 2025-12-24 12:35:43 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 12:37:35 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 12:37:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 111596 ms
+[INFO] 2025-12-24 12:37:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 12:39:24 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 12:39:24 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 108539 ms
+[INFO] 2025-12-24 12:39:24 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 12:40:52 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 12:40:52 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 87778 ms
+[INFO] 2025-12-24 12:40:52 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-24 12:42:32 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 12:42:32 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 99081 ms
+[INFO] 2025-12-24 12:42:32 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-24 12:44:17 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 12:44:17 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 104524 ms
+[INFO] 2025-12-24 12:44:17 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-24 12:45:46 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-24 12:45:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 88973 ms
+[INFO] 2025-12-24 12:45:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-25 00:36:07 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 485) por usuario 1
+[INFO] 2025-12-25 00:36:07 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[INFO] 2025-12-25 00:37:17 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-25 00:37:17 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 67873 ms
+[INFO] 2025-12-25 00:37:17 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-26 01:32:34 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-26 01:32:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 14843 ms
+[INFO] 2025-12-26 01:32:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.8e-07 USD
+[INFO] 2025-12-26 01:33:15 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-26 01:33:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 10367 ms
+[INFO] 2025-12-26 01:33:15 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-28 07:03:08 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:03:08 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 72613 ms
+[INFO] 2025-12-28 07:03:08 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.4e-07 USD
+[INFO] 2025-12-28 07:29:59 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:29:59 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 10266 ms
+[INFO] 2025-12-28 07:29:59 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:30:05 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:05 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5653 ms
+[INFO] 2025-12-28 07:30:05 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-28 07:30:11 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:11 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5547 ms
+[INFO] 2025-12-28 07:30:11 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:30:16 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:16 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4623 ms
+[INFO] 2025-12-28 07:30:16 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:30:21 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4542 ms
+[INFO] 2025-12-28 07:30:21 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:30:26 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:26 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4555 ms
+[INFO] 2025-12-28 07:30:26 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:30:31 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:31 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4310 ms
+[INFO] 2025-12-28 07:30:31 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:30:35 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3869 ms
+[INFO] 2025-12-28 07:30:35 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-28 07:30:38 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3173 ms
+[INFO] 2025-12-28 07:30:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:30:42 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:42 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3361 ms
+[INFO] 2025-12-28 07:30:42 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:30:46 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3654 ms
+[INFO] 2025-12-28 07:30:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:30:51 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:51 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3801 ms
+[INFO] 2025-12-28 07:30:51 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-28 07:30:55 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:55 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4134 ms
+[INFO] 2025-12-28 07:30:55 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:30:59 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:30:59 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3463 ms
+[INFO] 2025-12-28 07:30:59 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:31:03 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3258 ms
+[INFO] 2025-12-28 07:31:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:31:08 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:08 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4387 ms
+[INFO] 2025-12-28 07:31:08 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:31:14 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:14 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5125 ms
+[INFO] 2025-12-28 07:31:14 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:31:20 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:20 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5104 ms
+[INFO] 2025-12-28 07:31:20 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-28 07:31:24 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:25 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4372 ms
+[INFO] 2025-12-28 07:31:25 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:31:30 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:30 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4452 ms
+[INFO] 2025-12-28 07:31:30 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:31:34 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3470 ms
+[INFO] 2025-12-28 07:31:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:31:38 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3930 ms
+[INFO] 2025-12-28 07:31:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-28 07:31:42 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:42 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3200 ms
+[INFO] 2025-12-28 07:31:42 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:31:46 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4050 ms
+[INFO] 2025-12-28 07:31:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:31:50 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3211 ms
+[INFO] 2025-12-28 07:31:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:31:53 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:53 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2751 ms
+[INFO] 2025-12-28 07:31:53 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:31:57 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:31:57 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4032 ms
+[INFO] 2025-12-28 07:31:57 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 07:32:02 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:32:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3770 ms
+[INFO] 2025-12-28 07:32:02 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.000000000000001e-08 USD
+[INFO] 2025-12-28 07:32:07 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:32:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4808 ms
+[INFO] 2025-12-28 07:32:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-28 07:32:12 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 07:32:12 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3909 ms
+[INFO] 2025-12-28 07:32:12 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-28 08:02:28 - apps.busqueda.semantic:_buscar_envios_similares:335 - Búsqueda semántica iniciada: consulta='muestrame todos los productos electronicos del mes...', envios_disponibles=215, limite=20
+[INFO] 2025-12-28 08:03:32 - apps.busqueda.semantic:_buscar_envios_similares:420 - Búsqueda semántica completada: tiempo=64144.32ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=20
+[INFO] 2025-12-28 08:03:33 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 08:03:33 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 71286 ms
+[INFO] 2025-12-28 08:03:33 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.4000000000000003e-07 USD
+[INFO] 2025-12-28 08:05:01 - apps.busqueda.semantic:_buscar_envios_similares:335 - Búsqueda semántica iniciada: consulta='muestrame todos los productos electronicos de novi...', envios_disponibles=215, limite=20
+[INFO] 2025-12-28 08:06:03 - apps.busqueda.semantic:_buscar_envios_similares:420 - Búsqueda semántica completada: tiempo=62352.05ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=20
+[INFO] 2025-12-28 08:06:03 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 08:06:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 64623 ms
+[INFO] 2025-12-28 08:06:03 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.2e-07 USD
+[INFO] 2025-12-28 08:13:31 - apps.busqueda.semantic:_buscar_envios_similares:335 - Búsqueda semántica iniciada: consulta='muestrame todos los productos electronicos de novi...', envios_disponibles=215, limite=20
+[INFO] 2025-12-28 08:13:38 - apps.busqueda.semantic:_buscar_envios_similares:420 - Búsqueda semántica completada: tiempo=6905.53ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=20
+[INFO] 2025-12-28 08:13:38 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 08:13:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 12782 ms
+[INFO] 2025-12-28 08:13:38 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.2e-07 USD
+[INFO] 2025-12-28 08:14:27 - apps.busqueda.semantic:_buscar_envios_similares:335 - Búsqueda semántica iniciada: consulta='envios a la ciudad de quito de computadoras del an...', envios_disponibles=215, limite=20
+[INFO] 2025-12-28 08:14:33 - apps.busqueda.semantic:_buscar_envios_similares:420 - Búsqueda semántica completada: tiempo=6641.01ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=20
+[INFO] 2025-12-28 08:14:34 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-28 08:14:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 8607 ms
+[INFO] 2025-12-28 08:14:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 2.8e-07 USD
+[INFO] 2025-12-30 01:00:47 - apps.busqueda.semantic:_buscar_envios_similares:343 - Búsqueda semántica iniciada: consulta='envaos...', envios_disponibles=215, limite=3
+[INFO] 2025-12-30 01:02:03 - apps.busqueda.semantic:_buscar_envios_similares:345 - Búsqueda semántica iniciada: consulta='envaos...', envios_disponibles=215, limite=2
+[INFO] 2025-12-30 01:03:23 - apps.busqueda.semantic:_buscar_envios_similares:438 - Búsqueda semántica completada: tiempo=80292.88ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=2
+[WARNING] 2025-12-30 01:03:23 - apps.busqueda.semantic:_buscar_envios_similares:448 - Pocos resultados para consulta 'envaos': 2 de 215 embeddings. Umbral: 0.35, Es consulta productos: False
+[INFO] 2025-12-30 01:03:23 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 3
+[INFO] 2025-12-30 01:03:23 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 85080 ms
+[INFO] 2025-12-30 01:03:23 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 4e-08 USD
+[INFO] 2025-12-30 01:04:05 - apps.busqueda.semantic:_buscar_envios_similares:345 - Búsqueda semántica iniciada: consulta='envaos...', envios_disponibles=215, limite=2
+[INFO] 2025-12-30 01:04:07 - apps.busqueda.semantic:_buscar_envios_similares:438 - Búsqueda semántica completada: tiempo=2651.63ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=2
+[WARNING] 2025-12-30 01:04:07 - apps.busqueda.semantic:_buscar_envios_similares:448 - Pocos resultados para consulta 'envaos': 2 de 215 embeddings. Umbral: 0.35, Es consulta productos: False
+[INFO] 2025-12-30 01:04:07 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 3
+[INFO] 2025-12-30 01:04:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 7350 ms
+[INFO] 2025-12-30 01:04:07 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 4e-08 USD
+[INFO] 2025-12-30 01:06:15 - apps.busqueda.semantic:_buscar_envios_similares:345 - Búsqueda semántica iniciada: consulta='envios de celulares...', envios_disponibles=215, limite=5
+[INFO] 2025-12-30 01:06:17 - apps.busqueda.semantic:_buscar_envios_similares:438 - Búsqueda semántica completada: tiempo=2780.28ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=5
+[INFO] 2025-12-30 01:06:18 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 3
+[INFO] 2025-12-30 01:06:18 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 6246 ms
+[INFO] 2025-12-30 01:06:18 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-30 01:06:43 - apps.busqueda.semantic:_buscar_envios_similares:345 - Búsqueda semántica iniciada: consulta='envios de celulares...', envios_disponibles=215, limite=5
+[INFO] 2025-12-30 01:07:52 - apps.busqueda.semantic:_buscar_envios_similares:438 - Búsqueda semántica completada: tiempo=69221.43ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=5
+[INFO] 2025-12-30 01:07:52 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 3
+[INFO] 2025-12-30 01:07:52 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 73240 ms
+[INFO] 2025-12-30 01:07:52 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-30 01:08:49 - apps.busqueda.semantic:_buscar_envios_similares:345 - Búsqueda semántica iniciada: consulta='envios a quito...', envios_disponibles=215, limite=10
+[INFO] 2025-12-30 01:08:51 - apps.busqueda.semantic:_buscar_envios_similares:438 - Búsqueda semántica completada: tiempo=2591.19ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=10
+[INFO] 2025-12-30 01:08:51 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 3
+[INFO] 2025-12-30 01:08:51 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 9991 ms
+[INFO] 2025-12-30 01:08:51 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.0000000000000001e-07 USD
+[INFO] 2025-12-30 14:00:03 - apps.busqueda.semantic:_buscar_envios_similares:345 - Búsqueda semántica iniciada: consulta='envios pesados...', envios_disponibles=215, limite=10
+[INFO] 2025-12-30 14:00:06 - apps.busqueda.semantic:_buscar_envios_similares:438 - Búsqueda semántica completada: tiempo=2705.30ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=10
+[INFO] 2025-12-30 14:00:06 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 3
+[INFO] 2025-12-30 14:00:06 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 13623 ms
+[INFO] 2025-12-30 14:00:06 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8e-08 USD
+[INFO] 2025-12-30 21:45:06 - apps.busqueda.semantic:_buscar_envios_similares:345 - Búsqueda semántica iniciada: consulta='envios de celulares del mes anterior...', envios_disponibles=215, limite=10
+[INFO] 2025-12-30 21:45:34 - apps.busqueda.semantic:_buscar_envios_similares:438 - Búsqueda semántica completada: tiempo=28892.99ms, resultados_similitud=215, resultados_filtrados=54, resultados_finales=10
+[INFO] 2025-12-30 21:45:41 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2025-12-30 21:45:41 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 39540 ms
+[INFO] 2025-12-30 21:45:41 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.6e-07 USD

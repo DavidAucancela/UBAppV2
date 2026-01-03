@@ -91,7 +91,7 @@ export class LoginComponent implements OnDestroy {
               this.router.navigate(['/inicio']);
               break;
             case 2: // Gerente
-              this.router.navigate(['/dashboard']); // Dashboard gerencial
+              this.router.navigate(['/inicio']); // Inicio
               break;
             case 3: // Digitador
               this.router.navigate(['/envios']); // Gestión de envíos

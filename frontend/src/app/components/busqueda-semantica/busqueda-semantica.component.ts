@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil, switchMap, of } from 'rxjs';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { BusquedaService } from '../../services/busqueda.service';
 import {
   ConsultaSemantica,
   RespuestaSemantica,
@@ -20,6 +21,7 @@ import {
   InfoModeloEmbedding
 } from '../../models/busqueda-semantica';
 import { Envio, ESTADOS_LABELS } from '../../models/envio';
+import { CategoriasProducto, CATEGORIAS_LABELS } from '../../models/producto';
 
 /**
  * Componente de Búsqueda Semántica de Envíos
@@ -48,6 +50,12 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   resultadosSemanticos: ResultadoSemantico[] = [];
   respuestaActual: RespuestaSemantica | null = null;
   
+  // Paginación
+  paginaActual = 1;
+  totalPaginas = 1;
+  elementosPorPagina = 10;
+  opcionesElementosPorPagina = [5, 10, 20, 50];
+  
   // Sugerencias
   sugerenciasVisibles = false;
   sugerenciasPredefinidas = SUGERENCIAS_PREDEFINIDAS;
@@ -68,6 +76,16 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   fechaHasta = '';
   estadoFiltro = '';
   ciudadDestinoFiltro = '';
+  numeroGuia = '';
+  nombreDestinatario = '';
+  cedulaDestinatario = '';
+  telefonoDestinatario = '';
+  correoDestinatario = '';
+  categoriaProducto = '';
+  pesoMinimo = '';
+  pesoMaximo = '';
+  valorMinimo = '';
+  valorMaximo = '';
   
   // Modelo de embedding seleccionado
   modeloSeleccionado: ModeloEmbedding = ModeloEmbedding.SMALL;
@@ -78,10 +96,20 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
     valor,
     etiqueta
   }));
+
+  // Categorías disponibles
+  CategoriasProducto = CategoriasProducto;
+  categoriasDisponibles = Object.entries(CATEGORIAS_LABELS).map(([valor, etiqueta]) => ({
+    valor,
+    etiqueta
+  }));
   
   // Detalles de envío
   mostrarDetalleModal = false;
   envioSeleccionado: Envio | null = null;
+  
+  // Math para usar en el template
+  Math = Math;
   
   // Control de observables
   private destruir$ = new Subject<void>();
@@ -90,6 +118,7 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   constructor(
     private apiService: ApiService,
     public authService: AuthService,
+    private busquedaService: BusquedaService,
     private router: Router
   ) {}
 
@@ -231,10 +260,29 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
 
     const filtros: any = {};
     
+    // Filtros de fecha
     if (this.fechaDesde) filtros.fechaDesde = this.fechaDesde;
     if (this.fechaHasta) filtros.fechaHasta = this.fechaHasta;
+    
+    // Filtros de envío
     if (this.estadoFiltro) filtros.estado = this.estadoFiltro;
-    if (this.ciudadDestinoFiltro) filtros.ciudadDestino = this.ciudadDestinoFiltro;
+    if (this.numeroGuia) filtros.numeroGuia = this.numeroGuia.trim();
+    
+    // Filtros de destinatario/comprador
+    if (this.ciudadDestinoFiltro) filtros.ciudadDestino = this.ciudadDestinoFiltro.trim();
+    if (this.nombreDestinatario) filtros.nombreDestinatario = this.nombreDestinatario.trim();
+    if (this.cedulaDestinatario) filtros.cedulaDestinatario = this.cedulaDestinatario.trim();
+    if (this.telefonoDestinatario) filtros.telefonoDestinatario = this.telefonoDestinatario.trim();
+    if (this.correoDestinatario) filtros.correoDestinatario = this.correoDestinatario.trim();
+    
+    // Filtros de producto
+    if (this.categoriaProducto) filtros.categoriaProducto = this.categoriaProducto;
+    
+    // Filtros numéricos
+    if (this.pesoMinimo) filtros.pesoMinimo = parseFloat(this.pesoMinimo);
+    if (this.pesoMaximo) filtros.pesoMaximo = parseFloat(this.pesoMaximo);
+    if (this.valorMinimo) filtros.valorMinimo = parseFloat(this.valorMinimo);
+    if (this.valorMaximo) filtros.valorMaximo = parseFloat(this.valorMaximo);
 
     return Object.keys(filtros).length > 0 ? filtros : undefined;
   }
@@ -251,6 +299,95 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
     );
     
     this.sinResultados = this.resultadosSemanticos.length === 0;
+    
+    // Calcular paginación
+    this.paginaActual = 1;
+    this.calcularPaginacion();
+  }
+  
+  /**
+   * Obtiene los resultados paginados para mostrar
+   */
+  get resultadosPaginados(): ResultadoSemantico[] {
+    const inicio = (this.paginaActual - 1) * this.elementosPorPagina;
+    const fin = inicio + this.elementosPorPagina;
+    return this.resultadosSemanticos.slice(inicio, fin);
+  }
+  
+  /**
+   * Calcula la información de paginación
+   */
+  private calcularPaginacion(): void {
+    this.totalPaginas = Math.ceil(this.resultadosSemanticos.length / this.elementosPorPagina);
+    if (this.totalPaginas === 0) {
+      this.totalPaginas = 1;
+      this.paginaActual = 1;
+    }
+    // Asegurar que la página actual no exceda el total
+    if (this.paginaActual > this.totalPaginas) {
+      this.paginaActual = this.totalPaginas;
+    }
+  }
+  
+  /**
+   * Cambia la cantidad de elementos por página
+   */
+  cambiarElementosPorPagina(cantidad: number): void {
+    this.elementosPorPagina = cantidad;
+    this.paginaActual = 1;
+    this.calcularPaginacion();
+  }
+  
+  /**
+   * Obtiene el rango de páginas a mostrar en la paginación
+   */
+  obtenerRangoPaginas(): number[] {
+    const rango = 2; // Páginas a mostrar antes y después de la actual
+    const inicio = Math.max(1, this.paginaActual - rango);
+    const fin = Math.min(this.totalPaginas, this.paginaActual + rango);
+    
+    const paginas: number[] = [];
+    for (let i = inicio; i <= fin; i++) {
+      paginas.push(i);
+    }
+    return paginas;
+  }
+  
+  /**
+   * Navega a la página anterior
+   */
+  paginaAnterior(): void {
+    if (this.paginaActual > 1) {
+      this.paginaActual--;
+      this.scrollAlInicio();
+    }
+  }
+  
+  /**
+   * Navega a la página siguiente
+   */
+  paginaSiguiente(): void {
+    if (this.paginaActual < this.totalPaginas) {
+      this.paginaActual++;
+      this.scrollAlInicio();
+    }
+  }
+  
+  /**
+   * Navega a una página específica
+   */
+  irAPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPaginas) {
+      this.paginaActual = pagina;
+      this.scrollAlInicio();
+    }
+  }
+  
+  /**
+   * Hace scroll al inicio de la página
+   */
+  private scrollAlInicio(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   /**
@@ -281,10 +418,21 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   cargarHistorial(): void {
     this.apiService.obtenerHistorialSemantico().subscribe({
       next: (historial) => {
-        this.historialBusquedas = historial.slice(0, 10); // Últimas 10
+        if (historial && Array.isArray(historial)) {
+          this.historialBusquedas = historial.slice(0, 10); // Últimas 10
+          console.log('Historial cargado:', this.historialBusquedas.length, 'búsquedas');
+        } else {
+          console.warn('Historial recibido no es un array:', historial);
+          this.historialBusquedas = [];
+        }
       },
       error: (error) => {
         console.error('Error cargando historial:', error);
+        this.historialBusquedas = [];
+        // Mostrar error al usuario si es necesario
+        if (error.status !== 401) { // No mostrar error si es de autenticación
+          this.errorMensaje = 'Error al cargar el historial de búsquedas';
+        }
       }
     });
   }
@@ -341,6 +489,10 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
    */
   toggleHistorial(): void {
     this.mostrarHistorial = !this.mostrarHistorial;
+    // Recargar historial cuando se abre el panel
+    if (this.mostrarHistorial) {
+      this.cargarHistorial();
+    }
   }
 
   /**
@@ -354,9 +506,95 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   /**
    * Abre el modal de detalles de un envío
    */
-  verDetalles(resultado: ResultadoSemantico): void {
-    this.envioSeleccionado = resultado.envio;
+  verDetalles(resultado: ResultadoSemantico | Envio): void {
+    if ('envio' in resultado) {
+      this.envioSeleccionado = resultado.envio;
+    } else {
+      this.envioSeleccionado = resultado;
+    }
     this.mostrarDetalleModal = true;
+  }
+
+  /**
+   * Descarga el comprobante de un envío
+   */
+  descargarComprobante(envio: Envio): void {
+    if (!envio.id) {
+      this.errorMensaje = 'No se puede descargar el comprobante de este envío';
+      setTimeout(() => this.errorMensaje = '', 3000);
+      return;
+    }
+
+    this.mensajeExito = 'Generando comprobante...';
+    
+    this.apiService.obtenerComprobanteEnvio(envio.id).subscribe({
+      next: (blob) => {
+        const nombreArchivo = `comprobante-${envio.hawb}.pdf`;
+        this.descargarArchivo(blob, nombreArchivo);
+        this.mensajeExito = 'Comprobante descargado exitosamente.';
+        setTimeout(() => this.mensajeExito = '', 3000);
+      },
+      error: (error) => {
+        console.error('Error descargando comprobante:', error);
+        this.errorMensaje = 'Error al generar el comprobante. Esta funcionalidad estará disponible pronto.';
+        this.mensajeExito = '';
+        setTimeout(() => this.errorMensaje = '', 5000);
+      }
+    });
+  }
+
+  /**
+   * Imprime el comprobante de un envío
+   */
+  imprimirComprobante(envio: Envio): void {
+    // Usar el mismo método de descarga y abrir en nueva ventana para imprimir
+    this.descargarComprobante(envio);
+  }
+
+  /**
+   * Muestra el envío en el mapa (si está disponible)
+   */
+  verEnMapa(envio: Envio): void {
+    if (envio.comprador_info?.ciudad) {
+      this.router.navigate(['/mapa-compradores'], {
+        queryParams: { ciudad: envio.comprador_info.ciudad }
+      });
+    } else {
+      this.errorMensaje = 'No hay información de ubicación para este envío.';
+      setTimeout(() => this.errorMensaje = '', 3000);
+    }
+  }
+
+  /**
+   * Descarga un archivo blob
+   */
+  private descargarArchivo(blob: Blob, nombreArchivo: string): void {
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = nombreArchivo;
+    link.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  /**
+   * Limpia todos los filtros adicionales
+   */
+  limpiarFiltrosAdicionales(): void {
+    this.fechaDesde = '';
+    this.fechaHasta = '';
+    this.estadoFiltro = '';
+    this.ciudadDestinoFiltro = '';
+    this.numeroGuia = '';
+    this.nombreDestinatario = '';
+    this.cedulaDestinatario = '';
+    this.telefonoDestinatario = '';
+    this.correoDestinatario = '';
+    this.categoriaProducto = '';
+    this.pesoMinimo = '';
+    this.pesoMaximo = '';
+    this.valorMinimo = '';
+    this.valorMaximo = '';
   }
 
   /**
@@ -454,17 +692,31 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   /**
    * Formatea moneda
    */
-  formatearMoneda(valor: number | undefined): string {
-    if (valor === undefined || valor === null) return '$0.00';
-    return `$${valor.toFixed(2)}`;
+  formatearMoneda(valor: number | string | undefined | null): string {
+    if (valor === undefined || valor === null || valor === '') return '$0.00';
+    
+    // Convertir a número si es string
+    const valorNumero = typeof valor === 'string' ? parseFloat(valor) : valor;
+    
+    // Verificar si es un número válido
+    if (isNaN(valorNumero)) return '$0.00';
+    
+    return `$${valorNumero.toFixed(2)}`;
   }
 
   /**
    * Formatea peso
    */
-  formatearPeso(peso: number | undefined): string {
-    if (peso === undefined || peso === null) return '0 kg';
-    return `${peso.toFixed(2)} kg`;
+  formatearPeso(peso: number | string | undefined | null): string {
+    if (peso === undefined || peso === null || peso === '') return '0 kg';
+    
+    // Convertir a número si es string
+    const pesoNumero = typeof peso === 'string' ? parseFloat(peso) : peso;
+    
+    // Verificar si es un número válido
+    if (isNaN(pesoNumero)) return '0 kg';
+    
+    return `${pesoNumero.toFixed(2)} kg`;
   }
 
   /**
@@ -520,6 +772,73 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
    */
   private guardarConfiguracion(): void {
     localStorage.setItem('configuracionSemantica', JSON.stringify(this.configuracion));
+  }
+
+  // ===== DESCARGA DE PDF =====
+
+  /**
+   * Descarga el PDF de la búsqueda actual
+   */
+  descargarPdfBusquedaActual(): void {
+    if (!this.respuestaActual || !this.respuestaActual.busquedaId) {
+      this.errorMensaje = 'No hay búsqueda activa para descargar';
+      setTimeout(() => this.errorMensaje = '', 3000);
+      return;
+    }
+
+    this.descargarPdfBusqueda(this.respuestaActual.busquedaId);
+  }
+
+  /**
+   * Descarga el PDF de una búsqueda del historial
+   * @param busqueda Búsqueda del historial
+   */
+  descargarPdfHistorial(busqueda: HistorialBusquedaSemantica, event?: Event): void {
+    if (event) {
+      event.stopPropagation(); // Evitar que se ejecute usarDelHistorial
+    }
+
+    if (!busqueda.id) {
+      this.errorMensaje = 'No se puede descargar el PDF de esta búsqueda';
+      setTimeout(() => this.errorMensaje = '', 3000);
+      return;
+    }
+
+    this.descargarPdfBusqueda(busqueda.id);
+  }
+
+  /**
+   * Método común para descargar PDF
+   * @param busquedaId ID de la búsqueda
+   */
+  private descargarPdfBusqueda(busquedaId: number): void {
+    this.mensajeExito = '⏳ Generando PDF...';
+    
+    this.busquedaService.descargarPdfBusquedaSemantica(busquedaId).subscribe({
+      next: (blob) => {
+        // Generar nombre del archivo
+        const fecha = new Date().toISOString().split('T')[0];
+        const filename = `busqueda_semantica_${busquedaId}_${fecha}.pdf`;
+        
+        // Descargar archivo
+        this.busquedaService.descargarArchivo(blob, filename);
+        
+        this.mensajeExito = '✅ PDF descargado correctamente';
+        setTimeout(() => this.mensajeExito = '', 3000);
+      },
+      error: (error) => {
+        console.error('Error descargando PDF:', error);
+        this.errorMensaje = 'Error al generar el PDF. Por favor, intente nuevamente.';
+        setTimeout(() => this.errorMensaje = '', 5000);
+      }
+    });
+  }
+
+  /**
+   * Verifica si la búsqueda actual tiene PDF disponible
+   */
+  tienePdfDisponible(): boolean {
+    return !!(this.respuestaActual && this.respuestaActual.busquedaId && this.resultadosSemanticos.length > 0);
   }
 }
 

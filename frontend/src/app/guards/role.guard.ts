@@ -19,7 +19,7 @@ export const roleGuard = (allowedRoles: Roles[]) => {
     }
 
     // Usuario no tiene permiso, redirigir al dashboard
-    router.navigate(['/dashboard']);
+    router.navigate(['/inicio']);
     return false;
   };
 };

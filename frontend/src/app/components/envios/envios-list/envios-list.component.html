@@ -3,9 +3,9 @@
   <div class="envios-header">
     <div class="container">
       <div class="header-content">
-        <div class="header-icon">
+          <!--<div class="header-icon">
           <i class="fas fa-truck"></i>
-        </div>
+        </div>-->
         <div class="header-text">
           <h1>Gestión de Envíos</h1>
           <p>Administra y gestiona todos los envíos del sistema</p>
@@ -94,8 +94,31 @@
         <div class="results-summary">
           <span class="results-count">
             <i class="fas fa-list"></i>
-            Mostrando {{ paginatedEnvios.length }} de {{ filteredEnvios.length }} envíos
+            <span *ngIf="totalResultados > 0">
+              Mostrando {{ inicioRango }} - {{ finRango }} de {{ totalResultados }} envíos
+              <span *ngIf="totalPaginas > 1">
+                (Página {{ paginaActual }} de {{ totalPaginas }})
+              </span>
+            </span>
+            <span *ngIf="totalResultados === 0">
+              No se encontraron envíos
+            </span>
           </span>
+          <div class="controles-paginacion-header">
+            <label>
+              <i class="fas fa-list"></i>
+              Mostrar:
+            </label>
+            <select 
+              class="select-elementos"
+              [value]="itemsPerPage"
+              (change)="cambiarElementosPorPagina(+$any($event.target).value)"
+            >
+              <option *ngFor="let opcion of opcionesElementosPorPagina" [value]="opcion">
+                {{ opcion }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -257,24 +280,49 @@
     </div>
 
     <!-- Pagination -->
-    <div class="pagination" *ngIf="totalPages > 1">
+    <div class="paginacion" *ngIf="totalPaginas > 1">
       <button 
-        class="btn btn-secondary"
-        (click)="previousPage()"
-        [disabled]="currentPage === 1"
+        class="btn-pagina"
+        (click)="paginaAnterior()"
+        [disabled]="paginaActual === 1"
       >
         <i class="fas fa-chevron-left"></i>
         Anterior
       </button>
-      
-      <span class="pagination-info">
-        Página {{ currentPage }} de {{ totalPages }}
-      </span>
-      
+
+      <div class="numeros-pagina">
+        <button 
+          *ngIf="paginaActual > 3"
+          class="btn-numero"
+          (click)="irAPagina(1)"
+        >
+          1
+        </button>
+        <span *ngIf="paginaActual > 3" class="puntos-suspension">...</span>
+
+        <button 
+          *ngFor="let pagina of obtenerRangoPaginas()"
+          class="btn-numero"
+          [class.activo]="pagina === paginaActual"
+          (click)="irAPagina(pagina)"
+        >
+          {{ pagina }}
+        </button>
+
+        <span *ngIf="paginaActual < totalPaginas - 2" class="puntos-suspension">...</span>
+        <button 
+          *ngIf="paginaActual < totalPaginas - 2"
+          class="btn-numero"
+          (click)="irAPagina(totalPaginas)"
+        >
+          {{ totalPaginas }}
+        </button>
+      </div>
+
       <button 
-        class="btn btn-secondary"
-        (click)="nextPage()"
-        [disabled]="currentPage === totalPages"
+        class="btn-pagina"
+        (click)="paginaSiguiente()"
+        [disabled]="paginaActual === totalPaginas"
       >
         Siguiente
         <i class="fas fa-chevron-right"></i>
