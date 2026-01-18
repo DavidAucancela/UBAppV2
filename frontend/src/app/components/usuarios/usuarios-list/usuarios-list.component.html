@@ -1,47 +1,118 @@
 <div class="usuarios-container">
-  <!-- Header Section -->
-  <div class="header-section">
-    <div class="header-content">
-      <br>
-      <br>
-      <br>
-      <br>
-      <h1>Gestión de usuarios</h1>
-      <p>Administra los usuarios del sistema</p>
+  <!-- Encabezado mejorado con estilo de otros módulos -->
+  <div class="encabezado">
+    <h1 class="titulo-principal">
+      <i class="fas fa-users"></i>
+      Gestión de Usuarios
+    </h1>
+    <p class="subtitulo">Administra los usuarios del sistema</p>
+    <div class="encabezado-acciones">
+      <button class="btn btn-primary" (click)="openCreateModal()">
+        <i class="fas fa-plus"></i>
+        Nuevo Usuario
+      </button>
     </div>
-    <button class="btn btn-primary" (click)="openCreateModal()">
-      <i class="fas fa-plus"></i>
-      Nuevo Usuario
-    </button>
   </div>
 
-  <!-- Filters Section -->
-  <div class="filters-section">
-    <div class="search-box">
-      <i class="fas fa-search"></i>
-      <input 
-        type="text" 
-        placeholder="Buscar usuarios..."
-        [(ngModel)]="searchTerm"
-        (ngModelChange)="onSearchChange()"
-        class="search-input"
-      >
-    </div>
-    <div class="filter-controls">
-      <select [(ngModel)]="selectedRole" (change)="onRoleFilterChange()" class="filter-select">
-        <option value="">Todos los roles</option>
-        <option value="1">Admin</option>
-        <option value="2">Gerente</option>
-        <option value="3">Digitador</option>
-        <option value="4">Comprador</option>
-      </select>
-      <select [(ngModel)]="selectedStatus" (change)="onStatusFilterChange()" class="filter-select">
-        <option value="">Todos los estados</option>
-        <option value="true">Activo</option>
-        <option value="false">Inactivo</option>
-      </select>
-    </div>
-  </div>
+  <!-- Main Content -->
+  <div class="container">
+    <div class="usuarios-content">
+      <!-- Filters Card -->
+      <div class="card">
+        <div class="card-header-filters">
+          <h3>
+            <i class="fas fa-filter"></i>
+            Filtros de Búsqueda
+          </h3>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-section">
+          <div class="filter-row">
+            <!-- Search -->
+            <div class="filter-group">
+              <label class="filter-label">
+                <i class="fas fa-search"></i>
+                Buscar
+              </label>
+              <input 
+                type="text"
+                class="form-control"
+                [(ngModel)]="searchTerm"
+                (input)="onSearchChange()"
+                placeholder="Usuario, nombre, correo, cédula..."
+              >
+            </div>
+
+            <!-- Role Filter -->
+            <div class="filter-group">
+              <label class="filter-label">
+                <i class="fas fa-filter"></i>
+                Rol
+              </label>
+              <select 
+                class="form-control"
+                [(ngModel)]="selectedRole"
+                (change)="onRoleFilterChange()"
+              >
+                <option value="">Todos los roles</option>
+                <option value="1">Admin</option>
+                <option value="2">Gerente</option>
+                <option value="3">Digitador</option>
+                <option value="4">Comprador</option>
+              </select>
+            </div>
+
+            <!-- Status Filter -->
+            <div class="filter-group">
+              <label class="filter-label">
+                <i class="fas fa-filter"></i>
+                Estado
+              </label>
+              <select 
+                class="form-control"
+                [(ngModel)]="selectedStatus"
+                (change)="onStatusFilterChange()"
+              >
+                <option value="">Todos los estados</option>
+                <option value="true">Activo</option>
+                <option value="false">Inactivo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Summary -->
+        <div class="results-summary">
+          <span class="results-count">
+            <i class="fas fa-list"></i>
+            <span *ngIf="totalResultados > 0">
+              Mostrando {{ inicioRango }} - {{ finRango }} de {{ totalResultados }} usuarios
+              <span *ngIf="totalPaginas > 1">
+                (Página {{ paginaActual }} de {{ totalPaginas }})
+              </span>
+            </span>
+            <span *ngIf="totalResultados === 0">
+              No se encontraron usuarios
+            </span>
+          </span>
+          <div class="controles-paginacion-header">
+            <label>
+              <i class="fas fa-list"></i>
+              Mostrar:
+            </label>
+            <select 
+              class="select-elementos"
+              [value]="itemsPerPage"
+              (change)="cambiarElementosPorPagina(+$any($event.target).value)"
+            >
+              <option *ngFor="let opcion of opcionesElementosPorPagina" [value]="opcion">
+                {{ opcion }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
 
   <!-- Loading State -->
   <div class="loading-container" *ngIf="loading">
@@ -51,8 +122,27 @@
     </div>
   </div>
 
+  <!-- Success Message -->
+  <div class="alert alert-success" *ngIf="successMessage">
+    <i class="fas fa-check-circle"></i>
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div class="alert alert-error" *ngIf="errorMessage">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="loading">
+    <i class="fas fa-spinner fa-spin"></i>
+    <span>Cargando usuarios...</span>
+  </div>
+
   <!-- Users Table -->
-  <div class="table-container" *ngIf="!loading">
+  <div class="card" *ngIf="!loading">
+    <div class="table-container">
     <table class="table">
       <thead>
         <tr>
@@ -60,6 +150,7 @@
           <th>Nombre</th>
           <th>Correo</th>
           <th>Cédula</th>
+          <th>Ubicación</th>
           <th>Rol</th>
           <th>Estado</th>
           <th>Acciones</th>
@@ -78,6 +169,26 @@
           <td>{{ usuario.nombre }}</td>
           <td>{{ usuario.correo }}</td>
           <td>{{ usuario.cedula }}</td>
+          <td class="ubicacion-cell">
+            <div class="ubicacion-info" *ngIf="usuario.provincia || usuario.canton || usuario.ciudad">
+              <span class="ubicacion-item" *ngIf="usuario.provincia">
+                <i class="fas fa-globe-americas"></i>
+                {{ usuario.provincia }}
+              </span>
+              <span class="ubicacion-item" *ngIf="usuario.canton">
+                <i class="fas fa-map"></i>
+                {{ usuario.canton }}
+              </span>
+              <span class="ubicacion-item" *ngIf="usuario.ciudad">
+                <i class="fas fa-city"></i>
+                {{ usuario.ciudad }}
+              </span>
+            </div>
+            <span class="text-muted" *ngIf="!usuario.provincia && !usuario.canton && !usuario.ciudad">
+              <i class="fas fa-map-marker-alt"></i>
+              Sin ubicación
+            </span>
+          </td>
           <td>
             <span class="role-badge" [class]="getRoleClass(usuario.rol)">
               {{ getRoleLabel(usuario.rol) }}
@@ -107,30 +218,67 @@
             </div>
           </td>
         </tr>
+        <tr *ngIf="filteredUsuarios.length === 0">
+          <td colspan="8" class="no-data">
+            <i class="fas fa-users"></i>
+            <p>No se encontraron usuarios</p>
+          </td>
+        </tr>
       </tbody>
     </table>
+    </div>
 
-    <!-- Empty State -->
-    <div class="empty-state" *ngIf="filteredUsuarios.length === 0">
-      <i class="fas fa-users"></i>
-      <h3>No se encontraron usuarios</h3>
-      <p>No hay usuarios que coincidan con los filtros aplicados</p>
+    <!-- Pagination -->
+    <div class="paginacion" *ngIf="totalPaginas > 1">
+      <button 
+        class="btn-pagina"
+        (click)="paginaAnterior()"
+        [disabled]="paginaActual === 1"
+      >
+        <i class="fas fa-chevron-left"></i>
+        Anterior
+      </button>
+
+      <div class="numeros-pagina">
+        <button 
+          *ngIf="paginaActual > 3"
+          class="btn-numero"
+          (click)="irAPagina(1)"
+        >
+          1
+        </button>
+        <span *ngIf="paginaActual > 3" class="puntos-suspension">...</span>
+
+        <button 
+          *ngFor="let pagina of obtenerRangoPaginas()"
+          class="btn-numero"
+          [class.activo]="pagina === paginaActual"
+          (click)="irAPagina(pagina)"
+        >
+          {{ pagina }}
+        </button>
+
+        <span *ngIf="paginaActual < totalPaginas - 2" class="puntos-suspension">...</span>
+        <button 
+          *ngIf="paginaActual < totalPaginas - 2"
+          class="btn-numero"
+          (click)="irAPagina(totalPaginas)"
+        >
+          {{ totalPaginas }}
+        </button>
+      </div>
+
+      <button 
+        class="btn-pagina"
+        (click)="paginaSiguiente()"
+        [disabled]="paginaActual === totalPaginas"
+      >
+        Siguiente
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
   </div>
-
-  <!-- Pagination -->
-  <div class="pagination" *ngIf="filteredUsuarios.length > 0">
-    <button class="btn btn-secondary" [disabled]="currentPage === 1" (click)="previousPage()">
-      <i class="fas fa-chevron-left"></i>
-      Anterior
-    </button>
-    <span class="page-info">
-      Página {{ currentPage }} de {{ totalPages }}
-    </span>
-    <button class="btn btn-secondary" [disabled]="currentPage === totalPages" (click)="nextPage()">
-      Siguiente
-      <i class="fas fa-chevron-right"></i>
-    </button>
+    </div>
   </div>
 </div>
 

@@ -1,0 +1,1396 @@
+{
+  "fecha": "2026-01-16T04:07:09.345700",
+  "procesos": {
+    "M1": {
+      "tiempos": [
+        2.184177875518799,
+        2.7374773025512695,
+        2.1206002235412598,
+        2.3702540397644043,
+        2.217344045639038,
+        2.537318468093872,
+        2.0121569633483887,
+        2.1335136890411377,
+        2.141770362854004,
+        2.1782360076904297,
+        2.3159587383270264,
+        2.455617904663086,
+        2.003692865371704,
+        2.3111841678619385,
+        1.9053001403808594,
+        1.8794066905975342,
+        2.0083489418029785,
+        2.0379180908203125,
+        2.055163860321045,
+        1.5506665706634521,
+        2.9122695922851562,
+        2.186821222305298,
+        1.6888725757598877,
+        1.7921795845031738
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.0625,
+        0.0,
+        0.0,
+        0.00390625,
+        0.0,
+        0.00390625,
+        0.0,
+        0.0078125,
+        0.0,
+        0.0,
+        0.0,
+        0.0078125,
+        0.00390625,
+        0.00390625,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.00390625,
+        0.00390625,
+        0.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 2.155677080154419,
+          "minimo": 1.5506665706634521,
+          "maximo": 2.9122695922851562,
+          "mediana": 2.137642025947571,
+          "desviacion_estandar": 0.3089199070759644
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.004231770833333333,
+          "minimo": 0.0,
+          "maximo": 0.0625,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.01266642913479253
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": 75,
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M2": {
+      "tiempos": [
+        1.8958988189697266,
+        2.2737834453582764,
+        1.8512694835662842,
+        1.6715521812438965,
+        2.1352086067199707,
+        1.8945038318634033,
+        1.5372474193572998,
+        1.6346204280853271,
+        1.6067593097686768,
+        1.5411570072174072
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        1.83203125,
+        0.0078125,
+        0.01953125,
+        0.0,
+        0.00390625,
+        0.00390625,
+        0.01171875,
+        0.00390625,
+        0.00390625,
+        0.01171875
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 1.8042000532150269,
+          "minimo": 1.5372474193572998,
+          "maximo": 2.2737834453582764,
+          "mediana": 1.7614108324050903,
+          "desviacion_estandar": 0.25268449786782377
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.18984375,
+          "minimo": 0.0,
+          "maximo": 1.83203125,
+          "mediana": 0.005859375,
+          "desviacion_estandar": 0.577033621693083
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": 75,
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": [
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(94) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(95) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(96) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(97) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(98) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(99) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(100) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(101) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(102) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(103) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(104) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(105) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(106) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"usuarios_usuario_pkey\"\nDETAIL:  Key (id)=(107) already exists.\n"
+      ]
+    },
+    "M3": {
+      "tiempos": [
+        1.5593066215515137,
+        1.5036191940307617,
+        1.5837888717651367,
+        1.5058355331420898,
+        1.5810720920562744,
+        1.698995590209961,
+        1.5350394248962402,
+        1.5028042793273926,
+        1.6164929866790771,
+        1.4904117584228516,
+        2.2428829669952393,
+        7.880272626876831,
+        2.32586932182312,
+        1.7771821022033691,
+        1.6485750675201416,
+        1.4841053485870361,
+        1.9818718433380127,
+        1.7104072570800781,
+        1.6411526203155518,
+        1.5669732093811035,
+        1.8187904357910156,
+        1.592545509338379,
+        1.5509827136993408,
+        1.537102460861206
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.03515625,
+        0.00390625,
+        0.00390625,
+        0.00390625,
+        0.0078125,
+        0.0,
+        0.00390625,
+        0.0,
+        0.00390625,
+        0.0,
+        0.00390625,
+        0.0,
+        0.00390625,
+        0.0,
+        0.0078125,
+        0.00390625,
+        0.00390625,
+        0.0,
+        0.00390625,
+        0.0,
+        0.0078125,
+        0.00390625,
+        0.00390625,
+        0.00390625
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 1.9306699931621552,
+          "minimo": 1.4841053485870361,
+          "maximo": 7.880272626876831,
+          "mediana": 1.5881671905517578,
+          "desviacion_estandar": 1.286657885325884
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.004557291666666667,
+          "minimo": 0.0,
+          "maximo": 0.03515625,
+          "mediana": 0.00390625,
+          "desviacion_estandar": 0.006975042043143768
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": 75,
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M4": {
+      "tiempos": [
+        0.02167344093322754,
+        0.021791458129882812,
+        0.027698755264282227,
+        0.020979642868041992,
+        0.02534031867980957,
+        0.031469106674194336,
+        0.03103494644165039,
+        0.021792888641357422,
+        0.021276235580444336,
+        0.026976346969604492,
+        0.031670570373535156,
+        0.05146050453186035,
+        0.02019524574279785,
+        0.02414393424987793,
+        0.03481793403625488,
+        0.03294014930725098,
+        0.021153926849365234,
+        0.059671878814697266,
+        0.04119467735290527,
+        0.015610456466674805,
+        0.03638172149658203,
+        0.021532773971557617,
+        0.02680683135986328,
+        0.022663116455078125
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.0,
+        0.0,
+        0.00390625,
+        0.00390625,
+        0.00390625,
+        0.0078125,
+        0.00390625,
+        0.0078125,
+        0.0078125,
+        0.00390625,
+        0.0,
+        0.0,
+        0.0078125,
+        0.0078125,
+        0.0,
+        0.0,
+        0.0,
+        0.00390625,
+        0.0,
+        0.0078125,
+        0.00390625,
+        0.0078125,
+        0.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.02876153588294983,
+          "minimo": 0.015610456466674805,
+          "maximo": 0.059671878814697266,
+          "mediana": 0.026073575019836426,
+          "desviacion_estandar": 0.01033616674969055
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.00341796875,
+          "minimo": 0.0,
+          "maximo": 0.0078125,
+          "mediana": 0.00390625,
+          "desviacion_estandar": 0.0033210616961661292
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M5": {
+      "tiempos": [
+        0.032320499420166016,
+        0.026923179626464844,
+        0.03146648406982422,
+        0.02779412269592285,
+        0.031240224838256836,
+        0.034024715423583984,
+        0.025180816650390625,
+        0.025899648666381836,
+        0.020383119583129883,
+        0.02958202362060547,
+        0.02040719985961914,
+        0.03310680389404297,
+        0.01930832862854004,
+        0.031065702438354492,
+        0.020364999771118164,
+        0.0184938907623291,
+        0.02616286277770996,
+        0.027961015701293945,
+        0.024478435516357422,
+        0.022510290145874023,
+        0.022562265396118164,
+        0.039258480072021484,
+        0.021494626998901367,
+        0.02470850944519043
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.296875,
+        0.2734375,
+        0.2109375,
+        0.203125,
+        0.234375,
+        0.20703125,
+        0.23046875,
+        0.1328125,
+        0.01171875,
+        0.015625,
+        0.06640625,
+        0.109375,
+        0.0703125,
+        0.015625,
+        0.015625,
+        0.15625,
+        0.2265625,
+        0.2109375,
+        0.2109375,
+        0.2890625,
+        0.20703125,
+        0.26171875,
+        0.19140625,
+        0.12890625
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.026529093583424885,
+          "minimo": 0.0184938907623291,
+          "maximo": 0.039258480072021484,
+          "mediana": 0.0260312557220459,
+          "desviacion_estandar": 0.005406754609380093
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.16569010416666666,
+          "minimo": 0.01171875,
+          "maximo": 0.296875,
+          "mediana": 0.205078125,
+          "desviacion_estandar": 0.0917031759501082
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M6": {
+      "tiempos": [
+        0.037438392639160156,
+        0.015718698501586914,
+        0.019100666046142578,
+        0.04723238945007324,
+        0.019310712814331055,
+        0.026010513305664062,
+        0.03223872184753418,
+        0.016274452209472656,
+        0.01499319076538086,
+        0.016463756561279297,
+        0.015299081802368164,
+        0.015611886978149414,
+        0.0179440975189209,
+        0.014812231063842773,
+        0.01523900032043457,
+        0.018808841705322266,
+        0.02715897560119629,
+        0.01593017578125,
+        0.016173124313354492,
+        0.021004438400268555,
+        0.02010035514831543,
+        0.015596866607666016,
+        0.015318870544433594,
+        0.02363276481628418
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.0,
+        0.00390625,
+        0.00390625,
+        0.00390625,
+        0.00390625,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.00390625,
+        0.0,
+        0.0,
+        0.0,
+        0.00390625,
+        0.00390625,
+        0.0,
+        0.0,
+        0.00390625,
+        0.0,
+        0.0,
+        0.00390625,
+        0.0078125,
+        0.01171875
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.02072550853093465,
+          "minimo": 0.014812231063842773,
+          "maximo": 0.04723238945007324,
+          "mediana": 0.017203927040100098,
+          "desviacion_estandar": 0.008141686836297542
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.0022786458333333335,
+          "minimo": 0.0,
+          "maximo": 0.01171875,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0030294203446446814
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M7": {
+      "error": "Solo se completaron 0 iteraciones de 24\nPrimeros errores encontrados:\n  1. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(64) already exists.\n\n  2. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(65) already exists.\n\n  3. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(66) already exists.\n\n  4. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(67) already exists.\n\n  5. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(68) already exists.\n\n  ... y 19 errores más",
+      "errores": [
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(64) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(65) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(66) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(67) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(68) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(69) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(70) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(71) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(72) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(73) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(74) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(75) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(76) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(77) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(78) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(79) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(80) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(81) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(82) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(83) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(84) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(85) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(86) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(87) already exists.\n"
+      ]
+    },
+    "M8": {
+      "tiempos": [
+        0.02682352066040039,
+        0.02234649658203125,
+        0.02945399284362793,
+        0.027417659759521484,
+        0.030216693878173828,
+        0.028164148330688477,
+        0.026479005813598633,
+        0.023406267166137695,
+        0.03159213066101074,
+        0.02619767189025879,
+        0.02221846580505371,
+        0.025351524353027344,
+        0.025555849075317383,
+        0.06499505043029785,
+        0.054604530334472656,
+        0.08463811874389648,
+        0.03334927558898926,
+        0.025733232498168945,
+        0.028973102569580078,
+        0.034232378005981445,
+        0.023754596710205078,
+        0.0375971794128418,
+        0.03168606758117676,
+        0.026777029037475586
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.015625,
+        0.0234375,
+        0.0078125,
+        0.00390625,
+        0.0,
+        0.0,
+        0.00390625,
+        0.00390625,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0078125,
+        0.00390625,
+        0.00390625,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.0329818328221639,
+          "minimo": 0.02221846580505371,
+          "maximo": 0.08463811874389648,
+          "mediana": 0.02779090404510498,
+          "desviacion_estandar": 0.014765029357591258
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.0030924479166666665,
+          "minimo": 0.0,
+          "maximo": 0.0234375,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.005757051140718076
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M9": {
+      "error": "Solo se completaron 0 iteraciones de 24\nPrimeros errores encontrados:\n  1. IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(57) already exists.\n\n  2. IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(58) already exists.\n\n  3. IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(59) already exists.\n\n  4. IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(60) already exists.\n\n  5. IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(61) already exists.\n\n  ... y 19 errores más",
+      "errores": [
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(57) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(58) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(59) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(60) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(61) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(62) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(63) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(64) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(65) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(66) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(67) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(68) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(69) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(70) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(71) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(72) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(73) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(74) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(75) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(76) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(77) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(78) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(79) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(80) already exists.\n"
+      ]
+    },
+    "M10": {
+      "tiempos": [
+        0.007590293884277344,
+        0.01627326011657715,
+        0.020758867263793945,
+        0.008812904357910156,
+        0.006459474563598633,
+        0.006781578063964844,
+        0.009511709213256836,
+        0.0093536376953125,
+        0.0066149234771728516,
+        0.0062062740325927734,
+        0.006395816802978516,
+        0.005953311920166016,
+        0.006636142730712891,
+        0.0070819854736328125,
+        0.014791727066040039,
+        0.004923343658447266,
+        0.009768962860107422,
+        0.011913537979125977,
+        0.007111549377441406,
+        0.00885772705078125,
+        0.009885072708129883,
+        0.00547480583190918,
+        0.007131338119506836,
+        0.008661270141601562
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.008872896432876587,
+          "minimo": 0.004923343658447266,
+          "maximo": 0.020758867263793945,
+          "mediana": 0.00736081600189209,
+          "desviacion_estandar": 0.0037476907257769343
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M11": {
+      "error": "Solo se completaron 0 iteraciones de 24\nPrimeros errores encontrados:\n  1. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(88) already exists.\n\n  2. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(89) already exists.\n\n  3. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(90) already exists.\n\n  4. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(91) already exists.\n\n  5. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(92) already exists.\n\n  ... y 19 errores más",
+      "errores": [
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(88) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(89) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(90) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(91) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(92) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(93) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(94) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(95) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(96) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(97) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(98) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(99) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(100) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(101) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(102) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(103) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(104) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(105) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(106) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(107) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(108) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(109) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(110) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(111) already exists.\n"
+      ]
+    },
+    "M12": {
+      "tiempos": [
+        0.07798004150390625,
+        0.06829357147216797,
+        0.08556938171386719,
+        0.08719873428344727,
+        0.05593562126159668,
+        0.16508722305297852,
+        0.07037186622619629,
+        0.06322741508483887,
+        0.08373475074768066,
+        0.05982160568237305,
+        0.08864736557006836,
+        0.15421390533447266,
+        0.09815263748168945,
+        0.07959318161010742,
+        0.06469559669494629,
+        0.05785632133483887,
+        0.07781100273132324,
+        0.1401069164276123,
+        0.05535459518432617,
+        0.05862236022949219,
+        0.06838655471801758,
+        0.06927490234375,
+        0.10476851463317871,
+        0.1107337474822998
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.01953125,
+        0.0,
+        0.1328125,
+        0.625,
+        0.75390625,
+        0.21484375,
+        0.00390625,
+        0.08203125,
+        0.33203125,
+        0.01171875,
+        0.296875,
+        0.78125,
+        0.80859375,
+        0.75,
+        0.8125,
+        0.796875,
+        0.0703125,
+        0.79296875,
+        0.7578125,
+        0.80859375,
+        0.8671875,
+        0.79296875,
+        0.79296875,
+        0.8046875
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.085226575533549,
+          "minimo": 0.05535459518432617,
+          "maximo": 0.16508722305297852,
+          "mediana": 0.07789552211761475,
+          "desviacion_estandar": 0.030438193475246345
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.5045572916666666,
+          "minimo": 0.0,
+          "maximo": 0.8671875,
+          "mediana": 0.751953125,
+          "desviacion_estandar": 0.3463718309623256
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M13": {
+      "tiempos": [
+        0.03541707992553711,
+        0.019829988479614258,
+        0.00860142707824707,
+        0.032774925231933594,
+        0.02953505516052246,
+        0.03146624565124512,
+        0.0243377685546875,
+        0.04625391960144043,
+        0.01861739158630371,
+        0.018540382385253906,
+        0.02470541000366211,
+        0.08883333206176758,
+        0.010359048843383789,
+        0.0457916259765625,
+        0.045000553131103516,
+        0.049021005630493164,
+        0.029189586639404297,
+        0.008070707321166992,
+        0.017412424087524414,
+        0.03329110145568848,
+        0.028841018676757812,
+        0.02864527702331543,
+        0.008112907409667969,
+        0.029223918914794922
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.21484375,
+        0.1796875,
+        0.01953125,
+        0.06640625,
+        0.0,
+        0.00390625,
+        0.0078125,
+        0.0,
+        0.015625,
+        0.01171875,
+        0.1484375,
+        0.1875,
+        0.0,
+        0.12890625,
+        0.00390625,
+        0.0,
+        0.0,
+        0.0,
+        0.0703125,
+        0.0,
+        0.0625,
+        0.0,
+        0.0,
+        0.00390625
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.02966133753458659,
+          "minimo": 0.008070707321166992,
+          "maximo": 0.08883333206176758,
+          "mediana": 0.029015302658081055,
+          "desviacion_estandar": 0.017445729317103403
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.046875,
+          "minimo": 0.0,
+          "maximo": 0.21484375,
+          "mediana": 0.005859375,
+          "desviacion_estandar": 0.07029362669406344
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M14": {
+      "tiempos": [
+        4.479328155517578,
+        1.6396002769470215,
+        1.4135887622833252,
+        0.5747442245483398,
+        1.693741798400879,
+        1.6817965507507324,
+        1.3274357318878174,
+        0.5120179653167725,
+        1.669388771057129,
+        1.6103668212890625,
+        1.268277645111084,
+        0.7777316570281982,
+        1.4965462684631348,
+        1.3843297958374023,
+        1.427619457244873,
+        0.5995726585388184,
+        1.6565816402435303,
+        1.5754318237304688,
+        1.8047997951507568,
+        0.4743154048919678,
+        1.298154592514038,
+        1.365506649017334,
+        1.4342875480651855,
+        0.45448875427246094
+      ],
+      "cpus": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rams": [
+        20.3125,
+        8.59765625,
+        5.73828125,
+        0.3515625,
+        1.734375,
+        7.87109375,
+        5.76171875,
+        0.21875,
+        0.0,
+        7.5078125,
+        4.92578125,
+        0.08984375,
+        0.0,
+        6.8203125,
+        3.03125,
+        0.22265625,
+        0.0,
+        4.2265625,
+        0.0,
+        0.3515625,
+        4.05859375,
+        7.59765625,
+        0.0,
+        0.15234375
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 1.4008188645044963,
+          "minimo": 0.45448875427246094,
+          "maximo": 4.479328155517578,
+          "mediana": 1.4206041097640991,
+          "desviacion_estandar": 0.790620517497583
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 3.7320963541666665,
+          "minimo": 0.0,
+          "maximo": 20.3125,
+          "mediana": 2.3828125,
+          "desviacion_estandar": 4.718565385397715
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": 75,
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    }
+  }
+}

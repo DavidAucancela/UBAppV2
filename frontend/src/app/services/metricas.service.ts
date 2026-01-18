@@ -66,10 +66,12 @@ export class MetricasService {
 
   // ==================== PRUEBAS DE CARGA ====================
 
-  getPruebasCarga(tipoPrueba?: string, nivelCarga?: number): Observable<any[]> {
+  getPruebasCarga(tipoPrueba?: string, nivelCarga?: number, fechaDesde?: string, fechaHasta?: string): Observable<any[]> {
     let params = new HttpParams();
     if (tipoPrueba) params = params.set('tipo_prueba', tipoPrueba);
     if (nivelCarga) params = params.set('nivel_carga', nivelCarga.toString());
+    if (fechaDesde) params = params.set('fecha_desde', fechaDesde);
+    if (fechaHasta) params = params.set('fecha_hasta', fechaHasta);
     return this.http.get<any[]>(`${this.apiUrl}/metricas/pruebas-carga/`, { params });
   }
 
@@ -140,6 +142,12 @@ export class MetricasService {
     });
   }
 
+  exportarPruebasCargaCSV(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/metricas/exportacion/pruebas_carga/`, {
+      responseType: 'blob'
+    });
+  }
+
   descargarArchivo(blob: Blob, filename: string): void {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -150,5 +158,80 @@ export class MetricasService {
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
   }
+
+  // ==================== PRUEBAS DEL SISTEMA ====================
+
+  /**
+   * Lista todos los tests disponibles en el sistema
+   */
+  listarTests(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/metricas/pruebas-sistema/listar_tests/`);
+  }
+
+  /**
+   * Ejecuta los tests unitarios del sistema
+   * @param app Nombre de la aplicación (archivos, busqueda, usuarios) o null para todas
+   * @param testSuite Nombre del test suite específico o null para todos
+   */
+  ejecutarTests(app?: string, testSuite?: string): Observable<any> {
+    const body: any = {};
+    if (app) body.app = app;
+    if (testSuite) body.test_suite = testSuite;
+    
+    return this.http.post<any>(`${this.apiUrl}/metricas/pruebas-sistema/ejecutar_tests/`, body);
+  }
+
+  /**
+   * Ejecuta las pruebas de rendimiento del sistema
+   */
+  ejecutarPruebasRendimiento(): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/metricas/pruebas-sistema/ejecutar_rendimiento/`, {});
+  }
+
+  /**
+   * Obtiene estadísticas de las pruebas ejecutadas
+   */
+  getEstadisticasPruebas(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/metricas/pruebas-sistema/estadisticas_pruebas/`);
+  }
+
+  /**
+   * Obtiene todas las pruebas de rendimiento guardadas
+   */
+  getPruebasRendimientoGuardadas(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/metricas/pruebas-sistema/pruebas_rendimiento_guardadas/`);
+  }
+
+  /**
+   * Obtiene el detalle completo de una prueba de rendimiento
+   */
+  getDetallePruebaRendimiento(pruebaId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/metricas/pruebas-sistema/${pruebaId}/detalle_prueba_rendimiento/`);
+  }
+
+  /**
+   * Ejecuta pruebas de rendimiento completas según ISO 25010
+   * @param iteraciones Número de iteraciones por prueba (default: 24)
+   */
+  ejecutarPruebaRendimientoCompleta(iteraciones: number = 24): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/metricas/pruebas-sistema/ejecutar_rendimiento_completo/`, {
+      iteraciones
+    });
+  }
+
+  // ==================== DETALLES DE PROCESOS M1-M14 ====================
+
+  /**
+   * Obtiene detalles de procesos de rendimiento
+   * @param codigoProceso Código del proceso (M1-M14) opcional
+   * @param pruebaId ID de la prueba específica opcional
+   */
+  getDetallesProcesos(codigoProceso?: string, pruebaId?: number): Observable<any[]> {
+    let params = new HttpParams();
+    if (codigoProceso) params = params.set('codigo_proceso', codigoProceso);
+    if (pruebaId) params = params.set('prueba_id', pruebaId.toString());
+    return this.http.get<any[]>(`${this.apiUrl}/metricas/pruebas-sistema/detalles_procesos/`, { params });
+  }
 }
+
 

@@ -18,7 +18,7 @@ from .repositories import (
     historial_semantica_repository,
     embedding_repository
 )
-from .semantic import EmbeddingService, VectorSearchService, TextProcessor
+from .semantic import EmbeddingService, VectorSearchService, TextProcessor, QueryExpander
 from apps.archivos.repositories import envio_repository, producto_repository
 from apps.usuarios.repositories import usuario_repository
 from apps.archivos.serializers import EnvioSerializer
@@ -174,13 +174,27 @@ class BusquedaSemanticaService(BaseService):
         else:
             modelo_embedding = EmbeddingService.validar_modelo(modelo_embedding)
         
-        # 1. Obtener envíos filtrados
-        envios_queryset = BusquedaSemanticaService._obtener_envios_filtrados(
-            usuario, filtros or {}
+        # 1. Expandir consulta con sinónimos y contexto
+        expansion = QueryExpander.expandir_consulta(consulta, incluir_filtros_temporales=True)
+        consulta_expandida = expansion['consulta_expandida']
+        filtros_sugeridos = expansion['filtros_sugeridos']
+        
+        # Mezclar filtros sugeridos con filtros proporcionados (prioridad a los proporcionados)
+        filtros_completos = {**filtros_sugeridos, **(filtros or {})}
+        
+        logger.info(
+            f"Consulta expandida: original='{consulta[:50]}...', "
+            f"expandida='{consulta_expandida[:100]}...', "
+            f"filtros_sugeridos={filtros_sugeridos}"
         )
         
-        # Procesar consulta: aplicar limpieza y normalización
-        consulta_procesada = TextProcessor.procesar_texto(consulta)
+        # 2. Obtener envíos filtrados (con filtros mejorados)
+        envios_queryset = BusquedaSemanticaService._obtener_envios_filtrados(
+            usuario, filtros_completos
+        )
+        
+        # Procesar consulta expandida: aplicar limpieza y normalización
+        consulta_procesada = TextProcessor.procesar_texto(consulta_expandida)
         
         if envios_queryset.count() == 0:
             # Generar embedding para calcular costo incluso sin resultados
@@ -210,9 +224,23 @@ class BusquedaSemanticaService(BaseService):
                 resultados_json=[]
             )
             
-            # Guardar el embedding si se generó
+            # Guardar el embedding si se generó y las dimensiones coinciden
             if 'embedding' in embedding_resultado:
-                busqueda.set_vector(embedding_resultado['embedding'])
+                embedding = embedding_resultado['embedding']
+                dimensiones_esperadas = 1536  # Dimensiones del campo en el modelo
+                dimensiones_reales = len(embedding) if embedding else 0
+                
+                if dimensiones_reales == dimensiones_esperadas:
+                    busqueda.set_vector(embedding)
+                    busqueda.save()
+                else:
+                    # Guardar sin el vector si las dimensiones no coinciden
+                    busqueda.save()
+                    logger.debug(
+                        f"No se guardó el embedding de la consulta: dimensiones esperadas={dimensiones_esperadas}, "
+                        f"dimensiones reales={dimensiones_reales}, modelo={modelo_embedding}"
+                    )
+            else:
                 busqueda.save()
             
             return {
@@ -226,13 +254,27 @@ class BusquedaSemanticaService(BaseService):
                 'busquedaId': busqueda.id
             }
         
-        # 2. Generar embedding de la consulta (usando consulta procesada)
+        # 2. Verificar qué embeddings están disponibles antes de generar el embedding de la consulta
+        # Esto evita generar embeddings con un modelo que no tiene embeddings de envíos
+        modelo_disponible = BusquedaSemanticaService._obtener_modelo_disponible(
+            envios_queryset, modelo_embedding
+        )
+        
+        # Si el modelo solicitado no tiene embeddings, usar el modelo disponible
+        if modelo_disponible != modelo_embedding:
+            logger.info(
+                f"Modelo solicitado {modelo_embedding} no tiene embeddings disponibles. "
+                f"Usando modelo {modelo_disponible} que tiene embeddings."
+            )
+            modelo_embedding = modelo_disponible
+        
+        # 3. Generar embedding de la consulta con el modelo disponible (usando consulta procesada)
         embedding_resultado = EmbeddingService.generar_embedding(consulta_procesada, modelo_embedding)
         embedding_consulta = embedding_resultado['embedding']
         tokens_consulta = embedding_resultado['tokens']
         costo_consulta = embedding_resultado['costo']
         
-        # 3. Buscar envíos similares (usar consulta procesada para comparaciones)
+        # 4. Buscar envíos similares (usar consulta procesada para comparaciones)
         resultados = BusquedaSemanticaService._buscar_envios_similares(
             envios_queryset,
             embedding_consulta,
@@ -259,10 +301,24 @@ class BusquedaSemanticaService(BaseService):
             resultados_json=resultados  # Guardar resultados para PDF
         )
         
-        # Guardar el embedding de la consulta
+        # Guardar el embedding de la consulta solo si las dimensiones coinciden
+        # text-embedding-3-small y text-embedding-ada-002: 1536 dimensiones
+        # text-embedding-3-large: 3072 dimensiones
         if embedding_consulta:
-            busqueda.set_vector(embedding_consulta)
-            busqueda.save()
+            dimensiones_esperadas = 1536  # Dimensiones del campo en el modelo
+            dimensiones_reales = len(embedding_consulta)
+            
+            # Solo guardar si las dimensiones coinciden
+            if dimensiones_reales == dimensiones_esperadas:
+                busqueda.set_vector(embedding_consulta)
+                busqueda.save()
+            else:
+                # Guardar sin el vector si las dimensiones no coinciden
+                busqueda.save()
+                logger.debug(
+                    f"No se guardó el embedding de la consulta: dimensiones esperadas={dimensiones_esperadas}, "
+                    f"dimensiones reales={dimensiones_reales}, modelo={modelo_embedding}"
+                )
         
         # Log detallado de la búsqueda semántica
         from apps.core.base.base_service import BaseService
@@ -310,14 +366,84 @@ class BusquedaSemanticaService(BaseService):
     
     @staticmethod
     def _obtener_envios_filtrados(usuario, filtros: Dict) -> Any:
-        """Obtiene envíos filtrados según permisos y criterios adicionales"""
-        return envio_repository.filtrar_por_criterios_multiples(
+        """
+        Obtiene envíos filtrados según permisos y criterios adicionales.
+        MEJORADO: Aplica filtros inteligentes para reducir el conjunto de datos.
+        """
+        # Obtener envíos base con filtros estándar
+        envios = envio_repository.filtrar_por_criterios_multiples(
             usuario=usuario,
             estado=filtros.get('estado'),
             fecha_desde=filtros.get('fechaDesde'),
             fecha_hasta=filtros.get('fechaHasta'),
             ciudad_destino=filtros.get('ciudadDestino')
         )
+        
+        # Aplicar filtros adicionales inteligentes si existen
+        # Estos filtros ayudan a reducir el conjunto antes de la búsqueda vectorial
+        
+        # Filtro por peso (si se especifica en filtros)
+        if 'peso_minimo' in filtros:
+            envios = envios.filter(peso_total__gte=filtros['peso_minimo'])
+        if 'peso_maximo' in filtros:
+            envios = envios.filter(peso_total__lte=filtros['peso_maximo'])
+        
+        # Filtro por valor (si se especifica en filtros)
+        if 'valor_minimo' in filtros:
+            envios = envios.filter(valor_total__gte=filtros['valor_minimo'])
+        if 'valor_maximo' in filtros:
+            envios = envios.filter(valor_total__lte=filtros['valor_maximo'])
+        
+        # Filtro por cantidad de productos (para "más de un producto")
+        if 'cantidad_productos_minima' in filtros:
+            envios = envios.filter(cantidad_total__gte=filtros['cantidad_productos_minima'])
+        
+        # Ordenar por fecha descendente (más recientes primero)
+        # Esto asegura que el límite de 1000 incluya los envíos más recientes
+        envios = envios.order_by('-fecha_emision')
+        
+        return envios
+    
+    @staticmethod
+    def _obtener_modelo_disponible(envios_queryset, modelo_solicitado: str) -> str:
+        """
+        Obtiene el modelo de embedding que tiene embeddings disponibles.
+        Si el modelo solicitado no tiene embeddings, retorna el modelo por defecto.
+        
+        Args:
+            envios_queryset: QuerySet de envíos
+            modelo_solicitado: Modelo solicitado por el usuario
+            
+        Returns:
+            Modelo que tiene embeddings disponibles
+        """
+        # Limitar a los primeros envíos para verificar rápidamente
+        envios_limite = envios_queryset[:100]
+        
+        # Verificar si hay embeddings con el modelo solicitado
+        embeddings = embedding_repository.obtener_embeddings_para_busqueda(
+            envios_limite,
+            modelo=modelo_solicitado,
+            limite=100
+        )
+        
+        if embeddings:
+            return modelo_solicitado
+        
+        # Si no hay embeddings con el modelo solicitado, intentar con el modelo por defecto
+        modelo_default = EmbeddingService.get_modelo_default()
+        if modelo_default != modelo_solicitado:
+            embeddings = embedding_repository.obtener_embeddings_para_busqueda(
+                envios_limite,
+                modelo=modelo_default,
+                limite=100
+            )
+            if embeddings:
+                return modelo_default
+        
+        # Si tampoco hay embeddings con el modelo por defecto, retornar el solicitado
+        # (el error se manejará más adelante)
+        return modelo_solicitado
     
     @staticmethod
     def _buscar_envios_similares(
@@ -335,8 +461,9 @@ class BusquedaSemanticaService(BaseService):
         tiempo_inicio_busqueda = time.time()
         
         # LIMITAR envíos a procesar para mejorar rendimiento
-        # Aumentado a 300 para mejor cobertura (mejora para productos)
-        MAX_ENVIOS_A_PROCESAR = 300
+        # Aumentado significativamente para mejor cobertura con muchos registros
+        # Con expansión de consultas, podemos procesar más sin pérdida de rendimiento
+        MAX_ENVIOS_A_PROCESAR = 1000
         
         # Limitar el queryset antes de procesar
         envios_limitados = envios_queryset[:MAX_ENVIOS_A_PROCESAR]
@@ -374,12 +501,12 @@ class BusquedaSemanticaService(BaseService):
         if not embeddings_envios:
             logger.warning(
                 f"No se encontraron embeddings para la búsqueda. "
-                f"Modelo: {modelo_embedding}, Envíos disponibles: {total_envios_disponibles}. "
-                f"Ejecute 'python manage.py generar_embeddings' para generarlos."
+                f"Modelo solicitado: {modelo_embedding}, Envíos disponibles: {total_envios_disponibles}. "
+                f"Ejecute 'python manage.py generar_embeddings --modelo {modelo_embedding}' para generarlos."
             )
             BaseService.log_info(
                 f"No se encontraron embeddings existentes. "
-                f"Ejecute 'python manage.py generar_embeddings' para generarlos."
+                f"Ejecute 'python manage.py generar_embeddings --modelo {modelo_embedding}' para generarlos."
             )
             return []
         
@@ -402,9 +529,12 @@ class BusquedaSemanticaService(BaseService):
         # Detectar si es consulta sobre productos para usar umbral más bajo
         es_consulta_productos = BusquedaSemanticaService._es_consulta_productos(texto_consulta)
         
-        # Umbral más bajo para consultas de productos (0.30 vs 0.35)
-        # Esto permite encontrar más resultados relevantes para productos
-        umbral_base = 0.30 if es_consulta_productos else 0.35
+        # MEJORADO: Umbrales más bajos y adaptativos para mejor recall
+        # Con consultas expandidas, podemos usar umbrales más bajos sin perder precisión
+        # Productos: 0.25 (más flexible)
+        # General: 0.28 (reducido de 0.35)
+        # Esto permite encontrar más resultados relevantes, especialmente con muchos registros
+        umbral_base = 0.25 if es_consulta_productos else 0.28
         
         resultados_filtrados = vector_search.aplicar_umbral(
             resultados_similitud,
@@ -581,4 +711,90 @@ class BusquedaSemanticaService(BaseService):
         """
         from .semantic.vector_search import VectorSearchService
         return VectorSearchService._es_consulta_productos(texto_consulta)
+    
+    @staticmethod
+    def obtener_estadisticas_embeddings(usuario) -> Dict[str, Any]:
+        """
+        Obtiene estadísticas sobre embeddings de envíos.
+        
+        Args:
+            usuario: Usuario para filtrar envíos según permisos
+            
+        Returns:
+            Dict con estadísticas de embeddings
+        """
+        from apps.archivos.repositories import envio_repository
+        
+        # Obtener envíos según permisos del usuario
+        envios_queryset = envio_repository.filtrar_por_criterios_multiples(usuario=usuario)
+        total_envios = envios_queryset.count()
+        
+        # Obtener embeddings existentes usando el modelo default
+        modelo_default = EmbeddingService.get_modelo_default()
+        
+        # Contar embeddings directamente desde el modelo
+        envios_ids = list(envios_queryset.values_list('id', flat=True))
+        total_con_embedding = embedding_repository.model.objects.filter(
+            envio_id__in=envios_ids,
+            modelo_usado=modelo_default
+        ).count()
+        
+        total_sin_embedding = total_envios - total_con_embedding
+        
+        return {
+            'total_envios': total_envios,
+            'total_con_embedding': total_con_embedding,
+            'total_sin_embedding': total_sin_embedding,
+            'porcentaje_con_embedding': round((total_con_embedding / total_envios * 100) if total_envios > 0 else 0, 2),
+            'modelo_default': modelo_default
+        }
+    
+    @staticmethod
+    def generar_embeddings_pendientes(
+        usuario,
+        modelo: str = None,
+        forzar_regeneracion: bool = False
+    ) -> Dict[str, Any]:
+        """
+        Genera embeddings para envíos que no tienen embedding o necesitan actualización.
+        
+        Args:
+            usuario: Usuario que solicita la operación
+            modelo: Modelo de embedding a usar
+            forzar_regeneracion: Si True, regenera todos los embeddings
+            
+        Returns:
+            Dict con estadísticas de la operación
+        """
+        from apps.archivos.repositories import envio_repository
+        
+        if modelo is None:
+            modelo = EmbeddingService.get_modelo_default()
+        
+        # Obtener envíos según permisos del usuario
+        envios_queryset = envio_repository.filtrar_por_criterios_multiples(usuario=usuario)
+        
+        # Filtrar envíos que necesitan embedding
+        if not forzar_regeneracion:
+            # Solo envíos sin embedding
+            envios_ids = list(envios_queryset.values_list('id', flat=True))
+            envios_con_embedding_ids = set(
+                embedding_repository.model.objects.filter(
+                    envio_id__in=envios_ids,
+                    modelo_usado=modelo
+                ).values_list('envio_id', flat=True)
+            )
+            envios_pendientes = envios_queryset.exclude(id__in=envios_con_embedding_ids)
+        else:
+            # Todos los envíos (forzar regeneración)
+            envios_pendientes = envios_queryset
+        
+        # Generar embeddings usando el servicio
+        resultado = EmbeddingService.generar_embeddings_masivo(
+            envios=envios_pendientes,
+            modelo=modelo,
+            forzar_regeneracion=forzar_regeneracion
+        )
+        
+        return resultado
 

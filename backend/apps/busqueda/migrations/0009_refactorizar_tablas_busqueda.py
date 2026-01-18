@@ -64,7 +64,61 @@ class Migration(migrations.Migration):
         ),
         
         # PASO 3: Renombrar modelo BusquedaSemantica a EmbeddingBusqueda
-        # La tabla ya se llama embedding_busqueda, solo actualizamos el estado
+        # Si la tabla busqueda_busquedasemantica existe, renombrarla a embedding_busqueda
+        # Si no existe, crear embedding_busqueda desde cero
+        migrations.RunSQL(
+            sql="""
+                DO $$
+                BEGIN
+                    -- Si existe la tabla vieja, renombrarla
+                    IF EXISTS (
+                        SELECT 1 FROM information_schema.tables 
+                        WHERE table_name = 'busqueda_busquedasemantica'
+                    ) AND NOT EXISTS (
+                        SELECT 1 FROM information_schema.tables 
+                        WHERE table_name = 'embedding_busqueda'
+                    ) THEN
+                        ALTER TABLE busqueda_busquedasemantica RENAME TO embedding_busqueda;
+                    -- Si no existe ninguna de las dos, crear la nueva tabla
+                    ELSIF NOT EXISTS (
+                        SELECT 1 FROM information_schema.tables 
+                        WHERE table_name = 'embedding_busqueda'
+                    ) THEN
+                        CREATE TABLE embedding_busqueda (
+                            id BIGSERIAL PRIMARY KEY,
+                            consulta TEXT NOT NULL,
+                            resultados_encontrados INTEGER NOT NULL DEFAULT 0,
+                            tiempo_respuesta INTEGER NOT NULL DEFAULT 0,
+                            fecha_busqueda TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                            filtros_aplicados JSONB,
+                            usuario_id BIGINT NOT NULL,
+                            modelo_utilizado VARCHAR(100) NOT NULL DEFAULT 'text-embedding-3-small',
+                            costo_consulta NUMERIC(10,8) NOT NULL DEFAULT 0.0,
+                            tokens_utilizados INTEGER NOT NULL DEFAULT 0,
+                            resultados_json JSONB,
+                            CONSTRAINT embedding_busqueda_usuario_id_fk 
+                                FOREIGN KEY (usuario_id) 
+                                REFERENCES usuarios(id) 
+                                ON DELETE CASCADE
+                        );
+                    END IF;
+                END $$;
+            """,
+            reverse_sql="""
+                DO $$
+                BEGIN
+                    IF EXISTS (
+                        SELECT 1 FROM information_schema.tables 
+                        WHERE table_name = 'embedding_busqueda'
+                    ) AND NOT EXISTS (
+                        SELECT 1 FROM information_schema.tables 
+                        WHERE table_name = 'busqueda_busquedasemantica'
+                    ) THEN
+                        ALTER TABLE embedding_busqueda RENAME TO busqueda_busquedasemantica;
+                    END IF;
+                END $$;
+            """
+        ),
         migrations.SeparateDatabaseAndState(
             database_operations=[],
             state_operations=[

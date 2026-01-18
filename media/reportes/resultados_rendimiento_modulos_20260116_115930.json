@@ -1,0 +1,775 @@
+{
+  "fecha": "2026-01-16T11:59:30.440421",
+  "procesos": {
+    "M1": {
+      "tiempos": [
+        3.2258918285369873,
+        2.5526132583618164
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        80.0,
+        4.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 2.889252543449402,
+          "minimo": 2.5526132583618164,
+          "maximo": 3.2258918285369873,
+          "mediana": 2.889252543449402,
+          "desviacion_estandar": 0.47607984259844616
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 42.0,
+          "minimo": 4.0,
+          "maximo": 80.0,
+          "mediana": 42.0,
+          "desviacion_estandar": 53.74011537017761
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": 75,
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M2": {
+      "tiempos": [
+        2.3188536167144775,
+        3.8569955825805664
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        1924.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 3.087924599647522,
+          "minimo": 2.3188536167144775,
+          "maximo": 3.8569955825805664,
+          "mediana": 3.087924599647522,
+          "desviacion_estandar": 1.0876306144915187
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 962.0,
+          "minimo": 0.0,
+          "maximo": 1924.0,
+          "mediana": 962.0,
+          "desviacion_estandar": 1360.4734470029175
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Deficiente",
+          "calificacion": 50,
+          "resultado": "Riesgo de perder interés"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M3": {
+      "tiempos": [
+        3.498055934906006,
+        1.7894573211669922
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        4.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 2.643756628036499,
+          "minimo": 1.7894573211669922,
+          "maximo": 3.498055934906006,
+          "mediana": 2.643756628036499,
+          "desviacion_estandar": 1.2081616661007912
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 2.0,
+          "minimo": 0.0,
+          "maximo": 4.0,
+          "mediana": 2.0,
+          "desviacion_estandar": 2.8284271247461903
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": 75,
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M4": {
+      "tiempos": [
+        0.027379512786865234,
+        0.024750471115112305
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.0,
+        4.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.02606499195098877,
+          "minimo": 0.024750471115112305,
+          "maximo": 0.027379512786865234,
+          "mediana": 0.02606499195098877,
+          "desviacion_estandar": 0.0018590131941185139
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 2.0,
+          "minimo": 0.0,
+          "maximo": 4.0,
+          "mediana": 2.0,
+          "desviacion_estandar": 2.8284271247461903
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M5": {
+      "tiempos": [
+        0.053353309631347656,
+        0.03599882125854492
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        208.0,
+        128.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.04467606544494629,
+          "minimo": 0.03599882125854492,
+          "maximo": 0.053353309631347656,
+          "mediana": 0.04467606544494629,
+          "desviacion_estandar": 0.012271476412431906
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 168.0,
+          "minimo": 128.0,
+          "maximo": 208.0,
+          "mediana": 168.0,
+          "desviacion_estandar": 56.568542494923804
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M6": {
+      "tiempos": [
+        0.0438387393951416,
+        0.02392864227294922
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.03388369083404541,
+          "minimo": 0.02392864227294922,
+          "maximo": 0.0438387393951416,
+          "mediana": 0.03388369083404541,
+          "desviacion_estandar": 0.014078564689184999
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M7": {
+      "tiempos": [
+        0.2575514316558838,
+        0.07799696922302246
+      ],
+      "cpus": [
+        5.9,
+        16.6
+      ],
+      "rams": [
+        84.0,
+        28.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.16777420043945312,
+          "minimo": 0.07799696922302246,
+          "maximo": 0.2575514316558838,
+          "mediana": 0.16777420043945312,
+          "desviacion_estandar": 0.12696417797858145
+        },
+        "cpu": {
+          "media": 11.25,
+          "minimo": 5.9,
+          "maximo": 16.6,
+          "mediana": 11.25,
+          "desviacion_estandar": 7.56604255869606
+        },
+        "ram": {
+          "media": 56.0,
+          "minimo": 28.0,
+          "maximo": 84.0,
+          "mediana": 56.0,
+          "desviacion_estandar": 39.59797974644666
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Malo",
+          "calificacion": 0,
+          "rango": "[4.6-∞]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M8": {
+      "tiempos": [
+        0.012997627258300781,
+        0.017998218536376953
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.015497922897338867,
+          "minimo": 0.012997627258300781,
+          "maximo": 0.017998218536376953,
+          "mediana": 0.015497922897338867,
+          "desviacion_estandar": 0.0035359520026699656
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M9": {
+      "tiempos": [
+        0.02339482307434082,
+        0.021996259689331055
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.022695541381835938,
+          "minimo": 0.021996259689331055,
+          "maximo": 0.02339482307434082,
+          "mediana": 0.022695541381835938,
+          "desviacion_estandar": 0.0009889336534596176
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M10": {
+      "tiempos": [
+        0.022003650665283203,
+        0.0049970149993896484
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.0,
+        4.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.013500332832336426,
+          "minimo": 0.0049970149993896484,
+          "maximo": 0.022003650665283203,
+          "mediana": 0.013500332832336426,
+          "desviacion_estandar": 0.012025507404522328
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 2.0,
+          "minimo": 0.0,
+          "maximo": 4.0,
+          "mediana": 2.0,
+          "desviacion_estandar": 2.8284271247461903
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M11": {
+      "tiempos": [
+        0.4251706600189209,
+        0.993133544921875
+      ],
+      "cpus": [
+        0.0,
+        1.6
+      ],
+      "rams": [
+        92.0,
+        88.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.709152102470398,
+          "minimo": 0.4251706600189209,
+          "maximo": 0.993133544921875,
+          "mediana": 0.709152102470398,
+          "desviacion_estandar": 0.4016104073771534
+        },
+        "cpu": {
+          "media": 0.8,
+          "minimo": 0.0,
+          "maximo": 1.6,
+          "mediana": 0.8,
+          "desviacion_estandar": 1.131370849898476
+        },
+        "ram": {
+          "media": 90.0,
+          "minimo": 88.0,
+          "maximo": 92.0,
+          "mediana": 90.0,
+          "desviacion_estandar": 2.8284271247461903
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Muy bueno",
+          "calificacion": 90,
+          "rango": "[0.6-1.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M12": {
+      "tiempos": [
+        0.13323307037353516,
+        0.1038980484008789
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        520.0,
+        648.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.11856555938720703,
+          "minimo": 0.1038980484008789,
+          "maximo": 0.13323307037353516,
+          "mediana": 0.11856555938720703,
+          "desviacion_estandar": 0.020742992963121605
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 584.0,
+          "minimo": 520.0,
+          "maximo": 648.0,
+          "mediana": 584.0,
+          "desviacion_estandar": 90.50966799187809
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M13": {
+      "tiempos": [
+        0.06632041931152344,
+        0.03922605514526367
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        188.0,
+        200.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.052773237228393555,
+          "minimo": 0.03922605514526367,
+          "maximo": 0.06632041931152344,
+          "mediana": 0.052773237228393555,
+          "desviacion_estandar": 0.01915860863390008
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 194.0,
+          "minimo": 188.0,
+          "maximo": 200.0,
+          "mediana": 194.0,
+          "desviacion_estandar": 8.48528137423857
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M14": {
+      "tiempos": [
+        6.380406856536865,
+        3.3392536640167236
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        23952.0,
+        6292.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 4.859830260276794,
+          "minimo": 3.3392536640167236,
+          "maximo": 6.380406856536865,
+          "mediana": 4.859830260276794,
+          "desviacion_estandar": 2.15042004505811
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 15122.0,
+          "minimo": 6292.0,
+          "maximo": 23952.0,
+          "mediana": 15122.0,
+          "desviacion_estandar": 12487.50575575443
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Deficiente",
+          "calificacion": 50,
+          "resultado": "Riesgo de perder interés"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    }
+  }
+}

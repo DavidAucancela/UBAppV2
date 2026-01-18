@@ -10,7 +10,8 @@ from .views import (
     PruebaCargaViewSet,
     MetricaRendimientoViewSet,
     RegistroManualEnvioViewSet,
-    ExportacionMetricasViewSet
+    ExportacionMetricasViewSet,
+    PruebasSistemaViewSet
 )
 
 router = DefaultRouter()
@@ -21,6 +22,7 @@ router.register(r'pruebas-carga', PruebaCargaViewSet, basename='prueba-carga')
 router.register(r'metricas-rendimiento', MetricaRendimientoViewSet, basename='metrica-rendimiento')
 router.register(r'registros-manuales', RegistroManualEnvioViewSet, basename='registro-manual')
 router.register(r'exportacion', ExportacionMetricasViewSet, basename='exportacion')
+router.register(r'pruebas-sistema', PruebasSistemaViewSet, basename='pruebas-sistema')
 
 urlpatterns = [
     path('', include(router.urls)),

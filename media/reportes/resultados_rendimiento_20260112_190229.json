@@ -1,0 +1,181 @@
+{
+  "fecha": "2026-01-12T19:02:29.764859",
+  "resultados": {
+    "registro": {
+      "estadisticas": {
+        "media": "7.197865184148153",
+        "mediana": "6.9001054763793945",
+        "desviacion_estandar": "0.7961753509296247",
+        "minimo": "6.409512281417847",
+        "maximo": "9.556238412857056",
+        "n": "30",
+        "evaluacion": {
+          "categoria": "Deficiente",
+          "calificacion": "50",
+          "impacto": "Riesgo alto de pérdida de atención",
+          "tiempo_segundos": "7.197865184148153",
+          "estado_iso25010": "Deficiente"
+        },
+        "estado_iso25010": "Deficiente"
+      },
+      "evaluacion": {
+        "categoria": "Deficiente",
+        "calificacion": "50",
+        "impacto": "Riesgo alto de pérdida de atención",
+        "tiempo_segundos": "7.197865184148153",
+        "estado_iso25010": "Deficiente"
+      }
+    },
+    "listado": {
+      "estadisticas": {
+        "media": "0.48184882005055746",
+        "mediana": "0.46537184715270996",
+        "desviacion_estandar": "0.07801848609205352",
+        "minimo": "0.39014434814453125",
+        "maximo": "0.7966353893280029",
+        "n": "30",
+        "evaluacion": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "impacto": "Interacción fluida, respuesta inmediata",
+          "tiempo_segundos": "0.48184882005055746",
+          "estado_iso25010": "Excelente"
+        },
+        "estado_iso25010": "Excelente"
+      },
+      "evaluacion": {
+        "categoria": "Excelente",
+        "calificacion": "100",
+        "impacto": "Interacción fluida, respuesta inmediata",
+        "tiempo_segundos": "0.48184882005055746",
+        "estado_iso25010": "Excelente"
+      }
+    },
+    "busqueda_ia": {
+      "estadisticas": {
+        "media": "0.2463918129603068",
+        "mediana": "0.20327556133270264",
+        "desviacion_estandar": "0.09170640876634274",
+        "minimo": "0.1629955768585205",
+        "maximo": "0.42969703674316406",
+        "n": "30",
+        "evaluacion": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "impacto": "Interacción fluida, respuesta inmediata",
+          "tiempo_segundos": "0.2463918129603068",
+          "estado_iso25010": "Excelente"
+        },
+        "estado_iso25010": "Excelente"
+      },
+      "evaluacion": {
+        "categoria": "Excelente",
+        "calificacion": "100",
+        "impacto": "Interacción fluida, respuesta inmediata",
+        "tiempo_segundos": "0.2463918129603068",
+        "estado_iso25010": "Excelente"
+      }
+    },
+    "recursos": {
+      "registro": {
+        "cpu_reposo": "0.0",
+        "cpu_promedio": {
+          "estadisticas": {
+            "media": "5.0",
+            "minimo": "5.0",
+            "maximo": "5.0"
+          }
+        },
+        "mem_base": "232.3765625",
+        "mem_promedio": {
+          "estadisticas": {
+            "media": "0.0953125",
+            "minimo": "0.02734375",
+            "maximo": "0.15234375"
+          }
+        },
+        "mem_maximo": {
+          "estadisticas": {
+            "media": "0.0953125",
+            "minimo": "0.02734375",
+            "maximo": "0.15234375"
+          }
+        }
+      },
+      "listado": {
+        "cpu_reposo": "0.0",
+        "cpu_promedio": {
+          "estadisticas": {
+            "media": "3.0",
+            "minimo": "3.0",
+            "maximo": "3.0"
+          }
+        },
+        "mem_base": "232.6375",
+        "mem_promedio": {
+          "estadisticas": {
+            "media": "0.0046875",
+            "minimo": "0",
+            "maximo": "0.01171875"
+          }
+        },
+        "mem_maximo": {
+          "estadisticas": {
+            "media": "0.0046875",
+            "minimo": "0",
+            "maximo": "0.01171875"
+          }
+        }
+      },
+      "busqueda_ia": {
+        "cpu_reposo": "0.0",
+        "cpu_promedio": {
+          "estadisticas": {
+            "media": "15.0",
+            "minimo": "15.0",
+            "maximo": "15.0"
+          }
+        },
+        "mem_base": "232.63828125",
+        "mem_promedio": {
+          "estadisticas": {
+            "media": "0.00078125",
+            "minimo": "0",
+            "maximo": "0.00390625"
+          }
+        },
+        "mem_maximo": {
+          "estadisticas": {
+            "media": "0.00078125",
+            "minimo": "0",
+            "maximo": "0.00390625"
+          }
+        }
+      }
+    },
+    "evaluaciones": {
+      "registro": {
+        "categoria": "Deficiente",
+        "calificacion": "50",
+        "impacto": "Riesgo alto de pérdida de atención",
+        "tiempo_segundos": "7.197865184148153",
+        "estado_iso25010": "Deficiente"
+      },
+      "listado": {
+        "categoria": "Excelente",
+        "calificacion": "100",
+        "impacto": "Interacción fluida, respuesta inmediata",
+        "tiempo_segundos": "0.48184882005055746",
+        "estado_iso25010": "Excelente"
+      },
+      "busqueda_ia": {
+        "categoria": "Excelente",
+        "calificacion": "100",
+        "impacto": "Interacción fluida, respuesta inmediata",
+        "tiempo_segundos": "0.2463918129603068",
+        "estado_iso25010": "Excelente"
+      }
+    },
+    "grado_cumplimiento": "83.33333333333333"
+  }
+}

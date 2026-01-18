@@ -1078,3 +1078,137 @@
   }
 }
 
+/* ===== HISTORIAL DE BÚSQUEDAS ===== */
+.seccion-historial {
+  margin-top: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.header-historial {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-toggle-historial {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.btn-toggle-historial:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.badge-historial {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.btn-limpiar-historial {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-limpiar-historial:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.lista-historial {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.item-historial {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+}
+
+.item-historial:hover {
+  background: #e9ecef;
+  border-color: #667eea;
+  transform: translateX(4px);
+}
+
+.info-historial {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.icono-busqueda-historial {
+  color: #667eea;
+  font-size: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.detalles-historial {
+  flex: 1;
+}
+
+.filtros-historial {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.filtro-tag {
+  background: #667eea;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.meta-historial {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.fecha-historial,
+.resultados-historial,
+.tiempo-historial {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.resultados-historial {
+  color: #28a745;
+  font-weight: 600;
+}
+

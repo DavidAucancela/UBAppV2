@@ -70,8 +70,8 @@ class Migration(migrations.Migration):
                                 WHERE table_name = 'usuarios' 
                                 AND column_name = 'is_active'
                             ) THEN
-                                -- Ya existe is_active, es_activo debe mapear a is_active (ya está configurado)
-                                NULL; -- No hacer nada
+                                -- Ya existe is_active, eliminar es_activo porque es redundante
+                                ALTER TABLE usuarios DROP COLUMN IF EXISTS es_activo;
                             ELSE
                                 -- Renombrar es_activo a is_active si no existe is_active
                                 ALTER TABLE usuarios RENAME COLUMN es_activo TO is_active;
@@ -94,11 +94,14 @@ class Migration(migrations.Migration):
                             WHERE table_name = 'usuarios_usuario' 
                             AND column_name = 'es_activo'
                         ) THEN
-                            IF NOT EXISTS (
+                            IF EXISTS (
                                 SELECT 1 FROM information_schema.columns 
                                 WHERE table_name = 'usuarios_usuario' 
                                 AND column_name = 'is_active'
                             ) THEN
+                                -- Ya existe is_active, eliminar es_activo porque es redundante
+                                ALTER TABLE usuarios_usuario DROP COLUMN IF EXISTS es_activo;
+                            ELSE
                                 ALTER TABLE usuarios_usuario RENAME COLUMN es_activo TO is_active;
                             END IF;
                         ELSIF NOT EXISTS (

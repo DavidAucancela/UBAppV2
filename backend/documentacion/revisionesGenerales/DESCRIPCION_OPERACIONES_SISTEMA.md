@@ -122,3 +122,4 @@ Permite a los usuarios ver su historial de búsquedas realizadas (tanto tradicio
 
 
 
+

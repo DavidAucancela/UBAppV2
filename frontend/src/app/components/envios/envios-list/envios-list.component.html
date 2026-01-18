@@ -3,21 +3,22 @@
   <div class="envios-header">
     <div class="container">
       <div class="header-content">
-          <!--<div class="header-icon">
+        <div class="header-icon">
           <i class="fas fa-truck"></i>
-        </div>-->
+        </div>
         <div class="header-text">
           <h1>Gestión de Envíos</h1>
           <p>Administra y gestiona todos los envíos del sistema</p>
         </div>
-        <button 
-          class="btn btn-primary btn-header"
-          (click)="openCreateModal()"
-          *ngIf="authService.canManageEnvios()"
-        >
-          <i class="fas fa-plus"></i>
-          Nuevo Envío
-        </button>
+        <div class="header-actions" *ngIf="authService.canManageEnvios()">
+          <button 
+            class="btn-header"
+            (click)="openCreateModal()"
+          >
+            <i class="fas fa-plus"></i>
+            Nuevo Envío
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -610,13 +611,33 @@
                   <div class="costo-detalle-item" *ngFor="let detalle of detallesCostos">
                     <div class="costo-detalle-categoria">
                       <i [class]="'fas ' + getCategoriaIcon(detalle.categoria)"></i>
-                      <div>
-                        <div>{{ getCategoriaLabel(detalle.categoria) }}</div>
-                        <div class="costo-detalle-info" *ngIf="detalle.tarifa">
-                          {{ detalle.cantidad }} × {{ detalle.peso }} kg = {{ detalle.costo_unitario | currency:'USD':'symbol':'1.2-2' }}/unidad
+                      <div style="flex: 1;">
+                        <div style="font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);">
+                          {{ detalle.descripcion }}
                         </div>
-                        <div class="costo-detalle-info text-error" *ngIf="detalle.error">
-                          {{ detalle.error }}
+                        <div style="font-size: 0.95rem; opacity: 0.9; margin-bottom: 8px; font-weight: 500;">
+                          <i class="fas fa-tag" style="margin-right: 6px;"></i>
+                          {{ getCategoriaLabel(detalle.categoria) }} | 
+                          <i class="fas fa-weight-hanging" style="margin: 0 6px;"></i>
+                          {{ detalle.peso }} kg × {{ detalle.cantidad }} unidad(es)
+                        </div>
+                        <div class="costo-detalle-info" *ngIf="detalle.tarifa">
+                          <div>
+                            <strong>Tarifa aplicada:</strong> {{ detalle.tarifa.cargo_base | currency:'USD':'symbol':'1.2-2' }} base + {{ detalle.tarifa.precio_por_kg | currency:'USD':'symbol':'1.2-2' }}/kg
+                          </div>
+                          <div>
+                            <strong>Rango de peso:</strong> {{ detalle.tarifa.peso_minimo }} - {{ detalle.tarifa.peso_maximo }} kg
+                          </div>
+                          <div style="background: rgba(255, 255, 255, 0.15); padding: 8px; border-radius: 6px; margin-top: 6px; font-family: 'Courier New', monospace;">
+                            <strong>Cálculo:</strong> {{ detalle.tarifa.formula }}
+                          </div>
+                          <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+                            <strong>Costo unitario:</strong> {{ detalle.costo_unitario | currency:'USD':'symbol':'1.2-2' }}
+                          </div>
+                        </div>
+                        <div class="costo-detalle-info text-error" *ngIf="detalle.error" style="background: rgba(239, 68, 68, 0.2); border-left-color: rgba(239, 68, 68, 0.6);">
+                          <i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> 
+                          <strong>Error:</strong> {{ detalle.error }}
                         </div>
                       </div>
                     </div>

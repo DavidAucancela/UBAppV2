@@ -86,6 +86,64 @@ class EnvioCreateSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['id']
     
+    @staticmethod
+    def _normalizar_decimal(valor):
+        """Normaliza valores decimales: convierte coma a punto"""
+        if valor is None:
+            return None
+        if isinstance(valor, (int, float)):
+            return valor
+        # Convertir a string y reemplazar coma por punto
+        valor_str = str(valor).strip()
+        # Si tiene coma y punto, asumir formato europeo (1.234,56 -> 1234.56)
+        if '.' in valor_str and ',' in valor_str:
+            # Eliminar puntos (separadores de miles) y convertir coma a punto
+            valor_str = valor_str.replace('.', '').replace(',', '.')
+        # Si solo tiene coma, convertir a punto
+        elif ',' in valor_str:
+            valor_str = valor_str.replace(',', '.')
+        return valor_str
+    
+    def validate_productos(self, value):
+        """Validar productos si se proporcionan"""
+        # Los productos son opcionales en el serializer, pero si se proporcionan deben ser válidos
+        if value:
+            if len(value) == 0:
+                raise serializers.ValidationError("Si se proporcionan productos, debe haber al menos uno")
+            
+            # Validar cada producto
+            for producto in value:
+                if not producto.get('descripcion') or not producto.get('descripcion').strip():
+                    raise serializers.ValidationError("Cada producto debe tener una descripción")
+                if not producto.get('categoria'):
+                    raise serializers.ValidationError("Cada producto debe tener una categoría")
+                
+                # Normalizar peso (aceptar coma o punto como separador decimal)
+                peso_str = self._normalizar_decimal(producto.get('peso', 0))
+                try:
+                    peso = float(peso_str) if peso_str else 0
+                except (ValueError, TypeError):
+                    raise serializers.ValidationError("El peso debe ser un número válido")
+                if peso <= 0:
+                    raise serializers.ValidationError("Cada producto debe tener un peso mayor a 0")
+                producto['peso'] = peso
+                
+                cantidad = int(producto.get('cantidad', 0))
+                if cantidad <= 0:
+                    raise serializers.ValidationError("Cada producto debe tener una cantidad mayor a 0")
+                
+                # Normalizar valor (aceptar coma o punto como separador decimal)
+                valor_str = self._normalizar_decimal(producto.get('valor', -1))
+                try:
+                    valor = float(valor_str) if valor_str else -1
+                except (ValueError, TypeError):
+                    raise serializers.ValidationError("El valor debe ser un número válido")
+                if valor < 0:
+                    raise serializers.ValidationError("Cada producto debe tener un valor válido (>= 0)")
+                producto['valor'] = valor
+        
+        return value
+    
     def create(self, validated_data):
         productos_data = validated_data.pop('productos', [])
         

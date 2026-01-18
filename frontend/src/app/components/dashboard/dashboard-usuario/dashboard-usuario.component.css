@@ -148,6 +148,7 @@
   background: white;
   border-radius: 20px;
   padding: 2rem;
+  padding-top: 55px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -669,6 +670,7 @@
 
   .cupo-card-modern {
     padding: 1.5rem;
+    padding-top: 55px;
   }
 
   .cupo-card-header {

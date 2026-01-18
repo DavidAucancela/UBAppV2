@@ -480,25 +480,44 @@ def generar_comprobante_envio(envio, filename='comprobante_envio.pdf'):
     elements.append(Paragraph("INFORMACIÓN DEL DESTINATARIO", section_style))
     
     if hasattr(envio, 'comprador') and envio.comprador:
+        # Crear estilo para texto que se ajusta automáticamente
+        nombre_style = ParagraphStyle(
+            'NombreStyle',
+            parent=styles['Normal'],
+            fontSize=10,
+            textColor=colors.black,
+            leading=12,
+            wordWrap='CJK'  # Permite ajuste de texto
+        )
+        
+        # Usar Paragraph para que el texto se ajuste automáticamente
+        nombre_paragraph = Paragraph(envio.comprador.nombre or 'N/A', nombre_style)
+        cedula_paragraph = Paragraph(envio.comprador.cedula or 'N/A', nombre_style)
+        correo_paragraph = Paragraph(envio.comprador.correo or 'N/A', nombre_style)
+        telefono_paragraph = Paragraph(getattr(envio.comprador, 'telefono', 'N/A') or 'N/A', nombre_style)
+        ciudad_paragraph = Paragraph(getattr(envio.comprador, 'ciudad', 'N/A') or 'N/A', nombre_style)
+        
         destinatario_data = [
-            ['Nombre:', envio.comprador.nombre],
-            ['Cédula:', envio.comprador.cedula],
-            ['Correo:', envio.comprador.correo],
-            ['Teléfono:', getattr(envio.comprador, 'telefono', 'N/A')],
-            ['Ciudad:', getattr(envio.comprador, 'ciudad', 'N/A')]
+            ['Nombre:', nombre_paragraph],
+            ['Cédula:', cedula_paragraph],
+            ['Correo:', correo_paragraph],
+            ['Teléfono:', telefono_paragraph],
+            ['Ciudad:', ciudad_paragraph]
         ]
         
         dest_table = Table(destinatario_data, colWidths=[2*inch, 4*inch])
         dest_table.setStyle(TableStyle([
             ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-            ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-            ('FONTSIZE', (0, 0), (-1, -1), 10),
+            ('FONTSIZE', (0, 0), (0, -1), 10),
             ('TEXTCOLOR', (0, 0), (0, -1), colors.HexColor('#7f8c8d')),
-            ('TEXTCOLOR', (1, 0), (1, -1), colors.black),
             ('TOPPADDING', (0, 0), (-1, -1), 6),
             ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+            ('LEFTPADDING', (0, 0), (-1, -1), 4),
+            ('RIGHTPADDING', (0, 0), (-1, -1), 4),
             ('ALIGN', (0, 0), (0, -1), 'LEFT'),
-            ('ALIGN', (1, 0), (1, -1), 'LEFT')
+            ('ALIGN', (1, 0), (1, -1), 'LEFT'),
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),  # Alinear al inicio verticalmente
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.grey)  # Opcional: agregar bordes sutiles
         ]))
         elements.append(dest_table)
     

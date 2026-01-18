@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiTypes
+from django.core.exceptions import ValidationError
 from datetime import datetime
 from django.db import models
 
@@ -19,6 +20,7 @@ from .serializers import (
     PreviewExcelSerializer, ProcesarExcelSerializer
 )
 from .services import EnvioService, ProductoService, TarifaService
+from apps.core.exceptions import TransicionEstadoInvalidaError
 from .repositories import (
     envio_repository, 
     producto_repository, 
@@ -108,9 +110,18 @@ class EnvioViewSet(viewsets.ModelViewSet):
         """Crear envío - delegado al servicio"""
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
+            # Formatear errores de manera más clara
+            errores_formateados = {}
+            for campo, mensajes in serializer.errors.items():
+                if isinstance(mensajes, list):
+                    errores_formateados[campo] = mensajes[0] if len(mensajes) == 1 else mensajes
+                else:
+                    errores_formateados[campo] = mensajes
+            
             return Response({
                 'error': 'Datos inválidos',
-                'detalles': serializer.errors
+                'detalles': errores_formateados,
+                'errores': serializer.errors
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
@@ -120,10 +131,27 @@ class EnvioViewSet(viewsets.ModelViewSet):
             )
             response_serializer = EnvioSerializer(envio)
             return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+        except ValidationError as e:
+            # Manejar errores de validación de Django
+            if hasattr(e, 'error_dict'):
+                errores = {}
+                for campo, mensajes in e.error_dict.items():
+                    errores[campo] = [str(msg) for msg in mensajes]
+                return Response({
+                    'error': 'Error de validación',
+                    'detalles': errores
+                }, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({
+                    'error': 'Error de validación',
+                    'detalle': str(e)
+                }, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
+            import traceback
             return Response({
                 'error': 'Error al crear el envío',
-                'detalle': str(e)
+                'detalle': str(e),
+                'tipo': type(e).__name__
             }, status=status.HTTP_400_BAD_REQUEST)
     
     def update(self, request, *args, **kwargs):
@@ -172,15 +200,48 @@ class EnvioViewSet(viewsets.ModelViewSet):
         """Cambia el estado - delegado al servicio"""
         nuevo_estado = request.data.get('estado')
         
+        if not nuevo_estado:
+            return Response({
+                'error': 'El campo "estado" es requerido'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
         try:
-            EnvioService.cambiar_estado(
+            envio = EnvioService.cambiar_estado(
                 envio_id=pk,
                 nuevo_estado=nuevo_estado,
                 usuario_actual=request.user
             )
-            return Response({'message': f'Estado cambiado a {nuevo_estado}'})
+            serializer = EnvioSerializer(envio)
+            return Response({
+                'message': f'Estado cambiado a {nuevo_estado}',
+                'envio': serializer.data
+            }, status=status.HTTP_200_OK)
+        except ValidationError as e:
+            # Manejar errores de validación de Django
+            if hasattr(e, 'error_dict'):
+                errores = {}
+                for campo, mensajes in e.error_dict.items():
+                    errores[campo] = [str(msg) for msg in mensajes]
+                return Response({
+                    'error': 'Error de validación',
+                    'detalles': errores
+                }, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({
+                    'error': 'Error de validación',
+                    'detalle': str(e)
+                }, status=status.HTTP_400_BAD_REQUEST)
+        except TransicionEstadoInvalidaError as e:
+            return Response({
+                'error': f'Transición de estado inválida: {str(e)}'
+            }, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            import traceback
+            return Response({
+                'error': 'Error al cambiar el estado',
+                'detalle': str(e),
+                'tipo': type(e).__name__
+            }, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=['get'])
     def mis_envios(self, request):
@@ -242,9 +303,27 @@ class EnvioViewSet(viewsets.ModelViewSet):
             }
         })
     
+    @staticmethod
+    def _normalizar_decimal(valor):
+        """Normaliza valores decimales: convierte coma a punto"""
+        if valor is None:
+            return None
+        if isinstance(valor, (int, float)):
+            return valor
+        # Convertir a string y reemplazar coma por punto
+        valor_str = str(valor).strip()
+        # Si tiene coma y punto, asumir formato europeo (1.234,56 -> 1234.56)
+        if '.' in valor_str and ',' in valor_str:
+            # Eliminar puntos (separadores de miles) y convertir coma a punto
+            valor_str = valor_str.replace('.', '').replace(',', '.')
+        # Si solo tiene coma, convertir a punto
+        elif ',' in valor_str:
+            valor_str = valor_str.replace(',', '.')
+        return valor_str
+    
     @action(detail=False, methods=['post'])
     def calcular_costo(self, request):
-        """Calcula el costo de envío - usa servicio"""
+        """Calcula el costo de envío con desglose detallado de tarifas"""
         productos_data = request.data.get('productos', [])
         
         if not productos_data:
@@ -257,21 +336,34 @@ class EnvioViewSet(viewsets.ModelViewSet):
         
         for producto in productos_data:
             categoria = producto.get('categoria')
-            peso = float(producto.get('peso', 0))
+            # Normalizar peso (aceptar coma o punto como separador decimal)
+            peso_str = EnvioViewSet._normalizar_decimal(producto.get('peso', 0))
+            peso = float(peso_str) if peso_str else 0
             cantidad = int(producto.get('cantidad', 1))
             
             resultado = TarifaService.buscar_tarifa(categoria, peso)
             
             if resultado:
-                costo_producto = resultado['costo_calculado'] * cantidad
+                tarifa = resultado['tarifa']
+                costo_unitario = resultado['costo_calculado']
+                costo_producto = costo_unitario * cantidad
                 costo_total += costo_producto
+                
                 detalles.append({
                     'descripcion': producto.get('descripcion', 'Producto'),
                     'categoria': categoria,
                     'peso': peso,
                     'cantidad': cantidad,
-                    'costo_unitario': resultado['costo_calculado'],
-                    'costo_total': round(costo_producto, 2)
+                    'costo_unitario': round(costo_unitario, 2),
+                    'costo_total': round(costo_producto, 2),
+                    'tarifa': {
+                        'id': tarifa.id,
+                        'cargo_base': float(tarifa.cargo_base),
+                        'precio_por_kg': float(tarifa.precio_por_kg),
+                        'peso_minimo': float(tarifa.peso_minimo),
+                        'peso_maximo': float(tarifa.peso_maximo),
+                        'formula': f"${tarifa.cargo_base} + (${tarifa.precio_por_kg}/kg × {peso}kg) = ${costo_unitario:.2f}"
+                    }
                 })
             else:
                 detalles.append({
@@ -281,7 +373,7 @@ class EnvioViewSet(viewsets.ModelViewSet):
                     'cantidad': cantidad,
                     'costo_unitario': 0,
                     'costo_total': 0,
-                    'error': 'No hay tarifa disponible'
+                    'error': 'No hay tarifa disponible para esta categoría y peso'
                 })
         
         return Response({

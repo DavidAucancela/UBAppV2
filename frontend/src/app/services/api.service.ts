@@ -32,7 +32,18 @@ export class ApiService {
 
   // ===== USUARIOS =====
   getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.apiUrl}/usuarios/`);
+    // El backend ahora devuelve todos los usuarios sin paginación
+    // El frontend manejará la paginación del lado del cliente
+    return this.http.get<any>(`${this.apiUrl}/usuarios/`).pipe(
+      map(response => {
+        // Si el backend devuelve paginación, extraer results
+        if (response && response.results && Array.isArray(response.results)) {
+          return response.results;
+        }
+        // Si devuelve array directo, usarlo
+        return Array.isArray(response) ? response : [];
+      })
+    );
   }
 
   getUsuario(id: number): Observable<Usuario> {
@@ -431,6 +442,27 @@ export class ApiService {
    */
   obtenerMetricasSemanticas(): Observable<MetricasSemanticas> {
     return this.http.get<MetricasSemanticas>(`${this.apiUrl}/busqueda/semantica/metricas/`);
+  }
+
+  /**
+   * Obtiene estadísticas de embeddings de envíos
+   * @returns Observable con estadísticas de embeddings
+   */
+  obtenerEstadisticasEmbeddings(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/busqueda/semantica/estadisticas-embeddings/`);
+  }
+
+  /**
+   * Genera embeddings para envíos pendientes
+   * @param forzarRegeneracion Si true, regenera todos los embeddings
+   * @param modelo Modelo de embedding a usar
+   * @returns Observable con resultado de la operación
+   */
+  generarEmbeddingsPendientes(forzarRegeneracion: boolean = false, modelo?: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/busqueda/semantica/generar-embeddings/`, {
+      forzarRegeneracion,
+      modelo
+    });
   }
 
   /**

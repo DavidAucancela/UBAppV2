@@ -1,0 +1,635 @@
+{
+  "fecha": "2026-01-10T12:19:51.874536",
+  "resultados": {
+    "tiempo_respuesta": {},
+    "tiempo_espera": {
+      "semantica": {
+        "1": {
+          "estadisticas": {
+            "media": "205.52515983581543",
+            "mediana": "183.00747871398926",
+            "desviacion_estandar": "50.20799762439106",
+            "minimo": "173.96783828735352",
+            "maximo": "293.3523654937744",
+            "n": "5"
+          }
+        },
+        "5": {
+          "estadisticas": {
+            "media": "894.4288730621338",
+            "mediana": "902.3964405059814",
+            "desviacion_estandar": "13.104727832014847",
+            "minimo": "876.0278224945068",
+            "maximo": "904.731035232544",
+            "n": "5"
+          }
+        },
+        "10": {
+          "estadisticas": {
+            "media": "1743.3310985565186",
+            "mediana": "1748.0528354644775",
+            "desviacion_estandar": "24.144662593442675",
+            "minimo": "1710.8724117279053",
+            "maximo": "1766.6778564453125",
+            "n": "5"
+          }
+        },
+        "anova": {
+          "test": "Kruskal-Wallis",
+          "estadistico": 12.5,
+          "p_value": 0.0019304541362277095,
+          "significativo": true,
+          "flujo": "No normal → Kruskal-Wallis → Dunn",
+          "posthoc": [
+            {
+              "grupo1": "1 búsqueda(s)",
+              "grupo2": "5 búsqueda(s)",
+              "p_value_raw": 0.007936507936507936,
+              "p_value_ajustado": 0.023809523809523808,
+              "significativo": true,
+              "estadistico_u": 0.0
+            },
+            {
+              "grupo1": "1 búsqueda(s)",
+              "grupo2": "10 búsqueda(s)",
+              "p_value_raw": 0.007936507936507936,
+              "p_value_ajustado": 0.023809523809523808,
+              "significativo": true,
+              "estadistico_u": 0.0
+            },
+            {
+              "grupo1": "5 búsqueda(s)",
+              "grupo2": "10 búsqueda(s)",
+              "p_value_raw": 0.007936507936507936,
+              "p_value_ajustado": 0.023809523809523808,
+              "significativo": true,
+              "estadistico_u": 0.0
+            }
+          ]
+        }
+      },
+      "basica": {
+        "1": {
+          "estadisticas": {
+            "media": "173.0872631072998",
+            "mediana": "169.3582534790039",
+            "desviacion_estandar": "12.311929036810271",
+            "minimo": "156.85582160949707",
+            "maximo": "186.81669235229492",
+            "n": "5"
+          }
+        },
+        "5": {
+          "estadisticas": {
+            "media": "863.4764671325684",
+            "mediana": "857.9730987548828",
+            "desviacion_estandar": "26.415942674303015",
+            "minimo": "838.1304740905762",
+            "maximo": "908.1356525421143",
+            "n": "5"
+          }
+        },
+        "10": {
+          "estadisticas": {
+            "media": "1775.3418445587158",
+            "mediana": "1803.2031059265137",
+            "desviacion_estandar": "57.14510249858757",
+            "minimo": "1703.3305168151855",
+            "maximo": "1834.0880870819092",
+            "n": "5"
+          }
+        },
+        "anova": {
+          "test": "ANOVA de una vía",
+          "estadistico": 2354.4374807285735,
+          "p_value": 2.697444326714094e-16,
+          "significativo": true,
+          "flujo": "Normal → Levene (homogéneas) → ANOVA → Tukey",
+          "posthoc": [
+            {
+              "grupo1": "1 búsqueda(s)",
+              "grupo2": "5 búsqueda(s)",
+              "p_value": 4.0951686486323524e-12,
+              "significativo": true
+            },
+            {
+              "grupo1": "1 búsqueda(s)",
+              "grupo2": "10 búsqueda(s)",
+              "p_value": 0.0,
+              "significativo": true
+            },
+            {
+              "grupo1": "5 búsqueda(s)",
+              "grupo2": "10 búsqueda(s)",
+              "p_value": 1.4699352846037073e-13,
+              "significativo": true
+            }
+          ]
+        }
+      },
+      "comparacion": {
+        "1": {
+          "test": "Mann-Whitney U (muestras independientes)",
+          "estadistico_u": 6.0,
+          "p_value": 0.2222222222222222,
+          "significativo": false,
+          "interpretacion": "Sin diferencia significativa (p >= 0.05)"
+        },
+        "5": {
+          "test": "Mann-Whitney U (muestras independientes)",
+          "estadistico_u": 5.0,
+          "p_value": 0.15079365079365079,
+          "significativo": false,
+          "interpretacion": "Sin diferencia significativa (p >= 0.05)"
+        },
+        "10": {
+          "test": "Mann-Whitney U (muestras independientes)",
+          "estadistico_u": 16.0,
+          "p_value": 0.5476190476190477,
+          "significativo": false,
+          "interpretacion": "Sin diferencia significativa (p >= 0.05)"
+        }
+      }
+    },
+    "recursos": {
+      "registro": {
+        "1": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "3"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "3"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "5.436197916666667",
+              "mediana": "0.25390625",
+              "desviacion_estandar": "8.992912327343053",
+              "minimo": "0.234375",
+              "maximo": "15.8203125",
+              "n": "3"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "5.436197916666667",
+              "mediana": "0.25390625",
+              "desviacion_estandar": "8.992912327343053",
+              "minimo": "0.234375",
+              "maximo": "15.8203125",
+              "n": "3"
+            }
+          }
+        },
+        "5": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "3"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "3"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.19166666666666668",
+              "mediana": "0.10390625",
+              "desviacion_estandar": "0.1567654259172629",
+              "minimo": "0.0984375",
+              "maximo": "0.37265625",
+              "n": "3"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.3880208333333333",
+              "mediana": "0.29296875",
+              "desviacion_estandar": "0.24289002609956184",
+              "minimo": "0.20703125",
+              "maximo": "0.6640625",
+              "n": "3"
+            }
+          }
+        },
+        "10": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "3"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "3"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.3927083333333333",
+              "mediana": "0.42109375",
+              "desviacion_estandar": "0.06752428912914103",
+              "minimo": "0.315625",
+              "maximo": "0.44140625",
+              "n": "3"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.76953125",
+              "mediana": "0.83984375",
+              "desviacion_estandar": "0.17134150155829148",
+              "minimo": "0.57421875",
+              "maximo": "0.89453125",
+              "n": "3"
+            }
+          }
+        },
+        "anova_cpu": {
+          "test": "ANOVA de Welch (simulado con ANOVA estándar)",
+          "estadistico": "nan",
+          "p_value": "nan",
+          "significativo": false,
+          "flujo": "Normal → Levene (heterogéneas) → ANOVA Welch"
+        },
+        "anova_mem": {
+          "test": "Kruskal-Wallis",
+          "estadistico": 2.75555555555556,
+          "p_value": 0.2521382381530026,
+          "significativo": false,
+          "flujo": "No normal → Kruskal-Wallis → Dunn"
+        }
+      },
+      "busqueda": {
+        "1": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.0",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.0",
+              "minimo": "0.0",
+              "maximo": "0.0",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.0",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.0",
+              "minimo": "0.0",
+              "maximo": "0.0",
+              "n": "5"
+            }
+          }
+        },
+        "5": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "49.526327151489255",
+              "mediana": "50",
+              "desviacion_estandar": "0.9363403869652159",
+              "minimo": "47.860781616210936",
+              "maximo": "50",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.00234375",
+              "mediana": "0.00078125",
+              "desviacion_estandar": "0.003537259819584928",
+              "minimo": "-0.00078125",
+              "maximo": "0.0078125",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.00390625",
+              "mediana": "0.00390625",
+              "desviacion_estandar": "0.0027621358640099515",
+              "minimo": "0.0",
+              "maximo": "0.0078125",
+              "n": "5"
+            }
+          }
+        },
+        "10": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "49.20156111602783",
+              "mediana": "49.35447194671631",
+              "desviacion_estandar": "0.4783183326217992",
+              "minimo": "48.556807876586916",
+              "maximo": "49.68142848968506",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.0026562499999999998",
+              "mediana": "0.001171875",
+              "desviacion_estandar": "0.003760970281847159",
+              "minimo": "0.0",
+              "maximo": "0.008984375",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.00390625",
+              "mediana": "0.00390625",
+              "desviacion_estandar": "0.004784159653873394",
+              "minimo": "0.0",
+              "maximo": "0.01171875",
+              "n": "5"
+            }
+          }
+        },
+        "anova_cpu": {
+          "test": "Kruskal-Wallis",
+          "estadistico": 8.382352941176471,
+          "p_value": 0.015128476192121525,
+          "significativo": true,
+          "flujo": "No normal → Kruskal-Wallis → Dunn",
+          "posthoc": [
+            {
+              "grupo1": "Carga 1",
+              "grupo2": "Carga 5",
+              "p_value_raw": 0.17971249487899976,
+              "p_value_ajustado": 0.5391374846369993,
+              "significativo": false,
+              "estadistico_u": 17.5
+            },
+            {
+              "grupo1": "Carga 1",
+              "grupo2": "Carga 10",
+              "p_value_raw": 0.007494957516935239,
+              "p_value_ajustado": 0.022484872550805717,
+              "significativo": true,
+              "estadistico_u": 25.0
+            },
+            {
+              "grupo1": "Carga 5",
+              "grupo2": "Carga 10",
+              "p_value_raw": 0.13879173842360976,
+              "p_value_ajustado": 0.41637521527082927,
+              "significativo": false,
+              "estadistico_u": 20.0
+            }
+          ]
+        },
+        "anova_mem": {
+          "test": "ANOVA de una vía",
+          "estadistico": 1.186033199771036,
+          "p_value": 0.3388224561073378,
+          "significativo": false,
+          "flujo": "Normal → Levene (homogéneas) → ANOVA → Tukey"
+        }
+      },
+      "busqueda_semantica": {
+        "1": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.0015625",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.002139541240254555",
+              "minimo": "0.0",
+              "maximo": "0.00390625",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.0015625",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.002139541240254555",
+              "minimo": "0.0",
+              "maximo": "0.00390625",
+              "n": "5"
+            }
+          }
+        },
+        "5": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "48.112847171020505",
+              "mediana": "48.552293670654294",
+              "desviacion_estandar": "1.6124461026705008",
+              "minimo": "45.3323426361084",
+              "maximo": "49.54982420349121",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.00078125",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.0017469281074217107",
+              "minimo": "0.0",
+              "maximo": "0.00390625",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.00078125",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.0017469281074217107",
+              "minimo": "0.0",
+              "maximo": "0.00390625",
+              "n": "5"
+            }
+          }
+        },
+        "10": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "48.06884358520508",
+              "mediana": "48.19305559539795",
+              "desviacion_estandar": "0.744273276776457",
+              "minimo": "46.90518614959717",
+              "maximo": "48.745392196655274",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "50",
+              "mediana": "50",
+              "desviacion_estandar": "0.0",
+              "minimo": "50",
+              "maximo": "50",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.0078125",
+              "mediana": "0.00625",
+              "desviacion_estandar": "0.008142446713154622",
+              "minimo": "-0.000390625",
+              "maximo": "0.02109375",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.01171875",
+              "mediana": "0.0078125",
+              "desviacion_estandar": "0.009160968280905136",
+              "minimo": "0.00390625",
+              "maximo": "0.02734375",
+              "n": "5"
+            }
+          }
+        },
+        "anova_cpu": {
+          "test": "Kruskal-Wallis",
+          "estadistico": 9.768888888888897,
+          "p_value": 0.007563324441990141,
+          "significativo": true,
+          "flujo": "No normal → Kruskal-Wallis → Dunn",
+          "posthoc": [
+            {
+              "grupo1": "Carga 1",
+              "grupo2": "Carga 5",
+              "p_value_raw": 0.007494957516935239,
+              "p_value_ajustado": 0.022484872550805717,
+              "significativo": true,
+              "estadistico_u": 25.0
+            },
+            {
+              "grupo1": "Carga 1",
+              "grupo2": "Carga 10",
+              "p_value_raw": 0.007494957516935239,
+              "p_value_ajustado": 0.022484872550805717,
+              "significativo": true,
+              "estadistico_u": 25.0
+            },
+            {
+              "grupo1": "Carga 5",
+              "grupo2": "Carga 10",
+              "p_value_raw": 0.8412698412698413,
+              "p_value_ajustado": "1.0",
+              "significativo": false,
+              "estadistico_u": 14.0
+            }
+          ]
+        },
+        "anova_mem": {
+          "test": "Kruskal-Wallis",
+          "estadistico": 2.6208000000000036,
+          "p_value": 0.26971214994485915,
+          "significativo": false,
+          "flujo": "No normal → Kruskal-Wallis → Dunn"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1494 @@
+{
+  "fecha": "2026-01-11T16:52:00.237736",
+  "resultados": {
+    "tiempo_respuesta": {
+      "manual": {
+        "estadisticas": {
+          "media": "240.4337557668633",
+          "mediana": "240.77662455372575",
+          "desviacion_estandar": "3.310132035410348",
+          "minimo": "235.0956412854661",
+          "maximo": "245.6549535140711",
+          "n": "30"
+        }
+      },
+      "web": {
+        "estadisticas": {
+          "media": "4.2075753529866535",
+          "mediana": "4.108041286468506",
+          "desviacion_estandar": "0.20289442849728886",
+          "minimo": "3.996365547180176",
+          "maximo": "4.712276458740234",
+          "n": "30"
+        },
+        "etapas": {
+          "validacion_serializer": {
+            "media": "0.3945388634999593",
+            "mediana": "0.38602185249328613",
+            "desviacion_estandar": "0.045742142869004146",
+            "minimo": "0.33443522453308105",
+            "maximo": "0.5672280788421631",
+            "n": "30"
+          },
+          "validacion_permisos": {
+            "media": "7.03573226928711e-05",
+            "mediana": "0.0",
+            "desviacion_estandar": "0.0002634014102214528",
+            "minimo": "0.0",
+            "maximo": "0.0010514259338378906",
+            "n": "30"
+          },
+          "validacion_hawb": {
+            "media": "0.18957800070444744",
+            "mediana": "0.17880475521087646",
+            "desviacion_estandar": "0.04390611345859353",
+            "minimo": "0.16209721565246582",
+            "maximo": "0.3964078426361084",
+            "n": "30"
+          },
+          "validacion_cupo": {
+            "media": "0.20523080031077068",
+            "mediana": "0.19587194919586182",
+            "desviacion_estandar": "0.04336199077184102",
+            "minimo": "0.1592097282409668",
+            "maximo": "0.3608102798461914",
+            "n": "30"
+          },
+          "calculo_costo": {
+            "media": "0.19600894451141357",
+            "mediana": "0.1886899471282959",
+            "desviacion_estandar": "0.02244834897983732",
+            "minimo": "0.16809320449829102",
+            "maximo": "0.23895716667175293",
+            "n": "30"
+          },
+          "creacion_bd": {
+            "media": "3.0121724526087443",
+            "mediana": "2.954322934150696",
+            "desviacion_estandar": "0.16633167975459848",
+            "minimo": "2.82755184173584",
+            "maximo": "3.539811849594116",
+            "n": "30"
+          },
+          "serializacion_respuesta": {
+            "media": "0.2099504788716634",
+            "mediana": "0.20323586463928223",
+            "desviacion_estandar": "0.029005074339132367",
+            "minimo": "0.17122602462768555",
+            "maximo": "0.3184986114501953",
+            "n": "30"
+          },
+          "total": {
+            "media": "4.2075753529866535",
+            "mediana": "4.108041286468506",
+            "desviacion_estandar": "0.20289442849728886",
+            "minimo": "3.996365547180176",
+            "maximo": "4.712276458740234",
+            "n": "30"
+          }
+        }
+      },
+      "test_normalidad": {
+        "manual": {
+          "normal": true,
+          "p_value": 0.05739459045822178
+        },
+        "web": {
+          "normal": false,
+          "p_value": 0.0003466117212243098
+        }
+      },
+      "test_comparacion": {
+        "test": "Wilcoxon Signed-Rank Test",
+        "estadistico_w": 0.0,
+        "p_value": 1.862645149230957e-09,
+        "significativo": true,
+        "interpretacion": "Diferencia significativa (p < 0.05)",
+        "tamano_efecto": {
+          "r_rosenthal": 0.6173714773000178,
+          "interpretacion_r": "Efecto grande (≥0.5)",
+          "delta_cliff": "1.0",
+          "interpretacion_delta": "Efecto grande (≥0.474)",
+          "z_score": -4.782138900012879
+        }
+      },
+      "mejora": {
+        "factor": "58.61105275324785",
+        "ahorro_seg": "236.66858326725725",
+        "ahorro_pct": "98.29383716376843",
+        "mediana_manual": "240.77662455372575",
+        "mediana_web": "4.108041286468506"
+      }
+    },
+    "tiempo_espera": {
+      "semantica": {
+        "1": {
+          "estadisticas": {
+            "media": "192.0121192932129",
+            "mediana": "189.8515224456787",
+            "desviacion_estandar": "23.868769980539753",
+            "minimo": "171.77414894104004",
+            "maximo": "230.76939582824707",
+            "n": "5"
+          }
+        },
+        "5": {
+          "estadisticas": {
+            "media": "961.6292953491211",
+            "mediana": "924.9923229217529",
+            "desviacion_estandar": "65.53773222118018",
+            "minimo": "904.6084880828857",
+            "maximo": "1050.1782894134521",
+            "n": "5"
+          }
+        },
+        "10": {
+          "estadisticas": {
+            "media": "1924.6089935302734",
+            "mediana": "1900.7439613342285",
+            "desviacion_estandar": "84.08301584620183",
+            "minimo": "1840.4757976531982",
+            "maximo": "2041.9321060180664",
+            "n": "5"
+          }
+        },
+        "anova": {
+          "test": "ANOVA de una vía",
+          "estadistico": 947.1267619437098,
+          "p_value": 6.223053277530313e-14,
+          "significativo": true,
+          "flujo": "Normal → Levene (homogéneas) → ANOVA → Tukey",
+          "pasos_intermedios": {
+            "shapiro_wilk": [
+              {
+                "grupo": "1 búsqueda(s)",
+                "normal": true,
+                "p_value": 0.2429223194811974,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "5 búsqueda(s)",
+                "normal": true,
+                "p_value": 0.16890088677023185,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "10 búsqueda(s)",
+                "normal": true,
+                "p_value": 0.5900104957993186,
+                "interpretacion": "Normal",
+                "n": "5"
+              }
+            ],
+            "levene": {
+              "estadistico": 1.4797236192942416,
+              "p_value": 0.2664367933436381,
+              "varianzas_homogeneas": true,
+              "interpretacion": "Homogéneas"
+            }
+          },
+          "posthoc": [
+            {
+              "grupo1": "1 búsqueda(s)",
+              "grupo2": "5 búsqueda(s)",
+              "p_value": 5.981009021382988e-10,
+              "significativo": true
+            },
+            {
+              "grupo1": "1 búsqueda(s)",
+              "grupo2": "10 búsqueda(s)",
+              "p_value": 3.752553823233029e-14,
+              "significativo": true
+            },
+            {
+              "grupo1": "5 búsqueda(s)",
+              "grupo2": "10 búsqueda(s)",
+              "p_value": 4.331135450286183e-11,
+              "significativo": true
+            }
+          ]
+        },
+        "shapiro_wilk": [
+          {
+            "grupo": "1 búsqueda(s)",
+            "normal": true,
+            "p_value": 0.2429223194811974,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "5 búsqueda(s)",
+            "normal": true,
+            "p_value": 0.16890088677023185,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "10 búsqueda(s)",
+            "normal": true,
+            "p_value": 0.5900104957993186,
+            "interpretacion": "Normal",
+            "n": "5"
+          }
+        ]
+      },
+      "basica": {
+        "1": {
+          "estadisticas": {
+            "media": "209.23213958740234",
+            "mediana": "173.75588417053223",
+            "desviacion_estandar": "53.05798887114662",
+            "minimo": "169.83532905578613",
+            "maximo": "281.56042098999023",
+            "n": "5"
+          }
+        },
+        "5": {
+          "estadisticas": {
+            "media": "914.6076679229736",
+            "mediana": "914.351224899292",
+            "desviacion_estandar": "58.05946815186956",
+            "minimo": "845.3986644744873",
+            "maximo": "987.1597290039062",
+            "n": "5"
+          }
+        },
+        "10": {
+          "estadisticas": {
+            "media": "1843.2453632354736",
+            "mediana": "1840.8122062683105",
+            "desviacion_estandar": "26.26641294548578",
+            "minimo": "1809.5660209655762",
+            "maximo": "1882.1744918823242",
+            "n": "5"
+          }
+        },
+        "anova": {
+          "test": "ANOVA de una vía",
+          "estadistico": 1465.2180077026549,
+          "p_value": 4.60092665576315e-15,
+          "significativo": true,
+          "flujo": "Normal → Levene (homogéneas) → ANOVA → Tukey",
+          "pasos_intermedios": {
+            "shapiro_wilk": [
+              {
+                "grupo": "1 búsqueda(s)",
+                "normal": true,
+                "p_value": 0.05320504023055804,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "5 búsqueda(s)",
+                "normal": true,
+                "p_value": 0.8567300901950388,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "10 búsqueda(s)",
+                "normal": true,
+                "p_value": 0.8590477154329669,
+                "interpretacion": "Normal",
+                "n": "5"
+              }
+            ],
+            "levene": {
+              "estadistico": 0.836553796982526,
+              "p_value": 0.45696621091826267,
+              "varianzas_homogeneas": true,
+              "interpretacion": "Homogéneas"
+            }
+          },
+          "posthoc": [
+            {
+              "grupo1": "1 búsqueda(s)",
+              "grupo2": "5 búsqueda(s)",
+              "p_value": 6.582778766528463e-11,
+              "significativo": true
+            },
+            {
+              "grupo1": "1 búsqueda(s)",
+              "grupo2": "10 búsqueda(s)",
+              "p_value": 0.0,
+              "significativo": true
+            },
+            {
+              "grupo1": "5 búsqueda(s)",
+              "grupo2": "10 búsqueda(s)",
+              "p_value": 2.5552893134772603e-12,
+              "significativo": true
+            }
+          ]
+        },
+        "shapiro_wilk": [
+          {
+            "grupo": "1 búsqueda(s)",
+            "normal": true,
+            "p_value": 0.05320504023055804,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "5 búsqueda(s)",
+            "normal": true,
+            "p_value": 0.8567300901950388,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "10 búsqueda(s)",
+            "normal": true,
+            "p_value": 0.8590477154329669,
+            "interpretacion": "Normal",
+            "n": "5"
+          }
+        ]
+      },
+      "comparacion": {
+        "1": {
+          "test": "Mann-Whitney U (muestras independientes)",
+          "estadistico_u": 12.0,
+          "p_value": 1.0,
+          "significativo": false,
+          "interpretacion": "Sin diferencia significativa (p >= 0.05)"
+        },
+        "5": {
+          "test": "Mann-Whitney U (muestras independientes)",
+          "estadistico_u": 7.0,
+          "p_value": 0.30952380952380953,
+          "significativo": false,
+          "interpretacion": "Sin diferencia significativa (p >= 0.05)"
+        },
+        "10": {
+          "test": "Mann-Whitney U (muestras independientes)",
+          "estadistico_u": 4.0,
+          "p_value": 0.09523809523809523,
+          "significativo": false,
+          "interpretacion": "Sin diferencia significativa (p >= 0.05)"
+        }
+      }
+    },
+    "recursos": {
+      "registro": {
+        "1": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "41.39333333333333",
+              "mediana": "40.5",
+              "desviacion_estandar": "3.2921927849585795",
+              "minimo": "38.64",
+              "maximo": "45.04",
+              "n": "3"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "41.39333333333333",
+              "mediana": "40.5",
+              "desviacion_estandar": "3.2921927849585795",
+              "minimo": "38.64",
+              "maximo": "45.04",
+              "n": "3"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "5.123697916666667",
+              "mediana": "0.29296875",
+              "desviacion_estandar": "8.536772527647793",
+              "minimo": "0.09765625",
+              "maximo": "14.98046875",
+              "n": "3"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "5.123697916666667",
+              "mediana": "0.29296875",
+              "desviacion_estandar": "8.536772527647793",
+              "minimo": "0.09765625",
+              "maximo": "14.98046875",
+              "n": "3"
+            }
+          }
+        },
+        "5": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "40.91466666666667",
+              "mediana": "41.536",
+              "desviacion_estandar": "2.5963708004315045",
+              "minimo": "38.064",
+              "maximo": "43.144",
+              "n": "3"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "47.166666666666664",
+              "mediana": "48.5",
+              "desviacion_estandar": "6.110100926607787",
+              "minimo": "40.5",
+              "maximo": "52.5",
+              "n": "3"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.033854166666666664",
+              "mediana": "0.26015625",
+              "desviacion_estandar": "0.4207031854495469",
+              "minimo": "-0.4515625",
+              "maximo": "0.29296875",
+              "n": "3"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.5013020833333334",
+              "mediana": "0.48828125",
+              "desviacion_estandar": "0.029577647634376425",
+              "minimo": "0.48046875",
+              "maximo": "0.53515625",
+              "n": "3"
+            }
+          }
+        },
+        "10": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "43.51266666666667",
+              "mediana": "43.282000000000004",
+              "desviacion_estandar": "0.8012997774449542",
+              "minimo": "42.852000000000004",
+              "maximo": "44.404",
+              "n": "3"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "53.06",
+              "mediana": "53.46",
+              "desviacion_estandar": "2.167856083784162",
+              "minimo": "50.72",
+              "maximo": "55.0",
+              "n": "3"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.22643229166666665",
+              "mediana": "0.269921875",
+              "desviacion_estandar": "0.09705858780214058",
+              "minimo": "0.115234375",
+              "maximo": "0.294140625",
+              "n": "3"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.5104166666666666",
+              "mediana": "0.50390625",
+              "desviacion_estandar": "0.15049627647144906",
+              "minimo": "0.36328125",
+              "maximo": "0.6640625",
+              "n": "3"
+            }
+          }
+        },
+        "anova_cpu": {
+          "test": "ANOVA de una vía",
+          "estadistico": 0.9442256461634869,
+          "p_value": 0.44002616987256726,
+          "significativo": false,
+          "flujo": "Normal → Levene (homogéneas) → ANOVA → Tukey",
+          "pasos_intermedios": {
+            "shapiro_wilk": [
+              {
+                "grupo": "Carga 1",
+                "normal": true,
+                "p_value": 0.5469554232663382,
+                "interpretacion": "Normal",
+                "n": "3"
+              },
+              {
+                "grupo": "Carga 5",
+                "normal": true,
+                "p_value": 0.6012974385046872,
+                "interpretacion": "Normal",
+                "n": "3"
+              },
+              {
+                "grupo": "Carga 10",
+                "normal": true,
+                "p_value": 0.5187989484621718,
+                "interpretacion": "Normal",
+                "n": "3"
+              }
+            ],
+            "levene": {
+              "estadistico": 0.7348686300759004,
+              "p_value": 0.5182481642494355,
+              "varianzas_homogeneas": true,
+              "interpretacion": "Homogéneas"
+            }
+          }
+        },
+        "shapiro_wilk_cpu": [
+          {
+            "grupo": "Carga 1",
+            "normal": true,
+            "p_value": 0.5469554232663382,
+            "interpretacion": "Normal",
+            "n": "3"
+          },
+          {
+            "grupo": "Carga 5",
+            "normal": true,
+            "p_value": 0.6012974385046872,
+            "interpretacion": "Normal",
+            "n": "3"
+          },
+          {
+            "grupo": "Carga 10",
+            "normal": true,
+            "p_value": 0.5187989484621718,
+            "interpretacion": "Normal",
+            "n": "3"
+          }
+        ],
+        "anova_mem": {
+          "test": "Kruskal-Wallis",
+          "estadistico": 0.8739495798319332,
+          "p_value": 0.6459877166099683,
+          "significativo": false,
+          "flujo": "No normal → Kruskal-Wallis → Dunn",
+          "pasos_intermedios": {
+            "shapiro_wilk": [
+              {
+                "grupo": "Carga 1",
+                "normal": false,
+                "p_value": 0.02184827654734023,
+                "interpretacion": "No normal",
+                "n": "3"
+              },
+              {
+                "grupo": "Carga 5",
+                "normal": true,
+                "p_value": 0.07449807342415526,
+                "interpretacion": "Normal",
+                "n": "3"
+              },
+              {
+                "grupo": "Carga 10",
+                "normal": true,
+                "p_value": 0.23890339711851816,
+                "interpretacion": "Normal",
+                "n": "3"
+              }
+            ],
+            "levene": "None"
+          }
+        },
+        "shapiro_wilk_mem": [
+          {
+            "grupo": "Carga 1",
+            "normal": false,
+            "p_value": 0.02184827654734023,
+            "interpretacion": "No normal",
+            "n": "3"
+          },
+          {
+            "grupo": "Carga 5",
+            "normal": true,
+            "p_value": 0.07449807342415526,
+            "interpretacion": "Normal",
+            "n": "3"
+          },
+          {
+            "grupo": "Carga 10",
+            "normal": true,
+            "p_value": 0.23890339711851816,
+            "interpretacion": "Normal",
+            "n": "3"
+          }
+        ]
+      },
+      "busqueda": {
+        "1": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "21.3720149230957",
+              "mediana": "19.59788665771484",
+              "desviacion_estandar": "5.587045075291721",
+              "minimo": "16.623434143066405",
+              "maximo": "29.977115783691406",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "21.3720149230957",
+              "mediana": "19.59788665771484",
+              "desviacion_estandar": "5.587045075291721",
+              "minimo": "16.623434143066405",
+              "maximo": "29.977115783691406",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.0",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.0",
+              "minimo": "0.0",
+              "maximo": "0.0",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.0",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.0",
+              "minimo": "0.0",
+              "maximo": "0.0",
+              "n": "5"
+            }
+          }
+        },
+        "5": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "20.753207989501952",
+              "mediana": "20.979939208984376",
+              "desviacion_estandar": "0.8880144840622157",
+              "minimo": "19.63242428588867",
+              "maximo": "21.95343014526367",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "25.445369415283203",
+              "mediana": "25.783860778808595",
+              "desviacion_estandar": "2.695014245233498",
+              "minimo": "21.765257263183592",
+              "maximo": "28.571526184082032",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.00453125",
+              "mediana": "0.00390625",
+              "desviacion_estandar": "0.004828605356363263",
+              "minimo": "0.0",
+              "maximo": "0.0109375",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.00546875",
+              "mediana": "0.00390625",
+              "desviacion_estandar": "0.006536406457297465",
+              "minimo": "0.0",
+              "maximo": "0.015625",
+              "n": "5"
+            }
+          }
+        },
+        "10": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "21.934992315673828",
+              "mediana": "21.925113143920896",
+              "desviacion_estandar": "0.27896157030615265",
+              "minimo": "21.53648634338379",
+              "maximo": "22.24645706176758",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "28.355701721191405",
+              "mediana": "29.2",
+              "desviacion_estandar": "1.3883844511052905",
+              "minimo": "26.268536987304685",
+              "maximo": "29.368459167480466",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.001171875",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.0017469281074217107",
+              "minimo": "0.0",
+              "maximo": "0.00390625",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.0015625",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.002139541240254555",
+              "minimo": "0.0",
+              "maximo": "0.00390625",
+              "n": "5"
+            }
+          }
+        },
+        "anova_cpu": {
+          "test": "ANOVA de Welch (simulado con ANOVA estándar)",
+          "estadistico": 0.16337158840727148,
+          "p_value": 0.8511329231543328,
+          "significativo": false,
+          "flujo": "Normal → Levene (heterogéneas) → ANOVA Welch",
+          "pasos_intermedios": {
+            "shapiro_wilk": [
+              {
+                "grupo": "Carga 1",
+                "normal": true,
+                "p_value": 0.33141491863218653,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "Carga 5",
+                "normal": true,
+                "p_value": 0.861215635025828,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "Carga 10",
+                "normal": true,
+                "p_value": 0.857213721998654,
+                "interpretacion": "Normal",
+                "n": "5"
+              }
+            ],
+            "levene": {
+              "estadistico": 4.303273047403887,
+              "p_value": 0.03899924926205446,
+              "varianzas_homogeneas": false,
+              "interpretacion": "Heterogéneas"
+            }
+          },
+          "advertencia": "ANOVA estándar usado como aproximación, debería ser ANOVA de Welch completo"
+        },
+        "shapiro_wilk_cpu": [
+          {
+            "grupo": "Carga 1",
+            "normal": true,
+            "p_value": 0.33141491863218653,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "Carga 5",
+            "normal": true,
+            "p_value": 0.861215635025828,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "Carga 10",
+            "normal": true,
+            "p_value": 0.857213721998654,
+            "interpretacion": "Normal",
+            "n": "5"
+          }
+        ],
+        "anova_mem": {
+          "test": "Kruskal-Wallis",
+          "estadistico": 4.441624365482234,
+          "p_value": 0.10852093419304634,
+          "significativo": false,
+          "flujo": "No normal → Kruskal-Wallis → Dunn",
+          "pasos_intermedios": {
+            "shapiro_wilk": [
+              {
+                "grupo": "Carga 1",
+                "normal": true,
+                "p_value": 1.0,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "Carga 5",
+                "normal": true,
+                "p_value": 0.4028511519526663,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "Carga 10",
+                "normal": false,
+                "p_value": 0.045954317838562735,
+                "interpretacion": "No normal",
+                "n": "5"
+              }
+            ],
+            "levene": "None"
+          }
+        },
+        "shapiro_wilk_mem": [
+          {
+            "grupo": "Carga 1",
+            "normal": true,
+            "p_value": 1.0,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "Carga 5",
+            "normal": true,
+            "p_value": 0.4028511519526663,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "Carga 10",
+            "normal": false,
+            "p_value": 0.045954317838562735,
+            "interpretacion": "No normal",
+            "n": "5"
+          }
+        ]
+      },
+      "busqueda_semantica": {
+        "1": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "23.55098358154297",
+              "mediana": "24.39264633178711",
+              "desviacion_estandar": "2.1093242259050347",
+              "minimo": "20.4595458984375",
+              "maximo": "25.420025634765626",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "23.55098358154297",
+              "mediana": "24.39264633178711",
+              "desviacion_estandar": "2.1093242259050347",
+              "minimo": "20.4595458984375",
+              "maximo": "25.420025634765626",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.0015625",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.002139541240254555",
+              "minimo": "0.0",
+              "maximo": "0.00390625",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.0015625",
+              "mediana": "0.0",
+              "desviacion_estandar": "0.002139541240254555",
+              "minimo": "0.0",
+              "maximo": "0.00390625",
+              "n": "5"
+            }
+          }
+        },
+        "5": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "21.619445025634764",
+              "mediana": "21.83745391845703",
+              "desviacion_estandar": "1.215226798047457",
+              "minimo": "19.68669241333008",
+              "maximo": "23.0201455078125",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "26.00160693359375",
+              "mediana": "25.84492141723633",
+              "desviacion_estandar": "1.4055453459920633",
+              "minimo": "24.165699005126953",
+              "maximo": "27.72484405517578",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.00109375",
+              "mediana": "0.00078125",
+              "desviacion_estandar": "0.001307281291459493",
+              "minimo": "0.0",
+              "maximo": "0.003125",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.003125",
+              "mediana": "0.00390625",
+              "desviacion_estandar": "0.0032682032286487327",
+              "minimo": "0.0",
+              "maximo": "0.0078125",
+              "n": "5"
+            }
+          }
+        },
+        "10": {
+          "cpu_promedio": {
+            "estadisticas": {
+              "media": "23.554161035156252",
+              "mediana": "23.350616638183592",
+              "desviacion_estandar": "1.6047092854412701",
+              "minimo": "21.906933898925782",
+              "maximo": "26.060436492919923",
+              "n": "5"
+            }
+          },
+          "cpu_maximo": {
+            "estadisticas": {
+              "media": "29.992949615478516",
+              "mediana": "29.24566390991211",
+              "desviacion_estandar": "2.794970465935807",
+              "minimo": "26.75186614990234",
+              "maximo": "34.097625732421875",
+              "n": "5"
+            }
+          },
+          "mem_promedio": {
+            "estadisticas": {
+              "media": "0.002890625",
+              "mediana": "0.003515625",
+              "desviacion_estandar": "0.002132397509993153",
+              "minimo": "0.0",
+              "maximo": "0.00546875",
+              "n": "5"
+            }
+          },
+          "mem_maximo": {
+            "estadisticas": {
+              "media": "0.00625",
+              "mediana": "0.00390625",
+              "desviacion_estandar": "0.005240784322265132",
+              "minimo": "0.0",
+              "maximo": "0.01171875",
+              "n": "5"
+            }
+          }
+        },
+        "anova_cpu": {
+          "test": "ANOVA de una vía",
+          "estadistico": 2.197939854602943,
+          "p_value": 0.1537018645518674,
+          "significativo": false,
+          "flujo": "Normal → Levene (homogéneas) → ANOVA → Tukey",
+          "pasos_intermedios": {
+            "shapiro_wilk": [
+              {
+                "grupo": "Carga 1",
+                "normal": true,
+                "p_value": 0.34998354282819344,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "Carga 5",
+                "normal": true,
+                "p_value": 0.524656120664668,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "Carga 10",
+                "normal": true,
+                "p_value": 0.6599010957226256,
+                "interpretacion": "Normal",
+                "n": "5"
+              }
+            ],
+            "levene": {
+              "estadistico": 0.5669397453751197,
+              "p_value": 0.5817405183436171,
+              "varianzas_homogeneas": true,
+              "interpretacion": "Homogéneas"
+            }
+          }
+        },
+        "shapiro_wilk_cpu": [
+          {
+            "grupo": "Carga 1",
+            "normal": true,
+            "p_value": 0.34998354282819344,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "Carga 5",
+            "normal": true,
+            "p_value": 0.524656120664668,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "Carga 10",
+            "normal": true,
+            "p_value": 0.6599010957226256,
+            "interpretacion": "Normal",
+            "n": "5"
+          }
+        ],
+        "anova_mem": {
+          "test": "Kruskal-Wallis",
+          "estadistico": 2.0407692307692415,
+          "p_value": 0.36045627647927564,
+          "significativo": false,
+          "flujo": "No normal → Kruskal-Wallis → Dunn",
+          "pasos_intermedios": {
+            "shapiro_wilk": [
+              {
+                "grupo": "Carga 1",
+                "normal": false,
+                "p_value": 0.006470000644485464,
+                "interpretacion": "No normal",
+                "n": "5"
+              },
+              {
+                "grupo": "Carga 5",
+                "normal": true,
+                "p_value": 0.3140395561440371,
+                "interpretacion": "Normal",
+                "n": "5"
+              },
+              {
+                "grupo": "Carga 10",
+                "normal": true,
+                "p_value": 0.8755425840358035,
+                "interpretacion": "Normal",
+                "n": "5"
+              }
+            ],
+            "levene": "None"
+          }
+        },
+        "shapiro_wilk_mem": [
+          {
+            "grupo": "Carga 1",
+            "normal": false,
+            "p_value": 0.006470000644485464,
+            "interpretacion": "No normal",
+            "n": "5"
+          },
+          {
+            "grupo": "Carga 5",
+            "normal": true,
+            "p_value": 0.3140395561440371,
+            "interpretacion": "Normal",
+            "n": "5"
+          },
+          {
+            "grupo": "Carga 10",
+            "normal": true,
+            "p_value": 0.8755425840358035,
+            "interpretacion": "Normal",
+            "n": "5"
+          }
+        ]
+      }
+    },
+    "evaluaciones_ponderacion": {
+      "tiempo_respuesta": {
+        "sistema_web": {
+          "categoria": "Deficiente",
+          "calificacion": "50",
+          "resultado": "Riesgo de perder interés",
+          "tiempo_segundos": "4.108041286468506"
+        },
+        "proceso_manual": {
+          "categoria": "Inaceptable",
+          "calificacion": "0",
+          "resultado": "Usuario desinteresado",
+          "tiempo_segundos": "240.77662455372575"
+        }
+      },
+      "tiempo_espera": {
+        "semantica": {
+          "carga_1": {
+            "categoria": "Excelente",
+            "calificacion": "100",
+            "resultado": "Interacción fluida",
+            "tiempo_segundos": "0.1898515224456787"
+          },
+          "carga_5": {
+            "categoria": "Excelente",
+            "calificacion": "100",
+            "resultado": "Interacción fluida",
+            "tiempo_segundos": "0.9249923229217529"
+          },
+          "carga_10": {
+            "categoria": "Aceptable",
+            "calificacion": "90",
+            "resultado": "Usuario espera sin frustración",
+            "tiempo_segundos": "1.9007439613342285"
+          }
+        },
+        "basica": {
+          "carga_1": {
+            "categoria": "Excelente",
+            "calificacion": "100",
+            "resultado": "Interacción fluida",
+            "tiempo_segundos": "0.17375588417053223"
+          },
+          "carga_5": {
+            "categoria": "Excelente",
+            "calificacion": "100",
+            "resultado": "Interacción fluida",
+            "tiempo_segundos": "0.914351224899292"
+          },
+          "carga_10": {
+            "categoria": "Aceptable",
+            "calificacion": "90",
+            "resultado": "Usuario espera sin frustración",
+            "tiempo_segundos": "1.8408122062683105"
+          }
+        }
+      },
+      "recursos": {
+        "registro": {
+          "carga_1": {
+            "cpu_promedio": {
+              "categoria": "Malo",
+              "calificacion": "0",
+              "rango": "[4.6 - ∞] %",
+              "cpu_porcentaje": "40.5",
+              "nota": "Valores altos de CPU (>4.5%) requieren revisión. La tabla puede referirse a incremento por operación, no uso total."
+            },
+            "cpu_maximo": {},
+            "ram_promedio": {},
+            "ram_maximo": {
+              "categoria": "Excelente",
+              "calificacion": "100",
+              "rango": "[0 - 150] MB",
+              "ram_mb": "0.29296875"
+            }
+          },
+          "carga_5": {
+            "cpu_promedio": {
+              "categoria": "Malo",
+              "calificacion": "0",
+              "rango": "[4.6 - ∞] %",
+              "cpu_porcentaje": "41.536",
+              "nota": "Valores altos de CPU (>4.5%) requieren revisión. La tabla puede referirse a incremento por operación, no uso total."
+            },
+            "cpu_maximo": {},
+            "ram_promedio": {},
+            "ram_maximo": {
+              "categoria": "Excelente",
+              "calificacion": "100",
+              "rango": "[0 - 150] MB",
+              "ram_mb": "0.48828125"
+            }
+          },
+          "carga_10": {
+            "cpu_promedio": {
+              "categoria": "Malo",
+              "calificacion": "0",
+              "rango": "[4.6 - ∞] %",
+              "cpu_porcentaje": "43.282000000000004",
+              "nota": "Valores altos de CPU (>4.5%) requieren revisión. La tabla puede referirse a incremento por operación, no uso total."
+            },
+            "cpu_maximo": {},
+            "ram_promedio": {},
+            "ram_maximo": {
+              "categoria": "Excelente",
+              "calificacion": "100",
+              "rango": "[0 - 150] MB",
+              "ram_mb": "0.50390625"
+            }
+          }
+        },
+        "busqueda": {
+          "carga_1": {
+            "cpu_promedio": {
+              "categoria": "Malo",
+              "calificacion": "0",
+              "rango": "[4.6 - ∞] %",
+              "cpu_porcentaje": "19.59788665771484",
+              "nota": "Valores altos de CPU (>4.5%) requieren revisión. La tabla puede referirse a incremento por operación, no uso total."
+            },
+            "cpu_maximo": {},
+            "ram_promedio": {},
+            "ram_maximo": {}
+          },
+          "carga_5": {
+            "cpu_promedio": {
+              "categoria": "Malo",
+              "calificacion": "0",
+              "rango": "[4.6 - ∞] %",
+              "cpu_porcentaje": "20.979939208984376",
+              "nota": "Valores altos de CPU (>4.5%) requieren revisión. La tabla puede referirse a incremento por operación, no uso total."
+            },
+            "cpu_maximo": {},
+            "ram_promedio": {},
+            "ram_maximo": {
+              "categoria": "Excelente",
+              "calificacion": "100",
+              "rango": "[0 - 150] MB",
+              "ram_mb": "0.00390625"
+            }
+          },
+          "carga_10": {
+            "cpu_promedio": {
+              "categoria": "Malo",
+              "calificacion": "0",
+              "rango": "[4.6 - ∞] %",
+              "cpu_porcentaje": "21.925113143920896",
+              "nota": "Valores altos de CPU (>4.5%) requieren revisión. La tabla puede referirse a incremento por operación, no uso total."
+            },
+            "cpu_maximo": {},
+            "ram_promedio": {},
+            "ram_maximo": {}
+          }
+        },
+        "busqueda_semantica": {
+          "carga_1": {
+            "cpu_promedio": {
+              "categoria": "Malo",
+              "calificacion": "0",
+              "rango": "[4.6 - ∞] %",
+              "cpu_porcentaje": "24.39264633178711",
+              "nota": "Valores altos de CPU (>4.5%) requieren revisión. La tabla puede referirse a incremento por operación, no uso total."
+            },
+            "cpu_maximo": {},
+            "ram_promedio": {},
+            "ram_maximo": {}
+          },
+          "carga_5": {
+            "cpu_promedio": {
+              "categoria": "Malo",
+              "calificacion": "0",
+              "rango": "[4.6 - ∞] %",
+              "cpu_porcentaje": "21.83745391845703",
+              "nota": "Valores altos de CPU (>4.5%) requieren revisión. La tabla puede referirse a incremento por operación, no uso total."
+            },
+            "cpu_maximo": {},
+            "ram_promedio": {},
+            "ram_maximo": {
+              "categoria": "Excelente",
+              "calificacion": "100",
+              "rango": "[0 - 150] MB",
+              "ram_mb": "0.00390625"
+            }
+          },
+          "carga_10": {
+            "cpu_promedio": {
+              "categoria": "Malo",
+              "calificacion": "0",
+              "rango": "[4.6 - ∞] %",
+              "cpu_porcentaje": "23.350616638183592",
+              "nota": "Valores altos de CPU (>4.5%) requieren revisión. La tabla puede referirse a incremento por operación, no uso total."
+            },
+            "cpu_maximo": {},
+            "ram_promedio": {},
+            "ram_maximo": {
+              "categoria": "Excelente",
+              "calificacion": "100",
+              "rango": "[0 - 150] MB",
+              "ram_mb": "0.00390625"
+            }
+          }
+        }
+      }
+    },
+    "recomendaciones": [
+      {
+        "tipo": "tiempo_respuesta",
+        "prioridad": "alta",
+        "problema": "Tiempo de respuesta de 4.11s está en categoría \"Deficiente\"",
+        "recomendaciones": [
+          "Optimizar consultas a base de datos con select_related() y prefetch_related()",
+          "Implementar caché para validaciones de cupo y cálculos de tarifas",
+          "Mover generación de embeddings a tareas asíncronas (Celery)",
+          "Simplificar serializers para respuestas de creación",
+          "Pre-calcular tarifas comunes y cachear resultados"
+        ],
+        "objetivo": "Reducir a < 1s (Excelente) o al menos a < 3s (Aceptable)",
+        "impacto_esperado": "Reducción del 30-75% en tiempo de respuesta"
+      },
+      {
+        "tipo": "tiempo_espera_carga_alta",
+        "prioridad": "media",
+        "problema": "Tiempo de espera para carga 10 (1.90s) está en categoría \"Aceptable\"",
+        "recomendaciones": [
+          "Implementar balanceo de carga y múltiples workers",
+          "Usar índices de base de datos optimizados (pgvector)",
+          "Implementar caché de búsquedas frecuentes",
+          "Limitar número de resultados por búsqueda y usar paginación eficiente"
+        ],
+        "objetivo": "Mantener < 1s incluso con carga 10",
+        "impacto_esperado": "Mejora del 30-40% en tiempo de búsqueda"
+      },
+      {
+        "tipo": "tiempo_espera_carga_alta",
+        "prioridad": "media",
+        "problema": "Tiempo de espera para carga 10 (1.84s) está en categoría \"Aceptable\"",
+        "recomendaciones": [
+          "Implementar balanceo de carga y múltiples workers",
+          "Usar índices de base de datos optimizados (pgvector)",
+          "Implementar caché de búsquedas frecuentes",
+          "Limitar número de resultados por búsqueda y usar paginación eficiente"
+        ],
+        "objetivo": "Mantener < 1s incluso con carga 10",
+        "impacto_esperado": "Mejora del 30-40% en tiempo de búsqueda"
+      },
+      {
+        "tipo": "uso_cpu",
+        "prioridad": "media",
+        "problema": "Uso de CPU para registro (carga 1) es 40.5% (categoría \"Malo\")",
+        "recomendaciones": [
+          "Revisar y optimizar algoritmos de búsqueda semántica",
+          "Optimizar generación de embeddings",
+          "Paralelizar operaciones independientes",
+          "Revisar código para identificar loops innecesarios",
+          "Establecer timeouts para operaciones largas"
+        ],
+        "objetivo": "Reducir a < 4.5% por operación",
+        "impacto_esperado": "Reducción del 20-30% en uso de CPU",
+        "nota": "Valores altos pueden ser aceptables dependiendo del contexto. Revisar si la tabla se refiere a incremento por operación."
+      },
+      {
+        "tipo": "uso_cpu",
+        "prioridad": "media",
+        "problema": "Uso de CPU para registro (carga 5) es 41.5% (categoría \"Malo\")",
+        "recomendaciones": [
+          "Revisar y optimizar algoritmos de búsqueda semántica",
+          "Optimizar generación de embeddings",
+          "Paralelizar operaciones independientes",
+          "Revisar código para identificar loops innecesarios",
+          "Establecer timeouts para operaciones largas"
+        ],
+        "objetivo": "Reducir a < 4.5% por operación",
+        "impacto_esperado": "Reducción del 20-30% en uso de CPU",
+        "nota": "Valores altos pueden ser aceptables dependiendo del contexto. Revisar si la tabla se refiere a incremento por operación."
+      },
+      {
+        "tipo": "uso_cpu",
+        "prioridad": "media",
+        "problema": "Uso de CPU para registro (carga 10) es 43.3% (categoría \"Malo\")",
+        "recomendaciones": [
+          "Revisar y optimizar algoritmos de búsqueda semántica",
+          "Optimizar generación de embeddings",
+          "Paralelizar operaciones independientes",
+          "Revisar código para identificar loops innecesarios",
+          "Establecer timeouts para operaciones largas"
+        ],
+        "objetivo": "Reducir a < 4.5% por operación",
+        "impacto_esperado": "Reducción del 20-30% en uso de CPU",
+        "nota": "Valores altos pueden ser aceptables dependiendo del contexto. Revisar si la tabla se refiere a incremento por operación."
+      },
+      {
+        "tipo": "uso_cpu",
+        "prioridad": "media",
+        "problema": "Uso de CPU para busqueda (carga 1) es 19.6% (categoría \"Malo\")",
+        "recomendaciones": [
+          "Revisar y optimizar algoritmos de búsqueda semántica",
+          "Optimizar generación de embeddings",
+          "Paralelizar operaciones independientes",
+          "Revisar código para identificar loops innecesarios",
+          "Establecer timeouts para operaciones largas"
+        ],
+        "objetivo": "Reducir a < 4.5% por operación",
+        "impacto_esperado": "Reducción del 20-30% en uso de CPU",
+        "nota": "Valores altos pueden ser aceptables dependiendo del contexto. Revisar si la tabla se refiere a incremento por operación."
+      },
+      {
+        "tipo": "uso_cpu",
+        "prioridad": "media",
+        "problema": "Uso de CPU para busqueda (carga 5) es 21.0% (categoría \"Malo\")",
+        "recomendaciones": [
+          "Revisar y optimizar algoritmos de búsqueda semántica",
+          "Optimizar generación de embeddings",
+          "Paralelizar operaciones independientes",
+          "Revisar código para identificar loops innecesarios",
+          "Establecer timeouts para operaciones largas"
+        ],
+        "objetivo": "Reducir a < 4.5% por operación",
+        "impacto_esperado": "Reducción del 20-30% en uso de CPU",
+        "nota": "Valores altos pueden ser aceptables dependiendo del contexto. Revisar si la tabla se refiere a incremento por operación."
+      },
+      {
+        "tipo": "uso_cpu",
+        "prioridad": "media",
+        "problema": "Uso de CPU para busqueda (carga 10) es 21.9% (categoría \"Malo\")",
+        "recomendaciones": [
+          "Revisar y optimizar algoritmos de búsqueda semántica",
+          "Optimizar generación de embeddings",
+          "Paralelizar operaciones independientes",
+          "Revisar código para identificar loops innecesarios",
+          "Establecer timeouts para operaciones largas"
+        ],
+        "objetivo": "Reducir a < 4.5% por operación",
+        "impacto_esperado": "Reducción del 20-30% en uso de CPU",
+        "nota": "Valores altos pueden ser aceptables dependiendo del contexto. Revisar si la tabla se refiere a incremento por operación."
+      },
+      {
+        "tipo": "uso_cpu",
+        "prioridad": "media",
+        "problema": "Uso de CPU para busqueda_semantica (carga 1) es 24.4% (categoría \"Malo\")",
+        "recomendaciones": [
+          "Revisar y optimizar algoritmos de búsqueda semántica",
+          "Optimizar generación de embeddings",
+          "Paralelizar operaciones independientes",
+          "Revisar código para identificar loops innecesarios",
+          "Establecer timeouts para operaciones largas"
+        ],
+        "objetivo": "Reducir a < 4.5% por operación",
+        "impacto_esperado": "Reducción del 20-30% en uso de CPU",
+        "nota": "Valores altos pueden ser aceptables dependiendo del contexto. Revisar si la tabla se refiere a incremento por operación."
+      },
+      {
+        "tipo": "uso_cpu",
+        "prioridad": "media",
+        "problema": "Uso de CPU para busqueda_semantica (carga 5) es 21.8% (categoría \"Malo\")",
+        "recomendaciones": [
+          "Revisar y optimizar algoritmos de búsqueda semántica",
+          "Optimizar generación de embeddings",
+          "Paralelizar operaciones independientes",
+          "Revisar código para identificar loops innecesarios",
+          "Establecer timeouts para operaciones largas"
+        ],
+        "objetivo": "Reducir a < 4.5% por operación",
+        "impacto_esperado": "Reducción del 20-30% en uso de CPU",
+        "nota": "Valores altos pueden ser aceptables dependiendo del contexto. Revisar si la tabla se refiere a incremento por operación."
+      },
+      {
+        "tipo": "uso_cpu",
+        "prioridad": "media",
+        "problema": "Uso de CPU para busqueda_semantica (carga 10) es 23.4% (categoría \"Malo\")",
+        "recomendaciones": [
+          "Revisar y optimizar algoritmos de búsqueda semántica",
+          "Optimizar generación de embeddings",
+          "Paralelizar operaciones independientes",
+          "Revisar código para identificar loops innecesarios",
+          "Establecer timeouts para operaciones largas"
+        ],
+        "objetivo": "Reducir a < 4.5% por operación",
+        "impacto_esperado": "Reducción del 20-30% en uso de CPU",
+        "nota": "Valores altos pueden ser aceptables dependiendo del contexto. Revisar si la tabla se refiere a incremento por operación."
+      }
+    ]
+  }
+}

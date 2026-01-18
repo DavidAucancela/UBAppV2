@@ -8,7 +8,9 @@ from .models import (
     RegistroGeneracionEmbedding,
     PruebaCarga,
     MetricaRendimiento,
-    RegistroManualEnvio
+    RegistroManualEnvio,
+    PruebaRendimientoCompleta,
+    DetalleProcesoRendimiento
 )
 
 
@@ -123,3 +125,44 @@ class RegistrarEnvioManualSerializer(serializers.Serializer):
     datos_envio = serializers.DictField(required=False, allow_null=True)
     notas = serializers.CharField(required=False, allow_blank=True)
 
+
+class PruebaRendimientoCompletaSerializer(serializers.ModelSerializer):
+    """Serializer para Prueba de Rendimiento Completa"""
+    usuario_ejecutor_username = serializers.CharField(source='usuario_ejecutor.username', read_only=True)
+    
+    class Meta:
+        model = PruebaRendimientoCompleta
+        fields = [
+            'id',
+            'fecha_ejecucion',
+            'usuario_ejecutor',
+            'usuario_ejecutor_username',
+            'resultados_json',
+            'tiempo_respuesta_manual_promedio',
+            'tiempo_respuesta_web_promedio',
+            'mejora_factor',
+            'completada',
+            'errores'
+        ]
+        read_only_fields = ['id', 'fecha_ejecucion']
+
+
+class DetalleProcesoRendimientoSerializer(serializers.ModelSerializer):
+    """Serializer para Detalle de Proceso de Rendimiento"""
+    prueba_fecha = serializers.DateTimeField(source='prueba.fecha_ejecucion', read_only=True)
+    
+    class Meta:
+        model = DetalleProcesoRendimiento
+        fields = [
+            'id', 'prueba', 'prueba_fecha', 'codigo_proceso', 'nombre_proceso',
+            'tiempo_media', 'tiempo_minimo', 'tiempo_maximo', 'tiempo_mediana', 'tiempo_desviacion',
+            'cpu_media', 'cpu_minimo', 'cpu_maximo', 'cpu_mediana', 'cpu_desviacion',
+            'ram_media', 'ram_minimo', 'ram_maximo', 'ram_mediana', 'ram_desviacion',
+            'categoria_tiempo', 'calificacion_tiempo',
+            'categoria_cpu', 'calificacion_cpu',
+            'categoria_ram', 'calificacion_ram',
+            'iteraciones_completadas', 'iteraciones_totales', 'total_errores',
+            'tiempos_raw', 'cpus_raw', 'rams_raw', 'errores_detalle',
+            'fecha_medicion'
+        ]
+        read_only_fields = ['id', 'fecha_medicion']

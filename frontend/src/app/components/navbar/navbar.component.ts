@@ -7,6 +7,7 @@ import { NotificacionService } from '../../services/notificacion.service';
 import { Usuario, ROLES_LABELS, Roles } from '../../models/usuario';
 import { Notificacion, NotificacionCount } from '../../models/notificacion';
 import { Subscription, combineLatest, filter } from 'rxjs';
+import { EnvioDetailModalComponent } from '../shared/envio-detail-modal/envio-detail-modal.component';
 
 interface NavItem {
   label: string;
@@ -26,7 +27,7 @@ interface NavSubItem {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, EnvioDetailModalComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
   animations: [
@@ -125,15 +126,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   notificacionCount: NotificacionCount = { total: 0, no_leidas: 0 };
   showNotificacionesDropdown = false;
   
+  // Modal de detalles de envío
+  showEnvioDetailModal = false;
+  selectedEnvioId: number | null = null;
+  
   // Definición de todos los items de navegación organizados por categorías
   private allNavItems: NavItem[] = [
-    {
-      label: 'Mi Dashboard',
-      icon: 'fas fa-chart-line',
-      route: '/dashboard-usuario',
-      roles: [Roles.COMPRADOR],
-      order: 3
-    },
     {
       label: 'Mis Envios',
       icon: 'fas fa-truck-loading',
@@ -159,9 +157,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
     {
       label: 'Búsqueda',
       icon: 'fas fa-search',
-      route: '/busqueda',
+      route: '/busqueda-envios',
       roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR, Roles.COMPRADOR],
       order: 2,
+      subItems: [
+        { label: 'Búsqueda Exacta', icon: 'fas fa-search', route: '/busqueda-envios' },
+        { label: 'Búsqueda Semántica', icon: 'fas fa-brain', route: '/busqueda-semantica' },
+      ]
     },
 
     // ========== Otros ==========
@@ -197,6 +199,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     .pipe(filter((event: any) => event instanceof NavigationEnd))
     .subscribe(() => {
       this.checkRouteAndToggleNavbar();
+      // Cerrar todos los submenús cuando cambia la ruta
+      this.expandedItems.clear();
     });
     
     // Verificar si está en modo oscuro
@@ -268,6 +272,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   handleGlobalClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
     
+    // Verificar si el click es dentro del navbar completo
+    const navbarElement = target.closest('header.animated-header');
+    const isInsideNavbar = !!navbarElement;
+    
+    // Verificar si el click es dentro de un submenú desplegado
+    const dropdownMenu = target.closest('.dropdown-menu');
+    const isInsideDropdown = !!dropdownMenu;
+    
     // Cerrar menú de usuario si el click es afuera
     if (this.showUserMenu) {
       const userMenu = target.closest('.user-menu');
@@ -284,13 +296,54 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     }
     
-    // Cerrar submenús expandidos si el click es afuera
+    // Cerrar submenús expandidos
     if (this.expandedItems.size > 0) {
       const navItem = target.closest('.nav-item');
-      if (!navItem) {
+      const navLink = target.closest('.nav-link');
+      
+      // Si el click es completamente fuera del navbar, cerrar todos los submenús
+      if (!isInsideNavbar) {
         this.expandedItems.clear();
+      } 
+      // Si el click es dentro del navbar pero fuera de cualquier submenú desplegado
+      else if (!isInsideDropdown) {
+        // Si el click es en un nav-link que NO tiene subitems, cerrar todos los submenús
+        if (navLink && navLink instanceof HTMLElement && !navLink.classList.contains('has-submenu')) {
+          this.expandedItems.clear();
+        }
+        // Si el click es en otro nav-item diferente al expandido
+        else if (navItem && navItem instanceof HTMLElement) {
+          const clickedItemLabel = this.getNavItemLabelFromElement(navItem);
+          if (clickedItemLabel) {
+            // Si el item clickeado no está expandido, cerrar todos
+            if (!this.isExpanded(clickedItemLabel)) {
+              this.expandedItems.clear();
+            }
+          } else {
+            // No se pudo determinar el label, cerrar por seguridad
+            this.expandedItems.clear();
+          }
+        }
+        // Si el click es en cualquier otra parte del navbar (no en nav-item), cerrar submenús
+        else {
+          this.expandedItems.clear();
+        }
       }
     }
+  }
+  
+  /**
+   * Obtener el label del nav-item desde el elemento DOM
+   */
+  private getNavItemLabelFromElement(element: HTMLElement): string | null {
+    const navLink = element.querySelector('.nav-link');
+    if (navLink) {
+      const span = navLink.querySelector('span');
+      if (span) {
+        return span.textContent?.trim() || null;
+      }
+    }
+    return null;
   }
 
   /**
@@ -347,15 +400,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
    */
   marcarNotificacionLeida(notificacion: Notificacion, event: Event): void {
     event.stopPropagation();
+    
+    // Marcar como leída si no lo está
     if (!notificacion.leida) {
       this.notificacionService.marcarComoLeida(notificacion.id).subscribe();
     }
     
-    // Si tiene enlace, navegar
-    if (notificacion.enlace) {
+    // Si tiene envio_id en metadata, mostrar detalles del envío
+    if (notificacion.metadata?.envio_id) {
+      this.selectedEnvioId = notificacion.metadata.envio_id;
+      this.showEnvioDetailModal = true;
+      this.closeNotificacionesDropdown();
+    } else if (notificacion.enlace) {
+      // Si tiene enlace, navegar
       this.router.navigate([notificacion.enlace]);
       this.closeNotificacionesDropdown();
     }
+  }
+  
+  /**
+   * Cerrar modal de detalles de envío
+   */
+  closeEnvioDetailModal(): void {
+    this.showEnvioDetailModal = false;
+    this.selectedEnvioId = null;
   }
 
   /**
@@ -486,6 +554,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.toggleSubmenu(item.label, event);
     }
     // Si no tiene subitems, el routerLink normal manejará la navegación
+  }
+
+  /**
+   * Manejar click en cualquier elemento de navegación
+   * Cierra los submenús si se hace click en otro elemento
+   */
+  handleNavLinkClick(item: NavItem, event: Event): void {
+    // Si el item clickeado tiene subitems, no hacer nada (ya se maneja en handleItemClick)
+    if (item.subItems && item.subItems.length > 0) {
+      return;
+    }
+    
+    // Si se hace click en un item sin subitems, cerrar todos los submenús
+    if (this.expandedItems.size > 0) {
+      this.expandedItems.clear();
+    }
   }
 
   private resetNavItems(): void {

@@ -30,9 +30,11 @@ export class UsuariosListComponent implements OnInit {
   selectedStatus = '';
   
   // Pagination
-  currentPage = 1;
+  paginaActual = 1;
   itemsPerPage = 10;
-  totalPages = 1;
+  totalPaginas = 1;
+  totalResultados = 0;
+  opcionesElementosPorPagina = [10, 25, 50, 100, 200];
   
   // Messages
   successMessage = '';
@@ -88,8 +90,9 @@ export class UsuariosListComponent implements OnInit {
     this.loading = true;
     this.apiService.getUsuarios().subscribe({
       next: (response) => {
-        // El backend puede devolver un array o un objeto con 'results'
-        this.usuarios = Array.isArray(response) ? response : (response as any).results || [];
+        // El servicio ya maneja la extracción de results si hay paginación
+        this.usuarios = Array.isArray(response) ? response : [];
+        console.log(`Usuarios cargados: ${this.usuarios.length}`);
         this.applyFilters();
         this.loading = false;
       },
@@ -135,36 +138,80 @@ export class UsuariosListComponent implements OnInit {
   }
 
   calculatePagination(): void {
-    this.totalPages = Math.ceil(this.filteredUsuarios.length / this.itemsPerPage);
-    this.currentPage = Math.min(this.currentPage, this.totalPages);
-    if (this.totalPages === 0) this.currentPage = 1;
+    this.totalResultados = this.filteredUsuarios.length;
+    this.totalPaginas = Math.ceil(this.filteredUsuarios.length / this.itemsPerPage);
+    if (this.totalPaginas === 0) {
+      this.totalPaginas = 1;
+      this.paginaActual = 1;
+    }
+    // Asegurar que la página actual no exceda el total
+    if (this.paginaActual > this.totalPaginas) {
+      this.paginaActual = this.totalPaginas;
+    }
+    console.log('Paginación usuarios:', {
+      totalResultados: this.totalResultados,
+      itemsPerPage: this.itemsPerPage,
+      totalPaginas: this.totalPaginas,
+      paginaActual: this.paginaActual
+    });
   }
 
   onSearchChange(): void {
-    this.currentPage = 1;
+    this.paginaActual = 1;
     this.applyFilters();
   }
 
   onRoleFilterChange(): void {
-    this.currentPage = 1;
+    this.paginaActual = 1;
     this.applyFilters();
   }
 
   onStatusFilterChange(): void {
-    this.currentPage = 1;
+    this.paginaActual = 1;
     this.applyFilters();
   }
 
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
+  cambiarElementosPorPagina(cantidad: number): void {
+    this.itemsPerPage = cantidad;
+    this.paginaActual = 1;
+    this.calculatePagination();
+  }
+
+  obtenerRangoPaginas(): number[] {
+    const rango = 2; // Páginas a mostrar antes y después de la actual
+    const inicio = Math.max(1, this.paginaActual - rango);
+    const fin = Math.min(this.totalPaginas, this.paginaActual + rango);
+    
+    const paginas: number[] = [];
+    for (let i = inicio; i <= fin; i++) {
+      paginas.push(i);
+    }
+    return paginas;
+  }
+
+  paginaAnterior(): void {
+    if (this.paginaActual > 1) {
+      this.paginaActual--;
+      this.scrollAlInicio();
     }
   }
 
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
+  paginaSiguiente(): void {
+    if (this.paginaActual < this.totalPaginas) {
+      this.paginaActual++;
+      this.scrollAlInicio();
     }
+  }
+
+  irAPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPaginas) {
+      this.paginaActual = pagina;
+      this.scrollAlInicio();
+    }
+  }
+
+  private scrollAlInicio(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   openCreateModal(): void {
@@ -408,9 +455,18 @@ export class UsuariosListComponent implements OnInit {
 
   // Get paginated users
   get paginatedUsuarios(): Usuario[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const startIndex = (this.paginaActual - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.filteredUsuarios.slice(startIndex, endIndex);
+  }
+
+  get inicioRango(): number {
+    if (this.totalResultados === 0) return 0;
+    return (this.paginaActual - 1) * this.itemsPerPage + 1;
+  }
+
+  get finRango(): number {
+    return Math.min(this.paginaActual * this.itemsPerPage, this.totalResultados);
   }
 
   // Métodos de ubicaciones

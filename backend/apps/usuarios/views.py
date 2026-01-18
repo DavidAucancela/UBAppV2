@@ -336,6 +336,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = None  # Deshabilitar paginación para permitir obtener todos los usuarios
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['username', 'nombre', 'correo', 'cedula']
     ordering_fields = ['nombre', 'fecha_creacion', 'rol']
@@ -571,6 +572,7 @@ Equipo UBApp
         from datetime import datetime
         from apps.archivos.serializers import EnvioListSerializer
         from apps.archivos.repositories import envio_repository
+        from apps.core.base.base_service import BaseService
         
         anio = request.query_params.get('anio', datetime.now().year)
         try:
@@ -578,11 +580,31 @@ Equipo UBApp
         except ValueError:
             anio = datetime.now().year
         
+        # Log para depuración
+        BaseService.log_info(
+            f"Dashboard solicitado para usuario {request.user.id} ({request.user.username}), "
+            f"rol: {request.user.rol}, es_comprador: {request.user.es_comprador}, año: {anio}",
+            usuario_id=request.user.id
+        )
+        
         dashboard_data = UsuarioService.obtener_dashboard_usuario(request.user, anio)
         serializer = DashboardUsuarioSerializer(dashboard_data)
         
-        envios = envio_repository.filtrar_por_comprador(request.user.id)[:10]
+        # Filtrar envíos por comprador (solo si es comprador, sino usar filtro por permisos)
+        if request.user.es_comprador:
+            envios = envio_repository.filtrar_por_comprador(request.user.id).order_by('-fecha_emision')[:10]
+        else:
+            # Para otros roles, usar filtro por permisos
+            envios = envio_repository.filtrar_por_permisos_usuario(request.user).order_by('-fecha_emision')[:10]
+        
         envios_serializer = EnvioListSerializer(envios, many=True)
+        
+        # Log de datos devueltos
+        BaseService.log_info(
+            f"Dashboard generado - Total envíos: {dashboard_data.get('total_envios', 0)}, "
+            f"Envíos recientes: {envios.count()}",
+            usuario_id=request.user.id
+        )
         
         return Response({
             'dashboard': serializer.data,

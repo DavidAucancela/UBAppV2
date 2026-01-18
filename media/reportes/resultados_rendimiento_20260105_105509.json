@@ -1,0 +1,27 @@
+{
+  "fecha": "2026-01-05T10:55:09.527668",
+  "resultados": {
+    "tiempo_respuesta": {
+      "manual": {
+        "estadisticas": {
+          "media": 242.0143345095644,
+          "mediana": 242.00748028344714,
+          "desviacion_estandar": 2.362550677789766,
+          "minimo": 237.352447227571,
+          "maximo": 245.6899658080188,
+          "n": 30
+        }
+      },
+      "web": {
+        "estadisticas": {
+          "media": 7.7860113143920895,
+          "mediana": 7.220414876937866,
+          "desviacion_estandar": 1.6917978730176895,
+          "minimo": 6.613598585128784,
+          "maximo": 14.536126613616943,
+          "n": 30
+        }
+      },
+      "test_normalidad": {
+        "manual": {
+          "normal": 

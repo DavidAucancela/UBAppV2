@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -15,7 +15,7 @@ import { Usuario } from '../../../models/usuario';
   templateUrl: './envios-list.component.html',
   styleUrl: './envios-list.component.css'
 })
-export class EnviosListComponent implements OnInit {
+export class EnviosListComponent implements OnInit, OnDestroy {
   envios: Envio[] = [];
   filteredEnvios: Envio[] = [];
   compradores: Usuario[] = [];
@@ -83,6 +83,26 @@ export class EnviosListComponent implements OnInit {
       this.loadEnvios();
       this.loadCompradores();
     });
+    
+    // Agregar listener global para cerrar dropdowns al hacer click fuera
+    document.addEventListener('click', this.handleGlobalClick.bind(this));
+  }
+
+  ngOnDestroy(): void {
+    // Remover listener global
+    document.removeEventListener('click', this.handleGlobalClick.bind(this));
+  }
+
+  handleGlobalClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    
+    // Cerrar dropdown de estado si el click es afuera
+    if (this.openDropdownEnvioId !== null) {
+      const dropdown = target.closest('.dropdown-estado');
+      if (!dropdown) {
+        this.openDropdownEnvioId = null;
+      }
+    }
   }
 
   get productos(): FormArray {
@@ -148,13 +168,38 @@ export class EnviosListComponent implements OnInit {
     });
   }
 
+  /**
+   * Normaliza valores decimales: convierte coma a punto
+   * Acepta tanto coma como punto como separador decimal
+   */
+  private normalizarDecimal(valor: any): string {
+    if (valor === null || valor === undefined) {
+      return '0';
+    }
+    if (typeof valor === 'number') {
+      return valor.toString();
+    }
+    // Convertir a string y normalizar
+    let valorStr = String(valor).trim();
+    // Si tiene coma y punto, asumir formato europeo (1.234,56 -> 1234.56)
+    if (valorStr.includes('.') && valorStr.includes(',')) {
+      // Eliminar puntos (separadores de miles) y convertir coma a punto
+      valorStr = valorStr.replace(/\./g, '').replace(',', '.');
+    }
+    // Si solo tiene coma, convertir a punto
+    else if (valorStr.includes(',')) {
+      valorStr = valorStr.replace(',', '.');
+    }
+    return valorStr;
+  }
+
   calcularCostoServicio(): void {
     const productosData = this.productos.value.map((p: any) => ({
       descripcion: p.descripcion,
       categoria: p.categoria,
-      peso: parseFloat(p.peso) || 0,
+      peso: parseFloat(this.normalizarDecimal(p.peso)) || 0,
       cantidad: parseInt(p.cantidad) || 1,
-      valor: parseFloat(p.valor) || 0
+      valor: parseFloat(this.normalizarDecimal(p.valor)) || 0
     }));
 
     // Filtrar productos válidos
@@ -288,16 +333,20 @@ export class EnviosListComponent implements OnInit {
 
   openCreateModal(): void {
     this.editingEnvio = null;
-    this.generateNextHAWB();
     this.envioForm.reset({
-      estado: EstadosEnvio.PENDIENTE
+      estado: EstadosEnvio.PENDIENTE,
+      hawb: '' // Inicializar vacío, se generará después
     });
     this.productos.clear();
     this.costoServicioCalculado = 0;
     this.detallesCostos = [];
+    this.errorMessage = '';
     this.addProducto(); // Agregar un producto por defecto
     this.loadProductosExistentes();
     this.showModal = true;
+    
+    // Generar HAWB después de abrir el modal
+    this.generateNextHAWB();
   }
 
   generateNextHAWB(): void {
@@ -433,9 +482,27 @@ export class EnviosListComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error cambiando estado:', error);
-        this.errorMessage = 'Error al cambiar el estado';
+        console.error('Error completo:', JSON.stringify(error, null, 2));
+        
+        // Mostrar mensaje de error más descriptivo
+        let errorMsg = 'Error al cambiar el estado';
+        if (error.error) {
+          if (typeof error.error === 'string') {
+            errorMsg = error.error;
+          } else if (error.error.error) {
+            errorMsg = error.error.error;
+          } else if (error.error.estado) {
+            errorMsg = Array.isArray(error.error.estado) 
+              ? error.error.estado.join(', ') 
+              : error.error.estado;
+          } else if (error.error.detalle) {
+            errorMsg = error.error.detalle;
+          }
+        }
+        
+        this.errorMessage = errorMsg;
         this.openDropdownEnvioId = null; // Cerrar dropdown
-        setTimeout(() => this.errorMessage = '', 3000);
+        setTimeout(() => this.errorMessage = '', 5000);
       }
     });
   }
@@ -506,27 +573,53 @@ export class EnviosListComponent implements OnInit {
 
   onSubmit(): void {
     if (this.envioForm.valid) {
-      this.submitting = true;
+      // Validar que el HAWB no esté vacío
+      const hawb = this.envioForm.value.hawb?.trim();
+      if (!hawb) {
+        this.errorMessage = 'El HAWB es requerido. Por favor, espere a que se genere automáticamente.';
+        this.submitting = false;
+        setTimeout(() => this.errorMessage = '', 5000);
+        return;
+      }
+
+      // Validar que haya al menos un producto válido
+      const productosValidos = this.envioForm.value.productos
+        .map((p: any) => ({
+          descripcion: p.descripcion?.trim(),
+          categoria: p.categoria,
+          peso: parseFloat(this.normalizarDecimal(p.peso)) || 0,
+          cantidad: parseInt(p.cantidad) || 1,
+          valor: parseFloat(this.normalizarDecimal(p.valor)) || 0
+        }))
+        .filter((p: any) => p.descripcion && p.categoria && p.peso > 0 && p.cantidad > 0);
+
+      if (productosValidos.length === 0) {
+        this.errorMessage = 'Debe agregar al menos un producto válido al envío.';
+        this.submitting = false;
+        setTimeout(() => this.errorMessage = '', 5000);
+        return;
+      }
+
       // Asegurar que comprador sea un número
       const compradorId = typeof this.envioForm.value.comprador === 'string' 
         ? parseInt(this.envioForm.value.comprador, 10) 
         : this.envioForm.value.comprador;
-      
-      // Filtrar productos válidos y remover productoExistenteId
-      const productosData = this.envioForm.value.productos.map((p: any) => ({
-        descripcion: p.descripcion,
-        categoria: p.categoria,
-        peso: parseFloat(p.peso) || 0,
-        cantidad: parseInt(p.cantidad) || 1,
-        valor: parseFloat(p.valor) || 0
-      })).filter((p: any) => p.descripcion && p.categoria && p.peso > 0 && p.cantidad > 0);
+
+      if (!compradorId || isNaN(compradorId)) {
+        this.errorMessage = 'Debe seleccionar un comprador válido.';
+        this.submitting = false;
+        setTimeout(() => this.errorMessage = '', 5000);
+        return;
+      }
+
+      this.submitting = true;
       
       const formData: EnvioCreate = {
-        hawb: this.envioForm.value.hawb,
+        hawb: hawb,
         comprador: compradorId,
-        estado: this.envioForm.value.estado,
-        observaciones: this.envioForm.value.observaciones || '',
-        productos: productosData
+        estado: this.envioForm.value.estado || EstadosEnvio.PENDIENTE,
+        observaciones: (this.envioForm.value.observaciones || '').trim(),
+        productos: productosValidos
       };
 
       if (this.editingEnvio) {
@@ -558,9 +651,52 @@ export class EnviosListComponent implements OnInit {
           },
           error: (error) => {
             console.error('Error creando envío:', error);
-            this.errorMessage = 'Error al crear el envío';
+            console.error('Error completo:', JSON.stringify(error, null, 2));
+            
+            // Mostrar mensaje de error más descriptivo
+            let errorMsg = 'Error al crear el envío';
+            if (error.error) {
+              // Si hay detalles del serializer
+              if (error.error.detalles) {
+                const detalles = error.error.detalles;
+                const errores = Object.keys(detalles).map(key => {
+                  const valor = detalles[key];
+                  return `${key}: ${Array.isArray(valor) ? valor.join(', ') : valor}`;
+                });
+                if (errores.length > 0) {
+                  errorMsg = errores.join('; ');
+                }
+              } else if (typeof error.error === 'string') {
+                errorMsg = error.error;
+              } else if (error.error.detail) {
+                errorMsg = error.error.detail;
+              } else if (error.error.detalle) {
+                errorMsg = error.error.detalle;
+              } else if (error.error.non_field_errors) {
+                errorMsg = Array.isArray(error.error.non_field_errors) 
+                  ? error.error.non_field_errors.join(', ') 
+                  : error.error.non_field_errors;
+              } else if (error.error.hawb) {
+                errorMsg = `HAWB: ${Array.isArray(error.error.hawb) ? error.error.hawb.join(', ') : error.error.hawb}`;
+              } else if (error.error.comprador) {
+                errorMsg = `Comprador: ${Array.isArray(error.error.comprador) ? error.error.comprador.join(', ') : error.error.comprador}`;
+              } else if (error.error.productos) {
+                errorMsg = `Productos: ${Array.isArray(error.error.productos) ? error.error.productos.join(', ') : error.error.productos}`;
+              } else {
+                // Mostrar todos los errores de validación
+                const errores = Object.keys(error.error).map(key => {
+                  const valor = error.error[key];
+                  return `${key}: ${Array.isArray(valor) ? valor.join(', ') : valor}`;
+                });
+                if (errores.length > 0) {
+                  errorMsg = errores.join('; ');
+                }
+              }
+            }
+            
+            this.errorMessage = errorMsg;
             this.submitting = false;
-            setTimeout(() => this.errorMessage = '', 3000);
+            setTimeout(() => this.errorMessage = '', 8000);
           }
         });
       }

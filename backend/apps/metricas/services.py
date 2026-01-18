@@ -167,6 +167,9 @@ class RegistroEmbeddingService(BaseService):
         """
         Registra la generación de un embedding.
         
+        Si se proporciona un embedding, actualiza el registro existente si ya existe
+        (debido a la restricción OneToOneField), o crea uno nuevo.
+        
         Args:
             envio: Instancia del envío
             estado: Estado de la generación ('generado', 'error', 'omitido')
@@ -177,25 +180,44 @@ class RegistroEmbeddingService(BaseService):
             embedding: Instancia del embedding generado (opcional)
         
         Returns:
-            RegistroGeneracionEmbedding: Registro creado
+            RegistroGeneracionEmbedding: Registro creado o actualizado
         """
         dimension = 1536  # Por defecto para text-embedding-3-small
         if modelo_usado == 'text-embedding-3-large':
             dimension = 3072
         
-        registro = registro_embedding_repository.crear(
-            envio=envio,
-            estado=estado,
-            dimension_embedding=dimension,
-            tiempo_generacion_ms=tiempo_generacion_ms,
-            modelo_usado=modelo_usado,
-            tipo_proceso=tipo_proceso,
-            mensaje_error=mensaje_error,
-            embedding=embedding
-        )
+        # Si se proporciona un embedding, usar update_or_create para evitar duplicados
+        # debido a la restricción OneToOneField en el modelo
+        if embedding is not None:
+            registro, creado = registro_embedding_repository.actualizar_o_crear(
+                embedding=embedding,
+                defaults={
+                    'envio': envio,
+                    'estado': estado,
+                    'dimension_embedding': dimension,
+                    'tiempo_generacion_ms': tiempo_generacion_ms,
+                    'modelo_usado': modelo_usado,
+                    'tipo_proceso': tipo_proceso,
+                    'mensaje_error': mensaje_error,
+                }
+            )
+        else:
+            # Si no hay embedding (por ejemplo, en caso de error), crear nuevo registro
+            registro = registro_embedding_repository.crear(
+                envio=envio,
+                estado=estado,
+                dimension_embedding=dimension,
+                tiempo_generacion_ms=tiempo_generacion_ms,
+                modelo_usado=modelo_usado,
+                tipo_proceso=tipo_proceso,
+                mensaje_error=mensaje_error,
+                embedding=embedding
+            )
+            creado = True
         
+        accion = "creado" if creado else "actualizado"
         BaseService.log_info(
-            f"Registro de generación de embedding: {envio.hawb} - {estado}",
+            f"Registro de generación de embedding: {envio.hawb} - {estado} ({accion})",
             extra={'registro_id': registro.id, 'envio_id': envio.id}
         )
         
@@ -423,7 +445,8 @@ class MetricaRendimientoService(BaseService):
         """Obtiene estadísticas de rendimiento"""
         if proceso:
             return metrica_rendimiento_repository.obtener_estadisticas_por_proceso(proceso, nivel_carga)
-        return {}
+        # Si no se especifica proceso, retornar estadísticas generales
+        return metrica_rendimiento_repository.obtener_estadisticas_generales(nivel_carga)
 
 
 class ExportacionMetricasService(BaseService):
@@ -506,6 +529,52 @@ class ExportacionMetricasService(BaseService):
                 f"{metrica.uso_ram_mb:.2f}",
                 metrica.nivel_carga or '',
                 'Sí' if metrica.exito else 'No'
+            ])
+        
+        return output.getvalue()
+    
+    @staticmethod
+    def exportar_pruebas_carga_csv() -> str:
+        """
+        Exporta pruebas de carga a formato CSV.
+        
+        Returns:
+            str: Contenido del CSV
+        """
+        import csv
+        from io import StringIO
+        
+        output = StringIO()
+        writer = csv.writer(output)
+        
+        # Encabezados
+        writer.writerow([
+            'ID', 'Nombre', 'Tipo Prueba', 'Nivel Carga', 'Fecha Ejecución',
+            'Tiempo Promedio (ms)', 'Tiempo Mínimo (ms)', 'Tiempo Máximo (ms)',
+            'CPU Promedio (%)', 'CPU Máximo (%)', 'RAM Promedio (MB)', 'RAM Máximo (MB)',
+            'Total Exitosos', 'Total Errores', 'Ejecutado Por'
+        ])
+        
+        # Datos
+        pruebas = prueba_carga_repository.listar().order_by('-fecha_ejecucion')
+        
+        for prueba in pruebas:
+            writer.writerow([
+                prueba.id,
+                prueba.nombre,
+                prueba.tipo_prueba,
+                prueba.nivel_carga,
+                prueba.fecha_ejecucion.isoformat(),
+                f"{prueba.tiempo_promedio_ms:.2f}",
+                prueba.tiempo_minimo_ms,
+                prueba.tiempo_maximo_ms,
+                f"{prueba.cpu_promedio:.2f}" if prueba.cpu_promedio else '',
+                f"{prueba.cpu_maximo:.2f}" if prueba.cpu_maximo else '',
+                f"{prueba.ram_promedio_mb:.2f}" if prueba.ram_promedio_mb else '',
+                f"{prueba.ram_maximo_mb:.2f}" if prueba.ram_maximo_mb else '',
+                prueba.total_exitosos,
+                prueba.total_errores,
+                prueba.ejecutado_por.username if prueba.ejecutado_por else ''
             ])
         
         return output.getvalue()

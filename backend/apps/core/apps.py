@@ -35,3 +35,4 @@ class CoreConfig(AppConfig):
 
 
 
+

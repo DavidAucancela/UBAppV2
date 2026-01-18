@@ -128,6 +128,15 @@ else:
         }
     }
 
+# Información de diagnóstico de la base de datos
+DB_CONFIG_INFO = {
+    'host': DATABASES['default'].get('HOST', 'unknown'),
+    'port': DATABASES['default'].get('PORT', 'unknown'),
+    'name': DATABASES['default'].get('NAME', 'unknown'),
+    'is_local': is_local if 'is_local' in locals() else db_host in ('localhost', '127.0.0.1', '::1'),
+    'using_supabase': 'supabase.co' in str(db_host) if 'db_host' in locals() else False
+}
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

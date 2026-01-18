@@ -1,24 +1,19 @@
 <div class="tarifas-container">
-  <!-- Header -->
-  <div class="tarifas-header">
-    <div class="container">
-      <div class="header-content">
-        <div class="header-icon">
-          <i class="fas fa-dollar-sign"></i>
-        </div>
-        <div class="header-text">
-          <h1>Gestión de Tarifas</h1>
-          <p>Administra las tarifas de envío por categoría y peso</p>
-        </div>
-        <button 
-          class="btn btn-primary btn-header"
-          (click)="openCreateModal()"
-          *ngIf="authService.isAdmin() || authService.isGerente()"
-        >
-          <i class="fas fa-plus"></i>
-          Nueva Tarifa
-        </button>
-      </div>
+  <!-- Encabezado mejorado con estilo de otros módulos -->
+  <div class="encabezado">
+    <h1 class="titulo-principal">
+      <i class="fas fa-dollar-sign"></i>
+      Gestión de Tarifas
+    </h1>
+    <p class="subtitulo">Administra las tarifas de envío por categoría y peso</p>
+    <div class="encabezado-acciones" *ngIf="authService.isAdmin() || authService.isGerente()">
+      <button 
+        class="btn btn-primary"
+        (click)="openCreateModal()"
+      >
+        <i class="fas fa-plus"></i>
+        Nueva Tarifa
+      </button>
     </div>
   </div>
 

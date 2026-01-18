@@ -1,0 +1,239 @@
+{
+  "config": {
+    "base_url": "http://localhost:8000",
+    "iteraciones": 1,
+    "fecha": "2026-01-14T03:50:57.436520"
+  },
+  "operaciones": {
+    "ingresar_usuario": {
+      "nombre": "Ingresar usuario (login)",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        2060.8249999349937
+      ],
+      "tiempo_promedio_ms": 2060.8249999349937,
+      "tiempo_maximo_ms": 2060.8249999349937,
+      "categoria_tiempo": "Aceptable",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.8671875,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "registrar_nuevo_usuario": {
+      "nombre": "Registrar nuevo usuario",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        1395.0166999129578
+      ],
+      "tiempo_promedio_ms": 1395.0166999129578,
+      "tiempo_maximo_ms": 1395.0166999129578,
+      "categoria_tiempo": "Aceptable",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.875,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "restablecer_contrasena": {
+      "nombre": "Restablecer contraseña",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        13.453599996864796
+      ],
+      "tiempo_promedio_ms": 13.453599996864796,
+      "tiempo_maximo_ms": 13.453599996864796,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.875,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "crear_nuevo_usuario": {
+      "nombre": "Crear nuevo usuario (admin)",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        14.124799985438585
+      ],
+      "tiempo_promedio_ms": 14.124799985438585,
+      "tiempo_maximo_ms": 14.124799985438585,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.87890625,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "listar_usuarios": {
+      "nombre": "Listar usuarios",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        3.3458999823778868
+      ],
+      "tiempo_promedio_ms": 3.3458999823778868,
+      "tiempo_maximo_ms": 3.3458999823778868,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.8828125,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "modificar_perfil": {
+      "nombre": "Modificar perfil",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        5.306999897584319
+      ],
+      "tiempo_promedio_ms": 5.306999897584319,
+      "tiempo_maximo_ms": 5.306999897584319,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.88671875,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "crear_nuevo_envio": {
+      "nombre": "Crear nuevo envío",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        7.061099982820451
+      ],
+      "tiempo_promedio_ms": 7.061099982820451,
+      "tiempo_maximo_ms": 7.061099982820451,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.89453125,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "modificar_envio": {
+      "nombre": "Modificar envío",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        18.532900023274124
+      ],
+      "tiempo_promedio_ms": 18.532900023274124,
+      "tiempo_maximo_ms": 18.532900023274124,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.9375,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "crear_producto": {
+      "nombre": "Crear producto",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        18.00599996931851
+      ],
+      "tiempo_promedio_ms": 18.00599996931851,
+      "tiempo_maximo_ms": 18.00599996931851,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.9375,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "crear_tarifa": {
+      "nombre": "Crear tarifa",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        29.695999925024807
+      ],
+      "tiempo_promedio_ms": 29.695999925024807,
+      "tiempo_maximo_ms": 29.695999925024807,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.9375,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "importar_envios": {
+      "nombre": "Importar envíos",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        27.73550001438707
+      ],
+      "tiempo_promedio_ms": 27.73550001438707,
+      "tiempo_maximo_ms": 27.73550001438707,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.94140625,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "exportar_envios": {
+      "nombre": "Exportar envíos",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        14.217599993571639
+      ],
+      "tiempo_promedio_ms": 14.217599993571639,
+      "tiempo_maximo_ms": 14.217599993571639,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.94140625,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "buscar_envios": {
+      "nombre": "Buscar envíos (búsqueda básica)",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        3.997200052253902
+      ],
+      "tiempo_promedio_ms": 3.997200052253902,
+      "tiempo_maximo_ms": 3.997200052253902,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.94921875,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    },
+    "buscar_semantica": {
+      "nombre": "Buscar semánticamente",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        4.310599993914366
+      ],
+      "tiempo_promedio_ms": 4.310599993914366,
+      "tiempo_maximo_ms": 4.310599993914366,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 0.0,
+      "ram_promedio_mb": 147.953125,
+      "calificacion_cpu": 100,
+      "calificacion_ram": 100
+    }
+  },
+  "resumen_global": {
+    "tiempo_promedio_ms_global": 258.2592785474844,
+    "categoria_global_tiempo": "Excelente",
+    "cpu_promedio_global": 0.0,
+    "ram_promedio_mb_global": 147.91127232142858
+  }
+}

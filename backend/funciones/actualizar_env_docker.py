@@ -5,7 +5,7 @@ from pathlib import Path
 import shutil
 
 def actualizar_env():
-    env_path = Path(__file__).parent / '.env'
+    env_path = Path(__file__).resolve().parent / '.env'
     
     if not env_path.exists():
         print("[ERROR] Archivo .env no encontrado")

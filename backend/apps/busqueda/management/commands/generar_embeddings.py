@@ -1,13 +1,14 @@
 """
 Comando de Django para generar embeddings de envíos usando OpenAI
-Uso: python manage.py generar_embeddings [--regenerar] [--limite N]
+Uso: python manage.py generar_embeddings [--regenerar] [--limite N] [--modelo MODELO]
 """
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from apps.archivos.models import Envio
 from apps.busqueda.models import EnvioEmbedding
-from openai import OpenAI
+from apps.busqueda.semantic.embedding_service import EmbeddingService
+from apps.busqueda.repositories import embedding_repository
 import time
 
 
@@ -27,6 +28,12 @@ class Command(BaseCommand):
             help='Límite de envíos a procesar',
         )
         parser.add_argument(
+            '--modelo',
+            type=str,
+            default=None,
+            help='Modelo de embedding a usar (text-embedding-3-small, text-embedding-3-large, text-embedding-ada-002). Por defecto usa el configurado en settings.',
+        )
+        parser.add_argument(
             '--batch-size',
             type=int,
             default=10,
@@ -37,22 +44,32 @@ class Command(BaseCommand):
         regenerar = options['regenerar']
         limite = options['limite']
         batch_size = options['batch_size']
+        modelo = options['modelo']
         
-        # Inicializar cliente OpenAI
-        client = OpenAI(api_key=settings.OPENAI_API_KEY)
+        # Determinar modelo a usar
+        if modelo:
+            modelo = EmbeddingService.validar_modelo(modelo)
+        else:
+            modelo = EmbeddingService.get_modelo_default()
+        
+        self.stdout.write(
+            self.style.SUCCESS(f'Usando modelo: {modelo}')
+        )
         
         # Obtener envíos a procesar
         if regenerar:
             self.stdout.write(
                 self.style.WARNING('Modo regenerar activado: se recrearán todos los embeddings')
             )
+            # Eliminar embeddings existentes para este modelo
+            EnvioEmbedding.objects.filter(modelo_usado=modelo).delete()
+            self.stdout.write(self.style.SUCCESS(f'Embeddings existentes para {modelo} eliminados'))
             envios = Envio.objects.all()
-            # Eliminar embeddings existentes si se regenera
-            EnvioEmbedding.objects.all().delete()
-            self.stdout.write(self.style.SUCCESS('Embeddings existentes eliminados'))
         else:
-            # Solo procesar envíos sin embedding
-            envios_con_embedding = EnvioEmbedding.objects.values_list('envio_id', flat=True)
+            # Solo procesar envíos sin embedding para este modelo específico
+            envios_con_embedding = EnvioEmbedding.objects.filter(
+                modelo_usado=modelo
+            ).values_list('envio_id', flat=True)
             envios = Envio.objects.exclude(id__in=envios_con_embedding)
         
         if limite:
@@ -62,41 +79,30 @@ class Command(BaseCommand):
         
         if total_envios == 0:
             self.stdout.write(
-                self.style.SUCCESS('✅ No hay envíos para procesar. Todos tienen embeddings.')
+                self.style.SUCCESS(f'No hay envíos para procesar. Todos tienen embeddings para {modelo}.')
             )
             return
         
         self.stdout.write(
-            self.style.SUCCESS(f'📦 Procesando {total_envios} envíos...')
+            self.style.SUCCESS(f'Procesando {total_envios} envíos con modelo {modelo}...')
         )
         
-        # Procesar envíos
+        # Procesar envíos usando el servicio de embeddings
         procesados = 0
         errores = 0
+        tokens_total = 0
+        costo_total = 0.0
         tiempo_inicio = time.time()
         
         for i, envio in enumerate(envios, 1):
             try:
-                # Generar texto descriptivo
-                texto = self._generar_texto_envio(envio)
-                
-                # Generar embedding
-                response = client.embeddings.create(
-                    model=settings.OPENAI_EMBEDDING_MODEL,
-                    input=texto,
-                    encoding_format="float"
-                )
-                
-                vector = response.data[0].embedding
-                
-                # Guardar embedding
-                envio_embedding = EnvioEmbedding.objects.create(
+                # Usar el servicio de embeddings que maneja todo correctamente
+                embedding = EmbeddingService.generar_embedding_envio(
                     envio=envio,
-                    texto_indexado=texto,
-                    modelo_usado=settings.OPENAI_EMBEDDING_MODEL
+                    modelo=modelo,
+                    forzar_regeneracion=regenerar,
+                    tipo_proceso='masivo'
                 )
-                envio_embedding.set_vector(vector)
-                envio_embedding.save()
                 
                 procesados += 1
                 
@@ -108,12 +114,12 @@ class Command(BaseCommand):
                         f'Procesados: {procesados}, Errores: {errores}'
                     )
                     # Pequeña pausa para no saturar la API
-                    time.sleep(0.5)
+                    time.sleep(0.1)
                 
             except Exception as e:
                 errores += 1
                 self.stdout.write(
-                    self.style.ERROR(f'❌ Error procesando envío {envio.hawb}: {str(e)}')
+                    self.style.ERROR(f'Error procesando envío {envio.hawb}: {str(e)}')
                 )
                 continue
         
@@ -121,37 +127,15 @@ class Command(BaseCommand):
         tiempo_total = time.time() - tiempo_inicio
         
         self.stdout.write('\n' + '='*60)
-        self.stdout.write(self.style.SUCCESS('✅ PROCESO COMPLETADO'))
+        self.stdout.write(self.style.SUCCESS('PROCESO COMPLETADO'))
         self.stdout.write('='*60)
+        self.stdout.write(f'Modelo usado: {modelo}')
         self.stdout.write(f'Total procesados: {procesados}')
         self.stdout.write(f'Errores: {errores}')
         self.stdout.write(f'Tiempo total: {tiempo_total:.2f} segundos')
-        self.stdout.write(f'Tiempo promedio por envío: {tiempo_total/total_envios:.2f}s')
+        if total_envios > 0:
+            self.stdout.write(f'Tiempo promedio por envío: {tiempo_total/total_envios:.2f}s')
         self.stdout.write('='*60)
-
-    def _generar_texto_envio(self, envio):
-        """Genera texto descriptivo del envío para indexación"""
-        partes = [
-            f"HAWB: {envio.hawb}",
-            f"Comprador: {envio.comprador.nombre}",
-            f"Ciudad: {envio.comprador.ciudad or 'No especificada'}",
-            f"Estado: {envio.get_estado_display()}",
-            f"Fecha: {envio.fecha_emision.strftime('%Y-%m-%d')}",
-            f"Peso: {envio.peso_total} kg",
-            f"Valor: ${envio.valor_total}",
-        ]
-        
-        # Agregar información de productos
-        productos = envio.productos.all()
-        if productos:
-            descripciones = [p.descripcion for p in productos[:5]]
-            partes.append(f"Productos: {', '.join(descripciones)}")
-        
-        # Agregar observaciones si existen
-        if envio.observaciones:
-            partes.append(f"Observaciones: {envio.observaciones}")
-        
-        return " | ".join(partes)
 
 
 

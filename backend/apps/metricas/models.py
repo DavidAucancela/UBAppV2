@@ -491,3 +491,233 @@ class RegistroManualEnvio(models.Model):
 
     def __str__(self):
         return f"Registro Manual {self.hawb} - {self.tiempo_registro_segundos}s"
+
+
+class PruebaRendimientoCompleta(models.Model):
+    """
+    Modelo para almacenar resultados completos de pruebas de rendimiento del sistema.
+    Guarda los resultados del comando pruebas_rendimiento.py
+    """
+    fecha_ejecucion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Ejecución")
+    usuario_ejecutor = models.ForeignKey(
+        Usuario,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='pruebas_rendimiento_ejecutadas',
+        verbose_name="Usuario Ejecutor"
+    )
+    
+    # Resultados completos en JSON
+    resultados_json = models.JSONField(
+        verbose_name="Resultados Completos",
+        help_text="Resultados completos de la prueba en formato JSON"
+    )
+    
+    # Resumen estadístico
+    tiempo_respuesta_manual_promedio = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name="Tiempo Manual Promedio (s)"
+    )
+    tiempo_respuesta_web_promedio = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name="Tiempo Web Promedio (s)"
+    )
+    mejora_factor = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name="Factor de Mejora"
+    )
+    
+    # Estado
+    completada = models.BooleanField(
+        default=True,
+        verbose_name="Completada"
+    )
+    errores = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Errores Encontrados"
+    )
+    
+    # Salida completa del comando
+    salida_completa = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Salida Completa",
+        help_text="Salida completa del comando para referencia"
+    )
+
+    class Meta:
+        db_table = 'prueba_rendimiento_completa'
+        verbose_name = 'Prueba de Rendimiento Completa'
+        verbose_name_plural = 'Pruebas de Rendimiento Completas'
+        ordering = ['-fecha_ejecucion']
+        indexes = [
+            models.Index(fields=['-fecha_ejecucion']),
+            models.Index(fields=['usuario_ejecutor']),
+            models.Index(fields=['completada']),
+        ]
+
+    def __str__(self):
+        return f"Prueba Rendimiento - {self.fecha_ejecucion.strftime('%Y-%m-%d %H:%M:%S')}"
+
+
+class DetalleProcesoRendimiento(models.Model):
+    """
+    Modelo para almacenar detalles individuales de cada proceso (M1-M14).
+    Permite análisis detallado y comparaciones entre procesos.
+    """
+    PROCESOS_CHOICES = [
+        ('M1', 'M1 - Ingresar usuario'),
+        ('M2', 'M2 - Registrar nuevo usuario'),
+        ('M3', 'M3 - Restablecer contraseña'),
+        ('M4', 'M4 - Crear nuevo usuario'),
+        ('M5', 'M5 - Listar usuarios'),
+        ('M6', 'M6 - Modificar perfil'),
+        ('M7', 'M7 - Crear nuevo envío'),
+        ('M8', 'M8 - Modificar envío'),
+        ('M9', 'M9 - Crear producto'),
+        ('M10', 'M10 - Crear tarifa'),
+        ('M11', 'M11 - Importar envíos'),
+        ('M12', 'M12 - Exportar envíos'),
+        ('M13', 'M13 - Buscar envíos'),
+        ('M14', 'M14 - Buscar semánticamente'),
+    ]
+    
+    CATEGORIA_TIEMPO_CHOICES = [
+        ('Excelente', 'Excelente (0-1s)'),
+        ('Aceptable', 'Aceptable (1-3s)'),
+        ('Deficiente', 'Deficiente (3-10s)'),
+        ('Inaceptable', 'Inaceptable (>10s)'),
+    ]
+    
+    CATEGORIA_CPU_CHOICES = [
+        ('Excelente', 'Excelente (0-0.5%)'),
+        ('Muy bueno', 'Muy bueno (0.6-1.5%)'),
+        ('Bueno', 'Bueno (1.6-2.5%)'),
+        ('Aceptable', 'Aceptable (2.6-3.5%)'),
+        ('Regular', 'Regular (3.6-4.5%)'),
+        ('Malo', 'Malo (>4.6%)'),
+    ]
+    
+    CATEGORIA_RAM_CHOICES = [
+        ('Excelente', 'Excelente (0-150 MB)'),
+        ('Muy bueno', 'Muy bueno (151-250 MB)'),
+        ('Bueno', 'Bueno (251-350 MB)'),
+        ('Aceptable', 'Aceptable (351-450 MB)'),
+        ('Regular', 'Regular (451-550 MB)'),
+        ('Malo', 'Malo (>551 MB)'),
+    ]
+    
+    # Relación con prueba completa
+    prueba = models.ForeignKey(
+        PruebaRendimientoCompleta,
+        on_delete=models.CASCADE,
+        related_name='detalles_procesos',
+        verbose_name="Prueba de Rendimiento"
+    )
+    
+    # Identificación del proceso
+    codigo_proceso = models.CharField(
+        max_length=10,
+        choices=PROCESOS_CHOICES,
+        verbose_name="Código del Proceso"
+    )
+    nombre_proceso = models.CharField(
+        max_length=200,
+        verbose_name="Nombre del Proceso"
+    )
+    
+    # Estadísticas de tiempo (segundos)
+    tiempo_media = models.FloatField(verbose_name="Tiempo Media (s)")
+    tiempo_minimo = models.FloatField(verbose_name="Tiempo Mínimo (s)")
+    tiempo_maximo = models.FloatField(verbose_name="Tiempo Máximo (s)")
+    tiempo_mediana = models.FloatField(verbose_name="Tiempo Mediana (s)")
+    tiempo_desviacion = models.FloatField(verbose_name="Tiempo Desv. Est. (s)")
+    
+    # Estadísticas de CPU (porcentaje)
+    cpu_media = models.FloatField(verbose_name="CPU Media (%)")
+    cpu_minimo = models.FloatField(verbose_name="CPU Mínimo (%)")
+    cpu_maximo = models.FloatField(verbose_name="CPU Máximo (%)")
+    cpu_mediana = models.FloatField(verbose_name="CPU Mediana (%)")
+    cpu_desviacion = models.FloatField(verbose_name="CPU Desv. Est. (%)")
+    
+    # Estadísticas de RAM (KB)
+    ram_media = models.FloatField(verbose_name="RAM Media (KB)")
+    ram_minimo = models.FloatField(verbose_name="RAM Mínimo (KB)")
+    ram_maximo = models.FloatField(verbose_name="RAM Máximo (KB)")
+    ram_mediana = models.FloatField(verbose_name="RAM Mediana (KB)")
+    ram_desviacion = models.FloatField(verbose_name="RAM Desv. Est. (KB)")
+    
+    # Evaluaciones según tablas de ponderación
+    categoria_tiempo = models.CharField(
+        max_length=20,
+        choices=CATEGORIA_TIEMPO_CHOICES,
+        verbose_name="Categoría Tiempo"
+    )
+    calificacion_tiempo = models.IntegerField(verbose_name="Calificación Tiempo (0-100)")
+    
+    categoria_cpu = models.CharField(
+        max_length=20,
+        choices=CATEGORIA_CPU_CHOICES,
+        verbose_name="Categoría CPU"
+    )
+    calificacion_cpu = models.IntegerField(verbose_name="Calificación CPU (0-100)")
+    
+    categoria_ram = models.CharField(
+        max_length=20,
+        choices=CATEGORIA_RAM_CHOICES,
+        verbose_name="Categoría RAM"
+    )
+    calificacion_ram = models.IntegerField(verbose_name="Calificación RAM (0-100)")
+    
+    # Número de iteraciones y errores
+    iteraciones_completadas = models.IntegerField(verbose_name="Iteraciones Completadas")
+    iteraciones_totales = models.IntegerField(verbose_name="Iteraciones Totales")
+    total_errores = models.IntegerField(default=0, verbose_name="Total de Errores")
+    
+    # Datos raw para análisis posterior
+    tiempos_raw = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name="Tiempos Raw",
+        help_text="Array con todos los tiempos medidos"
+    )
+    cpus_raw = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name="CPUs Raw",
+        help_text="Array con todos los valores de CPU medidos"
+    )
+    rams_raw = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name="RAMs Raw",
+        help_text="Array con todos los valores de RAM medidos"
+    )
+    errores_detalle = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name="Errores Detalle",
+        help_text="Lista de errores encontrados durante la ejecución"
+    )
+    
+    fecha_medicion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Medición")
+    
+    class Meta:
+        db_table = 'detalle_proceso_rendimiento'
+        verbose_name = 'Detalle de Proceso de Rendimiento'
+        verbose_name_plural = 'Detalles de Procesos de Rendimiento'
+        ordering = ['prueba', 'codigo_proceso']
+        indexes = [
+            models.Index(fields=['prueba', 'codigo_proceso']),
+            models.Index(fields=['codigo_proceso', '-fecha_medicion']),
+            models.Index(fields=['categoria_tiempo']),
+            models.Index(fields=['categoria_cpu']),
+            models.Index(fields=['categoria_ram']),
+        ]
+    
+    def __str__(self):
+        return f"{self.codigo_proceso} - {self.nombre_proceso} (Prueba {self.prueba.id})"

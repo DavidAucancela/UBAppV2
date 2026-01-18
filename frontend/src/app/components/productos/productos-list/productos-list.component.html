@@ -1,36 +1,32 @@
 
 <div class="productos-container">
-  <!-- Header -->
-  <div class="card">
-    <div class="card-header">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-
-      <div class="header-text">
-        <h1>Gestión de Productos</h1>
-        <p>Detalle de los productos del sistema</p>
-      </div>
-      <div class="header-actions">
-        <button 
-          class="btn btn-icon-view"
-          (click)="toggleViewMode()"
-          [title]="viewMode === 'grid' ? 'Vista de tabla' : 'Vista de tarjetas'"
-        >
-          <i class="fas" [ngClass]="viewMode === 'grid' ? 'fa-table' : 'fa-th'"></i>
-        </button>
-        <button 
-          class="btn btn-primary"
-          (click)="openCreateModal()"
-        >
-          <i class="fas fa-plus"></i>
-          Nuevo Producto
-        </button>
-      </div>
+  <!-- Encabezado mejorado con estilo de otros módulos -->
+  <div class="encabezado">
+    <h1 class="titulo-principal">
+      <i class="fas fa-box"></i>
+      Gestión de Productos
+    </h1>
+    <p class="subtitulo">Detalle de los productos del sistema</p>
+    <div class="encabezado-acciones">
+      <button 
+        class="btn btn-icon-view"
+        (click)="toggleViewMode()"
+        [title]="viewMode === 'grid' ? 'Vista de tabla' : 'Vista de tarjetas'"
+      >
+        <i class="fas" [ngClass]="viewMode === 'grid' ? 'fa-table' : 'fa-th'"></i>
+      </button>
+      <button 
+        class="btn btn-primary"
+        (click)="openCreateModal()"
+      >
+        <i class="fas fa-plus"></i>
+        Nuevo Producto
+      </button>
     </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="card">
 
     <!-- Filters -->
     <div class="filters-section">
@@ -76,20 +72,45 @@
     <div class="results-summary">
       <span class="results-count">
         <i class="fas fa-list"></i>
-        Mostrando {{ paginatedProductos.length }} de {{ filteredProductos.length }} productos
+        <span *ngIf="totalResultados > 0">
+          Mostrando {{ inicioRango }} - {{ finRango }} de {{ totalResultados }} productos
+          <span *ngIf="totalPaginas > 1">
+            (Página {{ paginaActual }} de {{ totalPaginas }})
+          </span>
+        </span>
+        <span *ngIf="totalResultados === 0">
+          No se encontraron productos
+        </span>
       </span>
-      <div class="sort-controls">
-        <label>Ordenar por:</label>
-        <select class="form-control form-control-sm" [(ngModel)]="sortBy" (change)="onSortChange(sortBy)">
-          <option value="descripcion">Descripción</option>
-          <option value="categoria">Categoría</option>
-          <option value="peso">Peso</option>
-          <option value="cantidad">Cantidad</option>
-          <option value="valor">Valor</option>
-        </select>
-        <button class="btn-sort" (click)="sortOrder = sortOrder === 'asc' ? 'desc' : 'asc'; applyFilters()">
-          <i class="fas" [ngClass]="sortOrder === 'asc' ? 'fa-sort-up' : 'fa-sort-down'"></i>
-        </button>
+      <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+        <div class="sort-controls">
+          <label>Ordenar por:</label>
+          <select class="form-control form-control-sm" [(ngModel)]="sortBy" (change)="onSortChange(sortBy)">
+            <option value="descripcion">Descripción</option>
+            <option value="categoria">Categoría</option>
+            <option value="peso">Peso</option>
+            <option value="cantidad">Cantidad</option>
+            <option value="valor">Valor</option>
+          </select>
+          <button class="btn-sort" (click)="sortOrder = sortOrder === 'asc' ? 'desc' : 'asc'; applyFilters()">
+            <i class="fas" [ngClass]="sortOrder === 'asc' ? 'fa-sort-up' : 'fa-sort-down'"></i>
+          </button>
+        </div>
+        <div class="controles-paginacion-header">
+          <label>
+            <i class="fas fa-list"></i>
+            Mostrar:
+          </label>
+          <select 
+            class="select-elementos"
+            [value]="itemsPerPage"
+            (change)="cambiarElementosPorPagina(+$any($event.target).value)"
+          >
+            <option *ngFor="let opcion of opcionesElementosPorPagina" [value]="opcion">
+              {{ opcion }}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
@@ -293,25 +314,50 @@
   </div>
 
   <!-- Pagination -->
-  <div class="card" *ngIf="!loading && totalPages > 1">
-    <div class="pagination">
+  <div class="card" *ngIf="!loading && totalPaginas > 1">
+    <div class="paginacion">
       <button 
-        class="btn btn-secondary"
-        (click)="previousPage()"
-        [disabled]="currentPage === 1"
+        class="btn-pagina"
+        (click)="paginaAnterior()"
+        [disabled]="paginaActual === 1"
       >
         <i class="fas fa-chevron-left"></i>
         Anterior
       </button>
-      
-      <span class="pagination-info">
-        Página {{ currentPage }} de {{ totalPages }}
-      </span>
-      
+
+      <div class="numeros-pagina">
+        <button 
+          *ngIf="paginaActual > 3"
+          class="btn-numero"
+          (click)="irAPagina(1)"
+        >
+          1
+        </button>
+        <span *ngIf="paginaActual > 3" class="puntos-suspension">...</span>
+
+        <button 
+          *ngFor="let pagina of obtenerRangoPaginas()"
+          class="btn-numero"
+          [class.activo]="pagina === paginaActual"
+          (click)="irAPagina(pagina)"
+        >
+          {{ pagina }}
+        </button>
+
+        <span *ngIf="paginaActual < totalPaginas - 2" class="puntos-suspension">...</span>
+        <button 
+          *ngIf="paginaActual < totalPaginas - 2"
+          class="btn-numero"
+          (click)="irAPagina(totalPaginas)"
+        >
+          {{ totalPaginas }}
+        </button>
+      </div>
+
       <button 
-        class="btn btn-secondary"
-        (click)="nextPage()"
-        [disabled]="currentPage === totalPages"
+        class="btn-pagina"
+        (click)="paginaSiguiente()"
+        [disabled]="paginaActual === totalPaginas"
       >
         Siguiente
         <i class="fas fa-chevron-right"></i>

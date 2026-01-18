@@ -1,7 +1,41 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.core.validators import MinLengthValidator
 from .validators import validar_cedula_ecuatoriana
+
+
+class UsuarioManager(BaseUserManager):
+    """Manager personalizado para Usuario que usa 'correo' en lugar de 'email'"""
+    
+    def create_user(self, username, correo=None, password=None, **extra_fields):
+        """Crea y guarda un usuario normal con correo"""
+        if not username:
+            raise ValueError('El usuario debe tener un username')
+        
+        # Normalizar correo si se proporciona
+        if correo:
+            correo = self.normalize_email(correo)
+        
+        # Crear usuario sin guardar
+        usuario = self.model(username=username, correo=correo, **extra_fields)
+        usuario.set_password(password)
+        usuario.save(using=self._db)
+        return usuario
+    
+    def create_superuser(self, username, correo=None, password=None, **extra_fields):
+        """Crea y guarda un superusuario"""
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('rol', 1)  # Admin
+        extra_fields.setdefault('is_active', True)
+        
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superusuario debe tener is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superusuario debe tener is_superuser=True.')
+        
+        return self.create_user(username, correo, password, **extra_fields)
+
 
 class Usuario(AbstractUser):
     """Modelo de usuario personalizado con roles"""
@@ -78,6 +112,9 @@ class Usuario(AbstractUser):
     # NO redefinir es_activo como campo - usar propiedad que apunta a is_active heredado
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
+    
+    # Manager personalizado
+    objects = UsuarioManager()
 
     class Meta:
         db_table = 'usuarios'

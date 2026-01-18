@@ -1,5 +1,1469 @@
 [
   {
+    "id": 3738,
+    "envio_id": 3437,
+    "texto_indexado": "envio test-1768464156470-0 con estado pendiente estado del envio pendiente codigo hawb test-1768464156470-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 0 contiene producto test 0 productos con detalles producto test 0 peso 5.25kg cantidad 2 valor 75.00 producto producto test 0 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 0 envio de prueba 0 envio test-1768464156470-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:35:18.594407+00:00"
+  },
+  {
+    "id": 3737,
+    "envio_id": 3438,
+    "texto_indexado": "envio test-1768464161887-1 con estado pendiente estado del envio pendiente codigo hawb test-1768464161887-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 1 contiene producto test 1 productos con detalles producto test 1 peso 5.25kg cantidad 2 valor 75.00 producto producto test 1 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 1 envio de prueba 1 envio test-1768464161887-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:35:15.828416+00:00"
+  },
+  {
+    "id": 3736,
+    "envio_id": 3439,
+    "texto_indexado": "envio test-1768464166609-2 con estado pendiente estado del envio pendiente codigo hawb test-1768464166609-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 2 contiene producto test 2 productos con detalles producto test 2 peso 5.25kg cantidad 2 valor 75.00 producto producto test 2 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 2 envio de prueba 2 envio test-1768464166609-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:35:12.429424+00:00"
+  },
+  {
+    "id": 3735,
+    "envio_id": 3440,
+    "texto_indexado": "envio test-1768464171519-3 con estado pendiente estado del envio pendiente codigo hawb test-1768464171519-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 3 contiene producto test 3 productos con detalles producto test 3 peso 5.25kg cantidad 2 valor 75.00 producto producto test 3 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 3 envio de prueba 3 envio test-1768464171519-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:35:09.789824+00:00"
+  },
+  {
+    "id": 3734,
+    "envio_id": 3441,
+    "texto_indexado": "envio test-1768464176738-4 con estado pendiente estado del envio pendiente codigo hawb test-1768464176738-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 4 contiene producto test 4 productos con detalles producto test 4 peso 5.25kg cantidad 2 valor 75.00 producto producto test 4 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 4 envio de prueba 4 envio test-1768464176738-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:35:07.289260+00:00"
+  },
+  {
+    "id": 3733,
+    "envio_id": 3442,
+    "texto_indexado": "envio test-1768464181628-5 con estado pendiente estado del envio pendiente codigo hawb test-1768464181628-5 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 5 contiene producto test 5 productos con detalles producto test 5 peso 5.25kg cantidad 2 valor 75.00 producto producto test 5 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 5 envio de prueba 5 envio test-1768464181628-5 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:35:04.763716+00:00"
+  },
+  {
+    "id": 3732,
+    "envio_id": 3443,
+    "texto_indexado": "envio test-1768464186571-6 con estado pendiente estado del envio pendiente codigo hawb test-1768464186571-6 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 6 contiene producto test 6 productos con detalles producto test 6 peso 5.25kg cantidad 2 valor 75.00 producto producto test 6 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 6 envio de prueba 6 envio test-1768464186571-6 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:35:01.868301+00:00"
+  },
+  {
+    "id": 3731,
+    "envio_id": 3444,
+    "texto_indexado": "envio test-1768464191448-7 con estado pendiente estado del envio pendiente codigo hawb test-1768464191448-7 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 7 contiene producto test 7 productos con detalles producto test 7 peso 5.25kg cantidad 2 valor 75.00 producto producto test 7 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 7 envio de prueba 7 envio test-1768464191448-7 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:59.389291+00:00"
+  },
+  {
+    "id": 3730,
+    "envio_id": 3445,
+    "texto_indexado": "envio test-1768464196673-8 con estado pendiente estado del envio pendiente codigo hawb test-1768464196673-8 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 8 contiene producto test 8 productos con detalles producto test 8 peso 5.25kg cantidad 2 valor 75.00 producto producto test 8 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 8 envio de prueba 8 envio test-1768464196673-8 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:56.991513+00:00"
+  },
+  {
+    "id": 3729,
+    "envio_id": 3446,
+    "texto_indexado": "envio test-1768464201889-9 con estado pendiente estado del envio pendiente codigo hawb test-1768464201889-9 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 9 contiene producto test 9 productos con detalles producto test 9 peso 5.25kg cantidad 2 valor 75.00 producto producto test 9 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 9 envio de prueba 9 envio test-1768464201889-9 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:54.009435+00:00"
+  },
+  {
+    "id": 3728,
+    "envio_id": 3447,
+    "texto_indexado": "envio test-1768464207212-10 con estado pendiente estado del envio pendiente codigo hawb test-1768464207212-10 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 10 contiene producto test 10 productos con detalles producto test 10 peso 5.25kg cantidad 2 valor 75.00 producto producto test 10 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 10 envio de prueba 10 envio test-1768464207212-10 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:51.202584+00:00"
+  },
+  {
+    "id": 3727,
+    "envio_id": 3448,
+    "texto_indexado": "envio test-1768464212448-11 con estado pendiente estado del envio pendiente codigo hawb test-1768464212448-11 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 11 contiene producto test 11 productos con detalles producto test 11 peso 5.25kg cantidad 2 valor 75.00 producto producto test 11 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 11 envio de prueba 11 envio test-1768464212448-11 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:48.749470+00:00"
+  },
+  {
+    "id": 3726,
+    "envio_id": 3449,
+    "texto_indexado": "envio test-1768464217673-12 con estado pendiente estado del envio pendiente codigo hawb test-1768464217673-12 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 12 contiene producto test 12 productos con detalles producto test 12 peso 5.25kg cantidad 2 valor 75.00 producto producto test 12 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 12 envio de prueba 12 envio test-1768464217673-12 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:46.079958+00:00"
+  },
+  {
+    "id": 3725,
+    "envio_id": 3450,
+    "texto_indexado": "envio test-1768464222784-13 con estado pendiente estado del envio pendiente codigo hawb test-1768464222784-13 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 13 contiene producto test 13 productos con detalles producto test 13 peso 5.25kg cantidad 2 valor 75.00 producto producto test 13 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 13 envio de prueba 13 envio test-1768464222784-13 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:43.539452+00:00"
+  },
+  {
+    "id": 3724,
+    "envio_id": 3451,
+    "texto_indexado": "envio test-1768464227797-14 con estado pendiente estado del envio pendiente codigo hawb test-1768464227797-14 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 14 contiene producto test 14 productos con detalles producto test 14 peso 5.25kg cantidad 2 valor 75.00 producto producto test 14 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 14 envio de prueba 14 envio test-1768464227797-14 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:40.962172+00:00"
+  },
+  {
+    "id": 3723,
+    "envio_id": 3452,
+    "texto_indexado": "envio test-1768464233139-15 con estado pendiente estado del envio pendiente codigo hawb test-1768464233139-15 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 15 contiene producto test 15 productos con detalles producto test 15 peso 5.25kg cantidad 2 valor 75.00 producto producto test 15 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 15 envio de prueba 15 envio test-1768464233139-15 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:38.439310+00:00"
+  },
+  {
+    "id": 3722,
+    "envio_id": 3453,
+    "texto_indexado": "envio test-1768464238187-16 con estado pendiente estado del envio pendiente codigo hawb test-1768464238187-16 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 16 contiene producto test 16 productos con detalles producto test 16 peso 5.25kg cantidad 2 valor 75.00 producto producto test 16 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 16 envio de prueba 16 envio test-1768464238187-16 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:35.795387+00:00"
+  },
+  {
+    "id": 3721,
+    "envio_id": 3454,
+    "texto_indexado": "envio test-1768464243380-17 con estado pendiente estado del envio pendiente codigo hawb test-1768464243380-17 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 17 contiene producto test 17 productos con detalles producto test 17 peso 5.25kg cantidad 2 valor 75.00 producto producto test 17 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 17 envio de prueba 17 envio test-1768464243380-17 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:33.188623+00:00"
+  },
+  {
+    "id": 3720,
+    "envio_id": 3455,
+    "texto_indexado": "envio test-1768464248329-18 con estado pendiente estado del envio pendiente codigo hawb test-1768464248329-18 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 18 contiene producto test 18 productos con detalles producto test 18 peso 5.25kg cantidad 2 valor 75.00 producto producto test 18 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 18 envio de prueba 18 envio test-1768464248329-18 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:30.638476+00:00"
+  },
+  {
+    "id": 3719,
+    "envio_id": 3456,
+    "texto_indexado": "envio test-1768464253609-19 con estado pendiente estado del envio pendiente codigo hawb test-1768464253609-19 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 19 contiene producto test 19 productos con detalles producto test 19 peso 5.25kg cantidad 2 valor 75.00 producto producto test 19 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 19 envio de prueba 19 envio test-1768464253609-19 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:28.288584+00:00"
+  },
+  {
+    "id": 3718,
+    "envio_id": 3457,
+    "texto_indexado": "envio test-1768464258837-20 con estado pendiente estado del envio pendiente codigo hawb test-1768464258837-20 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 20 contiene producto test 20 productos con detalles producto test 20 peso 5.25kg cantidad 2 valor 75.00 producto producto test 20 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 20 envio de prueba 20 envio test-1768464258837-20 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:25.718603+00:00"
+  },
+  {
+    "id": 3717,
+    "envio_id": 3458,
+    "texto_indexado": "envio test-1768464264088-21 con estado pendiente estado del envio pendiente codigo hawb test-1768464264088-21 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 21 contiene producto test 21 productos con detalles producto test 21 peso 5.25kg cantidad 2 valor 75.00 producto producto test 21 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 21 envio de prueba 21 envio test-1768464264088-21 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:23.149394+00:00"
+  },
+  {
+    "id": 3716,
+    "envio_id": 3459,
+    "texto_indexado": "envio test-1768464269280-22 con estado pendiente estado del envio pendiente codigo hawb test-1768464269280-22 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 22 contiene producto test 22 productos con detalles producto test 22 peso 5.25kg cantidad 2 valor 75.00 producto producto test 22 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 22 envio de prueba 22 envio test-1768464269280-22 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:20.501471+00:00"
+  },
+  {
+    "id": 3715,
+    "envio_id": 3460,
+    "texto_indexado": "envio test-1768464274491-23 con estado pendiente estado del envio pendiente codigo hawb test-1768464274491-23 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 23 contiene producto test 23 productos con detalles producto test 23 peso 5.25kg cantidad 2 valor 75.00 producto producto test 23 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 23 envio de prueba 23 envio test-1768464274491-23 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:18.158380+00:00"
+  },
+  {
+    "id": 3714,
+    "envio_id": 3461,
+    "texto_indexado": "envio test-1768464279447-24 con estado pendiente estado del envio pendiente codigo hawb test-1768464279447-24 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 24 contiene producto test 24 productos con detalles producto test 24 peso 5.25kg cantidad 2 valor 75.00 producto producto test 24 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 24 envio de prueba 24 envio test-1768464279447-24 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:15.729609+00:00"
+  },
+  {
+    "id": 3713,
+    "envio_id": 3462,
+    "texto_indexado": "envio test-1768464285098-25 con estado pendiente estado del envio pendiente codigo hawb test-1768464285098-25 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 25 contiene producto test 25 productos con detalles producto test 25 peso 5.25kg cantidad 2 valor 75.00 producto producto test 25 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 25 envio de prueba 25 envio test-1768464285098-25 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:13.048268+00:00"
+  },
+  {
+    "id": 3712,
+    "envio_id": 3463,
+    "texto_indexado": "envio test-1768464290479-26 con estado pendiente estado del envio pendiente codigo hawb test-1768464290479-26 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 26 contiene producto test 26 productos con detalles producto test 26 peso 5.25kg cantidad 2 valor 75.00 producto producto test 26 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 26 envio de prueba 26 envio test-1768464290479-26 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:10.359277+00:00"
+  },
+  {
+    "id": 3711,
+    "envio_id": 3464,
+    "texto_indexado": "envio test-1768464295738-27 con estado pendiente estado del envio pendiente codigo hawb test-1768464295738-27 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 27 contiene producto test 27 productos con detalles producto test 27 peso 5.25kg cantidad 2 valor 75.00 producto producto test 27 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 27 envio de prueba 27 envio test-1768464295738-27 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:07.329462+00:00"
+  },
+  {
+    "id": 3710,
+    "envio_id": 3465,
+    "texto_indexado": "envio test-1768464301125-28 con estado pendiente estado del envio pendiente codigo hawb test-1768464301125-28 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 0.00 productos incluidos producto test 28 contiene producto test 28 productos con detalles producto test 28 peso 5.25kg cantidad 2 valor 75.00 producto producto test 28 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 0 total de articulos 0 peso total productos 10.50 kg valor total productos 150.00 observaciones envio de prueba 28 envio de prueba 28 envio test-1768464301125-28 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:04.624350+00:00"
+  },
+  {
+    "id": 3709,
+    "envio_id": 3466,
+    "texto_indexado": "envio test-1768464306549-29 con estado pendiente estado del envio pendiente codigo hawb test-1768464306549-29 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 80.25 kg peso 80.25 kg valor total 1575.00 valor 1575.00 costo del servicio 0.00 productos incluidos producto nuevo 29 producto nuevo 28 producto nuevo 27 producto nuevo 26 producto nuevo 25 producto nuevo 24 producto nuevo 23 producto nuevo 22 producto nuevo 21 producto nuevo 20 producto nuevo 19 producto nuevo 18 producto nuevo 17 producto nuevo 16 producto nuevo 15 producto nuevo 14 producto nuevo 13 producto nuevo 12 producto nuevo 11 producto nuevo 10 producto nuevo 9 producto nuevo 8 producto nuevo 7 producto nuevo 6 producto nuevo 5 producto nuevo 4 producto nuevo 3 producto nuevo 2 producto nuevo 1 producto nuevo 0 producto test 29 contiene producto nuevo 29 producto nuevo 28 producto nuevo 27 producto nuevo 26 producto nuevo 25 productos con detalles producto nuevo 29 peso 2.50kg valor 50.00 producto nuevo 28 peso 2.50kg valor 50.00 producto nuevo 27 peso 2.50kg valor 50.00 producto nuevo 26 peso 2.50kg valor 50.00 producto nuevo 25 peso 2.50kg valor 50.00 producto nuevo 24 peso 2.50kg valor 50.00 producto nuevo 23 peso 2.50kg valor 50.00 producto nuevo 22 peso 2.50kg valor 50.00 producto nuevo 21 peso 2.50kg valor 50.00 producto nuevo 20 peso 2.50kg valor 50.00 producto producto nuevo 29 producto producto nuevo 28 producto producto nuevo 27 producto producto nuevo 26 producto producto nuevo 25 producto producto nuevo 24 producto producto nuevo 23 producto producto nuevo 22 producto producto nuevo 21 producto producto nuevo 20 categorias de productos electronica tipos de productos electronica tecnologia electronicos dispositivos tecnologico equipos electronicos gadgets cantidad total de productos 32 total de articulos 32 peso total productos 85.50 kg valor total productos 1650.00 observaciones envio de prueba 29 envio de prueba 29 envio test-1768464306549-29 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:34:02.001654+00:00"
+  },
+  {
+    "id": 3708,
+    "envio_id": 3467,
+    "texto_indexado": "envio imp-1768464548454-0-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464548454-0-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464548454-0-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:59.500698+00:00"
+  },
+  {
+    "id": 3707,
+    "envio_id": 3468,
+    "texto_indexado": "envio imp-1768464550687-0-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464550687-0-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464550687-0-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:56.432078+00:00"
+  },
+  {
+    "id": 3706,
+    "envio_id": 3469,
+    "texto_indexado": "envio imp-1768464553027-0-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464553027-0-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464553027-0-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:53.757368+00:00"
+  },
+  {
+    "id": 3705,
+    "envio_id": 3470,
+    "texto_indexado": "envio imp-1768464555221-0-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464555221-0-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464555221-0-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:51.142990+00:00"
+  },
+  {
+    "id": 3704,
+    "envio_id": 3471,
+    "texto_indexado": "envio imp-1768464557429-0-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464557429-0-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464557429-0-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:48.339475+00:00"
+  },
+  {
+    "id": 3703,
+    "envio_id": 3472,
+    "texto_indexado": "envio imp-1768464572123-1-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464572123-1-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464572123-1-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:45.805561+00:00"
+  },
+  {
+    "id": 3702,
+    "envio_id": 3473,
+    "texto_indexado": "envio imp-1768464574330-1-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464574330-1-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464574330-1-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:43.378719+00:00"
+  },
+  {
+    "id": 3701,
+    "envio_id": 3474,
+    "texto_indexado": "envio imp-1768464576587-1-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464576587-1-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464576587-1-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:40.852760+00:00"
+  },
+  {
+    "id": 3700,
+    "envio_id": 3475,
+    "texto_indexado": "envio imp-1768464578929-1-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464578929-1-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464578929-1-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:38.320294+00:00"
+  },
+  {
+    "id": 3699,
+    "envio_id": 3476,
+    "texto_indexado": "envio imp-1768464581394-1-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464581394-1-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464581394-1-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:35.850303+00:00"
+  },
+  {
+    "id": 3698,
+    "envio_id": 3477,
+    "texto_indexado": "envio imp-1768464595850-2-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464595850-2-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464595850-2-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:33.282842+00:00"
+  },
+  {
+    "id": 3697,
+    "envio_id": 3478,
+    "texto_indexado": "envio imp-1768464598280-2-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464598280-2-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464598280-2-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:30.599940+00:00"
+  },
+  {
+    "id": 3696,
+    "envio_id": 3479,
+    "texto_indexado": "envio imp-1768464600644-2-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464600644-2-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464600644-2-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:28.004499+00:00"
+  },
+  {
+    "id": 3695,
+    "envio_id": 3480,
+    "texto_indexado": "envio imp-1768464602992-2-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464602992-2-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464602992-2-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:25.598539+00:00"
+  },
+  {
+    "id": 3694,
+    "envio_id": 3481,
+    "texto_indexado": "envio imp-1768464605349-2-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464605349-2-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464605349-2-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:22.920623+00:00"
+  },
+  {
+    "id": 3693,
+    "envio_id": 3482,
+    "texto_indexado": "envio imp-1768464620297-3-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464620297-3-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464620297-3-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:20.297069+00:00"
+  },
+  {
+    "id": 3692,
+    "envio_id": 3483,
+    "texto_indexado": "envio imp-1768464622500-3-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464622500-3-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464622500-3-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:17.521383+00:00"
+  },
+  {
+    "id": 3691,
+    "envio_id": 3484,
+    "texto_indexado": "envio imp-1768464624740-3-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464624740-3-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464624740-3-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:14.258113+00:00"
+  },
+  {
+    "id": 3690,
+    "envio_id": 3485,
+    "texto_indexado": "envio imp-1768464626869-3-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464626869-3-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464626869-3-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:10.741457+00:00"
+  },
+  {
+    "id": 3689,
+    "envio_id": 3486,
+    "texto_indexado": "envio imp-1768464629099-3-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464629099-3-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464629099-3-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:06.947224+00:00"
+  },
+  {
+    "id": 3688,
+    "envio_id": 3487,
+    "texto_indexado": "envio imp-1768464642939-4-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464642939-4-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464642939-4-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:04.309454+00:00"
+  },
+  {
+    "id": 3687,
+    "envio_id": 3488,
+    "texto_indexado": "envio imp-1768464645224-4-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464645224-4-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464645224-4-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:33:01.279185+00:00"
+  },
+  {
+    "id": 3686,
+    "envio_id": 3489,
+    "texto_indexado": "envio imp-1768464647488-4-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464647488-4-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464647488-4-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:58.668702+00:00"
+  },
+  {
+    "id": 3685,
+    "envio_id": 3490,
+    "texto_indexado": "envio imp-1768464649688-4-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464649688-4-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464649688-4-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:56.009240+00:00"
+  },
+  {
+    "id": 3684,
+    "envio_id": 3491,
+    "texto_indexado": "envio imp-1768464651928-4-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464651928-4-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464651928-4-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:53.088238+00:00"
+  },
+  {
+    "id": 3683,
+    "envio_id": 3492,
+    "texto_indexado": "envio imp-1768464665897-5-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464665897-5-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464665897-5-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:49.648622+00:00"
+  },
+  {
+    "id": 3682,
+    "envio_id": 3493,
+    "texto_indexado": "envio imp-1768464668073-5-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464668073-5-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464668073-5-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:47.213028+00:00"
+  },
+  {
+    "id": 3681,
+    "envio_id": 3494,
+    "texto_indexado": "envio imp-1768464670368-5-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464670368-5-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464670368-5-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:44.738889+00:00"
+  },
+  {
+    "id": 3680,
+    "envio_id": 3495,
+    "texto_indexado": "envio imp-1768464672629-5-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464672629-5-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464672629-5-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:42.288414+00:00"
+  },
+  {
+    "id": 3679,
+    "envio_id": 3496,
+    "texto_indexado": "envio imp-1768464675083-5-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464675083-5-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464675083-5-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:39.867581+00:00"
+  },
+  {
+    "id": 3678,
+    "envio_id": 3497,
+    "texto_indexado": "envio imp-1768464689437-6-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464689437-6-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464689437-6-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:37.307936+00:00"
+  },
+  {
+    "id": 3677,
+    "envio_id": 3498,
+    "texto_indexado": "envio imp-1768464691803-6-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464691803-6-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464691803-6-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:34.711190+00:00"
+  },
+  {
+    "id": 3676,
+    "envio_id": 3499,
+    "texto_indexado": "envio imp-1768464693945-6-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464693945-6-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464693945-6-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:32.203629+00:00"
+  },
+  {
+    "id": 3675,
+    "envio_id": 3500,
+    "texto_indexado": "envio imp-1768464696262-6-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464696262-6-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464696262-6-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:29.678325+00:00"
+  },
+  {
+    "id": 3674,
+    "envio_id": 3501,
+    "texto_indexado": "envio imp-1768464698741-6-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464698741-6-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464698741-6-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:27.268789+00:00"
+  },
+  {
+    "id": 3673,
+    "envio_id": 3502,
+    "texto_indexado": "envio imp-1768464712897-7-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464712897-7-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464712897-7-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:24.585972+00:00"
+  },
+  {
+    "id": 3672,
+    "envio_id": 3503,
+    "texto_indexado": "envio imp-1768464715108-7-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464715108-7-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464715108-7-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:22.049540+00:00"
+  },
+  {
+    "id": 3671,
+    "envio_id": 3504,
+    "texto_indexado": "envio imp-1768464717390-7-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464717390-7-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464717390-7-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:19.649252+00:00"
+  },
+  {
+    "id": 3670,
+    "envio_id": 3505,
+    "texto_indexado": "envio imp-1768464719858-7-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464719858-7-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464719858-7-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:17.279399+00:00"
+  },
+  {
+    "id": 3669,
+    "envio_id": 3506,
+    "texto_indexado": "envio imp-1768464722102-7-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464722102-7-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464722102-7-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:14.728700+00:00"
+  },
+  {
+    "id": 3668,
+    "envio_id": 3507,
+    "texto_indexado": "envio imp-1768464736247-8-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464736247-8-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464736247-8-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:12.109111+00:00"
+  },
+  {
+    "id": 3667,
+    "envio_id": 3508,
+    "texto_indexado": "envio imp-1768464738475-8-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464738475-8-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464738475-8-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:09.559447+00:00"
+  },
+  {
+    "id": 3666,
+    "envio_id": 3509,
+    "texto_indexado": "envio imp-1768464740638-8-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464740638-8-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464740638-8-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:07.159328+00:00"
+  },
+  {
+    "id": 3665,
+    "envio_id": 3510,
+    "texto_indexado": "envio imp-1768464742882-8-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464742882-8-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464742882-8-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:04.709202+00:00"
+  },
+  {
+    "id": 3664,
+    "envio_id": 3511,
+    "texto_indexado": "envio imp-1768464745249-8-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464745249-8-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464745249-8-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:32:02.269175+00:00"
+  },
+  {
+    "id": 3663,
+    "envio_id": 3512,
+    "texto_indexado": "envio imp-1768464759248-9-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464759248-9-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464759248-9-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:59.679107+00:00"
+  },
+  {
+    "id": 3662,
+    "envio_id": 3513,
+    "texto_indexado": "envio imp-1768464761418-9-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464761418-9-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464761418-9-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:57.179556+00:00"
+  },
+  {
+    "id": 3661,
+    "envio_id": 3514,
+    "texto_indexado": "envio imp-1768464763910-9-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464763910-9-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464763910-9-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:54.669598+00:00"
+  },
+  {
+    "id": 3660,
+    "envio_id": 3515,
+    "texto_indexado": "envio imp-1768464766162-9-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464766162-9-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464766162-9-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:51.910024+00:00"
+  },
+  {
+    "id": 3659,
+    "envio_id": 3516,
+    "texto_indexado": "envio imp-1768464768371-9-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464768371-9-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464768371-9-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:48.819744+00:00"
+  },
+  {
+    "id": 3658,
+    "envio_id": 3517,
+    "texto_indexado": "envio imp-1768464784550-10-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464784550-10-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464784550-10-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:46.210019+00:00"
+  },
+  {
+    "id": 3657,
+    "envio_id": 3518,
+    "texto_indexado": "envio imp-1768464786924-10-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464786924-10-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464786924-10-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:43.615877+00:00"
+  },
+  {
+    "id": 3656,
+    "envio_id": 3519,
+    "texto_indexado": "envio imp-1768464789368-10-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464789368-10-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464789368-10-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:41.049314+00:00"
+  },
+  {
+    "id": 3655,
+    "envio_id": 3520,
+    "texto_indexado": "envio imp-1768464792135-10-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464792135-10-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464792135-10-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:38.134014+00:00"
+  },
+  {
+    "id": 3654,
+    "envio_id": 3521,
+    "texto_indexado": "envio imp-1768464795560-10-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464795560-10-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464795560-10-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:35.262806+00:00"
+  },
+  {
+    "id": 3653,
+    "envio_id": 3522,
+    "texto_indexado": "envio imp-1768464811904-11-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464811904-11-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464811904-11-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:32.677951+00:00"
+  },
+  {
+    "id": 3652,
+    "envio_id": 3523,
+    "texto_indexado": "envio imp-1768464814566-11-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464814566-11-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464814566-11-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:30.219712+00:00"
+  },
+  {
+    "id": 3651,
+    "envio_id": 3524,
+    "texto_indexado": "envio imp-1768464816915-11-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464816915-11-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464816915-11-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:27.379517+00:00"
+  },
+  {
+    "id": 3650,
+    "envio_id": 3525,
+    "texto_indexado": "envio imp-1768464819125-11-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464819125-11-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464819125-11-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:24.659765+00:00"
+  },
+  {
+    "id": 3649,
+    "envio_id": 3526,
+    "texto_indexado": "envio imp-1768464821433-11-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464821433-11-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464821433-11-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:22.120880+00:00"
+  },
+  {
+    "id": 3648,
+    "envio_id": 3527,
+    "texto_indexado": "envio imp-1768464836163-12-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464836163-12-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464836163-12-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:19.579461+00:00"
+  },
+  {
+    "id": 3647,
+    "envio_id": 3528,
+    "texto_indexado": "envio imp-1768464838557-12-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464838557-12-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464838557-12-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:16.977745+00:00"
+  },
+  {
+    "id": 3646,
+    "envio_id": 3529,
+    "texto_indexado": "envio imp-1768464840879-12-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464840879-12-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464840879-12-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:14.465219+00:00"
+  },
+  {
+    "id": 3645,
+    "envio_id": 3530,
+    "texto_indexado": "envio imp-1768464843153-12-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464843153-12-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464843153-12-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:11.147837+00:00"
+  },
+  {
+    "id": 3644,
+    "envio_id": 3531,
+    "texto_indexado": "envio imp-1768464845423-12-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464845423-12-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464845423-12-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:08.499602+00:00"
+  },
+  {
+    "id": 3643,
+    "envio_id": 3532,
+    "texto_indexado": "envio imp-1768464859839-13-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464859839-13-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464859839-13-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:06.030622+00:00"
+  },
+  {
+    "id": 3642,
+    "envio_id": 3533,
+    "texto_indexado": "envio imp-1768464862023-13-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464862023-13-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464862023-13-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:03.409553+00:00"
+  },
+  {
+    "id": 3641,
+    "envio_id": 3534,
+    "texto_indexado": "envio imp-1768464864296-13-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464864296-13-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464864296-13-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:31:00.959258+00:00"
+  },
+  {
+    "id": 3640,
+    "envio_id": 3535,
+    "texto_indexado": "envio imp-1768464866500-13-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464866500-13-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464866500-13-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:58.497099+00:00"
+  },
+  {
+    "id": 3639,
+    "envio_id": 3536,
+    "texto_indexado": "envio imp-1768464868758-13-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464868758-13-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464868758-13-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:55.895015+00:00"
+  },
+  {
+    "id": 3638,
+    "envio_id": 3537,
+    "texto_indexado": "envio imp-1768464882457-14-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464882457-14-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464882457-14-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:53.268285+00:00"
+  },
+  {
+    "id": 3637,
+    "envio_id": 3538,
+    "texto_indexado": "envio imp-1768464884907-14-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464884907-14-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464884907-14-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:50.709669+00:00"
+  },
+  {
+    "id": 3636,
+    "envio_id": 3539,
+    "texto_indexado": "envio imp-1768464887153-14-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464887153-14-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464887153-14-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:48.159767+00:00"
+  },
+  {
+    "id": 3635,
+    "envio_id": 3540,
+    "texto_indexado": "envio imp-1768464889519-14-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464889519-14-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464889519-14-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:45.578537+00:00"
+  },
+  {
+    "id": 3634,
+    "envio_id": 3541,
+    "texto_indexado": "envio imp-1768464891689-14-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464891689-14-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464891689-14-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:43.032805+00:00"
+  },
+  {
+    "id": 3633,
+    "envio_id": 3542,
+    "texto_indexado": "envio imp-1768464906400-15-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464906400-15-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464906400-15-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:40.368484+00:00"
+  },
+  {
+    "id": 3632,
+    "envio_id": 3543,
+    "texto_indexado": "envio imp-1768464908563-15-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464908563-15-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464908563-15-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:37.858437+00:00"
+  },
+  {
+    "id": 3631,
+    "envio_id": 3544,
+    "texto_indexado": "envio imp-1768464911142-15-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464911142-15-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464911142-15-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:35.369190+00:00"
+  },
+  {
+    "id": 3630,
+    "envio_id": 3545,
+    "texto_indexado": "envio imp-1768464913789-15-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464913789-15-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464913789-15-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:33.099838+00:00"
+  },
+  {
+    "id": 3629,
+    "envio_id": 3546,
+    "texto_indexado": "envio imp-1768464915985-15-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464915985-15-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464915985-15-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:30.599656+00:00"
+  },
+  {
+    "id": 3628,
+    "envio_id": 3547,
+    "texto_indexado": "envio imp-1768464930319-16-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464930319-16-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464930319-16-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:28.048281+00:00"
+  },
+  {
+    "id": 3627,
+    "envio_id": 3548,
+    "texto_indexado": "envio imp-1768464932478-16-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464932478-16-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464932478-16-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:25.631462+00:00"
+  },
+  {
+    "id": 3626,
+    "envio_id": 3549,
+    "texto_indexado": "envio imp-1768464934759-16-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464934759-16-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464934759-16-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:23.199348+00:00"
+  },
+  {
+    "id": 3625,
+    "envio_id": 3550,
+    "texto_indexado": "envio imp-1768464936858-16-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464936858-16-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464936858-16-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:20.682819+00:00"
+  },
+  {
+    "id": 3624,
+    "envio_id": 3551,
+    "texto_indexado": "envio imp-1768464939222-16-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464939222-16-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464939222-16-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:18.106843+00:00"
+  },
+  {
+    "id": 3623,
+    "envio_id": 3552,
+    "texto_indexado": "envio imp-1768464953651-17-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464953651-17-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464953651-17-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:14.519529+00:00"
+  },
+  {
+    "id": 3622,
+    "envio_id": 3553,
+    "texto_indexado": "envio imp-1768464956067-17-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464956067-17-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464956067-17-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:12.099474+00:00"
+  },
+  {
+    "id": 3621,
+    "envio_id": 3554,
+    "texto_indexado": "envio imp-1768464958184-17-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464958184-17-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464958184-17-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:09.540890+00:00"
+  },
+  {
+    "id": 3620,
+    "envio_id": 3555,
+    "texto_indexado": "envio imp-1768464960428-17-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464960428-17-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464960428-17-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:06.999532+00:00"
+  },
+  {
+    "id": 3619,
+    "envio_id": 3556,
+    "texto_indexado": "envio imp-1768464962670-17-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464962670-17-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464962670-17-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:04.329512+00:00"
+  },
+  {
+    "id": 3618,
+    "envio_id": 3557,
+    "texto_indexado": "envio imp-1768464976859-18-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768464976859-18-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464976859-18-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:30:01.629787+00:00"
+  },
+  {
+    "id": 3617,
+    "envio_id": 3558,
+    "texto_indexado": "envio imp-1768464979249-18-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768464979249-18-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464979249-18-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:58.988663+00:00"
+  },
+  {
+    "id": 3616,
+    "envio_id": 3559,
+    "texto_indexado": "envio imp-1768464981559-18-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768464981559-18-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464981559-18-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:56.240896+00:00"
+  },
+  {
+    "id": 3615,
+    "envio_id": 3560,
+    "texto_indexado": "envio imp-1768464983858-18-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768464983858-18-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464983858-18-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:53.582005+00:00"
+  },
+  {
+    "id": 3614,
+    "envio_id": 3561,
+    "texto_indexado": "envio imp-1768464986385-18-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768464986385-18-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768464986385-18-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:50.972442+00:00"
+  },
+  {
+    "id": 3613,
+    "envio_id": 3562,
+    "texto_indexado": "envio imp-1768465001124-19-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465001124-19-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465001124-19-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:48.298502+00:00"
+  },
+  {
+    "id": 3612,
+    "envio_id": 3563,
+    "texto_indexado": "envio imp-1768465003389-19-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465003389-19-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465003389-19-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:45.749385+00:00"
+  },
+  {
+    "id": 3611,
+    "envio_id": 3564,
+    "texto_indexado": "envio imp-1768465005777-19-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465005777-19-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465005777-19-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:42.888324+00:00"
+  },
+  {
+    "id": 3610,
+    "envio_id": 3565,
+    "texto_indexado": "envio imp-1768465008008-19-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465008008-19-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465008008-19-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:40.219408+00:00"
+  },
+  {
+    "id": 3609,
+    "envio_id": 3566,
+    "texto_indexado": "envio imp-1768465010251-19-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465010251-19-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465010251-19-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:37.842673+00:00"
+  },
+  {
+    "id": 3608,
+    "envio_id": 3567,
+    "texto_indexado": "envio imp-1768465024078-20-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465024078-20-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465024078-20-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:35.359195+00:00"
+  },
+  {
+    "id": 3607,
+    "envio_id": 3568,
+    "texto_indexado": "envio imp-1768465026427-20-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465026427-20-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465026427-20-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:32.888621+00:00"
+  },
+  {
+    "id": 3606,
+    "envio_id": 3569,
+    "texto_indexado": "envio imp-1768465028778-20-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465028778-20-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465028778-20-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:30.384176+00:00"
+  },
+  {
+    "id": 3605,
+    "envio_id": 3570,
+    "texto_indexado": "envio imp-1768465031027-20-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465031027-20-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465031027-20-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:28.029957+00:00"
+  },
+  {
+    "id": 3604,
+    "envio_id": 3571,
+    "texto_indexado": "envio imp-1768465033178-20-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465033178-20-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465033178-20-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:25.673349+00:00"
+  },
+  {
+    "id": 3603,
+    "envio_id": 3572,
+    "texto_indexado": "envio imp-1768465047508-21-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465047508-21-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465047508-21-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:23.111398+00:00"
+  },
+  {
+    "id": 3602,
+    "envio_id": 3573,
+    "texto_indexado": "envio imp-1768465049699-21-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465049699-21-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465049699-21-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:20.549365+00:00"
+  },
+  {
+    "id": 3601,
+    "envio_id": 3574,
+    "texto_indexado": "envio imp-1768465051829-21-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465051829-21-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465051829-21-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:18.089686+00:00"
+  },
+  {
+    "id": 3600,
+    "envio_id": 3575,
+    "texto_indexado": "envio imp-1768465054179-21-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465054179-21-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465054179-21-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:15.440904+00:00"
+  },
+  {
+    "id": 3599,
+    "envio_id": 3576,
+    "texto_indexado": "envio imp-1768465056528-21-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465056528-21-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465056528-21-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:12.660548+00:00"
+  },
+  {
+    "id": 3598,
+    "envio_id": 3577,
+    "texto_indexado": "envio imp-1768465070470-22-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465070470-22-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465070470-22-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:10.100555+00:00"
+  },
+  {
+    "id": 3597,
+    "envio_id": 3578,
+    "texto_indexado": "envio imp-1768465072749-22-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465072749-22-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465072749-22-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:06.540219+00:00"
+  },
+  {
+    "id": 3596,
+    "envio_id": 3579,
+    "texto_indexado": "envio imp-1768465075629-22-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465075629-22-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465075629-22-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:03.807753+00:00"
+  },
+  {
+    "id": 3595,
+    "envio_id": 3580,
+    "texto_indexado": "envio imp-1768465077848-22-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465077848-22-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465077848-22-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:29:01.412608+00:00"
+  },
+  {
+    "id": 3594,
+    "envio_id": 3581,
+    "texto_indexado": "envio imp-1768465080221-22-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465080221-22-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465080221-22-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:58.836189+00:00"
+  },
+  {
+    "id": 3593,
+    "envio_id": 3582,
+    "texto_indexado": "envio imp-1768465094919-23-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465094919-23-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465094919-23-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:56.279339+00:00"
+  },
+  {
+    "id": 3592,
+    "envio_id": 3583,
+    "texto_indexado": "envio imp-1768465097112-23-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465097112-23-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465097112-23-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:53.624936+00:00"
+  },
+  {
+    "id": 3591,
+    "envio_id": 3584,
+    "texto_indexado": "envio imp-1768465099330-23-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465099330-23-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465099330-23-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:50.899701+00:00"
+  },
+  {
+    "id": 3590,
+    "envio_id": 3585,
+    "texto_indexado": "envio imp-1768465101479-23-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465101479-23-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465101479-23-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:48.500476+00:00"
+  },
+  {
+    "id": 3589,
+    "envio_id": 3586,
+    "texto_indexado": "envio imp-1768465103750-23-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465103750-23-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465103750-23-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:45.980010+00:00"
+  },
+  {
+    "id": 3588,
+    "envio_id": 3587,
+    "texto_indexado": "envio imp-1768465117499-24-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465117499-24-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465117499-24-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:43.390767+00:00"
+  },
+  {
+    "id": 3587,
+    "envio_id": 3588,
+    "texto_indexado": "envio imp-1768465119817-24-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465119817-24-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465119817-24-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:41.034668+00:00"
+  },
+  {
+    "id": 3586,
+    "envio_id": 3589,
+    "texto_indexado": "envio imp-1768465122182-24-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465122182-24-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465122182-24-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:38.418608+00:00"
+  },
+  {
+    "id": 3585,
+    "envio_id": 3590,
+    "texto_indexado": "envio imp-1768465124468-24-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465124468-24-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465124468-24-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:35.854120+00:00"
+  },
+  {
+    "id": 3584,
+    "envio_id": 3591,
+    "texto_indexado": "envio imp-1768465126669-24-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465126669-24-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465126669-24-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:33.292983+00:00"
+  },
+  {
+    "id": 3583,
+    "envio_id": 3592,
+    "texto_indexado": "envio imp-1768465140902-25-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465140902-25-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465140902-25-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:30.691672+00:00"
+  },
+  {
+    "id": 3582,
+    "envio_id": 3593,
+    "texto_indexado": "envio imp-1768465143020-25-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465143020-25-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465143020-25-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:28.078298+00:00"
+  },
+  {
+    "id": 3581,
+    "envio_id": 3594,
+    "texto_indexado": "envio imp-1768465145249-25-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465145249-25-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465145249-25-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:25.560165+00:00"
+  },
+  {
+    "id": 3580,
+    "envio_id": 3595,
+    "texto_indexado": "envio imp-1768465147409-25-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465147409-25-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465147409-25-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:23.008395+00:00"
+  },
+  {
+    "id": 3579,
+    "envio_id": 3596,
+    "texto_indexado": "envio imp-1768465149712-25-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465149712-25-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465149712-25-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:20.387595+00:00"
+  },
+  {
+    "id": 3578,
+    "envio_id": 3597,
+    "texto_indexado": "envio imp-1768465163789-26-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465163789-26-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465163789-26-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:17.858459+00:00"
+  },
+  {
+    "id": 3577,
+    "envio_id": 3598,
+    "texto_indexado": "envio imp-1768465166089-26-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465166089-26-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465166089-26-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:15.435492+00:00"
+  },
+  {
+    "id": 3576,
+    "envio_id": 3599,
+    "texto_indexado": "envio imp-1768465168378-26-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465168378-26-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465168378-26-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:12.790297+00:00"
+  },
+  {
+    "id": 3575,
+    "envio_id": 3600,
+    "texto_indexado": "envio imp-1768465170622-26-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465170622-26-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465170622-26-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:10.210494+00:00"
+  },
+  {
+    "id": 3574,
+    "envio_id": 3601,
+    "texto_indexado": "envio imp-1768465172872-26-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465172872-26-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465172872-26-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:07.806906+00:00"
+  },
+  {
+    "id": 3573,
+    "envio_id": 3602,
+    "texto_indexado": "envio imp-1768465186689-27-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465186689-27-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465186689-27-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:05.378513+00:00"
+  },
+  {
+    "id": 3572,
+    "envio_id": 3603,
+    "texto_indexado": "envio imp-1768465189008-27-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465189008-27-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465189008-27-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:02.858300+00:00"
+  },
+  {
+    "id": 3571,
+    "envio_id": 3604,
+    "texto_indexado": "envio imp-1768465191293-27-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465191293-27-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465191293-27-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:28:00.398618+00:00"
+  },
+  {
+    "id": 3570,
+    "envio_id": 3605,
+    "texto_indexado": "envio imp-1768465193628-27-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465193628-27-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465193628-27-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:57.723847+00:00"
+  },
+  {
+    "id": 3569,
+    "envio_id": 3606,
+    "texto_indexado": "envio imp-1768465195742-27-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465195742-27-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465195742-27-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:54.512712+00:00"
+  },
+  {
+    "id": 3568,
+    "envio_id": 3607,
+    "texto_indexado": "envio imp-1768465209472-28-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465209472-28-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465209472-28-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:51.890676+00:00"
+  },
+  {
+    "id": 3567,
+    "envio_id": 3608,
+    "texto_indexado": "envio imp-1768465211769-28-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465211769-28-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465211769-28-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:49.470121+00:00"
+  },
+  {
+    "id": 3566,
+    "envio_id": 3609,
+    "texto_indexado": "envio imp-1768465213998-28-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465213998-28-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465213998-28-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:46.803945+00:00"
+  },
+  {
+    "id": 3565,
+    "envio_id": 3610,
+    "texto_indexado": "envio imp-1768465216218-28-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465216218-28-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465216218-28-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:44.302483+00:00"
+  },
+  {
+    "id": 3564,
+    "envio_id": 3611,
+    "texto_indexado": "envio imp-1768465218457-28-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465218457-28-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465218457-28-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:41.590053+00:00"
+  },
+  {
+    "id": 3563,
+    "envio_id": 3612,
+    "texto_indexado": "envio imp-1768465232449-29-0 con estado pendiente estado del envio pendiente codigo hawb imp-1768465232449-29-0 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 0 contiene producto importado 0 productos con detalles producto importado 0 peso 1.00kg valor 10.00 producto producto importado 0 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465232449-29-0 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:39.029259+00:00"
+  },
+  {
+    "id": 3562,
+    "envio_id": 3613,
+    "texto_indexado": "envio imp-1768465234609-29-1 con estado pendiente estado del envio pendiente codigo hawb imp-1768465234609-29-1 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 1 contiene producto importado 1 productos con detalles producto importado 1 peso 1.00kg valor 10.00 producto producto importado 1 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465234609-29-1 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:36.653080+00:00"
+  },
+  {
+    "id": 3561,
+    "envio_id": 3614,
+    "texto_indexado": "envio imp-1768465236842-29-2 con estado pendiente estado del envio pendiente codigo hawb imp-1768465236842-29-2 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 2 contiene producto importado 2 productos con detalles producto importado 2 peso 1.00kg valor 10.00 producto producto importado 2 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465236842-29-2 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:34.139481+00:00"
+  },
+  {
+    "id": 3560,
+    "envio_id": 3615,
+    "texto_indexado": "envio imp-1768465239162-29-3 con estado pendiente estado del envio pendiente codigo hawb imp-1768465239162-29-3 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 3 contiene producto importado 3 productos con detalles producto importado 3 peso 1.00kg valor 10.00 producto producto importado 3 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465239162-29-3 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:31.748856+00:00"
+  },
+  {
+    "id": 3559,
+    "envio_id": 3616,
+    "texto_indexado": "envio imp-1768465241568-29-4 con estado pendiente estado del envio pendiente codigo hawb imp-1768465241568-29-4 comprador usuario test ciudad destino quito ubicacion quito fecha de emision 2026-01-15 fecha 2026-01-15 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 12.00 productos incluidos producto importado 4 contiene producto importado 4 productos con detalles producto importado 4 peso 1.00kg valor 10.00 producto producto importado 4 categorias de productos otros tipos de productos diversos varios otros articulos miscelaneos cantidad total de productos 0 total de articulos 0 peso total productos 1.00 kg valor total productos 10.00 envio imp-1768465241568-29-4 pendiente para usuario test en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-16T04:27:28.982959+00:00"
+  },
+  {
+    "id": 3480,
+    "envio_id": 3267,
+    "texto_indexado": "envio haw000217 con estado en transito estado del envio en transito codigo hawb haw000217 comprador pedro paul pacheco lopez ciudad destino machala ubicacion machala provincia el oro canton machala fecha de emision 2026-01-14 fecha 2026-01-14 peso total 0.00 kg peso 0.00 kg valor total 0.00 valor 0.00 costo del servicio 3.25 productos incluidos auriculares sony laptop dell 4 contiene auriculares sony laptop dell 4 productos con detalles auriculares sony peso 0.40kg valor 75.00 laptop dell 4 peso 3.00kg valor 900.00 producto auriculares sony producto laptop dell 4 categorias de productos electronica tipos de productos equipos electronicos gadgets tecnologia electronica tecnologico electronicos dispositivos cantidad total de productos 0 total de articulos 0 peso total productos 3.40 kg valor total productos 975.00 observaciones pruebas de productos de limpieza pruebas de productos de limpieza envio haw000217 en transito para pedro paul pacheco lopez en machala",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-14T15:39:54.842120+00:00"
+  },
+  {
+    "id": 3058,
+    "envio_id": 2687,
+    "texto_indexado": "envio haw000216 con estado pendiente estado del envio pendiente codigo hawb haw000216 comprador estafania juliana rodriguez azogues ciudad destino quito ubicacion quito provincia pichincha canton quito fecha de emision 2026-01-06 fecha 2026-01-06 peso total 0 kg peso 0 kg valor total 0 valor 0 costo del servicio 0 productos incluidos calcetines algodon contiene calcetines algodon productos con detalles calcetines algodon peso 0.70kg valor 54.00 producto calcetines algodon categorias de productos electronica tipos de productos tecnologia tecnologico electronicos gadgets dispositivos equipos electronicos electronica cantidad total de productos 0 total de articulos 0 peso total productos 0.70 kg valor total productos 54.00 envio haw000216 pendiente para estafania juliana rodriguez azogues en quito",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-06T19:48:35.851224+00:00"
+  },
+  {
+    "id": 2901,
+    "envio_id": 488,
+    "texto_indexado": "envio haw000215 con estado cancelado estado del envio cancelado codigo hawb haw000215 comprador hector rafael olivera morales ciudad destino santo domingo ubicacion santo domingo provincia santo domingo de los tsachilas canton santo domingo fecha de emision 2026-01-03 fecha 2026-01-03 peso total 0.17 kg peso 0.17 kg valor total 139.99 valor 139.99 costo del servicio 0.00 productos incluidos memorias ram para pc contiene memorias ram para pc productos con detalles memorias ram para pc peso 0.17kg cantidad 3 valor 139.99 producto memorias ram para pc categorias de productos otros tipos de productos otros articulos miscelaneos diversos varios cantidad total de productos 3 total de articulos 3 peso total productos 0.51 kg valor total productos 419.97 envio haw000215 cancelado para hector rafael olivera morales en santo domingo",
+    "modelo_usado": "text-embedding-3-small",
+    "cosine_similarity_avg": 0.0,
+    "fecha_generacion": "2026-01-05T19:24:03.756617+00:00"
+  },
+  {
     "id": 514,
     "envio_id": 16,
     "texto_indexado": "HAWB: HAW000012 | Comprador: Estafania Juliana Rodriguez Azogues | Ciudad: Quito | Estado: Pendiente | Fecha: 2024-09-22 | Peso: 0.56 kg | Valor: $0.42 | Productos: zapatos",

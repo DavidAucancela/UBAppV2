@@ -1,0 +1,1476 @@
+{
+  "fecha": "2026-01-16T00:23:02.811459",
+  "procesos": {
+    "M1": {
+      "tiempos": [
+        "3.268474578857422",
+        "5.233181715011597",
+        "2.7648212909698486",
+        "2.316551685333252",
+        "3.6695313453674316",
+        "2.5419580936431885",
+        "1.9828450679779053",
+        "3.6208531856536865",
+        "3.7194712162017822",
+        "2.8509294986724854",
+        "3.2088396549224854",
+        "2.4459190368652344",
+        "2.2866289615631104",
+        "1.6655173301696777",
+        "1.7606587409973145",
+        "1.2386250495910645",
+        "2.0348496437072754",
+        "2.0014514923095703",
+        "1.7994155883789062",
+        "1.560227632522583",
+        "2.1713194847106934",
+        "1.318934440612793",
+        "1.417984962463379",
+        "1.391204833984375"
+      ],
+      "cpus": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "rams": [
+        "0.0703125",
+        "0.00390625",
+        "0",
+        "0.00390625",
+        "0.00390625",
+        "0",
+        "0.00390625",
+        "0",
+        "0.01171875",
+        "0.00390625",
+        "0",
+        "0.00390625",
+        "0.00390625",
+        "0",
+        "0",
+        "0.00390625",
+        "0",
+        "0",
+        "0.00390625",
+        "0.00390625",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "2.4279247721036277",
+          "minimo": "1.2386250495910645",
+          "maximo": "5.233181715011597",
+          "mediana": "2.228974223136902",
+          "desviacion_estandar": "0.9706681903616445"
+        },
+        "cpu": {
+          "media": "0",
+          "minimo": "0",
+          "maximo": "0",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.0"
+        },
+        "ram": {
+          "media": "0.005045572916666667",
+          "minimo": "0",
+          "maximo": "0.0703125",
+          "mediana": "0.001953125",
+          "desviacion_estandar": "0.014177105400057633"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": "75",
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M2": {
+      "tiempos": [
+        "2.736774206161499",
+        "2.8941144943237305",
+        "2.636547088623047",
+        "2.8815414905548096"
+      ],
+      "cpus": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "rams": [
+        "1.90625",
+        "0.00390625",
+        "0",
+        "0.00390625"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "2.7872443199157715",
+          "minimo": "2.636547088623047",
+          "maximo": "2.8941144943237305",
+          "mediana": "2.8091578483581543",
+          "desviacion_estandar": "0.12324782414601022"
+        },
+        "cpu": {
+          "media": "0",
+          "minimo": "0",
+          "maximo": "0",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.0"
+        },
+        "ram": {
+          "media": "0.478515625",
+          "minimo": "0",
+          "maximo": "1.90625",
+          "mediana": "0.00390625",
+          "desviacion_estandar": "0.9518246979007501"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": "75",
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": [
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n"
+      ]
+    },
+    "M3": {
+      "tiempos": [
+        "1.6995325088500977",
+        "1.4753787517547607",
+        "1.6185111999511719",
+        "1.4675772190093994",
+        "1.4819130897521973",
+        "1.501680612564087",
+        "1.427210807800293",
+        "1.4690358638763428",
+        "1.819819450378418",
+        "1.6902861595153809",
+        "1.9392781257629395",
+        "1.567789077758789",
+        "1.5389363765716553",
+        "1.4750895500183105",
+        "1.4940950870513916",
+        "1.6820416450500488",
+        "1.506377935409546",
+        "1.4894423484802246",
+        "1.5752003192901611",
+        "1.4622106552124023",
+        "1.6037752628326416",
+        "1.4616146087646484",
+        "1.5154571533203125",
+        "1.5063047409057617"
+      ],
+      "cpus": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "rams": [
+        "0.00390625",
+        "0.01171875",
+        "0",
+        "0.0078125",
+        "0.00390625",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0.00390625",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0.00390625",
+        "0",
+        "0",
+        "0.0625",
+        "0.00390625",
+        "0",
+        "0.00390625",
+        "0",
+        "0"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "1.5611899395783742",
+          "minimo": "1.427210807800293",
+          "maximo": "1.9392781257629395",
+          "mediana": "1.5063413381576538",
+          "desviacion_estandar": "0.12569161387506667"
+        },
+        "cpu": {
+          "media": "0",
+          "minimo": "0",
+          "maximo": "0",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.0"
+        },
+        "ram": {
+          "media": "0.00439453125",
+          "minimo": "0",
+          "maximo": "0.0625",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.01273932848277003"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": "75",
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M4": {
+      "error": "Solo se completaron 0 iteraciones de 24",
+      "errores": [
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "{'cedula': ErrorDetail(string='Esta cédula ya está registrada', code='invalid')}",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n",
+        "value too long for type character varying(10)\n"
+      ]
+    },
+    "M5": {
+      "tiempos": [
+        "0.1817460060119629",
+        "0.1833038330078125",
+        "0.17123842239379883",
+        "0.20830631256103516",
+        "0.19413375854492188",
+        "0.2242138385772705",
+        "0.23715853691101074",
+        "0.21075153350830078",
+        "0.2507035732269287",
+        "0.2141571044921875",
+        "0.18024516105651855",
+        "0.18805217742919922",
+        "0.17798089981079102",
+        "0.17104291915893555",
+        "0.18355822563171387",
+        "0.18294429779052734",
+        "0.19559693336486816",
+        "0.21044039726257324",
+        "0.22599315643310547",
+        "0.19855141639709473",
+        "0.21227121353149414",
+        "0.17202329635620117",
+        "0.1835942268371582",
+        "0.1836550235748291"
+      ],
+      "cpus": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "rams": [
+        "0.09765625",
+        "0.109375",
+        "0.08984375",
+        "0.04296875",
+        "0.046875",
+        "0.05859375",
+        "0.04296875",
+        "0.08984375",
+        "0.10546875",
+        "0.08984375",
+        "0.09375",
+        "0.07421875",
+        "0.00390625",
+        "0.0078125",
+        "0",
+        "0",
+        "0.00390625",
+        "0.00390625",
+        "0.01953125",
+        "0",
+        "0.00390625",
+        "0",
+        "0",
+        "0.00390625"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "0.1975692609945933",
+          "minimo": "0.17104291915893555",
+          "maximo": "0.2507035732269287",
+          "mediana": "0.19109296798706055",
+          "desviacion_estandar": "0.021817468866857266"
+        },
+        "cpu": {
+          "media": "0",
+          "minimo": "0",
+          "maximo": "0",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.0"
+        },
+        "ram": {
+          "media": "0.041178385416666664",
+          "minimo": "0",
+          "maximo": "0.109375",
+          "mediana": "0.03125",
+          "desviacion_estandar": "0.041849921999887"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M6": {
+      "tiempos": [
+        "0.9158792495727539",
+        "0.9717657566070557",
+        "0.9359049797058105",
+        "0.9804346561431885",
+        "0.9118037223815918",
+        "0.8689155578613281",
+        "0.8929421901702881",
+        "1.007490873336792",
+        "0.8995320796966553",
+        "0.9911980628967285",
+        "0.9570200443267822",
+        "0.979722261428833",
+        "0.9175324440002441",
+        "0.9734156131744385",
+        "0.9699301719665527",
+        "0.9317317008972168",
+        "1.049269676208496",
+        "0.9989759922027588",
+        "0.8459799289703369",
+        "0.8883183002471924",
+        "0.8637723922729492",
+        "0.8614921569824219",
+        "0.8711953163146973",
+        "0.8839960098266602"
+      ],
+      "cpus": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "rams": [
+        "0",
+        "0",
+        "0.00390625",
+        "0",
+        "0.00390625",
+        "0.00390625",
+        "0.13671875",
+        "0",
+        "0.0078125",
+        "0",
+        "0.00390625",
+        "0",
+        "0.0078125",
+        "0",
+        "0",
+        "0.00390625",
+        "0.00390625",
+        "0",
+        "0",
+        "0.00390625",
+        "0.00390625",
+        "0",
+        "0",
+        "0"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "0.9320091307163239",
+          "minimo": "0.8459799289703369",
+          "maximo": "1.049269676208496",
+          "mediana": "0.9246320724487305",
+          "desviacion_estandar": "0.05509401577257967"
+        },
+        "cpu": {
+          "media": "0",
+          "minimo": "0",
+          "maximo": "0",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.0"
+        },
+        "ram": {
+          "media": "0.007649739583333333",
+          "minimo": "0",
+          "maximo": "0.13671875",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.027608846132712212"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M7": {
+      "tiempos": [
+        "4.325193643569946",
+        "4.074187755584717",
+        "4.04315447807312",
+        "4.1154468059539795",
+        "4.074796915054321",
+        "4.0729076862335205",
+        "4.043115139007568",
+        "4.011000156402588",
+        "4.165359735488892",
+        "4.18802285194397",
+        "4.206151485443115",
+        "4.0893027782440186",
+        "4.097320556640625",
+        "3.9941930770874023",
+        "4.030218601226807",
+        "4.109311103820801",
+        "4.043168067932129",
+        "4.192646741867065",
+        "4.103473424911499",
+        "3.8866612911224365",
+        "4.096684694290161",
+        "4.070983171463013",
+        "4.127033472061157",
+        "4.157934665679932"
+      ],
+      "cpus": [
+        "0.7",
+        "0.8",
+        "0.8",
+        "0.4",
+        "0.4",
+        "0.4",
+        "0",
+        "1.2",
+        "1.1",
+        "1.1",
+        "1.1",
+        "0.4",
+        "0",
+        "1.2",
+        "0.8",
+        "1.1",
+        "1.5",
+        "0.4",
+        "0",
+        "1.2",
+        "1.1",
+        "0.8",
+        "1.5",
+        "0.7"
+      ],
+      "rams": [
+        "0.12890625",
+        "0.0859375",
+        "0.06640625",
+        "0.125",
+        "0",
+        "0.0390625",
+        "0.0546875",
+        "0.07421875",
+        "0.05859375",
+        "0",
+        "0.0546875",
+        "0.046875",
+        "0.09375",
+        "0.1015625",
+        "0",
+        "0.046875",
+        "0.01953125",
+        "0.05859375",
+        "0.08203125",
+        "0",
+        "0.04296875",
+        "0.046875",
+        "0.08984375",
+        "0.0703125"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "4.096594512462616",
+          "minimo": "3.8866612911224365",
+          "maximo": "4.325193643569946",
+          "mediana": "4.09299373626709",
+          "desviacion_estandar": "0.08570324111431167"
+        },
+        "cpu": {
+          "media": "0.7791666666666667",
+          "minimo": "0",
+          "maximo": "1.5",
+          "mediana": "0.8",
+          "desviacion_estandar": "0.4491336265442097"
+        },
+        "ram": {
+          "media": "0.057779947916666664",
+          "minimo": "0",
+          "maximo": "0.12890625",
+          "mediana": "0.056640625",
+          "desviacion_estandar": "0.03698588876855451"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Deficiente",
+          "calificacion": "50",
+          "resultado": "Riesgo de perder interés"
+        },
+        "cpu": {
+          "categoria": "Muy bueno",
+          "calificacion": "90",
+          "rango": "[0.6-1.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M8": {
+      "tiempos": [
+        "1.4274091720581055",
+        "1.4100353717803955",
+        "1.4253323078155518",
+        "1.5784854888916016",
+        "1.4476633071899414",
+        "1.4272902011871338",
+        "1.6173086166381836",
+        "1.568173885345459",
+        "1.4199862480163574",
+        "1.426023244857788",
+        "1.4657278060913086",
+        "1.4781732559204102",
+        "1.5383567810058594",
+        "1.519963264465332",
+        "1.5687639713287354",
+        "1.4015350341796875",
+        "1.4387154579162598",
+        "1.6009795665740967",
+        "1.5312540531158447",
+        "1.5149650573730469",
+        "1.5211474895477295",
+        "1.4777956008911133",
+        "1.5581884384155273",
+        "1.4124581813812256"
+      ],
+      "cpus": [
+        "3.3",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "rams": [
+        "0.12109375",
+        "0",
+        "0.00390625",
+        "0",
+        "0.0078125",
+        "0",
+        "0.00390625",
+        "0.0078125",
+        "0.00390625",
+        "0.0078125",
+        "0.0078125",
+        "0.01171875",
+        "0",
+        "0.01171875",
+        "0.0078125",
+        "0.015625",
+        "0.00390625",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0.04296875",
+        "0",
+        "0"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "1.4906554917494457",
+          "minimo": "1.4015350341796875",
+          "maximo": "1.6173086166381836",
+          "mediana": "1.4779844284057617",
+          "desviacion_estandar": "0.06801533353313648"
+        },
+        "cpu": {
+          "media": "0.13749999999999998",
+          "minimo": "0",
+          "maximo": "3.3",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.673609679265374"
+        },
+        "ram": {
+          "media": "0.0107421875",
+          "minimo": "0",
+          "maximo": "0.12109375",
+          "mediana": "0.00390625",
+          "desviacion_estandar": "0.025216927817230277"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": "75",
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M9": {
+      "tiempos": [
+        "2.699007511138916",
+        "2.7074942588806152",
+        "2.7326698303222656",
+        "2.8740758895874023",
+        "2.7965712547302246",
+        "2.703739881515503",
+        "3.981482744216919",
+        "2.956883192062378",
+        "2.855668783187866",
+        "3.0137441158294678",
+        "2.9731028079986572",
+        "2.950873851776123",
+        "2.8748762607574463",
+        "3.0151660442352295",
+        "2.954528331756592",
+        "2.8455705642700195",
+        "2.7149479389190674",
+        "2.9019274711608887",
+        "2.642113447189331",
+        "2.720290184020996",
+        "2.7751176357269287",
+        "2.8806586265563965",
+        "2.8135554790496826",
+        "2.9047555923461914"
+      ],
+      "cpus": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "rams": [
+        "0",
+        "0.00390625",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0.00390625",
+        "0.00390625",
+        "0.00390625",
+        "0",
+        "0",
+        "0.00390625",
+        "0.01171875",
+        "0.0078125",
+        "0",
+        "0.00390625",
+        "0",
+        "0.00390625",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0.0078125",
+        "0.00390625"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "2.887034237384796",
+          "minimo": "2.642113447189331",
+          "maximo": "3.981482744216919",
+          "mediana": "2.8648723363876343",
+          "desviacion_estandar": "0.25735518466017926"
+        },
+        "cpu": {
+          "media": "0",
+          "minimo": "0",
+          "maximo": "0",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.0"
+        },
+        "ram": {
+          "media": "0.00244140625",
+          "minimo": "0",
+          "maximo": "0.01171875",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.0032196312177528662"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": "75",
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M10": {
+      "error": "Solo se completaron 0 iteraciones de 24",
+      "errores": [
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n",
+        "duplicate key value violates unique constraint \"archivos_tarifa_categoria_peso_minimo_peso_maximo_2008b314_uniq\"\nDETAIL:  Key (categoria, peso_minimo, peso_maximo)=(electronica, 0.00, 5.01) already exists.\n"
+      ]
+    },
+    "M11": {
+      "tiempos": [
+        "19.665693998336792",
+        "19.48670244216919",
+        "19.915871381759644",
+        "19.48861861228943",
+        "19.63839817047119",
+        "19.67947220802307",
+        "19.933708906173706",
+        "19.50618624687195",
+        "19.921297550201416",
+        "19.565526723861694",
+        "19.813628673553467",
+        "19.653635263442993",
+        "19.89003562927246",
+        "19.89103889465332",
+        "19.76936149597168",
+        "20.097652673721313",
+        "19.896358251571655",
+        "19.875167846679688",
+        "19.949270963668823",
+        "20.172977447509766",
+        "20.60911750793457",
+        "20.42702603340149",
+        "19.816930055618286",
+        "19.60156559944153"
+      ],
+      "cpus": [
+        "0.1",
+        "0.3",
+        "0.2",
+        "0.2",
+        "0",
+        "0.2",
+        "0.2",
+        "0.1",
+        "0.4",
+        "0.2",
+        "0.2",
+        "0.1",
+        "0.1",
+        "0",
+        "0",
+        "0.2",
+        "0.2",
+        "0.1",
+        "0.1",
+        "0.2",
+        "0.2",
+        "0.1",
+        "0.2",
+        "0.1"
+      ],
+      "rams": [
+        "0.19921875",
+        "0.12890625",
+        "0.046875",
+        "0.0546875",
+        "0.16015625",
+        "0.05078125",
+        "0",
+        "0",
+        "0",
+        "0.0390625",
+        "0.16796875",
+        "0.23046875",
+        "0.2578125",
+        "0",
+        "0.03125",
+        "0.15234375",
+        "0.1484375",
+        "0.203125",
+        "0.16796875",
+        "0.08984375",
+        "0",
+        "0.171875",
+        "0.20703125",
+        "0.16015625"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "19.844385107358296",
+          "minimo": "19.48670244216919",
+          "maximo": "20.60911750793457",
+          "mediana": "19.846048951148987",
+          "desviacion_estandar": "0.27859882738834507"
+        },
+        "cpu": {
+          "media": "0.15416666666666667",
+          "minimo": "0",
+          "maximo": "0.4",
+          "mediana": "0.2",
+          "desviacion_estandar": "0.09315329426211431"
+        },
+        "ram": {
+          "media": "0.11116536458333333",
+          "minimo": "0",
+          "maximo": "0.2578125",
+          "mediana": "0.138671875",
+          "desviacion_estandar": "0.08451279482858803"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Inaceptable",
+          "calificacion": "0",
+          "resultado": "Usuario desinteresado"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M12": {
+      "tiempos": [
+        "1.429877519607544",
+        "1.0323102474212646",
+        "0.8862011432647705",
+        "1.0395796298980713",
+        "1.1877577304840088",
+        "0.835533857345581",
+        "0.9668192863464355",
+        "0.9680948257446289",
+        "0.8158345222473145",
+        "0.7381691932678223",
+        "0.8395631313323975",
+        "0.8660745620727539",
+        "0.8525950908660889",
+        "0.8914885520935059",
+        "0.8537311553955078",
+        "0.8695187568664551",
+        "0.8601815700531006",
+        "0.8799080848693848",
+        "0.7463283538818359",
+        "0.7804763317108154",
+        "0.7684464454650879",
+        "0.7882590293884277",
+        "0.8469884395599365",
+        "0.8970315456390381"
+      ],
+      "cpus": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "rams": [
+        "0.625",
+        "0.44921875",
+        "0.7734375",
+        "0.83203125",
+        "0.12109375",
+        "0",
+        "0.1875",
+        "0.2578125",
+        "0.40234375",
+        "0.7890625",
+        "0.79296875",
+        "0.78125",
+        "0.77734375",
+        "0.7890625",
+        "0.78125",
+        "0.8828125",
+        "0.6875",
+        "0.33203125",
+        "0.45703125",
+        "0.78125",
+        "0.8125",
+        "0.76953125",
+        "0.78515625",
+        "0.79296875"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "0.9016987085342407",
+          "minimo": "0.7381691932678223",
+          "maximo": "1.429877519607544",
+          "mediana": "0.8631280660629272",
+          "desviacion_estandar": "0.151787837624177"
+        },
+        "cpu": {
+          "media": "0",
+          "minimo": "0",
+          "maximo": "0",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.0"
+        },
+        "ram": {
+          "media": "0.61083984375",
+          "minimo": "0",
+          "maximo": "0.8828125",
+          "mediana": "0.775390625",
+          "desviacion_estandar": "0.26244351428888063"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M13": {
+      "tiempos": [
+        "0.4426000118255615",
+        "0.4870641231536865",
+        "0.1704239845275879",
+        "0.45519018173217773",
+        "0.3815906047821045",
+        "0.42187070846557617",
+        "0.3895242214202881",
+        "0.21213865280151367",
+        "0.4799919128417969",
+        "0.3661525249481201",
+        "0.43744611740112305",
+        "0.39188313484191895",
+        "0.17039012908935547",
+        "0.43485164642333984",
+        "0.3980114459991455",
+        "0.44397568702697754",
+        "0.35314321517944336",
+        "0.17929339408874512",
+        "0.3926427364349365",
+        "0.4207007884979248",
+        "0.4797325134277344",
+        "0.3720524311065674",
+        "0.16968631744384766",
+        "0.41242170333862305"
+      ],
+      "cpus": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "rams": [
+        "0.2109375",
+        "0.1875",
+        "0.02734375",
+        "0.16796875",
+        "0.1796875",
+        "0.234375",
+        "0.1875",
+        "0.0234375",
+        "0.1640625",
+        "0.08984375",
+        "0.00390625",
+        "0.0078125",
+        "0.0078125",
+        "0.01171875",
+        "0",
+        "0.01171875",
+        "0.06640625",
+        "0.00390625",
+        "0.125",
+        "0.19140625",
+        "0.00390625",
+        "0",
+        "0",
+        "0.0078125"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "0.36928242444992065",
+          "minimo": "0.16968631744384766",
+          "maximo": "0.4870641231536865",
+          "mediana": "0.395327091217041",
+          "desviacion_estandar": "0.10536303001948771"
+        },
+        "cpu": {
+          "media": "0",
+          "minimo": "0",
+          "maximo": "0",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.0"
+        },
+        "ram": {
+          "media": "0.07975260416666667",
+          "minimo": "0",
+          "maximo": "0.234375",
+          "mediana": "0.025390625",
+          "desviacion_estandar": "0.0862374079678012"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M14": {
+      "tiempos": [
+        "7.046853542327881",
+        "4.951575756072998",
+        "4.497751951217651",
+        "4.592709541320801",
+        "4.654261589050293",
+        "6.201193571090698",
+        "4.986825704574585",
+        "4.410695791244507",
+        "5.003206253051758",
+        "4.607346534729004",
+        "4.541622877120972",
+        "4.637380599975586",
+        "4.878920078277588",
+        "4.51977014541626",
+        "4.911754369735718",
+        "4.360536098480225",
+        "4.540832042694092",
+        "4.480935335159302",
+        "4.471190690994263",
+        "5.364615201950073",
+        "4.811573028564453",
+        "5.010106325149536",
+        "6.2555906772613525",
+        "4.998426914215088"
+      ],
+      "cpus": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "rams": [
+        "11.25",
+        "3.65234375",
+        "0",
+        "2.1640625",
+        "3.625",
+        "3.828125",
+        "3.62109375",
+        "3.3125",
+        "0",
+        "1.83203125",
+        "1.12109375",
+        "0",
+        "1.03125",
+        "1.10546875",
+        "0",
+        "1.43359375",
+        "1.13671875",
+        "0.9765625",
+        "2.0",
+        "1.578125",
+        "1.1328125",
+        "0",
+        "0.53515625",
+        "1.8203125"
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": "4.947319775819778",
+          "minimo": "4.360536098480225",
+          "maximo": "7.046853542327881",
+          "mediana": "4.732917308807373",
+          "desviacion_estandar": "0.6631964130182826"
+        },
+        "cpu": {
+          "media": "0",
+          "minimo": "0",
+          "maximo": "0",
+          "mediana": "0.0",
+          "desviacion_estandar": "0.0"
+        },
+        "ram": {
+          "media": "1.96484375",
+          "minimo": "0",
+          "maximo": "11.25",
+          "mediana": "1.28515625",
+          "desviacion_estandar": "2.3441338000972025"
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Deficiente",
+          "calificacion": "50",
+          "resultado": "Riesgo de perder interés"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    }
+  }
+}

@@ -4,6 +4,49 @@
   margin: 0 auto;
 }
 
+/* ===== ENCABEZADO MEJORADO ===== */
+.encabezado {
+  margin-bottom: 2rem;
+  text-align: center;
+  padding: 2rem 0;
+  padding-top: 90px;
+}
+
+.titulo-principal {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.titulo-principal i {
+  color: #3498db;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.subtitulo {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.encabezado-acciones {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+}
+
 /* Card Styles */
 .card {
   background: white;
@@ -576,20 +619,175 @@
 }
 
 /* Pagination */
-.pagination {
+/* Results Summary - Updated */
+.results-summary {
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-.pagination-info {
+.results-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.controles-paginacion-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controles-paginacion-header label {
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.select-elementos {
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.select-elementos:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Card Header Filters */
+.card-header-filters {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.card-header-filters h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-header-filters h3 i {
+  color: #667eea;
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
   font-weight: 500;
   color: #374151;
+  font-size: 0.9rem;
 }
 
-.pagination .btn {
-  min-width: 120px;
+/* Pagination */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.btn-pagina {
+  padding: 0.6rem 1.25rem;
+  background: #ecf0f1;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.btn-pagina:hover:not(:disabled) {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-pagina:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.numeros-pagina {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.btn-numero {
+  width: 40px;
+  height: 40px;
+  background: #ecf0f1;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.btn-numero:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-numero.activo {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.puntos-suspension {
+  padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  color: #7f8c8d;
+  font-weight: 600;
 }
 
 /* Modal */

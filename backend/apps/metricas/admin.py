@@ -8,7 +8,8 @@ from .models import (
     RegistroGeneracionEmbedding,
     PruebaCarga,
     MetricaRendimiento,
-    RegistroManualEnvio
+    RegistroManualEnvio,
+    PruebaRendimientoCompleta
 )
 
 
@@ -57,3 +58,12 @@ class RegistroManualEnvioAdmin(admin.ModelAdmin):
     list_filter = ['fecha_registro']
     search_fields = ['hawb']
     readonly_fields = ['fecha_registro']
+
+
+@admin.register(PruebaRendimientoCompleta)
+class PruebaRendimientoCompletaAdmin(admin.ModelAdmin):
+    list_display = ['id', 'fecha_ejecucion', 'usuario_ejecutor', 'tiempo_respuesta_web_promedio', 'mejora_factor', 'completada']
+    list_filter = ['completada', 'fecha_ejecucion']
+    search_fields = ['usuario_ejecutor__username']
+    readonly_fields = ['fecha_ejecucion', 'resultados_json']
+    date_hierarchy = 'fecha_ejecucion'

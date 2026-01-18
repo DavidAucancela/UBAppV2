@@ -57,6 +57,12 @@
   margin: 0;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .btn-header {
   padding: 14px 28px;
   font-size: 1rem;
@@ -65,11 +71,19 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: all 0.3s;
   white-space: nowrap;
+  background: white;
+  color: #667eea;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-header:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  background: #f8f9fa;
 }
 
 /* Container */
@@ -484,6 +498,7 @@
 /* Dropdown Estado */
 .dropdown-estado {
   position: relative;
+  z-index: 1000;
 }
 
 .dropdown-estado-menu {
@@ -494,7 +509,7 @@
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  z-index: 1100;
   min-width: 150px;
   margin-top: 5px;
   animation: slideDown 0.2s ease-out;
@@ -1031,48 +1046,90 @@ textarea.form-control {
 
 /* Desglose de costos */
 .costos-detalle {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .costos-detalle-title {
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  opacity: 0.9;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  opacity: 1;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .costo-detalle-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 8px 10px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
-  margin-bottom: 6px;
-  font-size: 0.75rem;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.costo-detalle-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .costo-detalle-categoria {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+
+.costo-detalle-categoria > i {
+  font-size: 1.4rem;
+  margin-top: 2px;
+  opacity: 0.9;
+}
+
+.costo-detalle-categoria > div {
   flex: 1;
 }
 
 .costo-detalle-valor {
-  font-weight: 600;
-  font-size: 0.8rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  min-width: 100px;
+  text-align: right;
 }
 
 .costo-detalle-info {
-  font-size: 0.7rem;
-  opacity: 0.8;
-  margin-top: 2px;
+  font-size: 0.9rem;
+  opacity: 0.95;
+  margin-top: 8px;
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 12px;
+  border-radius: 8px;
+  border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.costo-detalle-info strong {
+  font-weight: 600;
+  opacity: 1;
+  display: inline-block;
+  min-width: 120px;
+}
+
+.costo-detalle-info > div {
+  margin-bottom: 6px;
+}
+
+.costo-detalle-info > div:last-child {
+  margin-bottom: 0;
 }
 
 .loading-inline {
@@ -1126,30 +1183,40 @@ textarea.form-control {
 }
 
 .productos-detail-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
 }
 
 .producto-detail-item {
-  background-color: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 16px;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.producto-detail-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
 }
 
 .producto-detail-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e5e7eb;
 }
 
 .producto-detail-body {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .producto-descripcion {
@@ -1161,16 +1228,24 @@ textarea.form-control {
 
 .producto-detail-stats {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 12px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
 }
 
 .stat {
   display: flex;
   align-items: center;
-  gap: 6px;
-  color: #6b7280;
-  font-size: 0.9rem;
+  gap: 8px;
+  color: #374151;
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border-radius: 6px;
+  border-left: 3px solid #667eea;
 }
 
 .stat i {

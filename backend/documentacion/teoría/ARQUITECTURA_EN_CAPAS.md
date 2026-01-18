@@ -757,6 +757,10 @@ class EmbeddingService:
 
 ## 7. DIAGRAMAS DE ARQUITECTURA
 
+> 📚 **Documentos Relacionados:**
+> - [Diagramas Completos de Arquitectura](./DIAGRAMAS_ARQUITECTURA_COMPLETA.md) - Diagramas detallados en formato Mermaid y ASCII
+> - [Guía de Implementación](./GUIA_IMPLEMENTACION_ARQUITECTURA.md) - Plantillas de código y ejemplos prácticos
+
 ### 7.1 Flujo de Petición HTTP
 
 ```
@@ -792,6 +796,8 @@ Cliente (Angular)
         PostgreSQL
 ```
 
+> 💡 **Ver diagramas completos:** [DIAGRAMAS_ARQUITECTURA_COMPLETA.md](./DIAGRAMAS_ARQUITECTURA_COMPLETA.md#1-diagrama-de-arquitectura-general)
+
 ### 7.2 Ejemplo: Búsqueda Semántica
 
 ```
@@ -815,6 +821,8 @@ BusquedaSemanticaService.buscar()
          │
          └──► PostgreSQL + pgvector (búsqueda vectorial)
 ```
+
+> 💡 **Ver diagramas de secuencia completos:** [DIAGRAMAS_ARQUITECTURA_COMPLETA.md](./DIAGRAMAS_ARQUITECTURA_COMPLETA.md#4-diagrama-de-flujo-de-datos)
 
 ---
 
@@ -850,12 +858,40 @@ La implementación de arquitectura en capas mejorará significativamente:
 
 **Próximos Pasos**:
 1. Revisar y aprobar este documento
-2. Crear issues/tareas para cada fase
-3. Comenzar con Fase 1 (Preparación)
+2. Revisar [Diagramas Completos](./DIAGRAMAS_ARQUITECTURA_COMPLETA.md) y [Guía de Implementación](./GUIA_IMPLEMENTACION_ARQUITECTURA.md)
+3. Crear issues/tareas para cada fase
+4. Comenzar con Fase 1 (Preparación)
+
+---
+
+## 10. DOCUMENTOS RELACIONADOS
+
+### 📚 Documentación Adicional
+
+1. **[DIAGRAMAS_ARQUITECTURA_COMPLETA.md](./DIAGRAMAS_ARQUITECTURA_COMPLETA.md)**
+   - Diagramas completos en formato Mermaid
+   - Diagramas de secuencia detallados
+   - Diagramas de componentes por app
+   - Diagramas de dependencias
+   - Proceso de implementación paso a paso
+   - Checklist de verificación completo
+
+2. **[GUIA_IMPLEMENTACION_ARQUITECTURA.md](./GUIA_IMPLEMENTACION_ARQUITECTURA.md)**
+   - Plantillas de código listas para usar
+   - Ejemplos de refactorización (antes/después)
+   - Checklist de implementación por archivo
+   - Troubleshooting común
+   - Recursos y herramientas
+
+### 🎯 Uso Recomendado
+
+1. **Para entender la arquitectura:** Leer este documento (ARQUITECTURA_EN_CAPAS.md)
+2. **Para ver diagramas detallados:** Consultar DIAGRAMAS_ARQUITECTURA_COMPLETA.md
+3. **Para implementar:** Usar GUIA_IMPLEMENTACION_ARQUITECTURA.md como referencia
 
 ---
 
 **Documento creado:** Enero 2025  
 **Última actualización:** Enero 2025  
-**Versión:** 1.0
+**Versión:** 2.0
 

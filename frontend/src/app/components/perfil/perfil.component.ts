@@ -1,32 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
 import { Usuario } from '../../models/usuario';
+import { CambioPasswordComponent } from '../shared/cambio-password/cambio-password.component';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CambioPasswordComponent],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.css'
 })
 export class PerfilComponent implements OnInit {
+  @ViewChild(CambioPasswordComponent) cambioPasswordComponent!: CambioPasswordComponent;
+  
   currentUser: Usuario | null = null;
   profileForm!: FormGroup;
   initialFormValues: any = {};
-  
-  showCurrentPassword = false;
-  showNewPassword = false;
-  showConfirmPassword = false;
-  changePasswordEnabled = false;
   
   loading = false;
   loadingUbicaciones = false;
   profileSuccess = false;
   profileError: string | null = null;
   hasChanges = false;
+  
+  // Estados para cambio de contraseña
+  passwordLoading = false;
+  passwordSuccess = false;
+  passwordError: string | null = null;
+  passwordData: any = null;
 
   // Listas para selectores en cascada
   provincias: string[] = [];
@@ -43,11 +47,16 @@ export class PerfilComponent implements OnInit {
     this.currentUser = this.authService.getCurrentUser();
     this.initForms();
     this.loadProvincias();
-    this.loadUserData();
+    
+    // Cargar datos del usuario después de que el formulario esté inicializado
+    // Usar setTimeout para asegurar que el formulario esté completamente listo
+    setTimeout(() => {
+      this.loadUserData();
+    }, 100);
   }
 
   initForms(): void {
-    // Formulario unificado de perfil
+    // Formulario de perfil (sin campos de contraseña)
     this.profileForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       correo: ['', [Validators.required, Validators.email]],
@@ -57,12 +66,8 @@ export class PerfilComponent implements OnInit {
       provincia: [''],
       canton: [''],
       ciudad: [''],
-      cupo_anual: [null],
-      // Campos de contraseña (opcionales)
-      currentPassword: [''],
-      newPassword: [''],
-      confirmPassword: ['']
-    }, { validators: this.passwordValidator.bind(this) });
+      cupo_anual: [null]
+    });
 
     // Suscribirse a cambios en los selectores de ubicación
     this.profileForm.get('provincia')?.valueChanges.subscribe(provincia => {
@@ -90,37 +95,13 @@ export class PerfilComponent implements OnInit {
 
     // Suscribirse a cambios en el formulario para detectar modificaciones
     this.profileForm.valueChanges.subscribe(() => {
-      this.hasChanges = this.hasFormChanges();
+      // Usar setTimeout para evitar problemas de sincronización
+      setTimeout(() => {
+        this.hasChanges = this.hasFormChanges();
+      }, 0);
     });
   }
 
-  passwordValidator(g: FormGroup) {
-    // Solo validar contraseña si está habilitada
-    if (!this.changePasswordEnabled) {
-      return null;
-    }
-
-    const currentPassword = g.get('currentPassword')?.value;
-    const newPassword = g.get('newPassword')?.value;
-    const confirmPassword = g.get('confirmPassword')?.value;
-
-    // Si se intenta cambiar la contraseña, todos los campos son requeridos
-    if (!currentPassword || !newPassword || !confirmPassword) {
-      return { passwordIncomplete: true };
-    }
-    
-    // Validar longitud mínima de la nueva contraseña
-    if (newPassword.length < 6) {
-      return { passwordMinLength: true };
-    }
-    
-    // Validar que las contraseñas coincidan
-    if (newPassword !== confirmPassword) {
-      return { passwordMismatch: true };
-    }
-    
-    return null;
-  }
 
   loadUserData(): void {
     if (this.currentUser) {
@@ -145,6 +126,7 @@ export class PerfilComponent implements OnInit {
         }
       }
 
+      // Asegurar que todos los campos tengan valores por defecto, incluso si son null/undefined
       const formData = {
         nombre: this.currentUser.nombre || '',
         correo: this.currentUser.correo || '',
@@ -154,29 +136,40 @@ export class PerfilComponent implements OnInit {
         provincia: this.currentUser.provincia || '',
         canton: this.currentUser.canton || '',
         ciudad: this.currentUser.ciudad || '',
-        cupo_anual: this.currentUser.cupo_anual || null,
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: ''
+        cupo_anual: this.currentUser.cupo_anual !== null && this.currentUser.cupo_anual !== undefined ? this.currentUser.cupo_anual : null
       };
 
+      // Establecer valores del formulario inmediatamente
       this.profileForm.patchValue(formData, { emitEvent: false });
       
       // Guardar valores iniciales para comparar cambios (usar JSON para deep copy)
       this.initialFormValues = JSON.parse(JSON.stringify(formData));
-      delete this.initialFormValues.currentPassword;
-      delete this.initialFormValues.newPassword;
-      delete this.initialFormValues.confirmPassword;
       
       // Inicializar estado de cambios
       this.hasChanges = false;
-
+      
       // Cargar cantones y ciudades si ya tiene ubicación
+      // Esto debe hacerse después de establecer los valores del formulario
       if (this.currentUser.provincia) {
         this.loadCantones(this.currentUser.provincia);
-        if (this.currentUser.canton) {
-          this.loadCiudades(this.currentUser.provincia, this.currentUser.canton);
-        }
+        // Esperar a que se carguen los cantones antes de cargar las ciudades
+        setTimeout(() => {
+          if (this.currentUser?.canton) {
+            this.loadCiudades(this.currentUser.provincia, this.currentUser.canton);
+            // Después de cargar las ciudades, asegurar que los valores estén correctos
+            setTimeout(() => {
+              this.profileForm.patchValue({
+                provincia: formData.provincia,
+                canton: formData.canton,
+                ciudad: formData.ciudad
+              }, { emitEvent: false });
+              this.profileForm.updateValueAndValidity({ emitEvent: false });
+            }, 100);
+          }
+        }, 200);
+      } else {
+        // Si no hay ubicación, solo actualizar la validación
+        this.profileForm.updateValueAndValidity({ emitEvent: false });
       }
     }
   }
@@ -202,6 +195,13 @@ export class PerfilComponent implements OnInit {
       next: (response) => {
         this.cantones = response.cantones || [];
         this.loadingUbicaciones = false;
+        
+        // Si el usuario ya tiene un cantón seleccionado, asegurarse de que esté en la lista
+        const currentCanton = this.profileForm.get('canton')?.value;
+        if (currentCanton && !this.cantones.includes(currentCanton)) {
+          // Si el cantón actual no está en la lista, limpiarlo
+          this.profileForm.patchValue({ canton: '' }, { emitEvent: false });
+        }
       },
       error: (error) => {
         console.error('Error al cargar cantones:', error);
@@ -216,6 +216,13 @@ export class PerfilComponent implements OnInit {
       next: (response) => {
         this.ciudades = response.ciudades || [];
         this.loadingUbicaciones = false;
+        
+        // Si el usuario ya tiene una ciudad seleccionada, asegurarse de que esté en la lista
+        const currentCiudad = this.profileForm.get('ciudad')?.value;
+        if (currentCiudad && !this.ciudades.includes(currentCiudad)) {
+          // Si la ciudad actual no está en la lista, limpiarla
+          this.profileForm.patchValue({ ciudad: '' }, { emitEvent: false });
+        }
       },
       error: (error) => {
         console.error('Error al cargar ciudades:', error);
@@ -247,12 +254,12 @@ export class PerfilComponent implements OnInit {
   }
 
   onSubmitProfile(): void {
-    // Validar solo campos básicos (contraseña se valida con el validador personalizado)
+    // Validar campos básicos
     const basicFieldsValid = this.profileForm.get('nombre')?.valid && 
                              this.profileForm.get('correo')?.valid &&
                              (!this.profileForm.get('telefono')?.value || this.profileForm.get('telefono')?.valid);
     
-    if (!basicFieldsValid || this.profileForm.errors) {
+    if (!basicFieldsValid) {
       Object.keys(this.profileForm.controls).forEach(key => {
         this.profileForm.get(key)?.markAsTouched();
       });
@@ -263,22 +270,14 @@ export class PerfilComponent implements OnInit {
     this.profileSuccess = false;
     this.profileError = null;
 
-    const userId = this.currentUser?.id;
-    if (!userId) {
+    if (!this.currentUser?.id) {
       this.profileError = 'Error: Usuario no identificado';
       this.loading = false;
       return;
     }
 
-    // Preparar datos del formulario (sin campos de contraseña por ahora)
+    // Preparar datos del formulario
     const formData = { ...this.profileForm.value };
-    const currentPassword = formData.currentPassword;
-    const newPassword = formData.newPassword;
-    
-    // Eliminar campos de contraseña del objeto de datos del perfil
-    delete formData.currentPassword;
-    delete formData.newPassword;
-    delete formData.confirmPassword;
 
     // Limpiar datos: convertir strings vacíos a null y eliminar campos no permitidos
     const cleanData: any = {};
@@ -297,88 +296,35 @@ export class PerfilComponent implements OnInit {
       }
     });
 
-    // Usar el endpoint correcto de actualizar perfil
+    // Usar el endpoint de actualizar perfil
     this.apiService.actualizarPerfil(cleanData).subscribe({
       next: (response) => {
-        // Si el checkbox está activado y se proporcionó contraseña, actualizarla también
-        if (this.changePasswordEnabled && currentPassword && newPassword) {
-          const passwordData = {
-            password_actual: currentPassword,
-            password_nuevo: newPassword,
-            password_confirm: newPassword
-          };
-
-          this.apiService.cambiarPasswordPerfil(passwordData).subscribe({
-            next: () => {
-              this.profileSuccess = true;
-              this.loading = false;
-              
-              // Limpiar campos de contraseña y desactivar checkbox
-              this.changePasswordEnabled = false;
-              this.profileForm.patchValue({
-                currentPassword: '',
-                newPassword: '',
-                confirmPassword: ''
-              }, { emitEvent: false });
-              
-              // Actualizar valores iniciales con los datos actualizados
-              const updatedFormData = {
-                nombre: response.nombre || '',
-                correo: response.correo || '',
-                telefono: response.telefono || '',
-                direccion: response.direccion || '',
-                fecha_nacimiento: response.fecha_nacimiento ? this.formatDateForInput(response.fecha_nacimiento) : '',
-                provincia: response.provincia || '',
-                canton: response.canton || '',
-                ciudad: response.ciudad || '',
-                cupo_anual: response.cupo_anual || null
-              };
-              this.initialFormValues = JSON.parse(JSON.stringify(updatedFormData));
-              this.hasChanges = false;
-              
-              // Actualizar el usuario en el servicio de autenticación
-              const updatedUser = { ...this.currentUser, ...response };
-              this.authService.updateCurrentUser(updatedUser as Usuario);
-              this.currentUser = updatedUser as Usuario;
-              
-              setTimeout(() => {
-                this.profileSuccess = false;
-              }, 5000);
-            },
-            error: (error) => {
-              this.profileError = error.error?.error || error.error?.password_actual || 'Error al cambiar la contraseña. Verifica tu contraseña actual.';
-              this.loading = false;
-            }
-          });
-        } else {
-          // Solo se actualizó el perfil
-          this.profileSuccess = true;
-          this.loading = false;
-          
-          // Actualizar valores iniciales con los datos actualizados
-          const updatedFormData = {
-            nombre: response.nombre || '',
-            correo: response.correo || '',
-            telefono: response.telefono || '',
-            direccion: response.direccion || '',
-            fecha_nacimiento: response.fecha_nacimiento ? this.formatDateForInput(response.fecha_nacimiento) : '',
-            provincia: response.provincia || '',
-            canton: response.canton || '',
-            ciudad: response.ciudad || '',
-            cupo_anual: response.cupo_anual || null
-          };
-          this.initialFormValues = JSON.parse(JSON.stringify(updatedFormData));
-          this.hasChanges = false;
-          
-          // Actualizar el usuario en el servicio de autenticación
-          const updatedUser = { ...this.currentUser, ...response };
-          this.authService.updateCurrentUser(updatedUser as Usuario);
-          this.currentUser = updatedUser as Usuario;
-          
-          setTimeout(() => {
-            this.profileSuccess = false;
-          }, 5000);
-        }
+        this.profileSuccess = true;
+        this.loading = false;
+        
+        // Actualizar valores iniciales con los datos actualizados
+        const updatedFormData = {
+          nombre: response.nombre || '',
+          correo: response.correo || '',
+          telefono: response.telefono || '',
+          direccion: response.direccion || '',
+          fecha_nacimiento: response.fecha_nacimiento ? this.formatDateForInput(response.fecha_nacimiento) : '',
+          provincia: response.provincia || '',
+          canton: response.canton || '',
+          ciudad: response.ciudad || '',
+          cupo_anual: response.cupo_anual || null
+        };
+        this.initialFormValues = JSON.parse(JSON.stringify(updatedFormData));
+        this.hasChanges = false;
+        
+        // Actualizar el usuario en el servicio de autenticación
+        const updatedUser = { ...this.currentUser, ...response };
+        this.authService.updateCurrentUser(updatedUser as Usuario);
+        this.currentUser = updatedUser as Usuario;
+        
+        setTimeout(() => {
+          this.profileSuccess = false;
+        }, 5000);
       },
       error: (error) => {
         console.error('Error al actualizar perfil:', error);
@@ -416,28 +362,86 @@ export class PerfilComponent implements OnInit {
   }
 
 
-  onPasswordCheckboxChange(event: any): void {
-    this.changePasswordEnabled = event.target.checked;
-    
-    if (!this.changePasswordEnabled) {
-      // Limpiar campos de contraseña si se desactiva el checkbox
-      this.profileForm.patchValue({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: ''
-      }, { emitEvent: false });
-    } else {
-      // Agregar validadores cuando se activa
-      this.profileForm.get('currentPassword')?.setValidators([Validators.required]);
-      this.profileForm.get('newPassword')?.setValidators([Validators.required, Validators.minLength(6)]);
-      this.profileForm.get('confirmPassword')?.setValidators([Validators.required]);
+  onPasswordChange(passwordData: any): void {
+    this.passwordData = passwordData;
+  }
+
+  onSubmitPassword(): void {
+    // Verificar que el componente de contraseña esté disponible y sea válido
+    if (!this.cambioPasswordComponent) {
+      this.passwordError = 'Error: Componente de contraseña no disponible';
+      return;
     }
-    
-    // Actualizar validación
-    this.profileForm.get('currentPassword')?.updateValueAndValidity({ emitEvent: false });
-    this.profileForm.get('newPassword')?.updateValueAndValidity({ emitEvent: false });
-    this.profileForm.get('confirmPassword')?.updateValueAndValidity({ emitEvent: false });
-    this.profileForm.updateValueAndValidity();
+
+    // Verificar que el formulario de contraseña sea válido
+    if (!this.cambioPasswordComponent.isValid) {
+      this.passwordError = 'Por favor, completa correctamente todos los campos de contraseña';
+      // Marcar todos los campos como touched para mostrar errores
+      Object.keys(this.cambioPasswordComponent.passwordForm.controls).forEach(key => {
+        this.cambioPasswordComponent.passwordForm.get(key)?.markAsTouched();
+      });
+      return;
+    }
+
+    if (!this.passwordData) {
+      this.passwordError = 'Por favor, completa todos los campos de contraseña';
+      return;
+    }
+
+    const { currentPassword, newPassword, confirmPassword } = this.passwordData;
+
+    // Validar que todos los campos estén llenos
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      this.passwordError = 'Todos los campos son requeridos';
+      return;
+    }
+
+    // Validar que las contraseñas coincidan
+    if (newPassword !== confirmPassword) {
+      this.passwordError = 'Las contraseñas no coinciden';
+      return;
+    }
+
+    // Validar longitud mínima
+    if (newPassword.length < 6) {
+      this.passwordError = 'La nueva contraseña debe tener al menos 6 caracteres';
+      return;
+    }
+
+    this.passwordLoading = true;
+    this.passwordError = null;
+    this.passwordSuccess = false;
+
+    const passwordData = {
+      password_actual: currentPassword,
+      password_nuevo: newPassword,
+      password_confirm: newPassword
+    };
+
+    this.apiService.cambiarPasswordPerfil(passwordData).subscribe({
+      next: () => {
+        this.passwordSuccess = true;
+        this.passwordLoading = false;
+        this.passwordData = null;
+        
+        // Limpiar el formulario de contraseña
+        if (this.cambioPasswordComponent) {
+          this.cambioPasswordComponent.reset();
+        }
+        
+        setTimeout(() => {
+          this.passwordSuccess = false;
+        }, 5000);
+      },
+      error: (error) => {
+        console.error('Error al cambiar contraseña:', error);
+        this.passwordError = error.error?.error || 
+                           error.error?.password_actual || 
+                           error.error?.detail ||
+                           'Error al cambiar la contraseña. Verifica tu contraseña actual.';
+        this.passwordLoading = false;
+      }
+    });
   }
 
   hasFormChanges(): boolean {
@@ -472,30 +476,9 @@ export class PerfilComponent implements OnInit {
     const cupoInicial = this.initialFormValues.cupo_anual === null || this.initialFormValues.cupo_anual === '' ? null : Number(this.initialFormValues.cupo_anual);
     if (cupoActual !== cupoInicial) return true;
     
-    // Si el checkbox de contraseña está activado, verificar si hay cambios
-    if (this.changePasswordEnabled) {
-      const hasPasswordFields = normalize(currentValues.currentPassword) || 
-                                normalize(currentValues.newPassword) || 
-                                normalize(currentValues.confirmPassword);
-      if (hasPasswordFields) return true;
-    }
-    
     return false;
   }
 
-  togglePasswordVisibility(field: string): void {
-    switch(field) {
-      case 'current':
-        this.showCurrentPassword = !this.showCurrentPassword;
-        break;
-      case 'new':
-        this.showNewPassword = !this.showNewPassword;
-        break;
-      case 'confirm':
-        this.showConfirmPassword = !this.showConfirmPassword;
-        break;
-    }
-  }
 
   /**
    * Formatea una fecha para el input type="date" (YYYY-MM-DD)
@@ -535,17 +518,18 @@ export class PerfilComponent implements OnInit {
     }
     if (field.errors['pattern']) return 'Formato inválido';
     
-    // Validaciones de formulario (contraseña)
-    if (form.errors?.['passwordIncomplete']) {
-      return 'Todos los campos de contraseña son requeridos para cambiar la contraseña';
-    }
-    if (form.errors?.['passwordMinLength']) {
-      return 'La nueva contraseña debe tener al menos 6 caracteres';
-    }
-    if (form.errors?.['passwordMismatch']) {
-      return 'Las contraseñas no coinciden';
-    }
-    
     return 'Campo inválido';
+  }
+
+  /**
+   * Verifica si el formulario es válido para guardar
+   */
+  isFormValid(): boolean {
+    // Validar campos básicos requeridos
+    const nombreValid = this.profileForm.get('nombre')?.valid;
+    const correoValid = this.profileForm.get('correo')?.valid;
+    const telefonoValid = !this.profileForm.get('telefono')?.value || this.profileForm.get('telefono')?.valid;
+    
+    return nombreValid && correoValid && telefonoValid;
   }
 }

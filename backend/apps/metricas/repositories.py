@@ -161,6 +161,25 @@ class MetricaRendimientoRepository(BaseRepository):
             'total_exitosos': queryset.filter(exito=True).count(),
             'total_errores': queryset.filter(exito=False).count(),
         }
+    
+    def obtener_estadisticas_generales(self, nivel_carga: int = None) -> Dict[str, Any]:
+        """Obtiene estadísticas generales de todas las métricas"""
+        queryset = self._get_optimized_queryset()
+        if nivel_carga:
+            queryset = queryset.filter(nivel_carga=nivel_carga)
+        
+        return {
+            'total_mediciones': queryset.count(),
+            'tiempo_promedio_ms': queryset.aggregate(avg=Avg('tiempo_respuesta_ms'))['avg'] or 0.0,
+            'tiempo_minimo_ms': queryset.aggregate(min=Min('tiempo_respuesta_ms'))['min'] or 0,
+            'tiempo_maximo_ms': queryset.aggregate(max=Max('tiempo_respuesta_ms'))['max'] or 0,
+            'cpu_promedio': queryset.aggregate(avg=Avg('uso_cpu'))['avg'] or 0.0,
+            'cpu_maximo': queryset.aggregate(max=Max('uso_cpu'))['max'] or 0.0,
+            'ram_promedio_mb': queryset.aggregate(avg=Avg('uso_ram_mb'))['avg'] or 0.0,
+            'ram_maximo_mb': queryset.aggregate(max=Max('uso_ram_mb'))['max'] or 0.0,
+            'total_exitosos': queryset.filter(exito=True).count(),
+            'total_errores': queryset.filter(exito=False).count(),
+        }
 
 
 class RegistroManualEnvioRepository(BaseRepository):

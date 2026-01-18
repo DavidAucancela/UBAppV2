@@ -1,0 +1,583 @@
+{
+  "fecha": "2026-01-16T11:27:32.151153",
+  "procesos": {
+    "M1": {
+      "tiempos": [
+        3.7938904762268066,
+        2.9900426864624023
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        72.0,
+        4.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 3.3919665813446045,
+          "minimo": 2.9900426864624023,
+          "maximo": 3.7938904762268066,
+          "mediana": 3.3919665813446045,
+          "desviacion_estandar": 0.5684062231842285
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 38.0,
+          "minimo": 4.0,
+          "maximo": 72.0,
+          "mediana": 38.0,
+          "desviacion_estandar": 48.08326112068523
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Deficiente",
+          "calificacion": 50,
+          "resultado": "Riesgo de perder interés"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M2": {
+      "tiempos": [
+        2.9365530014038086,
+        4.368349552154541
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        1896.0,
+        8.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 3.652451276779175,
+          "minimo": 2.9365530014038086,
+          "maximo": 4.368349552154541,
+          "mediana": 3.652451276779175,
+          "desviacion_estandar": 1.0124330503153516
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 952.0,
+          "minimo": 8.0,
+          "maximo": 1896.0,
+          "mediana": 952.0,
+          "desviacion_estandar": 1335.0176028802018
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Deficiente",
+          "calificacion": 50,
+          "resultado": "Riesgo de perder interés"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M3": {
+      "tiempos": [
+        3.256500482559204,
+        2.523226022720337
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        4.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 2.8898632526397705,
+          "minimo": 2.523226022720337,
+          "maximo": 3.256500482559204,
+          "mediana": 2.8898632526397705,
+          "desviacion_estandar": 0.5185033430229657
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 2.0,
+          "minimo": 0.0,
+          "maximo": 4.0,
+          "mediana": 2.0,
+          "desviacion_estandar": 2.8284271247461903
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Aceptable",
+          "calificacion": 75,
+          "resultado": "Usuario espera sin frustración"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M4": {
+      "tiempos": [
+        0.0480043888092041,
+        0.02400040626525879
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        4.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.036002397537231445,
+          "minimo": 0.02400040626525879,
+          "maximo": 0.0480043888092041,
+          "mediana": 0.036002397537231445,
+          "desviacion_estandar": 0.016973378832307245
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 2.0,
+          "minimo": 0.0,
+          "maximo": 4.0,
+          "mediana": 2.0,
+          "desviacion_estandar": 2.8284271247461903
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M5": {
+      "tiempos": [
+        0.056591033935546875,
+        0.02880239486694336
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        340.0,
+        252.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.04269671440124512,
+          "minimo": 0.02880239486694336,
+          "maximo": 0.056591033935546875,
+          "mediana": 0.04269671440124512,
+          "desviacion_estandar": 0.019649535125354972
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 296.0,
+          "minimo": 252.0,
+          "maximo": 340.0,
+          "mediana": 296.0,
+          "desviacion_estandar": 62.22539674441618
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M6": {
+      "tiempos": [
+        0.019145488739013672,
+        0.026129722595214844
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        20.0,
+        4.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.022637605667114258,
+          "minimo": 0.019145488739013672,
+          "maximo": 0.026129722595214844,
+          "mediana": 0.022637605667114258,
+          "desviacion_estandar": 0.004938599121112519
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 12.0,
+          "minimo": 4.0,
+          "maximo": 20.0,
+          "mediana": 12.0,
+          "desviacion_estandar": 11.313708498984761
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M7": {
+      "error": "Solo se completaron 0 iteraciones de 2\nPrimeros errores encontrados:\n  1. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(112) already exists.\n\n  2. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(113) already exists.\n\n",
+      "errores": [
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(112) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(113) already exists.\n"
+      ]
+    },
+    "M8": {
+      "error": "Solo se completaron 0 iteraciones de 2\nPrimeros errores encontrados:\n  1. ValidationError: {'peso_total': ['El peso total debe ser mayor que 0']}\n  2. ValidationError: {'peso_total': ['El peso total debe ser mayor que 0']}\n",
+      "errores": [
+        "ValidationError: {'peso_total': ['El peso total debe ser mayor que 0']}",
+        "ValidationError: {'peso_total': ['El peso total debe ser mayor que 0']}"
+      ]
+    },
+    "M9": {
+      "error": "Solo se completaron 0 iteraciones de 2\nPrimeros errores encontrados:\n  1. IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(81) already exists.\n\n  2. IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(82) already exists.\n\n",
+      "errores": [
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(81) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_producto_pkey\"\nDETAIL:  Key (id)=(82) already exists.\n"
+      ]
+    },
+    "M10": {
+      "tiempos": [
+        0.015132904052734375,
+        0.016107559204101562
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        0.0,
+        0.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.015620231628417969,
+          "minimo": 0.015132904052734375,
+          "maximo": 0.016107559204101562,
+          "mediana": 0.015620231628417969,
+          "desviacion_estandar": 0.0006891852668501392
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M11": {
+      "error": "Solo se completaron 0 iteraciones de 2\nPrimeros errores encontrados:\n  1. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(114) already exists.\n\n  2. IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(115) already exists.\n\n",
+      "errores": [
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(114) already exists.\n",
+        "IntegrityError: duplicate key value violates unique constraint \"archivos_envio_pkey\"\nDETAIL:  Key (id)=(115) already exists.\n"
+      ]
+    },
+    "M12": {
+      "tiempos": [
+        0.09363031387329102,
+        0.0901639461517334
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        772.0,
+        364.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.09189713001251221,
+          "minimo": 0.0901639461517334,
+          "maximo": 0.09363031387329102,
+          "mediana": 0.09189713001251221,
+          "desviacion_estandar": 0.0024510921219995535
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 568.0,
+          "minimo": 364.0,
+          "maximo": 772.0,
+          "mediana": 568.0,
+          "desviacion_estandar": 288.4995667241114
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M13": {
+      "tiempos": [
+        0.047353506088256836,
+        0.028045177459716797
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        144.0,
+        180.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 0.037699341773986816,
+          "minimo": 0.028045177459716797,
+          "maximo": 0.047353506088256836,
+          "mediana": 0.037699341773986816,
+          "desviacion_estandar": 0.013653050106619012
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 162.0,
+          "minimo": 144.0,
+          "maximo": 180.0,
+          "mediana": 162.0,
+          "desviacion_estandar": 25.45584412271571
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "resultado": "Interacción fluida"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    },
+    "M14": {
+      "tiempos": [
+        5.528047561645508,
+        2.6157352924346924
+      ],
+      "cpus": [
+        0.0,
+        0.0
+      ],
+      "rams": [
+        22788.0,
+        7492.0
+      ],
+      "estadisticas": {
+        "tiempo": {
+          "media": 4.0718914270401,
+          "minimo": 2.6157352924346924,
+          "maximo": 5.528047561645508,
+          "mediana": 4.0718914270401,
+          "desviacion_estandar": 2.0593157544917498
+        },
+        "cpu": {
+          "media": 0.0,
+          "minimo": 0.0,
+          "maximo": 0.0,
+          "mediana": 0.0,
+          "desviacion_estandar": 0.0
+        },
+        "ram": {
+          "media": 15140.0,
+          "minimo": 7492.0,
+          "maximo": 22788.0,
+          "mediana": 15140.0,
+          "desviacion_estandar": 10815.905325029431
+        }
+      },
+      "evaluaciones": {
+        "tiempo": {
+          "categoria": "Deficiente",
+          "calificacion": 50,
+          "resultado": "Riesgo de perder interés"
+        },
+        "cpu": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-0.5]%"
+        },
+        "ram": {
+          "categoria": "Excelente",
+          "calificacion": 100,
+          "rango": "[0-150] MB"
+        }
+      },
+      "errores": []
+    }
+  }
+}

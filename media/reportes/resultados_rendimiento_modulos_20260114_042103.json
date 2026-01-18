@@ -1,0 +1,351 @@
+{
+  "config": {
+    "base_url": "http://localhost:8000",
+    "iteraciones": 1,
+    "fecha": "2026-01-14T04:20:58.336106"
+  },
+  "operaciones": {
+    "ingresar_usuario": {
+      "nombre": "Ingresar usuario (login)",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        2077.560000005178
+      ],
+      "tiempo_promedio_ms": 2077.560000005178,
+      "tiempo_maximo_ms": 2077.560000005178,
+      "categoria_tiempo": "Aceptable",
+      "cpu_promedio": 64.0,
+      "ram_promedio_mb": 18674.265625,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 404,
+          "url": "http://localhost:8000/api/auth/login/",
+          "respuesta": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <title>Page not found at /api/auth/login/</title>\n  <meta name=\"robots\" content=\"NONE,NO"
+        }
+      ]
+    },
+    "registrar_nuevo_usuario": {
+      "nombre": "Registrar nuevo usuario",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        1400.3784999949858
+      ],
+      "tiempo_promedio_ms": 1400.3784999949858,
+      "tiempo_maximo_ms": 1400.3784999949858,
+      "categoria_tiempo": "Aceptable",
+      "cpu_promedio": 86.2,
+      "ram_promedio_mb": 18670.41015625,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 401,
+          "url": "http://localhost:8000/api/usuarios/",
+          "respuesta": "{\"error\":true,\"code\":\"api_error\",\"message\":\"Las credenciales de autenticación no se proveyeron.\",\"details\":{}}"
+        }
+      ]
+    },
+    "restablecer_contrasena": {
+      "nombre": "Restablecer contraseña",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        9.324499987997115
+      ],
+      "tiempo_promedio_ms": 9.324499987997115,
+      "tiempo_maximo_ms": 9.324499987997115,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 87.5,
+      "ram_promedio_mb": 18685.94140625,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 404,
+          "url": "http://localhost:8000/api/auth/password/reset/",
+          "respuesta": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <title>Page not found at /api/auth/password/reset/</title>\n  <meta name=\"robots\" content"
+        }
+      ]
+    },
+    "crear_nuevo_usuario": {
+      "nombre": "Crear nuevo usuario (admin)",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        18.70550005696714
+      ],
+      "tiempo_promedio_ms": 18.70550005696714,
+      "tiempo_maximo_ms": 18.70550005696714,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 82.8,
+      "ram_promedio_mb": 18706.28515625,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 404,
+          "url": "http://localhost:8000/api/admin/usuarios/",
+          "respuesta": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <title>Page not found at /api/admin/usuarios/</title>\n  <meta name=\"robots\" content=\"NON"
+        }
+      ]
+    },
+    "listar_usuarios": {
+      "nombre": "Listar usuarios",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        5.756300059147179
+      ],
+      "tiempo_promedio_ms": 5.756300059147179,
+      "tiempo_maximo_ms": 5.756300059147179,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 80.8,
+      "ram_promedio_mb": 18685.07421875,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 401,
+          "url": "http://localhost:8000/api/usuarios/",
+          "respuesta": "{\"error\":true,\"code\":\"api_error\",\"message\":\"Las credenciales de autenticación no se proveyeron.\",\"details\":{}}"
+        }
+      ]
+    },
+    "modificar_perfil": {
+      "nombre": "Modificar perfil",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        3.827099921181798
+      ],
+      "tiempo_promedio_ms": 3.827099921181798,
+      "tiempo_maximo_ms": 3.827099921181798,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 32.1,
+      "ram_promedio_mb": 18685.0703125,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 401,
+          "url": "http://localhost:8000/api/usuarios/me/",
+          "respuesta": "{\"error\":true,\"code\":\"api_error\",\"message\":\"Las credenciales de autenticación no se proveyeron.\",\"details\":{}}"
+        }
+      ]
+    },
+    "crear_nuevo_envio": {
+      "nombre": "Crear nuevo envío",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        3.959099994972348
+      ],
+      "tiempo_promedio_ms": 3.959099994972348,
+      "tiempo_maximo_ms": 3.959099994972348,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 40.0,
+      "ram_promedio_mb": 18685.0703125,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 401,
+          "url": "http://localhost:8000/api/envios/",
+          "respuesta": "{\"error\":true,\"code\":\"api_error\",\"message\":\"Las credenciales de autenticación no se proveyeron.\",\"details\":{}}"
+        }
+      ]
+    },
+    "modificar_envio": {
+      "nombre": "Modificar envío",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        16.985399997793138
+      ],
+      "tiempo_promedio_ms": 16.985399997793138,
+      "tiempo_maximo_ms": 16.985399997793138,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 63.6,
+      "ram_promedio_mb": 18685.08984375,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 404,
+          "url": "http://localhost:8000/api/envios/1/",
+          "respuesta": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <title>Page not found at /api/envios/1/</title>\n  <meta name=\"robots\" content=\"NONE,NOAR"
+        }
+      ]
+    },
+    "crear_producto": {
+      "nombre": "Crear producto",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        28.81429996341467
+      ],
+      "tiempo_promedio_ms": 28.81429996341467,
+      "tiempo_maximo_ms": 28.81429996341467,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 79.2,
+      "ram_promedio_mb": 18684.6484375,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 404,
+          "url": "http://localhost:8000/api/productos/",
+          "respuesta": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <title>Page not found at /api/productos/</title>\n  <meta name=\"robots\" content=\"NONE,NOA"
+        }
+      ]
+    },
+    "crear_tarifa": {
+      "nombre": "Crear tarifa",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        19.523399998433888
+      ],
+      "tiempo_promedio_ms": 19.523399998433888,
+      "tiempo_maximo_ms": 19.523399998433888,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 53.8,
+      "ram_promedio_mb": 18696.87890625,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 404,
+          "url": "http://localhost:8000/api/tarifas/",
+          "respuesta": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <title>Page not found at /api/tarifas/</title>\n  <meta name=\"robots\" content=\"NONE,NOARC"
+        }
+      ]
+    },
+    "importar_envios": {
+      "nombre": "Importar envíos",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        14.473200077190995
+      ],
+      "tiempo_promedio_ms": 14.473200077190995,
+      "tiempo_maximo_ms": 14.473200077190995,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 61.5,
+      "ram_promedio_mb": 18696.82421875,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 404,
+          "url": "http://localhost:8000/api/envios/importar/",
+          "respuesta": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <title>Page not found at /api/envios/importar/</title>\n  <meta name=\"robots\" content=\"NO"
+        }
+      ]
+    },
+    "exportar_envios": {
+      "nombre": "Exportar envíos",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        24.645600002259016
+      ],
+      "tiempo_promedio_ms": 24.645600002259016,
+      "tiempo_maximo_ms": 24.645600002259016,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 65.4,
+      "ram_promedio_mb": 18696.6328125,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 404,
+          "url": "http://localhost:8000/api/envios/exportar/",
+          "respuesta": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <title>Page not found at /api/envios/exportar/</title>\n  <meta name=\"robots\" content=\"NO"
+        }
+      ]
+    },
+    "buscar_envios": {
+      "nombre": "Buscar envíos (búsqueda básica)",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        5.425499984994531
+      ],
+      "tiempo_promedio_ms": 5.425499984994531,
+      "tiempo_maximo_ms": 5.425499984994531,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 96.2,
+      "ram_promedio_mb": 18696.4765625,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 401,
+          "url": "http://localhost:8000/api/envios/?q=perf",
+          "respuesta": "{\"error\":true,\"code\":\"api_error\",\"message\":\"Las credenciales de autenticación no se proveyeron.\",\"details\":{}}"
+        }
+      ]
+    },
+    "buscar_semantica": {
+      "nombre": "Buscar semánticamente",
+      "iteraciones": 1,
+      "exitosas": 0,
+      "fallidas": 1,
+      "tiempos_ms": [
+        4.925399902276695
+      ],
+      "tiempo_promedio_ms": 4.925399902276695,
+      "tiempo_maximo_ms": 4.925399902276695,
+      "categoria_tiempo": "Excelente",
+      "cpu_promedio": 69.0,
+      "ram_promedio_mb": 18696.46875,
+      "calificacion_cpu": 0,
+      "calificacion_ram": 0,
+      "errores": [
+        {
+          "iteracion": 1,
+          "status_code": 401,
+          "url": "http://localhost:8000/api/busqueda/semantica/?q=perf",
+          "respuesta": "{\"error\":true,\"code\":\"api_error\",\"message\":\"Las credenciales de autenticación no se proveyeron.\",\"details\":{}}"
+        }
+      ]
+    }
+  },
+  "resumen_global": {
+    "tiempo_promedio_ms_global": 259.593128567628,
+    "categoria_global_tiempo": "Excelente",
+    "cpu_promedio_global": 68.72142857142858,
+    "ram_promedio_mb_global": 18688.938337053572
+  }
+}

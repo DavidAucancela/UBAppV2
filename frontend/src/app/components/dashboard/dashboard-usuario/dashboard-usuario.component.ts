@@ -88,8 +88,26 @@ export class DashboardUsuarioComponent implements OnInit, OnDestroy, AfterViewIn
             throw new Error('Datos inválidos recibidos del servidor');
           }
 
+          console.log('📊 Datos del dashboard recibidos:', data);
+          console.log('👤 Usuario del dashboard:', data.dashboard?.usuario);
+          console.log('📦 Estadísticas de envíos:', {
+            total: data.dashboard?.total_envios,
+            pendientes: data.dashboard?.envios_pendientes,
+            en_transito: data.dashboard?.envios_en_transito,
+            entregados: data.dashboard?.envios_entregados,
+            cancelados: data.dashboard?.envios_cancelados
+          });
+          console.log('💰 Cupo:', {
+            cupo_anual: data.dashboard?.cupo_anual,
+            peso_usado: data.dashboard?.peso_usado,
+            peso_disponible: data.dashboard?.peso_disponible,
+            porcentaje_usado: data.dashboard?.porcentaje_usado
+          });
+
           this.dashboard = data.dashboard;
           this.enviosRecientes = Array.isArray(data.envios_recientes) ? data.envios_recientes : [];
+          
+          console.log('📋 Envíos recientes:', this.enviosRecientes.length);
           
           // Asegurar valores por defecto para evitar errores
           this.asegurarValoresPorDefecto();
@@ -105,15 +123,22 @@ export class DashboardUsuarioComponent implements OnInit, OnDestroy, AfterViewIn
             }
           }, 300);
         } catch (err: any) {
-          console.error('Error procesando datos del dashboard:', err);
+          console.error('❌ Error procesando datos del dashboard:', err);
           this.error = 'Error al procesar las estadísticas';
           this.loading = false;
           this.isLoading = false;
         }
       },
       error: (err) => {
-        console.error('Error al cargar dashboard:', err);
-        this.error = err?.error?.message || err?.message || 'Error al cargar las estadísticas. Por favor, intenta nuevamente.';
+        console.error('❌ Error al cargar dashboard:', err);
+        console.error('📋 Detalles del error:', {
+          status: err?.status,
+          statusText: err?.statusText,
+          error: err?.error,
+          message: err?.message,
+          url: err?.url
+        });
+        this.error = err?.error?.message || err?.error?.detail || err?.message || 'Error al cargar las estadísticas. Por favor, intenta nuevamente.';
         this.loading = false;
         this.isLoading = false;
       }

@@ -23,6 +23,7 @@ Usuario = get_user_model()
 def validar_cedula_o_ruc(identificacion: str, estricto: bool = False) -> None:
     """
     Valida cédula ecuatoriana (10 dígitos), RUC (13 dígitos) o RUC extendido (14 dígitos).
+    En modo flexible, también acepta 9 dígitos (puede ser cédula de otro país o formato especial).
     
     Args:
         identificacion: Número de identificación a validar
@@ -39,7 +40,18 @@ def validar_cedula_o_ruc(identificacion: str, estricto: bool = False) -> None:
     if not texto:
         raise ValidationError("La identificación debe contener al menos un dígito")
     
-    if len(texto) == 10:
+    # Verificar tamaño de identificación
+    if len(texto) == 9:
+        # En modo flexible, permitir 9 dígitos (puede ser cédula de otro país o formato especial)
+        if estricto:
+            raise ValidationError(f"La identificación debe tener 10 dígitos (cédula), 13 dígitos (RUC) o 14 dígitos (RUC extendido), se encontraron {len(texto)}")
+        # En modo flexible, permitir 9 dígitos
+        if not texto.isdigit():
+            raise ValidationError("La identificación debe contener solo números")
+        # Permitir 9 dígitos en modo flexible sin validación adicional
+        return
+    
+    elif len(texto) == 10:
         # Es una cédula
         if estricto:
             # Validar con algoritmo estricto
@@ -87,7 +99,11 @@ def validar_cedula_o_ruc(identificacion: str, estricto: bool = False) -> None:
         # En modo flexible, solo validamos que tenga 14 dígitos
     
     else:
-        raise ValidationError(f"La identificación debe tener 10 dígitos (cédula), 13 dígitos (RUC) o 14 dígitos (RUC extendido), se encontraron {len(texto)}")
+        # Mejorar mensaje de error según el modo
+        if estricto:
+            raise ValidationError(f"La identificación debe tener 10 dígitos (cédula), 13 dígitos (RUC) o 14 dígitos (RUC extendido), se encontraron {len(texto)}")
+        else:
+            raise ValidationError(f"La identificación debe tener 9 dígitos (formato especial), 10 dígitos (cédula), 13 dígitos (RUC) o 14 dígitos (RUC extendido), se encontraron {len(texto)}. Por favor, verifique que la identificación esté completa.")
 
 
 class ValidadorDatos:
@@ -549,13 +565,60 @@ class ProcesadorExcel:
             
             importacion.save()
             
-            # NO generar embeddings durante la importación masiva para mejorar el rendimiento
-            # Los embeddings se pueden generar después con el comando:
-            # python manage.py generar_embeddings
-            # Esto evita que la importación tome mucho tiempo esperando llamadas a la API de OpenAI
+            # Generar embeddings de forma asíncrona para todos los envíos creados
+            # Esto se hace fuera de la transacción para no bloquear
             if envios_creados:
                 print(f"✅ Se crearon {len(envios_creados)} envíos exitosamente.")
-                print(f"💡 Para generar embeddings para búsqueda semántica, ejecute: python manage.py generar_embeddings")
+                print(f"🔄 Generando embeddings de forma asíncrona...")
+                # Generar embeddings en un thread separado para no bloquear
+                import threading
+                from apps.busqueda.services import BusquedaSemanticaService
+                
+                def generar_embeddings_async():
+                    import logging
+                    import traceback
+                    logger = logging.getLogger(__name__)
+                    
+                    exitosos = 0
+                    errores = 0
+                    total = len(envios_creados)
+                    
+                    logger.info(f"Iniciando generación de embeddings para {total} envíos...")
+                    print(f"🔄 Generando embeddings para {total} envíos...")
+                    
+                    for i, envio in enumerate(envios_creados, 1):
+                        try:
+                            logger.debug(f"Generando embedding {i}/{total} para envío {envio.hawb} (ID: {envio.id})")
+                            embedding = BusquedaSemanticaService.generar_embedding_envio(envio)
+                            
+                            if embedding:
+                                exitosos += 1
+                                logger.debug(f"✅ Embedding generado para envío {envio.hawb}")
+                            else:
+                                # Puede que ya exista, no es un error
+                                exitosos += 1
+                                logger.debug(f"⚠️ Embedding ya existía para envío {envio.hawb}")
+                            
+                            # Mostrar progreso cada 10 envíos
+                            if i % 10 == 0 or i == total:
+                                mensaje = f"   Progreso embeddings: {i}/{total} ({exitosos} exitosos, {errores} errores)"
+                                print(mensaje)
+                                logger.info(mensaje)
+                        except Exception as e:
+                            errores += 1
+                            error_trace = traceback.format_exc()
+                            mensaje_error = f"⚠️ Error generando embedding para envío {envio.hawb} (ID: {envio.id}): {str(e)}"
+                            print(mensaje_error)
+                            logger.error(
+                                f"{mensaje_error}\n{error_trace}",
+                                exc_info=True
+                            )
+                    
+                    mensaje_final = f"✅ Embeddings generados: {exitosos} exitosos, {errores} errores"
+                    print(mensaje_final)
+                    logger.info(mensaje_final)
+                
+                threading.Thread(target=generar_embeddings_async, daemon=True).start()
             
             extras = {
                 'compradores_pendientes': self.nuevos_compradores
@@ -725,7 +788,9 @@ class ProcesadorExcel:
         )
         
         if creado:
-            password = Usuario.objects.make_random_password()
+            # Generar contraseña aleatoria usando get_user_model() o secrets
+            import secrets
+            password = secrets.token_urlsafe(12)  # Genera contraseña segura de 12 caracteres
             comprador.set_password(password)
             comprador.save()
             self._registrar_comprador_creado(comprador)
@@ -783,6 +848,9 @@ class ProcesadorExcel:
             if comprador_id:
                 try:
                     comprador = Usuario.objects.get(id=comprador_id)
+                    # Validar que el usuario tenga rol de comprador (rol=4)
+                    if comprador.rol != 4:
+                        raise ValueError(f"El usuario con ID {comprador_id} no tiene rol de Comprador (rol=4). Rol actual: {comprador.rol}")
                     datos['comprador'] = comprador
                 except Usuario.DoesNotExist:
                     raise ValueError(f"Comprador con ID {comprador_id} no existe")
@@ -792,9 +860,23 @@ class ProcesadorExcel:
         if 'comprador' not in datos or not datos['comprador']:
             raise ValueError("No se pudo determinar el comprador para el envío")
         
+        # Validar que el comprador tenga rol correcto
+        if hasattr(datos.get('comprador'), 'rol') and datos['comprador'].rol != 4:
+            raise ValueError(f"El comprador debe tener rol de Comprador (rol=4). Rol actual: {datos['comprador'].rol}")
+        
         # IMPORTANTE: Generar HAWB secuencial basado en la base de datos
         # Ignorar el HAWB del archivo y usar el próximo número en secuencia
         datos['hawb'] = self._generar_hawb_secuencial()
+        
+        # Asegurar que los campos opcionales tengan valores por defecto
+        datos.setdefault('peso_total', 0)
+        datos.setdefault('cantidad_total', 0)
+        datos.setdefault('valor_total', 0)
+        datos.setdefault('costo_servicio', 0)
+        datos.setdefault('estado', 'pendiente')
+        
+        # Remover costo_extra si existe (no es parte del modelo)
+        datos.pop('costo_extra', None)
         
         # Crear el envío
         envio = Envio.objects.create(**datos)

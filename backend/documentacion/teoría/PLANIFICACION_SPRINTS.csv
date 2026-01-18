@@ -1,0 +1,32 @@
+Sprint,Identificador,Detalle,Tipo,Esfuerzo,Prioridad,Fecha Inicio,Fecha Fin,Esfuerzo Total Sprint
+Sprint 0: Análisis y Planificación,UT-01,Requisitos del sistema,HT,8,Alta,15/09/2025,29/09/2025,32
+Sprint 0: Análisis y Planificación,UT-02,Arquitectura del sistema,HT,8,Alta,15/09/2025,29/09/2025,32
+Sprint 0: Análisis y Planificación,UT-03,Modelo de procesos,HT,16,Media,15/09/2025,29/09/2025,32
+Sprint 1: Infraestructura Base y Autenticación,US-01,Inicio de sesión,HU,8,Alta,29/09/2025,17/10/2025,40
+Sprint 1: Infraestructura Base y Autenticación,US-02,Asignar roles,HU,8,Alta,29/09/2025,17/10/2025,40
+Sprint 1: Infraestructura Base y Autenticación,US-15,Acceso por roles,HU,8,Alta,29/09/2025,17/10/2025,40
+Sprint 1: Infraestructura Base y Autenticación,US-16,Restablecer contraseña,HU,8,Media,29/09/2025,17/10/2025,40
+Sprint 1: Infraestructura Base y Autenticación,US-14,Canal de comunicación segura,HU,8,Alta,29/09/2025,17/10/2025,40
+Sprint 2: Base de Datos y Modelos Core,UT-04,Generar texto indexado de envíos,HT,24,Alta,17/10/2025,31/10/2025,32
+Sprint 2: Base de Datos y Modelos Core,US-17,Registro de logs,HU,32,Media,17/10/2025,31/10/2025,32
+Sprint 3: CRUD Básico de Envíos,US-03,Registrar envíos,HU,16,Alta,31/10/2025,14/11/2025,40
+Sprint 3: CRUD Básico de Envíos,US-04,Actualizar envíos,HU,8,Alta,31/10/2025,14/11/2025,40
+Sprint 3: CRUD Básico de Envíos,US-05,Eliminar envíos,HU,8,Media,31/10/2025,14/11/2025,40
+Sprint 3: CRUD Básico de Envíos,US-12,Detalle de los envíos,HU,8,Alta,31/10/2025,14/11/2025,40
+Sprint 4: Visualización y Consulta de Envíos,US-06,Visualizar envíos,HU,32,Alta,14/11/2025,28/11/2025,48
+Sprint 4: Visualización y Consulta de Envíos,US-07,Historial de envíos,HU,16,Media,14/11/2025,28/11/2025,48
+Sprint 5: Carga Masiva y Reportes,US-08,Carga de envíos por archivo Excel,HU,24,Alta,28/11/2025,12/12/2025,40
+Sprint 5: Carga Masiva y Reportes,US-09,Descargar reportes de envíos,HU,8,Media,28/11/2025,12/12/2025,40
+Sprint 5: Carga Masiva y Reportes,US-13,Actualizar el estado de los envíos,HU,16,Media,28/11/2025,12/12/2025,40
+Sprint 6: Infraestructura de Búsqueda Semántica,UT-05,Generación de embeddings,HT,40,Alta,12/12/2025,26/12/2025,64
+Sprint 6: Infraestructura de Búsqueda Semántica,UT-06,Generar texto indexado de envíos manuales,HT,32,Media,12/12/2025,26/12/2025,64
+Sprint 7: Búsqueda Semántica Básica,US-10,Búsqueda semántica,HU,80,Alta,26/12/2025,09/01/2026,80
+Sprint 8: Búsqueda Semántica Avanzada,US-11,Búsqueda semántica con parámetros,HU,16,Alta,09/01/2026,23/01/2026,32
+Sprint 8: Búsqueda Semántica Avanzada,UT-08,Métricas de pruebas,HT,16,Alta,09/01/2026,23/01/2026,32
+Sprint 9: Pruebas y Optimización,UT-07,Reporte de pruebas,HT,8,Media,23/01/2026,31/01/2026,80
+Sprint 9: Pruebas y Optimización,UT-09,Comportamiento temporal,HT,24,Alta,23/01/2026,31/01/2026,80
+Sprint 9: Pruebas y Optimización,UT-10,Utilización de recursos,HT,24,Alta,23/01/2026,31/01/2026,80
+Sprint 9: Pruebas y Optimización,Validación,Validación y verificación del sistema,-,24,Alta,23/01/2026,31/01/2026,80
+Sprint 10: Cierre y Entrega,Cierre-01,Pruebas de aceptación,-,4,Alta,31/01/2026,02/02/2026,6
+Sprint 10: Cierre y Entrega,Cierre-02,Presentación final de la aplicación,-,2,Alta,31/01/2026,02/02/2026,6
+

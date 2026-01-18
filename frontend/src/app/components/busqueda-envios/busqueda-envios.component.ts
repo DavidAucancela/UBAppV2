@@ -58,6 +58,10 @@ export class BusquedaEnviosComponent implements OnInit, OnDestroy {
   envioSeleccionado: Envio | null = null;
   mostrarMenuExportar = false;
   
+  // Historial de búsquedas
+  historialBusquedas: any[] = [];
+  mostrarHistorial = false;
+  
   // Destrucción del componente
   private destruir$ = new Subject<void>();
   
@@ -86,6 +90,7 @@ export class BusquedaEnviosComponent implements OnInit, OnDestroy {
     this.configurarBusquedaDebounce();
     this.realizarBusquedaInicial();
     this.configurarCierreMenuExportar();
+    this.cargarHistorial();
   }
 
   ngOnDestroy(): void {
@@ -130,12 +135,7 @@ export class BusquedaEnviosComponent implements OnInit, OnDestroy {
       next: (respuesta: RespuestaBusquedaEnvio) => {
         this.procesarResultados(respuesta);
         this.cargando = false;
-        
-        // Mostrar mensaje de éxito
-        if (this.enviosEncontrados.length > 0) {
-          this.mensajeExito = `✅ Búsqueda completada correctamente. ${this.totalResultados} envío(s) encontrado(s).`;
-          setTimeout(() => this.mensajeExito = '', 3000);
-        }
+        this.guardarEnHistorial(filtros);
       },
       error: (error) => {
         console.error('Error al buscar envíos:', error);
@@ -216,8 +216,6 @@ export class BusquedaEnviosComponent implements OnInit, OnDestroy {
     this.ordenamientoActual = '-fecha_emision';
     this.paginaActual = 1;
     this.buscarEnvios();
-    this.mensajeExito = 'Filtros limpiados correctamente.';
-    setTimeout(() => this.mensajeExito = '', 2000);
   }
 
   /**
@@ -534,6 +532,92 @@ export class BusquedaEnviosComponent implements OnInit, OnDestroy {
     return this.authService.isAdmin() || 
            this.authService.isGerente() || 
            this.authService.isDigitador();
+  }
+
+  /**
+   * Carga el historial de búsquedas
+   */
+  cargarHistorial(): void {
+    this.apiService.getHistorialBusqueda().subscribe({
+      next: (historial) => {
+        if (historial && Array.isArray(historial)) {
+          this.historialBusquedas = historial.slice(0, 10); // Últimas 10
+        } else {
+          this.historialBusquedas = [];
+        }
+      },
+      error: (error) => {
+        console.error('Error cargando historial:', error);
+        this.historialBusquedas = [];
+      }
+    });
+  }
+
+  /**
+   * Guarda la búsqueda en el historial
+   */
+  private guardarEnHistorial(filtros: FiltrosBusquedaEnvio): void {
+    // El backend guarda automáticamente, solo recargamos el historial
+    this.cargarHistorial();
+  }
+
+  /**
+   * Usa una búsqueda del historial
+   */
+  usarDelHistorial(busqueda: any): void {
+    if (busqueda.filtros) {
+      this.formularioBusqueda.patchValue({
+        textoBusqueda: busqueda.filtros.textoBusqueda || '',
+        numeroGuia: busqueda.filtros.numeroGuia || '',
+        nombreDestinatario: busqueda.filtros.nombreDestinatario || '',
+        ciudadDestino: busqueda.filtros.ciudadDestino || '',
+        estado: busqueda.filtros.estado || '',
+        fechaDesde: busqueda.filtros.fechaDesde || '',
+        fechaHasta: busqueda.filtros.fechaHasta || ''
+      });
+      this.paginaActual = 1;
+      this.buscarEnvios();
+    }
+  }
+
+  /**
+   * Alterna la visibilidad del historial
+   */
+  toggleHistorial(): void {
+    this.mostrarHistorial = !this.mostrarHistorial;
+  }
+
+  /**
+   * Limpia el historial de búsquedas
+   */
+  limpiarHistorial(): void {
+    this.apiService.limpiarHistorialBusqueda().subscribe({
+      next: () => {
+        this.historialBusquedas = [];
+      },
+      error: (error) => {
+        console.error('Error limpiando historial:', error);
+      }
+    });
+  }
+
+  /**
+   * Formatea la fecha del historial
+   */
+  formatearFechaHistorial(fecha: string): string {
+    if (!fecha) return 'N/A';
+    try {
+      const fechaObj = new Date(fecha);
+      return fechaObj.toLocaleDateString('es-EC', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch {
+      return 'N/A';
+    }
   }
 }
 

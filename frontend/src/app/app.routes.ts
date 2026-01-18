@@ -17,6 +17,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { ActividadesSistemaComponent } from './components/dashboard/actividades-sistema/actividades-sistema.component';
 import { TarifasListComponent } from './components/tarifas/tarifas-list.component';
+import { NotificacionesListComponent } from './components/notificaciones/notificaciones-list/notificaciones-list.component';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { Roles } from './models/usuario';
@@ -34,7 +35,7 @@ export const routes: Routes = [
   { 
     path: 'inicio', 
     component: InicioComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR])]
   },
   { 
     path: 'actividades', 
@@ -49,7 +50,7 @@ export const routes: Routes = [
   { 
     path: 'dashboard-usuario', 
     component: DashboardUsuarioComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard, roleGuard([Roles.COMPRADOR])]
   },
   { 
     path: 'mis-envios', 
@@ -100,6 +101,11 @@ export const routes: Routes = [
     path: 'tarifas', 
     component: TarifasListComponent,
     canActivate: [authGuard, roleGuard([Roles.ADMIN, Roles.GERENTE])]
+  },
+  { 
+    path: 'notificaciones', 
+    component: NotificacionesListComponent,
+    canActivate: [authGuard, roleGuard([Roles.COMPRADOR])]
   },
   { path: '**', redirectTo: '/informacion' }
 ];

@@ -1,6 +1,6456 @@
 [
 {
   "model": "archivos.producto",
+  "pk": 3747,
+  "fields": {
+    "descripcion": "Producto nuevo 23",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:03:54.271Z",
+    "fecha_actualizacion": "2026-01-16T06:03:54.271Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3746,
+  "fields": {
+    "descripcion": "Producto nuevo 22",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:03:48.212Z",
+    "fecha_actualizacion": "2026-01-16T06:03:48.212Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3745,
+  "fields": {
+    "descripcion": "Producto nuevo 21",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:03:42.572Z",
+    "fecha_actualizacion": "2026-01-16T06:03:42.572Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3744,
+  "fields": {
+    "descripcion": "Producto nuevo 20",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:03:36.872Z",
+    "fecha_actualizacion": "2026-01-16T06:03:36.872Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3743,
+  "fields": {
+    "descripcion": "Producto nuevo 19",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:03:30.393Z",
+    "fecha_actualizacion": "2026-01-16T06:03:30.393Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3742,
+  "fields": {
+    "descripcion": "Producto nuevo 18",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:03:24.350Z",
+    "fecha_actualizacion": "2026-01-16T06:03:24.350Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3741,
+  "fields": {
+    "descripcion": "Producto nuevo 17",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:03:18.671Z",
+    "fecha_actualizacion": "2026-01-16T06:03:18.671Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3740,
+  "fields": {
+    "descripcion": "Producto nuevo 16",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:03:12.984Z",
+    "fecha_actualizacion": "2026-01-16T06:03:12.984Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3739,
+  "fields": {
+    "descripcion": "Producto nuevo 15",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:03:07.256Z",
+    "fecha_actualizacion": "2026-01-16T06:03:07.256Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3738,
+  "fields": {
+    "descripcion": "Producto nuevo 14",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:03:01.362Z",
+    "fecha_actualizacion": "2026-01-16T06:03:01.362Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3737,
+  "fields": {
+    "descripcion": "Producto nuevo 13",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:02:55.485Z",
+    "fecha_actualizacion": "2026-01-16T06:02:55.485Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3736,
+  "fields": {
+    "descripcion": "Producto nuevo 12",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:02:49.629Z",
+    "fecha_actualizacion": "2026-01-16T06:02:49.629Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3735,
+  "fields": {
+    "descripcion": "Producto nuevo 11",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:02:43.947Z",
+    "fecha_actualizacion": "2026-01-16T06:02:43.947Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3734,
+  "fields": {
+    "descripcion": "Producto nuevo 10",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:02:37.673Z",
+    "fecha_actualizacion": "2026-01-16T06:02:37.673Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3733,
+  "fields": {
+    "descripcion": "Producto nuevo 9",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:02:31.968Z",
+    "fecha_actualizacion": "2026-01-16T06:02:31.968Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3732,
+  "fields": {
+    "descripcion": "Producto nuevo 8",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:02:25.896Z",
+    "fecha_actualizacion": "2026-01-16T06:02:25.896Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3731,
+  "fields": {
+    "descripcion": "Producto nuevo 7",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:02:20.031Z",
+    "fecha_actualizacion": "2026-01-16T06:02:20.031Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3730,
+  "fields": {
+    "descripcion": "Producto nuevo 6",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:02:14.393Z",
+    "fecha_actualizacion": "2026-01-16T06:02:14.393Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3729,
+  "fields": {
+    "descripcion": "Producto nuevo 5",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:02:08.836Z",
+    "fecha_actualizacion": "2026-01-16T06:02:08.836Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3728,
+  "fields": {
+    "descripcion": "Producto nuevo 4",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:02:03.301Z",
+    "fecha_actualizacion": "2026-01-16T06:02:03.301Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3727,
+  "fields": {
+    "descripcion": "Producto nuevo 3",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:01:57.452Z",
+    "fecha_actualizacion": "2026-01-16T06:01:57.452Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3726,
+  "fields": {
+    "descripcion": "Producto nuevo 2",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:01:51.514Z",
+    "fecha_actualizacion": "2026-01-16T06:01:51.514Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3725,
+  "fields": {
+    "descripcion": "Producto nuevo 1",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:01:45.429Z",
+    "fecha_actualizacion": "2026-01-16T06:01:45.429Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3724,
+  "fields": {
+    "descripcion": "Producto nuevo 0",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:01:39.589Z",
+    "fecha_actualizacion": "2026-01-16T06:01:39.589Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3723,
+  "fields": {
+    "descripcion": "Producto test 23",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3784,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:00:16.749Z",
+    "fecha_actualizacion": "2026-01-16T06:00:16.749Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3722,
+  "fields": {
+    "descripcion": "Producto test 22",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3783,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T06:00:07.729Z",
+    "fecha_actualizacion": "2026-01-16T06:00:07.729Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3721,
+  "fields": {
+    "descripcion": "Producto test 21",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3782,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:59:57.960Z",
+    "fecha_actualizacion": "2026-01-16T05:59:57.961Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3720,
+  "fields": {
+    "descripcion": "Producto test 20",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3781,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:59:49.540Z",
+    "fecha_actualizacion": "2026-01-16T05:59:49.540Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3719,
+  "fields": {
+    "descripcion": "Producto test 19",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3780,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:59:41.159Z",
+    "fecha_actualizacion": "2026-01-16T05:59:41.159Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3718,
+  "fields": {
+    "descripcion": "Producto test 18",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3779,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:59:32.569Z",
+    "fecha_actualizacion": "2026-01-16T05:59:32.569Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3717,
+  "fields": {
+    "descripcion": "Producto test 17",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3778,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:59:24.340Z",
+    "fecha_actualizacion": "2026-01-16T05:59:24.340Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3716,
+  "fields": {
+    "descripcion": "Producto test 16",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3777,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:59:16.079Z",
+    "fecha_actualizacion": "2026-01-16T05:59:16.079Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3715,
+  "fields": {
+    "descripcion": "Producto test 15",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3776,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:59:07.059Z",
+    "fecha_actualizacion": "2026-01-16T05:59:07.059Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3714,
+  "fields": {
+    "descripcion": "Producto test 14",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3775,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:58:58.739Z",
+    "fecha_actualizacion": "2026-01-16T05:58:58.739Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3713,
+  "fields": {
+    "descripcion": "Producto test 13",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3774,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:58:49.809Z",
+    "fecha_actualizacion": "2026-01-16T05:58:49.809Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3712,
+  "fields": {
+    "descripcion": "Producto test 12",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3773,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:58:41.718Z",
+    "fecha_actualizacion": "2026-01-16T05:58:41.718Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3711,
+  "fields": {
+    "descripcion": "Producto test 11",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3772,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:58:33.630Z",
+    "fecha_actualizacion": "2026-01-16T05:58:33.630Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3710,
+  "fields": {
+    "descripcion": "Producto test 10",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3771,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:58:25.341Z",
+    "fecha_actualizacion": "2026-01-16T05:58:25.341Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3709,
+  "fields": {
+    "descripcion": "Producto test 9",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3770,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:58:16.689Z",
+    "fecha_actualizacion": "2026-01-16T05:58:16.689Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3708,
+  "fields": {
+    "descripcion": "Producto test 8",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3769,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:58:08.253Z",
+    "fecha_actualizacion": "2026-01-16T05:58:08.253Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3707,
+  "fields": {
+    "descripcion": "Producto test 7",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3768,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:58:00.201Z",
+    "fecha_actualizacion": "2026-01-16T05:58:00.201Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3706,
+  "fields": {
+    "descripcion": "Producto test 6",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3767,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:57:52.095Z",
+    "fecha_actualizacion": "2026-01-16T05:57:52.095Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3705,
+  "fields": {
+    "descripcion": "Producto test 5",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3766,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:57:43.977Z",
+    "fecha_actualizacion": "2026-01-16T05:57:43.977Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3704,
+  "fields": {
+    "descripcion": "Producto test 4",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3765,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:57:35.981Z",
+    "fecha_actualizacion": "2026-01-16T05:57:35.981Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3703,
+  "fields": {
+    "descripcion": "Producto test 3",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3764,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:57:27.835Z",
+    "fecha_actualizacion": "2026-01-16T05:57:27.835Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3702,
+  "fields": {
+    "descripcion": "Producto test 2",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3763,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:57:19.731Z",
+    "fecha_actualizacion": "2026-01-16T05:57:19.731Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3701,
+  "fields": {
+    "descripcion": "Producto test 1",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3762,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:57:11.661Z",
+    "fecha_actualizacion": "2026-01-16T05:57:11.661Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3700,
+  "fields": {
+    "descripcion": "Producto test 0",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3761,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:57:03.418Z",
+    "fecha_actualizacion": "2026-01-16T05:57:03.418Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3699,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3760,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:17:34.289Z",
+    "fecha_actualizacion": "2026-01-16T05:17:34.289Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3698,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3759,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:17:30.417Z",
+    "fecha_actualizacion": "2026-01-16T05:17:30.417Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3697,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3758,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:17:26.597Z",
+    "fecha_actualizacion": "2026-01-16T05:17:26.597Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3696,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3757,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:17:22.709Z",
+    "fecha_actualizacion": "2026-01-16T05:17:22.709Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3695,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3756,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:17:18.709Z",
+    "fecha_actualizacion": "2026-01-16T05:17:18.709Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3694,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3755,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:16:54.769Z",
+    "fecha_actualizacion": "2026-01-16T05:16:54.769Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3693,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3754,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:16:50.779Z",
+    "fecha_actualizacion": "2026-01-16T05:16:50.779Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3692,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3753,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:16:46.927Z",
+    "fecha_actualizacion": "2026-01-16T05:16:46.927Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3691,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3752,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:16:43.084Z",
+    "fecha_actualizacion": "2026-01-16T05:16:43.084Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3690,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3751,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:16:38.991Z",
+    "fecha_actualizacion": "2026-01-16T05:16:38.991Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3689,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3750,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:16:14.362Z",
+    "fecha_actualizacion": "2026-01-16T05:16:14.362Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3688,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3749,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:16:09.886Z",
+    "fecha_actualizacion": "2026-01-16T05:16:09.886Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3687,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3748,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:16:06.129Z",
+    "fecha_actualizacion": "2026-01-16T05:16:06.129Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3686,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3747,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:16:01.931Z",
+    "fecha_actualizacion": "2026-01-16T05:16:01.931Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3685,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3746,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:15:58.052Z",
+    "fecha_actualizacion": "2026-01-16T05:15:58.052Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3684,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3745,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:15:33.189Z",
+    "fecha_actualizacion": "2026-01-16T05:15:33.189Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3683,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3744,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:15:28.837Z",
+    "fecha_actualizacion": "2026-01-16T05:15:28.837Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3682,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3743,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:15:24.964Z",
+    "fecha_actualizacion": "2026-01-16T05:15:24.964Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3681,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3742,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:15:20.918Z",
+    "fecha_actualizacion": "2026-01-16T05:15:20.918Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3680,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3741,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:15:16.861Z",
+    "fecha_actualizacion": "2026-01-16T05:15:16.861Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3679,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3740,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:14:52.386Z",
+    "fecha_actualizacion": "2026-01-16T05:14:52.386Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3678,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3739,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:14:48.207Z",
+    "fecha_actualizacion": "2026-01-16T05:14:48.207Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3677,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3738,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:14:44.300Z",
+    "fecha_actualizacion": "2026-01-16T05:14:44.300Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3676,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3737,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:14:40.265Z",
+    "fecha_actualizacion": "2026-01-16T05:14:40.265Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3675,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3736,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:14:36.271Z",
+    "fecha_actualizacion": "2026-01-16T05:14:36.271Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3674,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3735,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:14:12.347Z",
+    "fecha_actualizacion": "2026-01-16T05:14:12.347Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3673,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3734,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:14:08.478Z",
+    "fecha_actualizacion": "2026-01-16T05:14:08.478Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3672,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3733,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:14:04.309Z",
+    "fecha_actualizacion": "2026-01-16T05:14:04.309Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3671,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3732,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:14:00.227Z",
+    "fecha_actualizacion": "2026-01-16T05:14:00.227Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3670,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3731,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:13:56.380Z",
+    "fecha_actualizacion": "2026-01-16T05:13:56.380Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3669,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3730,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:13:32.167Z",
+    "fecha_actualizacion": "2026-01-16T05:13:32.167Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3668,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3729,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:13:28.229Z",
+    "fecha_actualizacion": "2026-01-16T05:13:28.229Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3667,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3728,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:13:24.425Z",
+    "fecha_actualizacion": "2026-01-16T05:13:24.425Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3666,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3727,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:13:20.489Z",
+    "fecha_actualizacion": "2026-01-16T05:13:20.489Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3665,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3726,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:13:16.601Z",
+    "fecha_actualizacion": "2026-01-16T05:13:16.601Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3664,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3725,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:12:52.421Z",
+    "fecha_actualizacion": "2026-01-16T05:12:52.421Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3663,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3724,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:12:48.579Z",
+    "fecha_actualizacion": "2026-01-16T05:12:48.579Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3662,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3723,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:12:44.490Z",
+    "fecha_actualizacion": "2026-01-16T05:12:44.490Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3661,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3722,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:12:40.614Z",
+    "fecha_actualizacion": "2026-01-16T05:12:40.614Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3660,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3721,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:12:36.607Z",
+    "fecha_actualizacion": "2026-01-16T05:12:36.607Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3659,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3720,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:12:12.290Z",
+    "fecha_actualizacion": "2026-01-16T05:12:12.290Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3658,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3719,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:12:08.378Z",
+    "fecha_actualizacion": "2026-01-16T05:12:08.378Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3657,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3718,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:12:04.280Z",
+    "fecha_actualizacion": "2026-01-16T05:12:04.280Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3656,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3717,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:12:00.378Z",
+    "fecha_actualizacion": "2026-01-16T05:12:00.378Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3655,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3716,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:11:56.310Z",
+    "fecha_actualizacion": "2026-01-16T05:11:56.310Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3654,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3715,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:11:32.260Z",
+    "fecha_actualizacion": "2026-01-16T05:11:32.260Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3653,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3714,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:11:28.408Z",
+    "fecha_actualizacion": "2026-01-16T05:11:28.408Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3652,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3713,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:11:24.567Z",
+    "fecha_actualizacion": "2026-01-16T05:11:24.567Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3651,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3712,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:11:20.529Z",
+    "fecha_actualizacion": "2026-01-16T05:11:20.529Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3650,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3711,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:11:16.639Z",
+    "fecha_actualizacion": "2026-01-16T05:11:16.639Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3649,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3710,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:10:52.558Z",
+    "fecha_actualizacion": "2026-01-16T05:10:52.558Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3648,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3709,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:10:48.717Z",
+    "fecha_actualizacion": "2026-01-16T05:10:48.717Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3647,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3708,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:10:44.678Z",
+    "fecha_actualizacion": "2026-01-16T05:10:44.678Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3646,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3707,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:10:40.629Z",
+    "fecha_actualizacion": "2026-01-16T05:10:40.629Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3645,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3706,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:10:36.813Z",
+    "fecha_actualizacion": "2026-01-16T05:10:36.813Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3644,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3705,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:10:12.529Z",
+    "fecha_actualizacion": "2026-01-16T05:10:12.529Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3643,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3704,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:10:08.653Z",
+    "fecha_actualizacion": "2026-01-16T05:10:08.653Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3642,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3703,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:10:04.858Z",
+    "fecha_actualizacion": "2026-01-16T05:10:04.858Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3641,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3702,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:10:00.948Z",
+    "fecha_actualizacion": "2026-01-16T05:10:00.948Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3640,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3701,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:09:56.918Z",
+    "fecha_actualizacion": "2026-01-16T05:09:56.918Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3639,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3700,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:09:33.008Z",
+    "fecha_actualizacion": "2026-01-16T05:09:33.008Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3638,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3699,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:09:28.989Z",
+    "fecha_actualizacion": "2026-01-16T05:09:28.989Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3637,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3698,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:09:25.070Z",
+    "fecha_actualizacion": "2026-01-16T05:09:25.070Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3636,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3697,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:09:21.239Z",
+    "fecha_actualizacion": "2026-01-16T05:09:21.239Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3635,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3696,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:09:17.418Z",
+    "fecha_actualizacion": "2026-01-16T05:09:17.418Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3634,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3695,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:08:53.534Z",
+    "fecha_actualizacion": "2026-01-16T05:08:53.534Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3633,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3694,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:08:49.718Z",
+    "fecha_actualizacion": "2026-01-16T05:08:49.718Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3632,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3693,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:08:45.587Z",
+    "fecha_actualizacion": "2026-01-16T05:08:45.587Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3631,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3692,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:08:41.727Z",
+    "fecha_actualizacion": "2026-01-16T05:08:41.727Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3630,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3691,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:08:37.710Z",
+    "fecha_actualizacion": "2026-01-16T05:08:37.710Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3629,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3690,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:08:14.007Z",
+    "fecha_actualizacion": "2026-01-16T05:08:14.007Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3628,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3689,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:08:10.159Z",
+    "fecha_actualizacion": "2026-01-16T05:08:10.159Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3627,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3688,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:08:06.270Z",
+    "fecha_actualizacion": "2026-01-16T05:08:06.270Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3626,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3687,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:08:02.438Z",
+    "fecha_actualizacion": "2026-01-16T05:08:02.438Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3625,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3686,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:07:58.509Z",
+    "fecha_actualizacion": "2026-01-16T05:07:58.509Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3624,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3685,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:07:34.328Z",
+    "fecha_actualizacion": "2026-01-16T05:07:34.328Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3623,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3684,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:07:30.458Z",
+    "fecha_actualizacion": "2026-01-16T05:07:30.458Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3622,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3683,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:07:26.580Z",
+    "fecha_actualizacion": "2026-01-16T05:07:26.580Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3621,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3682,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:07:22.554Z",
+    "fecha_actualizacion": "2026-01-16T05:07:22.554Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3620,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3681,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:07:18.648Z",
+    "fecha_actualizacion": "2026-01-16T05:07:18.648Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3619,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3680,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:06:54.799Z",
+    "fecha_actualizacion": "2026-01-16T05:06:54.799Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3618,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3679,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:06:50.990Z",
+    "fecha_actualizacion": "2026-01-16T05:06:50.990Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3617,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3678,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:06:47.107Z",
+    "fecha_actualizacion": "2026-01-16T05:06:47.107Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3616,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3677,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:06:43.208Z",
+    "fecha_actualizacion": "2026-01-16T05:06:43.208Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3615,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3676,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:06:39.340Z",
+    "fecha_actualizacion": "2026-01-16T05:06:39.340Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3614,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3675,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:06:15.251Z",
+    "fecha_actualizacion": "2026-01-16T05:06:15.251Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3613,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3674,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:06:11.379Z",
+    "fecha_actualizacion": "2026-01-16T05:06:11.379Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3612,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3673,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:06:07.478Z",
+    "fecha_actualizacion": "2026-01-16T05:06:07.478Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3611,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3672,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:06:03.398Z",
+    "fecha_actualizacion": "2026-01-16T05:06:03.398Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3610,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3671,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:05:59.549Z",
+    "fecha_actualizacion": "2026-01-16T05:05:59.549Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3609,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3670,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:05:35.578Z",
+    "fecha_actualizacion": "2026-01-16T05:05:35.578Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3608,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3669,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:05:31.740Z",
+    "fecha_actualizacion": "2026-01-16T05:05:31.740Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3607,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3668,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:05:27.939Z",
+    "fecha_actualizacion": "2026-01-16T05:05:27.939Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3606,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3667,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:05:24.062Z",
+    "fecha_actualizacion": "2026-01-16T05:05:24.062Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3605,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3666,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:05:19.979Z",
+    "fecha_actualizacion": "2026-01-16T05:05:19.979Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3604,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3665,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:04:56.048Z",
+    "fecha_actualizacion": "2026-01-16T05:04:56.048Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3603,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3664,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:04:52.232Z",
+    "fecha_actualizacion": "2026-01-16T05:04:52.232Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3602,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3663,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:04:48.440Z",
+    "fecha_actualizacion": "2026-01-16T05:04:48.440Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3601,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3662,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:04:44.498Z",
+    "fecha_actualizacion": "2026-01-16T05:04:44.498Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3600,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3661,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:04:40.689Z",
+    "fecha_actualizacion": "2026-01-16T05:04:40.689Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3599,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3660,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:04:16.989Z",
+    "fecha_actualizacion": "2026-01-16T05:04:16.989Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3598,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3659,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:04:13.158Z",
+    "fecha_actualizacion": "2026-01-16T05:04:13.158Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3597,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3658,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:04:09.228Z",
+    "fecha_actualizacion": "2026-01-16T05:04:09.228Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3596,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3657,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:04:05.417Z",
+    "fecha_actualizacion": "2026-01-16T05:04:05.417Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3595,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3656,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:04:01.557Z",
+    "fecha_actualizacion": "2026-01-16T05:04:01.557Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3594,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3655,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:03:37.529Z",
+    "fecha_actualizacion": "2026-01-16T05:03:37.529Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3593,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3654,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:03:33.588Z",
+    "fecha_actualizacion": "2026-01-16T05:03:33.588Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3592,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3653,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:03:29.378Z",
+    "fecha_actualizacion": "2026-01-16T05:03:29.378Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3591,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3652,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:03:25.523Z",
+    "fecha_actualizacion": "2026-01-16T05:03:25.523Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3590,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3651,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:03:21.688Z",
+    "fecha_actualizacion": "2026-01-16T05:03:21.688Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3589,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3650,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:02:57.942Z",
+    "fecha_actualizacion": "2026-01-16T05:02:57.942Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3588,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3649,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:02:54.060Z",
+    "fecha_actualizacion": "2026-01-16T05:02:54.060Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3587,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3648,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:02:50.219Z",
+    "fecha_actualizacion": "2026-01-16T05:02:50.219Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3586,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3647,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:02:46.382Z",
+    "fecha_actualizacion": "2026-01-16T05:02:46.382Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3585,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3646,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:02:42.492Z",
+    "fecha_actualizacion": "2026-01-16T05:02:42.492Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3584,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3645,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:02:18.610Z",
+    "fecha_actualizacion": "2026-01-16T05:02:18.610Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3583,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3644,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:02:14.732Z",
+    "fecha_actualizacion": "2026-01-16T05:02:14.732Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3582,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3643,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:02:10.880Z",
+    "fecha_actualizacion": "2026-01-16T05:02:10.880Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3581,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3642,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:02:07.048Z",
+    "fecha_actualizacion": "2026-01-16T05:02:07.048Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3580,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "12.00",
+    "envio": 3641,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-16T05:02:03.010Z",
+    "fecha_actualizacion": "2026-01-16T05:02:03.010Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3579,
+  "fields": {
+    "descripcion": "Producto nuevo 23",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:01:44.228Z",
+    "fecha_actualizacion": "2026-01-16T05:01:44.228Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3578,
+  "fields": {
+    "descripcion": "Producto nuevo 22",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:01:38.609Z",
+    "fecha_actualizacion": "2026-01-16T05:01:38.609Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3577,
+  "fields": {
+    "descripcion": "Producto nuevo 21",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:01:32.728Z",
+    "fecha_actualizacion": "2026-01-16T05:01:32.728Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3576,
+  "fields": {
+    "descripcion": "Producto nuevo 20",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:01:27.008Z",
+    "fecha_actualizacion": "2026-01-16T05:01:27.008Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3575,
+  "fields": {
+    "descripcion": "Producto nuevo 19",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:01:21.484Z",
+    "fecha_actualizacion": "2026-01-16T05:01:21.484Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3574,
+  "fields": {
+    "descripcion": "Producto nuevo 18",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:01:16.050Z",
+    "fecha_actualizacion": "2026-01-16T05:01:16.050Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3573,
+  "fields": {
+    "descripcion": "Producto nuevo 17",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:01:10.259Z",
+    "fecha_actualizacion": "2026-01-16T05:01:10.259Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3572,
+  "fields": {
+    "descripcion": "Producto nuevo 16",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:01:04.648Z",
+    "fecha_actualizacion": "2026-01-16T05:01:04.648Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3571,
+  "fields": {
+    "descripcion": "Producto nuevo 15",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:00:58.889Z",
+    "fecha_actualizacion": "2026-01-16T05:00:58.889Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3570,
+  "fields": {
+    "descripcion": "Producto nuevo 14",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:00:52.818Z",
+    "fecha_actualizacion": "2026-01-16T05:00:52.818Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3569,
+  "fields": {
+    "descripcion": "Producto nuevo 13",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:00:46.772Z",
+    "fecha_actualizacion": "2026-01-16T05:00:46.772Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3568,
+  "fields": {
+    "descripcion": "Producto nuevo 12",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:00:40.779Z",
+    "fecha_actualizacion": "2026-01-16T05:00:40.779Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3567,
+  "fields": {
+    "descripcion": "Producto nuevo 11",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:00:34.789Z",
+    "fecha_actualizacion": "2026-01-16T05:00:34.789Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3566,
+  "fields": {
+    "descripcion": "Producto nuevo 10",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:00:28.766Z",
+    "fecha_actualizacion": "2026-01-16T05:00:28.766Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3565,
+  "fields": {
+    "descripcion": "Producto nuevo 9",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:00:22.699Z",
+    "fecha_actualizacion": "2026-01-16T05:00:22.699Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3564,
+  "fields": {
+    "descripcion": "Producto nuevo 8",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:00:16.768Z",
+    "fecha_actualizacion": "2026-01-16T05:00:16.768Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3563,
+  "fields": {
+    "descripcion": "Producto nuevo 7",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:00:10.780Z",
+    "fecha_actualizacion": "2026-01-16T05:00:10.780Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3562,
+  "fields": {
+    "descripcion": "Producto nuevo 6",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T05:00:02.778Z",
+    "fecha_actualizacion": "2026-01-16T05:00:02.778Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3561,
+  "fields": {
+    "descripcion": "Producto nuevo 5",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:59:57.160Z",
+    "fecha_actualizacion": "2026-01-16T04:59:57.160Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3560,
+  "fields": {
+    "descripcion": "Producto nuevo 4",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:59:51.467Z",
+    "fecha_actualizacion": "2026-01-16T04:59:51.467Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3559,
+  "fields": {
+    "descripcion": "Producto nuevo 3",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:59:45.679Z",
+    "fecha_actualizacion": "2026-01-16T04:59:45.679Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3558,
+  "fields": {
+    "descripcion": "Producto nuevo 2",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:59:40.049Z",
+    "fecha_actualizacion": "2026-01-16T04:59:40.049Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3557,
+  "fields": {
+    "descripcion": "Producto nuevo 1",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:59:34.559Z",
+    "fecha_actualizacion": "2026-01-16T04:59:34.559Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3556,
+  "fields": {
+    "descripcion": "Producto nuevo 0",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "26.25",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:59:29.079Z",
+    "fecha_actualizacion": "2026-01-16T04:59:29.079Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3555,
+  "fields": {
+    "descripcion": "Producto test 23",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3640,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:58:07.980Z",
+    "fecha_actualizacion": "2026-01-16T04:58:07.980Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3554,
+  "fields": {
+    "descripcion": "Producto test 22",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3639,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:57:59.550Z",
+    "fecha_actualizacion": "2026-01-16T04:57:59.550Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3553,
+  "fields": {
+    "descripcion": "Producto test 21",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3638,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:57:51.310Z",
+    "fecha_actualizacion": "2026-01-16T04:57:51.310Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3552,
+  "fields": {
+    "descripcion": "Producto test 20",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3637,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:57:42.989Z",
+    "fecha_actualizacion": "2026-01-16T04:57:42.989Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3551,
+  "fields": {
+    "descripcion": "Producto test 19",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3636,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:57:34.998Z",
+    "fecha_actualizacion": "2026-01-16T04:57:34.998Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3550,
+  "fields": {
+    "descripcion": "Producto test 18",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3635,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:57:26.828Z",
+    "fecha_actualizacion": "2026-01-16T04:57:26.828Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3549,
+  "fields": {
+    "descripcion": "Producto test 17",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3634,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:57:18.368Z",
+    "fecha_actualizacion": "2026-01-16T04:57:18.368Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3548,
+  "fields": {
+    "descripcion": "Producto test 16",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3633,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:57:10.080Z",
+    "fecha_actualizacion": "2026-01-16T04:57:10.080Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3547,
+  "fields": {
+    "descripcion": "Producto test 15",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3632,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:57:01.849Z",
+    "fecha_actualizacion": "2026-01-16T04:57:01.849Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3546,
+  "fields": {
+    "descripcion": "Producto test 14",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3631,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:56:53.550Z",
+    "fecha_actualizacion": "2026-01-16T04:56:53.550Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3545,
+  "fields": {
+    "descripcion": "Producto test 13",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3630,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:56:45.520Z",
+    "fecha_actualizacion": "2026-01-16T04:56:45.520Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3544,
+  "fields": {
+    "descripcion": "Producto test 12",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3629,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:56:37.247Z",
+    "fecha_actualizacion": "2026-01-16T04:56:37.247Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3543,
+  "fields": {
+    "descripcion": "Producto test 11",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3628,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:56:28.921Z",
+    "fecha_actualizacion": "2026-01-16T04:56:28.921Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3542,
+  "fields": {
+    "descripcion": "Producto test 10",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3627,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:56:20.520Z",
+    "fecha_actualizacion": "2026-01-16T04:56:20.520Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3541,
+  "fields": {
+    "descripcion": "Producto test 9",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3626,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:56:11.949Z",
+    "fecha_actualizacion": "2026-01-16T04:56:11.949Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3540,
+  "fields": {
+    "descripcion": "Producto test 8",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3625,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:56:03.537Z",
+    "fecha_actualizacion": "2026-01-16T04:56:03.537Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3539,
+  "fields": {
+    "descripcion": "Producto test 7",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3624,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:55:55.328Z",
+    "fecha_actualizacion": "2026-01-16T04:55:55.328Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3538,
+  "fields": {
+    "descripcion": "Producto test 6",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3623,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:55:47.243Z",
+    "fecha_actualizacion": "2026-01-16T04:55:47.243Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3537,
+  "fields": {
+    "descripcion": "Producto test 5",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3622,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:55:38.958Z",
+    "fecha_actualizacion": "2026-01-16T04:55:38.958Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3536,
+  "fields": {
+    "descripcion": "Producto test 4",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3621,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:55:30.719Z",
+    "fecha_actualizacion": "2026-01-16T04:55:30.719Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3535,
+  "fields": {
+    "descripcion": "Producto test 3",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3620,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:55:22.281Z",
+    "fecha_actualizacion": "2026-01-16T04:55:22.281Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3534,
+  "fields": {
+    "descripcion": "Producto test 2",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3619,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:55:14.168Z",
+    "fecha_actualizacion": "2026-01-16T04:55:14.168Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3533,
+  "fields": {
+    "descripcion": "Producto test 1",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3618,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:55:05.868Z",
+    "fecha_actualizacion": "2026-01-16T04:55:05.868Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3532,
+  "fields": {
+    "descripcion": "Producto test 0",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3617,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-16T04:54:57.383Z",
+    "fecha_actualizacion": "2026-01-16T04:54:57.383Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3531,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3616,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:20:43.319Z",
+    "fecha_actualizacion": "2026-01-15T08:20:43.319Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3530,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3615,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:20:40.988Z",
+    "fecha_actualizacion": "2026-01-15T08:20:40.988Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3529,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3614,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:20:38.600Z",
+    "fecha_actualizacion": "2026-01-15T08:20:38.600Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3528,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3613,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:20:36.269Z",
+    "fecha_actualizacion": "2026-01-15T08:20:36.269Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3527,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3612,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:20:34.089Z",
+    "fecha_actualizacion": "2026-01-15T08:20:34.089Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3526,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3611,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:20:20.059Z",
+    "fecha_actualizacion": "2026-01-15T08:20:20.059Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3525,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3610,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:20:17.828Z",
+    "fecha_actualizacion": "2026-01-15T08:20:17.828Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3524,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3609,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:20:15.638Z",
+    "fecha_actualizacion": "2026-01-15T08:20:15.638Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3523,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3608,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:20:13.409Z",
+    "fecha_actualizacion": "2026-01-15T08:20:13.409Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3522,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3607,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:20:11.249Z",
+    "fecha_actualizacion": "2026-01-15T08:20:11.249Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3521,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3606,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:57.358Z",
+    "fecha_actualizacion": "2026-01-15T08:19:57.358Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3520,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3605,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:55.252Z",
+    "fecha_actualizacion": "2026-01-15T08:19:55.252Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3519,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3604,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:53.037Z",
+    "fecha_actualizacion": "2026-01-15T08:19:53.037Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3518,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3603,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:50.648Z",
+    "fecha_actualizacion": "2026-01-15T08:19:50.648Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3517,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3602,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:48.418Z",
+    "fecha_actualizacion": "2026-01-15T08:19:48.418Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3516,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3601,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:34.447Z",
+    "fecha_actualizacion": "2026-01-15T08:19:34.447Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3515,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3600,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:32.209Z",
+    "fecha_actualizacion": "2026-01-15T08:19:32.209Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3514,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3599,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:30.027Z",
+    "fecha_actualizacion": "2026-01-15T08:19:30.027Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3513,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3598,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:27.828Z",
+    "fecha_actualizacion": "2026-01-15T08:19:27.828Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3512,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3597,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:25.501Z",
+    "fecha_actualizacion": "2026-01-15T08:19:25.501Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3511,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3596,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:11.547Z",
+    "fecha_actualizacion": "2026-01-15T08:19:11.548Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3510,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3595,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:09.129Z",
+    "fecha_actualizacion": "2026-01-15T08:19:09.129Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3509,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3594,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:06.889Z",
+    "fecha_actualizacion": "2026-01-15T08:19:06.889Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3508,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3593,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:04.707Z",
+    "fecha_actualizacion": "2026-01-15T08:19:04.707Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3507,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3592,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:19:02.488Z",
+    "fecha_actualizacion": "2026-01-15T08:19:02.488Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3506,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3591,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:48.328Z",
+    "fecha_actualizacion": "2026-01-15T08:18:48.328Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3505,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3590,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:46.149Z",
+    "fecha_actualizacion": "2026-01-15T08:18:46.149Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3504,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3589,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:43.909Z",
+    "fecha_actualizacion": "2026-01-15T08:18:43.909Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3503,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3588,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:41.568Z",
+    "fecha_actualizacion": "2026-01-15T08:18:41.568Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3502,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3587,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:39.098Z",
+    "fecha_actualizacion": "2026-01-15T08:18:39.098Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3501,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3586,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:25.369Z",
+    "fecha_actualizacion": "2026-01-15T08:18:25.369Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3500,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3585,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:23.228Z",
+    "fecha_actualizacion": "2026-01-15T08:18:23.228Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3499,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3584,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:20.967Z",
+    "fecha_actualizacion": "2026-01-15T08:18:20.967Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3498,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3583,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:18.756Z",
+    "fecha_actualizacion": "2026-01-15T08:18:18.756Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3497,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3582,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:16.563Z",
+    "fecha_actualizacion": "2026-01-15T08:18:16.563Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3496,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3581,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:18:01.909Z",
+    "fecha_actualizacion": "2026-01-15T08:18:01.909Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3495,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3580,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:59.619Z",
+    "fecha_actualizacion": "2026-01-15T08:17:59.619Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3494,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3579,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:57.309Z",
+    "fecha_actualizacion": "2026-01-15T08:17:57.309Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3493,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3578,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:54.998Z",
+    "fecha_actualizacion": "2026-01-15T08:17:54.998Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3492,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3577,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:52.198Z",
+    "fecha_actualizacion": "2026-01-15T08:17:52.198Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3491,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3576,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:38.159Z",
+    "fecha_actualizacion": "2026-01-15T08:17:38.159Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3490,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3575,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:36.002Z",
+    "fecha_actualizacion": "2026-01-15T08:17:36.002Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3489,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3574,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:33.577Z",
+    "fecha_actualizacion": "2026-01-15T08:17:33.577Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3488,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3573,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:31.339Z",
+    "fecha_actualizacion": "2026-01-15T08:17:31.339Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3487,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3572,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:29.152Z",
+    "fecha_actualizacion": "2026-01-15T08:17:29.152Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3486,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3571,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:14.932Z",
+    "fecha_actualizacion": "2026-01-15T08:17:14.932Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3485,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3570,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:12.609Z",
+    "fecha_actualizacion": "2026-01-15T08:17:12.609Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3484,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3569,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:10.479Z",
+    "fecha_actualizacion": "2026-01-15T08:17:10.479Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3483,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3568,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:08.248Z",
+    "fecha_actualizacion": "2026-01-15T08:17:08.248Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3482,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3567,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:17:05.810Z",
+    "fecha_actualizacion": "2026-01-15T08:17:05.810Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3481,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3566,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:51.872Z",
+    "fecha_actualizacion": "2026-01-15T08:16:51.872Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3480,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3565,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:49.679Z",
+    "fecha_actualizacion": "2026-01-15T08:16:49.679Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3479,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3564,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:47.481Z",
+    "fecha_actualizacion": "2026-01-15T08:16:47.481Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3478,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3563,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:45.241Z",
+    "fecha_actualizacion": "2026-01-15T08:16:45.241Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3477,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3562,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:42.809Z",
+    "fecha_actualizacion": "2026-01-15T08:16:42.809Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3476,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3561,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:28.128Z",
+    "fecha_actualizacion": "2026-01-15T08:16:28.128Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3475,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3560,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:25.579Z",
+    "fecha_actualizacion": "2026-01-15T08:16:25.579Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3474,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3559,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:23.348Z",
+    "fecha_actualizacion": "2026-01-15T08:16:23.348Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3473,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3558,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:20.960Z",
+    "fecha_actualizacion": "2026-01-15T08:16:20.960Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3472,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3557,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:18.559Z",
+    "fecha_actualizacion": "2026-01-15T08:16:18.559Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3471,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3556,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:04.419Z",
+    "fecha_actualizacion": "2026-01-15T08:16:04.419Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3470,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3555,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:16:02.099Z",
+    "fecha_actualizacion": "2026-01-15T08:16:02.099Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3469,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3554,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:59.818Z",
+    "fecha_actualizacion": "2026-01-15T08:15:59.818Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3468,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3553,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:57.659Z",
+    "fecha_actualizacion": "2026-01-15T08:15:57.659Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3467,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3552,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:55.418Z",
+    "fecha_actualizacion": "2026-01-15T08:15:55.418Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3466,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3551,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:40.929Z",
+    "fecha_actualizacion": "2026-01-15T08:15:40.929Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3465,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3550,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:38.581Z",
+    "fecha_actualizacion": "2026-01-15T08:15:38.581Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3464,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3549,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:36.371Z",
+    "fecha_actualizacion": "2026-01-15T08:15:36.371Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3463,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3548,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:34.147Z",
+    "fecha_actualizacion": "2026-01-15T08:15:34.147Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3462,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3547,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:31.909Z",
+    "fecha_actualizacion": "2026-01-15T08:15:31.909Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3461,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3546,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:17.558Z",
+    "fecha_actualizacion": "2026-01-15T08:15:17.558Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3460,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3545,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:15.459Z",
+    "fecha_actualizacion": "2026-01-15T08:15:15.459Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3459,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3544,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:13.209Z",
+    "fecha_actualizacion": "2026-01-15T08:15:13.209Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3458,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3543,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:10.459Z",
+    "fecha_actualizacion": "2026-01-15T08:15:10.459Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3457,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3542,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:15:07.999Z",
+    "fecha_actualizacion": "2026-01-15T08:15:07.999Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3456,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3541,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:53.359Z",
+    "fecha_actualizacion": "2026-01-15T08:14:53.359Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3455,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3540,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:51.149Z",
+    "fecha_actualizacion": "2026-01-15T08:14:51.149Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3454,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3539,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:48.933Z",
+    "fecha_actualizacion": "2026-01-15T08:14:48.933Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3453,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3538,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:46.544Z",
+    "fecha_actualizacion": "2026-01-15T08:14:46.544Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3452,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3537,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:44.219Z",
+    "fecha_actualizacion": "2026-01-15T08:14:44.219Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3451,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3536,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:30.319Z",
+    "fecha_actualizacion": "2026-01-15T08:14:30.319Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3450,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3535,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:28.119Z",
+    "fecha_actualizacion": "2026-01-15T08:14:28.119Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3449,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3534,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:25.969Z",
+    "fecha_actualizacion": "2026-01-15T08:14:25.969Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3448,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3533,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:23.749Z",
+    "fecha_actualizacion": "2026-01-15T08:14:23.749Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3447,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3532,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:21.511Z",
+    "fecha_actualizacion": "2026-01-15T08:14:21.511Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3446,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3531,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:07.219Z",
+    "fecha_actualizacion": "2026-01-15T08:14:07.219Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3445,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3530,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:04.868Z",
+    "fecha_actualizacion": "2026-01-15T08:14:04.868Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3444,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3529,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:02.638Z",
+    "fecha_actualizacion": "2026-01-15T08:14:02.638Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3443,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3528,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:14:00.262Z",
+    "fecha_actualizacion": "2026-01-15T08:14:00.262Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3442,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3527,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:57.908Z",
+    "fecha_actualizacion": "2026-01-15T08:13:57.908Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3441,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3526,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:43.116Z",
+    "fecha_actualizacion": "2026-01-15T08:13:43.116Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3440,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3525,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:40.809Z",
+    "fecha_actualizacion": "2026-01-15T08:13:40.809Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3439,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3524,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:38.561Z",
+    "fecha_actualizacion": "2026-01-15T08:13:38.561Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3438,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3523,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:36.396Z",
+    "fecha_actualizacion": "2026-01-15T08:13:36.396Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3437,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3522,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:33.596Z",
+    "fecha_actualizacion": "2026-01-15T08:13:33.596Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3436,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3521,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:17.408Z",
+    "fecha_actualizacion": "2026-01-15T08:13:17.408Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3435,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3520,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:13.926Z",
+    "fecha_actualizacion": "2026-01-15T08:13:13.926Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3434,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3519,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:11.238Z",
+    "fecha_actualizacion": "2026-01-15T08:13:11.238Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3433,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3518,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:08.652Z",
+    "fecha_actualizacion": "2026-01-15T08:13:08.652Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3432,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3517,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:13:06.187Z",
+    "fecha_actualizacion": "2026-01-15T08:13:06.187Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3431,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3516,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:50.223Z",
+    "fecha_actualizacion": "2026-01-15T08:12:50.223Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3430,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3515,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:47.842Z",
+    "fecha_actualizacion": "2026-01-15T08:12:47.842Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3429,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3514,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:45.510Z",
+    "fecha_actualizacion": "2026-01-15T08:12:45.510Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3428,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3513,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:43.279Z",
+    "fecha_actualizacion": "2026-01-15T08:12:43.279Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3427,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3512,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:40.803Z",
+    "fecha_actualizacion": "2026-01-15T08:12:40.803Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3426,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3511,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:26.877Z",
+    "fecha_actualizacion": "2026-01-15T08:12:26.877Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3425,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3510,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:24.618Z",
+    "fecha_actualizacion": "2026-01-15T08:12:24.618Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3424,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3509,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:22.366Z",
+    "fecha_actualizacion": "2026-01-15T08:12:22.366Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3423,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3508,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:20.102Z",
+    "fecha_actualizacion": "2026-01-15T08:12:20.102Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3422,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3507,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:17.879Z",
+    "fecha_actualizacion": "2026-01-15T08:12:17.879Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3421,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3506,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:03.728Z",
+    "fecha_actualizacion": "2026-01-15T08:12:03.728Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3420,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3505,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:12:01.592Z",
+    "fecha_actualizacion": "2026-01-15T08:12:01.592Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3419,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3504,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:59.213Z",
+    "fecha_actualizacion": "2026-01-15T08:11:59.213Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3418,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3503,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:56.774Z",
+    "fecha_actualizacion": "2026-01-15T08:11:56.774Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3417,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3502,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:54.565Z",
+    "fecha_actualizacion": "2026-01-15T08:11:54.565Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3416,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3501,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:40.379Z",
+    "fecha_actualizacion": "2026-01-15T08:11:40.379Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3415,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3500,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:38.169Z",
+    "fecha_actualizacion": "2026-01-15T08:11:38.169Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3414,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3499,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:35.698Z",
+    "fecha_actualizacion": "2026-01-15T08:11:35.698Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3413,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3498,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:33.418Z",
+    "fecha_actualizacion": "2026-01-15T08:11:33.418Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3412,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3497,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:31.240Z",
+    "fecha_actualizacion": "2026-01-15T08:11:31.240Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3411,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3496,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:16.728Z",
+    "fecha_actualizacion": "2026-01-15T08:11:16.728Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3410,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3495,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:14.468Z",
+    "fecha_actualizacion": "2026-01-15T08:11:14.468Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3409,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3494,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:12.049Z",
+    "fecha_actualizacion": "2026-01-15T08:11:12.049Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3408,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3493,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:09.815Z",
+    "fecha_actualizacion": "2026-01-15T08:11:09.815Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3407,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3492,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:11:07.503Z",
+    "fecha_actualizacion": "2026-01-15T08:11:07.503Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3406,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3491,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:53.587Z",
+    "fecha_actualizacion": "2026-01-15T08:10:53.587Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3405,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3490,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:51.368Z",
+    "fecha_actualizacion": "2026-01-15T08:10:51.368Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3404,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3489,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:49.169Z",
+    "fecha_actualizacion": "2026-01-15T08:10:49.169Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3403,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3488,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:46.929Z",
+    "fecha_actualizacion": "2026-01-15T08:10:46.929Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3402,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3487,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:44.669Z",
+    "fecha_actualizacion": "2026-01-15T08:10:44.669Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3401,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3486,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:30.898Z",
+    "fecha_actualizacion": "2026-01-15T08:10:30.898Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3400,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3485,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:28.530Z",
+    "fecha_actualizacion": "2026-01-15T08:10:28.530Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3399,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3484,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:26.367Z",
+    "fecha_actualizacion": "2026-01-15T08:10:26.367Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3398,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3483,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:24.104Z",
+    "fecha_actualizacion": "2026-01-15T08:10:24.104Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3397,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3482,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:21.924Z",
+    "fecha_actualizacion": "2026-01-15T08:10:21.924Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3396,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3481,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:07.119Z",
+    "fecha_actualizacion": "2026-01-15T08:10:07.119Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3395,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3480,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:04.828Z",
+    "fecha_actualizacion": "2026-01-15T08:10:04.828Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3394,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3479,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:02.479Z",
+    "fecha_actualizacion": "2026-01-15T08:10:02.479Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3393,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3478,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:10:00.078Z",
+    "fecha_actualizacion": "2026-01-15T08:10:00.078Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3392,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3477,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:57.513Z",
+    "fecha_actualizacion": "2026-01-15T08:09:57.513Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3391,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3476,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:43.150Z",
+    "fecha_actualizacion": "2026-01-15T08:09:43.150Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3390,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3475,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:40.669Z",
+    "fecha_actualizacion": "2026-01-15T08:09:40.669Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3389,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3474,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:38.279Z",
+    "fecha_actualizacion": "2026-01-15T08:09:38.279Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3388,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3473,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:36.050Z",
+    "fecha_actualizacion": "2026-01-15T08:09:36.050Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3387,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3472,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:33.775Z",
+    "fecha_actualizacion": "2026-01-15T08:09:33.775Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3386,
+  "fields": {
+    "descripcion": "Producto importado 4",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3471,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:19.086Z",
+    "fecha_actualizacion": "2026-01-15T08:09:19.086Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3385,
+  "fields": {
+    "descripcion": "Producto importado 3",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3470,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:16.932Z",
+    "fecha_actualizacion": "2026-01-15T08:09:16.932Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3384,
+  "fields": {
+    "descripcion": "Producto importado 2",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3469,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:14.672Z",
+    "fecha_actualizacion": "2026-01-15T08:09:14.672Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3383,
+  "fields": {
+    "descripcion": "Producto importado 1",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3468,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:12.418Z",
+    "fecha_actualizacion": "2026-01-15T08:09:12.418Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3382,
+  "fields": {
+    "descripcion": "Producto importado 0",
+    "peso": "1.00",
+    "cantidad": 1,
+    "valor": "10.00",
+    "costo_envio": "0.00",
+    "envio": 3467,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-15T08:09:10.179Z",
+    "fecha_actualizacion": "2026-01-15T08:09:10.179Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3381,
+  "fields": {
+    "descripcion": "Producto nuevo 29",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:08:47.562Z",
+    "fecha_actualizacion": "2026-01-15T08:08:47.562Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3380,
+  "fields": {
+    "descripcion": "Producto nuevo 28",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:08:42.009Z",
+    "fecha_actualizacion": "2026-01-15T08:08:42.009Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3379,
+  "fields": {
+    "descripcion": "Producto nuevo 27",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:08:36.201Z",
+    "fecha_actualizacion": "2026-01-15T08:08:36.201Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3378,
+  "fields": {
+    "descripcion": "Producto nuevo 26",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:08:30.421Z",
+    "fecha_actualizacion": "2026-01-15T08:08:30.421Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3377,
+  "fields": {
+    "descripcion": "Producto nuevo 25",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:08:24.927Z",
+    "fecha_actualizacion": "2026-01-15T08:08:24.927Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3376,
+  "fields": {
+    "descripcion": "Producto nuevo 24",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:08:18.858Z",
+    "fecha_actualizacion": "2026-01-15T08:08:18.858Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3375,
+  "fields": {
+    "descripcion": "Producto nuevo 23",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:08:13.078Z",
+    "fecha_actualizacion": "2026-01-15T08:08:13.078Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3374,
+  "fields": {
+    "descripcion": "Producto nuevo 22",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:08:07.379Z",
+    "fecha_actualizacion": "2026-01-15T08:08:07.379Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3373,
+  "fields": {
+    "descripcion": "Producto nuevo 21",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:08:01.572Z",
+    "fecha_actualizacion": "2026-01-15T08:08:01.572Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3372,
+  "fields": {
+    "descripcion": "Producto nuevo 20",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:07:55.871Z",
+    "fecha_actualizacion": "2026-01-15T08:07:55.873Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3371,
+  "fields": {
+    "descripcion": "Producto nuevo 19",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:07:50.083Z",
+    "fecha_actualizacion": "2026-01-15T08:07:50.083Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3370,
+  "fields": {
+    "descripcion": "Producto nuevo 18",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:07:44.346Z",
+    "fecha_actualizacion": "2026-01-15T08:07:44.346Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3369,
+  "fields": {
+    "descripcion": "Producto nuevo 17",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:07:38.197Z",
+    "fecha_actualizacion": "2026-01-15T08:07:38.197Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3368,
+  "fields": {
+    "descripcion": "Producto nuevo 16",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:07:32.393Z",
+    "fecha_actualizacion": "2026-01-15T08:07:32.393Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3367,
+  "fields": {
+    "descripcion": "Producto nuevo 15",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:07:26.639Z",
+    "fecha_actualizacion": "2026-01-15T08:07:26.639Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3366,
+  "fields": {
+    "descripcion": "Producto nuevo 14",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:07:20.595Z",
+    "fecha_actualizacion": "2026-01-15T08:07:20.595Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3365,
+  "fields": {
+    "descripcion": "Producto nuevo 13",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:07:14.912Z",
+    "fecha_actualizacion": "2026-01-15T08:07:14.912Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3364,
+  "fields": {
+    "descripcion": "Producto nuevo 12",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:07:08.815Z",
+    "fecha_actualizacion": "2026-01-15T08:07:08.815Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3363,
+  "fields": {
+    "descripcion": "Producto nuevo 11",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:07:02.918Z",
+    "fecha_actualizacion": "2026-01-15T08:07:02.918Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3362,
+  "fields": {
+    "descripcion": "Producto nuevo 10",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:06:57.148Z",
+    "fecha_actualizacion": "2026-01-15T08:06:57.148Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3361,
+  "fields": {
+    "descripcion": "Producto nuevo 9",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:06:51.002Z",
+    "fecha_actualizacion": "2026-01-15T08:06:51.002Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3360,
+  "fields": {
+    "descripcion": "Producto nuevo 8",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:06:44.654Z",
+    "fecha_actualizacion": "2026-01-15T08:06:44.654Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3359,
+  "fields": {
+    "descripcion": "Producto nuevo 7",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:06:39.042Z",
+    "fecha_actualizacion": "2026-01-15T08:06:39.042Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3358,
+  "fields": {
+    "descripcion": "Producto nuevo 6",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:06:32.825Z",
+    "fecha_actualizacion": "2026-01-15T08:06:32.825Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3357,
+  "fields": {
+    "descripcion": "Producto nuevo 5",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:06:26.927Z",
+    "fecha_actualizacion": "2026-01-15T08:06:26.927Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3356,
+  "fields": {
+    "descripcion": "Producto nuevo 4",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:06:20.805Z",
+    "fecha_actualizacion": "2026-01-15T08:06:20.805Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3355,
+  "fields": {
+    "descripcion": "Producto nuevo 3",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:06:15.003Z",
+    "fecha_actualizacion": "2026-01-15T08:06:15.003Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3354,
+  "fields": {
+    "descripcion": "Producto nuevo 2",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:06:08.712Z",
+    "fecha_actualizacion": "2026-01-15T08:06:08.712Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3353,
+  "fields": {
+    "descripcion": "Producto nuevo 1",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:06:02.677Z",
+    "fecha_actualizacion": "2026-01-15T08:06:02.677Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3352,
+  "fields": {
+    "descripcion": "Producto nuevo 0",
+    "peso": "2.50",
+    "cantidad": 1,
+    "valor": "50.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:05:56.635Z",
+    "fecha_actualizacion": "2026-01-15T08:05:56.635Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3351,
+  "fields": {
+    "descripcion": "Producto test 29",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3466,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:05:08.394Z",
+    "fecha_actualizacion": "2026-01-15T08:05:08.394Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3350,
+  "fields": {
+    "descripcion": "Producto test 28",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3465,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:05:02.959Z",
+    "fecha_actualizacion": "2026-01-15T08:05:02.959Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3349,
+  "fields": {
+    "descripcion": "Producto test 27",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3464,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:57.585Z",
+    "fecha_actualizacion": "2026-01-15T08:04:57.585Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3348,
+  "fields": {
+    "descripcion": "Producto test 26",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3463,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:52.322Z",
+    "fecha_actualizacion": "2026-01-15T08:04:52.322Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3347,
+  "fields": {
+    "descripcion": "Producto test 25",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3462,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:46.999Z",
+    "fecha_actualizacion": "2026-01-15T08:04:46.999Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3346,
+  "fields": {
+    "descripcion": "Producto test 24",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3461,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:41.242Z",
+    "fecha_actualizacion": "2026-01-15T08:04:41.242Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3345,
+  "fields": {
+    "descripcion": "Producto test 23",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3460,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:36.169Z",
+    "fecha_actualizacion": "2026-01-15T08:04:36.169Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3344,
+  "fields": {
+    "descripcion": "Producto test 22",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3459,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:31.047Z",
+    "fecha_actualizacion": "2026-01-15T08:04:31.047Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3343,
+  "fields": {
+    "descripcion": "Producto test 21",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3458,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:25.818Z",
+    "fecha_actualizacion": "2026-01-15T08:04:25.818Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3342,
+  "fields": {
+    "descripcion": "Producto test 20",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3457,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:20.589Z",
+    "fecha_actualizacion": "2026-01-15T08:04:20.589Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3341,
+  "fields": {
+    "descripcion": "Producto test 19",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3456,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:15.437Z",
+    "fecha_actualizacion": "2026-01-15T08:04:15.437Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3340,
+  "fields": {
+    "descripcion": "Producto test 18",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3455,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:10.026Z",
+    "fecha_actualizacion": "2026-01-15T08:04:10.026Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3339,
+  "fields": {
+    "descripcion": "Producto test 17",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3454,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:04:05.052Z",
+    "fecha_actualizacion": "2026-01-15T08:04:05.052Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3338,
+  "fields": {
+    "descripcion": "Producto test 16",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3453,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:59.899Z",
+    "fecha_actualizacion": "2026-01-15T08:03:59.899Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3337,
+  "fields": {
+    "descripcion": "Producto test 15",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3452,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:54.778Z",
+    "fecha_actualizacion": "2026-01-15T08:03:54.778Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3336,
+  "fields": {
+    "descripcion": "Producto test 14",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3451,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:49.585Z",
+    "fecha_actualizacion": "2026-01-15T08:03:49.585Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3335,
+  "fields": {
+    "descripcion": "Producto test 13",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3450,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:44.512Z",
+    "fecha_actualizacion": "2026-01-15T08:03:44.512Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3334,
+  "fields": {
+    "descripcion": "Producto test 12",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3449,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:39.403Z",
+    "fecha_actualizacion": "2026-01-15T08:03:39.403Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3333,
+  "fields": {
+    "descripcion": "Producto test 11",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3448,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:34.179Z",
+    "fecha_actualizacion": "2026-01-15T08:03:34.179Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3332,
+  "fields": {
+    "descripcion": "Producto test 10",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3447,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:29.001Z",
+    "fecha_actualizacion": "2026-01-15T08:03:29.001Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3331,
+  "fields": {
+    "descripcion": "Producto test 9",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3446,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:23.736Z",
+    "fecha_actualizacion": "2026-01-15T08:03:23.736Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3330,
+  "fields": {
+    "descripcion": "Producto test 8",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3445,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:18.428Z",
+    "fecha_actualizacion": "2026-01-15T08:03:18.428Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3329,
+  "fields": {
+    "descripcion": "Producto test 7",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3444,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:13.229Z",
+    "fecha_actualizacion": "2026-01-15T08:03:13.229Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3328,
+  "fields": {
+    "descripcion": "Producto test 6",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3443,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:08.165Z",
+    "fecha_actualizacion": "2026-01-15T08:03:08.165Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3327,
+  "fields": {
+    "descripcion": "Producto test 5",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3442,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:03:03.299Z",
+    "fecha_actualizacion": "2026-01-15T08:03:03.299Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3326,
+  "fields": {
+    "descripcion": "Producto test 4",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3441,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:02:58.350Z",
+    "fecha_actualizacion": "2026-01-15T08:02:58.350Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3325,
+  "fields": {
+    "descripcion": "Producto test 3",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3440,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:02:53.229Z",
+    "fecha_actualizacion": "2026-01-15T08:02:53.229Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3324,
+  "fields": {
+    "descripcion": "Producto test 2",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3439,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:02:48.257Z",
+    "fecha_actualizacion": "2026-01-15T08:02:48.257Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3323,
+  "fields": {
+    "descripcion": "Producto test 1",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3438,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:02:43.439Z",
+    "fecha_actualizacion": "2026-01-15T08:02:43.439Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3322,
+  "fields": {
+    "descripcion": "Producto test 0",
+    "peso": "5.25",
+    "cantidad": 2,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3437,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-15T08:02:38.319Z",
+    "fecha_actualizacion": "2026-01-15T08:02:38.319Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3128,
+  "fields": {
+    "descripcion": "Auriculares Sony",
+    "peso": "0.40",
+    "cantidad": 1,
+    "valor": "75.00",
+    "costo_envio": "0.00",
+    "envio": 3267,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-14T15:39:30.661Z",
+    "fecha_actualizacion": "2026-01-14T15:39:30.661Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 3127,
+  "fields": {
+    "descripcion": "Laptop Dell 4",
+    "peso": "3.00",
+    "cantidad": 1,
+    "valor": "900.00",
+    "costo_envio": "0.00",
+    "envio": 3267,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-14T15:39:30.298Z",
+    "fecha_actualizacion": "2026-01-14T15:39:30.299Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 2547,
+  "fields": {
+    "descripcion": "Calcetines algodón",
+    "peso": "0.70",
+    "cantidad": 1,
+    "valor": "54.00",
+    "costo_envio": "0.00",
+    "envio": 2687,
+    "categoria": "electronica",
+    "fecha_creacion": "2026-01-06T19:48:20.224Z",
+    "fecha_actualizacion": "2026-01-06T19:48:20.224Z"
+  }
+},
+{
+  "model": "archivos.producto",
+  "pk": 352,
+  "fields": {
+    "descripcion": "MEMORIAS RAM PARA PC",
+    "peso": "0.17",
+    "cantidad": 3,
+    "valor": "139.99",
+    "costo_envio": "0.00",
+    "envio": 488,
+    "categoria": "otros",
+    "fecha_creacion": "2026-01-03T07:02:19.396Z",
+    "fecha_actualizacion": "2026-01-03T07:02:19.396Z"
+  }
+},
+{
+  "model": "archivos.producto",
   "pk": 216,
   "fields": {
     "descripcion": "Aspiradora Dyson",
@@ -910,8 +7360,8 @@
     "costo_envio": "0.00",
     "envio": 290,
     "categoria": "hogar",
-    "fecha_creacion": "2025-11-29T08:46:04.000Z",
-    "fecha_actualizacion": "2025-11-29T08:46:04.000Z"
+    "fecha_creacion": "2025-11-29T08:46:04Z",
+    "fecha_actualizacion": "2025-11-29T08:46:04Z"
   }
 },
 {

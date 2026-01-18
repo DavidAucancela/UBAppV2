@@ -6,30 +6,39 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Header */
-.mapa-header {
+/* ===== ENCABEZADO MEJORADO ===== */
+.encabezado {
+  margin-bottom: 2rem;
   text-align: center;
-  margin-bottom: 30px;
-  padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 16px;
-  color: white;
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  padding: 2rem 0;
+  padding-top: 90px;
 }
 
-.mapa-header h1 {
-  margin: 0 0 10px 0;
-  font-size: 32px;
+.titulo-principal {
+  font-size: 2.5rem;
+  color: #2c3e50;
   font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
-.mapa-descripcion {
-  margin: 10px 0 0 0;
-  font-size: 16px;
-  opacity: 0.95;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+.titulo-principal i {
+  color: #3498db;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.subtitulo {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin: 0;
 }
 
 /* Loading */

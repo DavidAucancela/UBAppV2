@@ -1,0 +1,204 @@
+<div class="notificaciones-container">
+  <!-- Encabezado -->
+  <div class="encabezado">
+    <h1 class="titulo-principal">
+      <i class="fas fa-bell"></i>
+      Notificaciones
+    </h1>
+    <p class="subtitulo">Gestiona todas tus notificaciones</p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="notificaciones-content">
+      
+      <!-- Estadísticas y Filtros -->
+      <div class="card">
+        <div class="card-header-filters">
+          <h3>
+            <i class="fas fa-filter"></i>
+            Filtros y Estadísticas
+          </h3>
+        </div>
+        
+        <div class="filters-section">
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-bell"></i>
+              </div>
+              <div class="stat-content">
+                <span class="stat-value">{{ estadisticas.todas }}</span>
+                <span class="stat-label">Total</span>
+              </div>
+            </div>
+            
+            <div class="stat-card unread">
+              <div class="stat-icon">
+                <i class="fas fa-circle"></i>
+              </div>
+              <div class="stat-content">
+                <span class="stat-value">{{ estadisticas.noLeidas }}</span>
+                <span class="stat-label">No Leídas</span>
+              </div>
+            </div>
+            
+            <div class="stat-card read">
+              <div class="stat-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="stat-content">
+                <span class="stat-value">{{ estadisticas.leidas }}</span>
+                <span class="stat-label">Leídas</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="filters-row">
+            <div class="filter-group">
+              <label>Filtrar por:</label>
+              <div class="filter-buttons">
+                <button 
+                  class="filter-btn"
+                  [class.active]="filtroLeidas === 'todas'"
+                  (click)="cambiarFiltro('todas')">
+                  Todas
+                </button>
+                <button 
+                  class="filter-btn"
+                  [class.active]="filtroLeidas === 'no_leidas'"
+                  (click)="cambiarFiltro('no_leidas')">
+                  No Leídas
+                </button>
+                <button 
+                  class="filter-btn"
+                  [class.active]="filtroLeidas === 'leidas'"
+                  (click)="cambiarFiltro('leidas')">
+                  Leídas
+                </button>
+              </div>
+            </div>
+            
+            <button 
+              class="btn btn-secondary"
+              *ngIf="estadisticas.noLeidas > 0"
+              (click)="marcarTodasComoLeidas()">
+              <i class="fas fa-check-double"></i>
+              Marcar todas como leídas
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-state" *ngIf="loading">
+        <div class="spinner">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p>Cargando notificaciones...</p>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div class="error-state" *ngIf="error && !loading">
+        <div class="alert alert-error">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span>{{ error }}</span>
+        </div>
+      </div>
+
+      <!-- Lista de Notificaciones -->
+      <div class="card" *ngIf="!loading && !error">
+        <div class="card-header">
+          <h3>
+            <i class="fas fa-list"></i>
+            Lista de Notificaciones
+            <span class="badge-count">({{ getFilteredNotificaciones().length }})</span>
+          </h3>
+        </div>
+        
+        <div class="notificaciones-list" *ngIf="paginatedNotificaciones.length > 0">
+          <div 
+            *ngFor="let notificacion of paginatedNotificaciones" 
+            class="notificacion-item"
+            [class.leida]="notificacion.leida"
+            (click)="marcarComoLeida(notificacion, $event)">
+            
+            <div class="notificacion-icon">
+              <i 
+                [class]="'fas ' + getNotificacionIcon(notificacion.tipo)"
+                [class.fa-circle]="!notificacion.leida">
+              </i>
+            </div>
+            
+            <div class="notificacion-content">
+              <div class="notificacion-header">
+                <h5>{{ notificacion.titulo }}</h5>
+                <div class="notificacion-actions">
+                  <button 
+                    class="btn-icon btn-delete"
+                    (click)="eliminarNotificacion(notificacion, $event)"
+                    title="Eliminar notificación">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <p>{{ notificacion.mensaje }}</p>
+              <div class="notificacion-footer">
+                <span class="notificacion-time">
+                  <i class="fas fa-clock"></i>
+                  {{ getTimeAgo(notificacion.fecha_creacion) }}
+                </span>
+                <span class="notificacion-badge" *ngIf="notificacion.metadata?.envio_id">
+                  <i class="fas fa-truck"></i>
+                  Ver envío
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- No hay notificaciones -->
+        <div class="no-notificaciones" *ngIf="paginatedNotificaciones.length === 0">
+          <i class="fas fa-bell-slash"></i>
+          <p>No hay notificaciones {{ filtroLeidas === 'leidas' ? 'leídas' : filtroLeidas === 'no_leidas' ? 'no leídas' : '' }}</p>
+        </div>
+        
+        <!-- Paginación -->
+        <div class="paginacion" *ngIf="totalPaginas > 1">
+          <button 
+            class="btn-pagina"
+            [disabled]="paginaActual === 1"
+            (click)="cambiarPagina(paginaActual - 1)">
+            <i class="fas fa-chevron-left"></i>
+            Anterior
+          </button>
+          
+          <div class="numeros-pagina">
+            <button 
+              *ngFor="let pagina of [].constructor(totalPaginas); let i = index"
+              class="btn-numero"
+              [class.activo]="paginaActual === (i + 1)"
+              (click)="cambiarPagina(i + 1)">
+              {{ i + 1 }}
+            </button>
+          </div>
+          
+          <button 
+            class="btn-pagina"
+            [disabled]="paginaActual === totalPaginas"
+            (click)="cambiarPagina(paginaActual + 1)">
+            Siguiente
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de Detalles de Envío -->
+  <app-envio-detail-modal
+    [envioId]="selectedEnvioId"
+    [show]="showEnvioDetailModal"
+    (close)="closeEnvioDetailModal()">
+  </app-envio-detail-modal>
+</div>

@@ -196,36 +196,141 @@ class TextProcessor:
         """
         # Información principal (ordenada por importancia semántica)
         estado_display = envio.get_estado_display()
+        estado_lower = estado_display.lower()
+        
+        # MEJORADO: Más variaciones del estado para mejor matching
         partes = [
             # Estado y código identificador primero (más importante para búsqueda)
-            f"Envió {envio.hawb} con estado {estado_display}",
+            f"Envío {envio.hawb} con estado {estado_display}",
             f"Estado del envío: {estado_display}",
+            f"Estado: {estado_lower}",
             f"Código HAWB: {envio.hawb}",
-            f"Comprador: {envio.comprador.nombre}",
+            f"Paquete {envio.hawb}",
         ]
         
-        # Información de ubicación (importante para búsquedas geográficas)
-        if envio.comprador.ciudad:
-            partes.append(f"Ciudad destino: {envio.comprador.ciudad}")
-            partes.append(f"Ubicación: {envio.comprador.ciudad}")  # Repetir para más peso
-        if envio.comprador.provincia:
-            partes.append(f"Provincia: {envio.comprador.provincia}")
-        if envio.comprador.canton:
-            partes.append(f"Cantón: {envio.comprador.canton}")
+        # Agregar variaciones del estado para mejor búsqueda
+        if 'pendiente' in estado_lower:
+            partes.extend([
+                "envío pendiente",
+                "no entregado",
+                "sin procesar",
+                "esperando entrega"
+            ])
+        elif 'transito' in estado_lower or 'en camino' in estado_lower:
+            partes.extend([
+                "en tránsito",
+                "en camino",
+                "enviado",
+                "no entregado aún"
+            ])
+        elif 'entregado' in estado_lower:
+            partes.extend([
+                "entregado",
+                "recibido",
+                "completado",
+                "ya entregado"
+            ])
         
-        # Información temporal
+        # Información del comprador (si existe)
+        if envio.comprador:
+            nombre_comprador = envio.comprador.nombre
+            partes.extend([
+                f"Comprador: {nombre_comprador}",
+                f"Cliente: {nombre_comprador}",
+                f"Para: {nombre_comprador}",
+                f"Destinatario: {nombre_comprador}",
+            ])
+            
+            # Agregar cédula si existe (para búsquedas por cédula)
+            if hasattr(envio.comprador, 'cedula') and envio.comprador.cedula:
+                partes.extend([
+                    f"Cédula: {envio.comprador.cedula}",
+                    f"CI: {envio.comprador.cedula}",
+                    f"Identificación: {envio.comprador.cedula}",
+                ])
+            
+            # Información de ubicación (importante para búsquedas geográficas)
+            if envio.comprador.ciudad:
+                ciudad = envio.comprador.ciudad
+                partes.extend([
+                    f"Ciudad destino: {ciudad}",
+                    f"Ubicación: {ciudad}",
+                    f"Destino: {ciudad}",
+                    f"Enviado a: {ciudad}",
+                    f"Para {ciudad}",
+                ])
+            if envio.comprador.provincia:
+                partes.append(f"Provincia: {envio.comprador.provincia}")
+            if envio.comprador.canton:
+                partes.append(f"Cantón: {envio.comprador.canton}")
+        
+        # Información temporal (MEJORADO con más variaciones)
         fecha_str = envio.fecha_emision.strftime('%Y-%m-%d')
-        partes.append(f"Fecha de emisión: {fecha_str}")
-        partes.append(f"Fecha: {fecha_str}")  # Variación para mejor matching
+        fecha_humana = envio.fecha_emision.strftime('%d de %B de %Y')
+        mes_nombre = envio.fecha_emision.strftime('%B')
+        anio = envio.fecha_emision.strftime('%Y')
         
-        # Información de envío
         partes.extend([
-            f"Peso total: {envio.peso_total} kg",
-            f"Peso: {envio.peso_total} kg",
-            f"Valor total: ${envio.valor_total}",
-            f"Valor: ${envio.valor_total}",
+            f"Fecha de emisión: {fecha_str}",
+            f"Fecha: {fecha_str}",
+            f"Registrado el: {fecha_humana}",
+            f"Mes: {mes_nombre}",
+            f"Año: {anio}",
+        ])
+        
+        # Agregar información temporal contextual
+        from django.utils import timezone
+        hoy = timezone.now().date()
+        dias_antiguedad = (hoy - envio.fecha_emision.date()).days
+        
+        if dias_antiguedad == 0:
+            partes.append("registrado hoy")
+        elif dias_antiguedad == 1:
+            partes.append("registrado ayer")
+        elif dias_antiguedad <= 7:
+            partes.extend(["registrado esta semana", "envío reciente", "hace pocos días"])
+        elif dias_antiguedad <= 30:
+            partes.extend(["registrado este mes", "envío reciente"])
+        elif dias_antiguedad <= 60:
+            partes.append("registrado el mes pasado")
+        
+        # Información de envío (MEJORADO con clasificaciones)
+        peso = float(envio.peso_total)
+        valor = float(envio.valor_total)
+        
+        partes.extend([
+            f"Peso total: {peso} kg",
+            f"Peso: {peso} kg",
+            f"Pesa {peso} kilogramos",
+        ])
+        
+        # Clasificación de peso para mejor búsqueda
+        if peso < 1:
+            partes.extend(["paquete liviano", "poco peso", "ligero"])
+        elif peso < 5:
+            partes.extend(["peso moderado", "peso medio"])
+        elif peso < 10:
+            partes.extend(["peso considerable", "bastante pesado"])
+        else:
+            partes.extend(["paquete pesado", "mucho peso", "peso alto"])
+        
+        # Información de valor
+        partes.extend([
+            f"Valor total: ${valor}",
+            f"Valor: ${valor}",
+            f"Precio: ${valor}",
             f"Costo del servicio: ${envio.costo_servicio}",
         ])
+        
+        # Clasificación de valor para mejor búsqueda
+        if valor < 50:
+            partes.extend(["valor bajo", "económico", "barato"])
+        elif valor < 200:
+            partes.extend(["valor moderado", "precio medio"])
+        elif valor < 500:
+            partes.extend(["valor considerable", "costoso"])
+        else:
+            partes.extend(["valor alto", "muy costoso", "caro", "requiere revisión"])
         
         # Información de productos (muy importante para búsquedas de productos)
         # MEJORADO: Incluye más información y sinónimos para mejor búsqueda semántica
@@ -306,9 +411,12 @@ class TextProcessor:
             partes.append(envio.observaciones)  # También como texto libre
         
         # Resumen descriptivo al final
-        resumen = f"Envío {envio.hawb} {estado_display} para {envio.comprador.nombre}"
-        if envio.comprador.ciudad:
-            resumen += f" en {envio.comprador.ciudad}"
+        if envio.comprador:
+            resumen = f"Envío {envio.hawb} {estado_display} para {envio.comprador.nombre}"
+            if envio.comprador.ciudad:
+                resumen += f" en {envio.comprador.ciudad}"
+        else:
+            resumen = f"Envío {envio.hawb} {estado_display}"
         partes.append(resumen)
         
         # Concatenar todas las partes
@@ -388,14 +496,15 @@ class TextProcessor:
         consulta_lower = consulta.lower()
         
         # Verificar coincidencias específicas
-        if envio.comprador.ciudad and envio.comprador.ciudad.lower() in consulta_lower:
-            razones.append(f"ciudad {envio.comprador.ciudad}")
+        if envio.comprador:
+            if envio.comprador.ciudad and envio.comprador.ciudad.lower() in consulta_lower:
+                razones.append(f"ciudad {envio.comprador.ciudad}")
+            
+            if envio.comprador.nombre and envio.comprador.nombre.lower() in consulta_lower:
+                razones.append(f"comprador {envio.comprador.nombre}")
         
         if envio.get_estado_display().lower() in consulta_lower:
             razones.append(f"estado {envio.get_estado_display()}")
-        
-        if envio.comprador.nombre and envio.comprador.nombre.lower() in consulta_lower:
-            razones.append(f"comprador {envio.comprador.nombre}")
         
         if envio.hawb.lower() in consulta_lower:
             razones.append(f"código {envio.hawb}")

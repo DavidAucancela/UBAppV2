@@ -4,18 +4,19 @@
   <!-- Encabezado -->
   <div class="encabezado">
     <h1 class="titulo-principal">
+      <br>
+      <br>
+      <br>
+      <br>
       <i class="fas fa-search"></i>
+
       Búsqueda de Envíos
     </h1>
     <p class="subtitulo">Busque y filtre envíos por múltiples criterios</p>
   </div>
 
-  <!-- Mensajes de estado -->
+  <!-- Mensajes de estado (solo errores) -->
   <div class="mensajes">
-    <div *ngIf="mensajeExito" class="alerta alerta-exito">
-      <i class="fas fa-check-circle"></i>
-      {{ mensajeExito }}
-    </div>
     <div *ngIf="errorMensaje" class="alerta alerta-error">
       <i class="fas fa-exclamation-triangle"></i>
       {{ errorMensaje }}
@@ -164,6 +165,71 @@
         </div>
       </div>
     </form>
+
+    <!-- Historial de búsquedas -->
+    <div class="seccion-historial" *ngIf="historialBusquedas.length > 0">
+      <div class="header-historial">
+        <button 
+          class="btn-toggle-historial"
+          (click)="toggleHistorial()"
+        >
+          <i class="fas" [ngClass]="mostrarHistorial ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+          <i class="fas fa-history"></i>
+          <span>Historial de Búsquedas</span>
+          <span class="badge-historial">{{ historialBusquedas.length }}</span>
+        </button>
+        <button 
+          *ngIf="mostrarHistorial"
+          class="btn-limpiar-historial"
+          (click)="limpiarHistorial()"
+          title="Limpiar historial"
+        >
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+      
+      <div class="lista-historial" *ngIf="mostrarHistorial">
+        <div 
+          *ngFor="let busqueda of historialBusquedas" 
+          class="item-historial"
+          (click)="usarDelHistorial(busqueda)"
+          title="Clic para reutilizar esta búsqueda"
+        >
+          <div class="info-historial">
+            <i class="fas fa-search icono-busqueda-historial"></i>
+            <div class="detalles-historial">
+              <div class="filtros-historial">
+                <span *ngIf="busqueda.filtros?.textoBusqueda" class="filtro-tag">
+                  {{ busqueda.filtros.textoBusqueda }}
+                </span>
+                <span *ngIf="busqueda.filtros?.numeroGuia" class="filtro-tag">
+                  Guía: {{ busqueda.filtros.numeroGuia }}
+                </span>
+                <span *ngIf="busqueda.filtros?.nombreDestinatario" class="filtro-tag">
+                  {{ busqueda.filtros.nombreDestinatario }}
+                </span>
+                <span *ngIf="busqueda.filtros?.ciudadDestino" class="filtro-tag">
+                  {{ busqueda.filtros.ciudadDestino }}
+                </span>
+                <span *ngIf="busqueda.filtros?.estado" class="filtro-tag">
+                  {{ obtenerEtiquetaEstado(busqueda.filtros.estado) }}
+                </span>
+              </div>
+              <div class="meta-historial">
+                <span class="fecha-historial">
+                  <i class="fas fa-clock"></i>
+                  {{ formatearFechaHistorial(busqueda.fecha_busqueda || busqueda.created_at) }}
+                </span>
+                <span class="resultados-historial" *ngIf="busqueda.resultados_encontrados !== undefined">
+                  <i class="fas fa-list"></i>
+                  {{ busqueda.resultados_encontrados }} resultado(s)
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Barra de herramientas -->

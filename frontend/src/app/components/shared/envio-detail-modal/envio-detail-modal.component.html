@@ -1,0 +1,188 @@
+<!-- Modal Detail -->
+<div class="modal-overlay" *ngIf="show" (click)="closeModal()">
+  <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>
+        <i class="fas fa-file-alt"></i>
+        Detalle del Envío
+      </h3>
+      <button class="btn-close" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="modal-body" *ngIf="!loading && !error && envio">
+      <!-- Información General -->
+      <div class="detail-section">
+        <h4 class="section-title">
+          <i class="fas fa-info-circle"></i>
+          Información General
+        </h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-label">HAWB:</span>
+            <span class="detail-value">{{ envio.hawb }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Estado:</span>
+            <span class="badge" [ngClass]="getEstadoClass(envio.estado)">
+              {{ getEstadoLabel(envio.estado) }}
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Fecha de Emisión:</span>
+            <span class="detail-value">{{ envio.fecha_emision | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Fecha de Creación:</span>
+            <span class="detail-value">{{ envio.fecha_creacion | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información del Comprador -->
+      <div class="detail-section">
+        <h4 class="section-title">
+          <i class="fas fa-user"></i>
+          Comprador
+        </h4>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-label">Nombre:</span>
+            <span class="detail-value">{{ envio.comprador_info?.nombre }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Cédula:</span>
+            <span class="detail-value">{{ envio.comprador_info?.cedula }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Correo:</span>
+            <span class="detail-value">{{ envio.comprador_info?.correo }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Teléfono:</span>
+            <span class="detail-value">{{ envio.comprador_info?.telefono || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Productos -->
+      <div class="detail-section">
+        <h4 class="section-title">
+          <i class="fas fa-box"></i>
+          Productos ({{ envio.productos?.length || 0 }})
+        </h4>
+        <div class="productos-detail-list">
+          <div 
+            *ngFor="let producto of envio.productos; let i = index" 
+            class="producto-detail-item"
+          >
+            <div class="producto-detail-header">
+              <span class="producto-number">#{{ i + 1 }}</span>
+              <span class="badge badge-categoria">
+                <i [class]="'fas ' + getCategoriaIcon(producto.categoria)"></i>
+                {{ getCategoriaLabel(producto.categoria) }}
+              </span>
+            </div>
+            <div class="producto-detail-body">
+              <p class="producto-descripcion">{{ producto.descripcion }}</p>
+              <div class="producto-detail-stats">
+                <div class="stat">
+                  <i class="fas fa-weight"></i>
+                  <span>Peso: {{ producto.peso }} kg × {{ producto.cantidad }} = <strong>{{ producto.peso * producto.cantidad | number:'1.2-2' }} kg</strong></span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-dollar-sign"></i>
+                  <span>Valor: {{ producto.valor | currency:'USD':'symbol':'1.2-2' }} × {{ producto.cantidad }} = <strong>{{ (producto.valor * producto.cantidad) | currency:'USD':'symbol':'1.2-2' }}</strong></span>
+                </div>
+                <div class="stat" *ngIf="producto.costo_envio">
+                  <i class="fas fa-shipping-fast"></i>
+                  <span>Costo Envío: <strong>{{ producto.costo_envio | currency:'USD':'symbol':'1.2-2' }}</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Totales -->
+      <div class="detail-section totales-section-detail">
+        <div class="total-item-detail">
+          <span class="total-label-detail">
+            <i class="fas fa-boxes"></i>
+            Total Productos:
+          </span>
+          <span class="total-value-detail">{{ envio.cantidad_total }}</span>
+        </div>
+        <div class="total-item-detail">
+          <span class="total-label-detail">
+            <i class="fas fa-weight-hanging"></i>
+            Peso Total:
+          </span>
+          <span class="total-value-detail">{{ envio.peso_total | number:'1.2-2' }} kg</span>
+        </div>
+        <div class="total-item-detail">
+          <span class="total-label-detail">
+            <i class="fas fa-tag"></i>
+            Valor Productos:
+          </span>
+          <span class="total-value-detail">{{ envio.valor_total | currency:'USD':'symbol':'1.2-2' }}</span>
+        </div>
+        <div class="total-item-detail">
+          <span class="total-label-detail">
+            <i class="fas fa-shipping-fast"></i>
+            Costo Servicio:
+          </span>
+          <span class="total-value-detail">{{ envio.costo_servicio || 0 | currency:'USD':'symbol':'1.2-2' }}</span>
+        </div>
+        <div class="total-item-detail highlight">
+          <span class="total-label-detail">
+            <i class="fas fa-calculator"></i>
+            Total General:
+          </span>
+          <span class="total-value-detail">{{ (envio.valor_total + (envio.costo_servicio || 0)) | currency:'USD':'symbol':'1.2-2' }}</span>
+        </div>
+      </div>
+
+      <!-- Observaciones -->
+      <div class="detail-section">
+        <h4 class="section-title">
+          <i class="fas fa-comment"></i>
+          Observaciones
+        </h4>
+        <p class="observaciones-text" *ngIf="envio.observaciones">
+          {{ envio.observaciones }}
+        </p>
+        <p class="text-muted" *ngIf="!envio.observaciones">
+          <i>No hay observaciones registradas para este envío.</i>
+        </p>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="modal-body loading-state" *ngIf="loading">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Cargando detalles del envío...</p>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div class="modal-body error-state" *ngIf="error && !loading">
+      <div class="error-message">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>{{ error }}</p>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button 
+        type="button"
+        class="btn btn-secondary"
+        (click)="closeModal()"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>

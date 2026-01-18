@@ -89,11 +89,29 @@ class CupoExcedidoError(BusinessRuleViolationError):
 class TransicionEstadoInvalidaError(BusinessRuleViolationError):
     """Excepción cuando una transición de estado no es válida"""
     
-    def __init__(self, estado_actual: str, estado_nuevo: str):
-        message = f"Transición de estado inválida: {estado_actual} -> {estado_nuevo}"
+    def __init__(self, estado_actual: str, estado_nuevo: str, transiciones_validas: list = None):
+        # Definir transiciones válidas si no se proporcionan
+        if transiciones_validas is None:
+            from apps.archivos.services import EnvioService
+            transiciones_validas = EnvioService.TRANSICIONES_VALIDAS.get(estado_actual, [])
+        
+        # Construir mensaje con las transiciones válidas
+        if transiciones_validas:
+            estados_validos_str = " o ".join(transiciones_validas)
+            message = (
+                f"Transición de estado inválida: {estado_actual} -> {estado_nuevo}. "
+                f"Desde el estado '{estado_actual}' solo puede cambiar a: {estados_validos_str}"
+            )
+        else:
+            message = (
+                f"Transición de estado inválida: {estado_actual} -> {estado_nuevo}. "
+                f"El estado '{estado_actual}' es un estado final y no puede cambiar a otro estado."
+            )
+        
         super().__init__(message, 'transicion_invalida')
         self.estado_actual = estado_actual
         self.estado_nuevo = estado_nuevo
+        self.transiciones_validas = transiciones_validas
 
 
 class ExternalServiceError(DomainException):
@@ -183,13 +201,19 @@ def custom_exception_handler(exc, context):
     
     if isinstance(exc, BusinessRuleViolationError):
         logger.warning(f"Violación de regla de negocio: {exc.message}")
+        response_data = {
+            'error': True,
+            'code': exc.code,
+            'message': exc.message,
+            'rule': getattr(exc, 'rule', None)
+        }
+        # Agregar información adicional para TransicionEstadoInvalidaError
+        if isinstance(exc, TransicionEstadoInvalidaError):
+            response_data['estado_actual'] = exc.estado_actual
+            response_data['estado_nuevo'] = exc.estado_nuevo
+            response_data['transiciones_validas'] = exc.transiciones_validas
         return Response(
-            {
-                'error': True,
-                'code': exc.code,
-                'message': exc.message,
-                'rule': getattr(exc, 'rule', None)
-            },
+            response_data,
             status=status.HTTP_422_UNPROCESSABLE_ENTITY
         )
     

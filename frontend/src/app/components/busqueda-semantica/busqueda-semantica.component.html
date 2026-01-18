@@ -1,69 +1,19 @@
 <!-- Contenedor principal de búsqueda semántica -->
 <div class="busqueda-semantica-container">
+  <!-- Encabezado mejorado con estilo de otros módulos -->
+  <div class="encabezado">
+    <h1 class="titulo-principal">
+      <i class="fas fa-search"></i>
+      Búsqueda Semántica
+    </h1>
+    <p class="subtitulo">Busca envíos usando lenguaje natural y descripciones intuitivas</p>
+  </div>
 
-  <!-- Mensajes de estado -->
+  <!-- Mensajes de estado (solo errores) -->
   <div class="mensajes">
-    <div *ngIf="mensajeExito" class="alerta alerta-exito">
-      <i class="fas fa-check-circle"></i>
-      {{ mensajeExito }}
-    </div>
     <div *ngIf="errorMensaje" class="alerta alerta-error">
       <i class="fas fa-exclamation-triangle"></i>
       {{ errorMensaje }}
-    </div>
-  </div>
-
-  <!-- Historial de búsquedas recientes - mejorado y profesional -->
-  <div class="seccion-historial-mejorado" *ngIf="historialBusquedas.length > 0">
-    <div class="header-historial-mejorado">
-      <div class="titulo-historial">
-        <i class="fas fa-history"></i>
-        <h3>Historial de Búsquedas Recientes</h3>
-      </div>
-      <button 
-        class="btn-limpiar-historial"
-        (click)="limpiarHistorial()"
-        title="Limpiar todo el historial"
-      >
-        <i class="fas fa-trash-alt"></i>
-        Limpiar
-      </button>
-    </div>
-    
-    <div class="grid-historial">
-      <div 
-        *ngFor="let busqueda of historialBusquedas.slice(0, 6)" 
-        class="card-historial"
-        (click)="usarDelHistorial(busqueda)"
-        title="Clic para reutilizar esta búsqueda"
-      >
-        <div class="card-historial-header">
-          <i class="fas fa-search icono-busqueda-historial"></i>
-          <span class="fecha-historial-badge">{{ formatearFecha(busqueda.fechaConsulta) }}</span>
-        </div>
-        <div class="consulta-historial">
-          <p class="texto-consulta-historial">
-            {{ busqueda.consulta.length > 60 ? (busqueda.consulta.substring(0, 60) + '...') : busqueda.consulta }}
-          </p>
-        </div>
-        <div class="metadatos-historial">
-          <span class="badge-resultados-historial">
-            <i class="fas fa-list"></i>
-            {{ busqueda.totalResultados || 0 }} resultado(s)
-          </span>
-          <span class="badge-tiempo-historial" *ngIf="busqueda.tiempoRespuesta">
-            <i class="fas fa-clock"></i>
-            {{ busqueda.tiempoRespuesta }}ms
-          </span>
-        </div>
-      </div>
-    </div>
-    
-    <div class="footer-historial-mejorado" *ngIf="historialBusquedas.length > 6">
-      <p class="texto-footer-historial">
-        <i class="fas fa-info-circle"></i>
-        Mostrando las 6 búsquedas más recientes de {{ historialBusquedas.length }} total
-      </p>
     </div>
   </div>
 
@@ -114,37 +64,62 @@
       </div>
     </div>
 
-    <!-- Panel de sugerencias -->
-    <div *ngIf="sugerenciasVisibles" class="panel-sugerencias">
-      <div class="header-sugerencias">
-        <i class="fas fa-lightbulb"></i>
-        {{ mostrandoSugerenciasPredefinidas ? 'Ejemplos de búsqueda' : 'Sugerencias' }}
+    <!-- Historial de búsquedas -->
+    <div class="seccion-historial" *ngIf="historialBusquedas.length > 0">
+      <div class="header-historial">
+        <button 
+          class="btn-toggle-historial"
+          (click)="historialColapsado = !historialColapsado"
+        >
+          <i class="fas" [ngClass]="historialColapsado ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
+          <i class="fas fa-history"></i>
+          <span>Historial de Búsquedas</span>
+          <span class="badge-historial">{{ historialBusquedas.length }}</span>
+        </button>
+        <button 
+          *ngIf="!historialColapsado"
+          class="btn-limpiar-historial"
+          (click)="limpiarHistorial()"
+          title="Limpiar historial"
+        >
+          <i class="fas fa-trash-alt"></i>
+        </button>
       </div>
       
-      <!-- Sugerencias predefinidas -->
-      <div *ngIf="mostrandoSugerenciasPredefinidas" class="lista-sugerencias">
+      <div class="lista-historial" *ngIf="!historialColapsado">
         <div 
-          *ngFor="let sugerencia of sugerenciasPredefinidas"
-          class="item-sugerencia"
-          (click)="seleccionarSugerencia(sugerencia)"
+          *ngFor="let busqueda of historialBusquedas" 
+          class="item-historial"
+          (click)="usarDelHistorial(busqueda)"
+          title="Clic para reutilizar esta búsqueda"
         >
-          <i class="fas {{ sugerencia.icono }}"></i>
-          <span class="texto-sugerencia">{{ sugerencia.texto }}</span>
-        </div>
-      </div>
-
-      <!-- Sugerencias dinámicas -->
-      <div *ngIf="!mostrandoSugerenciasPredefinidas && sugerenciasDinamicas.length > 0" class="lista-sugerencias">
-        <div 
-          *ngFor="let sugerencia of sugerenciasDinamicas"
-          class="item-sugerencia"
-          (click)="seleccionarSugerencia(sugerencia)"
-        >
-          <i class="fas {{ sugerencia.icono || 'fa-search' }}"></i>
-          <span class="texto-sugerencia">{{ sugerencia.texto }}</span>
+          <div class="info-historial">
+            <i class="fas fa-search icono-busqueda-historial"></i>
+            <div class="detalles-historial">
+              <div class="consulta-historial-texto">
+                {{ busqueda.consulta.length > 80 ? (busqueda.consulta.substring(0, 80) + '...') : busqueda.consulta }}
+              </div>
+              <div class="meta-historial">
+                <span class="fecha-historial">
+                  <i class="fas fa-clock"></i>
+                  {{ formatearFecha(busqueda.fecha || busqueda.fechaConsulta) }}
+                </span>
+                <span class="resultados-historial">
+                  <i class="fas fa-list"></i>
+                  {{ busqueda.totalResultados || 0 }} resultado(s)
+                </span>
+                <span class="tiempo-historial" *ngIf="busqueda.tiempoRespuesta">
+                  <i class="fas fa-stopwatch"></i>
+                  {{ busqueda.tiempoRespuesta }}ms
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+
 
     <!-- Filtros adicionales opcionales -->
     <div *ngIf="mostrarFiltrosAdicionales" class="filtros-adicionales-semanticos">
@@ -440,7 +415,7 @@
   <div *ngIf="resultadosSemanticos.length > 0 && !analizando" class="controles-vista">
     <div class="info-resultados-semanticos">
       <span class="contador-resultados">
-        <strong>{{ resultadosSemanticos.length }}</strong> resultado(s) encontrado(s)
+        <strong>{{ respuestaActual?.totalEncontrados ?? resultadosSemanticos.length }}</strong> resultado(s) encontrado(s)
         <span *ngIf="totalPaginas > 1">
           (Mostrando {{ (paginaActual - 1) * elementosPorPagina + 1 }} - {{ Math.min(paginaActual * elementosPorPagina, resultadosSemanticos.length) }})
         </span>
@@ -786,3 +761,59 @@
   </div>
 </div>
 
+<!-- Sección de estadísticas de embeddings -->
+<div class="seccion-estadisticas-embeddings">
+  <div class="card-estadisticas">
+    <div class="header-estadisticas">
+      <h3>
+        <i class="fas fa-chart-line"></i>
+        Estadísticas de Embeddings
+      </h3>
+    </div>
+    <div class="contenido-estadisticas" *ngIf="!cargandoEstadisticas && estadisticasEmbeddings">
+      <div class="estadistica-item">
+        <span class="label">Total de envíos:</span>
+        <span class="valor">{{ estadisticasEmbeddings.total_envios || 0 }}</span>
+      </div>
+      <div class="estadistica-item">
+        <span class="label">Con embedding:</span>
+        <span class="valor valor-exito">{{ estadisticasEmbeddings.total_con_embedding || 0 }}</span>
+      </div>
+      <div class="estadistica-item">
+        <span class="label">Sin embedding:</span>
+        <span class="valor valor-advertencia">{{ estadisticasEmbeddings.total_sin_embedding || 0 }}</span>
+      </div>
+      <div class="estadistica-item porcentaje">
+        <span class="label">Cobertura:</span>
+        <span class="valor">{{ estadisticasEmbeddings.porcentaje_con_embedding || 0 }}%</span>
+      </div>
+    </div>
+    <div class="contenido-estadisticas" *ngIf="cargandoEstadisticas">
+      <div class="cargando">
+        <i class="fas fa-spinner fa-spin"></i>
+        Cargando estadísticas...
+      </div>
+    </div>
+    <div class="acciones-estadisticas">
+      <button 
+        class="btn btn-primario btn-generar-embeddings"
+        (click)="generarEmbeddingsPendientes()"
+        [disabled]="generandoEmbeddings || cargandoEstadisticas"
+        title="Generar embeddings para envíos que no tienen embedding"
+      >
+        <i class="fas fa-sync-alt" [class.fa-spin]="generandoEmbeddings"></i>
+        <span *ngIf="!generandoEmbeddings">Generar Embeddings Pendientes</span>
+        <span *ngIf="generandoEmbeddings">Generando...</span>
+      </button>
+      <button 
+        class="btn btn-secundario btn-refrescar"
+        (click)="cargarEstadisticasEmbeddings()"
+        [disabled]="cargandoEstadisticas"
+        title="Actualizar estadísticas"
+      >
+        <i class="fas fa-sync-alt" [class.fa-spin]="cargandoEstadisticas"></i>
+        Actualizar
+      </button>
+    </div>
+  </div>
+</div>

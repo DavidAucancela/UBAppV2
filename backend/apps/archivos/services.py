@@ -4,9 +4,11 @@ Implementa la lógica de negocio relacionada con envíos, productos y tarifas
 """
 from typing import Dict, Any, List, Optional
 from datetime import datetime
+from decimal import Decimal
 from django.db import transaction
 from django.contrib.auth import get_user_model
 from rest_framework.exceptions import ValidationError, PermissionDenied
+import threading
 
 from apps.core.base.base_service import BaseService
 from apps.core.exceptions import (
@@ -90,7 +92,9 @@ class EnvioService(BaseService):
         
         # Calcular costo del servicio
         if productos_data:
-            data['costo_servicio'] = EnvioService.calcular_costo_servicio(productos_data)
+            costo_calculado = EnvioService.calcular_costo_servicio(productos_data)
+            # Redondear a 4 decimales para cumplir con la restricción del campo DecimalField
+            data['costo_servicio'] = Decimal(str(costo_calculado)).quantize(Decimal('0.0001'))
         
         with transaction.atomic():
             # Crear envío
@@ -101,36 +105,42 @@ class EnvioService(BaseService):
                 for prod_data in productos_data:
                     prod_data['envio'] = envio
                     producto_repository.crear(**prod_data)
+                
+                # Recalcular totales después de crear todos los productos
+                envio.calcular_totales()
             
-            # Generar embedding para búsqueda semántica
-            EnvioService._generar_embedding_async(envio)
-            
-            # Notificar al comprador
-            EnvioService._notificar_envio_creado(envio)
-            
-            BaseService.log_operacion(
-                operacion='crear',
-                entidad='Envio',
-                entidad_id=envio.id,
-                usuario_id=usuario_creador.id,
-                detalles={
-                    'hawb': envio.hawb,
-                    'peso_total': float(envio.peso_total),
-                    'valor_total': float(envio.valor_total),
-                    'estado': envio.estado,
-                    'comprador_id': envio.comprador.id if envio.comprador else None
-                }
-            )
-            
-            BaseService.log_metrica(
-                metrica='envio_creado',
-                valor=1,
-                unidad='unidad',
-                usuario_id=usuario_creador.id,
-                contexto={'hawb': envio.hawb}
-            )
-            
-            return envio
+            # Guardar ID para usar en tareas asíncronas (después de commit)
+            envio_id = envio.id
+            comprador_id = envio.comprador.id if envio.comprador else None
+            hawb = envio.hawb
+            peso_total = float(envio.peso_total)
+            valor_total = float(envio.valor_total)
+            estado = envio.estado
+        
+        # OPERACIONES ASÍNCRONAS: Se ejecutan fuera de la transacción
+        # Estas operaciones no bloquean la respuesta del API
+        threading.Thread(
+            target=EnvioService._generar_embedding_async,
+            args=(envio_id,),
+            daemon=True
+        ).start()
+        
+        threading.Thread(
+            target=EnvioService._notificar_envio_creado_async,
+            args=(envio_id,),
+            daemon=True
+        ).start()
+        
+        # Logging también fuera de la transacción (es rápido, pero mejor fuera)
+        threading.Thread(
+            target=EnvioService._log_creacion_envio_async,
+            args=(envio_id, usuario_creador.id, hawb, peso_total, valor_total, estado, comprador_id),
+            daemon=True
+        ).start()
+        
+        # Recargar el envío desde BD para asegurar que tenemos los datos más recientes
+        envio.refresh_from_db()
+        return envio
     
     # ==================== ACTUALIZACIÓN ====================
     
@@ -159,16 +169,32 @@ class EnvioService(BaseService):
         
         with transaction.atomic():
             envio = envio_repository.actualizar(envio, **data)
+            envio_id = envio.id
             
-            # Notificar si cambió el comprador
-            if comprador_anterior != envio.comprador:
-                EnvioService._notificar_envio_creado(envio)
-            
-            # Notificar si cambió el estado
-            if estado_anterior != envio.estado:
-                EnvioService._notificar_cambio_estado(envio, estado_anterior)
-            
-            return envio
+        # Notificaciones asíncronas (fuera de la transacción)
+        if comprador_anterior != envio.comprador:
+            threading.Thread(
+                target=EnvioService._notificar_envio_creado_async,
+                args=(envio_id,),
+                daemon=True
+            ).start()
+        
+        if estado_anterior != envio.estado:
+            threading.Thread(
+                target=EnvioService._notificar_cambio_estado_async,
+                args=(envio_id, estado_anterior),
+                daemon=True
+            ).start()
+        
+        # Generar o actualizar embedding cuando se actualiza el envío
+        # Forzar regeneración para asegurar que el embedding refleje los datos más recientes
+        threading.Thread(
+            target=EnvioService._generar_embedding_async,
+            args=(envio_id, True),  # forzar_regeneracion=True
+            daemon=True
+        ).start()
+        
+        return envio
     
     # ==================== CAMBIO DE ESTADO ====================
     
@@ -198,38 +224,58 @@ class EnvioService(BaseService):
         
         # Validar transición
         if not EnvioService._es_transicion_valida(estado_anterior, nuevo_estado):
-            raise TransicionEstadoInvalidaError(estado_anterior, nuevo_estado)
+            transiciones_validas = EnvioService.TRANSICIONES_VALIDAS.get(estado_anterior, [])
+            raise TransicionEstadoInvalidaError(estado_anterior, nuevo_estado, transiciones_validas)
         
         with transaction.atomic():
             envio = envio_repository.actualizar(envio, estado=nuevo_estado)
-            
-            # Notificar
-            EnvioService._notificar_cambio_estado(envio, estado_anterior)
-            
-            BaseService.log_operacion(
-                operacion='cambiar_estado',
-                entidad='Envio',
-                entidad_id=envio.id,
-                usuario_id=usuario_actual.id,
-                detalles={
-                    'hawb': envio.hawb,
+            envio_id = envio.id
+            hawb = envio.hawb
+        
+        # Notificación asíncrona (fuera de la transacción)
+        threading.Thread(
+            target=EnvioService._notificar_cambio_estado_async,
+            args=(envio_id, estado_anterior),
+            daemon=True
+        ).start()
+        
+        # Generar o actualizar embedding cuando cambia el estado
+        # Forzar regeneración para asegurar que el embedding refleje el estado actual del envío
+        threading.Thread(
+            target=EnvioService._generar_embedding_async,
+            args=(envio_id, True),  # forzar_regeneracion=True
+            daemon=True
+        ).start()
+        
+        # Logging asíncrono (fuera de la transacción)
+        threading.Thread(
+            target=BaseService.log_operacion,
+            kwargs={
+                'operacion': 'cambiar_estado',
+                'entidad': 'Envio',
+                'entidad_id': envio_id,
+                'usuario_id': usuario_actual.id,
+                'detalles': {
+                    'hawb': hawb,
                     'estado_anterior': estado_anterior,
                     'estado_nuevo': nuevo_estado
                 }
-            )
-            
-            BaseService.log_info(
-                f"Estado de envío cambiado: {envio.hawb} ({estado_anterior} -> {nuevo_estado})",
-                {
-                    'envio_id': envio.id,
-                    'usuario_id': usuario_actual.id,
-                    'estado_anterior': estado_anterior,
-                    'estado_nuevo': nuevo_estado
-                },
-                usuario_id=usuario_actual.id
-            )
-            
-            return envio
+            },
+            daemon=True
+        ).start()
+        
+        BaseService.log_info(
+            f"Estado de envío cambiado: {hawb} ({estado_anterior} -> {nuevo_estado})",
+            {
+                'envio_id': envio_id,
+                'usuario_id': usuario_actual.id,
+                'estado_anterior': estado_anterior,
+                'estado_nuevo': nuevo_estado
+            },
+            usuario_id=usuario_actual.id
+        )
+        
+        return envio
     
     @staticmethod
     def _es_transicion_valida(estado_actual: str, nuevo_estado: str) -> bool:
@@ -294,37 +340,99 @@ class EnvioService(BaseService):
     # ==================== MÉTODOS PRIVADOS ====================
     
     @staticmethod
-    def _generar_embedding_async(envio: Envio):
-        """Genera embedding de forma asíncrona (no bloquea)"""
+    def _generar_embedding_async(envio_id: int, forzar_regeneracion: bool = False):
+        """
+        Genera embedding de forma asíncrona (no bloquea)
+        
+        Args:
+            envio_id: ID del envío
+            forzar_regeneracion: Si True, regenera el embedding aunque ya exista
+        """
+        import logging
+        logger = logging.getLogger(__name__)
+        
         try:
-            from apps.busqueda.services import BusquedaSemanticaService
-            BusquedaSemanticaService.generar_embedding_envio(envio)
+            # Obtener el envío desde la BD (necesario porque estamos en otro thread)
+            envio = envio_repository.obtener_por_id(envio_id)
+            logger.info(f"Iniciando generación de embedding para envío ID {envio_id} (HAWB: {envio.hawb}, estado: {envio.estado})")
+            
+            from apps.busqueda.semantic.embedding_service import EmbeddingService
+            embedding = EmbeddingService.generar_embedding_envio(
+                envio, 
+                forzar_regeneracion=forzar_regeneracion
+            )
+            
+            if embedding:
+                logger.info(f"✅ Embedding generado exitosamente para envío ID {envio_id} (HAWB: {envio.hawb}, estado: {envio.estado})")
+            else:
+                logger.warning(f"⚠️ No se generó embedding para envío ID {envio_id} (HAWB: {envio.hawb}) - puede que ya exista")
         except Exception as e:
+            import traceback
+            error_trace = traceback.format_exc()
+            logger.error(
+                f"❌ Error generando embedding para envío ID {envio_id}: {str(e)}\n{error_trace}",
+                exc_info=True
+            )
             BaseService.log_warning(
-                f"No se pudo generar embedding para envío {envio.hawb}: {str(e)}"
+                f"No se pudo generar embedding para envío ID {envio_id}: {str(e)}"
             )
     
     @staticmethod
-    def _notificar_envio_creado(envio: Envio):
-        """Notifica al comprador sobre nuevo envío"""
-        if envio.comprador and envio.comprador.es_comprador:
-            try:
+    def _notificar_envio_creado_async(envio_id: int):
+        """Notifica al comprador sobre nuevo envío (asíncrono)"""
+        try:
+            # Obtener el envío desde la BD (necesario porque estamos en otro thread)
+            envio = envio_repository.obtener_por_id(envio_id)
+            if envio.comprador and envio.comprador.es_comprador:
                 from apps.notificaciones.repositories import notificacion_repository
                 notificacion_repository.crear_notificacion_envio_asignado(envio)
-            except Exception as e:
-                BaseService.log_warning(f"Error creando notificación: {str(e)}")
+        except Exception as e:
+            BaseService.log_warning(f"Error creando notificación para envío ID {envio_id}: {str(e)}")
     
     @staticmethod
-    def _notificar_cambio_estado(envio: Envio, estado_anterior: str):
-        """Notifica al comprador sobre cambio de estado"""
-        if envio.comprador and envio.comprador.es_comprador:
-            try:
+    def _log_creacion_envio_async(envio_id: int, usuario_id: int, hawb: str, 
+                                   peso_total: float, valor_total: float, 
+                                   estado: str, comprador_id: Optional[int]):
+        """Log de creación de envío (asíncrono)"""
+        try:
+            BaseService.log_operacion(
+                operacion='crear',
+                entidad='Envio',
+                entidad_id=envio_id,
+                usuario_id=usuario_id,
+                detalles={
+                    'hawb': hawb,
+                    'peso_total': peso_total,
+                    'valor_total': valor_total,
+                    'estado': estado,
+                    'comprador_id': comprador_id
+                }
+            )
+            
+            BaseService.log_metrica(
+                metrica='envio_creado',
+                valor=1,
+                unidad='unidad',
+                usuario_id=usuario_id,
+                contexto={'hawb': hawb}
+            )
+        except Exception as e:
+            # El logging no debería fallar, pero si falla no afecta la operación
+            pass
+    
+    @staticmethod
+    def _notificar_cambio_estado_async(envio_id: int, estado_anterior: str):
+        """Notifica al comprador sobre cambio de estado (asíncrono)"""
+        try:
+            # Obtener el envío desde la BD (necesario porque estamos en otro thread)
+            envio = envio_repository.obtener_por_id(envio_id)
+            if envio.comprador and envio.comprador.es_comprador:
                 from apps.notificaciones.repositories import notificacion_repository
                 notificacion_repository.crear_notificacion_estado_cambiado(
                     envio, estado_anterior
                 )
-            except Exception as e:
-                BaseService.log_warning(f"Error creando notificación: {str(e)}")
+        except Exception as e:
+            BaseService.log_warning(f"Error creando notificación para envío ID {envio_id}: {str(e)}")
 
 
 class ProductoService(BaseService):

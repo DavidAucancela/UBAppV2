@@ -65,6 +65,7 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   // Historial
   historialBusquedas: HistorialBusquedaSemantica[] = [];
   mostrarHistorial = false;
+  historialColapsado = true;
   
   // Configuración
   configuracion: ConfiguracionSemantica = { ...CONFIGURACION_DEFAULT };
@@ -108,6 +109,11 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   mostrarDetalleModal = false;
   envioSeleccionado: Envio | null = null;
   
+  // Estadísticas de embeddings
+  estadisticasEmbeddings: any = null;
+  cargandoEstadisticas = false;
+  generandoEmbeddings = false;
+  
   // Math para usar en el template
   Math = Math;
   
@@ -128,6 +134,8 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
     this.cargarConfiguracion();
     // Cargar modelo seleccionado desde configuración
     this.modeloSeleccionado = this.configuracion.modeloEmbedding || ModeloEmbedding.SMALL;
+    // Cargar estadísticas de embeddings
+    this.cargarEstadisticasEmbeddings();
   }
 
   ngOnDestroy(): void {
@@ -234,11 +242,6 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
         // Guardar en historial con toda la información
         this.guardarEnHistorialCompleto(respuesta);
         this.analizando = false;
-        
-        const costoTexto = respuesta.costoConsulta ? 
-          ` Costo: $${respuesta.costoConsulta.toFixed(6)} USD` : '';
-        this.mensajeExito = `✅ Búsqueda semántica completada correctamente. ${respuesta.totalEncontrados} resultado(s) encontrado(s) en ${respuesta.tiempoRespuesta}ms.${costoTexto}`;
-        setTimeout(() => this.mensajeExito = '', 5000);
       },
       error: (error) => {
         console.error('Error en búsqueda semántica:', error);
@@ -454,8 +457,6 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
       this.apiService.limpiarHistorialSemantico().subscribe({
         next: () => {
           this.historialBusquedas = [];
-          this.mensajeExito = 'Historial limpiado correctamente.';
-          setTimeout(() => this.mensajeExito = '', 2000);
         },
         error: (error) => {
           console.error('Error limpiando historial:', error);
@@ -839,6 +840,65 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
    */
   tienePdfDisponible(): boolean {
     return !!(this.respuestaActual && this.respuestaActual.busquedaId && this.resultadosSemanticos.length > 0);
+  }
+
+  // ===== GESTIÓN DE EMBEDDINGS =====
+
+  /**
+   * Carga las estadísticas de embeddings
+   */
+  cargarEstadisticasEmbeddings(): void {
+    this.cargandoEstadisticas = true;
+    this.apiService.obtenerEstadisticasEmbeddings().subscribe({
+      next: (estadisticas) => {
+        this.estadisticasEmbeddings = estadisticas;
+        this.cargandoEstadisticas = false;
+      },
+      error: (error) => {
+        console.error('Error cargando estadísticas de embeddings:', error);
+        this.cargandoEstadisticas = false;
+      }
+    });
+  }
+
+  /**
+   * Genera embeddings para envíos pendientes
+   */
+  generarEmbeddingsPendientes(): void {
+    if (!confirm('¿Desea generar embeddings para los envíos que no tienen embedding? Este proceso puede tardar varios minutos.')) {
+      return;
+    }
+
+    this.generandoEmbeddings = true;
+    this.mensajeExito = 'Generando embeddings... Esto puede tardar varios minutos.';
+    this.errorMensaje = '';
+
+    this.apiService.generarEmbeddingsPendientes(false, this.modeloSeleccionado).subscribe({
+      next: (resultado) => {
+        this.generandoEmbeddings = false;
+        if (resultado.error) {
+          this.errorMensaje = resultado.error;
+          this.mensajeExito = '';
+        } else {
+          this.mensajeExito = `Embeddings generados: ${resultado.procesados || 0} procesados, ${resultado.errores || 0} errores`;
+          // Recargar estadísticas después de generar
+          setTimeout(() => {
+            this.cargarEstadisticasEmbeddings();
+          }, 2000);
+        }
+        setTimeout(() => {
+          this.mensajeExito = '';
+          this.errorMensaje = '';
+        }, 5000);
+      },
+      error: (error) => {
+        console.error('Error generando embeddings:', error);
+        this.generandoEmbeddings = false;
+        this.errorMensaje = 'Error al generar embeddings. Por favor, intente nuevamente.';
+        this.mensajeExito = '';
+        setTimeout(() => this.errorMensaje = '', 5000);
+      }
+    });
   }
 }
 

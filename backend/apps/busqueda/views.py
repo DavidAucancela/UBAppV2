@@ -378,6 +378,97 @@ class BusquedaViewSet(viewsets.ModelViewSet):
         """Obtiene métricas de búsquedas semánticas"""
         metricas = BusquedaSemanticaService.obtener_metricas(request.user)
         return Response(metricas)
+    
+    @extend_schema(
+        summary="Obtener estadísticas de embeddings",
+        description="""
+        Obtiene estadísticas sobre embeddings de envíos.
+        
+        Retorna:
+        - Total de envíos
+        - Total de envíos con embedding
+        - Total de envíos sin embedding
+        - Porcentaje de cobertura
+        """,
+        tags=['busqueda'],
+    )
+    @action(detail=False, methods=['get'], url_path='semantica/estadisticas-embeddings')
+    def estadisticas_embeddings(self, request):
+        """Obtiene estadísticas de embeddings de envíos"""
+        try:
+            estadisticas = BusquedaSemanticaService.obtener_estadisticas_embeddings(request.user)
+            return Response(estadisticas)
+        except Exception as e:
+            return Response(
+                {'error': f'Error obteniendo estadísticas: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @extend_schema(
+        summary="Generar embeddings pendientes",
+        description="""
+        Genera embeddings para envíos que no tienen embedding o necesitan actualización.
+        
+        Esta operación puede tardar varios minutos dependiendo de la cantidad de envíos.
+        Se procesa de forma asíncrona para no bloquear la respuesta.
+        
+        **Parámetros:**
+        - `forzarRegeneracion`: Si True, regenera todos los embeddings (default: False)
+        - `modelo`: Modelo de embedding a usar (default: text-embedding-3-small)
+        """,
+        request={
+            'application/json': {
+                'type': 'object',
+                'properties': {
+                    'forzarRegeneracion': {
+                        'type': 'boolean',
+                        'default': False,
+                        'description': 'Si True, regenera todos los embeddings'
+                    },
+                    'modelo': {
+                        'type': 'string',
+                        'enum': ['text-embedding-3-small', 'text-embedding-3-large', 'text-embedding-ada-002'],
+                        'description': 'Modelo de embedding a usar'
+                    }
+                }
+            }
+        },
+        tags=['busqueda'],
+    )
+    @action(detail=False, methods=['post'], url_path='semantica/generar-embeddings')
+    def generar_embeddings_pendientes(self, request):
+        """Genera embeddings para envíos pendientes"""
+        try:
+            forzar_regeneracion = request.data.get('forzarRegeneracion', False)
+            modelo = request.data.get('modelo')
+            
+            # Ejecutar en un thread para no bloquear
+            import threading
+            resultado = {'mensaje': 'Proceso iniciado', 'procesando': True}
+            
+            def procesar():
+                try:
+                    resultado_final = BusquedaSemanticaService.generar_embeddings_pendientes(
+                        usuario=request.user,
+                        modelo=modelo,
+                        forzar_regeneracion=forzar_regeneracion
+                    )
+                    resultado.update(resultado_final)
+                    resultado['procesando'] = False
+                except Exception as e:
+                    resultado['error'] = str(e)
+                    resultado['procesando'] = False
+            
+            thread = threading.Thread(target=procesar, daemon=True)
+            thread.start()
+            
+            return Response(resultado, status=status.HTTP_202_ACCEPTED)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Error iniciando generación de embeddings: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
     #
     @extend_schema(

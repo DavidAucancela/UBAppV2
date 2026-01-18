@@ -1,0 +1,175 @@
+{
+  "fecha": "2026-01-12T18:39:32.632579",
+  "resultados": {
+    "registro": {
+      "estadisticas": {
+        "media": "4.284878373146057",
+        "mediana": "4.1532440185546875",
+        "desviacion_estandar": "0.38401144410422006",
+        "minimo": "3.8711323738098145",
+        "maximo": "5.593873500823975",
+        "n": "30",
+        "evaluacion": {
+          "categoria": "Deficiente",
+          "calificacion": "50",
+          "impacto": "Riesgo alto de pérdida de atención",
+          "tiempo_segundos": "4.284878373146057",
+          "estado_iso25010": "Deficiente"
+        },
+        "estado_iso25010": "Deficiente"
+      },
+      "evaluacion": {
+        "categoria": "Deficiente",
+        "calificacion": "50",
+        "impacto": "Riesgo alto de pérdida de atención",
+        "tiempo_segundos": "4.284878373146057",
+        "estado_iso25010": "Deficiente"
+      }
+    },
+    "listado": {
+      "estadisticas": {
+        "media": "0.4568392594655355",
+        "mediana": "0.4404723644256592",
+        "desviacion_estandar": "0.09065506638946567",
+        "minimo": "0.3880457878112793",
+        "maximo": "0.8928442001342773",
+        "n": "30",
+        "evaluacion": {
+          "categoria": "Excelente",
+          "calificacion": "100",
+          "impacto": "Interacción fluida, respuesta inmediata",
+          "tiempo_segundos": "0.4568392594655355",
+          "estado_iso25010": "Excelente"
+        },
+        "estado_iso25010": "Excelente"
+      },
+      "evaluacion": {
+        "categoria": "Excelente",
+        "calificacion": "100",
+        "impacto": "Interacción fluida, respuesta inmediata",
+        "tiempo_segundos": "0.4568392594655355",
+        "estado_iso25010": "Excelente"
+      }
+    },
+    "busqueda_ia": {
+      "estadisticas": {
+        "media": "5.924261379241943",
+        "mediana": "5.567139983177185",
+        "desviacion_estandar": "2.1529227830428463",
+        "minimo": "4.317862272262573",
+        "maximo": "16.84454345703125",
+        "n": "30",
+        "evaluacion": {
+          "categoria": "Deficiente",
+          "calificacion": "50",
+          "impacto": "Riesgo alto de pérdida de atención",
+          "tiempo_segundos": "5.924261379241943",
+          "estado_iso25010": "Deficiente"
+        },
+        "estado_iso25010": "Deficiente"
+      },
+      "evaluacion": {
+        "categoria": "Deficiente",
+        "calificacion": "50",
+        "impacto": "Riesgo alto de pérdida de atención",
+        "tiempo_segundos": "5.924261379241943",
+        "estado_iso25010": "Deficiente"
+      }
+    },
+    "recursos": {
+      "registro": {
+        "cpu_promedio": {
+          "estadisticas": {
+            "media": "5.0",
+            "minimo": "5.0",
+            "maximo": "5.0"
+          }
+        },
+        "mem_promedio": {
+          "estadisticas": {
+            "media": "0.05078125",
+            "minimo": "0.0234375",
+            "maximo": "0.10546875"
+          }
+        },
+        "mem_maximo": {
+          "estadisticas": {
+            "media": "0.05078125",
+            "minimo": "0.0234375",
+            "maximo": "0.10546875"
+          }
+        }
+      },
+      "listado": {
+        "cpu_promedio": {
+          "estadisticas": {
+            "media": "3.0",
+            "minimo": "3.0",
+            "maximo": "3.0"
+          }
+        },
+        "mem_promedio": {
+          "estadisticas": {
+            "media": "-0.03046875",
+            "minimo": "-0.15625",
+            "maximo": "0.00390625"
+          }
+        },
+        "mem_maximo": {
+          "estadisticas": {
+            "media": "-0.03046875",
+            "minimo": "-0.15625",
+            "maximo": "0.00390625"
+          }
+        }
+      },
+      "busqueda_ia": {
+        "cpu_promedio": {
+          "estadisticas": {
+            "media": "15.0",
+            "minimo": "15.0",
+            "maximo": "15.0"
+          }
+        },
+        "mem_promedio": {
+          "estadisticas": {
+            "media": "0.4046875",
+            "minimo": "-4.43359375",
+            "maximo": "2.30078125"
+          }
+        },
+        "mem_maximo": {
+          "estadisticas": {
+            "media": "0.4046875",
+            "minimo": "-4.43359375",
+            "maximo": "2.30078125"
+          }
+        }
+      }
+    },
+    "evaluaciones": {
+      "registro": {
+        "categoria": "Deficiente",
+        "calificacion": "50",
+        "impacto": "Riesgo alto de pérdida de atención",
+        "tiempo_segundos": "4.284878373146057",
+        "estado_iso25010": "Deficiente"
+      },
+      "listado": {
+        "categoria": "Excelente",
+        "calificacion": "100",
+        "impacto": "Interacción fluida, respuesta inmediata",
+        "tiempo_segundos": "0.4568392594655355",
+        "estado_iso25010": "Excelente"
+      },
+      "busqueda_ia": {
+        "categoria": "Deficiente",
+        "calificacion": "50",
+        "impacto": "Riesgo alto de pérdida de atención",
+        "tiempo_segundos": "5.924261379241943",
+        "estado_iso25010": "Deficiente"
+      }
+    },
+    "grado_cumplimiento": "66.66666666666667"
+  }
+}
