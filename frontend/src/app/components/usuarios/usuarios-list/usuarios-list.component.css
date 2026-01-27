@@ -46,20 +46,39 @@
   gap: 15px;
 }
 
-/* Filters Section */
+/* Filters Section organizados de forma horizontal */
 .filters-section {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: row;        /* Filtros en fila, uno al lado del otro */
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 24px;                  /* Separación horizontal entre filtros */
   margin-bottom: 30px;
-  gap: 20px;
+  flex-wrap: wrap;            /* Permite que en pantallas pequeñas los filtros bajen */
+}
+
+.filter-row {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  width: 100%;
   flex-wrap: wrap;
 }
 
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 170px;
+  max-width: 220px;
+  flex: 1 1 140px;
+}
+
+/* Opcional: Para que el campo de búsqueda ocupe mayor ancho */
 .search-box {
   position: relative;
-  flex: 1;
+  flex: 2 1 260px;
   max-width: 400px;
+  min-width: 180px;
 }
 
 .search-box i {
@@ -89,6 +108,7 @@
 
 .filter-controls {
   display: flex;
+  flex-direction: row;
   gap: 15px;
 }
 
@@ -950,6 +970,100 @@
   .detail-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Barra de acciones masivas */
+.bulk-actions-bar {
+  margin-bottom: 16px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  border: 1px solid #c7d2fe;
+}
+
+.bulk-actions-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bulk-actions-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #4338ca;
+  font-size: 0.95rem;
+}
+
+.bulk-actions-info i {
+  font-size: 1.1rem;
+}
+
+.bulk-actions-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  transform: translateY(-1px);
+}
+
+.btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Checkbox column y selección */
+.col-checkbox {
+  width: 48px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.checkbox-header,
+.checkbox-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+}
+
+.checkbox-header input,
+.checkbox-cell input {
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  margin-left: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.table-row.row-selected {
+  background-color: #eef2ff !important;
+}
+
+.table-row.row-selected:hover {
+  background-color: #e0e7ff !important;
 }
 
 /* Button Styles */

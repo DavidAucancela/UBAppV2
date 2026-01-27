@@ -206,7 +206,13 @@ export class ApiService {
 
   // ===== PRODUCTOS =====
   getProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(`${this.apiUrl}/envios/productos/`);
+    const params = new HttpParams().set('page_size', '10000');
+    return this.http.get<any>(`${this.apiUrl}/envios/productos/`, { params }).pipe(
+      map((res: any) => {
+        if (res?.results && Array.isArray(res.results)) return res.results;
+        return Array.isArray(res) ? res : [];
+      })
+    );
   }
 
   getProducto(id: number): Observable<Producto> {
@@ -236,7 +242,13 @@ export class ApiService {
 
   // ===== TARIFAS =====
   getTarifas(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/envios/tarifas/`);
+    const params = new HttpParams().set('page_size', '10000');
+    return this.http.get<any>(`${this.apiUrl}/envios/tarifas/`, { params }).pipe(
+      map((res: any) => {
+        if (res?.results && Array.isArray(res.results)) return res.results;
+        return Array.isArray(res) ? res : [];
+      })
+    );
   }
 
   getTarifa(id: number): Observable<any> {

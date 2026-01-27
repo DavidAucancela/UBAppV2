@@ -426,6 +426,100 @@
   cursor: not-allowed;
 }
 
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  transform: translateY(-1px);
+}
+
+.btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Barra de acciones masivas */
+.bulk-actions-bar {
+  margin-bottom: 16px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  border: 1px solid #c7d2fe;
+}
+
+.bulk-actions-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bulk-actions-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #4338ca;
+  font-size: 0.95rem;
+}
+
+.bulk-actions-info i {
+  font-size: 1.1rem;
+}
+
+.bulk-actions-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Checkbox column y selección */
+.col-checkbox {
+  width: 48px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.checkbox-header,
+.checkbox-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+}
+
+.checkbox-header input,
+.checkbox-cell input {
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+  cursor: pointer;
+}
+
+.checkbox-header .checkbox-label {
+  margin-left: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.table tbody tr.row-selected {
+  background-color: #eef2ff !important;
+}
+
+.table tbody tr.row-selected:hover {
+  background-color: #e0e7ff !important;
+}
+
 .loading-container {
   text-align: center;
   padding: 3rem;

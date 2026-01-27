@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { Usuario, Roles, ROLES_LABELS } from '../../../models/usuario';
@@ -39,6 +41,10 @@ export class UsuariosListComponent implements OnInit {
   // Messages
   successMessage = '';
   errorMessage = '';
+  
+  // Selección múltiple y acciones masivas
+  selectedIds = new Set<number>();
+  bulkActionInProgress = false;
   
   // Form
   usuarioForm: FormGroup;
@@ -451,6 +457,143 @@ export class UsuariosListComponent implements OnInit {
     
     // Solo admin y gerente pueden eliminar usuarios
     return this.authService.canManageUsers();
+  }
+
+  // --- Selección múltiple y acciones masivas ---
+  toggleSelection(usuario: Usuario): void {
+    if (!usuario.id) return;
+    if (this.selectedIds.has(usuario.id)) {
+      this.selectedIds.delete(usuario.id);
+    } else {
+      this.selectedIds.add(usuario.id);
+    }
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  isSelected(usuario: Usuario): boolean {
+    return usuario.id != null && this.selectedIds.has(usuario.id);
+  }
+
+  selectAllOnPage(): void {
+    const ids = this.paginatedUsuarios.map(u => u.id).filter((id): id is number => id != null);
+    const allSelected = ids.length > 0 && ids.every(id => this.selectedIds.has(id));
+    if (allSelected) {
+      ids.forEach(id => this.selectedIds.delete(id));
+    } else {
+      ids.forEach(id => this.selectedIds.add(id));
+    }
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  clearSelection(): void {
+    this.selectedIds.clear();
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  get selectedCount(): number {
+    return this.selectedIds.size;
+  }
+
+  get canBulkDelete(): boolean {
+    if (!this.authService.canManageUsers()) return false;
+    const currentId = this.authService.getCurrentUser()?.id;
+    return Array.from(this.selectedIds).some(id => id !== currentId);
+  }
+
+  bulkDelete(): void {
+    const currentId = this.authService.getCurrentUser()?.id;
+    const toDelete = Array.from(this.selectedIds).filter(id => id !== currentId);
+    if (toDelete.length === 0) {
+      this.errorMessage = 'No puedes eliminar tu propio usuario. Deselecciónate o elimina solo otros.';
+      setTimeout(() => this.errorMessage = '', 3000);
+      return;
+    }
+    if (!confirm(`¿Eliminar ${toDelete.length} usuario(s) seleccionado(s)? Esta acción no se puede deshacer.`)) return;
+    this.bulkActionInProgress = true;
+    this.errorMessage = '';
+    const calls = toDelete.map(id => this.apiService.deleteUsuario(id).pipe(
+      map(() => ({ id, ok: true })),
+      catchError(err => of({ id, ok: false, err }))
+    ));
+    forkJoin(calls).subscribe({
+      next: (results) => {
+        const ok = results.filter(r => r.ok).length;
+        const fail = results.filter(r => !r.ok).length;
+        this.successMessage = fail === 0
+          ? `${ok} usuario(s) eliminado(s) correctamente.`
+          : `${ok} eliminado(s). ${fail} fallaron.`;
+        this.clearSelection();
+        this.loadUsuarios();
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Error al eliminar usuarios.';
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.errorMessage = '', 3000);
+      }
+    });
+  }
+
+  bulkActivate(): void {
+    const ids = Array.from(this.selectedIds);
+    if (ids.length === 0) return;
+    if (!confirm(`¿Activar ${ids.length} usuario(s) seleccionado(s)?`)) return;
+    this.bulkActionInProgress = true;
+    this.errorMessage = '';
+    const calls = ids.map(id => this.apiService.actualizarUsuarioParcial(id, { es_activo: true }).pipe(
+      map(() => ({ id, ok: true })),
+      catchError(() => of({ id, ok: false }))
+    ));
+    forkJoin(calls).subscribe({
+      next: (results) => {
+        const ok = results.filter(r => r.ok).length;
+        this.successMessage = `${ok} usuario(s) activado(s) correctamente.`;
+        this.clearSelection();
+        this.loadUsuarios();
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Error al activar usuarios.';
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.errorMessage = '', 3000);
+      }
+    });
+  }
+
+  bulkDeactivate(): void {
+    const ids = Array.from(this.selectedIds);
+    const currentId = this.authService.getCurrentUser()?.id;
+    const includingSelf = currentId != null && ids.includes(currentId);
+    if (ids.length === 0) return;
+    if (includingSelf) {
+      this.errorMessage = 'No puedes desactivar tu propio usuario. Quítate de la selección.';
+      setTimeout(() => this.errorMessage = '', 3000);
+      return;
+    }
+    if (!confirm(`¿Desactivar ${ids.length} usuario(s) seleccionado(s)?`)) return;
+    this.bulkActionInProgress = true;
+    this.errorMessage = '';
+    const calls = ids.map(id => this.apiService.actualizarUsuarioParcial(id, { es_activo: false }).pipe(
+      map(() => ({ id, ok: true })),
+      catchError(() => of({ id, ok: false }))
+    ));
+    forkJoin(calls).subscribe({
+      next: (results) => {
+        const ok = results.filter(r => r.ok).length;
+        this.successMessage = `${ok} usuario(s) desactivado(s) correctamente.`;
+        this.clearSelection();
+        this.loadUsuarios();
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Error al desactivar usuarios.';
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.errorMessage = '', 3000);
+      }
+    });
   }
 
   // Get paginated users

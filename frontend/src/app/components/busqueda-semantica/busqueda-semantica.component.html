@@ -4,17 +4,9 @@
   <div class="encabezado">
     <h1 class="titulo-principal">
       <i class="fas fa-search"></i>
-      Búsqueda Semántica
+      Búsqueda semántica
     </h1>
-    <p class="subtitulo">Busca envíos usando lenguaje natural y descripciones intuitivas</p>
-  </div>
-
-  <!-- Mensajes de estado (solo errores) -->
-  <div class="mensajes">
-    <div *ngIf="errorMensaje" class="alerta alerta-error">
-      <i class="fas fa-exclamation-triangle"></i>
-      {{ errorMensaje }}
-    </div>
+    <p class="subtitulo">Busca envíos usando lenguaje natural </p>
   </div>
 
   <!-- Sección principal de búsqueda -->
@@ -59,7 +51,7 @@
           (click)="toggleFiltrosAdicionales()"
         >
           <i class="fas fa-sliders-h"></i>
-          {{ mostrarFiltrosAdicionales ? 'Ocultar' : 'Mostrar' }} Filtros Opcionales
+          {{ mostrarFiltrosAdicionales ? 'Ocultar' : 'Mostrar' }} Filtros 
         </button>
       </div>
     </div>
@@ -73,7 +65,7 @@
         >
           <i class="fas" [ngClass]="historialColapsado ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
           <i class="fas fa-history"></i>
-          <span>Historial de Búsquedas</span>
+          <span>Historial de búsquedas</span>
           <span class="badge-historial">{{ historialBusquedas.length }}</span>
         </button>
         <button 
@@ -125,14 +117,14 @@
     <div *ngIf="mostrarFiltrosAdicionales" class="filtros-adicionales-semanticos">
       <h3 class="titulo-filtros">
         <i class="fas fa-filter"></i>
-        Configuración de Búsqueda Semántica
+        Configuración de búsqueda semántica
       </h3>
       
       <!-- Selector de Modelo de Embedding -->
       <div class="seccion-filtro-modelo">
         <h4 class="subtitulo-filtro">
           <i class="fas fa-microchip"></i>
-          Modelo de Embedding
+          Modelo de embedding
         </h4>
         <div class="grid-modelos-embedding">
           <div 
@@ -168,14 +160,14 @@
       <div class="seccion-filtros-tradicionales">
         <h4 class="subtitulo-filtro">
           <i class="fas fa-sliders-h"></i>
-          Filtros Adicionales para Segmentación Avanzada
+          Filtros adicionales para segmentación avanzada
         </h4>
         <div class="grid-filtros-adicionales">
           <!-- Información del Envío -->
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-barcode"></i>
-              Número de Guía (HAWB)
+              Número de guía (HAWB)
             </label>
             <input 
               type="text" 
@@ -188,7 +180,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-info-circle"></i>
-              Estado del Envío
+              Estado del envío
             </label>
             <select [(ngModel)]="estadoFiltro" class="select-filtro">
               <option value="">Todos los estados</option>
@@ -202,7 +194,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-user"></i>
-              Nombre del Destinatario
+              Nombre del destinatario
             </label>
             <input 
               type="text" 
@@ -215,7 +207,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-id-card"></i>
-              Cédula del Destinatario
+              Cédula del destinatario
             </label>
             <input 
               type="text" 
@@ -228,7 +220,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-phone"></i>
-              Teléfono del Destinatario
+              Teléfono del destinatario
             </label>
             <input 
               type="text" 
@@ -241,7 +233,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-envelope"></i>
-              Correo del Destinatario
+              Correo del destinatario
             </label>
             <input 
               type="email" 
@@ -254,7 +246,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-map-marker-alt"></i>
-              Ciudad de Destino
+              Ciudad de destino
             </label>
             <input 
               type="text" 
@@ -268,7 +260,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-tags"></i>
-              Categoría del Producto
+              Categoría del producto
             </label>
             <select [(ngModel)]="categoriaProducto" class="select-filtro">
               <option value="">Todas las categorías</option>
@@ -282,7 +274,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-weight-hanging"></i>
-              Peso Mínimo (kg)
+              Peso mínimo (kg)
             </label>
             <input 
               type="number" 
@@ -297,7 +289,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-weight-hanging"></i>
-              Peso Máximo (kg)
+              Peso máximo (kg)
             </label>
             <input 
               type="number" 
@@ -312,7 +304,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-dollar-sign"></i>
-              Valor Mínimo ($)
+              Valor mínimo ($)
             </label>
             <input 
               type="number" 
@@ -327,7 +319,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-dollar-sign"></i>
-              Valor Máximo ($)
+              Valor máximo ($)
             </label>
             <input 
               type="number" 
@@ -343,7 +335,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-calendar-alt"></i>
-              Fecha Desde
+              Fecha desde
             </label>
             <input 
               type="date" 
@@ -355,7 +347,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-calendar-alt"></i>
-              Fecha Hasta
+              Fecha hasta
             </label>
             <input 
               type="date" 
@@ -369,11 +361,11 @@
         <div class="acciones-filtros">
           <button type="button" class="btn btn-primario" (click)="realizarBusquedaSemantica()">
             <i class="fas fa-search"></i>
-            Aplicar Filtros y Buscar
+            Aplicar filtros y buscar
           </button>
           <button type="button" class="btn btn-secundario" (click)="limpiarFiltrosAdicionales()">
             <i class="fas fa-eraser"></i>
-            Limpiar Filtros
+            Limpiar filtros
           </button>
         </div>
       </div>

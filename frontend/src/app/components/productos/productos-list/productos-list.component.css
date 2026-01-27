@@ -120,6 +120,132 @@
   cursor: not-allowed;
 }
 
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  transform: translateY(-1px);
+}
+
+.btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Barra de acciones masivas */
+.bulk-actions-bar {
+  margin-bottom: 16px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  border: 1px solid #c7d2fe;
+}
+
+.bulk-actions-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bulk-actions-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #4338ca;
+  font-size: 0.95rem;
+}
+
+.bulk-actions-info i {
+  font-size: 1.1rem;
+}
+
+.bulk-actions-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Grid select all strip */
+.grid-select-all {
+  grid-column: 1 / -1;
+  padding: 10px 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.checkbox-label-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.checkbox-label-inline input {
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+}
+
+/* Checkbox column (tabla) */
+.col-checkbox {
+  width: 48px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.checkbox-header,
+.checkbox-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+}
+
+.checkbox-header input,
+.checkbox-cell input {
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  margin-left: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.productos-table tbody tr.row-selected {
+  background-color: #eef2ff !important;
+}
+
+.producto-card.card-selected {
+  box-shadow: 0 0 0 2px #667eea;
+  background: #f8fafc;
+}
+
+.producto-card-header .card-checkbox {
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+
 .header-actions {
   display: flex;
   gap: 12px;

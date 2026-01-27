@@ -1,149 +1,303 @@
 <div class="dashboard-container">
-  <!-- Loading State -->
   <div class="loading-container" *ngIf="loading">
     <div class="spinner">
       <i class="fas fa-spinner fa-spin"></i>
-      <span>Cargando estadísticas del sistema...</span>
+      <span>Cargando métricas del sistema...</span>
     </div>
   </div>
 
-  <!-- Dashboard Content -->
   <div class="dashboard-content" *ngIf="!loading">
-    <!-- Header Section -->
-    <br>
-    <br>
-    <br>
-
-
-    <!-- Main KPIs Section -->
-    <div class="main-kpis-section">
-
-      <div class="main-kpis-grid">
-        <!-- Total Envíos Card -->
-        <div class="main-kpi-card primary">
-          <div class="kpi-icon-wrapper">
-            <div class="kpi-icon">
-              <i class="fas fa-truck"></i>
-            </div>
-          </div>
-          <div class="kpi-content">
-            <h3 class="kpi-label">Total Envíos</h3>
-            <p class="kpi-value">{{ stats.envios?.total_envios || 0 }}</p>
-            <span class="kpi-description">Envíos registrados en el sistema</span>
-          </div>
+    <header class="dashboard-header">
+      <div class="header-top">
+        <div>
+          <h1 class="dashboard-title">
+            <i class="fas" [ngClass]="isComprador ? 'fa-user-circle' : 'fa-chart-pie'"></i>
+            {{ isComprador ? 'Mi Panel' : 'Panel de control' }}
+          </h1>
+          <p class="dashboard-subtitle">
+            {{ isComprador ? 'Resumen de tus envíos y estadísticas' : 'Métricas y actividad reciente · Auto-actualización cada 60 s' }}
+          </p>
         </div>
-
-        <!-- Pending Envíos Card -->
-        <div class="main-kpi-card warning">
-          <div class="kpi-icon-wrapper">
-            <div class="kpi-icon">
-              <i class="fas fa-clock"></i>
-            </div>
-          </div>
-          <div class="kpi-content">
-            <h3 class="kpi-label">Envíos Pendientes</h3>
-            <p class="kpi-value">{{ stats.envios?.envios_pendientes || 0 }}</p>
-            <span class="kpi-description">Requieren atención inmediata</span>
-          </div>
-        </div>
-
-        <!-- Total Products Card -->
-        <div class="main-kpi-card success" *ngIf="canManageEnvios()">
-          <div class="kpi-icon-wrapper">
-            <div class="kpi-icon">
-              <i class="fas fa-box"></i>
-            </div>
-          </div>
-          <div class="kpi-content">
-            <h3 class="kpi-label">Total Productos</h3>
-            <p class="kpi-value">{{ stats.productos?.total_productos || 0 }}</p>
-            <span class="kpi-description">Productos disponibles en inventario</span>
-          </div>
-        </div>
-
-        <!-- Total Users Card (Admin/Gerente) -->
-        <div class="main-kpi-card info" *ngIf="(isAdmin() || isGerente()) && stats.usuarios">
-          <div class="kpi-icon-wrapper">
-            <div class="kpi-icon">
-              <i class="fas fa-users"></i>
-            </div>
-          </div>
-          <div class="kpi-content">
-            <h3 class="kpi-label">Total Usuarios</h3>
-            <p class="kpi-value">{{ getTotalUsuarios() }}</p>
-            <span class="kpi-description">Usuarios activos en el sistema</span>
-          </div>
-        </div>
+        <button type="button" class="btn-actualizar" (click)="actualizar()" title="Actualizar ahora">
+          <i class="fas fa-sync-alt"></i>
+          Actualizar
+        </button>
       </div>
+    </header>
+    <div *ngIf="error" class="alert-error">
+      <i class="fas fa-exclamation-circle"></i>
+      {{ error }}
     </div>
 
-    <!-- Detailed Statistics Grid -->
-    <div class="detailed-stats-grid">
-      <!-- Users by Role Section (Admin/Gerente) -->
-      <div class="stats-category-card" *ngIf="isAdmin() || isGerente()">
-        <div class="category-header">
-          <div class="category-icon-wrapper users">
-            <i class="fas fa-user-friends"></i>
+    <!-- KPIs para Comprador -->
+    <section class="kpis-section" *ngIf="isComprador">
+      <div class="kpis-grid">
+        <div class="kpi-card kpi-primary">
+          <div class="kpi-icon-wrap">
+            <i class="fas fa-box"></i>
           </div>
-          <div class="category-title-wrapper">
-            <h2 class="category-title">Usuarios del Sistema</h2>
-            <p class="category-subtitle">Distribución por roles y permisos</p>
+          <div class="kpi-body">
+            <h3 class="kpi-label">Total envíos</h3>
+            <p class="kpi-value">{{ stats.envios?.total_envios ?? 0 }}</p>
+            <span class="kpi-desc">Todos tus envíos</span>
           </div>
         </div>
-        <div class="category-content">
-          <div class="category-stats-grid">
-            <div class="category-stat-card" *ngFor="let stat of stats.usuarios | keyvalue" 
-                 (click)="goToUsuariosWithRole(stat.key)">
-              <div class="category-stat-icon" [ngClass]="'role-' + getRoleClass(stat.key)">
-                <i class="fas fa-user-tie" *ngIf="stat.key === 'Admin'"></i>
-                <i class="fas fa-user-cog" *ngIf="stat.key === 'Gerente'"></i>
-                <i class="fas fa-user-edit" *ngIf="stat.key === 'Digitador'"></i>
-                <i class="fas fa-user" *ngIf="stat.key === 'Comprador'"></i>
+        <div class="kpi-card kpi-warning">
+          <div class="kpi-icon-wrap">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="kpi-body">
+            <h3 class="kpi-label">Pendientes</h3>
+            <p class="kpi-value">{{ stats.envios?.envios_pendientes ?? 0 }}</p>
+            <span class="kpi-desc">Requieren atención</span>
+          </div>
+        </div>
+        <div class="kpi-card kpi-info">
+          <div class="kpi-icon-wrap">
+            <i class="fas fa-truck"></i>
+          </div>
+          <div class="kpi-body">
+            <h3 class="kpi-label">En tránsito</h3>
+            <p class="kpi-value">{{ stats.envios?.envios_en_transito ?? 0 }}</p>
+            <span class="kpi-desc">En camino</span>
+          </div>
+        </div>
+        <div class="kpi-card kpi-success">
+          <div class="kpi-icon-wrap">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="kpi-body">
+            <h3 class="kpi-label">Entregados</h3>
+            <p class="kpi-value">{{ stats.envios?.envios_entregados ?? 0 }}</p>
+            <span class="kpi-desc">Completados</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cupo del Comprador -->
+    <section class="cupo-section" *ngIf="isComprador && dashboardUsuario">
+      <div class="card cupo-card">
+        <div class="cupo-header">
+          <h2 class="card-title">
+            <i class="fas fa-chart-line"></i>
+            Cupo Anual
+          </h2>
+          <span class="cupo-year">{{ dashboardUsuario.anio || new Date().getFullYear() }}</span>
+        </div>
+        <div class="cupo-content">
+          <div class="cupo-progress">
+            <div class="cupo-progress-bar">
+              <div 
+                class="cupo-progress-fill" 
+                [style.width.%]="dashboardUsuario.porcentaje_usado || 0"
+                [class.cupo-warning]="(dashboardUsuario.porcentaje_usado || 0) > 80"
+                [class.cupo-danger]="(dashboardUsuario.porcentaje_usado || 0) > 95"
+              ></div>
+            </div>
+            <div class="cupo-stats">
+              <div class="cupo-stat">
+                <span class="cupo-stat-label">Usado</span>
+                <span class="cupo-stat-value">{{ dashboardUsuario.peso_usado || 0 | number:'1.2-2' }} kg</span>
               </div>
-              <div class="category-stat-content">
-                <h4 class="category-stat-label">{{ stat.key }}</h4>
-                <p class="category-stat-value">{{ stat.value }}</p>
+              <div class="cupo-stat">
+                <span class="cupo-stat-label">Disponible</span>
+                <span class="cupo-stat-value">{{ dashboardUsuario.peso_disponible || 0 | number:'1.2-2' }} kg</span>
               </div>
-              <div class="category-stat-arrow">
-                <i class="fas fa-chevron-right"></i>
+              <div class="cupo-stat">
+                <span class="cupo-stat-label">Total</span>
+                <span class="cupo-stat-value">{{ dashboardUsuario.cupo_anual || 0 | number:'1.2-2' }} kg</span>
               </div>
+            </div>
+            <div class="cupo-percentage">
+              <span class="cupo-percentage-value">{{ dashboardUsuario.porcentaje_usado || 0 | number:'1.0-0' }}%</span>
+              <span class="cupo-percentage-label">del cupo utilizado</span>
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Envíos by Status Section -->
-      <div class="stats-category-card">
-        <div class="category-header">
-          <div class="category-icon-wrapper envios">
-            <i class="fas fa-shipping-fast"></i>
+    <!-- KPIs para Admin/Gerente/Digitador -->
+    <section class="kpis-section" *ngIf="!isComprador">
+      <div class="kpis-grid">
+        <div class="kpi-card kpi-primary">
+          <div class="kpi-icon-wrap">
+            <i class="fas fa-truck"></i>
           </div>
-          <div class="category-title-wrapper">
-            <h2 class="category-title">Estado de Envíos</h2>
-            <p class="category-subtitle">Distribución por estado actual</p>
+          <div class="kpi-body">
+            <h3 class="kpi-label">Total envíos</h3>
+            <p class="kpi-value">{{ stats.envios?.total_envios ?? 0 }}</p>
+            <span class="kpi-desc">Envíos registrados</span>
           </div>
         </div>
-        <div class="category-content">
-          <div class="category-stats-grid">
-            <div class="category-stat-card" *ngFor="let stat of stats.envios?.por_estado | keyvalue" 
-                 (click)="goToEnviosWithEstadoLabel(stat.key)"
-                 [ngClass]="'status-' + getStatusClass(stat.key)">
-              <div class="category-stat-icon" [ngClass]="getStatusClass(stat.key)">
-                <i class="fas fa-check-circle" *ngIf="stat.key === 'Entregado'"></i>
-                <i class="fas fa-truck" *ngIf="stat.key === 'En tránsito'"></i>
-                <i class="fas fa-clock" *ngIf="stat.key === 'Pendiente'"></i>
-                <i class="fas fa-times-circle" *ngIf="stat.key === 'Cancelado'"></i>
-              </div>
-              <div class="category-stat-content">
-                <h4 class="category-stat-label">{{ stat.key }}</h4>
-                <p class="category-stat-value">{{ stat.value }}</p>
-                <span class="category-stat-percentage">{{ getPercentage(stat.value, stats.envios?.total_envios) }}%</span>
-              </div>
-              <div class="category-stat-arrow">
-                <i class="fas fa-chevron-right"></i>
-              </div>
-            </div>
+        <div class="kpi-card kpi-warning">
+          <div class="kpi-icon-wrap">
+            <i class="fas fa-clock"></i>
           </div>
+          <div class="kpi-body">
+            <h3 class="kpi-label">Envíos pendientes</h3>
+            <p class="kpi-value">{{ stats.envios?.envios_pendientes ?? 0 }}</p>
+            <span class="kpi-desc">Requieren atención</span>
+          </div>
+        </div>
+        <div class="kpi-card kpi-success">
+          <div class="kpi-icon-wrap">
+            <i class="fas fa-tags"></i>
+          </div>
+          <div class="kpi-body">
+            <h3 class="kpi-label">Tarifas totales</h3>
+            <p class="kpi-value">{{ stats.tarifas_totales ?? 0 }}</p>
+            <span class="kpi-desc">Tarifas configuradas</span>
+          </div>
+        </div>
+        <div class="kpi-card kpi-info">
+          <div class="kpi-icon-wrap">
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="kpi-body">
+            <h3 class="kpi-label">Búsquedas semánticas</h3>
+            <p class="kpi-value">{{ stats.busquedas_semanticas ?? 0 }}</p>
+            <span class="kpi-desc">Total registradas</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gráficos y Actividad -->
+    <section class="charts-activity-section">
+      <!-- Gráfico de barras para comprador -->
+      <div class="card chart-card" *ngIf="isComprador">
+        <div class="chart-section-header">
+          <h2 class="card-title">Envíos por Estado</h2>
+          <p class="card-subtitle">Distribución de tus envíos</p>
+        </div>
+        <div class="chart-wrapper">
+          <canvas #chartBar></canvas>
+        </div>
+      </div>
+
+      <!-- Gráfico dinámico para admin -->
+      <div class="card chart-card" *ngIf="!isComprador">
+        <div class="chart-section-header">
+          <div class="chart-section-title">
+            <h2 class="card-title">Estadísticas</h2>
+            <p class="card-subtitle">Selecciona una métrica para el gráfico</p>
+          </div>
+          <div class="chart-options">
+            <button
+              *ngFor="let opt of opcionesPastel"
+              type="button"
+              class="chart-opt-btn"
+              [class.active]="tipoGraficoSeleccionado === opt.id"
+              (click)="cambiarTipoPastel(opt.id)">
+              <i class="fas" [ngClass]="opt.icon"></i>
+              <span>{{ opt.label }}</span>
+            </button>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas #chartPastel></canvas>
+        </div>
+      </div>
+
+      <!-- Envíos Recientes para Comprador -->
+      <div class="card activity-card" *ngIf="isComprador">
+        <div class="card-header">
+          <h2 class="card-title">
+            <i class="fas fa-history"></i>
+            Envíos Recientes
+          </h2>
+          <a [routerLink]="['/mis-envios']" class="view-all-link">
+            Ver todos
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="activity-list">
+          <div
+            *ngFor="let envio of stats.enviosRecientes"
+            class="activity-item"
+            (click)="abrirDetalle({ _tipo: 'envio', _fecha: new Date(envio.fecha_actualizacion || envio.fecha_emision || envio.fecha_creacion).getTime(), _titulo: 'Envío ' + (envio.hawb || '#' + envio.id), _subtitulo: estadoEtiqueta(envio.estado) + ' · ' + formatearFecha(envio.fecha_actualizacion || envio.fecha_emision || envio.fecha_creacion), _icono: 'fa-truck', _statusClass: getStatusClass(envio.estado), envio: envio })">
+            <div class="activity-icon" [ngClass]="'status-' + getStatusClass(envio.estado)">
+              <i class="fas fa-truck"></i>
+            </div>
+            <div class="activity-content">
+              <span class="activity-hawb">{{ envio.hawb }}</span>
+              <span class="activity-meta">{{ estadoEtiqueta(envio.estado) }} · {{ formatearFecha(envio.fecha_actualizacion || envio.fecha_emision || envio.fecha_creacion) }}</span>
+            </div>
+            <i class="fas fa-chevron-right activity-arrow"></i>
+          </div>
+          <div *ngIf="!stats.enviosRecientes?.length" class="activity-empty">
+            <i class="fas fa-inbox"></i>
+            <span>No hay envíos recientes</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actividad Reciente para Admin -->
+      <div class="card activity-card" *ngIf="!isComprador">
+        <div class="card-header">
+          <h2 class="card-title">
+            <i class="fas fa-history"></i>
+            Últimos movimientos
+          </h2>
+        </div>
+        <div class="activity-list">
+          <div
+            *ngFor="let item of stats.actividadReciente"
+            class="activity-item"
+            (click)="abrirDetalle(item)">
+            <div class="activity-icon" [ngClass]="'status-' + (item._statusClass ?? 'default')">
+              <i class="fas" [ngClass]="item._icono"></i>
+            </div>
+            <div class="activity-content">
+              <span class="activity-hawb">{{ item._titulo }}</span>
+              <span class="activity-meta">{{ item._subtitulo }}</span>
+            </div>
+            <i class="fas fa-chevron-right activity-arrow"></i>
+          </div>
+          <div *ngIf="!stats.actividadReciente?.length" class="activity-empty">
+            <i class="fas fa-inbox"></i>
+            <span>No hay actividad reciente</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal detalle actividad -->
+    <div class="modal-overlay" *ngIf="actividadSeleccionada" (click)="cerrarDetalle()">
+      <div class="modal-detail" (click)="$event.stopPropagation()">
+        <div class="modal-detail-header">
+          <h3 class="modal-detail-title">
+            <i class="fas" [ngClass]="actividadSeleccionada._icono"></i>
+            {{ actividadSeleccionada._titulo }}
+          </h3>
+          <button type="button" class="modal-detail-close" (click)="cerrarDetalle()" title="Cerrar">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-detail-body">
+          <p class="modal-detail-meta">{{ actividadSeleccionada._subtitulo }}</p>
+          <ng-container *ngIf="actividadSeleccionada._tipo === 'envio' && actividadSeleccionada.envio">
+            <div class="detail-grid">
+              <div class="detail-row"><span class="detail-label">HAWB</span><span>{{ actividadSeleccionada.envio.hawb }}</span></div>
+              <div class="detail-row"><span class="detail-label">Estado</span><span>{{ estadoEtiqueta(actividadSeleccionada.envio.estado) }}</span></div>
+              <div class="detail-row"><span class="detail-label">Peso total</span><span>{{ actividadSeleccionada.envio.peso_total ?? '-' }} kg</span></div>
+              <div class="detail-row"><span class="detail-label">Valor total</span><span>$ {{ actividadSeleccionada.envio.valor_total ?? '-' }}</span></div>
+              <div class="detail-row"><span class="detail-label">Comprador</span><span>{{ actividadSeleccionada.envio.comprador_info?.nombre ?? '-' }}</span></div>
+              <div class="detail-row"><span class="detail-label">Fecha emisión</span><span>{{ formatearFecha(actividadSeleccionada.envio.fecha_emision) }}</span></div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="actividadSeleccionada._tipo === 'usuario' && actividadSeleccionada.usuario">
+            <div class="detail-grid">
+              <div class="detail-row"><span class="detail-label">Nombre</span><span>{{ actividadSeleccionada.usuario.nombre }}</span></div>
+              <div class="detail-row"><span class="detail-label">Usuario</span><span>{{ actividadSeleccionada.usuario.username }}</span></div>
+              <div class="detail-row"><span class="detail-label">Rol</span><span>{{ actividadSeleccionada.usuario.rol_nombre ?? '-' }}</span></div>
+              <div class="detail-row"><span class="detail-label">Correo</span><span>{{ actividadSeleccionada.usuario.correo }}</span></div>
+              <div class="detail-row"><span class="detail-label">Cédula</span><span>{{ actividadSeleccionada.usuario.cedula }}</span></div>
+              <div class="detail-row"><span class="detail-label">Fecha creación</span><span>{{ formatearFecha(actividadSeleccionada.usuario.fecha_creacion) }}</span></div>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>

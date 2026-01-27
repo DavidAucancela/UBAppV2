@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { CategoriasProducto, CATEGORIAS_LABELS } from '../../models/producto';
@@ -40,6 +42,10 @@ export class TarifasListComponent implements OnInit {
   // Messages
   successMessage = '';
   errorMessage = '';
+  
+  // Selección múltiple y acciones masivas
+  selectedIds = new Set<number>();
+  bulkActionInProgress = false;
   
   // Form
   tarifaForm: FormGroup;
@@ -274,6 +280,133 @@ export class TarifasListComponent implements OnInit {
 
   calcularCostoEjemplo(tarifa: Tarifa, pesoEjemplo: number = 1): number {
     return parseFloat(tarifa.cargo_base.toString()) + (pesoEjemplo * parseFloat(tarifa.precio_por_kg.toString()));
+  }
+
+  // --- Selección múltiple y acciones masivas ---
+  toggleSelection(tarifa: Tarifa): void {
+    if (!tarifa.id) return;
+    if (this.selectedIds.has(tarifa.id)) {
+      this.selectedIds.delete(tarifa.id);
+    } else {
+      this.selectedIds.add(tarifa.id);
+    }
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  isSelected(tarifa: Tarifa): boolean {
+    return tarifa.id != null && this.selectedIds.has(tarifa.id);
+  }
+
+  selectAllOnPage(): void {
+    const ids = this.filteredTarifas.map(t => t.id).filter((id): id is number => id != null);
+    const allSelected = ids.length > 0 && ids.every(id => this.selectedIds.has(id));
+    if (allSelected) {
+      ids.forEach(id => this.selectedIds.delete(id));
+    } else {
+      ids.forEach(id => this.selectedIds.add(id));
+    }
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  clearSelection(): void {
+    this.selectedIds.clear();
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  get selectedCount(): number {
+    return this.selectedIds.size;
+  }
+
+  bulkDelete(): void {
+    const ids = Array.from(this.selectedIds);
+    if (ids.length === 0) return;
+    if (!confirm(`¿Eliminar ${ids.length} tarifa(s) seleccionada(s)? Esta acción no se puede deshacer.`)) return;
+    this.bulkActionInProgress = true;
+    this.errorMessage = '';
+    const calls = ids.map(id => this.apiService.deleteTarifa(id).pipe(
+      map(() => ({ id, ok: true })),
+      catchError(() => of({ id, ok: false }))
+    ));
+    forkJoin(calls).subscribe({
+      next: (results) => {
+        const ok = results.filter(r => r.ok).length;
+        const fail = results.filter(r => !r.ok).length;
+        this.successMessage = fail === 0
+          ? `${ok} tarifa(s) eliminada(s) correctamente.`
+          : `${ok} eliminada(s). ${fail} fallaron.`;
+        this.clearSelection();
+        this.loadTarifas();
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Error al eliminar tarifas.';
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.errorMessage = '', 3000);
+      }
+    });
+  }
+
+  bulkActivate(): void {
+    const ids = Array.from(this.selectedIds);
+    if (ids.length === 0) return;
+    if (!confirm(`¿Activar ${ids.length} tarifa(s) seleccionada(s)?`)) return;
+    this.bulkActionInProgress = true;
+    this.errorMessage = '';
+    const calls = ids.map(id => {
+      const tarifa = this.filteredTarifas.find(t => t.id === id);
+      const payload = tarifa ? { ...tarifa, activa: true } : { activa: true };
+      return this.apiService.updateTarifa(id, payload).pipe(
+        map(() => ({ id, ok: true })),
+        catchError(() => of({ id, ok: false }))
+      );
+    });
+    forkJoin(calls).subscribe({
+      next: (results) => {
+        const ok = results.filter(r => r.ok).length;
+        this.successMessage = `${ok} tarifa(s) activada(s) correctamente.`;
+        this.clearSelection();
+        this.loadTarifas();
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Error al activar tarifas.';
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.errorMessage = '', 3000);
+      }
+    });
+  }
+
+  bulkDeactivate(): void {
+    const ids = Array.from(this.selectedIds);
+    if (ids.length === 0) return;
+    if (!confirm(`¿Desactivar ${ids.length} tarifa(s) seleccionada(s)?`)) return;
+    this.bulkActionInProgress = true;
+    this.errorMessage = '';
+    const calls = ids.map(id => {
+      const tarifa = this.filteredTarifas.find(t => t.id === id);
+      const payload = tarifa ? { ...tarifa, activa: false } : { activa: false };
+      return this.apiService.updateTarifa(id, payload).pipe(
+        map(() => ({ id, ok: true })),
+        catchError(() => of({ id, ok: false }))
+      );
+    });
+    forkJoin(calls).subscribe({
+      next: (results) => {
+        const ok = results.filter(r => r.ok).length;
+        this.successMessage = `${ok} tarifa(s) desactivada(s) correctamente.`;
+        this.clearSelection();
+        this.loadTarifas();
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Error al desactivar tarifas.';
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.errorMessage = '', 3000);
+      }
+    });
   }
 }
 

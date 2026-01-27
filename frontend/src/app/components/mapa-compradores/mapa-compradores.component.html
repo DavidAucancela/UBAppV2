@@ -3,7 +3,7 @@
   <div class="encabezado">
     <h1 class="titulo-principal">
       <i class="fas fa-map-marked-alt"></i>
-      Mapa de Compradores
+      Mapa de compradores
     </h1>
     <p class="subtitulo">Visualiza la ubicación geográfica de los compradores en el mapa</p>
   </div>
@@ -27,7 +27,7 @@
       <div class="estadistica-icon">👥</div>
       <div class="estadistica-info">
         <span class="estadistica-valor">{{ mapaData.total_compradores }}</span>
-        <span class="estadistica-label">Compradores Totales</span>
+        <span class="estadistica-label">Compradores totales</span>
       </div>
     </div>
     
@@ -35,7 +35,7 @@
       <div class="estadistica-icon">📍</div>
       <div class="estadistica-info">
         <span class="estadistica-valor">{{ mapaData.provincias.length }}</span>
-        <span class="estadistica-label">Provincias con Compradores</span>
+        <span class="estadistica-label">Provincias</span>
       </div>
     </div>
 
@@ -43,7 +43,7 @@
       <div class="estadistica-icon">🎯</div>
       <div class="estadistica-info">
         <span class="estadistica-valor">{{ provinciaSeleccionada }}</span>
-        <span class="estadistica-label">Provincia Seleccionada</span>
+        <span class="estadistica-label">Provincia seleccionada</span>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@
   <!-- Controles del Mapa -->
   <div *ngIf="!loading" class="mapa-controles">
     <button (click)="volverVista()" class="btn-control" title="Volver a vista general">
-      🏠 Vista General
+      Vista completa
     </button>
   </div>
 
@@ -64,7 +64,7 @@
     
     <!-- Panel de Instrucciones (Lado Derecho) -->
     <div class="instrucciones-panel">
-      <h4>💡 Cómo usar el mapa</h4>
+      <h4>Cómo usar el mapa</h4>
       <ol>
         <li>Haz clic en un marcador de provincia (📍) para ver los compradores</li>
         <li>Usa la rueda del mouse para hacer zoom</li>

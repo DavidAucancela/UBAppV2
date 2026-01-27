@@ -2,6 +2,8 @@ import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { Envio, EnvioCreate, EstadosEnvio, ESTADOS_LABELS } from '../../../models/envio';
@@ -50,6 +52,13 @@ export class EnviosListComponent implements OnInit, OnDestroy {
   
   // Dropdown estado
   openDropdownEnvioId: number | null = null;
+  
+  // Vista: 'grid' = tarjetas, 'table' = tabla
+  viewMode: 'grid' | 'table' = 'grid';
+  
+  // Selección múltiple y acciones masivas
+  selectedIds = new Set<number>();
+  bulkActionInProgress = false;
   
   // Form
   envioForm: FormGroup;
@@ -103,6 +112,10 @@ export class EnviosListComponent implements OnInit, OnDestroy {
         this.openDropdownEnvioId = null;
       }
     }
+  }
+
+  toggleViewMode(): void {
+    this.viewMode = this.viewMode === 'grid' ? 'table' : 'grid';
   }
 
   get productos(): FormArray {
@@ -193,14 +206,38 @@ export class EnviosListComponent implements OnInit, OnDestroy {
     return valorStr;
   }
 
+  /**
+   * Redondea un número a un número específico de decimales
+   * Usa un método más preciso para evitar problemas de precisión de punto flotante
+   * @param valor El valor a redondear
+   * @param decimales Número de decimales (por defecto 2)
+   * @returns Número redondeado con exactamente el número de decimales especificado
+   */
+  private redondearDecimal(valor: number, decimales: number = 2): number {
+    if (valor === null || valor === undefined || isNaN(valor)) {
+      return 0;
+    }
+    // Usar Math.round con factor para evitar problemas de precisión de punto flotante
+    const factor = Math.pow(10, decimales);
+    // Redondear y dividir, luego usar toFixed y parseFloat para asegurar exactamente 2 decimales
+    const redondeado = Math.round((valor + Number.EPSILON) * factor) / factor;
+    // Convertir a string con exactamente el número de decimales y luego a número
+    // Esto asegura que cuando se serialice a JSON tenga exactamente 2 decimales
+    return parseFloat(redondeado.toFixed(decimales));
+  }
+
   calcularCostoServicio(): void {
-    const productosData = this.productos.value.map((p: any) => ({
-      descripcion: p.descripcion,
-      categoria: p.categoria,
-      peso: parseFloat(this.normalizarDecimal(p.peso)) || 0,
-      cantidad: parseInt(p.cantidad) || 1,
-      valor: parseFloat(this.normalizarDecimal(p.valor)) || 0
-    }));
+    const productosData = this.productos.value.map((p: any) => {
+      const pesoRaw = parseFloat(this.normalizarDecimal(p.peso)) || 0;
+      const valorRaw = parseFloat(this.normalizarDecimal(p.valor)) || 0;
+      return {
+        descripcion: p.descripcion,
+        categoria: p.categoria,
+        peso: this.redondearDecimal(pesoRaw, 2),
+        cantidad: parseInt(p.cantidad) || 1,
+        valor: this.redondearDecimal(valorRaw, 2)
+      };
+    });
 
     // Filtrar productos válidos
     const productosValidos = productosData.filter((p: any) => 
@@ -584,13 +621,17 @@ export class EnviosListComponent implements OnInit, OnDestroy {
 
       // Validar que haya al menos un producto válido
       const productosValidos = this.envioForm.value.productos
-        .map((p: any) => ({
-          descripcion: p.descripcion?.trim(),
-          categoria: p.categoria,
-          peso: parseFloat(this.normalizarDecimal(p.peso)) || 0,
-          cantidad: parseInt(p.cantidad) || 1,
-          valor: parseFloat(this.normalizarDecimal(p.valor)) || 0
-        }))
+        .map((p: any) => {
+          const pesoRaw = parseFloat(this.normalizarDecimal(p.peso)) || 0;
+          const valorRaw = parseFloat(this.normalizarDecimal(p.valor)) || 0;
+          return {
+            descripcion: p.descripcion?.trim(),
+            categoria: p.categoria,
+            peso: this.redondearDecimal(pesoRaw, 2),
+            cantidad: parseInt(p.cantidad) || 1,
+            valor: this.redondearDecimal(valorRaw, 2)
+          };
+        })
         .filter((p: any) => p.descripcion && p.categoria && p.peso > 0 && p.cantidad > 0);
 
       if (productosValidos.length === 0) {
@@ -809,5 +850,101 @@ export class EnviosListComponent implements OnInit, OnDestroy {
 
   getTotalCostoServicio(): number {
     return this.costoServicioCalculado;
+  }
+
+  // --- Selección múltiple y acciones masivas ---
+  toggleSelection(envio: Envio): void {
+    if (!envio.id) return;
+    if (this.selectedIds.has(envio.id)) {
+      this.selectedIds.delete(envio.id);
+    } else {
+      this.selectedIds.add(envio.id);
+    }
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  isSelected(envio: Envio): boolean {
+    return envio.id != null && this.selectedIds.has(envio.id);
+  }
+
+  selectAllOnPage(): void {
+    const ids = this.paginatedEnvios.map(e => e.id).filter((id): id is number => id != null);
+    const allSelected = ids.length > 0 && ids.every(id => this.selectedIds.has(id));
+    if (allSelected) {
+      ids.forEach(id => this.selectedIds.delete(id));
+    } else {
+      ids.forEach(id => this.selectedIds.add(id));
+    }
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  clearSelection(): void {
+    this.selectedIds.clear();
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  get selectedCount(): number {
+    return this.selectedIds.size;
+  }
+
+  bulkDelete(): void {
+    const ids = Array.from(this.selectedIds);
+    if (ids.length === 0) return;
+    if (!confirm(`¿Eliminar ${ids.length} envío(s) seleccionado(s)? Esta acción no se puede deshacer.`)) return;
+    this.bulkActionInProgress = true;
+    this.errorMessage = '';
+    const calls = ids.map(id => this.apiService.deleteEnvio(id).pipe(
+      map(() => ({ id, ok: true })),
+      catchError(() => of({ id, ok: false }))
+    ));
+    forkJoin(calls).subscribe({
+      next: (results) => {
+        const ok = results.filter(r => r.ok).length;
+        const fail = results.filter(r => !r.ok).length;
+        this.successMessage = fail === 0
+          ? `${ok} envío(s) eliminado(s) correctamente.`
+          : `${ok} eliminado(s). ${fail} fallaron.`;
+        this.clearSelection();
+        this.loadEnvios();
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Error al eliminar envíos.';
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.errorMessage = '', 3000);
+      }
+    });
+  }
+
+  bulkChangeEstado(estado: string): void {
+    const ids = Array.from(this.selectedIds);
+    if (ids.length === 0) return;
+    const label = this.getEstadoLabel(estado);
+    if (!confirm(`¿Cambiar el estado a "${label}" en ${ids.length} envío(s) seleccionado(s)?`)) return;
+    this.bulkActionInProgress = true;
+    this.errorMessage = '';
+    const calls = ids.map(id => this.apiService.cambiarEstadoEnvio(id, estado).pipe(
+      map(() => ({ id, ok: true })),
+      catchError(() => of({ id, ok: false }))
+    ));
+    forkJoin(calls).subscribe({
+      next: (results) => {
+        const ok = results.filter(r => r.ok).length;
+        const fail = results.filter(r => !r.ok).length;
+        this.successMessage = fail === 0
+          ? `${ok} envío(s) actualizado(s) a "${label}".`
+          : `${ok} actualizado(s). ${fail} fallaron.`;
+        this.clearSelection();
+        this.loadEnvios();
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Error al cambiar estado de envíos.';
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.errorMessage = '', 3000);
+      }
+    });
   }
 }

@@ -1,28 +1,23 @@
 <div class="envios-container">
-  <!-- Header -->
-  <div class="envios-header">
-    <div class="container">
-      <div class="header-content">
-        <div class="header-icon">
-          <i class="fas fa-truck"></i>
-        </div>
-        <div class="header-text">
-          <h1>Gestión de Envíos</h1>
-          <p>Administra y gestiona todos los envíos del sistema</p>
-        </div>
-        <div class="header-actions" *ngIf="authService.canManageEnvios()">
-          <button 
-            class="btn-header"
-            (click)="openCreateModal()"
-          >
-            <i class="fas fa-plus"></i>
-            Nuevo Envío
-          </button>
-        </div>
-      </div>
+  <!-- Encabezado mejorado con estilo de otros módulos -->
+  <div class="encabezado">
+    <h1 class="titulo-principal">
+      <i class="fas fa-box"></i>
+      Gestión de envíos
+    </h1>
+    <p class="subtitulo">Detalle de los envíos del sistema</p>
+    <div class="encabezado-acciones">
+
+      <button 
+        class="btn btn-primary"
+        (click)="openCreateModal()"
+      >
+        <i class="fas fa-plus"></i>
+        Nuevo envío
+      </button>
     </div>
   </div>
-
+  
   <!-- Main Content -->
   <div class="container">
     <div class="envios-content">
@@ -31,7 +26,7 @@
         <div class="card-header-filters">
           <h3>
             <i class="fas fa-filter"></i>
-            Filtros de Búsqueda
+            Filtros de búsqueda
           </h3>
         </div>
 
@@ -49,7 +44,7 @@
             class="form-control"
             [(ngModel)]="searchTerm"
             (input)="onSearchChange()"
-            placeholder="HAWB, comprador, cédula..."
+            placeholder="HAWB, comprador, cédula, etc."
           >
         </div>
 
@@ -57,7 +52,7 @@
         <div class="filter-group">
           <label class="filter-label">
             <i class="fas fa-filter"></i>
-            Estado
+            Estado del envío
           </label>
           <select 
             class="form-control"
@@ -66,7 +61,7 @@
           >
             <option value="">Todos los estados</option>
             <option [value]="EstadosEnvio.PENDIENTE">Pendiente</option>
-            <option [value]="EstadosEnvio.EN_TRANSITO">En Tránsito</option>
+            <option [value]="EstadosEnvio.EN_TRANSITO">En tránsito</option>
             <option [value]="EstadosEnvio.ENTREGADO">Entregado</option>
             <option [value]="EstadosEnvio.CANCELADO">Cancelado</option>
           </select>
@@ -141,12 +136,94 @@
         <span>Cargando envíos...</span>
       </div>
 
+      <!-- Barra de acciones masivas -->
+      <div class="bulk-actions-bar card" *ngIf="!loading && selectedCount > 0">
+        <div class="bulk-actions-content">
+          <span class="bulk-actions-info">
+            <i class="fas fa-check-double"></i>
+            {{ selectedCount }} envío(s) seleccionado(s)
+          </span>
+          <div class="bulk-actions-buttons">
+            <span class="bulk-actions-label" *ngIf="authService.canManageEnvios()">Cambiar estado:</span>
+            <button 
+              class="btn btn-secondary btn-sm" 
+              (click)="bulkChangeEstado(EstadosEnvio.PENDIENTE)" 
+              [disabled]="bulkActionInProgress"
+              *ngIf="authService.canManageEnvios()"
+              title="Pendiente"
+            >
+              <i class="fas fa-clock"></i>
+              Pendiente
+            </button>
+            <button 
+              class="btn btn-secondary btn-sm" 
+              (click)="bulkChangeEstado(EstadosEnvio.EN_TRANSITO)" 
+              [disabled]="bulkActionInProgress"
+              *ngIf="authService.canManageEnvios()"
+              title="En tránsito"
+            >
+              <i class="fas fa-truck"></i>
+              En tránsito
+            </button>
+            <button 
+              class="btn btn-secondary btn-sm" 
+              (click)="bulkChangeEstado(EstadosEnvio.ENTREGADO)" 
+              [disabled]="bulkActionInProgress"
+              *ngIf="authService.canManageEnvios()"
+              title="Entregado"
+            >
+              <i class="fas fa-check-circle"></i>
+              Entregado
+            </button>
+            <button 
+              class="btn btn-secondary btn-sm" 
+              (click)="bulkChangeEstado(EstadosEnvio.CANCELADO)" 
+              [disabled]="bulkActionInProgress"
+              *ngIf="authService.canManageEnvios()"
+              title="Cancelado"
+            >
+              <i class="fas fa-times-circle"></i>
+              Cancelado
+            </button>
+            <button 
+              class="btn btn-danger btn-sm" 
+              (click)="bulkDelete()" 
+              [disabled]="bulkActionInProgress"
+              *ngIf="authService.isAdmin() || authService.isGerente()"
+              title="Eliminar seleccionados"
+            >
+              <i class="fas fa-trash"></i>
+              Eliminar
+            </button>
+            <button 
+              class="btn btn-secondary btn-sm" 
+              (click)="clearSelection()" 
+              [disabled]="bulkActionInProgress"
+              title="Deseleccionar todos"
+            >
+              <i class="fas fa-times"></i>
+              Deseleccionar
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Table -->
       <div class="card" *ngIf="!loading">
     <div class="table-container">
       <table class="table">
         <thead>
           <tr>
+            <th class="col-checkbox">
+              <label class="checkbox-header">
+                <input 
+                  type="checkbox" 
+                  [checked]="paginatedEnvios.length > 0 && paginatedEnvios.every(e => isSelected(e))"
+                  (change)="selectAllOnPage()"
+                >
+                <span class="checkbox-label">Seleccionar</span>
+              </label>
+            </th>
             <th>HAWB</th>
             <th>Comprador / Cédula</th>
             <th>Productos</th>
@@ -160,7 +237,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let envio of paginatedEnvios">
+          <tr *ngFor="let envio of paginatedEnvios" [class.row-selected]="isSelected(envio)">
+            <td class="col-checkbox">
+              <label class="checkbox-cell">
+                <input 
+                  type="checkbox" 
+                  [checked]="isSelected(envio)"
+                  (change)="toggleSelection(envio)"
+                >
+              </label>
+            </td>
             <td>
               <strong class="hawb-text">{{ envio.hawb }}</strong>
             </td>
@@ -271,7 +357,7 @@
             </td>
           </tr>
           <tr *ngIf="filteredEnvios.length === 0">
-            <td colspan="10" class="no-data">
+            <td colspan="11" class="no-data">
               <i class="fas fa-inbox"></i>
               <p>No se encontraron envíos</p>
             </td>

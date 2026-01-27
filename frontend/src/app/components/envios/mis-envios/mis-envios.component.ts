@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Envio } from '../../../models/envio';
+import { EnvioDetailModalComponent } from '../../shared/envio-detail-modal/envio-detail-modal.component';
 
 @Component({
   selector: 'app-mis-envios',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, EnvioDetailModalComponent],
   templateUrl: './mis-envios.component.html',
   styleUrls: ['./mis-envios.component.css']
 })
@@ -22,6 +23,10 @@ export class MisEnviosComponent implements OnInit {
   filtroEstado = '';
   filtroFechaDesde = '';
   filtroFechaHasta = '';
+
+  // Modal de detalles
+  selectedEnvioId: number | null = null;
+  showDetailModal = false;
 
   constructor(private usuarioService: UsuarioService) { }
 
@@ -81,6 +86,18 @@ export class MisEnviosComponent implements OnInit {
       'cancelado': 'badge bg-secondary'
     };
     return clases[estado] || 'badge bg-secondary';
+  }
+
+  verDetalles(envio: Envio): void {
+    if (envio.id) {
+      this.selectedEnvioId = envio.id;
+      this.showDetailModal = true;
+    }
+  }
+
+  cerrarModal(): void {
+    this.showDetailModal = false;
+    this.selectedEnvioId = null;
   }
 }
 

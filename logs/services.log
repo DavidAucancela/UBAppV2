@@ -28991,3 +28991,347 @@ TypeError: Unknown option(s) for pruebas_rendimiento command: interactive. Valid
 [INFO] 2026-01-17 02:02:14 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 2, Envíos recientes: 10
 [INFO] 2026-01-17 02:06:39 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 6 (Tefa), rol: 4, es_comprador: True, año: 2026
 [INFO] 2026-01-17 02:06:39 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 2, Envíos recientes: 10
+[INFO] 2026-01-19 14:58:30 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 6 (Tefa), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-19 14:58:30 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 2, Envíos recientes: 10
+[INFO] 2026-01-19 15:02:08 - apps.core.base.base_service:log_info:118 - Contraseña cambiada: david
+[INFO] 2026-01-19 15:02:26 - apps.core.base.base_service:log_info:118 - Usuario actualizado: david
+[INFO] 2026-01-19 15:02:36 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='ropa deportiva...', expandida='ropa deportiva moda ropa indumentaria textiles vestido vestimenta prendas vestuario atuendo | Produc...', filtros_sugeridos={}
+[ERROR] 2026-01-19 15:02:48 - apps.core.base.base_service:log_error:154 - Error generando embedding: APIConnectionError: Connection error.
+Traceback (most recent call last):
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_sync\connection.py", line 156, in _connect
+    stream = stream.start_tls(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_backends\sync.py", line 154, in start_tls
+    with map_exceptions(exc_map):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1006)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\openai\_base_client.py", line 982, in request
+    response = self._client.send(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1006)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\david\App\backend\apps\busqueda\semantic\embedding_service.py", line 104, in generar_embedding
+    response = client.embeddings.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\openai\resources\embeddings.py", line 132, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\openai\_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\openai\_base_client.py", line 1014, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+[INFO] 2026-01-19 15:12:43 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios de hogar pesados...', expandida='envios de hogar pesados alto peso mucho peso muebles casa artículos del hogar para el hogar gran pes...', filtros_sugeridos={'peso_minimo': 10.0}
+[INFO] 2026-01-19 15:12:45 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios de hogar pesados alto peso mucho peso muebl...', envios_disponibles=14, limite=20
+[INFO] 2026-01-19 15:12:45 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=107.33ms, resultados_similitud=14, resultados_filtrados=4, resultados_finales=4
+[INFO] 2026-01-19 15:12:45 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-19 15:12:45 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 1816 ms
+[INFO] 2026-01-19 15:12:45 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 7.4e-07 USD
+[INFO] 2026-01-19 15:13:33 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios de hogar pesados de quito...', expandida='envios de hogar pesados de quito alto peso gran peso decoración pichincha hogar mucho peso peso cons...', filtros_sugeridos={'ciudadDestino': 'Quito', 'peso_minimo': 10.0}
+[INFO] 2026-01-19 15:13:34 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios de hogar pesados de quito alto peso gran pe...', envios_disponibles=6, limite=20
+[INFO] 2026-01-19 15:13:34 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=93.18ms, resultados_similitud=6, resultados_filtrados=3, resultados_finales=3
+[INFO] 2026-01-19 15:13:34 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-19 15:13:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 1111 ms
+[INFO] 2026-01-19 15:13:34 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8.6e-07 USD
+[INFO] 2026-01-20 14:50:03 - apps.core.base.base_service:log_operacion:192 - Crear Envio (ID: 3372) por usuario 1
+[INFO] 2026-01-20 14:50:03 - apps.core.base.base_service:log_metrica:224 - Métrica envio_creado: 1 unidad
+[WARNING] 2026-01-20 14:50:04 - apps.core.base.base_service:log_warning:134 - No se pudo generar embedding para envío ID 3372: Envío con identificador '3372' no encontrado
+[INFO] 2026-01-20 14:50:44 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios pendientes de zapatos...', expandida='envios pendientes de zapatos no procesado en espera pendiente aguardando por procesar sin procesar |...', filtros_sugeridos={'estado': 'pendiente'}
+[ERROR] 2026-01-20 14:51:11 - apps.core.base.base_service:log_error:154 - Error generando embedding: APIConnectionError: Connection error.
+Traceback (most recent call last):
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\openai\_base_client.py", line 982, in request
+    response = self._client.send(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\david\App\backend\apps\busqueda\semantic\embedding_service.py", line 104, in generar_embedding
+    response = client.embeddings.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\openai\resources\embeddings.py", line 132, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\openai\_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\openai\_base_client.py", line 1014, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+[INFO] 2026-01-20 14:52:46 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios de hogar pesados de quito...', expandida='envios de hogar pesados de quito artículos del hogar alto peso mucho peso hogar gran peso distrito m...', filtros_sugeridos={'ciudadDestino': 'Quito', 'peso_minimo': 10.0}
+[INFO] 2026-01-20 14:52:50 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios de hogar pesados de quito articulos del hog...', envios_disponibles=6, limite=20
+[INFO] 2026-01-20 14:52:50 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=73.08ms, resultados_similitud=6, resultados_filtrados=2, resultados_finales=2
+[INFO] 2026-01-20 14:52:50 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-20 14:52:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 3797 ms
+[INFO] 2026-01-20 14:52:50 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 9.000000000000001e-07 USD
+[INFO] 2026-01-24 01:36:15 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios realizados a quito en noviembre del 2025...', expandida='envios realizados a quito en noviembre del 2025 quito capital dme pichincha distrito metropolitano |...', filtros_sugeridos={'ciudadDestino': 'Quito'}
+[INFO] 2026-01-24 01:36:43 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios realizados a quito en noviembre del 2025 qu...', envios_disponibles=108, limite=20
+[INFO] 2026-01-24 01:36:46 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=2366.81ms, resultados_similitud=106, resultados_filtrados=27, resultados_finales=20
+[INFO] 2026-01-24 01:36:46 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 01:36:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 30991 ms
+[INFO] 2026-01-24 01:36:46 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.4e-07 USD
+[INFO] 2026-01-24 01:39:46 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios caros de quito de enero del 2024...', expandida='envios caros de quito de enero del 2024 considerable quito significativo grande capital dme alto pic...', filtros_sugeridos={'ciudadDestino': 'Quito', 'valor_minimo': 500.0}
+[INFO] 2026-01-24 01:39:48 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios caros de quito de enero del 2024 considerab...', envios_disponibles=1, limite=20
+[WARNING] 2026-01-24 01:39:48 - apps.busqueda.semantic:_buscar_envios_similares:502 - No se encontraron embeddings para la búsqueda. Modelo solicitado: text-embedding-3-small, Envíos disponibles: 1. Ejecute 'python manage.py generar_embeddings --modelo text-embedding-3-small' para generarlos.
+[INFO] 2026-01-24 01:39:48 - apps.core.base.base_service:log_info:118 - No se encontraron embeddings existentes. Ejecute 'python manage.py generar_embeddings --modelo text-embedding-3-small' para generarlos.
+[INFO] 2026-01-24 01:39:48 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 01:39:48 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2054 ms
+[INFO] 2026-01-24 01:39:48 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8.200000000000001e-07 USD
+[INFO] 2026-01-24 01:39:58 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios caros de quito de enero del 2025...', expandida='envios caros de quito de enero del 2025 considerable quito significativo grande capital dme alto pic...', filtros_sugeridos={'ciudadDestino': 'Quito', 'valor_minimo': 500.0}
+[INFO] 2026-01-24 01:40:04 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios caros de quito de enero del 2025 considerab...', envios_disponibles=1, limite=20
+[WARNING] 2026-01-24 01:40:04 - apps.busqueda.semantic:_buscar_envios_similares:502 - No se encontraron embeddings para la búsqueda. Modelo solicitado: text-embedding-3-small, Envíos disponibles: 1. Ejecute 'python manage.py generar_embeddings --modelo text-embedding-3-small' para generarlos.
+[INFO] 2026-01-24 01:40:04 - apps.core.base.base_service:log_info:118 - No se encontraron embeddings existentes. Ejecute 'python manage.py generar_embeddings --modelo text-embedding-3-small' para generarlos.
+[INFO] 2026-01-24 01:40:05 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 01:40:05 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 6457 ms
+[INFO] 2026-01-24 01:40:05 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8.200000000000001e-07 USD
+[INFO] 2026-01-24 01:40:09 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios caros de quito de enero del 2026...', expandida='envios caros de quito de enero del 2026 considerable quito significativo grande capital dme alto pic...', filtros_sugeridos={'ciudadDestino': 'Quito', 'valor_minimo': 500.0}
+[INFO] 2026-01-24 01:40:10 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios caros de quito de enero del 2026 considerab...', envios_disponibles=1, limite=20
+[WARNING] 2026-01-24 01:40:10 - apps.busqueda.semantic:_buscar_envios_similares:502 - No se encontraron embeddings para la búsqueda. Modelo solicitado: text-embedding-3-small, Envíos disponibles: 1. Ejecute 'python manage.py generar_embeddings --modelo text-embedding-3-small' para generarlos.
+[INFO] 2026-01-24 01:40:10 - apps.core.base.base_service:log_info:118 - No se encontraron embeddings existentes. Ejecute 'python manage.py generar_embeddings --modelo text-embedding-3-small' para generarlos.
+[INFO] 2026-01-24 01:40:10 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 01:40:10 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 1515 ms
+[INFO] 2026-01-24 01:40:10 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8.200000000000001e-07 USD
+[INFO] 2026-01-24 01:40:20 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios de enero del 2026...', expandida='envios de enero del 2026...', filtros_sugeridos={}
+[INFO] 2026-01-24 01:40:23 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios de enero del 2026...', envios_disponibles=219, limite=20
+[INFO] 2026-01-24 01:40:25 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=2747.52ms, resultados_similitud=217, resultados_filtrados=55, resultados_finales=20
+[INFO] 2026-01-24 01:40:26 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 01:40:26 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 5830 ms
+[INFO] 2026-01-24 01:40:26 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 1.8e-07 USD
+[INFO] 2026-01-24 01:40:47 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios caros de la ciduad de quito en la fecha ene...', expandida='envios caros de la ciduad de quito en la fecha enero del 2026 considerable quito significativo grand...', filtros_sugeridos={'ciudadDestino': 'Quito', 'valor_minimo': 500.0}
+[INFO] 2026-01-24 01:40:49 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios caros de la ciduad de quito en la fecha ene...', envios_disponibles=1, limite=20
+[WARNING] 2026-01-24 01:40:49 - apps.busqueda.semantic:_buscar_envios_similares:502 - No se encontraron embeddings para la búsqueda. Modelo solicitado: text-embedding-3-small, Envíos disponibles: 1. Ejecute 'python manage.py generar_embeddings --modelo text-embedding-3-small' para generarlos.
+[INFO] 2026-01-24 01:40:49 - apps.core.base.base_service:log_info:118 - No se encontraron embeddings existentes. Ejecute 'python manage.py generar_embeddings --modelo text-embedding-3-small' para generarlos.
+[INFO] 2026-01-24 01:40:49 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 01:40:49 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 1662 ms
+[INFO] 2026-01-24 01:40:49 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 9.600000000000001e-07 USD
+[INFO] 2026-01-24 01:41:50 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios  de quito en la fecha enero del 2026...', expandida='envios  de quito en la fecha enero del 2026 quito capital dme pichincha distrito metropolitano | Ciu...', filtros_sugeridos={'ciudadDestino': 'Quito'}
+[INFO] 2026-01-24 01:41:51 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios de quito en la fecha enero del 2026 quito c...', envios_disponibles=108, limite=20
+[INFO] 2026-01-24 01:41:52 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=1000.33ms, resultados_similitud=106, resultados_filtrados=27, resultados_finales=20
+[INFO] 2026-01-24 01:41:52 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 01:41:53 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 2816 ms
+[INFO] 2026-01-24 01:41:53 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 6.4e-07 USD
+[INFO] 2026-01-24 02:29:43 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-24 02:29:43 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 0, Envíos recientes: 0
+[INFO] 2026-01-24 02:32:16 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-24 02:32:16 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 0, Envíos recientes: 0
+[INFO] 2026-01-24 02:32:25 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-24 02:32:25 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 0, Envíos recientes: 0
+[INFO] 2026-01-24 02:34:24 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-24 02:34:24 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 0, Envíos recientes: 0
+[INFO] 2026-01-24 02:35:34 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-24 02:35:34 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 0, Envíos recientes: 0
+[ERROR] 2026-01-24 02:47:01 - apps.core.base.base_service:log_error:154 - Error ejecutando comando pruebas_rendimiento: TypeError: Unknown option(s) for pruebas_rendimiento command: interactive. Valid options are: exportar, force_color, help, iteraciones, no_color, pythonpath, settings, skip_checks, stderr, stdout, traceback, usuario, verbose, verbosity, version.
+Traceback (most recent call last):
+  File "C:\Users\david\App\backend\apps\metricas\views.py", line 800, in ejecutar_rendimiento_completo
+    call_command(
+  File "C:\Users\david\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\core\management\__init__.py", line 180, in call_command
+    raise TypeError(
+TypeError: Unknown option(s) for pruebas_rendimiento command: interactive. Valid options are: exportar, force_color, help, iteraciones, no_color, pythonpath, settings, skip_checks, stderr, stdout, traceback, usuario, verbose, verbosity, version.
+[INFO] 2026-01-24 03:54:29 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios recientes de cuenca...', expandida='envios recientes de cuenca cuenca azuay hace poco últimamente reciente nuevo atenas del ecuador morl...', filtros_sugeridos={'ciudadDestino': 'Cuenca', 'fechaDesde': '2026-01-10', 'fechaHasta': '2026-01-24'}
+[INFO] 2026-01-24 03:54:51 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios recientes de quito...', expandida='envios recientes de quito quito hace poco últimamente dme capital distrito metropolitano reciente nu...', filtros_sugeridos={'ciudadDestino': 'Quito', 'fechaDesde': '2026-01-10', 'fechaHasta': '2026-01-24'}
+[INFO] 2026-01-24 03:54:51 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios recientes de quito quito hace poco ultimame...', envios_disponibles=2, limite=20
+[WARNING] 2026-01-24 03:54:52 - apps.busqueda.semantic:_buscar_envios_similares:502 - No se encontraron embeddings para la búsqueda. Modelo solicitado: text-embedding-3-small, Envíos disponibles: 2. Ejecute 'python manage.py generar_embeddings --modelo text-embedding-3-small' para generarlos.
+[INFO] 2026-01-24 03:54:52 - apps.core.base.base_service:log_info:118 - No se encontraron embeddings existentes. Ejecute 'python manage.py generar_embeddings --modelo text-embedding-3-small' para generarlos.
+[INFO] 2026-01-24 03:54:52 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 03:54:52 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 800 ms
+[INFO] 2026-01-24 03:54:52 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 8.6e-07 USD
+[INFO] 2026-01-24 03:55:10 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios de este mes de quito...', expandida='envios de este mes de quito este mes quito mes presente dme capital distrito metropolitano mes actua...', filtros_sugeridos={'ciudadDestino': 'Quito', 'fechaDesde': '2026-01-01', 'fechaHasta': '2026-01-24'}
+[INFO] 2026-01-24 03:55:11 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios de este mes de quito este mes quito mes pre...', envios_disponibles=3, limite=20
+[INFO] 2026-01-24 03:55:11 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=34.00ms, resultados_similitud=1, resultados_filtrados=1, resultados_finales=1
+[INFO] 2026-01-24 03:55:11 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 03:55:11 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 869 ms
+[INFO] 2026-01-24 03:55:11 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 7.4e-07 USD
+[INFO] 2026-01-24 03:55:26 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios de quito...', expandida='envios de quito quito dme capital distrito metropolitano pichincha | Ciudad: quito...', filtros_sugeridos={'ciudadDestino': 'Quito'}
+[INFO] 2026-01-24 03:55:27 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios de quito quito dme capital distrito metropo...', envios_disponibles=108, limite=20
+[INFO] 2026-01-24 03:55:27 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=378.19ms, resultados_similitud=106, resultados_filtrados=27, resultados_finales=20
+[INFO] 2026-01-24 03:55:28 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 03:55:28 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 1124 ms
+[INFO] 2026-01-24 03:55:28 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 4.6000000000000004e-07 USD
+[INFO] 2026-01-24 16:49:08 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios de medias y camisetas dek ali oasado...', expandida='envios de medias y camisetas dek ali oasado...', filtros_sugeridos={}
+[INFO] 2026-01-24 16:49:19 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios de medias y camisetas dek ali oasado...', envios_disponibles=219, limite=20
+[INFO] 2026-01-24 16:49:20 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=496.96ms, resultados_similitud=217, resultados_filtrados=55, resultados_finales=20
+[INFO] 2026-01-24 16:49:20 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 16:49:20 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 11424 ms
+[INFO] 2026-01-24 16:49:20 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 3.0000000000000004e-07 USD
+[INFO] 2026-01-24 19:52:42 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios de medias y camisetas dek ali oasado...', expandida='envios de medias y camisetas dek ali oasado...', filtros_sugeridos={}
+[INFO] 2026-01-24 19:52:45 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios de medias y camisetas dek ali oasado...', envios_disponibles=219, limite=20
+[INFO] 2026-01-24 19:52:47 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=1855.86ms, resultados_similitud=217, resultados_filtrados=55, resultados_finales=20
+[INFO] 2026-01-24 19:52:47 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-24 19:52:47 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 4700 ms
+[INFO] 2026-01-24 19:52:47 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 3.0000000000000004e-07 USD
+[INFO] 2026-01-25 14:52:37 - apps.busqueda.semantic:buscar:185 - Consulta expandida: original='envios de ropa cara...', expandida='envios de ropa cara ropa atuendo vestimenta textiles moda vestido vestuario indumentaria prendas | P...', filtros_sugeridos={}
+[INFO] 2026-01-25 14:52:47 - apps.busqueda.semantic:_buscar_envios_similares:472 - Búsqueda semántica iniciada: consulta='envios de ropa cara ropa atuendo vestimenta textil...', envios_disponibles=219, limite=20
+[INFO] 2026-01-25 14:52:47 - apps.busqueda.semantic:_buscar_envios_similares:568 - Búsqueda semántica completada: tiempo=491.14ms, resultados_similitud=217, resultados_filtrados=55, resultados_finales=20
+[INFO] 2026-01-25 14:52:47 - apps.core.base.base_service:log_operacion:192 - Buscar_Semantica BusquedaSemantica por usuario 1
+[INFO] 2026-01-25 14:52:47 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_tiempo: 10064 ms
+[INFO] 2026-01-25 14:52:47 - apps.core.base.base_service:log_metrica:224 - Métrica busqueda_semantica_costo: 5.6e-07 USD
+[INFO] 2026-01-25 16:57:55 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000220 - generado (creado)
+[INFO] 2026-01-25 16:57:56 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000220 - generado (actualizado)
+[INFO] 2026-01-25 16:57:57 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000221 - generado (creado)
+[INFO] 2026-01-25 16:57:57 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000221 - generado (actualizado)
+[INFO] 2026-01-25 16:57:58 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000222 - generado (creado)
+[INFO] 2026-01-25 16:57:58 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000222 - generado (actualizado)
+[INFO] 2026-01-25 16:58:00 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000223 - generado (creado)
+[INFO] 2026-01-25 16:58:00 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000223 - generado (actualizado)
+[INFO] 2026-01-25 16:58:01 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000224 - generado (creado)
+[INFO] 2026-01-25 16:58:01 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000224 - generado (actualizado)
+[INFO] 2026-01-25 16:58:01 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000225 - generado (creado)
+[INFO] 2026-01-25 16:58:01 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000225 - generado (actualizado)
+[INFO] 2026-01-25 16:58:02 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000226 - generado (creado)
+[INFO] 2026-01-25 16:58:02 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000226 - generado (actualizado)
+[INFO] 2026-01-25 16:58:05 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000227 - generado (creado)
+[INFO] 2026-01-25 16:58:05 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000227 - generado (actualizado)
+[INFO] 2026-01-25 16:58:06 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000228 - generado (creado)
+[INFO] 2026-01-25 16:58:06 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000228 - generado (actualizado)
+[INFO] 2026-01-25 16:58:06 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000229 - generado (creado)
+[INFO] 2026-01-25 16:58:06 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000229 - generado (actualizado)
+[INFO] 2026-01-25 16:58:07 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000230 - generado (creado)
+[INFO] 2026-01-25 16:58:08 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000230 - generado (actualizado)
+[INFO] 2026-01-25 16:58:08 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000231 - generado (creado)
+[INFO] 2026-01-25 16:58:08 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000231 - generado (actualizado)
+[INFO] 2026-01-25 16:58:09 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000232 - generado (creado)
+[INFO] 2026-01-25 16:58:09 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000232 - generado (actualizado)
+[INFO] 2026-01-25 16:58:10 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000233 - generado (creado)
+[INFO] 2026-01-25 16:58:10 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000233 - generado (actualizado)
+[INFO] 2026-01-25 16:58:11 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000234 - generado (creado)
+[INFO] 2026-01-25 16:58:11 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000234 - generado (actualizado)
+[INFO] 2026-01-25 16:58:12 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000235 - generado (creado)
+[INFO] 2026-01-25 16:58:12 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000235 - generado (actualizado)
+[INFO] 2026-01-25 16:58:12 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000236 - generado (creado)
+[INFO] 2026-01-25 16:58:12 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000236 - generado (actualizado)
+[INFO] 2026-01-25 16:58:13 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000237 - generado (creado)
+[INFO] 2026-01-25 16:58:13 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000237 - generado (actualizado)
+[INFO] 2026-01-25 16:58:15 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000238 - generado (creado)
+[INFO] 2026-01-25 16:58:15 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000238 - generado (actualizado)
+[INFO] 2026-01-25 17:13:20 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000239 - generado (creado)
+[INFO] 2026-01-25 17:13:20 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000239 - generado (actualizado)
+[INFO] 2026-01-25 17:13:21 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000240 - generado (creado)
+[INFO] 2026-01-25 17:13:21 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000240 - generado (actualizado)
+[INFO] 2026-01-25 17:13:21 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000242 - generado (creado)
+[INFO] 2026-01-25 17:13:21 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000242 - generado (actualizado)
+[INFO] 2026-01-25 17:13:23 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000243 - generado (creado)
+[INFO] 2026-01-25 17:13:23 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000243 - generado (actualizado)
+[INFO] 2026-01-25 17:13:24 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000244 - generado (creado)
+[INFO] 2026-01-25 17:13:24 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000244 - generado (actualizado)
+[INFO] 2026-01-25 17:13:25 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000245 - generado (creado)
+[INFO] 2026-01-25 17:13:25 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000245 - generado (actualizado)
+[INFO] 2026-01-25 17:13:25 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000246 - generado (creado)
+[INFO] 2026-01-25 17:13:25 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000246 - generado (actualizado)
+[INFO] 2026-01-25 17:13:26 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000248 - generado (creado)
+[INFO] 2026-01-25 17:13:26 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000248 - generado (actualizado)
+[INFO] 2026-01-25 17:13:27 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000251 - generado (creado)
+[INFO] 2026-01-25 17:13:27 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000251 - generado (actualizado)
+[INFO] 2026-01-25 17:13:28 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000252 - generado (creado)
+[INFO] 2026-01-25 17:13:28 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000252 - generado (actualizado)
+[INFO] 2026-01-25 17:13:30 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000257 - generado (creado)
+[INFO] 2026-01-25 17:13:30 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000257 - generado (actualizado)
+[INFO] 2026-01-25 17:13:30 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000258 - generado (creado)
+[INFO] 2026-01-25 17:13:30 - apps.core.base.base_service:log_info:118 - Registro de generación de embedding: HAW000258 - generado (actualizado)
+[INFO] 2026-01-25 17:14:53 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-25 17:14:53 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 38, Envíos recientes: 10
+[INFO] 2026-01-25 17:18:28 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-25 17:18:28 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 38, Envíos recientes: 10
+[INFO] 2026-01-25 17:18:57 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-25 17:18:57 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 38, Envíos recientes: 10
+[INFO] 2026-01-25 17:20:24 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-25 17:20:24 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 38, Envíos recientes: 10
+[INFO] 2026-01-25 17:20:48 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-25 17:20:48 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 38, Envíos recientes: 10
+[INFO] 2026-01-25 17:28:48 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-25 17:28:48 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 38, Envíos recientes: 10
+[INFO] 2026-01-25 17:29:39 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-25 17:29:40 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 38, Envíos recientes: 10
+[INFO] 2026-01-25 17:37:50 - apps.core.base.base_service:log_info:118 - Dashboard solicitado para usuario 242 (carlos), rol: 4, es_comprador: True, año: 2026
+[INFO] 2026-01-25 17:37:51 - apps.core.base.base_service:log_info:118 - Dashboard generado - Total envíos: 38, Envíos recientes: 10

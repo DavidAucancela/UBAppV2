@@ -3,14 +3,14 @@
   
   <!-- Encabezado -->
   <div class="encabezado">
+    <br>
+    <br>
+    <br>
+    <br>
     <h1 class="titulo-principal">
-      <br>
-      <br>
-      <br>
-      <br>
       <i class="fas fa-search"></i>
 
-      Búsqueda de Envíos
+      Búsqueda de envíos
     </h1>
     <p class="subtitulo">Busque y filtre envíos por múltiples criterios</p>
   </div>
@@ -58,7 +58,7 @@
           (click)="toggleFiltrosAvanzados()"
         >
           <i class="fas" [ngClass]="mostrarFiltrosAvanzados ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
-          {{ mostrarFiltrosAvanzados ? 'Ocultar' : 'Mostrar' }} Filtros Avanzados
+          {{ mostrarFiltrosAvanzados ? 'Ocultar' : 'Mostrar' }} Filtros
           <span *ngIf="contarFiltrosActivos() > 0" class="badge-filtros">
             {{ contarFiltrosActivos() }}
           </span>
@@ -87,7 +87,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-user"></i>
-              Nombre del Destinatario
+              Nombre del destinatario
             </label>
             <input
               type="text"
@@ -101,9 +101,9 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-map-marker-alt"></i>
-              Ciudad de Destino
+              Ciudad de destino
             </label>
-            <input
+            <input  
               type="text"
               formControlName="ciudadDestino"
               class="input-filtro"
@@ -115,7 +115,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-info-circle"></i>
-              Estado del Envío
+              Estado del envío
             </label>
             <select formControlName="estado" class="select-filtro">
               <option value="">Todos los estados</option>
@@ -129,7 +129,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-calendar-alt"></i>
-              Fecha Desde
+              Fecha inicio
             </label>
             <input
               type="date"
@@ -142,7 +142,7 @@
           <div class="grupo-filtro">
             <label class="etiqueta-filtro">
               <i class="fas fa-calendar-alt"></i>
-              Fecha Hasta
+              Fecha fin
             </label>
             <input
               type="date"
@@ -160,7 +160,7 @@
           </button>
           <button type="button" class="btn btn-secundario" (click)="limpiarFiltros()">
             <i class="fas fa-eraser"></i>
-            Limpiar Filtros
+            Limpiar filtros
           </button>
         </div>
       </div>
@@ -175,7 +175,7 @@
         >
           <i class="fas" [ngClass]="mostrarHistorial ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
           <i class="fas fa-history"></i>
-          <span>Historial de Búsquedas</span>
+          <span>Historial de búsquedas</span>
           <span class="badge-historial">{{ historialBusquedas.length }}</span>
         </button>
         <button 

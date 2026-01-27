@@ -158,7 +158,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       label: 'Búsqueda',
       icon: 'fas fa-search',
       route: '/busqueda-envios',
-      roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR, Roles.COMPRADOR],
+      roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR],
       order: 2,
       subItems: [
         { label: 'Búsqueda Exacta', icon: 'fas fa-search', route: '/busqueda-envios' },

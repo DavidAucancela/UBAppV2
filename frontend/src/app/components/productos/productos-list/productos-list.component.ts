@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { Producto, ProductoCreate, ProductoUpdate, CategoriasProducto, CATEGORIAS_LABELS } from '../../../models/producto';
@@ -40,6 +42,10 @@ export class ProductosListComponent implements OnInit {
   // Messages
   successMessage = '';
   errorMessage = '';
+  
+  // Selección múltiple y acciones masivas
+  selectedIds = new Set<number>();
+  bulkActionInProgress = false;
   
   // Form
   productoForm: FormGroup;
@@ -324,6 +330,26 @@ export class ProductosListComponent implements OnInit {
     this.errorMessage = '';
   }
 
+  /**
+   * Redondea un número a un número específico de decimales
+   * Usa un método más preciso para evitar problemas de precisión de punto flotante
+   * @param valor El valor a redondear
+   * @param decimales Número de decimales (por defecto 2)
+   * @returns Número redondeado con exactamente el número de decimales especificado
+   */
+  private redondearDecimal(valor: number, decimales: number = 2): number {
+    if (valor === null || valor === undefined || isNaN(valor)) {
+      return 0;
+    }
+    // Usar Math.round con factor para evitar problemas de precisión de punto flotante
+    const factor = Math.pow(10, decimales);
+    // Redondear y dividir, luego usar toFixed y parseFloat para asegurar exactamente 2 decimales
+    const redondeado = Math.round((valor + Number.EPSILON) * factor) / factor;
+    // Convertir a string con exactamente el número de decimales y luego a número
+    // Esto asegura que cuando se serialice a JSON tenga exactamente 2 decimales
+    return parseFloat(redondeado.toFixed(decimales));
+  }
+
   onSubmit(): void {
     if (this.productoForm.valid) {
       this.submitting = true;
@@ -350,9 +376,13 @@ export class ProductosListComponent implements OnInit {
         return;
       }
 
-      const peso = parseFloat(this.productoForm.get('peso')?.value) || 0;
+      const pesoRaw = parseFloat(this.productoForm.get('peso')?.value) || 0;
       const cantidad = parseInt(this.productoForm.get('cantidad')?.value) || 1;
-      const valor = parseFloat(this.productoForm.get('valor')?.value) || 0;
+      const valorRaw = parseFloat(this.productoForm.get('valor')?.value) || 0;
+
+      // Redondear a 2 decimales para cumplir con las restricciones del backend
+      const peso = this.redondearDecimal(pesoRaw, 2);
+      const valor = this.redondearDecimal(valorRaw, 2);
 
       if (peso <= 0) {
         this.errorMessage = 'El peso debe ser mayor a 0';
@@ -454,8 +484,20 @@ export class ProductosListComponent implements OnInit {
   }
 
   // Helper methods
-  getCategoriaLabel(categoria: string): string {
+  getCategoriaLabel(categoria: string | undefined): string {
+    if (!categoria) return 'Sin categoría';
     return CATEGORIAS_LABELS[categoria as keyof typeof CATEGORIAS_LABELS] || categoria;
+  }
+
+  getCategoriaDisplay(producto: Producto): string {
+    // Usar categoria_nombre si está disponible, sino usar categoria y mapearlo
+    if (producto.categoria_nombre) {
+      return producto.categoria_nombre;
+    }
+    if (producto.categoria) {
+      return this.getCategoriaLabel(producto.categoria);
+    }
+    return 'Sin categoría';
   }
 
   get paginatedProductos(): Producto[] {
@@ -506,5 +548,70 @@ export class ProductosListComponent implements OnInit {
   // TrackBy para mejorar el rendimiento de *ngFor
   trackByProductoId(index: number, producto: Producto): any {
     return producto.id || index;
+  }
+
+  // --- Selección múltiple y acciones masivas ---
+  toggleSelection(producto: Producto): void {
+    if (!producto.id) return;
+    if (this.selectedIds.has(producto.id)) {
+      this.selectedIds.delete(producto.id);
+    } else {
+      this.selectedIds.add(producto.id);
+    }
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  isSelected(producto: Producto): boolean {
+    return producto.id != null && this.selectedIds.has(producto.id);
+  }
+
+  selectAllOnPage(): void {
+    const ids = this.paginatedProductos.map(p => p.id).filter((id): id is number => id != null);
+    const allSelected = ids.length > 0 && ids.every(id => this.selectedIds.has(id));
+    if (allSelected) {
+      ids.forEach(id => this.selectedIds.delete(id));
+    } else {
+      ids.forEach(id => this.selectedIds.add(id));
+    }
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  clearSelection(): void {
+    this.selectedIds.clear();
+    this.selectedIds = new Set(this.selectedIds);
+  }
+
+  get selectedCount(): number {
+    return this.selectedIds.size;
+  }
+
+  bulkDelete(): void {
+    const ids = Array.from(this.selectedIds);
+    if (ids.length === 0) return;
+    if (!confirm(`¿Eliminar ${ids.length} producto(s) seleccionado(s)? Esta acción no se puede deshacer.`)) return;
+    this.bulkActionInProgress = true;
+    this.errorMessage = '';
+    const calls = ids.map(id => this.apiService.deleteProducto(id).pipe(
+      map(() => ({ id, ok: true })),
+      catchError(() => of({ id, ok: false }))
+    ));
+    forkJoin(calls).subscribe({
+      next: (results) => {
+        const ok = results.filter(r => r.ok).length;
+        const fail = results.filter(r => !r.ok).length;
+        this.successMessage = fail === 0
+          ? `${ok} producto(s) eliminado(s) correctamente.`
+          : `${ok} eliminado(s). ${fail} fallaron.`;
+        this.clearSelection();
+        this.loadProductos();
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Error al eliminar productos.';
+        this.bulkActionInProgress = false;
+        setTimeout(() => this.errorMessage = '', 3000);
+      }
+    });
   }
 }

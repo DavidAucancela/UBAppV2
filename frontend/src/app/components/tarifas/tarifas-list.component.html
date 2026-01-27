@@ -98,12 +98,70 @@
         </div>
       </div>
 
+      <!-- Barra de acciones masivas -->
+      <div class="bulk-actions-bar card" *ngIf="!loading && selectedCount > 0 && (authService.isAdmin() || authService.isGerente())">
+        <div class="bulk-actions-content">
+          <span class="bulk-actions-info">
+            <i class="fas fa-check-double"></i>
+            {{ selectedCount }} tarifa(s) seleccionada(s)
+          </span>
+          <div class="bulk-actions-buttons">
+            <button 
+              class="btn btn-secondary btn-sm" 
+              (click)="bulkActivate()" 
+              [disabled]="bulkActionInProgress"
+              title="Activar seleccionadas"
+            >
+              <i class="fas fa-toggle-on"></i>
+              Activar
+            </button>
+            <button 
+              class="btn btn-secondary btn-sm" 
+              (click)="bulkDeactivate()" 
+              [disabled]="bulkActionInProgress"
+              title="Desactivar seleccionadas"
+            >
+              <i class="fas fa-toggle-off"></i>
+              Desactivar
+            </button>
+            <button 
+              class="btn btn-danger btn-sm" 
+              (click)="bulkDelete()" 
+              [disabled]="bulkActionInProgress"
+              title="Eliminar seleccionadas"
+            >
+              <i class="fas fa-trash"></i>
+              Eliminar
+            </button>
+            <button 
+              class="btn btn-secondary btn-sm" 
+              (click)="clearSelection()" 
+              [disabled]="bulkActionInProgress"
+              title="Deseleccionar todas"
+            >
+              <i class="fas fa-times"></i>
+              Deseleccionar
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Tarifas Table -->
       <div class="card" *ngIf="!loading">
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
+                <th class="col-checkbox" *ngIf="authService.isAdmin() || authService.isGerente()">
+                  <label class="checkbox-header">
+                    <input 
+                      type="checkbox" 
+                      [checked]="filteredTarifas.length > 0 && filteredTarifas.every(t => isSelected(t))"
+                      (change)="selectAllOnPage()"
+                    >
+                    <span class="checkbox-label">Seleccionar</span>
+                  </label>
+                </th>
                 <th>Categoría</th>
                 <th>Rango de Peso (kg)</th>
                 <th class="text-right">Precio por Kg</th>
@@ -114,7 +172,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let tarifa of filteredTarifas" [class.inactive]="!tarifa.activa">
+              <tr *ngFor="let tarifa of filteredTarifas" [class.inactive]="!tarifa.activa" [class.row-selected]="isSelected(tarifa)">
+                <td class="col-checkbox" *ngIf="authService.isAdmin() || authService.isGerente()">
+                  <label class="checkbox-cell">
+                    <input 
+                      type="checkbox" 
+                      [checked]="isSelected(tarifa)"
+                      (change)="toggleSelection(tarifa)"
+                    >
+                  </label>
+                </td>
                 <td>
                   <div class="categoria-cell">
                     <i class="fas {{ getCategoriaIcon(tarifa.categoria) }}"></i>
@@ -176,7 +243,7 @@
                 </td>
               </tr>
               <tr *ngIf="filteredTarifas.length === 0">
-                <td colspan="7" class="no-data">
+                <td [attr.colspan]="(authService.isAdmin() || authService.isGerente()) ? 8 : 7" class="no-data">
                   <i class="fas fa-inbox"></i>
                   <p>No se encontraron tarifas</p>
                 </td>

@@ -532,24 +532,34 @@ class ProcesadorExcel:
         
         try:
             with transaction.atomic():
-                for idx, row in df_procesar.iterrows():
+                # Agrupar filas por HAWB del archivo (aunque luego se ignore y se genere uno nuevo)
+                # Esto permite que múltiples productos pertenezcan al mismo envío
+                grupos_por_hawb = self._agrupar_filas_por_hawb(df_procesar, mapeo_columnas)
+                
+                # Procesar cada grupo (cada grupo representa un envío con uno o más productos)
+                for hawb_archivo, filas_grupo in grupos_por_hawb.items():
                     try:
-                        # Extraer datos según el mapeo
-                        datos_envio = self._extraer_datos_fila(row, mapeo_columnas, comprador_id)
-                        
-                        # Crear el envío (sin generar embedding aún)
-                        envio = self._crear_envio(datos_envio, generar_embedding=False)
+                        # Crear un solo envío para todo el grupo
+                        envio = self._crear_envio_desde_grupo(
+                            filas_grupo, 
+                            mapeo_columnas, 
+                            comprador_id,
+                            generar_embedding=False
+                        )
                         envios_creados.append(envio)
                         
-                        registros_exitosos += 1
+                        # Contar todas las filas del grupo como exitosas
+                        registros_exitosos += len(filas_grupo)
                         
                     except Exception as e:
-                        registros_con_error += 1
-                        importacion.agregar_error(
-                            int(idx) + 2,
-                            'general',
-                            f"Error al procesar: {str(e)}"
-                        )
+                        # Si falla el grupo, marcar todas sus filas como error
+                        registros_con_error += len(filas_grupo)
+                        for fila_info in filas_grupo:
+                            importacion.agregar_error(
+                                int(fila_info['indice']) + 2,
+                                'general',
+                                f"Error al procesar: {str(e)}"
+                            )
             
             # Actualizar estadísticas
             importacion.registros_procesados = registros_exitosos
@@ -830,6 +840,185 @@ class ProcesadorExcel:
         if timezone.is_naive(fecha):
             return timezone.make_aware(fecha, timezone.get_current_timezone())
         return fecha
+    
+    def _agrupar_filas_por_hawb(
+        self, 
+        df: pd.DataFrame, 
+        mapeo_columnas: Dict[str, str]
+    ) -> Dict[str, List[Dict[str, Any]]]:
+        """
+        Agrupa las filas del DataFrame por HAWB del archivo.
+        Las filas con el mismo HAWB pertenecen al mismo envío.
+        
+        Args:
+            df: DataFrame con las filas a procesar
+            mapeo_columnas: Mapeo entre columnas del Excel y campos del modelo
+        
+        Returns:
+            Dict con formato {hawb_archivo: [lista de filas]}
+        """
+        grupos = {}
+        mapeo_inv = {v: k for k, v in mapeo_columnas.items()}
+        
+        # Obtener la columna de HAWB del archivo (si existe)
+        columna_hawb = mapeo_inv.get('hawb')
+        
+        for idx, row in df.iterrows():
+            # Obtener el HAWB del archivo para agrupar
+            # Si no hay HAWB mapeado o está vacío, cada fila será un grupo único
+            hawb_archivo = ''
+            if columna_hawb and columna_hawb in df.columns:
+                valor_hawb = row[columna_hawb]
+                if not pd.isna(valor_hawb) and str(valor_hawb).strip():
+                    hawb_archivo = str(valor_hawb).strip()
+            
+            # Si no hay HAWB, usar el índice como clave única para que cada fila sea un grupo
+            if not hawb_archivo:
+                hawb_archivo = f"_sin_hawb_{idx}"
+            
+            # Agregar la fila al grupo correspondiente
+            if hawb_archivo not in grupos:
+                grupos[hawb_archivo] = []
+            
+            grupos[hawb_archivo].append({
+                'indice': idx,
+                'fila': row
+            })
+        
+        return grupos
+    
+    def _crear_envio_desde_grupo(
+        self,
+        filas_grupo: List[Dict[str, Any]],
+        mapeo_columnas: Dict[str, str],
+        comprador_id: int = None,
+        generar_embedding: bool = True
+    ) -> Envio:
+        """
+        Crea un envío desde un grupo de filas (todas con el mismo HAWB del archivo).
+        Todos los productos de las filas se agregan al mismo envío.
+        
+        Args:
+            filas_grupo: Lista de diccionarios con formato {'indice': idx, 'fila': row}
+            mapeo_columnas: Mapeo entre columnas del Excel y campos del modelo
+            comprador_id: ID del comprador para asignar al envío
+            generar_embedding: Si True, genera el embedding inmediatamente
+        
+        Returns:
+            Envio creado
+        """
+        if not filas_grupo:
+            raise ValueError("El grupo de filas está vacío")
+        
+        # Usar la primera fila para obtener los datos base del envío
+        primera_fila = filas_grupo[0]['fila']
+        datos_envio = self._extraer_datos_fila(primera_fila, mapeo_columnas, comprador_id)
+        
+        # Extraer todos los productos de todas las filas del grupo
+        productos_datos = []
+        
+        # Si la primera fila ya tiene un producto, agregarlo
+        if 'producto' in datos_envio and datos_envio['producto']:
+            productos_datos.append(datos_envio.pop('producto'))
+        
+        # Procesar las demás filas del grupo para obtener sus productos
+        for fila_info in filas_grupo[1:]:
+            fila = fila_info['fila']
+            datos_fila = self._extraer_datos_fila(fila, mapeo_columnas, comprador_id)
+            
+            # Agregar el producto de esta fila
+            if 'producto' in datos_fila and datos_fila['producto']:
+                productos_datos.append(datos_fila['producto'])
+        
+        # Calcular totales del envío sumando todos los productos
+        if len(productos_datos) > 0:
+            # Calcular totales sumando todos los productos
+            peso_total_calculado = sum(Decimal(str(p.get('peso', 0))) * Decimal(str(p.get('cantidad', 0))) for p in productos_datos)
+            cantidad_total_calculada = sum(p.get('cantidad', 0) for p in productos_datos)
+            valor_total_calculado = sum(Decimal(str(p.get('valor', 0))) * Decimal(str(p.get('cantidad', 0))) for p in productos_datos)
+            
+            # Usar los valores calculados desde los productos
+            datos_envio['peso_total'] = peso_total_calculado
+            datos_envio['cantidad_total'] = cantidad_total_calculada
+            datos_envio['valor_total'] = valor_total_calculado
+        else:
+            # Si no hay productos, usar los valores de la primera fila
+            datos_envio.setdefault('peso_total', Decimal('0'))
+            datos_envio.setdefault('cantidad_total', 0)
+            datos_envio.setdefault('valor_total', Decimal('0'))
+        
+        # Crear el envío base (sin productos aún)
+        envio = self._crear_envio_base(datos_envio, generar_embedding=False)
+        
+        # Agregar todos los productos al envío
+        for producto_datos in productos_datos:
+            if producto_datos.get('descripcion'):
+                Producto.objects.create(envio=envio, **producto_datos)
+        
+        # Recalcular totales del envío con todos los productos
+        envio.calcular_totales()
+        envio.save()
+        
+        # Generar embedding solo si se solicita
+        if generar_embedding:
+            try:
+                generar_embedding_envio(envio)
+            except Exception as e_embed:
+                print(f"Advertencia: No se pudo generar embedding para envío {envio.hawb}: {str(e_embed)}")
+        
+        return envio
+    
+    def _crear_envio_base(self, datos: Dict[str, Any], generar_embedding: bool = True) -> Envio:
+        """
+        Crea un envío base sin productos (los productos se agregan después).
+        Similar a _crear_envio pero sin manejar productos.
+        """
+        # Ajustar el nombre del campo comprador_id a comprador
+        if 'comprador_id' in datos and 'comprador' not in datos:
+            comprador_id = datos.pop('comprador_id')
+            if comprador_id:
+                try:
+                    comprador = Usuario.objects.get(id=comprador_id)
+                    # Validar que el usuario tenga rol de comprador (rol=4)
+                    if comprador.rol != 4:
+                        raise ValueError(f"El usuario con ID {comprador_id} no tiene rol de Comprador (rol=4). Rol actual: {comprador.rol}")
+                    datos['comprador'] = comprador
+                except Usuario.DoesNotExist:
+                    raise ValueError(f"Comprador con ID {comprador_id} no existe")
+        else:
+            datos.pop('comprador_id', None)
+        
+        if 'comprador' not in datos or not datos['comprador']:
+            raise ValueError("No se pudo determinar el comprador para el envío")
+        
+        # Validar que el comprador tenga rol correcto
+        if hasattr(datos.get('comprador'), 'rol') and datos['comprador'].rol != 4:
+            raise ValueError(f"El comprador debe tener rol de Comprador (rol=4). Rol actual: {datos['comprador'].rol}")
+        
+        # IMPORTANTE: Generar HAWB secuencial basado en la base de datos
+        # Ignorar el HAWB del archivo y usar el próximo número en secuencia
+        datos['hawb'] = self._generar_hawb_secuencial()
+        
+        # Asegurar que los campos opcionales tengan valores por defecto
+        datos.setdefault('peso_total', 0)
+        datos.setdefault('cantidad_total', 0)
+        datos.setdefault('valor_total', 0)
+        datos.setdefault('costo_servicio', 0)
+        datos.setdefault('estado', 'pendiente')
+        
+        # Remover costo_extra si existe (no es parte del modelo)
+        datos.pop('costo_extra', None)
+        # Remover producto si existe (se agregará después)
+        datos.pop('producto', None)
+        
+        # Crear el envío
+        envio = Envio.objects.create(**datos)
+        
+        # Crear notificación cuando se asigna un envío a un comprador
+        if envio.comprador and envio.comprador.es_comprador:
+            crear_notificacion_envio_asignado(envio)
+        
+        return envio
     
     def _crear_envio(self, datos: Dict[str, Any], generar_embedding: bool = True) -> Envio:
         """

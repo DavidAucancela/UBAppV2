@@ -4,7 +4,7 @@
   <div class="encabezado">
     <h1 class="titulo-principal">
       <i class="fas fa-box"></i>
-      Gestión de Productos
+      Productos
     </h1>
     <p class="subtitulo">Detalle de los productos del sistema</p>
     <div class="encabezado-acciones">
@@ -20,7 +20,7 @@
         (click)="openCreateModal()"
       >
         <i class="fas fa-plus"></i>
-        Nuevo Producto
+        Nuevo producto
       </button>
     </div>
   </div>
@@ -133,15 +133,65 @@
     <span>Cargando productos...</span>
   </div>
 
+  <!-- Barra de acciones masivas -->
+  <div class="bulk-actions-bar card" *ngIf="!loading && selectedCount > 0">
+    <div class="bulk-actions-content">
+      <span class="bulk-actions-info">
+        <i class="fas fa-check-double"></i>
+        {{ selectedCount }} producto(s) seleccionado(s)
+      </span>
+      <div class="bulk-actions-buttons">
+        <button 
+          class="btn btn-danger btn-sm" 
+          (click)="bulkDelete()" 
+          [disabled]="bulkActionInProgress"
+          title="Eliminar seleccionados"
+        >
+          <i class="fas fa-trash"></i>
+          Eliminar
+        </button>
+        <button 
+          class="btn btn-secondary btn-sm" 
+          (click)="clearSelection()" 
+          [disabled]="bulkActionInProgress"
+          title="Deseleccionar todos"
+        >
+          <i class="fas fa-times"></i>
+          Deseleccionar
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Products Grid View -->
   <div class="productos-grid" *ngIf="!loading && viewMode === 'grid'">
+    <!-- Select all strip (grid) -->
+    <div class="grid-select-all" *ngIf="paginatedProductos.length > 0">
+      <label class="checkbox-label-inline">
+        <input 
+          type="checkbox" 
+          [checked]="paginatedProductos.length > 0 && paginatedProductos.every(p => isSelected(p))"
+          (change)="selectAllOnPage()"
+        >
+        <span>Seleccionar todos en esta página</span>
+      </label>
+    </div>
     <div 
       *ngFor="let producto of paginatedProductos; trackBy: trackByProductoId" 
       class="producto-card"
+      [class.card-selected]="isSelected(producto)"
     >
       <div class="producto-card-header">
-        <span class="badge" [ngClass]="'categoria-' + producto.categoria">
-          {{ getCategoriaLabel(producto.categoria) }}
+        <label class="checkbox-cell card-checkbox">
+          <input 
+            type="checkbox" 
+            [checked]="isSelected(producto)"
+            (change)="toggleSelection(producto)"
+            (click)="$event.stopPropagation()"
+          >
+        </label>
+        <span class="badge" [ngClass]="'categoria-' + (producto.categoria || 'otros')">
+          {{ getCategoriaDisplay(producto) }}
         </span>
         <div class="producto-actions">
           <button 
@@ -229,6 +279,16 @@
       <table class="productos-table">
         <thead>
           <tr>
+            <th class="col-checkbox">
+              <label class="checkbox-header">
+                <input 
+                  type="checkbox" 
+                  [checked]="paginatedProductos.length > 0 && paginatedProductos.every(p => isSelected(p))"
+                  (change)="selectAllOnPage()"
+                >
+                <span class="checkbox-label">Seleccionar</span>
+              </label>
+            </th>
             <th (click)="onSortChange('descripcion')" class="sortable">
               Descripción
               <i class="fas" 
@@ -265,13 +325,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let producto of paginatedProductos; trackBy: trackByProductoId">
+          <tr *ngFor="let producto of paginatedProductos; trackBy: trackByProductoId" [class.row-selected]="isSelected(producto)">
+            <td class="col-checkbox">
+              <label class="checkbox-cell">
+                <input 
+                  type="checkbox" 
+                  [checked]="isSelected(producto)"
+                  (change)="toggleSelection(producto)"
+                >
+              </label>
+            </td>
             <td class="producto-descripcion">
               <strong>{{ producto.descripcion }}</strong>
             </td>
             <td>
-              <span class="badge" [ngClass]="'categoria-' + producto.categoria">
-                {{ getCategoriaLabel(producto.categoria) }}
+              <span class="badge" [ngClass]="'categoria-' + (producto.categoria || 'otros')">
+                {{ getCategoriaDisplay(producto) }}
               </span>
             </td>
             <td>{{ producto.peso | number:'1.2-2' }} kg</td>
