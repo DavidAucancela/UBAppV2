@@ -148,46 +148,65 @@
   color: #667eea;
 }
 
-/* Table Styles */
+/* Table Styles: encaja en pantalla sin scroll horizontal */
 .table-container {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   margin-bottom: 30px;
 }
 
 .table {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
-  min-width: 1000px; /* Ancho mínimo para evitar compresión excesiva */
+  table-layout: fixed;
 }
 
 .table th {
   background-color: #f8fafc;
-  padding: 12px 10px;
+  padding: 10px 8px;
   text-align: left;
   font-weight: 600;
   color: #374151;
   border-bottom: 1px solid #e5e7eb;
-  white-space: nowrap;
-  font-size: 0.9rem;
+  white-space: normal;
+  font-size: 0.85rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.table th:nth-child(1) { width: 12%; } /* Usuario */
-.table th:nth-child(2) { width: 15%; } /* Nombre */
-.table th:nth-child(3) { width: 18%; } /* Correo */
-.table th:nth-child(4) { width: 10%; } /* Cédula */
-.table th:nth-child(5) { width: 15%; } /* Ubicación */
-.table th:nth-child(6) { width: 10%; } /* Rol */
-.table th:nth-child(7) { width: 8%; } /* Estado */
-.table th:nth-child(8) { width: 12%; } /* Acciones */
+/* 9 columnas: checkbox, Usuario, Nombre, Correo, Cédula, Ubicación, Rol, Estado, Acciones */
+.table th:nth-child(1),
+.table td:nth-child(1) { width: 4%; }
+.table th:nth-child(2),
+.table td:nth-child(2) { width: 11%; }
+.table th:nth-child(3),
+.table td:nth-child(3) { width: 12%; }
+.table th:nth-child(4),
+.table td:nth-child(4) { width: 14%; }
+.table th:nth-child(5),
+.table td:nth-child(5) { width: 9%; }
+.table th:nth-child(6),
+.table td:nth-child(6) { width: 14%; }
+.table th:nth-child(7),
+.table td:nth-child(7) { width: 9%; }
+.table th:nth-child(8),
+.table td:nth-child(8) { width: 8%; }
+.table th:nth-child(9),
+.table td:nth-child(9) { width: 19%; }
 
 .table td {
-  padding: 12px 10px;
+  padding: 10px 8px;
   border-bottom: 1px solid #f1f5f9;
   vertical-align: middle;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .table-row:hover {
@@ -196,7 +215,7 @@
 
 /* Ubicación Cell */
 .ubicacion-cell {
-  max-width: 200px;
+  max-width: 100%;
 }
 
 .ubicacion-info {
@@ -211,9 +230,9 @@
   gap: 6px;
   font-size: 0.85rem;
   color: #4b5563;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .ubicacion-item i {
@@ -301,22 +320,27 @@
   color: #991b1b;
 }
 
-/* Actions */
+/* Actions: barra de acciones visible, puede envolver si hace falta */
 .actions {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
 }
 
 .btn-icon {
   width: 36px;
   height: 36px;
+  flex-shrink: 0;
   border: none;
   border-radius: 8px;
   background: #f3f4f6;
   color: #6b7280;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
@@ -1027,9 +1051,10 @@
   cursor: not-allowed;
 }
 
-/* Checkbox column y selección */
+/* Checkbox column: solo icono, sin texto para no montar con "Usuario" */
 .col-checkbox {
-  width: 48px;
+  width: 44px;
+  min-width: 44px;
   text-align: center;
   vertical-align: middle;
 }
@@ -1049,13 +1074,6 @@
   height: 18px;
   accent-color: #667eea;
   cursor: pointer;
-}
-
-.checkbox-label {
-  margin-left: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #374151;
 }
 
 .table-row.row-selected {

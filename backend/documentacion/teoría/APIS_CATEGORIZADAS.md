@@ -1,5 +1,10 @@
 # 📚 APIs del Backend - Documentación Completa
 
+**Última actualización**: 27 de Enero, 2026  
+**Total de endpoints documentados**: 100+
+
+---
+
 ## 🔐 1. Autenticación y Tokens
 
 ### Base URL: `/api/token/`
@@ -11,7 +16,17 @@
 
 ---
 
-## 👥 2. Usuarios
+## 🏥 2. Health Check
+
+### Base URL: `/api/health/`
+
+| Método | Endpoint | Descripción | Autenticación |
+|--------|----------|-------------|---------------|
+| GET | `/api/health/health/` | Verificar estado del sistema (DB, cache) | No requerida |
+
+---
+
+## 👥 3. Usuarios
 
 ### Base URL: `/api/usuarios/`
 
@@ -59,7 +74,7 @@
 
 ---
 
-## 📦 3. Envíos
+## 📦 4. Envíos
 
 ### Base URL: `/api/envios/envios/`
 
@@ -91,7 +106,7 @@
 
 ---
 
-## 🛍️ 4. Productos
+## 🛍️ 5. Productos
 
 ### Base URL: `/api/envios/productos/`
 
@@ -118,7 +133,7 @@
 
 ---
 
-## 💰 5. Tarifas
+## 💰 6. Tarifas
 
 ### Base URL: `/api/envios/tarifas/`
 
@@ -144,7 +159,7 @@
 
 ---
 
-## 📊 6. Importación Excel
+## 📊 7. Importación Excel
 
 ### Base URL: `/api/envios/importaciones-excel/`
 
@@ -173,7 +188,7 @@
 
 ---
 
-## 🔍 7. Búsqueda
+## 🔍 8. Búsqueda
 
 ### Base URL: `/api/busqueda/`
 
@@ -193,8 +208,12 @@
 | GET | `/api/busqueda/semantica/historial/` | Historial de búsquedas semánticas | Autenticado |
 | POST | `/api/busqueda/semantica/historial/` | Guardar búsqueda en historial | Autenticado |
 | DELETE | `/api/busqueda/semantica/historial/` | Limpiar historial semántico | Autenticado |
-| POST | `/api/busqueda/semantica/feedback/` | Enviar feedback sobre resultados | Autenticado |
 | GET | `/api/busqueda/semantica/metricas/` | Métricas de búsquedas semánticas | Autenticado |
+| GET | `/api/busqueda/semantica/estadisticas-embeddings/` | Estadísticas de embeddings de envíos | Autenticado |
+| POST | `/api/busqueda/semantica/generar-embeddings/` | Generar embeddings pendientes | Autenticado |
+| GET | `/api/busqueda/semantica/analisis-metricas/` | Análisis comparativo de métricas | Autenticado |
+| GET | `/api/busqueda/{id}/descargar-pdf/` | Descargar PDF de búsqueda tradicional | Autenticado |
+| GET | `/api/busqueda/semantica/{busqueda_id}/descargar-pdf/` | Descargar PDF de búsqueda semántica | Autenticado |
 
 **Ejemplo de búsqueda semántica:**
 ```json
@@ -212,7 +231,7 @@ POST /api/busqueda/semantica/
 
 ---
 
-## 🔔 8. Notificaciones
+## 🔔 9. Notificaciones
 
 ### Base URL: `/api/notificaciones/`
 
@@ -232,7 +251,107 @@ POST /api/busqueda/semantica/
 
 ---
 
-## 📖 9. Documentación API
+## 📊 10. Métricas
+
+### Base URL: `/api/metricas/`
+
+#### Pruebas Controladas Semánticas
+| Método | Endpoint | Descripción | Permisos |
+|--------|----------|-------------|----------|
+| GET | `/api/metricas/pruebas-controladas/` | Listar pruebas controladas | Autenticado |
+| POST | `/api/metricas/pruebas-controladas/` | Crear prueba controlada | Autenticado |
+| GET | `/api/metricas/pruebas-controladas/{id}/` | Obtener prueba controlada | Autenticado |
+| PUT/PATCH | `/api/metricas/pruebas-controladas/{id}/` | Actualizar prueba controlada | Autenticado |
+| DELETE | `/api/metricas/pruebas-controladas/{id}/` | Eliminar prueba controlada | Autenticado |
+| POST | `/api/metricas/pruebas-controladas/{id}/ejecutar/` | Ejecutar prueba controlada | Solo Admin |
+
+**Filtros disponibles:**
+- `?activa={true\|false}` - Filtrar por estado activo
+
+#### Métricas Semánticas
+| Método | Endpoint | Descripción | Permisos |
+|--------|----------|-------------|----------|
+| GET | `/api/metricas/metricas-semanticas/` | Listar métricas semánticas | Autenticado |
+| GET | `/api/metricas/metricas-semanticas/{id}/` | Obtener métrica semántica | Autenticado |
+| GET | `/api/metricas/metricas-semanticas/estadisticas/?fecha_desde={fecha}&fecha_hasta={fecha}` | Estadísticas agregadas | Autenticado |
+
+**Filtros disponibles:**
+- `?fecha_desde={fecha}` - Filtrar desde fecha
+- `?fecha_hasta={fecha}` - Filtrar hasta fecha
+
+#### Registros de Generación de Embeddings
+| Método | Endpoint | Descripción | Permisos |
+|--------|----------|-------------|----------|
+| GET | `/api/metricas/registros-embedding/` | Listar registros de embeddings | Autenticado |
+| GET | `/api/metricas/registros-embedding/{id}/` | Obtener registro de embedding | Autenticado |
+| GET | `/api/metricas/registros-embedding/estadisticas/` | Estadísticas de generación | Autenticado |
+
+**Filtros disponibles:**
+- `?estado={estado}` - Filtrar por estado
+- `?tipo_proceso={tipo}` - Filtrar por tipo de proceso
+
+#### Pruebas de Carga
+| Método | Endpoint | Descripción | Permisos |
+|--------|----------|-------------|----------|
+| GET | `/api/metricas/pruebas-carga/` | Listar pruebas de carga | Autenticado |
+| POST | `/api/metricas/pruebas-carga/` | Crear prueba de carga | Autenticado |
+| GET | `/api/metricas/pruebas-carga/{id}/` | Obtener prueba de carga | Autenticado |
+| PUT/PATCH | `/api/metricas/pruebas-carga/{id}/` | Actualizar prueba de carga | Autenticado |
+| DELETE | `/api/metricas/pruebas-carga/{id}/` | Eliminar prueba de carga | Autenticado |
+| POST | `/api/metricas/pruebas-carga/ejecutar_busqueda/` | Ejecutar prueba de carga de búsqueda | Solo Admin |
+
+**Filtros disponibles:**
+- `?tipo_prueba={tipo}` - Filtrar por tipo de prueba
+- `?nivel_carga={nivel}` - Filtrar por nivel de carga
+- `?fecha_desde={fecha}` - Filtrar desde fecha
+- `?fecha_hasta={fecha}` - Filtrar hasta fecha
+
+#### Métricas de Rendimiento
+| Método | Endpoint | Descripción | Permisos |
+|--------|----------|-------------|----------|
+| GET | `/api/metricas/metricas-rendimiento/` | Listar métricas de rendimiento | Autenticado |
+| GET | `/api/metricas/metricas-rendimiento/{id}/` | Obtener métrica de rendimiento | Autenticado |
+| GET | `/api/metricas/metricas-rendimiento/estadisticas/?proceso={proceso}&nivel_carga={nivel}` | Estadísticas de rendimiento | Autenticado |
+
+**Filtros disponibles:**
+- `?proceso={proceso}` - Filtrar por proceso
+- `?nivel_carga={nivel}` - Filtrar por nivel de carga
+- `?fecha_desde={fecha}` - Filtrar desde fecha
+- `?fecha_hasta={fecha}` - Filtrar hasta fecha
+
+#### Registros Manuales de Envíos
+| Método | Endpoint | Descripción | Permisos |
+|--------|----------|-------------|----------|
+| GET | `/api/metricas/registros-manuales/` | Listar registros manuales | Autenticado |
+| POST | `/api/metricas/registros-manuales/` | Crear registro manual | Autenticado |
+| GET | `/api/metricas/registros-manuales/{id}/` | Obtener registro manual | Autenticado |
+| PUT/PATCH | `/api/metricas/registros-manuales/{id}/` | Actualizar registro manual | Autenticado |
+| DELETE | `/api/metricas/registros-manuales/{id}/` | Eliminar registro manual | Autenticado |
+| POST | `/api/metricas/registros-manuales/registrar/` | Registrar tiempo de registro manual | Autenticado |
+| GET | `/api/metricas/registros-manuales/estadisticas/` | Estadísticas de registros manuales | Autenticado |
+
+#### Exportación de Métricas
+| Método | Endpoint | Descripción | Permisos |
+|--------|----------|-------------|----------|
+| GET | `/api/metricas/exportacion/metricas_semanticas/?fecha_desde={fecha}&fecha_hasta={fecha}` | Exportar métricas semánticas a CSV | Solo Admin |
+| GET | `/api/metricas/exportacion/metricas_rendimiento/?fecha_desde={fecha}&fecha_hasta={fecha}` | Exportar métricas de rendimiento a CSV | Solo Admin |
+| GET | `/api/metricas/exportacion/pruebas_carga/` | Exportar pruebas de carga a CSV | Solo Admin |
+
+#### Pruebas del Sistema
+| Método | Endpoint | Descripción | Permisos |
+|--------|----------|-------------|----------|
+| POST | `/api/metricas/pruebas-sistema/ejecutar_rendimiento/` | Ejecutar pruebas de rendimiento (versión rápida) | Solo Admin |
+| POST | `/api/metricas/pruebas-sistema/ejecutar_tests/` | Ejecutar tests unitarios del sistema | Solo Admin |
+| GET | `/api/metricas/pruebas-sistema/listar_tests/` | Listar todos los tests disponibles | Solo Admin |
+| GET | `/api/metricas/pruebas-sistema/estadisticas_pruebas/` | Estadísticas de las últimas pruebas | Solo Admin |
+| GET | `/api/metricas/pruebas-sistema/pruebas_rendimiento_guardadas/` | Listar pruebas de rendimiento guardadas | Solo Admin |
+| GET | `/api/metricas/pruebas-sistema/{id}/detalle_prueba_rendimiento/` | Detalle completo de una prueba | Solo Admin |
+| GET | `/api/metricas/pruebas-sistema/detalles_procesos/?codigo_proceso={codigo}&prueba_id={id}` | Detalles de procesos de rendimiento | Solo Admin |
+| POST | `/api/metricas/pruebas-sistema/ejecutar_rendimiento_completo/` | Ejecutar pruebas de rendimiento completas (ISO 25010) | Solo Admin |
+
+---
+
+## 📖 11. Documentación API
 
 ### Base URL: `/api/`
 
@@ -245,7 +364,7 @@ POST /api/busqueda/semantica/
 
 ---
 
-## 🔑 10. Permisos y Roles
+## 🔑 12. Permisos y Roles
 
 ### Roles del Sistema:
 1. **Admin (rol=1)**: Acceso completo al sistema
@@ -320,6 +439,58 @@ Authorization: Bearer {token}
 
 ---
 
-**Última actualización**: Generado automáticamente desde el código fuente del backend.
+---
+
+## 📋 Resumen de Endpoints por Categoría
+
+| Categoría | Cantidad | Base URL |
+|-----------|----------|----------|
+| Autenticación y Tokens | 2 | `/api/token/` |
+| Health Check | 1 | `/api/health/` |
+| Usuarios | 20+ | `/api/usuarios/` |
+| Envíos | 10+ | `/api/envios/envios/` |
+| Productos | 8+ | `/api/envios/productos/` |
+| Tarifas | 8+ | `/api/envios/tarifas/` |
+| Importación Excel | 10+ | `/api/envios/importaciones-excel/` |
+| Búsqueda | 15+ | `/api/busqueda/` |
+| Notificaciones | 6+ | `/api/notificaciones/` |
+| Métricas | 30+ | `/api/metricas/` |
+| Documentación API | 4 | `/api/` |
+| **TOTAL** | **100+** | - |
+
+---
+
+## 📝 Notas Adicionales
+
+### Endpoints de Búsqueda Semántica
+- La búsqueda semántica utiliza embeddings de OpenAI
+- Modelos disponibles: `text-embedding-3-small`, `text-embedding-3-large`, `text-embedding-ada-002`
+- Rate limit: 30 búsquedas/minuto debido al costo de OpenAI
+- Los embeddings se generan automáticamente o manualmente mediante el endpoint correspondiente
+
+### Endpoints de Exportación
+- Los envíos se pueden exportar en formato Excel (.xlsx), CSV o PDF
+- Las métricas se pueden exportar en formato CSV
+- Los comprobantes de envíos se generan en formato PDF
+
+### Endpoints de Pruebas y Métricas
+- Los endpoints de pruebas requieren permisos de administrador
+- Las pruebas de rendimiento pueden tardar varios minutos
+- Los resultados se guardan automáticamente para análisis posterior
+
+### Paginación
+- La mayoría de endpoints de listado están paginados (10 elementos por página por defecto)
+- Se puede ajustar con parámetros `?page={numero}` y `?page_size={tamaño}`
+
+### Filtros Comunes
+- `?search={termino}` - Búsqueda general
+- `?ordering={campo}` - Ordenamiento (prefijo `-` para descendente)
+- `?page={numero}` - Número de página
+- `?page_size={tamaño}` - Tamaño de página
+
+---
+
+**Última actualización**: 27 de Enero, 2026  
+**Generado desde**: Código fuente del backend (urls.py, views.py)
 
 

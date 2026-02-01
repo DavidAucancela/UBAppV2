@@ -83,9 +83,10 @@ def calcular_ndcg_k(
     
     # Calcular IDCG@K (DCG ideal)
     # Ordenar resultados relevantes por relevancia descendente
+    niveles = niveles_relevancia or {}
     relevancias_ideales = []
     for envio_id in resultados_relevantes:
-        relevancia = niveles_relevancia.get(envio_id, 1.0) if niveles_relevancia else 1.0
+        relevancia = niveles.get(envio_id, 1.0)
         relevancias_ideales.append(relevancia)
     
     relevancias_ideales.sort(reverse=True)
@@ -133,6 +134,29 @@ def calcular_precision_k(
             relevantes_encontrados += 1
     
     return relevantes_encontrados / k if k > 0 else 0.0
+
+
+def interpretar_metrica(valor: float, metrica: str) -> Dict[str, Any]:
+    """
+    Interpreta un valor de métrica para el reporte comparativo.
+    Umbrales según documentación: MRR>0.7 bueno, NDCG>0.6 bueno, Precision@5>0.5 bueno.
+    
+    Returns:
+        Dict con 'nivel' ('bueno'|'regular'|'mejorable'), 'etiqueta', 'descripcion'
+    """
+    if valor is None:
+        return {'nivel': 'sin_dato', 'etiqueta': '-', 'descripcion': 'Sin datos'}
+    umbrales = {
+        'mrr': (0.7, 0.4),      # (bueno, regular)
+        'ndcg_10': (0.6, 0.4),
+        'precision_5': (0.5, 0.3),
+    }
+    bueno, regular = umbrales.get(metrica, (0.5, 0.3))
+    if valor >= bueno:
+        return {'nivel': 'bueno', 'etiqueta': 'Bueno', 'descripcion': 'Eficiencia adecuada'}
+    if valor >= regular:
+        return {'nivel': 'regular', 'etiqueta': 'Regular', 'descripcion': 'Hay margen de mejora'}
+    return {'nivel': 'mejorable', 'etiqueta': 'Mejorable', 'descripcion': 'Revisar ranking o relevancia'}
 
 
 def calcular_metricas_completas(

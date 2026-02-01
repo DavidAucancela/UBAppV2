@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, EMPTY } from 'rxjs';
+import { map, expand, reduce } from 'rxjs/operators';
 import { Usuario } from '../models/usuario';
 import { Envio, EnvioCreate, EnvioUpdate } from '../models/envio';
 import { Producto, ProductoCreate, ProductoUpdate } from '../models/producto';
@@ -135,19 +135,24 @@ export class ApiService {
   }
 
   // ===== ENVÍOS =====
+  /**
+   * Obtiene todos los envíos (todas las páginas si hay paginación).
+   * Así se asegura que en el listado aparezcan todos, incluidos los de años atípicos.
+   */
   getEnvios(): Observable<Envio[]> {
-    // Solicitar un page_size grande para obtener todos los envíos
-    const params = new HttpParams().set('page_size', '10000');
-    return this.http.get<any>(`${this.apiUrl}/envios/envios/`, { params }).pipe(
-      // Manejar respuesta paginada del backend
+    const params = new HttpParams().set('page_size', '10000').set('page', '1');
+    const url = `${this.apiUrl}/envios/envios/`;
+    return this.http.get<any>(url, { params }).pipe(
+      expand((response: any) => {
+        const nextUrl = response?.next;
+        if (!nextUrl) return EMPTY;
+        return this.http.get<any>(nextUrl);
+      }),
       map((response: any) => {
-        // Si la respuesta tiene 'results', es una respuesta paginada
-        if (response && response.results) {
-          return response.results as Envio[];
-        }
-        // Si es un array directo, devolverlo
+        if (response?.results && Array.isArray(response.results)) return response.results as Envio[];
         return Array.isArray(response) ? response : [];
-      })
+      }),
+      reduce((acc: Envio[], page: Envio[]) => acc.concat(page), [])
     );
   }
 

@@ -170,7 +170,7 @@
       <label class="checkbox-label-inline">
         <input 
           type="checkbox" 
-          [checked]="paginatedProductos.length > 0 && paginatedProductos.every(p => isSelected(p))"
+          [checked]="areAllSelected()"
           (change)="selectAllOnPage()"
         >
         <span>Seleccionar todos en esta página</span>
@@ -283,7 +283,7 @@
               <label class="checkbox-header">
                 <input 
                   type="checkbox" 
-                  [checked]="paginatedProductos.length > 0 && paginatedProductos.every(p => isSelected(p))"
+                  [checked]="areAllSelected()"
                   (change)="selectAllOnPage()"
                 >
                 <span class="checkbox-label">Seleccionar</span>

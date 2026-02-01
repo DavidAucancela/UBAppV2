@@ -16,7 +16,7 @@
         <i class="fas fa-chart-line"></i>
         Reportes de pruebas
       </h1>
-      <p class="subtitulo">Sistema para evaluación de búsqueda semántica</p>
+      <p class="subtitulo">Evaluación del sistema</p>
     </div>
 
     <!-- Tabs Navigation -->
@@ -37,7 +37,7 @@
       </button>
     </div>
 
-    <!-- Filtros Globales -->
+    <!-- Filtros Globales 
     <div class="filtros-section">
       <h3>Filtros</h3>
       <div class="filtros-grid">
@@ -64,79 +64,230 @@
           </button>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <!-- ==================== SECCIÓN: MÉTRICAS SEMÁNTICAS ==================== -->
     <div class="seccion-content" *ngIf="seccionActiva === 'semanticas'">
       
-      <!-- Registros de Generación de Embeddings -->
-      <div class="table-section">
+      <!-- Eficiencia del panel semántico (MRR, NDCG@10, Precision@5) 
+      <div class="section-card reporte-comparativo-card panel-eficiencia-card">
         <div class="section-header">
-          <h3><i class="fas fa-vector-square"></i> Registros de Generación de Embeddings</h3>
+          <h3><i class="fas fa-chart-bar"></i> Eficiencia del panel semántico</h3>
+          <div class="section-actions">
+            <button class="btn btn-secondary btn-sm" (click)="cargarReporteComparativo()" [disabled]="loadingReporteComparativo">
+              <i class="fas" [class.fa-sync-alt]="!loadingReporteComparativo" [class.fa-spinner]="loadingReporteComparativo" [class.fa-spin]="loadingReporteComparativo"></i>
+              Actualizar
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-eficiencia-descripcion">
+          <p><i class="fas fa-info-circle"></i> Métricas: <strong>MRR</strong> (posición del primer relevante), <strong>nDCG&#64;10</strong> (calidad del ranking), <strong>Precision&#64;5</strong> (relevancia en top 5).</p>
+        </div>
+
+        <div *ngIf="loadingReporteComparativo" class="loading-inline">
+          <i class="fas fa-spinner fa-spin"></i> Cargando reporte...
+        </div>
+
+        <div *ngIf="!loadingReporteComparativo && reporteComparativo">
+
+          <div class="stats-grid stats-panel-eficiencia">
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #3b82f6;">
+                <i class="fas fa-list-ol"></i>
+              </div>
+              <div class="stat-content">
+                <h3>{{ reporteComparativo.resumen?.total_evaluaciones ?? 0 }}</h3>
+                <p>Evaluaciones</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #8b5cf6;">
+                <i class="fas fa-sort-numeric-down"></i>
+              </div>
+              <div class="stat-content">
+                <h3>{{ (reporteComparativo.resumen?.mrr_promedio ?? 0) | number:'1.2-2' }}</h3>
+                <p>MRR promedio</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #ec4899;">
+                <i class="fas fa-layer-group"></i>
+              </div>
+              <div class="stat-content">
+                <h3>{{ (reporteComparativo.resumen?.ndcg_10_promedio ?? 0) | number:'1.2-2' }}</h3>
+                <p>nDCG&#64;10 promedio</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #22c55e;">
+                <i class="fas fa-bullseye"></i>
+              </div>
+              <div class="stat-content">
+                <h3>{{ (reporteComparativo.resumen?.precision_5_promedio ?? 0) | number:'1.2-2' }}</h3>
+                <p>Precision&#64;5 promedio</p>
+              </div>
+            </div>
+            <div class="stat-card interpretacion-global" [attr.data-nivel]="reporteComparativo.resumen?.interpretacion_global?.nivel || 'sin_dato'">
+              <div class="stat-icon">
+                <i class="fas fa-tachometer-alt"></i>
+              </div>
+              <div class="stat-content">
+                <h3>{{ reporteComparativo.resumen?.interpretacion_global?.etiqueta || 'Sin datos' }}</h3>
+                <p>{{ reporteComparativo.resumen?.interpretacion_global?.descripcion || 'Ejecute evaluaciones para ver métricas' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="reporteComparativo.resumen?.total_evaluaciones === 0" class="empty-state-panel-eficiencia">
+            <div class="empty-state-icon"><i class="fas fa-flask"></i></div>
+            <h4>Sin evaluaciones en el período</h4>
+            <p>Para obtener datos de eficiencia del panel semántico:</p>
+            <ul>
+              <li>Ejecute <strong>pruebas controladas</strong> desde esta misma sección (más abajo) y vuelva a actualizar.</li>
+              <li>O en el backend: <code>python manage.py evaluar_panel_semantico --ejecutar</code></li>
+            </ul>
+          </div>
+
+          <div *ngIf="(reporteComparativo.filas?.length ?? 0) > 0" class="table-container">
+            <table class="data-table tabla-comparativa-metricas">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Consulta</th>
+                  <th>Fecha</th>
+                  <th>MRR</th>
+                  <th>nDCG&#64;10</th>
+                  <th>Precision&#64;5</th>
+                  <th>Interpretación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let fila of reporteComparativo.filas" [attr.data-nivel]="fila.interpretacion_mrr?.nivel">
+                  <td>{{ fila.id }}</td>
+                  <td><span [title]="fila.consulta_completa">{{ fila.consulta }}</span></td>
+                  <td><small>{{ fila.fecha_calculo | date:'short' }}</small></td>
+                  <td><strong>{{ fila.mrr != null ? (fila.mrr | number:'1.2-2') : '-' }}</strong></td>
+                  <td>{{ fila.ndcg_10 != null ? (fila.ndcg_10 | number:'1.2-2') : '-' }}</td>
+                  <td>{{ fila.precision_5 != null ? (fila.precision_5 | number:'1.2-2') : '-' }}</td>
+                  <td>
+                    <span class="badge interpretacion-badge" [class.bueno]="fila.interpretacion_mrr?.nivel === 'bueno'"
+                          [class.regular]="fila.interpretacion_mrr?.nivel === 'regular'"
+                          [class.mejorable]="fila.interpretacion_mrr?.nivel === 'mejorable'">
+                      {{ fila.interpretacion_mrr?.etiqueta || '-' }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Registros de Generación de Embeddings -->
+      <div class="embeddings-section">
+        <div class="section-header">
+          <h3><i class="fas fa-vector-square"></i> Registros de embeddings</h3>
           <div class="section-actions">
             <button class="btn btn-secondary" (click)="cargarRegistrosEmbedding()">
               <i class="fas fa-sync-alt"></i> Actualizar
             </button>
           </div>
         </div>
-        
-        <!-- Estadísticas de Embeddings Mejoradas -->
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon" style="background: #6366f1;">
-              <i class="fas fa-database"></i>
+
+        <!-- 1. Texto descriptivo generado 
+        <div class="embeddings-descripcion">
+          <h4><i class="fas fa-align-left"></i> Descripción</h4>
+          <p>Registro de cada generación de vectores (embeddings) para envíos: texto del HAWB, productos y categorías se convierten en vectores con el modelo OpenAI para permitir búsqueda semántica.</p>
+        </div>-->
+
+        <!-- 2. Información técnica 
+        <div class="embeddings-info-tecnica">
+          <h4><i class="fas fa-cog"></i> Información técnica</h4>
+          <div class="info-cards-row">
+            <div class="info-card-mini">
+              <span class="label">Modelo</span>
+              <span class="value">text-embedding-3-small</span>
             </div>
-            <div class="stat-content">
-              <h3>{{ estadisticasEmbedding.total_registros || 0 }}</h3>
-              <p>Total de Registros</p>
+            <div class="info-card-mini">
+              <span class="label">Dimensiones</span>
+              <span class="value">1536</span>
             </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background: #22c55e;">
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="stat-content">
-              <h3>{{ estadisticasEmbedding.exitosos || 0 }}</h3>
-              <p>Generaciones Exitosas</p>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background: #ef4444;">
-              <i class="fas fa-exclamation-triangle"></i>
-            </div>
-            <div class="stat-content">
-              <h3>{{ estadisticasEmbedding.errores || 0 }}</h3>
-              <p>Errores</p>
+            <div class="info-card-mini">
+              <span class="label">Tasa de éxito</span>
+              <span class="value">{{ estadisticasEmbedding.total_registros > 0 ? ((estadisticasEmbedding.exitosos / estadisticasEmbedding.total_registros) * 100).toFixed(1) : 0 }}%</span>
             </div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background: #f59e0b;">
-              <i class="fas fa-clock"></i>
+        </div>-->
+
+        <!-- 3. Visualización: estadísticas en cards -->
+        <div class="embeddings-visualizacion">
+          <h4><i class="fas fa-chart-pie"></i> Resumen</h4>
+          <div class="stats-grid stats-embeddings">
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #6366f1;">
+                <i class="fas fa-database"></i>
+              </div>
+              <div class="stat-content">
+                <h3>{{ estadisticasEmbedding.total_registros || 0 }}</h3>
+                <p>Total registros</p>
+              </div>
             </div>
-            <div class="stat-content">
-              <h3>{{ formatearTiempo(estadisticasEmbedding.tiempo_promedio_ms || 0) }}</h3>
-              <p>Tiempo Promedio</p>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #22c55e;">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="stat-content">
+                <h3>{{ estadisticasEmbedding.exitosos || 0 }}</h3>
+                <p>Exitosos</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #ef4444;">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="stat-content">
+                <h3>{{ estadisticasEmbedding.errores || 0 }}</h3>
+                <p>Errores</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #f59e0b;">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="stat-content">
+                <h3>{{ formatearTiempo(estadisticasEmbedding.tiempo_promedio_ms || 0) }}</h3>
+                <p>Tiempo promedio</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Estadísticas adicionales -->
-        <div class="info-box" style="margin-top: 1rem; margin-bottom: 1rem;">
-          <div class="info-item">
-            <strong>Modelo utilizado:</strong> text-embedding-3-small
+        <!-- 4. Tabla de registros -->
+        <div class="embeddings-tabla-wrap">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h4><i class="fas fa-table"></i> Listado de registros</h4>
+            <div class="controles-paginacion-header">
+              <label>
+                <i class="fas fa-list"></i>
+                Mostrar:
+              </label>
+              <select 
+                class="select-elementos"
+                [(ngModel)]="elementosPorPaginaRegistrosEmbedding"
+                (ngModelChange)="cambiarElementosPorPaginaRegistrosEmbedding($event)"
+              >
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+              </select>
+              <span class="pagination-info-inline" *ngIf="totalRegistrosEmbedding > 0">
+                ({{ totalRegistrosEmbedding }} registros)
+              </span>
+            </div>
           </div>
-          <div class="info-item">
-            <strong>Dimensiones del vector:</strong> 1536
-          </div>
-          <div class="info-item">
-            <strong>Tasa de éxito:</strong> 
-            {{ estadisticasEmbedding.total_registros > 0 ? 
-               ((estadisticasEmbedding.exitosos / estadisticasEmbedding.total_registros) * 100).toFixed(1) : 0 }}%
-          </div>
-        </div>
-
-        <!-- Tabla de registros mejorada -->
-        <div class="table-container">
+          <div class="table-container">
           <table class="data-table clickable-rows">
             <thead>
               <tr>
@@ -152,7 +303,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let registro of registrosEmbedding.slice(0, 50)" 
+              <tr *ngFor="let registro of registrosEmbedding" 
                   (click)="verDetalleEmbedding(registro)"
                   class="row-hover">
                 <td>{{ registro.id }}</td>
@@ -201,135 +352,134 @@
             </tbody>
           </table>
         </div>
+        
+        <!-- Controles de paginación: siempre visibles cuando hay registros -->
+        <div class="pagination-controls" *ngIf="totalRegistrosEmbedding > 0">
+          <div class="pagination-info">
+            Mostrando {{ inicioRangoRegistrosEmbedding }} - {{ finRangoRegistrosEmbedding }} de {{ totalRegistrosEmbedding }} registros
+          </div>
+          <div class="pagination-buttons" *ngIf="totalPaginasRegistrosEmbedding > 1">
+            <button 
+              type="button"
+              class="btn btn-sm btn-secondary" 
+              (click)="cambiarPaginaRegistrosEmbedding(paginaRegistrosEmbedding - 1)"
+              [disabled]="paginaRegistrosEmbedding === 1">
+              <i class="fas fa-chevron-left"></i> Anterior
+            </button>
+            <span class="pagination-page-info">
+              Página {{ paginaRegistrosEmbedding }} de {{ totalPaginasRegistrosEmbedding }}
+            </span>
+            <button 
+              type="button"
+              class="btn btn-sm btn-secondary" 
+              (click)="cambiarPaginaRegistrosEmbedding(paginaRegistrosEmbedding + 1)"
+              [disabled]="paginaRegistrosEmbedding === totalPaginasRegistrosEmbedding">
+              Siguiente <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        </div><!-- /.embeddings-tabla-wrap -->
 
-        <!-- Modal de detalle de embedding -->
+        <!-- Modal de detalle de embedding (estructurado: resumen, información, visualización, diseño) -->
         <div class="modal" *ngIf="embeddingSeleccionado" (click)="cerrarDetalleEmbedding()">
-          <div class="modal-content" (click)="$event.stopPropagation()">
+          <div class="modal-content modal-embedding-detail" (click)="$event.stopPropagation()">
             <div class="modal-header">
-              <h3><i class="fas fa-info-circle"></i> Detalle del Embedding</h3>
+              <h3><i class="fas fa-vector-square"></i> Detalle del registro de embedding</h3>
               <button class="btn-close" (click)="cerrarDetalleEmbedding()">
                 <i class="fas fa-times"></i>
               </button>
             </div>
             <div class="modal-body">
-              <div class="detail-grid">
-                <div class="detail-item">
-                  <strong>ID del Registro:</strong>
-                  <span>{{ embeddingSeleccionado.id }}</span>
-                </div>
-                <div class="detail-item">
-                  <strong>HAWB del Envío:</strong>
-                  <span class="highlight">{{ embeddingSeleccionado.envio_hawb }}</span>
-                </div>
-                <div class="detail-item">
-                  <strong>Estado:</strong>
-                  <span class="badge" 
-                        [class.success]="embeddingSeleccionado.estado === 'generado'"
-                        [class.error]="embeddingSeleccionado.estado === 'error'"
-                        [class.warning]="embeddingSeleccionado.estado === 'omitido'">
-                    {{ embeddingSeleccionado.estado }}
-                  </span>
-                </div>
-                <div class="detail-item">
-                  <strong>Tiempo de Generación:</strong>
-                  <span>{{ embeddingSeleccionado.tiempo_generacion_ms }}ms</span>
-                </div>
-                <div class="detail-item">
-                  <strong>Dimensión del Vector:</strong>
-                  <span>{{ embeddingSeleccionado.dimension_embedding }}</span>
-                </div>
-                <div class="detail-item">
-                  <strong>Modelo Utilizado:</strong>
-                  <span>{{ embeddingSeleccionado.modelo_usado }}</span>
-                </div>
-                <div class="detail-item">
-                  <strong>Tipo de Proceso:</strong>
-                  <span class="badge info">{{ embeddingSeleccionado.tipo_proceso }}</span>
-                </div>
-                <div class="detail-item">
-                  <strong>Fecha de Generación:</strong>
-                  <span>{{ formatearFecha(embeddingSeleccionado.fecha_generacion) }}</span>
-                </div>
-                <div class="detail-item" *ngIf="embeddingSeleccionado.embedding_id">
-                  <strong>ID del Embedding:</strong>
-                  <span>{{ embeddingSeleccionado.embedding_id }}</span>
-                </div>
-                <div class="detail-item full-width" *ngIf="embeddingSeleccionado.mensaje_error">
-                  <strong>Mensaje de Error:</strong>
-                  <pre class="error-message">{{ embeddingSeleccionado.mensaje_error }}</pre>
+              <!-- 1. Texto descriptivo generado (resumen en una línea) -->
+              <div class="modal-seccion modal-resumen">
+                <h4><i class="fas fa-align-left"></i> Resumen</h4>
+                <p class="resumen-linea">
+                  Embedding para envío <strong>{{ embeddingSeleccionado.envio_hawb }}</strong>:
+                  {{ embeddingSeleccionado.estado === 'generado' ? 'generado correctamente' : embeddingSeleccionado.estado }}
+                  en <strong>{{ embeddingSeleccionado.tiempo_generacion_ms }} ms</strong>
+                  ({{ embeddingSeleccionado.modelo_usado }}, {{ embeddingSeleccionado.dimension_embedding }} dim).
+                </p>
+              </div>
+
+              <!-- 2. Información (datos clave en grid compacto) -->
+              <div class="modal-seccion modal-informacion">
+                <h4><i class="fas fa-table"></i> Información</h4>
+                <div class="info-grid-compact">
+                  <div class="info-row"><span class="k">ID registro</span><span class="v">{{ embeddingSeleccionado.id }}</span></div>
+                  <div class="info-row"><span class="k">HAWB</span><span class="v highlight">{{ embeddingSeleccionado.envio_hawb }}</span></div>
+                  <div class="info-row"><span class="k">Estado</span><span class="v">
+                    <span class="badge" [class.success]="embeddingSeleccionado.estado === 'generado'"
+                          [class.error]="embeddingSeleccionado.estado === 'error'"
+                          [class.warning]="embeddingSeleccionado.estado === 'omitido'">{{ embeddingSeleccionado.estado }}</span>
+                  </span></div>
+                  <div class="info-row"><span class="k">Tiempo (ms)</span><span class="v">{{ embeddingSeleccionado.tiempo_generacion_ms }}</span></div>
+                  <div class="info-row"><span class="k">Dimensión</span><span class="v">{{ embeddingSeleccionado.dimension_embedding }}</span></div>
+                  <div class="info-row"><span class="k">Modelo</span><span class="v">{{ embeddingSeleccionado.modelo_usado }}</span></div>
+                  <div class="info-row"><span class="k">Tipo proceso</span><span class="v"><span class="badge info">{{ embeddingSeleccionado.tipo_proceso }}</span></span></div>
+                  <div class="info-row"><span class="k">Fecha</span><span class="v">{{ formatearFecha(embeddingSeleccionado.fecha_generacion) }}</span></div>
+                  <div class="info-row full" *ngIf="embeddingSeleccionado.embedding_id"><span class="k">ID embedding</span><span class="v">{{ embeddingSeleccionado.embedding_id }}</span></div>
+                  <div class="info-row full" *ngIf="embeddingSeleccionado.mensaje_error">
+                    <span class="k">Error</span>
+                    <pre class="v error-message">{{ embeddingSeleccionado.mensaje_error }}</pre>
+                  </div>
                 </div>
               </div>
 
-              <div class="process-info" style="margin-top: 1.5rem;">
-                <h4><i class="fas fa-project-diagram"></i> Pipeline Completo del Proceso Semántico</h4>
-                <div class="info-box">
-                  <div class="pipeline-section">
-                    <h5><i class="fas fa-1"></i> Extracción y Preparación</h5>
-                    <ul class="process-details">
-                      <li><strong>Datos origen:</strong> Envío {{ embeddingSeleccionado.envio_hawb }}</li>
-                      <li><strong>Extracción:</strong> Texto del HAWB, descripción de productos, categorías, observaciones</li>
-                      <li><strong>Normalización:</strong> Limpieza de caracteres especiales y unificación de formato</li>
-                      <li><strong>Tokenización:</strong> Preparación del texto para el modelo</li>
-                    </ul>
+              <!-- 3. Visualización (indicador de rendimiento) -->
+              <div class="modal-seccion modal-visualizacion">
+                <h4><i class="fas fa-tachometer-alt"></i> Rendimiento</h4>
+                <div class="performance-gauge" [class.excellent]="embeddingSeleccionado.tiempo_generacion_ms < 1000"
+                     [class.good]="embeddingSeleccionado.tiempo_generacion_ms >= 1000 && embeddingSeleccionado.tiempo_generacion_ms < 3000"
+                     [class.needs-optimization]="embeddingSeleccionado.tiempo_generacion_ms >= 3000">
+                  <div class="gauge-label">
+                    {{ embeddingSeleccionado.tiempo_generacion_ms < 1000 ? 'Excelente' : 
+                       embeddingSeleccionado.tiempo_generacion_ms < 3000 ? 'Bueno' : 'Mejorable' }}
                   </div>
-
-                  <div class="pipeline-section">
-                    <h5><i class="fas fa-2"></i> Generación del Embedding</h5>
-                    <ul class="process-details">
-                      <li><strong>Modelo IA:</strong> {{ embeddingSeleccionado.modelo_usado }}</li>
-                      <li><strong>API:</strong> OpenAI Embeddings API</li>
-                      <li><strong>Dimensiones:</strong> Vector de {{ embeddingSeleccionado.dimension_embedding }} dimensiones</li>
-                      <li><strong>Tiempo de generación:</strong> {{ embeddingSeleccionado.tiempo_generacion_ms }}ms</li>
-                      <li><strong>Representación:</strong> Vector denso en espacio semántico continuo</li>
-                    </ul>
+                  <div class="gauge-bar">
+                    <div class="gauge-fill" [style.width.%]="getGaugeWidth(embeddingSeleccionado.tiempo_generacion_ms)"></div>
                   </div>
+                  <div class="gauge-meta">{{ embeddingSeleccionado.tiempo_generacion_ms }} ms · Óptimo &lt;1000 ms · Aceptable &lt;3000 ms</div>
+                </div>
+              </div>
 
-                  <div class="pipeline-section">
-                    <h5><i class="fas fa-3"></i> Almacenamiento e Indexación</h5>
-                    <ul class="process-details">
-                      <li><strong>Base de datos:</strong> PostgreSQL con extensión pgvector</li>
-                      <li><strong>Tabla:</strong> envio_embedding</li>
-                      <li><strong>Indexación:</strong> IVFFlat index para búsqueda rápida</li>
-                      <li><strong>Métrica de distancia:</strong> Similitud del coseno</li>
-                    </ul>
+              <!-- 4. Diseño del proceso (pasos compactos) -->
+              <div class="modal-seccion modal-diseno">
+                <h4><i class="fas fa-project-diagram"></i> Diseño del proceso</h4>
+                <div class="proceso-pasos">
+                  <div class="paso-card">
+                    <span class="paso-num">1</span>
+                    <div class="paso-body">
+                      <strong>Extracción</strong>
+                      <span>HAWB, productos, categorías → texto normalizado</span>
+                    </div>
                   </div>
-
-                  <div class="pipeline-section">
-                    <h5><i class="fas fa-4"></i> Proceso de Búsqueda Semántica</h5>
-                    <ul class="process-details">
-                      <li><strong>Consulta del usuario:</strong> Texto en lenguaje natural</li>
-                      <li><strong>Embedding de consulta:</strong> Mismo modelo para consistencia</li>
-                      <li><strong>Cálculo de similitud:</strong> Producto escalar normalizado (similitud del coseno)</li>
-                      <li><strong>Ranking:</strong> Ordenamiento por score de similitud (0-1)</li>
-                      <li><strong>Filtrado:</strong> Threshold mínimo de 0.7 para relevancia</li>
-                      <li><strong>Resultados:</strong> Top-K envíos más similares</li>
-                    </ul>
+                  <div class="paso-card">
+                    <span class="paso-num">2</span>
+                    <div class="paso-body">
+                      <strong>Embedding</strong>
+                      <span>{{ embeddingSeleccionado.modelo_usado }} · {{ embeddingSeleccionado.dimension_embedding }} dim</span>
+                    </div>
                   </div>
-
-                  <div class="pipeline-section">
-                    <h5><i class="fas fa-5"></i> Métricas de Calidad</h5>
-                    <ul class="process-details">
-                      <li><strong>Precisión:</strong> Relevancia de los resultados devueltos</li>
-                      <li><strong>Recall:</strong> Cobertura de documentos relevantes</li>
-                      <li><strong>MRR:</strong> Mean Reciprocal Rank - posición del primer resultado relevante</li>
-                      <li><strong>nDCG&#64;K:</strong> Normalized Discounted Cumulative Gain - calidad del ranking</li>
-                    </ul>
+                  <div class="paso-card">
+                    <span class="paso-num">3</span>
+                    <div class="paso-body">
+                      <strong>Almacenamiento</strong>
+                      <span>PostgreSQL pgvector · envio_embedding · IVFFlat</span>
+                    </div>
                   </div>
-
-                  <div class="performance-note" [class.excellent]="embeddingSeleccionado.tiempo_generacion_ms < 1000"
-                       [class.good]="embeddingSeleccionado.tiempo_generacion_ms >= 1000 && embeddingSeleccionado.tiempo_generacion_ms < 3000"
-                       [class.needs-optimization]="embeddingSeleccionado.tiempo_generacion_ms >= 3000">
-                    <i class="fas fa-bolt"></i>
-                    <strong>Evaluación de Rendimiento:</strong> 
-                    <span class="performance-label">
-                      {{ embeddingSeleccionado.tiempo_generacion_ms < 1000 ? '🚀 Excelente' : 
-                         embeddingSeleccionado.tiempo_generacion_ms < 3000 ? '✅ Bueno' : '⚠️ Necesita Optimización' }}
-                    </span>
-                    <br>
-                    <small>
-                      Tiempo: {{ embeddingSeleccionado.tiempo_generacion_ms }}ms 
-                      (Óptimo: < 1000ms | Aceptable: < 3000ms)
-                    </small>
+                  <div class="paso-card">
+                    <span class="paso-num">4</span>
+                    <div class="paso-body">
+                      <strong>Búsqueda</strong>
+                      <span>Similitud coseno · threshold 0.7 · Top-K</span>
+                    </div>
+                  </div>
+                  <div class="paso-card">
+                    <span class="paso-num">5</span>
+                    <div class="paso-body">
+                      <strong>Métricas</strong>
+                      <span>MRR · nDCG&#64;K · Precision&#64;5</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -345,17 +495,87 @@
 
     </div>
 
-    <!-- ==================== SECCIÓN: MÉTRICAS DE RENDIMIENTO ==================== -->
+    <!-- ==================== SECCIÓN: MÉTRICAS DE RENDIMIENTO (14 operaciones M1-M14) ==================== -->
     <div class="seccion-content" *ngIf="seccionActiva === 'rendimiento'">
       
-      <!-- Estadísticas Resumen -->
+      <!-- 1. Generar prueba: tiempo de respuesta, CPU y RAM en 14 operaciones -->
+      <div class="section-card rendimiento-generar-prueba" [class.ejecutando]="ejecutandoPruebaCompleta">
+        <div class="section-header">
+          <h3><i class="fas fa-rocket"></i> Generar prueba de eficiencia</h3>
+          <div class="section-badge" *ngIf="detallesProcesos.length > 0">
+            <span class="badge success">
+              <i class="fas fa-check-circle"></i> Datos disponibles
+            </span>
+          </div>
+        </div>
+        
+        <div class="prueba-eficiencia-content">
+          <div class="prueba-info-card">
+            <div class="info-icon">
+              <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="info-content">
+              <h4>¿Qué hace esta prueba?</h4>
+              <p>Ejecuta las <strong>14 operaciones críticas</strong> del sistema (M1-M14) y mide:</p>
+              <ul>
+                <li><i class="fas fa-clock"></i> <strong>Tiempo de respuesta</strong> por operación</li>
+                <li><i class="fas fa-microchip"></i> <strong>Uso de CPU</strong> durante la ejecución</li>
+                <li><i class="fas fa-memory"></i> <strong>Uso de RAM</strong> durante la ejecución</li>
+              </ul>
+              <p class="norma-info">
+                <i class="fas fa-certificate"></i> Métricas según estándar <strong>ISO 25010</strong>
+              </p>
+            </div>
+          </div>
+          
+          <div class="prueba-config-card">
+            <h4><i class="fas fa-cog"></i> Configuración</h4>
+            <div class="form-grid">
+              <div class="form-item">
+                <label>
+                  <i class="fas fa-repeat"></i> Iteraciones por operación:
+                </label>
+                <select [(ngModel)]="iteracionesPrueba" [ngModelOptions]="{standalone: true}" [disabled]="ejecutandoPruebaCompleta" class="form-control">
+                  <option [ngValue]="24">24 iteraciones (Recomendado - ~2-3 min)</option>
+                  <option [ngValue]="30">30 iteraciones (Estándar - ~3-5 min)</option>
+                  <option [ngValue]="50">50 iteraciones (Extendido - ~5-8 min)</option>
+                </select>
+                <small class="form-help">Más iteraciones = resultados más precisos pero mayor tiempo de ejecución</small>
+              </div>
+            </div>
+            
+            <div class="prueba-actions">
+              <button 
+                class="btn btn-primary btn-lg" 
+                (click)="ejecutarPruebaRendimientoCompleta()" 
+                [disabled]="ejecutandoPruebaCompleta"
+                [class.ejecutando]="ejecutandoPruebaCompleta">
+                <i class="fas" [class.fa-play]="!ejecutandoPruebaCompleta" [class.fa-spinner]="ejecutandoPruebaCompleta" [class.fa-spin]="ejecutandoPruebaCompleta"></i> 
+                <span *ngIf="!ejecutandoPruebaCompleta">Ejecutar prueba de eficiencia</span>
+                <span *ngIf="ejecutandoPruebaCompleta">Ejecutando pruebas... (puede tardar varios minutos)</span>
+              </button>
+              
+              <div class="prueba-progress" *ngIf="ejecutandoPruebaCompleta">
+                <div class="progress-bar">
+                  <div class="progress-fill"></div>
+                </div>
+                <p class="progress-text">
+                  <i class="fas fa-hourglass-half"></i> Procesando las 14 operaciones del sistema...
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Resumen de la última ejecución (desde detalles de procesos) -->
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-icon" style="background: #3b82f6;">
             <i class="fas fa-clock"></i>
           </div>
           <div class="stat-content">
-            <h3>{{ formatearTiempo(estadisticasRendimiento.tiempo_promedio_ms || 0) }}</h3>
+            <h3>{{ formatearTiempo(estadisticasRendimientoDesdeProcesos.tiempo_promedio_ms || 0) }}</h3>
             <p>Tiempo promedio de respuesta</p>
           </div>
         </div>
@@ -364,7 +584,7 @@
             <i class="fas fa-microchip"></i>
           </div>
           <div class="stat-content">
-            <h3>{{ estadisticasRendimiento.cpu_promedio?.toFixed(2) || '0.00' }}%</h3>
+            <h3>{{ (estadisticasRendimientoDesdeProcesos.cpu_promedio ?? 0) | number:'1.2-2' }}%</h3>
             <p>CPU promedio</p>
           </div>
         </div>
@@ -373,7 +593,7 @@
             <i class="fas fa-memory"></i>
           </div>
           <div class="stat-content">
-            <h3>{{ estadisticasRendimiento.ram_promedio_mb?.toFixed(2) || '0.00' }} MB</h3>
+            <h3>{{ (estadisticasRendimientoDesdeProcesos.ram_promedio_mb ?? 0) | number:'1.2-2' }} MB</h3>
             <p>RAM promedio</p>
           </div>
         </div>
@@ -382,90 +602,65 @@
             <i class="fas fa-check-circle"></i>
           </div>
           <div class="stat-content">
-            <h3>{{ estadisticasRendimiento.total_exitosos || 0 }}</h3>
-              <p>Operaciones exitosas</p>
+            <h3>{{ estadisticasRendimientoDesdeProcesos.total_exitosos || 0 }}</h3>
+            <p>Operaciones con datos</p>
           </div>
         </div>
       </div>
 
-      <!-- Gráfico Comparativo de Procesos M1-M14 -->
-      <div class="chart-section" style="margin-bottom: 2rem;">
-        <div class="chart-header">
-          <h3><i class="fas fa-chart-bar"></i> Comparativa de Procesos (M1-M14)</h3>
-        </div>
-        <div class="chart-container" style="height: 450px;">
-          <canvas #chartComparativoProcesos></canvas>
-        </div>
-        <div class="info-box" style="margin-top: 1rem;">
-          <p><i class="fas fa-info-circle"></i> <strong>Nota:</strong> Este gráfico muestra el tiempo promedio de cada uno de los 14 procesos clave del sistema. Los colores indican la categoría según ISO 25010.</p>
-        </div>
+      <!-- Aviso cuando no hay datos (hay que ejecutar la prueba) -->
+      <div *ngIf="detallesProcesos.length === 0" class="empty-state-rendimiento">
+        <i class="fas fa-chart-bar"></i>
+        <h4>Sin datos de procesos</h4>
+        <p>Los gráficos se llenan al ejecutar una <strong>prueba de rendimiento</strong> (14 operaciones).</p>
       </div>
 
-      <!-- Gráficos de Rendimiento -->
-      <div class="charts-grid">
+      <!-- 3. Gráficos: Tiempo, CPU y RAM por proceso M1-M14 -->
+      <div class="charts-grid charts-tres-columnas">
         <div class="chart-section">
           <div class="chart-header">
-            <h3>Tiempos de respuesta</h3>
-            <button class="btn btn-secondary btn-sm" (click)="exportarCSVGraficoTiempos()" [disabled]="metricasRendimiento.length === 0">
-              <i class="fas fa-download"></i> Exportar CSV
+            <h3><i class="fas fa-clock"></i> Tiempo de respuesta (M1-M14)</h3>
+            <button class="btn btn-secondary btn-sm" (click)="exportarCSVProcesos14()" [disabled]="detallesProcesos.length === 0">
+              <i class="fas fa-download"></i> CSV
             </button>
           </div>
-          <div class="chart-container">
-            <canvas #chartTiemposRendimiento></canvas>
+          <div class="chart-container" style="height: 380px;">
+            <canvas #chartComparativoProcesos></canvas>
           </div>
+          <p class="chart-note"><i class="fas fa-info-circle"></i> Tiempo promedio por proceso. </p>
         </div>
         <div class="chart-section">
           <div class="chart-header">
-            <h3>Utilización de recursos</h3>
-            <button class="btn btn-secondary btn-sm" (click)="exportarCSVGraficoRecursos()" [disabled]="metricasRendimiento.length === 0">
-              <i class="fas fa-download"></i> Exportar CSV
-            </button>
+            <h3><i class="fas fa-microchip"></i> Uso de CPU (M1-M14)</h3>
           </div>
-          <div class="chart-container">
-            <canvas #chartRecursos></canvas>
+          <div class="chart-container" style="height: 380px;">
+            <canvas #chartCPUProcesos></canvas>
           </div>
+          <p class="chart-note"><i class="fas fa-info-circle"></i> CPU (%) promedio por proceso.</p>
+        </div>
+        <div class="chart-section">
+          <div class="chart-header">
+            <h3><i class="fas fa-memory"></i> Uso de RAM (M1-M14)</h3>
+          </div>
+          <div class="chart-container" style="height: 380px;">
+            <canvas #chartRAMProcesos></canvas>
+          </div>
+          <p class="chart-note"><i class="fas fa-info-circle"></i> RAM (KB) promedio por proceso.</p>
         </div>
       </div>
 
-      <!-- Pruebas de Rendimiento Completas -->
-      <div class="section-card" style="margin-bottom: 2rem;">
+      <!-- 4. Historial de pruebas ejecutadas -->
+      <div class="section-card historial-pruebas-card">
         <div class="section-header">
-          <h3><i class="fas fa-flask"></i> Pruebas de Rendimiento Completas (ISO 25010)</h3>
+          <h3><i class="fas fa-history"></i> Historial de pruebas ejecutadas</h3>
         </div>
-        
-        <!-- Formulario de Ejecución -->
-        <div class="form-grid">
-          <div class="form-item">
-            <label>Número de iteraciones por prueba:</label>
-            <select [(ngModel)]="iteracionesPrueba" [ngModelOptions]="{standalone: true}" [disabled]="ejecutandoPruebaCompleta">
-              <option [ngValue]="24">24 (Recomendado)</option>
-              <option [ngValue]="30">30 (Estándar)</option>
-              <option [ngValue]="50">50 (Extendido)</option>
-            </select>
-          </div>
-        </div>
-        <p class="info-text">
-          <i class="fas fa-info-circle"></i>
-          Esta prueba ejecuta los 14 procesos clave del sistema (M1-M14) 
-          con medición completa de recursos (CPU y RAM) según el Marco Metodológico ISO 25010.
-        </p>
-        <button 
-          class="btn btn-primary" 
-          (click)="ejecutarPruebaRendimientoCompleta()" 
-          [disabled]="ejecutandoPruebaCompleta">
-          <i class="fas" [class.fa-play]="!ejecutandoPruebaCompleta" [class.fa-spinner]="ejecutandoPruebaCompleta" [class.fa-spin]="ejecutandoPruebaCompleta"></i> 
-          {{ ejecutandoPruebaCompleta ? 'Ejecutando pruebas (puede tardar varios minutos)...' : 'Ejecutar Pruebas Completas' }}
-        </button>
-
-        <!-- Historial de Pruebas Ejecutadas -->
-        <div class="table-section" style="margin-top: 2rem;">
-          <h4><i class="fas fa-history"></i> Historial de Pruebas Ejecutadas</h4>
+        <div class="table-section">
           <div class="table-container">
             <table class="data-table clickable-rows">
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Fecha de Ejecución</th>
+                  <th>Fecha de ejecución</th>
                   <th>Usuario</th>
                   <th>Estado</th>
                   <th>Acciones</th>
@@ -503,7 +698,7 @@
         <div class="modal" *ngIf="resultadosPruebaCompleta" (click)="cerrarResultadosPrueba()">
           <div class="modal-content modal-resultados" (click)="$event.stopPropagation()">
             <div class="modal-header">
-              <h3><i class="fas fa-chart-bar"></i> Resultados de Pruebas de Rendimiento Completas (ISO 25010)</h3>
+              <h3><i class="fas fa-chart-bar"></i> Resultados de pruebas de rendimiento</h3>
               <button class="btn-close" (click)="cerrarResultadosPrueba()">
                 <i class="fas fa-times"></i>
               </button>
@@ -513,10 +708,16 @@
               <div class="info-box" style="margin-bottom: 1.5rem;">
                 <div class="info-item">
                   <strong>Fecha de ejecución:</strong> 
-                  {{ resultadosPruebaCompleta.fecha_ejecucion ? formatearFecha(resultadosPruebaCompleta.fecha_ejecucion) : 'No disponible' }}
+                  {{ resultadosPruebaCompleta.fecha_ejecucion ? formatearFecha(resultadosPruebaCompleta.fecha_ejecucion) : fechaActualFormateada }}
                 </div>
                 <div class="info-item">
-                  <strong>Iteraciones:</strong> {{ iteracionesPrueba }}
+                  <strong>Iteraciones:</strong> {{ resultadosPruebaCompleta.iteraciones || iteracionesPrueba }}
+                </div>
+                <div class="info-item" *ngIf="resultadosPruebaCompleta.mensaje">
+                  <strong>Estado:</strong> 
+                  <span class="badge success">
+                    <i class="fas fa-check-circle"></i> {{ resultadosPruebaCompleta.mensaje }}
+                  </span>
                 </div>
               </div>
 
@@ -538,7 +739,7 @@
                 <!-- Estadísticas de registro -->
                 <div class="stat-card" *ngIf="resultadosPruebaCompleta.resultados.tiempo_respuesta">
                   <div class="stat-content">
-                    <h5>Tiempo de Respuesta</h5>
+                    <h5>Tiempo de respuesta</h5>
                     <p>Promedio Web: {{ resultadosPruebaCompleta.resultados.tiempo_respuesta.web_promedio?.toFixed(4) }}s</p>
                     <p>Manual Estimado: {{ resultadosPruebaCompleta.resultados.tiempo_respuesta.manual_estimado }}s</p>
                     <p class="mejora">Mejora: {{ resultadosPruebaCompleta.resultados.tiempo_respuesta.mejora?.toFixed(1) }}x más rápido</p>
@@ -588,7 +789,7 @@
             </div>
 
             <!-- Resultados por proceso -->
-            <div *ngIf="pruebaSeleccionada.resultados_json" class="procesos-grid">
+            <div *ngIf="pruebaSeleccionada.resultados_json || pruebaSeleccionada.detalles_procesos" class="procesos-grid">
               <h4><i class="fas fa-cogs"></i> Resultados por Proceso</h4>
               <div class="table-container">
                 <table class="data-table">
@@ -604,21 +805,26 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let proceso of obtenerProcesosOrdenados(pruebaSeleccionada.resultados_json)">
-                      <td><strong>{{ proceso.codigo }}</strong></td>
-                      <td>{{ proceso.tiempo_media?.toFixed(3) || '-' }}</td>
-                      <td>{{ proceso.cpu_media?.toFixed(4) || '-' }}</td>
-                      <td>{{ proceso.ram_media?.toFixed(2) || '-' }}</td>
+                    <tr *ngFor="let proceso of (pruebaSeleccionada.detalles_procesos || obtenerProcesosOrdenados(pruebaSeleccionada.resultados_json))">
+                      <td><strong>{{ proceso.codigo || proceso.codigo_proceso }}</strong></td>
+                      <td>{{ (proceso.tiempo_media || proceso.tiempo_media)?.toFixed(3) || '-' }}</td>
+                      <td>{{ (proceso.cpu_media || proceso.cpu_media)?.toFixed(4) || '-' }}</td>
+                      <td>{{ (proceso.ram_media || proceso.ram_media)?.toFixed(2) || '-' }}</td>
                       <td>
-                        <span class="badge" [style.background-color]="obtenerColorEstado(proceso.categoria_tiempo)">
-                          {{ proceso.categoria_tiempo }}
+                        <span class="badge" [style.background-color]="obtenerColorEstado(proceso.categoria_tiempo || proceso.categoria_tiempo)">
+                          {{ proceso.categoria_tiempo || proceso.categoria_tiempo || 'N/A' }}
                         </span>
                       </td>
-                      <td>{{ proceso.iteraciones_completadas || 0 }}</td>
+                      <td>{{ proceso.iteraciones_completadas || proceso.iteraciones_completadas || 0 }}</td>
                       <td>
-                        <span class="badge" [class.success]="!proceso.error" [class.error]="proceso.error">
-                          {{ proceso.total_errores || 0 }}
+                        <span class="badge" [class.success]="!(proceso.error || proceso.total_errores > 0)" [class.error]="proceso.error || proceso.total_errores > 0">
+                          {{ proceso.total_errores || proceso.total_errores || 0 }}
                         </span>
+                      </td>
+                    </tr>
+                    <tr *ngIf="(!pruebaSeleccionada.detalles_procesos || pruebaSeleccionada.detalles_procesos.length === 0) && (!pruebaSeleccionada.resultados_json || obtenerProcesosOrdenados(pruebaSeleccionada.resultados_json).length === 0)">
+                      <td colspan="7" class="empty-cell">
+                        <i class="fas fa-info-circle"></i> No hay datos de procesos disponibles para esta prueba
                       </td>
                     </tr>
                   </tbody>
@@ -635,7 +841,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" (click)="cerrarDetallePrueba()">
+            <button type="button" class="btn btn-secondary" (click)="cerrarDetallePrueba()">
               <i class="fas fa-times"></i> Cerrar
             </button>
           </div>

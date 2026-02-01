@@ -29,7 +29,6 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
   // Estados de carga
   loading = true;
   loadingMetricasSemanticas = false;
-  loadingMetricasRendimiento = false;
   ejecutandoPrueba = false;
 
   // Sección activa
@@ -43,16 +42,27 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
   // Datos de métricas semánticas
   metricasSemanticas: any[] = [];
   estadisticasSemanticas: any = {};
+  reporteComparativo: { filas: any[]; resumen: any } | null = null;
+  loadingReporteComparativo = false;
   pruebasControladas: any[] = [];
   
-  // Datos de métricas de rendimiento
-  metricasRendimiento: any[] = [];
-  estadisticasRendimiento: any = {};
-  pruebasCarga: any[] = [];
+  // Paginación para métricas semánticas
+  paginaMetricasSemanticas = 1;
+  totalPaginasMetricasSemanticas = 1;
+  totalMetricasSemanticas = 0;
+  elementosPorPaginaMetricasSemanticas = 10;
+  
+  // Datos de métricas de rendimiento (14 operaciones M1-M14)
   registrosEmbedding: any[] = [];
   estadisticasEmbedding: any = {};
   detallesProcesos: any[] = [];
   pruebasRendimientoCompletas: any[] = [];
+  
+  // Paginación para registros de embedding
+  paginaRegistrosEmbedding = 1;
+  totalPaginasRegistrosEmbedding = 1;
+  totalRegistrosEmbedding = 0;
+  elementosPorPaginaRegistrosEmbedding = 10;
   
   // Modal de detalle
   embeddingSeleccionado: any = null;
@@ -61,16 +71,15 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
   // Filtros
   filtroFechaDesde: string = '';
   filtroFechaHasta: string = '';
-  filtroNivelCarga: number | null = null;
 
-  // Gráficos
-  @ViewChild('chartTiemposRendimiento') chartTiemposRendimiento!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('chartRecursos') chartRecursos!: ElementRef<HTMLCanvasElement>;
+  // Gráficos (14 operaciones: tiempo, CPU, RAM)
   @ViewChild('chartComparativoProcesos') chartComparativoProcesos!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('chartCPUProcesos') chartCPUProcesos!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('chartRAMProcesos') chartRAMProcesos!: ElementRef<HTMLCanvasElement>;
   
-  chartTiemposRendimientoInstance: Chart | null = null;
-  chartRecursosInstance: Chart | null = null;
   chartComparativoInstance: Chart | null = null;
+  chartCPUProcesosInstance: Chart | null = null;
+  chartRAMProcesosInstance: Chart | null = null;
 
   // Formularios
   nuevaPruebaControlada = {
@@ -78,12 +87,6 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
     descripcion: '',
     consulta: '',
     resultados_relevantes: [] as number[]
-  };
-
-  nuevaPruebaCarga = {
-    nivel_carga: 1,
-    consultas: [''] as string[],
-    nombre_prueba: ''
   };
 
 
@@ -108,12 +111,11 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
   cargarDatos(): void {
     this.loading = true;
     
-    // Cargar datos de ambas secciones
+    // Cargar datos de ambas secciones (sin pruebas de carga ni métricas de rendimiento antiguas)
     Promise.all([
       this.cargarMetricasSemanticas(),
-      this.cargarMetricasRendimiento(),
+      this.cargarReporteComparativo(),
       this.cargarPruebasControladas(),
-      this.cargarPruebasCarga(),
       this.cargarRegistrosEmbedding(),
       this.cargarDetallesProcesos(),
       this.cargarPruebasRendimientoCompletas()
@@ -164,14 +166,20 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
       this.loadingMetricasSemanticas = true;
       this.metricasService.getMetricasSemanticas(
         this.filtroFechaDesde || undefined,
-        this.filtroFechaHasta || undefined
+        this.filtroFechaHasta || undefined,
+        this.paginaMetricasSemanticas,
+        this.elementosPorPaginaMetricasSemanticas
       ).subscribe({
         next: (data) => {
-          // Manejar datos paginados o array directo
+          // Manejar datos paginados
           if (data && typeof data === 'object' && 'results' in data) {
             this.metricasSemanticas = Array.isArray(data.results) ? data.results : [];
+            this.totalMetricasSemanticas = data.count || 0;
+            this.totalPaginasMetricasSemanticas = Math.ceil(this.totalMetricasSemanticas / this.elementosPorPaginaMetricasSemanticas);
           } else {
             this.metricasSemanticas = Array.isArray(data) ? data : [];
+            this.totalMetricasSemanticas = this.metricasSemanticas.length;
+            this.totalPaginasMetricasSemanticas = 1;
           }
           console.log('Métricas semánticas cargadas:', this.metricasSemanticas.length);
           this.metricasService.getEstadisticasSemanticas(
@@ -202,45 +210,22 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
-  cargarMetricasRendimiento(): Promise<void> {
+  cargarReporteComparativo(): Promise<void> {
     return new Promise((resolve) => {
-      this.loadingMetricasRendimiento = true;
-      this.metricasService.getMetricasRendimiento(
-        undefined,
-        this.filtroNivelCarga || undefined,
+      this.loadingReporteComparativo = true;
+      this.metricasService.getReporteComparativo(
         this.filtroFechaDesde || undefined,
         this.filtroFechaHasta || undefined
       ).subscribe({
         next: (data) => {
-          // Manejar datos paginados o array directo
-          if (data && typeof data === 'object' && 'results' in data) {
-            this.metricasRendimiento = Array.isArray(data.results) ? data.results : [];
-          } else {
-            this.metricasRendimiento = Array.isArray(data) ? data : [];
-          }
-          console.log('Métricas de rendimiento cargadas:', this.metricasRendimiento.length);
-          this.metricasService.getEstadisticasRendimiento(
-            undefined,
-            this.filtroNivelCarga || undefined
-          ).subscribe({
-            next: (stats) => {
-              this.estadisticasRendimiento = stats || {};
-              this.loadingMetricasRendimiento = false;
-              resolve();
-            },
-            error: (error) => {
-              console.error('Error cargando estadísticas de rendimiento:', error);
-              this.estadisticasRendimiento = {};
-              this.loadingMetricasRendimiento = false;
-              resolve();
-            }
-          });
+          this.reporteComparativo = data || { filas: [], resumen: {} };
+          this.loadingReporteComparativo = false;
+          resolve();
         },
         error: (error) => {
-          console.error('Error cargando métricas de rendimiento:', error);
-          this.metricasRendimiento = [];
-          this.estadisticasRendimiento = {};
-          this.loadingMetricasRendimiento = false;
+          console.error('Error cargando reporte comparativo:', error);
+          this.reporteComparativo = { filas: [], resumen: {} };
+          this.loadingReporteComparativo = false;
           resolve();
         }
       });
@@ -263,43 +248,24 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
-  cargarPruebasCarga(): Promise<void> {
-    return new Promise((resolve) => {
-      // Aplicar filtros si están configurados
-      const tipoPrueba = undefined; // Puedes añadir filtro por tipo si es necesario
-      const nivelCarga = this.filtroNivelCarga || undefined;
-      const fechaDesde = this.filtroFechaDesde || undefined;
-      const fechaHasta = this.filtroFechaHasta || undefined;
-      
-      this.metricasService.getPruebasCarga(tipoPrueba, nivelCarga, fechaDesde, fechaHasta).subscribe({
-        next: (data) => {
-          // Manejar datos paginados o array directo
-          if (data && typeof data === 'object' && 'results' in data) {
-            this.pruebasCarga = Array.isArray(data.results) ? data.results : [];
-          } else {
-            this.pruebasCarga = Array.isArray(data) ? data : [];
-          }
-          console.log('Pruebas de carga cargadas:', this.pruebasCarga.length);
-          resolve();
-        },
-        error: (error) => {
-          console.error('Error cargando pruebas de carga:', error);
-          this.pruebasCarga = [];
-          resolve();
-        }
-      });
-    });
-  }
-
   cargarRegistrosEmbedding(): Promise<void> {
     return new Promise((resolve) => {
-      this.metricasService.getRegistrosEmbedding().subscribe({
+      this.metricasService.getRegistrosEmbedding(
+        undefined,
+        undefined,
+        this.paginaRegistrosEmbedding,
+        this.elementosPorPaginaRegistrosEmbedding
+      ).subscribe({
         next: (data) => {
-          // Manejar datos paginados o array directo
+          // Manejar datos paginados
           if (data && typeof data === 'object' && 'results' in data) {
             this.registrosEmbedding = Array.isArray(data.results) ? data.results : [];
+            this.totalRegistrosEmbedding = data.count || 0;
+            this.totalPaginasRegistrosEmbedding = Math.ceil(this.totalRegistrosEmbedding / this.elementosPorPaginaRegistrosEmbedding);
           } else {
             this.registrosEmbedding = Array.isArray(data) ? data : [];
+            this.totalRegistrosEmbedding = this.registrosEmbedding.length;
+            this.totalPaginasRegistrosEmbedding = 1;
           }
           console.log('Registros de embedding cargados:', this.registrosEmbedding.length);
           this.metricasService.getEstadisticasEmbedding().subscribe({
@@ -320,8 +286,34 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
           this.estadisticasEmbedding = {};
           resolve();
         }
-          });
-        });
+      });
+    });
+  }
+  
+  cambiarPaginaMetricasSemanticas(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPaginasMetricasSemanticas) {
+      this.paginaMetricasSemanticas = pagina;
+      this.cargarMetricasSemanticas();
+    }
+  }
+  
+  cambiarPaginaRegistrosEmbedding(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPaginasRegistrosEmbedding) {
+      this.paginaRegistrosEmbedding = pagina;
+      this.cargarRegistrosEmbedding();
+    }
+  }
+  
+  cambiarElementosPorPaginaMetricasSemanticas(elementos: number): void {
+    this.elementosPorPaginaMetricasSemanticas = elementos;
+    this.paginaMetricasSemanticas = 1;
+    this.cargarMetricasSemanticas();
+  }
+  
+  cambiarElementosPorPaginaRegistrosEmbedding(elementos: number): void {
+    this.elementosPorPaginaRegistrosEmbedding = elementos;
+    this.paginaRegistrosEmbedding = 1;
+    this.cargarRegistrosEmbedding();
   }
 
   
@@ -329,347 +321,232 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
   // ==================== GRÁFICOS ====================
 
   crearGraficos(): void {
-    // Solo crear gráficos de rendimiento
     if (this.seccionActiva === 'rendimiento') {
-      this.crearGraficoTiemposRendimiento();
-      this.crearGraficoRecursos();
-      this.crearGraficoComparativoProcesos();
+      // Dar un pequeño delay para asegurar que el DOM esté listo
+      setTimeout(() => {
+        this.crearGraficoComparativoProcesos();
+        this.crearGraficoCPUProcesos();
+        this.crearGraficoRAMProcesos();
+      }, 100);
     }
+  }
+
+  /** Estadísticas de rendimiento calculadas desde detalles de las 14 operaciones (M1-M14). */
+  get estadisticasRendimientoDesdeProcesos(): {
+    tiempo_promedio_ms: number;
+    cpu_promedio: number;
+    ram_promedio_mb: number;
+    total_exitosos: number;
+  } {
+    const procesosOrdenados = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12', 'M13', 'M14'];
+    const porCodigo: { [key: string]: any[] } = {};
+    this.detallesProcesos.forEach(d => {
+      if (!porCodigo[d.codigo_proceso]) porCodigo[d.codigo_proceso] = [];
+      porCodigo[d.codigo_proceso].push(d);
+    });
+    let sumaTiempo = 0, sumaCpu = 0, sumaRam = 0, count = 0;
+    procesosOrdenados.forEach(codigo => {
+      const arr = porCodigo[codigo];
+      if (arr?.length) {
+        const ultimo = arr[0];
+        sumaTiempo += (ultimo.tiempo_media || 0) * 1000;
+        sumaCpu += ultimo.cpu_media || 0;
+        sumaRam += (ultimo.ram_media || 0) / 1024;
+        count++;
+      }
+    });
+    return {
+      tiempo_promedio_ms: count ? sumaTiempo / count : 0,
+      cpu_promedio: count ? sumaCpu / count : 0,
+      ram_promedio_mb: count ? sumaRam / count : 0,
+      total_exitosos: count
+    };
   }
   
   crearGraficoComparativoProcesos(): void {
-    if (!this.chartComparativoProcesos?.nativeElement) {
-      console.log('Canvas de comparativo de procesos no disponible');
-      return;
-    }
-
-    // Agrupar detalles por código de proceso
-    const procesosPorCodigo: { [key: string]: any[] } = {};
-    
-    this.detallesProcesos.forEach(detalle => {
-      if (!procesosPorCodigo[detalle.codigo_proceso]) {
-        procesosPorCodigo[detalle.codigo_proceso] = [];
-      }
-      procesosPorCodigo[detalle.codigo_proceso].push(detalle);
-    });
-
-    // Calcular promedios por proceso
-    const procesosOrdenados = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12', 'M13', 'M14'];
-    const labels: string[] = [];
-    const tiemposPromedio: number[] = [];
-    const cpusPromedio: number[] = [];
-    const ramsPromedio: number[] = [];
-    const coloresTiempo: string[] = [];
-
-    procesosOrdenados.forEach(codigo => {
-      if (procesosPorCodigo[codigo] && procesosPorCodigo[codigo].length > 0) {
-        const detalles = procesosPorCodigo[codigo];
-        const ultimoDetalle = detalles[0]; // El más reciente
-        
-        labels.push(ultimoDetalle.nombre_proceso);
-        tiemposPromedio.push(ultimoDetalle.tiempo_media);
-        cpusPromedio.push(ultimoDetalle.cpu_media);
-        ramsPromedio.push(ultimoDetalle.ram_media);
-        
-        // Color según categoría de tiempo
-        const color = this.obtenerColorEstado(ultimoDetalle.categoria_tiempo);
-        coloresTiempo.push(color);
-      }
-    });
-
-    if (labels.length === 0) {
-      console.log('No hay datos de procesos para el gráfico comparativo');
-      return;
-    }
+    if (!this.chartComparativoProcesos?.nativeElement) return;
+    const { labels, tiempos, cpus, rams, coloresTiempo } = this.obtenerDatosGraficoProcesos();
 
     const config: ChartConfiguration = {
       type: 'bar',
       data: {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Tiempo Promedio (s)',
-            data: tiemposPromedio,
-            backgroundColor: coloresTiempo,
-            borderColor: coloresTiempo,
-            borderWidth: 2
-          }
-        ]
+        labels: labels.length ? labels : ['Sin datos'],
+        datasets: [{
+          label: 'Tiempo (s)',
+          data: labels.length ? tiempos : [],
+          backgroundColor: labels.length ? coloresTiempo : '#94a3b8',
+          borderColor: labels.length ? coloresTiempo : '#64748b',
+          borderWidth: 2
+        }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: {
-            display: true,
-            position: 'top'
-          },
-          title: {
-            display: true,
-            text: 'Comparativa de Tiempos por Proceso (M1-M14)'
-          },
+          legend: { display: true, position: 'top' },
+          title: { display: true, text: labels.length ? 'Tiempo de respuesta por proceso (M1-M14)' : 'Sin datos — ejecute una prueba' },
           tooltip: {
-            callbacks: {
-              afterLabel: (context) => {
-                const index = context.dataIndex;
-                return `CPU: ${cpusPromedio[index]?.toFixed(2)}%\nRAM: ${ramsPromedio[index]?.toFixed(2)} KB`;
+            callbacks: labels.length ? {
+              afterLabel: (ctx: any) => {
+                const i = ctx.dataIndex;
+                return `CPU: ${cpus[i]?.toFixed(2)}%\nRAM: ${rams[i]?.toFixed(2)} KB`;
               }
-            }
+            } : undefined
           }
         },
         scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Tiempo (segundos)'
-            }
-          },
-          x: {
-            ticks: {
-              autoSkip: false,
-              maxRotation: 45,
-              minRotation: 45
-            }
-          }
+          y: { beginAtZero: true, title: { display: true, text: 'Tiempo (s)' } },
+          x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 } }
         }
       }
     };
-
     this.destruirGrafico('comparativo');
     this.chartComparativoInstance = new Chart(this.chartComparativoProcesos.nativeElement, config);
   }
 
-  crearGraficoTiemposRendimiento(): void {
-    if (!this.chartTiemposRendimiento?.nativeElement) {
-      console.log('Canvas de tiempos de rendimiento no disponible');
-      return;
-    }
-
-    const datos = (this.metricasRendimiento || []).slice(-30); // Últimas 30 métricas
-    console.log('Creando gráfico de tiempos con', datos.length, 'métricas');
-    
-    if (datos.length === 0) {
-      console.log('No hay datos para el gráfico de tiempos');
-      const config: ChartConfiguration = {
-        type: 'line',
-        data: {
-          labels: ['Sin datos'],
-          datasets: []
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'top'
-            },
-            title: {
-              display: true,
-              text: 'Tiempos de Respuesta del Sistema (Sin datos)'
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      };
-      this.destruirGrafico('tiemposRendimiento');
-      this.chartTiemposRendimientoInstance = new Chart(this.chartTiemposRendimiento.nativeElement, config);
-      return;
-    }
-    
-    const config: ChartConfiguration = {
-      type: 'line',
-      data: {
-        labels: datos.map((m, i) => {
-          const fecha = new Date(m.fecha_medicion);
-          return fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString();
-        }),
-        datasets: [
-          {
-            label: 'Tiempo de Respuesta (ms)',
-            data: datos.map(m => m.tiempo_respuesta_ms),
-            borderColor: 'rgb(59, 130, 246)',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-            tension: 0.4
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'top'
-          },
-          title: {
-            display: true,
-            text: 'Tiempos de Respuesta del Sistema'
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
+  /** Construye labels y datos por proceso (M1-M14) desde detallesProcesos. */
+  private obtenerDatosGraficoProcesos(): { labels: string[]; tiempos: number[]; cpus: number[]; rams: number[]; coloresTiempo: string[] } {
+    const procesosPorCodigo: { [key: string]: any[] } = {};
+    this.detallesProcesos.forEach(d => {
+      if (!procesosPorCodigo[d.codigo_proceso]) procesosPorCodigo[d.codigo_proceso] = [];
+      procesosPorCodigo[d.codigo_proceso].push(d);
+    });
+    const procesosOrdenados = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12', 'M13', 'M14'];
+    const labels: string[] = [];
+    const tiempos: number[] = [];
+    const cpus: number[] = [];
+    const rams: number[] = [];
+    const coloresTiempo: string[] = [];
+    procesosOrdenados.forEach(codigo => {
+      const arr = procesosPorCodigo[codigo];
+      if (arr?.length) {
+        // Ordenar por fecha de medición descendente y tomar el más reciente
+        arr.sort((a, b) => {
+          const fechaA = new Date(a.fecha_medicion || 0).getTime();
+          const fechaB = new Date(b.fecha_medicion || 0).getTime();
+          return fechaB - fechaA;
+        });
+        const ultimo = arr[0];
+        labels.push(ultimo.nombre_proceso || codigo);
+        tiempos.push(ultimo.tiempo_media || 0);
+        cpus.push(ultimo.cpu_media || 0);
+        rams.push(ultimo.ram_media || 0);
+        coloresTiempo.push(this.obtenerColorEstado(ultimo.categoria_tiempo || 'N/A'));
       }
-    };
-
-    this.destruirGrafico('tiemposRendimiento');
-    this.chartTiemposRendimientoInstance = new Chart(this.chartTiemposRendimiento.nativeElement, config);
+    });
+    return { labels, tiempos, cpus, rams, coloresTiempo };
   }
 
-  crearGraficoRecursos(): void {
-    if (!this.chartRecursos?.nativeElement) {
-      console.log('Canvas de recursos no disponible');
-      return;
-    }
-
-    const datos = (this.metricasRendimiento || []).slice(-30); // Últimas 30 métricas
-    console.log('Creando gráfico de recursos con', datos.length, 'métricas');
-    
-    if (datos.length === 0) {
-      console.log('No hay datos para el gráfico de recursos');
-      const config: ChartConfiguration = {
-        type: 'line',
-        data: {
-          labels: ['Sin datos'],
-          datasets: []
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'top'
-            },
-            title: {
-              display: true,
-              text: 'Utilización de Recursos del Sistema (Sin datos)'
-            }
-          },
-          scales: {
-            y: {
-              type: 'linear',
-              display: true,
-              position: 'left',
-              beginAtZero: true,
-              max: 100
-            },
-            y1: {
-              type: 'linear',
-              display: true,
-              position: 'right',
-              beginAtZero: true,
-              grid: {
-                drawOnChartArea: false
-              }
-            }
-          }
-        }
-      };
-      this.destruirGrafico('recursos');
-      this.chartRecursosInstance = new Chart(this.chartRecursos.nativeElement, config);
-      return;
-    }
-    
+  crearGraficoCPUProcesos(): void {
+    if (!this.chartCPUProcesos?.nativeElement) return;
+    const { labels, cpus } = this.obtenerDatosGraficoProcesos();
     const config: ChartConfiguration = {
-      type: 'line',
+      type: 'bar',
       data: {
-        labels: datos.map((m, i) => {
-          const fecha = new Date(m.fecha_medicion);
-          return fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString();
-        }),
-        datasets: [
-          {
-            label: 'CPU (%)',
-            data: datos.map(m => m.uso_cpu),
-            borderColor: 'rgb(239, 68, 68)',
-            backgroundColor: 'rgba(239, 68, 68, 0.1)',
-            tension: 0.4,
-            yAxisID: 'y'
-          },
-          {
-            label: 'RAM (MB)',
-            data: datos.map(m => m.uso_ram_mb),
-            borderColor: 'rgb(34, 197, 94)',
-            backgroundColor: 'rgba(34, 197, 94, 0.1)',
-            tension: 0.4,
-            yAxisID: 'y1'
-          }
-        ]
+        labels: labels.length ? labels : ['Sin datos'],
+        datasets: [{
+          label: 'CPU (%)',
+          data: labels.length ? cpus : [],
+          backgroundColor: '#ef4444',
+          borderColor: '#dc2626',
+          borderWidth: 2
+        }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: {
-            position: 'top'
-          },
-          title: {
-            display: true,
-            text: 'Utilización de Recursos del Sistema'
-          }
+          legend: { display: true, position: 'top' },
+          title: { display: true, text: 'Uso de CPU por proceso (M1-M14)' }
         },
         scales: {
-          y: {
-            type: 'linear',
-            display: true,
-            position: 'left',
-            beginAtZero: true,
-            max: 100
-          },
-          y1: {
-            type: 'linear',
-            display: true,
-            position: 'right',
-            beginAtZero: true,
-            grid: {
-              drawOnChartArea: false
-            }
-          }
+          y: { beginAtZero: true, title: { display: true, text: 'CPU (%)' } },
+          x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 } }
         }
       }
     };
+    this.destruirGrafico('cpuProcesos');
+    this.chartCPUProcesosInstance = new Chart(this.chartCPUProcesos.nativeElement, config);
+  }
 
-    this.destruirGrafico('recursos');
-    this.chartRecursosInstance = new Chart(this.chartRecursos.nativeElement, config);
+  crearGraficoRAMProcesos(): void {
+    if (!this.chartRAMProcesos?.nativeElement) return;
+    const { labels, rams } = this.obtenerDatosGraficoProcesos();
+    const config: ChartConfiguration = {
+      type: 'bar',
+      data: {
+        labels: labels.length ? labels : ['Sin datos'],
+        datasets: [{
+          label: 'RAM (KB)',
+          data: labels.length ? rams : [],
+          backgroundColor: '#22c55e',
+          borderColor: '#16a34a',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: true, position: 'top' },
+          title: { display: true, text: 'Uso de RAM por proceso (M1-M14)' }
+        },
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: 'RAM (KB)' } },
+          x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 } }
+        }
+      }
+    };
+    this.destruirGrafico('ramProcesos');
+    this.chartRAMProcesosInstance = new Chart(this.chartRAMProcesos.nativeElement, config);
   }
 
   destruirGrafico(tipo: string): void {
     switch (tipo) {
-      case 'tiemposRendimiento':
-        if (this.chartTiemposRendimientoInstance) {
-          this.chartTiemposRendimientoInstance.destroy();
-          this.chartTiemposRendimientoInstance = null;
-        }
-        break;
-      case 'recursos':
-        if (this.chartRecursosInstance) {
-          this.chartRecursosInstance.destroy();
-          this.chartRecursosInstance = null;
-        }
-        break;
       case 'comparativo':
         if (this.chartComparativoInstance) {
           this.chartComparativoInstance.destroy();
           this.chartComparativoInstance = null;
         }
         break;
+      case 'cpuProcesos':
+        if (this.chartCPUProcesosInstance) {
+          this.chartCPUProcesosInstance.destroy();
+          this.chartCPUProcesosInstance = null;
+        }
+        break;
+      case 'ramProcesos':
+        if (this.chartRAMProcesosInstance) {
+          this.chartRAMProcesosInstance.destroy();
+          this.chartRAMProcesosInstance = null;
+        }
+        break;
     }
   }
 
   destruirGraficos(): void {
-    this.destruirGrafico('tiemposRendimiento');
-    this.destruirGrafico('recursos');
     this.destruirGrafico('comparativo');
+    this.destruirGrafico('cpuProcesos');
+    this.destruirGrafico('ramProcesos');
   }
   
   verDetallePrueba(prueba: any): void {
-    this.pruebaSeleccionada = prueba;
+    // Cargar el detalle completo de la prueba desde el backend para evitar problemas con datos grandes
+    if (prueba && prueba.id) {
+      this.metricasService.getDetallePruebaRendimiento(prueba.id).subscribe({
+        next: (detalle) => {
+          this.pruebaSeleccionada = detalle;
+        },
+        error: (error) => {
+          console.error('Error cargando detalle de prueba:', error);
+          // Si falla, usar los datos básicos disponibles
+          this.pruebaSeleccionada = prueba;
+          alert('Error cargando detalles completos de la prueba. Se mostrarán datos básicos.');
+        }
+      });
+    } else {
+      this.pruebaSeleccionada = prueba;
+    }
   }
   
   cerrarDetallePrueba(): void {
@@ -680,9 +557,10 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
 
   cambiarSeccion(seccion: 'semanticas' | 'rendimiento'): void {
     this.seccionActiva = seccion;
+    // Dar tiempo a que el DOM de la pestaña se renderice antes de crear los gráficos
     setTimeout(() => {
       this.crearGraficos();
-    }, 200);
+    }, 400);
   }
 
   aplicarFiltros(): void {
@@ -695,6 +573,7 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
       next: (resultado) => {
         alert('Prueba ejecutada exitosamente');
         this.cargarMetricasSemanticas();
+        this.cargarReporteComparativo();
         this.ejecutandoPrueba = false;
       },
       error: (error) => {
@@ -704,61 +583,7 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
-  ejecutarPruebaCarga(): void {
-    // Filtrar consultas vacías y verificar que haya al menos una
-    const consultasValidas = this.nuevaPruebaCarga.consultas.filter(c => c && c.trim() !== '');
-    
-    if (consultasValidas.length === 0) {
-      alert('Debe proporcionar al menos una consulta válida');
-      return;
-    }
-
-    this.ejecutandoPrueba = true;
-    console.log('Ejecutando prueba de carga:', {
-      nivel_carga: this.nuevaPruebaCarga.nivel_carga,
-      consultas: consultasValidas,
-      nombre: this.nuevaPruebaCarga.nombre_prueba
-    });
-
-    this.metricasService.ejecutarPruebaCargaBusqueda(
-      this.nuevaPruebaCarga.nivel_carga,
-      consultasValidas,
-      this.nuevaPruebaCarga.nombre_prueba || undefined
-    ).subscribe({
-      next: (resultado) => {
-        console.log('Prueba de carga ejecutada exitosamente:', resultado);
-        alert('Prueba de carga ejecutada exitosamente');
-        this.nuevaPruebaCarga = { nivel_carga: 1, consultas: [''], nombre_prueba: '' };
-        // Recargar datos después de un breve delay para asegurar que se guardaron
-        setTimeout(() => {
-          this.cargarMetricasRendimiento();
-          this.cargarPruebasCarga();
-          this.ejecutandoPrueba = false;
-        }, 1500);
-      },
-      error: (error) => {
-        console.error('Error ejecutando prueba de carga:', error);
-        const mensajeError = error.error?.error || error.error?.mensaje || error.message || 'Error desconocido';
-        alert('Error ejecutando prueba: ' + mensajeError);
-        this.ejecutandoPrueba = false;
-      }
-    });
-  }
-
-  agregarConsulta(): void {
-    if (!this.nuevaPruebaCarga.consultas) {
-      this.nuevaPruebaCarga.consultas = [''];
-    } else {
-      this.nuevaPruebaCarga.consultas.push('');
-    }
-  }
-
-  eliminarConsulta(index: number): void {
-    this.nuevaPruebaCarga.consultas.splice(index, 1);
-  }
-
-
-  exportarCSV(tipo: 'semanticas' | 'rendimiento' | 'pruebas-carga'): void {
+  exportarCSV(tipo: 'semanticas' | 'rendimiento'): void {
     const fechaDesde = this.filtroFechaDesde || undefined;
     const fechaHasta = this.filtroFechaHasta || undefined;
 
@@ -768,13 +593,6 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
           this.metricasService.descargarArchivo(blob, `metricas_semanticas_${new Date().toISOString().split('T')[0]}.csv`);
         },
         error: () => alert('Error exportando métricas semánticas')
-      });
-    } else if (tipo === 'pruebas-carga') {
-      this.metricasService.exportarPruebasCargaCSV().subscribe({
-        next: (blob) => {
-          this.metricasService.descargarArchivo(blob, `pruebas_carga_${new Date().toISOString().split('T')[0]}.csv`);
-        },
-        error: () => alert('Error exportando pruebas de carga')
       });
     } else {
       this.metricasService.exportarMetricasRendimientoCSV(fechaDesde, fechaHasta).subscribe({
@@ -786,57 +604,42 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
-  exportarCSVGraficoRecursos(): void {
-    const datos = (this.metricasRendimiento || []).slice(-30);
-    
-    if (datos.length === 0) {
-      alert('No hay datos para exportar');
+  /** Exporta los datos de las 14 operaciones (M1-M14) a CSV. */
+  exportarCSVProcesos14(): void {
+    const { labels, tiempos, cpus, rams } = this.obtenerDatosGraficoProcesos();
+    if (!labels.length) {
+      alert('No hay datos de procesos. Ejecute una prueba de rendimiento completa primero.');
       return;
     }
-
-    // Crear contenido CSV
-    let csvContent = 'Fecha,CPU (%),RAM (MB)\n';
-    
-    datos.forEach((m: any) => {
-      const fecha = new Date(m.fecha_medicion);
-      const fechaStr = fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString();
-      const cpu = m.uso_cpu?.toFixed(2) || '0.00';
-      const ram = m.uso_ram_mb?.toFixed(2) || '0.00';
-      csvContent += `${fechaStr},${cpu},${ram}\n`;
+    let csvContent = 'Proceso,Tiempo (s),CPU (%),RAM (KB)\n';
+    labels.forEach((nombre, i) => {
+      csvContent += `"${nombre}",${(tiempos[i] ?? 0).toFixed(4)},${(cpus[i] ?? 0).toFixed(2)},${(rams[i] ?? 0).toFixed(2)}\n`;
     });
-
-    // Crear blob y descargar
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    this.metricasService.descargarArchivo(blob, `recursos_sistema_${new Date().toISOString().split('T')[0]}.csv`);
-  }
-
-  exportarCSVGraficoTiempos(): void {
-    const datos = (this.metricasRendimiento || []).slice(-30);
-    
-    if (datos.length === 0) {
-      alert('No hay datos para exportar');
-      return;
-    }
-
-    // Crear contenido CSV
-    let csvContent = 'Fecha,Tiempo Respuesta (ms),Proceso,Nivel Carga\n';
-    
-    datos.forEach((m: any) => {
-      const fecha = new Date(m.fecha_medicion);
-      const fechaStr = fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString();
-      const tiempo = m.tiempo_respuesta_ms || 0;
-      const proceso = m.proceso || '-';
-      const nivelCarga = m.nivel_carga || '-';
-      csvContent += `${fechaStr},${tiempo},${proceso},${nivelCarga}\n`;
-    });
-
-    // Crear blob y descargar
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    this.metricasService.descargarArchivo(blob, `tiempos_respuesta_${new Date().toISOString().split('T')[0]}.csv`);
+    this.metricasService.descargarArchivo(blob, `procesos_14_operaciones_${new Date().toISOString().split('T')[0]}.csv`);
   }
 
   formatearFecha(fecha: string): string {
     return new Date(fecha).toLocaleString('es-ES');
+  }
+
+  /** Fecha actual formateada para usar en el template (evita new Date() en la plantilla). */
+  get fechaActualFormateada(): string {
+    return new Date().toLocaleString('es-ES');
+  }
+
+  /** Fin del rango mostrado en paginación de registros de embedding (evita Math en template). */
+  get finRangoRegistrosEmbedding(): number {
+    return Math.min(
+      this.paginaRegistrosEmbedding * this.elementosPorPaginaRegistrosEmbedding,
+      this.totalRegistrosEmbedding
+    );
+  }
+
+  /** Inicio del rango mostrado en paginación de registros de embedding. */
+  get inicioRangoRegistrosEmbedding(): number {
+    if (this.totalRegistrosEmbedding === 0) return 0;
+    return (this.paginaRegistrosEmbedding - 1) * this.elementosPorPaginaRegistrosEmbedding + 1;
   }
 
   formatearTiempo(ms: number): string {
@@ -862,14 +665,30 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
     this.metricasService.ejecutarPruebaRendimientoCompleta(this.iteracionesPrueba).subscribe({
       next: (resultado) => {
         console.log('Pruebas completadas:', resultado);
-        this.resultadosPruebaCompleta = resultado;
+        
+        // Formatear resultados con fecha de ejecución correcta
+        const fechaEjecucion = resultado.resultados?.fecha_ejecucion || resultado.fecha_ejecucion || new Date().toISOString();
+        
+        this.resultadosPruebaCompleta = {
+          ...resultado,
+          fecha_ejecucion: fechaEjecucion,
+          mensaje: resultado.mensaje || 'Pruebas de rendimiento completas ejecutadas exitosamente',
+          iteraciones: this.iteracionesPrueba
+        };
+        
         this.ejecutandoPruebaCompleta = false;
         
-        // Mostrar notificación de éxito
-        alert('✓ Pruebas de rendimiento completadas exitosamente');
-        
-        // Recargar métricas después de la prueba
-        this.cargarMetricasRendimiento();
+        // Refrescar historial y métricas de forma explícita (varias veces por si el backend tarda en guardar)
+        this.cargarPruebasRendimientoCompletas();
+        this.cargarDetallesProcesos();
+        setTimeout(() => {
+          this.cargarPruebasRendimientoCompletas();
+          this.cargarDetallesProcesos().then(() => {
+            this.destruirGraficos();
+            setTimeout(() => this.crearGraficos(), 300);
+          });
+        }, 1500);
+        setTimeout(() => this.cargarPruebasRendimientoCompletas(), 3000);
       },
       error: (error) => {
         console.error('Error ejecutando prueba completa:', error);
@@ -907,6 +726,12 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
 
   cerrarDetalleEmbedding(): void {
     this.embeddingSeleccionado = null;
+  }
+
+  /** Porcentaje para la barra de rendimiento (0–100): 3000 ms = 100%. */
+  getGaugeWidth(ms: number): number {
+    if (ms == null || ms <= 0) return 0;
+    return Math.min(100, (ms / 3000) * 100);
   }
   
   obtenerProcesosOrdenados(resultadosJson: any): any[] {

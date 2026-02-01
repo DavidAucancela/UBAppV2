@@ -308,6 +308,11 @@ export class TarifasListComponent implements OnInit {
     this.selectedIds = new Set(this.selectedIds);
   }
 
+  areAllSelected(): boolean {
+    if (this.filteredTarifas.length === 0) return false;
+    return this.filteredTarifas.every(t => this.isSelected(t));
+  }
+
   clearSelection(): void {
     this.selectedIds.clear();
     this.selectedIds = new Set(this.selectedIds);

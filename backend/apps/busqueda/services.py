@@ -5,10 +5,12 @@ Implementa la lógica de negocio para búsquedas tradicionales y semánticas
 from typing import Dict, Any, List, Optional
 import time
 import logging
-from django.db.models import Q
+from datetime import datetime, time as dt_time, date
+from django.db.models import Q, Count
 from django.contrib.auth import get_user_model
 from django.core.cache import caches
 from django.conf import settings
+from django.utils import timezone
 
 from apps.core.base.base_service import BaseService
 from apps.core.exceptions import OpenAINotConfiguredError
@@ -174,13 +176,18 @@ class BusquedaSemanticaService(BaseService):
         else:
             modelo_embedding = EmbeddingService.validar_modelo(modelo_embedding)
         
-        # 1. Expandir consulta con sinónimos y contexto
+        # 1. Expandir consulta con sinónimos y contexto (incluye detección de fechas, cantidades, etc.)
         expansion = QueryExpander.expandir_consulta(consulta, incluir_filtros_temporales=True)
         consulta_expandida = expansion['consulta_expandida']
         filtros_sugeridos = expansion['filtros_sugeridos']
         
         # Mezclar filtros sugeridos con filtros proporcionados (prioridad a los proporcionados)
         filtros_completos = {**filtros_sugeridos, **(filtros or {})}
+        
+        # Guardar filtros para post-validación estricta de resultados
+        filtros_estrictos = {k: v for k, v in filtros_completos.items() 
+                           if k in ('fechaDesde', 'fechaHasta', 'cantidad_lineas_minima', 
+                                   'cantidad_productos_minima', 'estado', 'ciudadDestino')}
         
         logger.info(
             f"Consulta expandida: original='{consulta[:50]}...', "
@@ -284,6 +291,12 @@ class BusquedaSemanticaService(BaseService):
             metrica_ordenamiento
         )
         
+        # 4b. Post-validación estricta: eliminar resultados que no cumplan filtros exactos
+        # (safety net por si algún edge case pasó el filtro inicial)
+        resultados = BusquedaSemanticaService._post_filtrar_resultados_estrictos(
+            resultados, filtros_estrictos
+        )
+        
         # 4. Calcular tiempo de respuesta
         tiempo_respuesta = int((time.time() - tiempo_inicio) * 1000)
         
@@ -365,11 +378,57 @@ class BusquedaSemanticaService(BaseService):
         }
     
     @staticmethod
+    def _normalizar_fechas_filtro(filtros: Dict) -> Dict:
+        """
+        Normaliza fechas del filtro para DateTimeField.
+        CRÍTICO: fecha_hasta debe ser fin del día para incluir envíos de todo el día.
+        Sin esto, 'hoy' excluiría envíos después de medianoche.
+        """
+        resultado = dict(filtros)
+        fecha_desde_str = filtros.get('fechaDesde')
+        fecha_hasta_str = filtros.get('fechaHasta')
+        
+        if not fecha_desde_str and not fecha_hasta_str:
+            return resultado
+        
+        try:
+            if fecha_desde_str:
+                if isinstance(fecha_desde_str, (datetime,)):
+                    fecha_desde = fecha_desde_str if timezone.is_aware(fecha_desde_str) else timezone.make_aware(fecha_desde_str)
+                else:
+                    fecha_desde = timezone.make_aware(
+                        datetime.strptime(str(fecha_desde_str)[:10], '%Y-%m-%d')
+                    )
+                resultado['fechaDesde'] = fecha_desde
+            
+            if fecha_hasta_str:
+                if isinstance(fecha_hasta_str, (datetime,)):
+                    fecha_hasta = fecha_hasta_str if timezone.is_aware(fecha_hasta_str) else timezone.make_aware(fecha_hasta_str)
+                else:
+                    fecha_hasta = timezone.make_aware(
+                        datetime.strptime(str(fecha_hasta_str)[:10], '%Y-%m-%d')
+                    )
+                # Si es consulta de un solo día (hoy, ayer, fecha exacta), usar fin del día
+                if fecha_desde_str and str(fecha_desde_str)[:10] == str(fecha_hasta_str)[:10]:
+                    fecha_hasta = fecha_hasta.replace(
+                        hour=23, minute=59, second=59, microsecond=999999
+                    )
+                resultado['fechaHasta'] = fecha_hasta
+        except (ValueError, TypeError) as e:
+            logger.warning(f"Error parseando fechas del filtro: {e}, filtros={filtros}")
+        
+        return resultado
+    
+    @staticmethod
     def _obtener_envios_filtrados(usuario, filtros: Dict) -> Any:
         """
         Obtiene envíos filtrados según permisos y criterios adicionales.
-        MEJORADO: Aplica filtros inteligentes para reducir el conjunto de datos.
+        FILTROS ESTRICTOS: Si no hay envíos que cumplan los criterios, el resultado será vacío.
+        Los filtros se aplican ANTES de la búsqueda vectorial.
         """
+        # Normalizar fechas para DateTimeField (incluye fin de día para consultas de "hoy")
+        filtros = BusquedaSemanticaService._normalizar_fechas_filtro(filtros)
+        
         # Obtener envíos base con filtros estándar
         envios = envio_repository.filtrar_por_criterios_multiples(
             usuario=usuario,
@@ -379,8 +438,16 @@ class BusquedaSemanticaService(BaseService):
             ciudad_destino=filtros.get('ciudadDestino')
         )
         
-        # Aplicar filtros adicionales inteligentes si existen
-        # Estos filtros ayudan a reducir el conjunto antes de la búsqueda vectorial
+        # Filtro por cantidad de LÍNEAS de producto (más de X productos = X+1 líneas distintas)
+        # Usar Count de productos en lugar de cantidad_total para precisión
+        if 'cantidad_lineas_minima' in filtros:
+            envios = envios.annotate(
+                num_lineas_productos=Count('productos')
+            ).filter(num_lineas_productos__gte=filtros['cantidad_lineas_minima'])
+        
+        # Filtro por cantidad total de ítems (cantidad_total = suma de cantidades)
+        elif 'cantidad_productos_minima' in filtros:
+            envios = envios.filter(cantidad_total__gte=filtros['cantidad_productos_minima'])
         
         # Filtro por peso (si se especifica en filtros)
         if 'peso_minimo' in filtros:
@@ -394,12 +461,7 @@ class BusquedaSemanticaService(BaseService):
         if 'valor_maximo' in filtros:
             envios = envios.filter(valor_total__lte=filtros['valor_maximo'])
         
-        # Filtro por cantidad de productos (para "más de un producto")
-        if 'cantidad_productos_minima' in filtros:
-            envios = envios.filter(cantidad_total__gte=filtros['cantidad_productos_minima'])
-        
         # Ordenar por fecha descendente (más recientes primero)
-        # Esto asegura que el límite de 1000 incluya los envíos más recientes
         envios = envios.order_by('-fecha_emision')
         
         return envios
@@ -634,6 +696,87 @@ class BusquedaSemanticaService(BaseService):
             })
         
         return resultados_finales
+    
+    @staticmethod
+    def _post_filtrar_resultados_estrictos(resultados: List[Dict], filtros_estrictos: Dict) -> List[Dict]:
+        """
+        Post-validación estricta: elimina resultados que no cumplan filtros exactos.
+        Safety net para garantizar que fechas, cantidades, etc. coincidan.
+        """
+        if not filtros_estrictos:
+            return resultados
+        
+        def _parsear_fecha(val):
+            """Convierte fecha a date para comparación"""
+            if val is None:
+                return None
+            if isinstance(val, date):
+                return val
+            if isinstance(val, datetime):
+                return val.date()
+            try:
+                s = str(val)[:10]
+                return datetime.strptime(s, '%Y-%m-%d').date()
+            except (ValueError, TypeError):
+                return None
+        
+        fd_date = _parsear_fecha(filtros_estrictos.get('fechaDesde'))
+        fh_date = _parsear_fecha(filtros_estrictos.get('fechaHasta'))
+        
+        filtrados = []
+        for r in resultados:
+            envio_data = r.get('envio') or {}
+            if not isinstance(envio_data, dict):
+                envio_data = {
+                    'fecha_emision': getattr(envio_data, 'fecha_emision', None),
+                    'cantidad_total': getattr(envio_data, 'cantidad_total', 0),
+                    'estado': getattr(envio_data, 'estado', None),
+                    'productos': list(getattr(envio_data, 'productos', []).all()[:100]) if hasattr(envio_data, 'productos') else []
+                }
+            
+            cumple = True
+            
+            # Validar fecha
+            if cumple and (fd_date or fh_date):
+                fecha_envio = _parsear_fecha(envio_data.get('fecha_emision'))
+                if fecha_envio is None:
+                    cumple = False
+                else:
+                    if fd_date and fecha_envio < fd_date:
+                        cumple = False
+                    if cumple and fh_date and fecha_envio > fh_date:
+                        cumple = False
+            
+            # Validar cantidad de líneas de producto
+            if cumple and filtros_estrictos.get('cantidad_lineas_minima'):
+                productos = envio_data.get('productos', [])
+                num_lineas = len(productos) if isinstance(productos, list) else 0
+                if num_lineas < filtros_estrictos['cantidad_lineas_minima']:
+                    cumple = False
+            
+            # Validar cantidad total
+            if cumple and filtros_estrictos.get('cantidad_productos_minima'):
+                cant = envio_data.get('cantidad_total', 0) or 0
+                try:
+                    cant_int = int(float(cant))
+                except (ValueError, TypeError):
+                    cant_int = 0
+                if cant_int < filtros_estrictos['cantidad_productos_minima']:
+                    cumple = False
+            
+            # Validar estado
+            if cumple and filtros_estrictos.get('estado'):
+                est = (envio_data.get('estado') or '').strip().lower()
+                est_filtro = (filtros_estrictos['estado'] or '').strip().lower()
+                if est != est_filtro:
+                    cumple = False
+            
+            if cumple:
+                filtrados.append(r)
+        
+        if len(filtrados) < len(resultados):
+            logger.info(f"Post-filtrado estricto: {len(resultados)} -> {len(filtrados)} resultados")
+        return filtrados
     
     # ==================== MÉTODOS AUXILIARES ====================
     

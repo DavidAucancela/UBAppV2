@@ -3,185 +3,105 @@ from apps.archivos.models import Tarifa
 
 
 class Command(BaseCommand):
-    help = 'Carga tarifas de ejemplo para el sistema de envíos'
+    help = 'Carga 35 tarifas (7 por categoría) cubriendo rangos de 0 a 1000 kg'
 
     def handle(self, *args, **options):
-        self.stdout.write(self.style.SUCCESS('Iniciando carga de tarifas de ejemplo...'))
+        self.stdout.write(self.style.SUCCESS('Iniciando carga de 35 tarifas (7 por categoría)...'))
         
-        # Eliminar tarifas existentes si se desea empezar desde cero
-        # Tarifa.objects.all().delete()
-        
-        tarifas_ejemplo = [
-            # ELECTRÓNICA - Productos frágiles, tarifa más alta
-            {
-                'categoria': 'electronica',
-                'peso_minimo': 0.0,
-                'peso_maximo': 1.0,
-                'precio_por_kg': 8.50,
-                'cargo_base': 5.00,
-                'activa': True
-            },
-            {
-                'categoria': 'electronica',
-                'peso_minimo': 1.01,
-                'peso_maximo': 5.0,
-                'precio_por_kg': 7.00,
-                'cargo_base': 8.00,
-                'activa': True
-            },
-            {
-                'categoria': 'electronica',
-                'peso_minimo': 5.01,
-                'peso_maximo': 20.0,
-                'precio_por_kg': 6.00,
-                'cargo_base': 12.00,
-                'activa': True
-            },
-            {
-                'categoria': 'electronica',
-                'peso_minimo': 20.01,
-                'peso_maximo': 100.0,
-                'precio_por_kg': 5.00,
-                'cargo_base': 20.00,
-                'activa': True
-            },
-            
-            # ROPA - Tarifa estándar
-            {
-                'categoria': 'ropa',
-                'peso_minimo': 0.0,
-                'peso_maximo': 1.0,
-                'precio_por_kg': 5.00,
-                'cargo_base': 3.00,
-                'activa': True
-            },
-            {
-                'categoria': 'ropa',
-                'peso_minimo': 1.01,
-                'peso_maximo': 5.0,
-                'precio_por_kg': 4.00,
-                'cargo_base': 5.00,
-                'activa': True
-            },
-            {
-                'categoria': 'ropa',
-                'peso_minimo': 5.01,
-                'peso_maximo': 20.0,
-                'precio_por_kg': 3.50,
-                'cargo_base': 8.00,
-                'activa': True
-            },
-            {
-                'categoria': 'ropa',
-                'peso_minimo': 20.01,
-                'peso_maximo': 100.0,
-                'precio_por_kg': 3.00,
-                'cargo_base': 12.00,
-                'activa': True
-            },
-            
-            # HOGAR - Productos voluminosos, tarifa media-alta
-            {
-                'categoria': 'hogar',
-                'peso_minimo': 0.0,
-                'peso_maximo': 2.0,
-                'precio_por_kg': 6.00,
-                'cargo_base': 4.00,
-                'activa': True
-            },
-            {
-                'categoria': 'hogar',
-                'peso_minimo': 2.01,
-                'peso_maximo': 10.0,
-                'precio_por_kg': 5.00,
-                'cargo_base': 7.00,
-                'activa': True
-            },
-            {
-                'categoria': 'hogar',
-                'peso_minimo': 10.01,
-                'peso_maximo': 30.0,
-                'precio_por_kg': 4.00,
-                'cargo_base': 15.00,
-                'activa': True
-            },
-            {
-                'categoria': 'hogar',
-                'peso_minimo': 30.01,
-                'peso_maximo': 100.0,
-                'precio_por_kg': 3.50,
-                'cargo_base': 25.00,
-                'activa': True
-            },
-            
-            # DEPORTES - Tarifa estándar
-            {
-                'categoria': 'deportes',
-                'peso_minimo': 0.0,
-                'peso_maximo': 1.0,
-                'precio_por_kg': 5.50,
-                'cargo_base': 3.50,
-                'activa': True
-            },
-            {
-                'categoria': 'deportes',
-                'peso_minimo': 1.01,
-                'peso_maximo': 5.0,
-                'precio_por_kg': 4.50,
-                'cargo_base': 6.00,
-                'activa': True
-            },
-            {
-                'categoria': 'deportes',
-                'peso_minimo': 5.01,
-                'peso_maximo': 20.0,
-                'precio_por_kg': 3.80,
-                'cargo_base': 10.00,
-                'activa': True
-            },
-            {
-                'categoria': 'deportes',
-                'peso_minimo': 20.01,
-                'peso_maximo': 100.0,
-                'precio_por_kg': 3.20,
-                'cargo_base': 15.00,
-                'activa': True
-            },
-            
-            # OTROS - Tarifa general
-            {
-                'categoria': 'otros',
-                'peso_minimo': 0.0,
-                'peso_maximo': 1.0,
-                'precio_por_kg': 5.00,
-                'cargo_base': 3.00,
-                'activa': True
-            },
-            {
-                'categoria': 'otros',
-                'peso_minimo': 1.01,
-                'peso_maximo': 5.0,
-                'precio_por_kg': 4.00,
-                'cargo_base': 5.00,
-                'activa': True
-            },
-            {
-                'categoria': 'otros',
-                'peso_minimo': 5.01,
-                'peso_maximo': 20.0,
-                'precio_por_kg': 3.50,
-                'cargo_base': 8.00,
-                'activa': True
-            },
-            {
-                'categoria': 'otros',
-                'peso_minimo': 20.01,
-                'peso_maximo': 100.0,
-                'precio_por_kg': 3.00,
-                'cargo_base': 12.00,
-                'activa': True
-            },
+        # Definir rangos de peso secuenciales (0-1000 kg)
+        # Nota: Los rangos son inclusivos en ambos extremos
+        # Para evitar solapamiento, el peso máximo de un rango es exclusivo del siguiente
+        # Ejemplo: 0-2.99, 3-6.99, 7-9.99, etc.
+        rangos_peso = [
+            {'min': 0.0, 'max': 2.99},      # 0-2.99 kg
+            {'min': 3.0, 'max': 6.99},       # 3-6.99 kg (3-7 según ejemplo del usuario)
+            {'min': 7.0, 'max': 9.99},      # 7-9.99 kg (7-10 según ejemplo del usuario)
+            {'min': 10.0, 'max': 24.99},    # 10-24.99 kg
+            {'min': 25.0, 'max': 49.99},    # 25-49.99 kg
+            {'min': 50.0, 'max': 99.99},     # 50-99.99 kg
+            {'min': 100.0, 'max': 1000.0},  # 100-1000 kg (inclusive hasta 1000)
         ]
+        
+        # Definir precios por categoría (precio_por_kg, cargo_base) para cada rango
+        # Electrónica: más cara (productos frágiles)
+        precios_electronica = [
+            {'precio_kg': 9.00, 'cargo_base': 6.00},  # 0-3 kg
+            {'precio_kg': 8.50, 'cargo_base': 7.00},  # 3-7 kg
+            {'precio_kg': 8.00, 'cargo_base': 8.00},  # 7-10 kg
+            {'precio_kg': 7.50, 'cargo_base': 10.00}, # 10-25 kg
+            {'precio_kg': 7.00, 'cargo_base': 12.00}, # 25-50 kg
+            {'precio_kg': 6.50, 'cargo_base': 15.00}, # 50-100 kg
+            {'precio_kg': 6.00, 'cargo_base': 20.00}, # 100-1000 kg
+        ]
+        
+        # Ropa: tarifa estándar
+        precios_ropa = [
+            {'precio_kg': 6.00, 'cargo_base': 4.00},  # 0-3 kg
+            {'precio_kg': 5.50, 'cargo_base': 5.00},  # 3-7 kg
+            {'precio_kg': 5.00, 'cargo_base': 6.00},  # 7-10 kg
+            {'precio_kg': 4.50, 'cargo_base': 8.00}, # 10-25 kg
+            {'precio_kg': 4.00, 'cargo_base': 10.00}, # 25-50 kg
+            {'precio_kg': 3.50, 'cargo_base': 12.00}, # 50-100 kg
+            {'precio_kg': 3.00, 'cargo_base': 15.00}, # 100-1000 kg
+        ]
+        
+        # Hogar: tarifa media-alta (productos voluminosos)
+        precios_hogar = [
+            {'precio_kg': 7.00, 'cargo_base': 5.00},  # 0-3 kg
+            {'precio_kg': 6.50, 'cargo_base': 6.00},  # 3-7 kg
+            {'precio_kg': 6.00, 'cargo_base': 7.00},  # 7-10 kg
+            {'precio_kg': 5.50, 'cargo_base': 9.00},  # 10-25 kg
+            {'precio_kg': 5.00, 'cargo_base': 11.00}, # 25-50 kg
+            {'precio_kg': 4.50, 'cargo_base': 14.00}, # 50-100 kg
+            {'precio_kg': 4.00, 'cargo_base': 18.00}, # 100-1000 kg
+        ]
+        
+        # Deportes: tarifa estándar
+        precios_deportes = [
+            {'precio_kg': 6.50, 'cargo_base': 4.50},  # 0-3 kg
+            {'precio_kg': 6.00, 'cargo_base': 5.50},  # 3-7 kg
+            {'precio_kg': 5.50, 'cargo_base': 6.50},  # 7-10 kg
+            {'precio_kg': 5.00, 'cargo_base': 8.50},  # 10-25 kg
+            {'precio_kg': 4.50, 'cargo_base': 10.50}, # 25-50 kg
+            {'precio_kg': 4.00, 'cargo_base': 13.00}, # 50-100 kg
+            {'precio_kg': 3.50, 'cargo_base': 16.00}, # 100-1000 kg
+        ]
+        
+        # Otros: tarifa general (más económica)
+        precios_otros = [
+            {'precio_kg': 5.50, 'cargo_base': 3.50},  # 0-3 kg
+            {'precio_kg': 5.00, 'cargo_base': 4.50},  # 3-7 kg
+            {'precio_kg': 4.50, 'cargo_base': 5.50},  # 7-10 kg
+            {'precio_kg': 4.00, 'cargo_base': 7.50},  # 10-25 kg
+            {'precio_kg': 3.50, 'cargo_base': 9.50},  # 25-50 kg
+            {'precio_kg': 3.00, 'cargo_base': 11.50}, # 50-100 kg
+            {'precio_kg': 2.50, 'cargo_base': 14.00}, # 100-1000 kg
+        ]
+        
+        # Mapeo de categorías a precios
+        precios_por_categoria = {
+            'electronica': precios_electronica,
+            'ropa': precios_ropa,
+            'hogar': precios_hogar,
+            'deportes': precios_deportes,
+            'otros': precios_otros,
+        }
+        
+        # Generar todas las tarifas
+        tarifas_ejemplo = []
+        categorias = ['electronica', 'ropa', 'hogar', 'deportes', 'otros']
+        
+        for categoria in categorias:
+            precios = precios_por_categoria[categoria]
+            for i, rango in enumerate(rangos_peso):
+                tarifas_ejemplo.append({
+                    'categoria': categoria,
+                    'peso_minimo': rango['min'],
+                    'peso_maximo': rango['max'],
+                    'precio_por_kg': precios[i]['precio_kg'],
+                    'cargo_base': precios[i]['cargo_base'],
+                    'activa': True
+                })
         
         count_creadas = 0
         count_existentes = 0
@@ -199,7 +119,7 @@ class Command(BaseCommand):
                 count_creadas += 1
                 self.stdout.write(
                     self.style.SUCCESS(
-                        f"✓ Creada: {tarifa_data['categoria']} "
+                        f"[OK] Creada: {tarifa_data['categoria']} "
                         f"({tarifa_data['peso_minimo']}-{tarifa_data['peso_maximo']}kg) "
                         f"- ${tarifa_data['precio_por_kg']}/kg + ${tarifa_data['cargo_base']} base"
                     )

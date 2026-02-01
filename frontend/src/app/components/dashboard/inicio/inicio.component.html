@@ -7,23 +7,6 @@
   </div>
 
   <div class="dashboard-content" *ngIf="!loading">
-    <header class="dashboard-header">
-      <div class="header-top">
-        <div>
-          <h1 class="dashboard-title">
-            <i class="fas" [ngClass]="isComprador ? 'fa-user-circle' : 'fa-chart-pie'"></i>
-            {{ isComprador ? 'Mi Panel' : 'Panel de control' }}
-          </h1>
-          <p class="dashboard-subtitle">
-            {{ isComprador ? 'Resumen de tus envíos y estadísticas' : 'Métricas y actividad reciente · Auto-actualización cada 60 s' }}
-          </p>
-        </div>
-        <button type="button" class="btn-actualizar" (click)="actualizar()" title="Actualizar ahora">
-          <i class="fas fa-sync-alt"></i>
-          Actualizar
-        </button>
-      </div>
-    </header>
     <div *ngIf="error" class="alert-error">
       <i class="fas fa-exclamation-circle"></i>
       {{ error }}
@@ -83,7 +66,7 @@
             <i class="fas fa-chart-line"></i>
             Cupo Anual
           </h2>
-          <span class="cupo-year">{{ dashboardUsuario.anio || new Date().getFullYear() }}</span>
+          <span class="cupo-year">{{ dashboardUsuario.anio || getCurrentYear() }}</span>
         </div>
         <div class="cupo-content">
           <div class="cupo-progress">
@@ -196,8 +179,25 @@
             </button>
           </div>
         </div>
-        <div class="chart-wrapper">
-          <canvas #chartPastel></canvas>
+        <div class="chart-area">
+          <div class="chart-year-row" *ngIf="tipoGraficoSeleccionado === 'envios_mes'">
+            <div class="chart-year-selector">
+              <span class="chart-year-label">Año:</span>
+              <div class="chart-year-btns">
+                <button
+                  *ngFor="let a of aniosDisponibles"
+                  type="button"
+                  class="chart-year-btn"
+                  [class.active]="anioGraficoEnviosMes === a"
+                  (click)="cambiarAnioGraficoEnviosMes(a)">
+                  {{ a }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas #chartPastel></canvas>
+          </div>
         </div>
       </div>
 
@@ -217,7 +217,7 @@
           <div
             *ngFor="let envio of stats.enviosRecientes"
             class="activity-item"
-            (click)="abrirDetalle({ _tipo: 'envio', _fecha: new Date(envio.fecha_actualizacion || envio.fecha_emision || envio.fecha_creacion).getTime(), _titulo: 'Envío ' + (envio.hawb || '#' + envio.id), _subtitulo: estadoEtiqueta(envio.estado) + ' · ' + formatearFecha(envio.fecha_actualizacion || envio.fecha_emision || envio.fecha_creacion), _icono: 'fa-truck', _statusClass: getStatusClass(envio.estado), envio: envio })">
+            (click)="abrirDetalle(prepararActividadEnvio(envio))">
             <div class="activity-icon" [ngClass]="'status-' + getStatusClass(envio.estado)">
               <i class="fas fa-truck"></i>
             </div>

@@ -3,7 +3,7 @@
   <div class="encabezado">
     <h1 class="titulo-principal">
       <i class="fas fa-file-excel"></i>
-      Importación de Envíos desde Excel
+      Importación de envíos
     </h1>
     <p class="subtitulo">Importe datos masivos de envíos desde archivos Excel con validación y limpieza automática</p>
   </div>
@@ -77,14 +77,14 @@
       </div>
 
       <div *ngIf="previewDatos" class="preview-info">
-        <h4>Vista Previa de Datos</h4>
+        <h4>Vista previa de datos</h4>
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-label">Total de Filas</div>
+            <div class="stat-label">Total de filas</div>
             <div class="stat-value">{{ previewDatos.total_filas }}</div>
           </div>
           <div class="stat-card">
-            <div class="stat-label">Columnas</div>
+            <div class="stat-label">Total de columnas</div>
             <div class="stat-value">{{ previewDatos.columnas.length }}</div>
           </div>
         </div>
@@ -129,7 +129,7 @@
 
       <div class="acciones">
         <button class="btn btn-secondary" (click)="descargarPlantilla()">
-          Descargar plantilla de ejemplo
+          Descargar plantilla
         </button>
         <button 
           class="btn btn-primary" 
@@ -296,11 +296,11 @@
       <!-- Estadísticas de validación -->
       <div *ngIf="importacionActual" class="stats-grid">
         <div class="stat-card stat-success">
-          <div class="stat-label">Registros Válidos</div>
+          <div class="stat-label">Registros válidos</div>
           <div class="stat-value">{{ importacionActual.registros_validos }}</div>
         </div>
         <div class="stat-card stat-error">
-          <div class="stat-label">Registros con Errores</div>
+          <div class="stat-label">Registros con errores</div>
           <div class="stat-value">{{ importacionActual.registros_errores }}</div>
         </div>
         <div class="stat-card stat-warning">
@@ -308,7 +308,7 @@
           <div class="stat-value">{{ importacionActual.registros_duplicados }}</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Total Registros</div>
+          <div class="stat-label">Total registros</div>
           <div class="stat-value">{{ importacionActual.total_registros }}</div>
         </div>
       </div>
@@ -327,13 +327,13 @@
           </div>
         </div>
         <button class="btn btn-secondary" (click)="descargarReporteErrores()">
-          📥 Descargar Reporte Completo de Errores
-        </button>
+          📥 Descargar reporte completo de errores
+        </button> 
       </div>
 
       <!-- Selección de registros -->
       <div class="seleccion-container">
-        <h4>Seleccionar Registros a Importar</h4>
+        <h4>Seleccionar registros a importar</h4>
         <p class="info-text">
           Edite directamente los datos de producto antes de importarlos. Los cambios se aplicarán solo a los registros seleccionados.
         </p>
@@ -556,10 +556,10 @@
 
       <div class="acciones">
         <button class="btn btn-primary" (click)="reiniciar()">
-          🔄 Importar Otro Archivo
+          🔄 Cargar otro archivo
         </button>
         <button class="btn btn-secondary" routerLink="/inicio">
-          🏠 Volver al Inicio
+          🏠 Inicio
         </button>
       </div>
     </div>

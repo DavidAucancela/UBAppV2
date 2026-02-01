@@ -4,6 +4,7 @@ Expande consultas con sinónimos, contexto y términos relacionados
 """
 from typing import Dict, List, Set, Tuple
 import re
+import unicodedata
 from datetime import datetime, timedelta
 from django.utils import timezone
 
@@ -172,8 +173,11 @@ class QueryExpander:
         if info_cantidad:
             sinonimos.update(info_cantidad['sinonimos'])
             contexto.append(info_cantidad['contexto'])
-            # Agregar filtro de cantidad mínima de productos
-            if info_cantidad.get('cantidad_minima'):
+            # Agregar filtro: cantidad_lineas_minima = número de líneas de producto (más preciso)
+            # cantidad_productos_minima = total de ítems (cantidad_total)
+            if info_cantidad.get('cantidad_lineas_minima'):
+                filtros_sugeridos['cantidad_lineas_minima'] = info_cantidad['cantidad_lineas_minima']
+            elif info_cantidad.get('cantidad_minima'):
                 filtros_sugeridos['cantidad_productos_minima'] = info_cantidad['cantidad_minima']
         
         # 8. Detectar nombres propios (compradores)
@@ -291,9 +295,10 @@ class QueryExpander:
         
         # Buscar patrones de valor numérico
         # "valor mayor a $100", "más de 200 dólares", etc.
+        # Excluir "más de X productos" (eso es cantidad, no valor) con lookahead negativo
         patrones_valor = [
             r'valor\s+(?:mayor|superior|mas|más)\s+(?:a|de|que)\s+\$?(\d+(?:\.\d+)?)',
-            r'(?:mayor|superior|mas|más)\s+(?:a|de|que)\s+\$?(\d+(?:\.\d+)?)',
+            r'(?:mayor|superior|mas|más)\s+(?:a|de|que)\s+\$?(\d+(?:\.\d+)?)(?!\s*producto)(?!\s*art[ií]culo)(?!\s*[ií]tem)',
             r'\$(\d+(?:\.\d+)?)',
         ]
         
@@ -349,9 +354,20 @@ class QueryExpander:
         
         return productos_encontrados
     
+    # Mapeo de nombres de meses en español
+    MESES_ES = {
+        'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5, 'junio': 6,
+        'julio': 7, 'agosto': 8, 'septiembre': 9, 'octubre': 10, 'noviembre': 11, 'diciembre': 12,
+        'ene': 1, 'feb': 2, 'mar': 3, 'abr': 4, 'jun': 6, 'jul': 7, 'ago': 8,
+        'sep': 9, 'oct': 10, 'nov': 11, 'dic': 12
+    }
+    
     @staticmethod
     def _detectar_tiempo(texto: str) -> Dict:
-        """Detecta referencias temporales y calcula fechas"""
+        """Detecta referencias temporales y calcula fechas.
+        IMPORTANTE: Los filtros son ESTRICTOS - si no hay envíos en el rango,
+        el resultado debe estar vacío (se aplican en el queryset inicial).
+        """
         sinonimos = set()
         contexto = ""
         fecha_desde = None
@@ -359,14 +375,105 @@ class QueryExpander:
         
         hoy = timezone.now().date()
         
-        # Detectar "este mes"
-        if any(term in texto for term in ['este mes', 'mes actual', 'mes en curso']):
+        # 1. Detectar "hoy" - prioridad máxima para consultas de un solo día
+        if re.search(r'\bhoy\b', texto, re.IGNORECASE):
+            fecha_desde = hoy.isoformat()
+            fecha_hasta = hoy.isoformat()
+            sinonimos.update(QueryExpander.SINONIMOS_TIEMPO['hoy'])
+            contexto = "hoy (filtro estricto de fecha)"
+            return {
+                'sinonimos': sinonimos,
+                'contexto': contexto,
+                'fecha_desde': fecha_desde,
+                'fecha_hasta': fecha_hasta,
+                'es_fecha_exacta': True  # Indica filtro estricto
+            }
+        
+        # 2. Detectar "ayer"
+        if re.search(r'\bayer\b', texto, re.IGNORECASE):
+            ayer = hoy - timedelta(days=1)
+            fecha_desde = ayer.isoformat()
+            fecha_hasta = ayer.isoformat()
+            sinonimos.update(QueryExpander.SINONIMOS_TIEMPO['ayer'])
+            contexto = "ayer"
+            return {
+                'sinonimos': sinonimos,
+                'contexto': contexto,
+                'fecha_desde': fecha_desde,
+                'fecha_hasta': fecha_hasta,
+                'es_fecha_exacta': True
+            }
+        
+        # 3. Detectar mes específico + año: "enero 2024", "marzo del 2023", "en febrero 2025"
+        patron_mes_anio = r'(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre|ene|feb|mar|abr|jun|jul|ago|sep|oct|nov|dic)\s+(?:del?\s+)?(\d{4})'
+        match_mes_anio = re.search(patron_mes_anio, texto, re.IGNORECASE)
+        if match_mes_anio:
+            mes_nombre = match_mes_anio.group(1).lower()
+            anio = int(match_mes_anio.group(2))
+            mes_num = QueryExpander.MESES_ES.get(mes_nombre)
+            if mes_num:
+                from calendar import monthrange
+                _, ultimo_dia = monthrange(anio, mes_num)
+                fecha_desde = f"{anio}-{mes_num:02d}-01"
+                fecha_hasta = f"{anio}-{mes_num:02d}-{ultimo_dia}"
+                contexto = f"{mes_nombre} {anio}"
+                return {
+                    'sinonimos': sinonimos,
+                    'contexto': contexto,
+                    'fecha_desde': fecha_desde,
+                    'fecha_hasta': fecha_hasta,
+                    'es_fecha_exacta': True
+                }
+        
+        # 3b. Detectar mes específico sin año: "enero", "en marzo", "mes de febrero" -> año actual
+        patron_mes_solo = r'(?:mes\s+de\s+|en\s+)?(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre|ene|feb|mar|abr|jun|jul|ago|sep|oct|nov|dic)\b'
+        match_mes_solo = re.search(patron_mes_solo, texto, re.IGNORECASE)
+        # Solo si no hay año explícito en el texto (evitar doble match)
+        if match_mes_solo and not re.search(r'\d{4}', texto):
+            mes_nombre = match_mes_solo.group(1).lower()
+            mes_num = QueryExpander.MESES_ES.get(mes_nombre)
+            if mes_num:
+                from calendar import monthrange
+                anio = hoy.year
+                _, ultimo_dia = monthrange(anio, mes_num)
+                fecha_desde = f"{anio}-{mes_num:02d}-01"
+                fecha_hasta = f"{anio}-{mes_num:02d}-{ultimo_dia}"
+                contexto = f"{mes_nombre} {anio}"
+                return {
+                    'sinonimos': sinonimos,
+                    'contexto': contexto,
+                    'fecha_desde': fecha_desde,
+                    'fecha_hasta': fecha_hasta,
+                    'es_fecha_exacta': True
+                }
+        
+        # 4. Detectar año específico: "2024", "del 2023", "envíos 2024", "año 2024"
+        # Solo años 2000-2099 para evitar falsos positivos (códigos, etc.)
+        patron_anio = r'\b(20\d{2})\b'
+        match_anio = re.search(patron_anio, texto)
+        if match_anio:
+            anio = int(match_anio.group(1))
+            # Validar año razonable (2000-2100)
+            if 2000 <= anio <= 2100:
+                fecha_desde = f"{anio}-01-01"
+                fecha_hasta = f"{anio}-12-31"
+                contexto = f"año {anio}"
+                return {
+                    'sinonimos': sinonimos,
+                    'contexto': contexto,
+                    'fecha_desde': fecha_desde,
+                    'fecha_hasta': fecha_hasta,
+                    'es_fecha_exacta': True
+                }
+        
+        # 5. Detectar "este mes" (sin año específico)
+        if any(term in texto for term in ['este mes', 'mes actual', 'mes en curso']) and not match_mes_anio:
             fecha_desde = hoy.replace(day=1).isoformat()
             fecha_hasta = hoy.isoformat()
             sinonimos.update(QueryExpander.SINONIMOS_TIEMPO['este mes'])
             contexto = "este mes"
         
-        # Detectar "esta semana"
+        # 6. Detectar "esta semana"
         elif any(term in texto for term in ['esta semana', 'semana actual']):
             inicio_semana = hoy - timedelta(days=hoy.weekday())
             fecha_desde = inicio_semana.isoformat()
@@ -374,33 +481,26 @@ class QueryExpander:
             sinonimos.update(QueryExpander.SINONIMOS_TIEMPO['esta semana'])
             contexto = "esta semana"
         
-        # Detectar "última semana" / "semana pasada"
+        # 7. Detectar "última semana" / "semana pasada"
         elif any(term in texto for term in ['última semana', 'semana pasada', '7 días']):
             fecha_desde = (hoy - timedelta(days=7)).isoformat()
             fecha_hasta = hoy.isoformat()
             sinonimos.update(QueryExpander.SINONIMOS_TIEMPO['última semana'])
             contexto = "última semana"
         
-        # Detectar "último mes"
+        # 8. Detectar "último mes"
         elif any(term in texto for term in ['último mes', 'mes pasado', '30 días']):
             fecha_desde = (hoy - timedelta(days=30)).isoformat()
             fecha_hasta = hoy.isoformat()
             sinonimos.update(QueryExpander.SINONIMOS_TIEMPO['último mes'])
             contexto = "último mes"
         
-        # Detectar "reciente"
+        # 9. Detectar "reciente"
         elif any(term in texto for term in ['reciente', 'recientemente', 'hace poco']):
             fecha_desde = (hoy - timedelta(days=14)).isoformat()
             fecha_hasta = hoy.isoformat()
             sinonimos.update(QueryExpander.SINONIMOS_TIEMPO['reciente'])
             contexto = "reciente (últimos 14 días)"
-        
-        # Detectar "hoy"
-        elif 'hoy' in texto:
-            fecha_desde = hoy.isoformat()
-            fecha_hasta = hoy.isoformat()
-            sinonimos.update(QueryExpander.SINONIMOS_TIEMPO['hoy'])
-            contexto = "hoy"
         
         if sinonimos or contexto:
             return {
@@ -413,37 +513,60 @@ class QueryExpander:
     
     @staticmethod
     def _detectar_cantidad(texto: str) -> Dict:
-        """Detecta referencias a cantidad de productos y extrae valores numéricos"""
+        """Detecta referencias a cantidad de productos y extrae valores numéricos.
+        'Más de X productos' = X+1 líneas de producto distintas (Count de Producto).
+        """
         sinonimos = set()
         contexto = ""
         cantidad_minima = None
+        cantidad_lineas_minima = None  # Número de líneas/tipos de producto distintos
         
-        # Detectar "más de un producto", "varios productos", etc.
-        if any(term in texto for term in ['más de un', 'varios', 'múltiples', 'más de 1', 'mismo paquete']):
-            sinonimos.update(QueryExpander.SINONIMOS_CANTIDAD['varios'])
-            contexto = "múltiples productos en el paquete"
-            cantidad_minima = 2  # Al menos 2 productos
-        elif any(term in texto for term in ['muchos', 'numerosos', 'abundantes']):
-            sinonimos.update(QueryExpander.SINONIMOS_CANTIDAD['muchos'])
-            contexto = "muchos productos"
-            cantidad_minima = 5  # Al menos 5 productos
-        elif any(term in texto for term in ['pocos', 'escasos']):
-            sinonimos.update(QueryExpander.SINONIMOS_CANTIDAD['pocos'])
-            contexto = "pocos productos"
-            # No aplicar filtro para "pocos" ya que es ambiguo
+        # Normalizar Unicode para manejar tildes (á vs a + combining accent)
+        texto_norm = unicodedata.normalize('NFKC', texto.lower()) if texto else ""
         
-        # Buscar patrones numéricos específicos: "más de 3 productos"
-        patron_cantidad = r'más\s+de\s+(\d+)\s+producto'
-        match = re.search(patron_cantidad, texto)
-        if match:
-            cantidad = int(match.group(1))
-            cantidad_minima = cantidad + 1
-            contexto = f"más de {cantidad} productos"
+        # Buscar patrones numéricos específicos PRIMERO (prioridad): "más de 3 productos", "con más de 3 productos"
+        # Acepta más/mas (con/sin tilde), producto/productos, artículos, ítems
+        patrones_cantidad = [
+            r'm[áa]s\s+de\s+(\d+)\s+producto[s]?',  # más/mas de 3 productos
+            r'con\s+m[áa]s\s+de\s+(\d+)\s+producto[s]?',
+            r'm[áa]s\s+de\s+(\d+)\s+art[ií]culo[s]?',
+            r'm[áa]s\s+de\s+(\d+)\s+[ií]tem[s]?',
+            r'(\d+)\s*\+\s+producto[s]?',  # 3+ productos
+            r'al\s+menos\s+(\d+)\s+producto[s]?',
+            r'con\s+(\d+)\s+o\s+m[áa]s\s+producto[s]?',
+        ]
+        for patron in patrones_cantidad:
+            match = re.search(patron, texto_norm, re.IGNORECASE)
+            if match:
+                cantidad = int(match.group(1))
+                cantidad_lineas_minima = cantidad + 1  # "más de 3" = >= 4 líneas
+                cantidad_minima = cantidad_lineas_minima  # cantidad_total también (items totales)
+                contexto = f"más de {cantidad} productos (filtro estricto)"
+                break
+        
+        # Si no hay match numérico, detectar términos generales
+        if cantidad_lineas_minima is None:
+            if any(term in texto_norm for term in ['más de un', 'varios', 'múltiples', 'más de 1', 'mismo paquete', 'mas de un', 'mas de 1']):
+                sinonimos.update(QueryExpander.SINONIMOS_CANTIDAD['varios'])
+                contexto = "múltiples productos en el paquete"
+                cantidad_minima = 2
+                cantidad_lineas_minima = 2
+            elif any(term in texto_norm for term in ['muchos', 'numerosos', 'abundantes']):
+                sinonimos.update(QueryExpander.SINONIMOS_CANTIDAD['muchos'])
+                contexto = "muchos productos"
+                cantidad_minima = 5
+                cantidad_lineas_minima = 5
+            elif any(term in texto_norm for term in ['pocos', 'escasos']):
+                sinonimos.update(QueryExpander.SINONIMOS_CANTIDAD['pocos'])
+                contexto = "pocos productos"
+                # No aplicar filtro para "pocos" ya que es ambiguo
         
         if sinonimos or contexto:
             resultado = {'sinonimos': sinonimos, 'contexto': contexto}
             if cantidad_minima is not None:
                 resultado['cantidad_minima'] = cantidad_minima
+            if cantidad_lineas_minima is not None:
+                resultado['cantidad_lineas_minima'] = cantidad_lineas_minima
             return resultado
         return None
     

@@ -3,7 +3,7 @@
   <div class="encabezado">
     <h1 class="titulo-principal">
       <i class="fas fa-box"></i>
-      Gestión de envíos
+      Envíos
     </h1>
     <p class="subtitulo">Detalle de los envíos del sistema</p>
     <div class="encabezado-acciones">
@@ -218,7 +218,7 @@
               <label class="checkbox-header">
                 <input 
                   type="checkbox" 
-                  [checked]="paginatedEnvios.length > 0 && paginatedEnvios.every(e => isSelected(e))"
+                  [checked]="areAllSelected()"
                   (change)="selectAllOnPage()"
                 >
                 <span class="checkbox-label">Seleccionar</span>
@@ -530,7 +530,7 @@
               (click)="addProducto()"
             >
               <i class="fas fa-plus"></i>
-              Agregar Producto
+              Agregar producto
             </button>
           </div>
 
@@ -558,7 +558,7 @@
                 <div class="form-group" style="flex: 1;">
                   <label class="form-label">
                     <i class="fas fa-search"></i>
-                    Buscar Producto Existente
+                    Buscar producto existente
                   </label>
                   <select 
                     formControlName="productoExistenteId"
@@ -611,12 +611,12 @@
                     Peso (kg) <span class="required">*</span>
                   </label>
                   <input 
-                    type="number"
+                    type="text"
                     formControlName="peso"
                     class="form-control"
-                    min="0.01"
-                    step="0.01"
-                    placeholder="0.00"
+                    placeholder="0.00 o 0,00"
+                    (blur)="normalizarInputDecimal($event, i, 'peso')"
+                    (input)="onDecimalInput($event)"
                   >
                 </div>
 
@@ -635,15 +635,15 @@
 
                 <div class="form-group">
                   <label class="form-label">
-                    Valor Unitario ($) <span class="required">*</span>
+                    Valor unitario ($) <span class="required">*</span>
                   </label>
                   <input 
-                    type="number"
+                    type="text"
                     formControlName="valor"
                     class="form-control"
-                    min="0"
-                    step="0.01"
-                    placeholder="0.00"
+                    placeholder="0.00 o 0,00"
+                    (blur)="normalizarInputDecimal($event, i, 'valor')"
+                    (input)="onDecimalInput($event)"
                   >
                 </div>
               </div>
@@ -656,21 +656,21 @@
               <div class="total-item">
                 <span class="total-label">
                   <i class="fas fa-boxes"></i>
-                  Total Productos:
+                  Total productos:
                 </span>
                 <span class="total-value">{{ totalCantidad }}</span>
               </div>
               <div class="total-item">
                 <span class="total-label">
                   <i class="fas fa-weight-hanging"></i>
-                  Peso Total:
+                  Peso total:
                 </span>
                 <span class="total-value">{{ totalPeso | number:'1.2-2' }} kg</span>
               </div>
               <div class="total-item">
                 <span class="total-label">
                   <i class="fas fa-tag"></i>
-                  Valor Total Productos:
+                  Valor total productos:
                 </span>
                 <span class="total-value">{{ totalValor | currency:'USD':'symbol':'1.2-2' }}</span>
               </div>
@@ -678,7 +678,7 @@
                 <div class="costo-servicio-header">
                   <span class="total-label">
                     <i class="fas fa-shipping-fast"></i>
-                    Costo de Servicio:
+                    Costo de servicio:
                   </span>
                   <span class="total-value">
                     <span *ngIf="calculandoCosto" class="loading-inline">
@@ -692,7 +692,7 @@
                 <div class="costos-detalle" *ngIf="!calculandoCosto && detallesCostos.length > 0">
                   <div class="costos-detalle-title">
                     <i class="fas fa-list-ul"></i>
-                    Desglose por categoría:
+                    Desglose por categoría de producto:
                   </div>
                   <div class="costo-detalle-item" *ngFor="let detalle of detallesCostos">
                     <div class="costo-detalle-categoria">
@@ -737,7 +737,7 @@
             <div class="total-final" *ngIf="costoServicioCalculado > 0">
               <span class="total-label">
                 <i class="fas fa-calculator"></i>
-                Total General (Productos + Envío):
+                Total general (productos + envío):
               </span>
               <span class="total-value-final">{{ (totalValor + costoServicioCalculado) | currency:'USD':'symbol':'1.2-2' }}</span>
             </div>
@@ -767,7 +767,7 @@
         >
           <i class="fas fa-spinner fa-spin" *ngIf="submitting"></i>
           <i class="fas fa-save" *ngIf="!submitting"></i>
-          {{ submitting ? 'Guardando...' : (editingEnvio ? 'Actualizar' : 'Crear') }}
+          {{ submitting ? 'Guardando...' : (editingEnvio ? 'Actualizar envío' : 'Crear') }}
         </button>
       </div>
     </form>
@@ -780,7 +780,7 @@
     <div class="modal-header">
       <h3>
         <i class="fas fa-file-alt"></i>
-        Detalle del Envío
+        Detalle del envío
       </h3>
       <button class="btn-close" (click)="closeDetailModal()">
         <i class="fas fa-times"></i>
@@ -792,7 +792,7 @@
       <div class="detail-section">
         <h4 class="section-title">
           <i class="fas fa-info-circle"></i>
-          Información General
+          Información general
         </h4>
         <div class="detail-grid">
           <div class="detail-item">
@@ -873,7 +873,7 @@
                 </div>
                 <div class="stat" *ngIf="producto.costo_envio">
                   <i class="fas fa-shipping-fast"></i>
-                  <span>Costo Envío: <strong>{{ producto.costo_envio | currency:'USD':'symbol':'1.2-2' }}</strong></span>
+                  <span>Costo envío: <strong>{{ producto.costo_envio | currency:'USD':'symbol':'1.2-2' }}</strong></span>
                 </div>
               </div>
             </div>

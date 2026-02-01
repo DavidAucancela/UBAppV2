@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 import json
 
 Usuario = get_user_model()
@@ -103,9 +103,9 @@ class Tarifa(models.Model):
 class Envio(models.Model):
     """Modelo para gestionar envíos"""
     hawb = models.CharField(max_length=50, unique=True, verbose_name="HAWB")
-    peso_total = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name="Peso Total")
+    peso_total = models.DecimalField(max_digits=10, decimal_places=4, default=0, verbose_name="Peso Total")
     cantidad_total = models.IntegerField(default=0, verbose_name="Cantidad Total")
-    valor_total = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Valor Total")
+    valor_total = models.DecimalField(max_digits=12, decimal_places=4, default=0, verbose_name="Valor Total")
     costo_servicio = models.DecimalField(
         max_digits=12, 
         decimal_places=4, 
@@ -162,11 +162,17 @@ class Envio(models.Model):
         """Calcula los totales basados en los productos"""
         productos = self.productos.all()
         # Peso total = suma de (peso * cantidad) de cada producto
-        self.peso_total = sum(float(p.peso) * p.cantidad for p in productos)
+        # Usar Decimal para evitar problemas de precisión y normalizar a 2 decimales
+        peso_total_calculado = sum(Decimal(str(p.peso)) * Decimal(str(p.cantidad)) for p in productos)
+        self.peso_total = peso_total_calculado.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        
         # Cantidad total = suma de cantidades
         self.cantidad_total = sum(p.cantidad for p in productos)
+        
         # Valor total = suma de (valor * cantidad) de cada producto
-        self.valor_total = sum(float(p.valor) * p.cantidad for p in productos)
+        # Usar Decimal para evitar problemas de precisión y normalizar a 2 decimales
+        valor_total_calculado = sum(Decimal(str(p.valor)) * Decimal(str(p.cantidad)) for p in productos)
+        self.valor_total = valor_total_calculado.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
         
         # Calcular costo del servicio basado en tarifas
         # El método calcular_costo_servicio ya retorna un Decimal redondeado a 4 decimales
@@ -225,6 +231,14 @@ class Envio(models.Model):
         else:
             return Decimal(str(costo_total)).quantize(Decimal('0.0001'))
     
+    def save(self, *args, **kwargs):
+        """Normalizar peso_total y valor_total a 2 decimales antes de guardar"""
+        if self.peso_total is not None:
+            self.peso_total = self.peso_total.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        if self.valor_total is not None:
+            self.valor_total = self.valor_total.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        super().save(*args, **kwargs)
+    
     def clean(self):
         """Validaciones adicionales del modelo"""
         from django.core.exceptions import ValidationError
@@ -273,9 +287,9 @@ class Envio(models.Model):
 class Producto(models.Model):
     """Modelo para productos en envíos"""
     descripcion = models.CharField(max_length=200, verbose_name="Descripción")
-    peso = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Peso")
+    peso = models.DecimalField(max_digits=8, decimal_places=4, verbose_name="Peso")
     cantidad = models.IntegerField(verbose_name="Cantidad")
-    valor = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Valor")
+    valor = models.DecimalField(max_digits=10, decimal_places=4, verbose_name="Valor")
     costo_envio = models.DecimalField(
         max_digits=10, 
         decimal_places=2, 
@@ -322,6 +336,14 @@ class Producto(models.Model):
     def __str__(self):
         return f"{self.descripcion} - {self.envio.hawb}"
 
+    def save(self, *args, **kwargs):
+        """Normalizar peso y valor a 2 decimales antes de guardar"""
+        if self.peso is not None:
+            self.peso = self.peso.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        if self.valor is not None:
+            self.valor = self.valor.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        super().save(*args, **kwargs)
+    
     def clean(self):
         """Validaciones adicionales del modelo"""
         from django.core.exceptions import ValidationError

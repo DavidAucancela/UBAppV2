@@ -207,6 +207,49 @@ export class EnviosListComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Normaliza el valor de un input decimal cuando el usuario sale del campo
+   * Convierte comas a puntos y actualiza el valor del formulario
+   */
+  normalizarInputDecimal(event: Event, index: number, campo: string): void {
+    const input = event.target as HTMLInputElement;
+    const valor = input.value;
+    if (valor) {
+      const normalizado = this.normalizarDecimal(valor);
+      const control = this.productos.at(index)?.get(campo);
+      if (control) {
+        const valorNumerico = parseFloat(normalizado);
+        if (!isNaN(valorNumerico)) {
+          // Redondear a 2 decimales para evitar problemas de precisión
+          const valorRedondeado = this.redondearDecimal(valorNumerico, 2);
+          control.setValue(valorRedondeado, { emitEvent: true });
+          input.value = valorRedondeado.toFixed(2);
+        } else {
+          control.setValue(0, { emitEvent: true });
+          input.value = '0.00';
+        }
+      }
+    }
+  }
+
+  /**
+   * Maneja el input en tiempo real para permitir comas y puntos
+   */
+  onDecimalInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let valor = input.value;
+    // Permitir solo números, comas y puntos
+    valor = valor.replace(/[^0-9,.]/g, '');
+    // Asegurar que solo haya un separador decimal (coma o punto)
+    const separadores = valor.match(/[,.]/g);
+    if (separadores && separadores.length > 1) {
+      // Si hay múltiples separadores, mantener solo el primero
+      const primerSeparador = valor.indexOf(separadores[0]);
+      valor = valor.substring(0, primerSeparador + 1) + valor.substring(primerSeparador + 1).replace(/[,.]/g, '');
+    }
+    input.value = valor;
+  }
+
+  /**
    * Redondea un número a un número específico de decimales
    * Usa un método más preciso para evitar problemas de precisión de punto flotante
    * @param valor El valor a redondear
@@ -222,8 +265,8 @@ export class EnviosListComponent implements OnInit, OnDestroy {
     // Redondear y dividir, luego usar toFixed y parseFloat para asegurar exactamente 2 decimales
     const redondeado = Math.round((valor + Number.EPSILON) * factor) / factor;
     // Convertir a string con exactamente el número de decimales y luego a número
-    // Esto asegura que cuando se serialice a JSON tenga exactamente 2 decimales
-    return parseFloat(redondeado.toFixed(decimales));
+    // Usar Number() en lugar de parseFloat() para asegurar que se serialice correctamente a JSON
+    return Number(redondeado.toFixed(decimales));
   }
 
   calcularCostoServicio(): void {
@@ -619,17 +662,51 @@ export class EnviosListComponent implements OnInit, OnDestroy {
         return;
       }
 
+      // Normalizar todos los valores de peso y valor antes de procesarlos
+      // Esto asegura que valores con comas se conviertan correctamente y tengan exactamente 2 decimales
+      this.productos.controls.forEach((control, index) => {
+        const pesoControl = control.get('peso');
+        const valorControl = control.get('valor');
+        
+        if (pesoControl) {
+          const pesoNormalizado = this.normalizarDecimal(pesoControl.value);
+          const pesoNumerico = parseFloat(pesoNormalizado);
+          if (!isNaN(pesoNumerico)) {
+            const pesoRedondeado = this.redondearDecimal(pesoNumerico, 2);
+            pesoControl.setValue(pesoRedondeado, { emitEvent: false });
+          }
+        }
+        
+        if (valorControl) {
+          const valorNormalizado = this.normalizarDecimal(valorControl.value);
+          const valorNumerico = parseFloat(valorNormalizado);
+          if (!isNaN(valorNumerico)) {
+            const valorRedondeado = this.redondearDecimal(valorNumerico, 2);
+            valorControl.setValue(valorRedondeado, { emitEvent: false });
+          }
+        }
+      });
+
       // Validar que haya al menos un producto válido
       const productosValidos = this.envioForm.value.productos
         .map((p: any) => {
-          const pesoRaw = parseFloat(this.normalizarDecimal(p.peso)) || 0;
-          const valorRaw = parseFloat(this.normalizarDecimal(p.valor)) || 0;
+          // Asegurar que los valores estén normalizados (convertir a número si son string)
+          const pesoRaw = typeof p.peso === 'string' 
+            ? parseFloat(this.normalizarDecimal(p.peso)) 
+            : (p.peso || 0);
+          const valorRaw = typeof p.valor === 'string'
+            ? parseFloat(this.normalizarDecimal(p.valor))
+            : (p.valor || 0);
+          
+          // Asegurar que peso y valor tengan exactamente 2 decimales
+          const pesoRedondeado = this.redondearDecimal(pesoRaw, 2);
+          const valorRedondeado = this.redondearDecimal(valorRaw, 2);
           return {
             descripcion: p.descripcion?.trim(),
             categoria: p.categoria,
-            peso: this.redondearDecimal(pesoRaw, 2),
+            peso: pesoRedondeado,
             cantidad: parseInt(p.cantidad) || 1,
-            valor: this.redondearDecimal(valorRaw, 2)
+            valor: valorRedondeado
           };
         })
         .filter((p: any) => p.descripcion && p.categoria && p.peso > 0 && p.cantidad > 0);
@@ -655,12 +732,19 @@ export class EnviosListComponent implements OnInit, OnDestroy {
 
       this.submitting = true;
       
+      // El backend ahora permite hasta 4 decimales y normaliza a 2 al guardar
+      const productosFinales = productosValidos.map((p: any) => ({
+        ...p,
+        peso: parseFloat(p.peso) || 0,
+        valor: parseFloat(p.valor) || 0
+      }));
+      
       const formData: EnvioCreate = {
         hawb: hawb,
         comprador: compradorId,
         estado: this.envioForm.value.estado || EstadosEnvio.PENDIENTE,
         observaciones: (this.envioForm.value.observaciones || '').trim(),
-        productos: productosValidos
+        productos: productosFinales
       };
 
       if (this.editingEnvio) {
@@ -876,6 +960,11 @@ export class EnviosListComponent implements OnInit, OnDestroy {
       ids.forEach(id => this.selectedIds.add(id));
     }
     this.selectedIds = new Set(this.selectedIds);
+  }
+
+  areAllSelected(): boolean {
+    if (this.paginatedEnvios.length === 0) return false;
+    return this.paginatedEnvios.every(e => this.isSelected(e));
   }
 
   clearSelection(): void {

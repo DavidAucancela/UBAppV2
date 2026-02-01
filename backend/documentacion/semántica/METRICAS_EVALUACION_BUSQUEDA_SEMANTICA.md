@@ -463,6 +463,51 @@ def calcular_ndcg_con_calificaciones(resultados, calificaciones, k=10):
 
 ---
 
+## 🔄 Proceso de Evaluación Implementado y Tabla Comparativa
+
+### Flujo para identificar la eficiencia del panel semántico
+
+1. **Definir pruebas controladas**  
+   Crear consultas de prueba con su *ground truth* (lista de IDs de envíos relevantes) en el dashboard de métricas (Pruebas Controladas Semánticas).
+
+2. **Ejecutar evaluaciones**  
+   - Desde el **frontend**: pestaña "Métricas semánticas del sistema" → ejecutar cada prueba controlada.  
+   - Desde **consola**:  
+     `python manage.py evaluar_panel_semantico --ejecutar`  
+     (ejecuta todas las pruebas activas y calcula MRR, nDCG@10, Precision@5).
+
+3. **Ver resultados**  
+   - **API**: `GET /api/metricas/metricas-semanticas/reporte-comparativo/?fecha_desde=&fecha_hasta=`  
+     Devuelve `filas` (tabla por evaluación) y `resumen` (promedios e interpretación global).  
+   - **Frontend**: pestaña "Métricas semánticas del sistema" → bloque **"Eficiencia del panel semántico"** con tabla comparativa y resumen.  
+   - **Consola**: el comando `evaluar_panel_semantico` imprime la tabla en terminal; opción `--exportar reporte.csv` guarda CSV.
+
+4. **Interpretación**  
+   - **MRR ≥ 0.7**: Bueno (el primer resultado relevante suele estar arriba).  
+   - **nDCG@10 ≥ 0.6**: Bueno (ranking de calidad).  
+   - **Precision@5 ≥ 0.5**: Bueno (varios relevantes en el top 5).  
+   El reporte asigna a cada fila y al resumen una etiqueta: *Bueno*, *Regular* o *Mejorable*.
+
+### Ejemplo de tabla comparativa de resultados
+
+| ID | Consulta                    | Fecha       | MRR   | nDCG@10 | Precision@5 | Interpretación |
+|----|-----------------------------|------------|-------|---------|-------------|----------------|
+| 1  | envíos a Quito              | 2025-01-28 | 0.833 | 0.72    | 0.60        | Bueno          |
+| 2  | celulares del mes anterior  | 2025-01-28 | 1.000 | 0.85    | 0.80        | Bueno          |
+| 3  | productos electrónicos      | 2025-01-28 | 0.250 | 0.41    | 0.20        | Mejorable      |
+| **Resumen** | **3 evaluaciones**   |            | **0.69** | **0.66** | **0.53**   | **Aceptable**  |
+
+- **Resumen**: total de evaluaciones, promedios de MRR / nDCG@10 / Precision@5 e interpretación global (Eficiente / Aceptable / Mejorable).
+
+### Ubicación en el código
+
+- **Cálculo de métricas**: `backend/apps/metricas/utils.py` (`calcular_mrr`, `calcular_ndcg_k`, `calcular_precision_k`, `interpretar_metrica`).  
+- **Reporte comparativo**: `backend/apps/metricas/repositories.py` → `MetricaSemanticaRepository.obtener_reporte_comparativo`.  
+- **API**: `GET .../metricas-semanticas/reporte-comparativo/`.  
+- **Comando**: `python manage.py evaluar_panel_semantico [--ejecutar] [--exportar archivo.csv]`.
+
+---
+
 ## 📚 Referencias
 
 1. **Manning et al. (2008)** - "Introduction to Information Retrieval"

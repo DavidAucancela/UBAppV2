@@ -485,6 +485,11 @@ export class UsuariosListComponent implements OnInit {
     this.selectedIds = new Set(this.selectedIds);
   }
 
+  areAllSelected(): boolean {
+    if (this.paginatedUsuarios.length === 0) return false;
+    return this.paginatedUsuarios.every(u => this.isSelected(u));
+  }
+
   clearSelection(): void {
     this.selectedIds.clear();
     this.selectedIds = new Set(this.selectedIds);

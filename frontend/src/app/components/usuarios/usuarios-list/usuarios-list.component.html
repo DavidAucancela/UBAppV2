@@ -197,14 +197,14 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="col-checkbox">
+          <th class="col-checkbox" title="Seleccionar todo">
             <label class="checkbox-header">
               <input 
                 type="checkbox" 
                 (change)="selectAllOnPage()"
-                [checked]="paginatedUsuarios.length > 0 && paginatedUsuarios.every(u => isSelected(u))"
+                [checked]="areAllSelected()"
+                aria-label="Seleccionar todos"
               >
-              <span class="checkbox-label">Seleccionar</span>
             </label>
           </th>
           <th>Usuario</th>
@@ -228,14 +228,7 @@
               >
             </label>
           </td>
-          <td>
-            <div class="user-info">
-              <div class="user-avatar">
-                <i class="fas fa-user"></i>
-              </div>
-              <span>{{ usuario.username }}</span>
-            </div>
-          </td>
+          <td>{{ usuario.username }}</td>
           <td>{{ usuario.nombre }}</td>
           <td>{{ usuario.correo }}</td>
           <td>{{ usuario.cedula }}</td>
@@ -461,7 +454,7 @@
     <div class="modal-header">
       <h2>
         <i class="fas" [class.fa-user-plus]="!editingUsuario" [class.fa-user-edit]="editingUsuario"></i>
-        {{ editingUsuario ? 'Editar Usuario' : 'Nuevo Usuario' }}
+        {{ editingUsuario ? 'Editar Usuario' : 'Nuevo usuario' }}
       </h2>
       <button class="btn-icon" (click)="closeModal()">
         <i class="fas fa-times"></i>

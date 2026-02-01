@@ -70,6 +70,62 @@ class MetricaSemanticaRepository(BaseRepository):
             'precision_5_promedio': queryset.aggregate(avg=Avg('precision_5'))['avg'] or 0.0,
         }
 
+    def obtener_reporte_comparativo(self, fecha_desde=None, fecha_hasta=None) -> Dict[str, Any]:
+        """
+        Obtiene reporte comparativo de eficiencia del panel semántico.
+        Incluye filas por evaluación e interpretación (MRR, NDCG@10, Precision@5).
+        """
+        from .utils import interpretar_metrica
+
+        queryset = self.filtrar_por_fecha(fecha_desde, fecha_hasta).order_by('-fecha_calculo')
+        stats = self.obtener_estadisticas(fecha_desde, fecha_hasta)
+
+        filas = []
+        for m in queryset:
+            consulta_truncada = (m.consulta[:80] + '...') if m.consulta and len(m.consulta) > 80 else (m.consulta or '')
+            filas.append({
+                'id': m.id,
+                'consulta': consulta_truncada,
+                'consulta_completa': m.consulta,
+                'fecha_calculo': m.fecha_calculo.isoformat() if m.fecha_calculo else None,
+                'mrr': round(m.mrr, 4) if m.mrr is not None else None,
+                'ndcg_10': round(m.ndcg_10, 4) if m.ndcg_10 is not None else None,
+                'precision_5': round(m.precision_5, 4) if m.precision_5 is not None else None,
+                'total_resultados': m.total_resultados,
+                'total_relevantes_encontrados': m.total_relevantes_encontrados,
+                'interpretacion_mrr': interpretar_metrica(m.mrr, 'mrr'),
+                'interpretacion_ndcg': interpretar_metrica(m.ndcg_10, 'ndcg_10'),
+                'interpretacion_precision': interpretar_metrica(m.precision_5, 'precision_5'),
+            })
+
+        # Interpretación global según promedios (media de las 3 métricas)
+        mrr_avg = stats.get('mrr_promedio') or 0.0
+        ndcg_avg = stats.get('ndcg_10_promedio') or 0.0
+        prec_avg = stats.get('precision_5_promedio') or 0.0
+        media = (mrr_avg + ndcg_avg + prec_avg) / 3.0 if stats['total_metricas'] else None
+        if media is not None:
+            if media >= 0.6:
+                interpretacion_global = {'nivel': 'bueno', 'etiqueta': 'Eficiente', 'descripcion': 'El panel semántico tiene buena eficiencia global'}
+            elif media >= 0.4:
+                interpretacion_global = {'nivel': 'regular', 'etiqueta': 'Aceptable', 'descripcion': 'Eficiencia aceptable; hay margen de mejora'}
+            else:
+                interpretacion_global = {'nivel': 'mejorable', 'etiqueta': 'Mejorable', 'descripcion': 'Revisar consultas de prueba y relevancia del ranking'}
+        else:
+            interpretacion_global = {'nivel': 'sin_dato', 'etiqueta': '-', 'descripcion': 'Sin evaluaciones en el período'}
+
+        return {
+            'filas': filas,
+            'resumen': {
+                'total_evaluaciones': stats['total_metricas'],
+                'mrr_promedio': round(mrr_avg, 4),
+                'mrr_maximo': round(stats.get('mrr_maximo') or 0.0, 4),
+                'mrr_minimo': round(stats.get('mrr_minimo') or 0.0, 4),
+                'ndcg_10_promedio': round(ndcg_avg, 4),
+                'precision_5_promedio': round(prec_avg, 4),
+                'interpretacion_global': interpretacion_global,
+            },
+        }
+
 
 class RegistroGeneracionEmbeddingRepository(BaseRepository):
     """Repositorio para RegistroGeneracionEmbedding"""

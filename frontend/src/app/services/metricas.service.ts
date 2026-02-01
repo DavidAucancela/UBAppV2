@@ -37,11 +37,13 @@ export class MetricasService {
 
   // ==================== MÉTRICAS SEMÁNTICAS ====================
 
-  getMetricasSemanticas(fechaDesde?: string, fechaHasta?: string): Observable<any[]> {
+  getMetricasSemanticas(fechaDesde?: string, fechaHasta?: string, page?: number, pageSize?: number): Observable<any> {
     let params = new HttpParams();
     if (fechaDesde) params = params.set('fecha_desde', fechaDesde);
     if (fechaHasta) params = params.set('fecha_hasta', fechaHasta);
-    return this.http.get<any[]>(`${this.apiUrl}/metricas/metricas-semanticas/`, { params });
+    if (page) params = params.set('page', page.toString());
+    if (pageSize) params = params.set('page_size', pageSize.toString());
+    return this.http.get<any>(`${this.apiUrl}/metricas/metricas-semanticas/`, { params });
   }
 
   getEstadisticasSemanticas(fechaDesde?: string, fechaHasta?: string): Observable<any> {
@@ -51,13 +53,47 @@ export class MetricasService {
     return this.http.get<any>(`${this.apiUrl}/metricas/metricas-semanticas/estadisticas/`, { params });
   }
 
+  /** Reporte comparativo de eficiencia del panel semántico (MRR, NDCG@10, Precision@5) */
+  getReporteComparativo(fechaDesde?: string, fechaHasta?: string): Observable<{
+    filas: Array<{
+      id: number;
+      consulta: string;
+      consulta_completa?: string;
+      fecha_calculo: string;
+      mrr: number | null;
+      ndcg_10: number | null;
+      precision_5: number | null;
+      total_resultados: number;
+      total_relevantes_encontrados: number;
+      interpretacion_mrr: { nivel: string; etiqueta: string; descripcion: string };
+      interpretacion_ndcg: { nivel: string; etiqueta: string; descripcion: string };
+      interpretacion_precision: { nivel: string; etiqueta: string; descripcion: string };
+    }>;
+    resumen: {
+      total_evaluaciones: number;
+      mrr_promedio: number;
+      mrr_maximo: number;
+      mrr_minimo: number;
+      ndcg_10_promedio: number;
+      precision_5_promedio: number;
+      interpretacion_global: { nivel: string; etiqueta: string; descripcion: string };
+    };
+  }> {
+    let params = new HttpParams();
+    if (fechaDesde) params = params.set('fecha_desde', fechaDesde);
+    if (fechaHasta) params = params.set('fecha_hasta', fechaHasta);
+    return this.http.get<any>(`${this.apiUrl}/metricas/metricas-semanticas/reporte-comparativo/`, { params });
+  }
+
   // ==================== REGISTROS DE GENERACIÓN DE EMBEDDINGS ====================
 
-  getRegistrosEmbedding(estado?: string, tipoProceso?: string): Observable<any[]> {
+  getRegistrosEmbedding(estado?: string, tipoProceso?: string, page?: number, pageSize?: number): Observable<any> {
     let params = new HttpParams();
     if (estado) params = params.set('estado', estado);
     if (tipoProceso) params = params.set('tipo_proceso', tipoProceso);
-    return this.http.get<any[]>(`${this.apiUrl}/metricas/registros-embedding/`, { params });
+    if (page) params = params.set('page', page.toString());
+    if (pageSize) params = params.set('page_size', pageSize.toString());
+    return this.http.get<any>(`${this.apiUrl}/metricas/registros-embedding/`, { params });
   }
 
   getEstadisticasEmbedding(): Observable<any> {

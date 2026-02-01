@@ -12,6 +12,34 @@ import { Chart, ChartConfiguration, registerables } from 'chart.js';
 
 Chart.register(...registerables);
 
+/** Plugin que dibuja el valor numérico sobre cada barra para que se vean los meses con pocos registros */
+const barDataLabelsPlugin = {
+  id: 'barDataLabels',
+  afterDatasetsDraw(chart: Chart) {
+    const opts = (chart.options?.plugins as any)?.barDataLabels;
+    if (!opts || (chart as any).config?.type !== 'bar') return;
+    const ctx = chart.ctx;
+    const meta = chart.getDatasetMeta(0);
+    if (!meta?.data?.length) return;
+    const dataset = chart.data.datasets[0];
+    const values = dataset.data as number[];
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillStyle = opts.color ?? '#374151';
+    ctx.font = `${opts.fontWeight ?? '600'} ${opts.fontSize ?? '12'}px ${opts.fontFamily ?? 'sans-serif'}`;
+    meta.data.forEach((bar: any, i: number) => {
+      const v = values[i];
+      if (v == null) return;
+      const x = bar.x;
+      const y = bar.y - 4;
+      ctx.fillText(String(v), x, y);
+    });
+    ctx.restore();
+  }
+};
+Chart.register(barDataLabelsPlugin);
+
 export type TipoGraficoPastel =
   | 'estado_envios'
   | 'compradores_ciudad'
@@ -46,7 +74,7 @@ export interface ActividadItem {
 export class InicioComponent implements OnInit, OnDestroy {
   @ViewChild('chartPastel') chartPastelRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('chartBar') chartBarRef!: ElementRef<HTMLCanvasElement>;
-  chartPastelInstance: Chart<'doughnut'> | null = null;
+  chartPastelInstance: Chart<'doughnut' | 'bar'> | null = null;
   chartBarInstance: Chart<'bar'> | null = null;
 
   loading = true;
@@ -87,6 +115,8 @@ export class InicioComponent implements OnInit, OnDestroy {
   ];
 
   tipoGraficoSeleccionado: TipoGraficoPastel = 'estado_envios';
+  aniosDisponibles = [2025, 2026];
+  anioGraficoEnviosMes = new Date().getFullYear();
   coloresPastel = [
     '#667eea', '#764ba2', '#10b981', '#f59e0b', '#3b82f6',
     '#8b5cf6', '#ec4899', '#14b8a6', '#64748b'
@@ -220,7 +250,7 @@ export class InicioComponent implements OnInit, OnDestroy {
         });
       });
       actividades.sort((a, b) => b._fecha - a._fecha);
-      this.stats.actividadReciente = actividades;
+      this.stats.actividadReciente = this.filtrarActividadSinFechasFuturas(actividades);
     } else {
       // Para admin/gerente/digitador
       this.stats.envios = {
@@ -273,8 +303,17 @@ export class InicioComponent implements OnInit, OnDestroy {
         });
       });
       actividades.sort((a, b) => b._fecha - a._fecha);
-      this.stats.actividadReciente = actividades.slice(0, 15);
+      this.stats.actividadReciente = this.filtrarActividadSinFechasFuturas(actividades).slice(0, 15);
     }
+  }
+
+  /**
+   * Excluye actividades con fecha futura (datos erróneos como 2041, 2043, 2044)
+   * para que en Últimos movimientos solo se muestren registros con fechas válidas.
+   */
+  private filtrarActividadSinFechasFuturas(items: ActividadItem[]): ActividadItem[] {
+    const ahora = Date.now();
+    return items.filter((item) => item._fecha <= ahora);
   }
 
   cargarEstadisticas(): void {
@@ -301,13 +340,14 @@ export class InicioComponent implements OnInit, OnDestroy {
     });
   }
 
-  actualizar(): void {
-    if (this.loading) return;
-    this.cargarEstadisticas();
-  }
 
   cambiarTipoPastel(tipo: TipoGraficoPastel): void {
     this.tipoGraficoSeleccionado = tipo;
+    this.actualizarGraficoPastel();
+  }
+
+  cambiarAnioGraficoEnviosMes(anio: number): void {
+    this.anioGraficoEnviosMes = anio;
     this.actualizarGraficoPastel();
   }
 
@@ -353,10 +393,16 @@ export class InicioComponent implements OnInit, OnDestroy {
       }
       case 'envios_mes': {
         const envios = this.stats.enviosTodos ?? [];
+        const anio = this.anioGraficoEnviosMes;
+        const enviosDelAnio = envios.filter((e: any) => {
+          const f = e.fecha_emision || e.fecha_creacion;
+          if (!f) return false;
+          return new Date(f).getFullYear() === anio;
+        });
         const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
         const byMonth: Record<string, number> = {};
         for (const m of meses) byMonth[m] = 0;
-        for (const e of envios) {
+        for (const e of enviosDelAnio) {
           const f = e.fecha_emision || e.fecha_creacion;
           if (f) {
             const d = new Date(f);
@@ -380,6 +426,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     const { labels, values } = this.obtenerDatosPastel();
     const hasData = values.some((v) => v > 0);
     const titulo = this.opcionesPastel.find((o) => o.id === this.tipoGraficoSeleccionado)?.label ?? '';
+    const esEnviosMes = this.tipoGraficoSeleccionado === 'envios_mes';
 
     const baseOptions: any = {
       responsive: true,
@@ -399,7 +446,7 @@ export class InicioComponent implements OnInit, OnDestroy {
         title: {
           display: true,
           text: hasData ? titulo : 'Sin datos para la vista seleccionada',
-          font: { size: 15, weight: '600' },
+          font: { size: 15, weight: 600 },
           padding: { bottom: 12 }
         },
         tooltip: {
@@ -430,12 +477,70 @@ export class InicioComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.destruirGraficoPastel();
+
+    if (esEnviosMes) {
+      const barColors = this.coloresPastel.slice(0, labels.length);
+      while (barColors.length < labels.length) {
+        barColors.push(this.coloresPastel[barColors.length % this.coloresPastel.length]);
+      }
+      const config: ChartConfiguration<'bar'> = {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Envíos',
+            data: values,
+            backgroundColor: barColors,
+            borderRadius: 6,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: { padding: { top: 24, bottom: 16, left: 16, right: 16 } },
+          animation: { duration: 500 },
+          plugins: {
+            legend: { display: false },
+            barDataLabels: true,
+            title: {
+              display: true,
+              text: titulo,
+              font: { size: 15, weight: 600 },
+              padding: { bottom: 12 }
+            },
+            tooltip: {
+              padding: 10,
+              titleFont: { size: 13 },
+              bodyFont: { size: 12 },
+              callbacks: {
+                label: (ctx) => `Envíos: ${ctx.raw}`
+              }
+            }
+          } as any,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { stepSize: 1, font: { size: 11 } },
+              grid: { color: '#f3f4f6' }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { maxRotation: 45, minRotation: 0, font: { size: 10 } }
+            }
+          }
+        }
+      };
+      this.chartPastelInstance = new Chart(this.chartPastelRef.nativeElement, config);
+      return;
+    }
+
     const bgColors = this.coloresPastel.slice(0, labels.length);
     while (bgColors.length < labels.length) {
       bgColors.push(this.coloresPastel[bgColors.length % this.coloresPastel.length]);
     }
 
-    this.destruirGraficoPastel();
     const config: ChartConfiguration<'doughnut'> = {
       type: 'doughnut',
       data: {
@@ -500,7 +605,7 @@ export class InicioComponent implements OnInit, OnDestroy {
           legend: { display: false },
           tooltip: {
             padding: 12,
-            titleFont: { size: 13, weight: '600' },
+            titleFont: { size: 13, weight: 600 },
             bodyFont: { size: 12 }
           }
         },
@@ -539,6 +644,23 @@ export class InicioComponent implements OnInit, OnDestroy {
       cancelado: 'Cancelado'
     };
     return m[estado?.toLowerCase()] ?? estado ?? '-';
+  }
+
+  prepararActividadEnvio(envio: any): ActividadItem {
+    const fecha = envio.fecha_actualizacion || envio.fecha_emision || envio.fecha_creacion;
+    return {
+      _tipo: 'envio',
+      _fecha: new Date(fecha).getTime(),
+      _titulo: 'Envío ' + (envio.hawb || '#' + envio.id),
+      _subtitulo: this.estadoEtiqueta(envio.estado) + ' · ' + this.formatearFecha(fecha),
+      _icono: 'fa-truck',
+      _statusClass: this.getStatusClass(envio.estado),
+      envio: envio
+    };
+  }
+
+  getCurrentYear(): number {
+    return new Date().getFullYear();
   }
 
   abrirDetalle(item: ActividadItem): void {

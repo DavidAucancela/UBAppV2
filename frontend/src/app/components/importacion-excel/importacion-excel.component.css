@@ -352,8 +352,11 @@
 }
 
 /* Table */
+/* Tabla encaja en pantalla sin scroll horizontal */
 .table-container {
-  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   margin: 20px 0;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -361,8 +364,10 @@
 
 .data-table {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   background: white;
+  table-layout: fixed;
 }
 
 .data-table thead {
@@ -371,17 +376,24 @@
 }
 
 .data-table th {
-  padding: 12px 15px;
+  padding: 10px 8px;
   text-align: left;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .data-table td {
-  padding: 12px 15px;
+  padding: 10px 8px;
   border-bottom: 1px solid #ecf0f1;
   color: #2c3e50;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  font-size: 0.9rem;
 }
 
 .input-table {

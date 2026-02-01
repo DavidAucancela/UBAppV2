@@ -11,6 +11,7 @@ from django.utils import timezone
 from datetime import timedelta
 
 from apps.core.base.base_service import BaseService
+from apps.core.pagination import CustomPageNumberPagination
 from .models import (
     PruebaControladaSemantica,
     MetricaSemantica,
@@ -99,6 +100,7 @@ class MetricaSemanticaViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = MetricaSemantica.objects.all()
     serializer_class = MetricaSemanticaSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = CustomPageNumberPagination
     
     def get_queryset(self):
         """Filtra por rango de fechas si se proporciona"""
@@ -122,12 +124,25 @@ class MetricaSemanticaViewSet(viewsets.ReadOnlyModelViewSet):
         estadisticas = MetricaSemanticaService.obtener_estadisticas(fecha_desde, fecha_hasta)
         return Response(estadisticas)
 
+    @action(detail=False, methods=['get'], url_path='reporte-comparativo')
+    def reporte_comparativo(self, request):
+        """
+        Obtiene reporte comparativo de eficiencia del panel semántico.
+        Tabla de MRR, NDCG@10, Precision@5 por evaluación + resumen con interpretación.
+        """
+        fecha_desde = request.query_params.get('fecha_desde', None)
+        fecha_hasta = request.query_params.get('fecha_hasta', None)
+        
+        reporte = MetricaSemanticaService.obtener_reporte_comparativo(fecha_desde, fecha_hasta)
+        return Response(reporte)
+
 
 class RegistroGeneracionEmbeddingViewSet(viewsets.ReadOnlyModelViewSet):
     """ViewSet para Registros de Generación de Embeddings (solo lectura)"""
     queryset = RegistroGeneracionEmbedding.objects.all()
     serializer_class = RegistroGeneracionEmbeddingSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = CustomPageNumberPagination
     
     def get_queryset(self):
         """Filtra por estado y tipo de proceso"""
@@ -847,6 +862,8 @@ class PruebasSistemaViewSet(viewsets.ViewSet):
                 
                 return Response({
                     'mensaje': 'Pruebas de rendimiento completas ejecutadas exitosamente',
+                    'prueba_id': prueba_guardada.id,
+                    'fecha_ejecucion': prueba_guardada.fecha_ejecucion.isoformat(),
                     'resultados': resultado_formateado
                 }, status=status.HTTP_200_OK)
             else:

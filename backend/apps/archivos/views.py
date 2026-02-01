@@ -103,7 +103,11 @@ class EnvioViewSet(viewsets.ModelViewSet):
         return EnvioSerializer
 
     def get_queryset(self):
-        """Usa repositorio para filtrar por permisos"""
+        """
+        Usa repositorio para filtrar por permisos.
+        No se filtra por fecha_emision: todos los envíos (incluidos años atípicos)
+        aparecen en el listado para que puedan verse y corregirse.
+        """
         return envio_repository.filtrar_por_permisos_usuario(self.request.user)
     
     def create(self, request, *args, **kwargs):

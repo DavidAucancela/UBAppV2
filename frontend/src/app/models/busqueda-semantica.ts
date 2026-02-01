@@ -26,24 +26,24 @@ export interface InfoModeloEmbedding {
 export const MODELOS_EMBEDDING_INFO: InfoModeloEmbedding[] = [
   {
     modelo: ModeloEmbedding.SMALL,
-    nombre: 'text-embedding-3-small',
+    nombre: 'Small',
     dimensiones: 1536,
     costoPor1KTokens: 0.00002,
-    descripcion: 'Modelo rápido y económico (recomendado)'
+    descripcion: 'Mayor precisión de búsqueda, menor costo'
   },
   {
     modelo: ModeloEmbedding.LARGE,
-    nombre: 'text-embedding-3-large',
+    nombre: 'Large',
     dimensiones: 3072,
     costoPor1KTokens: 0.00013,
-    descripcion: 'Modelo más preciso con mayor dimensionalidad'
+    descripcion: 'Máxima precisión de búsqueda, mayor costo'
   },
   {
     modelo: ModeloEmbedding.ADA,
-    nombre: 'text-embedding-ada-002',
+    nombre: 'Ada',
     dimensiones: 1536,
     costoPor1KTokens: 0.0001,
-    descripcion: 'Modelo legacy, estable y confiable'
+    descripcion: 'Precisión media de búsqueda, costo intermedio'
   }
 ];
 

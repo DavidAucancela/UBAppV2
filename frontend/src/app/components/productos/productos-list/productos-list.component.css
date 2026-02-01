@@ -1215,22 +1215,28 @@
   }
 }
 
-/* Table View */
+/* Table View: encaja en pantalla sin scroll horizontal */
 .productos-table-container {
   margin-top: 20px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 .table-wrapper {
-  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .productos-table {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .productos-table thead {
@@ -1239,13 +1245,15 @@
 }
 
 .productos-table th {
-  padding: 16px;
+  padding: 12px 10px;
   text-align: left;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  white-space: nowrap;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .productos-table th.sortable {
@@ -1287,15 +1295,18 @@
 }
 
 .productos-table td {
-  padding: 16px;
+  padding: 12px 10px;
   color: #374151;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .producto-descripcion {
   font-weight: 500;
   color: #1e293b;
-  max-width: 300px;
+  max-width: 100%;
 }
 
 .valor-total {

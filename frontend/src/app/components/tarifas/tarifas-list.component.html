@@ -3,7 +3,7 @@
   <div class="encabezado">
     <h1 class="titulo-principal">
       <i class="fas fa-dollar-sign"></i>
-      Gestión de Tarifas
+      Tarifas
     </h1>
     <p class="subtitulo">Administra las tarifas de envío por categoría y peso</p>
     <div class="encabezado-acciones" *ngIf="authService.isAdmin() || authService.isGerente()">
@@ -12,7 +12,7 @@
         (click)="openCreateModal()"
       >
         <i class="fas fa-plus"></i>
-        Nueva Tarifa
+        Nueva tarifa
       </button>
     </div>
   </div>
@@ -156,16 +156,16 @@
                   <label class="checkbox-header">
                     <input 
                       type="checkbox" 
-                      [checked]="filteredTarifas.length > 0 && filteredTarifas.every(t => isSelected(t))"
+                      [checked]="areAllSelected()"
                       (change)="selectAllOnPage()"
                     >
                     <span class="checkbox-label">Seleccionar</span>
                   </label>
                 </th>
                 <th>Categoría</th>
-                <th>Rango de Peso (kg)</th>
-                <th class="text-right">Precio por Kg</th>
-                <th class="text-right">Cargo Base</th>
+                <th>Rango de <p></p>eso (kg)</th>
+                <th class="text-right">Precio por kg</th>
+                <th class="text-right">Cargo base</th>
                 <th class="text-right">Ejemplo (1kg)</th>
                 <th class="text-center">Estado</th>
                 <th class="text-center">Acciones</th>
@@ -262,7 +262,7 @@
     <div class="modal-header">
       <h3>
         <i class="fas fa-dollar-sign"></i>
-        {{ editingTarifa ? 'Editar Tarifa' : 'Nueva Tarifa' }}
+        {{ editingTarifa ? 'Editar Tarifa' : 'Nueva tarifa' }}
       </h3>
       <button class="btn-close" (click)="closeModal()">
         <i class="fas fa-times"></i>
@@ -274,7 +274,7 @@
         <div class="form-section">
           <h4 class="section-title">
             <i class="fas fa-info-circle"></i>
-            Información de la Tarifa
+            Información de la tarifa
           </h4>
           
           <div class="form-row">
@@ -301,7 +301,7 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">
-                Peso Mínimo (kg) <span class="required">*</span>
+                Peso mínimo (kg) <span class="required">*</span>
               </label>
               <input 
                 type="number"
@@ -319,7 +319,7 @@
 
             <div class="form-group">
               <label class="form-label">
-                Peso Máximo (kg) <span class="required">*</span>
+                Peso máximo (kg) <span class="required">*</span>
               </label>
               <input 
                 type="number"
@@ -357,7 +357,7 @@
 
             <div class="form-group">
               <label class="form-label">
-                Cargo Base ($) <span class="required">*</span>
+                Cargo base ($) <span class="required">*</span>
               </label>
               <input 
                 type="number"

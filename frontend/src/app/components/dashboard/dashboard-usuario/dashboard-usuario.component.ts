@@ -226,7 +226,7 @@ export class DashboardUsuarioComponent implements OnInit, OnDestroy, AfterViewIn
           },
           tooltip: {
             padding: 12,
-            titleFont: { size: 13, weight: '600' },
+            titleFont: { size: 13, weight: 600 },
             bodyFont: { size: 12 }
           }
         },

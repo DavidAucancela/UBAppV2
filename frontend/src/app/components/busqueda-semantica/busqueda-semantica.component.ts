@@ -66,6 +66,8 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
   historialBusquedas: HistorialBusquedaSemantica[] = [];
   mostrarHistorial = false;
   historialColapsado = true;
+  mostrarMasHistorial = false;
+  limiteHistorial = 10;
   
   // Configuración
   configuracion: ConfiguracionSemantica = { ...CONFIGURACION_DEFAULT };
@@ -257,37 +259,8 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
    * Construye filtros adicionales si están activos
    */
   private construirFiltrosAdicionales(): any | undefined {
-    if (!this.mostrarFiltrosAdicionales) {
-      return undefined;
-    }
-
-    const filtros: any = {};
-    
-    // Filtros de fecha
-    if (this.fechaDesde) filtros.fechaDesde = this.fechaDesde;
-    if (this.fechaHasta) filtros.fechaHasta = this.fechaHasta;
-    
-    // Filtros de envío
-    if (this.estadoFiltro) filtros.estado = this.estadoFiltro;
-    if (this.numeroGuia) filtros.numeroGuia = this.numeroGuia.trim();
-    
-    // Filtros de destinatario/comprador
-    if (this.ciudadDestinoFiltro) filtros.ciudadDestino = this.ciudadDestinoFiltro.trim();
-    if (this.nombreDestinatario) filtros.nombreDestinatario = this.nombreDestinatario.trim();
-    if (this.cedulaDestinatario) filtros.cedulaDestinatario = this.cedulaDestinatario.trim();
-    if (this.telefonoDestinatario) filtros.telefonoDestinatario = this.telefonoDestinatario.trim();
-    if (this.correoDestinatario) filtros.correoDestinatario = this.correoDestinatario.trim();
-    
-    // Filtros de producto
-    if (this.categoriaProducto) filtros.categoriaProducto = this.categoriaProducto;
-    
-    // Filtros numéricos
-    if (this.pesoMinimo) filtros.pesoMinimo = parseFloat(this.pesoMinimo);
-    if (this.pesoMaximo) filtros.pesoMaximo = parseFloat(this.pesoMaximo);
-    if (this.valorMinimo) filtros.valorMinimo = parseFloat(this.valorMinimo);
-    if (this.valorMaximo) filtros.valorMaximo = parseFloat(this.valorMaximo);
-
-    return Object.keys(filtros).length > 0 ? filtros : undefined;
+    // Ya no hay filtros adicionales, solo se usa el modelo seleccionado
+    return undefined;
   }
 
   /**
@@ -422,7 +395,8 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
     this.apiService.obtenerHistorialSemantico().subscribe({
       next: (historial) => {
         if (historial && Array.isArray(historial)) {
-          this.historialBusquedas = historial.slice(0, 10); // Últimas 10
+          this.historialBusquedas = historial; // Cargar todos, limitar en la vista
+          this.mostrarMasHistorial = false; // Resetear al cargar
           console.log('Historial cargado:', this.historialBusquedas.length, 'búsquedas');
         } else {
           console.warn('Historial recibido no es un array:', historial);
@@ -438,6 +412,30 @@ export class BusquedaSemanticaComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+
+  /**
+   * Obtiene los elementos del historial a mostrar
+   */
+  get historialMostrado(): HistorialBusquedaSemantica[] {
+    if (this.mostrarMasHistorial) {
+      return this.historialBusquedas;
+    }
+    return this.historialBusquedas.slice(0, this.limiteHistorial);
+  }
+
+  /**
+   * Verifica si hay más elementos para mostrar
+   */
+  get hayMasHistorial(): boolean {
+    return this.historialBusquedas.length > this.limiteHistorial;
+  }
+
+  /**
+   * Alterna mostrar más elementos del historial
+   */
+  toggleMostrarMasHistorial(): void {
+    this.mostrarMasHistorial = !this.mostrarMasHistorial;
   }
 
   /**

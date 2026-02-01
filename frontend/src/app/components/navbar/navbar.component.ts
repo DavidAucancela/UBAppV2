@@ -147,10 +147,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
       roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR],
       order: 1,
       subItems: [
-        { label: 'Cargar envíos manualmente', icon: 'fas fa-list', route: '/envios' },
-        { label: 'Cargar Archivo de Envíos', icon: 'fas fa-upload', route: '/importacion-excel' },
+        { label: 'Envíos', icon: 'fas fa-list', route: '/envios' },
+        { label: 'Archivos', icon: 'fas fa-upload', route: '/importacion-excel' },
         { label: 'Productos', icon: 'fas fa-box', route: '/productos' },
-
+        { label: 'Tarifas', icon: 'fas fa-dollar-sign', route: '/tarifas' },
       ]
     },
     // ========== BÚSQUEDAS ==========
@@ -161,8 +161,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       roles: [Roles.ADMIN, Roles.GERENTE, Roles.DIGITADOR],
       order: 2,
       subItems: [
-        { label: 'Búsqueda Exacta', icon: 'fas fa-search', route: '/busqueda-envios' },
-        { label: 'Búsqueda Semántica', icon: 'fas fa-brain', route: '/busqueda-semantica' },
+        { label: 'Búsqueda tradicional', icon: 'fas fa-search', route: '/busqueda-envios' },
+        { label: 'Búsqueda semántica', icon: 'fas fa-brain', route: '/busqueda-semantica' },
       ]
     },
 
@@ -174,10 +174,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       roles: [Roles.ADMIN, Roles.GERENTE],
       order: 4,
       subItems: [
-        { label: 'Mapa de Compradores', icon: 'fas fa-map-marked-alt', route: '/mapa-compradores' },
-        { label: 'Gestionar Usuarios', icon: 'fas fa-users', route: '/usuarios' },
-        { label: 'Tarifas', icon: 'fas fa-dollar-sign', route: '/tarifas' },
-        { label: 'Actividad del sistema', icon: 'fas fa-chart-line', route: '/actividades' },
+        { label: 'Mapa', icon: 'fas fa-map-marked-alt', route: '/mapa-compradores' },
+        { label: 'Usuarios', icon: 'fas fa-users', route: '/usuarios' },
+        { label: 'Actividades', icon: 'fas fa-chart-line', route: '/actividades' },
       ]
     }
   ];

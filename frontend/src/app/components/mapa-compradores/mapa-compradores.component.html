@@ -1,142 +1,417 @@
 <div class="mapa-container">
-  <!-- Encabezado mejorado con estilo de otros módulos -->
-  <div class="encabezado">
+  <!-- Encabezado -->
+  <header class="encabezado" role="banner">
     <h1 class="titulo-principal">
-      <i class="fas fa-map-marked-alt"></i>
-      Mapa de compradores
+      <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+      Mapa de Compradores
     </h1>
-    <p class="subtitulo">Visualiza la ubicación geográfica de los compradores en el mapa</p>
-  </div>
+    <p class="subtitulo">Visualiza la distribución geográfica de compradores y sus envíos</p>
+  </header>
 
-  <!-- Loading State -->
-  <div *ngIf="loading" class="loading-overlay">
-    <div class="spinner"></div>
-    <p>Cargando mapa...</p>
-  </div>
-
-  <!-- Error State -->
-  <div *ngIf="error && !loading" class="error-message">
-    <span class="error-icon">⚠️</span>
-    <p>{{ error }}</p>
-    <button (click)="recargarDatos()" class="btn-retry">Reintentar</button>
-  </div>
-
-  <!-- Estadísticas -->
-  <div *ngIf="mapaData && !loading" class="estadisticas-panel">
-    <div class="estadistica-card">
-      <div class="estadistica-icon">👥</div>
-      <div class="estadistica-info">
-        <span class="estadistica-valor">{{ mapaData.total_compradores }}</span>
-        <span class="estadistica-label">Compradores totales</span>
+  <!-- Onboarding (primera vez) 
+  @if (mostrarOnboarding && !loading && !error && mapaData) {
+    <div class="onboarding-overlay" role="dialog" aria-label="Ayuda rápida">
+      <div class="onboarding-card">
+        <h3><i class="fas fa-lightbulb"></i> Cómo usar el mapa</h3>
+        <ul>
+          <li>Usa los <strong>filtros</strong> para provincia, ciudad o nombre de comprador.</li>
+          <li>Haz clic en una <strong>barra del gráfico</strong> para ver esa ciudad en el mapa.</li>
+          <li>Haz clic en un <strong>marcador del mapa</strong> para ver provincia o comprador.</li>
+          <li>El listado inferior muestra envíos por comprador; puedes ordenar y exportar a CSV.</li>
+        </ul>
+        <button type="button" class="btn-onboarding" (click)="cerrarOnboarding()">
+          Entendido
+        </button>
       </div>
     </div>
-    
-    <div class="estadistica-card">
-      <div class="estadistica-icon">📍</div>
-      <div class="estadistica-info">
-        <span class="estadistica-valor">{{ mapaData.provincias.length }}</span>
-        <span class="estadistica-label">Provincias</span>
-      </div>
-    </div>
+  }-->
 
-    <div *ngIf="provinciaSeleccionada" class="estadistica-card provincia-activa">
-      <div class="estadistica-icon">🎯</div>
-      <div class="estadistica-info">
-        <span class="estadistica-valor">{{ provinciaSeleccionada }}</span>
-        <span class="estadistica-label">Provincia seleccionada</span>
-      </div>
+  <!-- Loading -->
+  @if (loading) {
+    <div class="loading-overlay" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Cargando datos del mapa...</p>
     </div>
-  </div>
+  }
 
-  <!-- Controles del Mapa -->
-  <div *ngIf="!loading" class="mapa-controles">
-    <button (click)="volverVista()" class="btn-control" title="Volver a vista general">
-      Vista completa
-    </button>
-  </div>
+  <!-- Error -->
+  @if (error && !loading) {
+    <div class="error-message" role="alert">
+      <span class="error-icon" aria-hidden="true">⚠️</span>
+      <p>{{ error }}</p>
+      <button type="button" class="btn-retry" (click)="recargarDatos()">Reintentar</button>
+    </div>
+  }
 
-  <!-- Mapa y Panel Lateral -->
-  <div *ngIf="!loading && !error && isBrowser" class="mapa-layout">
-    <!-- Mapa -->
-    <div class="mapa-wrapper">
-      <div id="mapa-ecuador" class="mapa-leaflet"></div>
-    </div>
-    
-    <!-- Panel de Instrucciones (Lado Derecho) -->
-    <div class="instrucciones-panel">
-      <h4>Cómo usar el mapa</h4>
-      <ol>
-        <li>Haz clic en un marcador de provincia (📍) para ver los compradores</li>
-        <li>Usa la rueda del mouse para hacer zoom</li>
-        <li>Arrastra el mapa para moverte por Ecuador</li>
-        <li>Haz clic en un comprador (👤) para ver sus envíos</li>
-      </ol>
-    </div>
-  </div>
+  <!-- Contenido principal -->
+  @if (!loading && !error && isBrowser && mapaData) {
+    <div class="contenido-principal">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Ubicación actual">
+        <span class="breadcrumb-item">Ecuador</span>
+        @if (provinciaSeleccionada) {
+          <span class="breadcrumb-sep" aria-hidden="true">›</span>
+          <span class="breadcrumb-item">{{ provinciaSeleccionada }}</span>
+        }
+        @if (ciudadSeleccionada) {
+          <span class="breadcrumb-sep" aria-hidden="true">›</span>
+          <span class="breadcrumb-item breadcrumb-current">{{ ciudadSeleccionada }}</span>
+        }
+      </nav>
 
-  <!-- Lista de Compradores (Parte Inferior) -->
-  <div *ngIf="provinciaSeleccionada && compradoresProvinciaSeleccionada.length > 0" class="compradores-lista">
-    <div class="compradores-header">
-      <h3>
-        <span class="provincia-icon">📍</span>
-        Compradores en {{ provinciaSeleccionada }}
-        <span class="badge-compradores">{{ compradoresProvinciaSeleccionada.length }}</span>
-      </h3>
-      <button (click)="volverVista()" class="btn-cerrar">✕ Cerrar</button>
-    </div>
-    <div class="compradores-grid">
-      <div class="comprador-card" *ngFor="let comprador of compradoresProvinciaSeleccionada">
-        <div class="comprador-card-header">
-          <h4>👤 {{ comprador.nombre }}</h4>
-          <span class="badge-envios">{{ comprador.total_envios }} envíos</span>
+      <!-- Filtros 
+      <div class="panel-filtros" [class.panel-filtros-colapsado]="filtrosColapsados">
+        <div class="filtros-header">
+          <h2 class="filtros-titulo">
+            <i class="fas fa-filter" aria-hidden="true"></i>
+            Filtros
+            @if (totalFiltrosActivos > 0) {
+              <span class="badge-filtros-activos" [attr.aria-label]="totalFiltrosActivos + ' filtros activos'">
+                {{ totalFiltrosActivos }}
+              </span>
+            }
+          </h2>
+          <div class="filtros-acciones">
+            <button
+              type="button"
+              class="btn-limpiar"
+              [class.btn-limpiar-activo]="totalFiltrosActivos > 0"
+              [attr.aria-label]="totalFiltrosActivos > 0 ? 'Limpiar ' + totalFiltrosActivos + ' filtros' : 'Limpiar filtros'"
+              (click)="confirmarLimpiarFiltros()"
+            >
+              <i class="fas fa-times" aria-hidden="true"></i>
+              Limpiar
+            </button>
+            <button
+              type="button"
+              class="btn-toggle-filtros"
+              [attr.aria-expanded]="!filtrosColapsados"
+              aria-label="Colapsar o expandir filtros"
+              (click)="filtrosColapsados = !filtrosColapsados"
+            >
+              <i class="fas" [ngClass]="filtrosColapsados ? 'fa-chevron-down' : 'fa-chevron-up'" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
-        <div class="comprador-info">
-          <p><strong>Usuario:</strong> {{ comprador.username }}</p>
-          <p><strong>Email:</strong> {{ comprador.correo }}</p>
-          <p *ngIf="comprador.telefono"><strong>Teléfono:</strong> {{ comprador.telefono }}</p>
-          <p><strong>Ubicación:</strong> {{ comprador.ubicacion_completa }}</p>
-        </div>
-        <div *ngIf="comprador.envios_recientes.length > 0" class="comprador-envios">
-          <h5>📦 Envíos Recientes</h5>
-          <div class="envios-lista">
-            <div class="envio-item" *ngFor="let envio of comprador.envios_recientes.slice(0, 3)">
-              <div class="envio-header">
-                <span class="envio-hawb"><strong>HAWB:</strong> {{ envio.hawb }}</span>
-                <span class="estado-badge" [ngClass]="'estado-' + envio.estado">
-                  {{ getEstadoDisplay(envio.estado) }}
-                </span>
-              </div>
-              <div class="envio-details">
-                <span>Peso: {{ envio.peso_total }} kg</span>
-                <span>Valor: ${{ envio.valor_total }}</span>
-                <span>Costo: ${{ envio.costo_servicio }}</span>
-              </div>
+
+        @if (!filtrosColapsados) {
+          <div class="filtros-grid">
+            <div class="filtro-item">
+              <label for="filtro-provincia">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Provincia
+              </label>
+              <select
+                id="filtro-provincia"
+                [(ngModel)]="filtroProvincia"
+                (change)="onFiltroChange()"
+                class="select-filtro"
+                aria-describedby="desc-provincia"
+              >
+                <option value="">Todas las provincias</option>
+                @for (provincia of provinciasDisponibles; track provincia) {
+                  <option [value]="provincia">{{ provincia }}</option>
+                }
+              </select>
+            </div>
+            <div class="filtro-item">
+              <label for="filtro-ciudad">
+                <i class="fas fa-city" aria-hidden="true"></i> Ciudad
+              </label>
+              <select
+                id="filtro-ciudad"
+                [(ngModel)]="filtroCiudad"
+                (change)="onFiltroChange()"
+                class="select-filtro"
+              >
+                <option value="">Todas las ciudades</option>
+                @for (ciudad of ciudadesDisponibles; track ciudad) {
+                  <option [value]="ciudad">{{ ciudad }}</option>
+                }
+              </select>
+            </div>
+            <div class="filtro-item">
+              <label for="busqueda-comprador">
+                <i class="fas fa-search" aria-hidden="true"></i> Buscar comprador
+              </label>
+              <input
+                type="text"
+                id="busqueda-comprador"
+                [(ngModel)]="busquedaInputDisplay"
+                (input)="onBusquedaInput(busquedaInputDisplay)"
+                placeholder="Nombre o usuario..."
+                class="input-busqueda"
+                aria-describedby="desc-busqueda"
+              />
+              <span id="desc-busqueda" class="sr-only">Búsqueda con retardo; se actualiza al escribir.</span>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Lista de Provincias - Vista Mosaico -->
-  <div *ngIf="mapaData && !loading" class="provincias-lista">
-    <h3>📊 Resumen por Provincia</h3>
-    <div class="provincias-grid">
-      <div class="provincia-card" *ngFor="let provincia of mapaData.provincias">
-        <div class="provincia-header">
-          <h4>{{ provincia.provincia }}</h4>
-          <span class="badge-compradores">{{ provincia.total_compradores }}</span>
-        </div>
-        <div class="provincia-compradores">
-          <div class="comprador-mini" *ngFor="let comprador of provincia.compradores.slice(0, 3)">
-            <span class="comprador-nombre">{{ comprador.nombre }}</span>
-            <span class="comprador-envios">{{ comprador.total_envios }}</span>
+          <div class="estadisticas-rapidas">
+            <div class="estadistica-mini">
+              <span class="estadistica-icon" aria-hidden="true">👥</span>
+              <div>
+                <span class="estadistica-valor">{{ mapaData.total_compradores }}</span>
+                <span class="estadistica-label">Compradores</span>
+              </div>
+            </div>
+            <div class="estadistica-mini">
+              <span class="estadistica-icon" aria-hidden="true">📍</span>
+              <div>
+                <span class="estadistica-valor">{{ mapaData.provincias.length }}</span>
+                <span class="estadistica-label">Provincias</span>
+              </div>
+            </div>
+            @if (provinciaSeleccionada) {
+              <div class="estadistica-mini estadistica-activa">
+                <span class="estadistica-icon" aria-hidden="true">🎯</span>
+                <div>
+                  <span class="estadistica-valor">{{ provinciaSeleccionada }}</span>
+                  <span class="estadistica-label">Seleccionada</span>
+                </div>
+              </div>
+            }
           </div>
-          <p *ngIf="provincia.compradores.length > 3" class="mas-compradores">
-            + {{ provincia.compradores.length - 3 }} compradores más
-          </p>
-        </div>
+        }
+      </div>-->
+
+      <!-- Layout: Gráfico | Mapa -->
+      <div class="layout-principal">
+        <section class="panel-izquierdo" aria-labelledby="titulo-grafico">
+          <div class="panel-header">
+            <h3 id="titulo-grafico">
+              <i class="fas fa-chart-bar" aria-hidden="true"></i>
+              Compradores por ciudad
+            </h3>
+            <button type="button" class="btn-control" (click)="volverVista()" aria-label="Vista general del mapa">
+              <i class="fas fa-home" aria-hidden="true"></i> Vista general
+            </button>
+          </div>
+
+          <div class="grafico-container">
+            @if (hayDatosParaGrafico) {
+              <canvas #chartCompradoresCiudad></canvas>
+              <div class="grafico-info">
+                <p><i class="fas fa-info-circle" aria-hidden="true"></i> Clic en una barra para ver esa ciudad en el mapa.</p>
+              </div>
+            } @else {
+              <div class="empty-state empty-grafico" role="status">
+                <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                <p>No hay datos para el gráfico con los filtros actuales.</p>
+                <p class="empty-hint">Prueba a quitar filtros o selecciona otra provincia.</p>
+              </div>
+            }
+          </div>
+
+          <div class="lista-ciudades">
+            <h4><i class="fas fa-list" aria-hidden="true"></i> Ciudades</h4>
+            <div class="ciudades-scroll">
+              @for (ciudad of obtenerDatosFiltrados().slice(0, 15); track ciudad.ciudad + ciudad.provincia) {
+                <button
+                  type="button"
+                  class="ciudad-item"
+                  [class.activa]="ciudadSeleccionada === ciudad.ciudad && provinciaSeleccionada === ciudad.provincia"
+                  (click)="seleccionarCiudad(ciudad.ciudad, ciudad.provincia)"
+                >
+                  <div class="ciudad-info">
+                    <span class="ciudad-nombre">{{ ciudad.ciudad }}</span>
+                    <span class="ciudad-provincia">{{ ciudad.provincia }}</span>
+                  </div>
+                  <div class="ciudad-stats">
+                    <span class="badge-compradores">{{ ciudad.total_compradores }} compradores</span>
+                    <span class="badge-envios">{{ ciudad.total_envios }} envíos</span>
+                  </div>
+                </button>
+              }
+            </div>
+          </div>
+        </section>
+
+        <section class="panel-derecho" aria-labelledby="titulo-mapa">
+          <div class="panel-header">
+            <h3 id="titulo-mapa">
+              <i class="fas fa-map" aria-hidden="true"></i>
+              Mapa interactivo
+            </h3>
+            <div class="mapa-leyenda">
+              <span class="leyenda-item"><span class="leyenda-icono ciudad" aria-hidden="true">📍</span> Provincia</span>
+              <span class="leyenda-item"><span class="leyenda-icono comprador" aria-hidden="true">👤</span> Comprador</span>
+            </div>
+          </div>
+
+          <div class="mapa-wrapper">
+            <div id="mapa-ecuador" class="mapa-leaflet" role="application" aria-label="Mapa de Ecuador con compradores"></div>
+          </div>
+
+          @if (provinciaSeleccionada || ciudadSeleccionada) {
+            <div class="info-seleccion">
+              <div class="info-header">
+                <h4>
+                  <i class="fas fa-map-pin" aria-hidden="true"></i>
+                  {{ ciudadSeleccionada ? ciudadSeleccionada + ', ' + provinciaSeleccionada : provinciaSeleccionada }}
+                </h4>
+                <button type="button" class="btn-cerrar-mini" (click)="volverVista()" aria-label="Cerrar selección">
+                  <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="info-stats">
+                <span><strong>{{ compradoresProvinciaSeleccionada.length }}</strong> compradores</span>
+                <span><strong>{{ getTotalEnviosSeleccionados() }}</strong> envíos totales</span>
+              </div>
+            </div>
+          }
+        </section>
       </div>
+
+      <!-- Listado envíos por comprador -->
+      <section class="panel-inferior" aria-labelledby="titulo-listado">
+        <div class="panel-header">
+          <h3 id="titulo-listado">
+            <i class="fas fa-boxes" aria-hidden="true"></i>
+            Envíos por comprador
+            @if (totalEnviosFiltrados > 0) {
+              <span class="badge-contador">{{ totalEnviosFiltrados }}</span>
+            }
+          </h3>
+          <div class="controles-listado">
+            <select
+              [(ngModel)]="filtroEstadoEnvio"
+              (change)="listadoPaginaActual = 1; actualizarVistaFiltrada()"
+              class="select-estado"
+              aria-label="Filtrar por estado de envío"
+            >
+              @for (opt of opcionesEstado; track opt.value) {
+                <option [value]="opt.value">{{ opt.label }}</option>
+              }
+            </select>
+            <select
+              [ngModel]="ordenListado"
+              (ngModelChange)="cambiarOrdenListado($event)"
+              class="select-orden"
+              aria-label="Ordenar listado"
+            >
+              @for (opt of opcionesOrden; track opt.value) {
+                <option [value]="opt.value">{{ opt.label }}</option>
+              }
+            </select>
+            <input
+              type="text"
+              [(ngModel)]="busquedaInputDisplay"
+              (input)="onBusquedaInput(busquedaInputDisplay)"
+              placeholder="Buscar comprador..."
+              class="input-busqueda-mini"
+              aria-label="Buscar comprador en el listado"
+            />
+            <button type="button" class="btn-exportar" (click)="exportarCSV()" [disabled]="totalEnviosFiltrados === 0" aria-label="Exportar listado a CSV">
+              <i class="fas fa-file-csv" aria-hidden="true"></i> Exportar CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="envios-container">
+          @if (totalEnviosFiltrados === 0) {
+            <div class="sin-datos" role="status">
+              <i class="fas fa-inbox" aria-hidden="true"></i>
+              <p>No hay envíos con los filtros seleccionados.</p>
+              <p class="empty-hint">Prueba a quitar filtros o cambiar provincia/ciudad en el mapa.</p>
+            </div>
+          } @else {
+            <div class="envios-grid" role="list">
+              @for (compradorData of enviosFiltradosPaginados; track compradorData.comprador_id) {
+                <article
+                  class="comprador-envios-card"
+                  [class.seleccionado]="busquedaComprador && compradorData.comprador_nombre.toLowerCase().includes(busquedaComprador.toLowerCase())"
+                  role="listitem"
+                >
+                  <div class="comprador-header-card">
+                    <div class="comprador-info-card">
+                      <h4>
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                        {{ compradorData.comprador_nombre }}
+                      </h4>
+                      <div class="comprador-meta">
+                        <span class="badge-location">
+                          <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                          {{ compradorData.ciudad }}, {{ compradorData.provincia }}
+                        </span>
+                        <span class="badge-envios-total">{{ compradorData.total_envios }} envíos</span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      class="btn-ver-mapa"
+                      (click)="busquedaComprador = compradorData.comprador_nombre; busquedaInputDisplay = compradorData.comprador_nombre; provinciaSeleccionada = compradorData.provincia; ciudadSeleccionada = compradorData.ciudad; listadoPaginaActual = 1; actualizarVistaFiltrada()"
+                      aria-label="Ver comprador en el mapa"
+                    >
+                      <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                    </button>
+                  </div>
+
+                  @if (compradorData.envios.length > 0) {
+                    <div class="envios-listado">
+                      @for (envio of compradorData.envios.slice(0, 5); track envio.hawb || envio.id) {
+                        <div class="envio-item-card" [ngClass]="'estado-' + envio.estado">
+                          <div class="envio-header-card">
+                            <span class="envio-hawb-card">
+                              <i class="fas fa-barcode" aria-hidden="true"></i>
+                              <strong>HAWB:</strong> {{ envio.hawb }}
+                            </span>
+                            <span class="estado-badge-card" [ngClass]="'estado-' + envio.estado">
+                              {{ getEstadoDisplay(envio.estado) }}
+                            </span>
+                          </div>
+                          <div class="envio-details-card">
+                            <div class="envio-detail-item">
+                              <i class="fas fa-weight" aria-hidden="true"></i>
+                              <span>{{ envio.peso_total }} kg</span>
+                            </div>
+                            <div class="envio-detail-item">
+                              <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                              <span>${{ envio.valor_total }}</span>
+                            </div>
+                            <div class="envio-detail-item">
+                              <i class="fas fa-shipping-fast" aria-hidden="true"></i>
+                              <span>${{ envio.costo_servicio }}</span>
+                            </div>
+                            @if (envio.fecha_emision) {
+                              <div class="envio-detail-item">
+                                <i class="fas fa-calendar" aria-hidden="true"></i>
+                                <span>{{ envio.fecha_emision | date:'short' }}</span>
+                              </div>
+                            }
+                          </div>
+                        </div>
+                      }
+                      @if (compradorData.envios.length > 5) {
+                        <div class="mas-envios">
+                          <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
+                          {{ compradorData.envios.length - 5 }} envíos más...
+                        </div>
+                      }
+                    </div>
+                  }
+
+                  @if (compradorData.envios.length === 0) {
+                    <div class="sin-envios" role="status">
+                      <i class="fas fa-box-open" aria-hidden="true"></i>
+                      <p>Sin envíos registrados</p>
+                    </div>
+                  }
+                </article>
+              }
+            </div>
+
+            @if (hayMasEnvios) {
+              <div class="ver-mas-wrapper">
+                <button type="button" class="btn-ver-mas" (click)="verMasListado()">
+                  Ver más ({{ restantesListado }} restantes)
+                </button>
+              </div>
+            }
+          }
+        </div>
+      </section>
     </div>
-  </div>
+  }
 </div>
+
+<span class="sr-only" id="desc-provincia">Filtra por provincia para actualizar ciudades disponibles.</span>

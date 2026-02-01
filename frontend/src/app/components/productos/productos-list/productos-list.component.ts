@@ -576,6 +576,11 @@ export class ProductosListComponent implements OnInit {
     this.selectedIds = new Set(this.selectedIds);
   }
 
+  areAllSelected(): boolean {
+    if (this.paginatedProductos.length === 0) return false;
+    return this.paginatedProductos.every(p => this.isSelected(p));
+  }
+
   clearSelection(): void {
     this.selectedIds.clear();
     this.selectedIds = new Set(this.selectedIds);

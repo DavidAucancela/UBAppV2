@@ -150,6 +150,14 @@ class MetricaSemanticaService(BaseService):
         """Obtiene estadísticas agregadas de métricas semánticas"""
         return metrica_semantica_repository.obtener_estadisticas(fecha_desde, fecha_hasta)
 
+    @staticmethod
+    def obtener_reporte_comparativo(fecha_desde=None, fecha_hasta=None) -> Dict[str, Any]:
+        """
+        Obtiene reporte comparativo de eficiencia del panel semántico.
+        Incluye tabla de métricas (MRR, NDCG@10, Precision@5) por evaluación y resumen global.
+        """
+        return metrica_semantica_repository.obtener_reporte_comparativo(fecha_desde, fecha_hasta)
+
 
 class RegistroEmbeddingService(BaseService):
     """Servicio para registro de generación de embeddings"""

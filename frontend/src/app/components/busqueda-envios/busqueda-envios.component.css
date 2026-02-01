@@ -470,17 +470,19 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
+/* Tabla encaja en pantalla sin scroll horizontal */
 .tabla-responsive {
-  overflow-x: auto;
   width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .tabla-envios {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
-  table-layout: auto;
-  min-width: 100%;
+  font-size: 0.9rem;
+  table-layout: fixed;
 }
 
 .tabla-envios thead {
@@ -492,11 +494,14 @@
 }
 
 .tabla-envios th {
-  padding: 1rem;
+  padding: 0.75rem 0.5rem;
   text-align: left;
   font-weight: 600;
-  white-space: nowrap;
+  white-space: normal;
   vertical-align: middle;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 0.85rem;
 }
 
 .tabla-envios th.text-right {
@@ -527,10 +532,12 @@
 }
 
 .tabla-envios td {
-  padding: 1rem;
+  padding: 0.75rem 0.5rem;
   vertical-align: middle;
   white-space: normal;
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 0.85rem;
 }
 
 .celda-hawb strong {
@@ -618,7 +625,7 @@
 
 /* ===== BOTONES DE ACCIÓN ===== */
 .celda-acciones {
-  min-width: 180px;
+  max-width: 100%;
 }
 
 .botones-accion {
@@ -885,27 +892,39 @@
   font-size: 1.1rem;
 }
 
+/* Tabla productos en modal: encaja sin scroll horizontal */
 .tabla-productos {
-  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .tabla-productos table {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  table-layout: fixed;
 }
 
 .tabla-productos th {
   background: #ecf0f1;
-  padding: 0.75rem;
+  padding: 0.6rem 0.5rem;
   text-align: left;
   font-weight: 600;
   color: #2c3e50;
+  font-size: 0.85rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .tabla-productos td {
-  padding: 0.75rem;
+  padding: 0.6rem 0.5rem;
   border-bottom: 1px solid #ecf0f1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .texto-observaciones {
@@ -988,38 +1007,13 @@
   }
 
   .tabla-envios {
-    font-size: 0.85rem;
-    display: block;
-    overflow-x: auto;
-  }
-
-  .tabla-envios thead,
-  .tabla-envios tbody,
-  .tabla-envios tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
+    font-size: 0.8rem;
   }
 
   .tabla-envios th,
   .tabla-envios td {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.85rem;
-  }
-
-  .tabla-envios th {
-    min-width: 80px;
-  }
-
-  .celda-hawb,
-  .celda-peso,
-  .celda-valor,
-  .celda-costo {
-    min-width: 100px;
-  }
-
-  .celda-acciones {
-    min-width: 120px;
+    padding: 0.6rem 0.4rem;
+    font-size: 0.8rem;
   }
 
   .botones-accion {
