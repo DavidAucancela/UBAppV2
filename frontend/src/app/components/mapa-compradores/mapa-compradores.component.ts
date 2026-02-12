@@ -160,7 +160,8 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     if (this.isBrowser) {
-      this.L = await import('leaflet');
+      const leafletModule = await import('leaflet');
+      this.L = (leafletModule as { default: typeof import('leaflet') }).default ?? leafletModule;
       this.crearIconosPersonalizados();
       this.aplicarQueryParams();
       this.configurarDebounceBusqueda();

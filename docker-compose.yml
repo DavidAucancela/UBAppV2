@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Base de datos PostgreSQL con pgvector
   postgres:
@@ -10,8 +8,8 @@ services:
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-admin}
       PGDATA: /var/lib/postgresql/data/pgdata
-    ports:
-      - "${DB_PORT:-5432}:5432"
+    # Sin 'ports': solo accesible desde otros contenedores (backend). Evita conflicto con PostgreSQL en el host.
+    # Para conectar desde Windows: docker exec -it ubapp_postgres psql -U postgres -d UBAppDB
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backend/backup:/backup  # Para backups
@@ -29,6 +27,8 @@ services:
     image: redis:7-alpine
     container_name: ubapp_redis
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redis_password}
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-redis_password}
     ports:
       - "${REDIS_PORT:-6379}:6379"
     volumes:
@@ -36,7 +36,7 @@ services:
     networks:
       - ubapp_network
     healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" ping || exit 1"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -52,6 +52,7 @@ services:
       sh -c "
         echo 'Esperando a que PostgreSQL esté listo...' &&
         python wait_for_db.py &&
+        python rename_backup_tables.py &&
         echo 'Ejecutando migraciones...' &&
         python manage.py migrate --noinput &&
         echo 'Recolectando archivos estáticos...' &&
@@ -72,8 +73,8 @@ services:
       - DATABASE_URL=postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-admin}@postgres:5432/${DB_NAME:-UBAppDB}
       - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_password}@redis:6379/0
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1,backend}
-      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:4200,http://frontend:4200}
-      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS:-http://localhost:4200,http://frontend:4200}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:4200,http://localhost:4201,http://frontend:4200}
+      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS:-http://localhost:4200,http://localhost:4201,http://frontend:4200}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - OPENAI_EMBEDDING_MODEL=${OPENAI_EMBEDDING_MODEL:-text-embedding-3-small}
       - OPENAI_EMBEDDING_DIMENSIONS=${OPENAI_EMBEDDING_DIMENSIONS:-1536}

@@ -2,10 +2,71 @@
 
 ## 📋 Tabla de Contenidos
 
-1. [Recomendaciones ANTES de Dockerizar](#antes-de-dockerizar)
-2. [Módulos en Docker Compose](#modulos-en-docker-compose)
-3. [Recomendaciones DESPUÉS de Dockerizar](#despues-de-dockerizar)
-4. [Troubleshooting](#troubleshooting)
+1. [¿Qué es Docker y cómo funciona?](#que-es-docker)
+2. [Recomendaciones ANTES de Dockerizar](#antes-de-dockerizar)
+3. [Módulos en Docker Compose](#modulos-en-docker-compose)
+4. [Recomendaciones DESPUÉS de Dockerizar](#despues-de-dockerizar)
+5. [Troubleshooting](#troubleshooting)
+
+---
+
+## 🐳 ¿Qué es Docker y cómo funciona? {#que-es-docker}
+
+### Idea general
+
+**Docker** permite ejecutar aplicaciones dentro de **contenedores**: entornos aislados que incluyen el código, las dependencias y la configuración necesaria. Cada contenedor es como una “caja” que corre en tu PC y que se comporta igual en cualquier máquina donde tengas Docker.
+
+- **Imagen**: la “plantilla” (sistema base + aplicación). Ejemplo: `python:3.11-slim`, `nginx:alpine`.
+- **Contenedor**: la “instancia en ejecución” de una imagen. Puedes tener varios contenedores de la misma imagen.
+- **Docker Compose**: lee `docker-compose.yml` y levanta varios contenedores a la vez, conectados en una red común.
+
+### Cómo se conectan en este proyecto
+
+```
+  [Tu navegador]                    [Red Docker: ubapp_network]
+       |                                      |
+       |  http://localhost:4201               |
+       +-------------------------------------->  ubapp_frontend (nginx, puerto 80)
+       |                                      |         sirve la app Angular
+       |  http://localhost:8000               |
+       +-------------------------------------->  ubapp_backend (gunicorn, puerto 8000)
+       |                                      |         API Django
+       |                                      |         |
+       |                                      |         |  postgres:5432
+       |                                      |         +------------------> ubapp_postgres (PostgreSQL)
+       |                                      |         |
+       |                                      |         |  redis:6379
+       |                                      |         +------------------> ubapp_redis (cache)
+```
+
+- El **navegador** solo habla con `localhost:4201` (frontend) y `localhost:8000` (backend). Esos puertos están “mapeados” desde los contenedores.
+- **Dentro de la red Docker**, los contenedores se llaman por **nombre de servicio**: el backend usa `postgres:5432` y `redis:6379`, no `localhost`.
+
+### Qué hace cada contenedor en este proyecto
+
+| Contenedor      | Imagen / Origen      | Función                                                                 |
+|-----------------|----------------------|-------------------------------------------------------------------------|
+| **ubapp_postgres** | ankane/pgvector      | Base de datos PostgreSQL (con extensión pgvector). Guarda usuarios, envíos, etc. |
+| **ubapp_redis**   | redis:7-alpine       | Cache y sesiones. Acelera la app y guarda datos temporales.            |
+| **ubapp_backend** | build desde backend/ | API Django (Gunicorn). Responde en `/api/` (login, envíos, búsqueda, etc.). |
+| **ubapp_frontend**| build desde frontend/ | App Angular compilada servida por nginx. Lo que ves en el navegador.   |
+
+### Comandos útiles
+
+```powershell
+# Ver qué contenedores están corriendo
+docker-compose ps
+
+# Ver logs de un servicio (útil cuando algo falla)
+docker-compose logs backend
+docker-compose logs -f backend   # seguir los logs en vivo
+
+# Levantar todo
+docker-compose up -d
+
+# Parar todo
+docker-compose down
+```
 
 ---
 
@@ -42,8 +103,14 @@ cp .env.example .env
 Si ya tienes datos en producción o desarrollo:
 
 ```bash
-# Backup de base de datos PostgreSQL
+# Backup de base de datos PostgreSQL  
+# ¿Dónde ejecutar este comando?  
+# Ejecuta esto EN TU HOST LOCAL, no dentro de Docker.  
+# Asegúrate de tener instalado PostgreSQL localmente y que la base de datos esté accesible en localhost.
 pg_dump -h localhost -U postgres -d UBAppDB > backup_pre_docker.sql
+
+# Si ya estás usando Docker, y la BD corre en un contenedor llamado "ubapp_postgres", usa:
+docker exec -t ubapp_postgres pg_dump -U postgres UBAppDB > backup_pre_docker.sql
 
 # Backup de archivos media
 tar -czf media_backup.tar.gz backend/media/
@@ -178,14 +245,55 @@ docker-compose exec backend bash
 python manage.py createsuperuser
 ```
 
-### 4. **Importar Datos Existentes (si aplica)**
+### 4. **Cargar un backup SQL en el Postgres del Docker Compose**
+
+Si tienes un dump de cuando corrías Postgres en local (por ejemplo `backend/backup_pre_docker.sql`) y quieres **poblar el contenedor** `ubapp_postgres`:
+
+1. **Dejar el backup donde el contenedor lo vea**  
+   El servicio `postgres` monta `./backend/backup` en `/backup`. Copia tu `.sql` ahí:
+
+   ```powershell
+   Copy-Item backend\backup_pre_docker.sql backend\backup\
+   ```
+
+2. **Vaciar la base actual** (para que el restore no choque con tablas ya creadas por migraciones):
+
+   ```powershell
+   docker exec -it ubapp_postgres psql -U postgres -d UBAppDB -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO postgres; GRANT ALL ON SCHEMA public TO public;"
+   ```
+
+3. **Restaurar el backup** (usa el archivo convertido a UTF-8 si el original da error de codificación):
+
+   ```powershell
+   docker exec -it ubapp_postgres psql -U postgres -d UBAppDB -f /backup/backup_utf8.sql
+   ```
+
+4. **Renombrar tablas del backup** (el dump local usaba `tipo_contenido` y `logs`; Django espera `django_content_type` y `django_admin_log`):
+
+   ```powershell
+   docker exec -it ubapp_postgres psql -U postgres -d UBAppDB -f /backup/renombrar_tablas_django.sql
+   ```
+
+5. **Si el dump está en UTF-16** y ves errores de codificación, convierte a UTF-8 sin BOM antes de restaurar:
+
+   ```powershell
+   $ruta = "backend\backup\backup_pre_docker.sql"
+   $texto = [System.IO.File]::ReadAllText((Resolve-Path $ruta), [System.Text.Encoding]::Unicode)
+   $utf8 = New-Object System.Text.UTF8Encoding $false
+   [System.IO.File]::WriteAllText("$PWD\backend\backup\backup_utf8.sql", $texto, $utf8)
+   # Luego restaura con -f /backup/backup_utf8.sql y ejecuta renombrar_tablas_django.sql (paso 4)
+   ```
+
+**Alternativa desde el host** (mismo directorio que el `.sql`):
 
 ```powershell
-# Si tienes un backup SQL
-docker-compose exec -T postgres psql -U postgres -d UBAppDB < backup_pre_docker.sql
+Get-Content backend\backup\backup_pre_docker.sql -Encoding UTF8 | docker exec -i ubapp_postgres psql -U postgres -d UBAppDB
+```
 
-# O usar el script de importación
-docker-compose exec backend python funciones/importar_datos_local.py
+**Otros datos (JSON, etc.):**
+
+```powershell
+docker exec backend python funciones/importar_datos_local.py
 ```
 
 ### 5. **Configurar Volúmenes Persistentes**
@@ -270,6 +378,38 @@ docker-compose --profile production up -d
 ---
 
 ## 🔧 Troubleshooting
+
+### Problema: `POST .../login/ net::ERR_EMPTY_RESPONSE` o "Error de conexión con el servidor"
+
+El navegador llama a `http://localhost:8000/api/...` pero no recibe respuesta. Suele indicar que **el backend no está corriendo o se cae al atender la petición**.
+
+**Pasos:**
+
+1. **Comprobar que el backend está en marcha:**
+   ```powershell
+   docker-compose ps
+   ```
+   El servicio `backend` debe estar **Up** (y si hay healthcheck, **healthy**). Si está **Exit** o reiniciando, hay que ver los logs.
+
+2. **Ver los logs del backend:**
+   ```powershell
+   docker-compose logs backend
+   ```
+   Busca líneas en rojo o mensajes como `Error`, `Exception`, `OperationalError`, `ImportError`, o que Gunicorn se detenga. Eso indica por qué el backend no responde.
+
+3. **Causas habituales y qué hacer:**
+   - **Migraciones o base de datos:** Si ves errores de PostgreSQL o de tablas que no existen, ejecuta migraciones dentro del contenedor:
+     ```powershell
+     docker-compose exec backend python manage.py migrate --noinput
+     ```
+   - **Variables de entorno:** Si falta `SECRET_KEY` o Django se queja de configuración, revisa el `.env` en la **raíz del proyecto** (donde está `docker-compose.yml`) y asegura que existan `SECRET_KEY` y `OPENAI_API_KEY`.
+   - **Backend se reinicia solo:** Si `docker-compose ps` muestra el backend reiniciando una y otra vez, el fallo está en el arranque (migraciones, DB, env). Los logs de `docker-compose logs backend` indican el motivo.
+
+4. **Probar el backend desde PowerShell:**
+   ```powershell
+   curl http://localhost:8000/api/health/
+   ```
+   Si aquí tampoco hay respuesta, el problema es del contenedor backend (no del frontend ni de CORS). Sigue usando `docker-compose logs backend` para diagnosticar.
 
 ### Problema: Contenedores no inician
 

@@ -154,8 +154,10 @@ export class PerfilComponent implements OnInit {
         this.loadCantones(this.currentUser.provincia);
         // Esperar a que se carguen los cantones antes de cargar las ciudades
         setTimeout(() => {
-          if (this.currentUser?.canton) {
-            this.loadCiudades(this.currentUser.provincia, this.currentUser.canton);
+          const provincia = this.currentUser?.provincia;
+          const canton = this.currentUser?.canton;
+          if (provincia && canton) {
+            this.loadCiudades(provincia, canton);
             // Después de cargar las ciudades, asegurar que los valores estén correctos
             setTimeout(() => {
               this.profileForm.patchValue({
@@ -530,6 +532,6 @@ export class PerfilComponent implements OnInit {
     const correoValid = this.profileForm.get('correo')?.valid;
     const telefonoValid = !this.profileForm.get('telefono')?.value || this.profileForm.get('telefono')?.valid;
     
-    return nombreValid && correoValid && telefonoValid;
+    return Boolean(nombreValid && correoValid && telefonoValid);
   }
 }

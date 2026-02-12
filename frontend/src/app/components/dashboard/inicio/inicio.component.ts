@@ -515,7 +515,7 @@ export class InicioComponent implements OnInit, OnDestroy {
               titleFont: { size: 13 },
               bodyFont: { size: 12 },
               callbacks: {
-                label: (ctx) => `Envíos: ${ctx.raw}`
+                label: (ctx: { raw: number }) => `Envíos: ${ctx.raw}`
               }
             }
           } as any,

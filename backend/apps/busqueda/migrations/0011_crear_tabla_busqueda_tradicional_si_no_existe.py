@@ -9,6 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('usuarios', '0010_alter_usuario_managers'),  # Asegurar que la tabla usuarios exista antes
         ('busqueda', '0010_rename_embedding_b_usuario_idx_embedding_b_usuario_275ca3_idx_and_more'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]

@@ -86,18 +86,24 @@ if DATABASE_URL:
         )
     }
     
-    # Detectar si es conexión local (Docker) o remota (Supabase)
+    # Detectar si es conexión local (Docker o localhost) o remota (Supabase)
     db_host = DATABASES['default'].get('HOST', '')
-    is_local = db_host in ('localhost', '127.0.0.1', '::1')
+    is_local = db_host in ('localhost', '127.0.0.1', '::1', 'postgres')
+    is_supabase = 'supabase.co' in str(db_host)
     
     # Configurar opciones
     if 'OPTIONS' not in DATABASES['default']:
         DATABASES['default']['OPTIONS'] = {}
     
-    # SSL solo para Supabase (conexiones remotas), no para localhost
-    if not is_local:
+    # SSL solo para Supabase; Docker (host "postgres") y localhost no usan SSL
+    # Forzar sslmode disable en local/Docker para evitar "server does not support SSL, but SSL was required"
+    if is_supabase and not is_local:
         DATABASES['default']['OPTIONS']['sslmode'] = 'require'
-    
+    else:
+        DATABASES['default']['OPTIONS']['sslmode'] = 'disable'
+    # Eliminar sslmode del nivel superior si dj_database_url lo puso (evita conflicto)
+    DATABASES['default'].pop('sslmode', None)
+
     DATABASES['default']['OPTIONS']['connect_timeout'] = 10
     DATABASES['default']['ATOMIC_REQUESTS'] = True
 else:
@@ -309,22 +315,20 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
 
-# CORS settings - Configuración segura
+# CORS settings - Configuración segura (prioridad a .env)
 # En desarrollo, puedes cambiar esto temporalmente
 CORS_ALLOW_ALL_ORIGINS = DEBUG  # Solo permitir todos los orígenes si DEBUG=True
 CORS_ALLOW_CREDENTIALS = True
 
-# Whitelist de orígenes permitidos (cuando CORS_ALLOW_ALL_ORIGINS = False)
-CORS_ALLOWED_ORIGINS = [
+# Whitelist de orígenes: si CORS_ALLOWED_ORIGINS está en .env, se usa; si no, valores por defecto
+_DEFAULT_CORS_ORIGINS = [
     'http://localhost:4200',
     'http://localhost:4201',
     'http://127.0.0.1:4200',
     'http://127.0.0.1:4201',
 ]
-
-# Agregar orígenes adicionales desde variable de entorno
-EXTRA_CORS_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
-CORS_ALLOWED_ORIGINS.extend([origin.strip() for origin in EXTRA_CORS_ORIGINS if origin.strip()])
+_ENV_CORS = [o.strip() for o in os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if o.strip()]
+CORS_ALLOWED_ORIGINS = _ENV_CORS if _ENV_CORS else _DEFAULT_CORS_ORIGINS
 
 # Headers permitidos
 CORS_ALLOW_HEADERS = [
@@ -339,17 +343,15 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
-# CSRF settings - Permitir peticiones desde el frontend
-CSRF_TRUSTED_ORIGINS = [
+# CSRF settings - Permitir peticiones desde el frontend (prioridad a .env)
+_DEFAULT_CSRF_ORIGINS = [
     'http://localhost:4200',
     'http://localhost:4201',
     'http://127.0.0.1:4200',
     'http://127.0.0.1:4201',
 ]
-
-# Agregar orígenes CSRF adicionales desde variable de entorno
-EXTRA_CSRF_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
-CSRF_TRUSTED_ORIGINS.extend([origin.strip() for origin in EXTRA_CSRF_ORIGINS if origin.strip()])
+_ENV_CSRF = [o.strip() for o in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if o.strip()]
+CSRF_TRUSTED_ORIGINS = _ENV_CSRF if _ENV_CSRF else _DEFAULT_CSRF_ORIGINS
 
 # Cookies de seguridad
 CSRF_COOKIE_HTTPONLY = not DEBUG  # HttpOnly en producción
@@ -373,10 +375,10 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 REDIS_URL = os.getenv('REDIS_URL', '')
 
 if REDIS_URL:
-    # Usar Redis en producción para mejor rendimiento y persistencia
+    # Usar django-redis (soporta CLIENT_CLASS y OPTIONS); evita TypeError con redis-py
     CACHES = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'BACKEND': 'django_redis.cache.RedisCache',
             'LOCATION': REDIS_URL,
             'OPTIONS': {
                 'CLIENT_CLASS': 'django_redis.client.DefaultClient',
@@ -394,21 +396,21 @@ if REDIS_URL:
         },
         # Caché separado para sesiones
         'sessions': {
-            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'BACKEND': 'django_redis.cache.RedisCache',
             'LOCATION': REDIS_URL,
             'KEY_PREFIX': 'ubapp_sessions',
             'TIMEOUT': 86400,  # 1 día
         },
         # Caché para rate limiting
         'throttle': {
-            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'BACKEND': 'django_redis.cache.RedisCache',
             'LOCATION': REDIS_URL,
             'KEY_PREFIX': 'ubapp_throttle',
             'TIMEOUT': 3600,  # 1 hora
         },
         # Caché para embeddings (larga duración)
         'embeddings': {
-            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'BACKEND': 'django_redis.cache.RedisCache',
             'LOCATION': REDIS_URL,
             'KEY_PREFIX': 'ubapp_embeddings',
             'TIMEOUT': 604800,  # 7 días

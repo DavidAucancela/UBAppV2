@@ -21,12 +21,11 @@ RUN npm run build:prod
 # Stage 2: Production
 FROM nginx:alpine
 
-# Copiar archivos construidos desde el stage de build
-COPY --from=builder /app/dist/angular-frontend /usr/share/nginx/html
+# Copiar archivos del navegador (Angular 17+ con SSR genera browser/ y server/)
+COPY --from=builder /app/dist/angular-frontend/browser /usr/share/nginx/html
 
-# Copiar configuración personalizada de nginx (opcional)
-# Si tienes una configuración personalizada, descomenta la siguiente línea:
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Configuración nginx para SPA (rutas de Angular)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Exponer puerto
 EXPOSE 80
