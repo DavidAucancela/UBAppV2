@@ -29,8 +29,7 @@ git clone https://github.com/DavidAucancela/UBAppV2.git
 cd UBAppV2
 
 # 2. Configurar variables de entorno
-cp .env.example .env
-# Editar .env con tus valores (SECRET_KEY, OPENAI_API_KEY, contraseñas)
+.env.
 
 # 3. Levantar la aplicación
 docker-compose up -d
@@ -278,7 +277,7 @@ npm run lint:fix   # Corregir estilo
 ```
 UBAppV2/
 ├── docker-compose.yml      # Orquestación de servicios
-├── .env.example            # Plantilla de variables (copiar a .env)
+├── .env 
 ├── README.md
 │
 ├── backend/                 # API Django REST
