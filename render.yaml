@@ -10,14 +10,7 @@ services:
     name: ubapp-backend
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
-    dockerCommand: >
-      sh -c "
-        python wait_for_db.py &&
-        python rename_backup_tables.py &&
-        python manage.py migrate --noinput &&
-        python manage.py collectstatic --noinput &&
-        gunicorn wsgi:application --bind 0.0.0.0:${PORT} --workers 2 --timeout 120 --access-logfile - --error-logfile -
-      "
+    dockerCommand: ./start-render.sh
     healthCheckPath: /api/health/
     plan: free
     envVars:

@@ -52,9 +52,10 @@ done\n\
 exec $cmd' > /usr/local/bin/wait_for_db.sh && \
     chmod +x /usr/local/bin/wait_for_db.sh
 
-# Copiar script de espera para la base de datos
+# Copiar scripts
 COPY wait_for_db.py .
-RUN chmod +x wait_for_db.py
+COPY start-render.sh .
+RUN chmod +x wait_for_db.py start-render.sh
 
 # Exponer puerto
 EXPOSE 8000
