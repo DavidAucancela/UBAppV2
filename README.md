@@ -1,54 +1,80 @@
-# UBApp - Sistema de Gestión de Envíos
+# UBApp — Sistema de Gestión de Envíos
 
-Sistema integral de gestión de envíos con búsqueda semántica impulsada por IA, visualización geográfica y generación de documentos. Construido con **Django** (backend) y **Angular** (frontend), orquestado con **Docker Compose**.
+> Sistema integral de gestión de envíos con **búsqueda semántica impulsada por IA**, visualización geográfica y generación de documentos. Construido con Django (backend) y Angular (frontend), orquestado con Docker Compose.
 
 ---
 
 ## Tabla de Contenidos
 
-- [Características](#características)
-- [Arquitectura](#arquitectura)
-- [Tecnologías](#tecnologías)
-- [Requisitos Previos](#requisitos-previos)
-- [Instalación](#instalación)
-  - [Con Docker Compose (Recomendado)](#con-docker-compose-recomendado)
-  - [Instalación Manual](#instalación-manual)
-- [Variables de Entorno](#variables-de-entorno)
-- [Uso](#uso)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [API](#api)
-- [Módulos](#módulos)
+- [Inicio Rápido](#-inicio-rápido)
+- [Características](#-características)
+- [Arquitectura](#-arquitectura)
+- [Tecnologías](#-tecnologías)
+- [Requisitos](#-requisitos)
+- [Instalación](#-instalación)
+- [Variables de Entorno](#-variables-de-entorno)
+- [Uso](#-uso)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [API](#-api)
+- [Módulos](#-módulos)
+- [Licencia](#-licencia)
+
+---
+
+## Inicio Rápido
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/DavidAucancela/UBAppV2.git
+cd UBAppV2
+
+# 2. Configurar variables de entorno
+cp .env.example .env
+# Editar .env con tus valores (SECRET_KEY, OPENAI_API_KEY, contraseñas)
+
+# 3. Levantar la aplicación
+docker-compose up -d
+
+# 4. Acceder
+# Frontend: http://localhost:4200
+# API:      http://localhost:8000/api
+# Swagger:  http://localhost:8000/api/docs
+```
+
+> **Importante:** El archivo `.env` contiene secretos y **no debe subirse a Git**. Usa `.env.example` como plantilla.
 
 ---
 
 ## Características
 
-- **Gestión de envíos**: CRUD completo de envíos, productos y tarifas
-- **Búsqueda avanzada**: Búsqueda tradicional y semántica con embeddings de OpenAI y pgvector
-- **Importación/Exportación**: Carga masiva desde Excel y generación de recibos en PDF
-- **Visualización geográfica**: Mapas interactivos con ubicaciones de compradores (Leaflet)
-- **Autenticación JWT**: Control de acceso basado en roles
-- **Notificaciones en tiempo real**: Sistema de notificaciones para usuarios
-- **Métricas y monitoreo**: Panel de rendimiento y actividad del sistema
-- **Caché con Redis**: Optimización de consultas y respuestas
-- **Documentación API**: Swagger/OpenAPI integrada
+| Área | Funcionalidad |
+|------|---------------|
+| **Envíos** | CRUD completo de envíos, productos y tarifas |
+| **Búsqueda** | Tradicional con filtros + semántica con embeddings (OpenAI + pgvector) |
+| **Documentos** | Importación masiva desde Excel, generación de recibos en PDF |
+| **Mapas** | Visualización geográfica de compradores con Leaflet |
+| **Seguridad** | Autenticación JWT y control de acceso por roles |
+| **Tiempo real** | Sistema de notificaciones para usuarios |
+| **Métricas** | Panel de rendimiento y actividad del sistema |
+| **Caché** | Redis para optimización de consultas |
+| **API** | Documentación Swagger/OpenAPI integrada |
 
 ---
 
 ## Arquitectura
 
 ```
-┌─────────────┐     ┌─────────────┐     ┌──────────────┐
-│   Angular    │────▶│   Django     │────▶│  PostgreSQL   │
-│  (Frontend)  │     │  (Backend)   │     │  + pgvector   │
-│  Puerto 4200 │     │  Puerto 8000 │     │               │
-└─────────────┘     └──────┬──────┘     └──────────────┘
-                           │
-                    ┌──────┴──────┐     ┌──────────────┐
-                    │    Redis     │     │   OpenAI API  │
-                    │   (Caché)    │     │  (Embeddings) │
-                    │  Puerto 6379 │     └──────────────┘
-                    └─────────────┘
+┌─────────────────┐     ┌─────────────────┐     ┌──────────────────┐
+│    Angular      │────▶│     Django       │────▶│   PostgreSQL     │
+│   (Frontend)    │     │   (Backend)      │     │   + pgvector     │
+│   Puerto 4200   │     │   Puerto 8000    │     │                  │
+└─────────────────┘     └────────┬────────┘     └──────────────────┘
+                                  │
+                         ┌────────┴────────┐     ┌──────────────────┐
+                         │      Redis      │     │   OpenAI API     │
+                         │    (Caché)      │     │  (Embeddings)    │
+                         │  Puerto 6379   │     └──────────────────┘
+                         └─────────────────┘
 ```
 
 **Capas del backend:**
@@ -63,7 +89,7 @@ Sistema integral de gestión de envíos con búsqueda semántica impulsada por I
 
 ### Backend
 | Tecnología | Versión | Propósito |
-|---|---|---|
+|------------|---------|-----------|
 | Python | 3.x | Lenguaje principal |
 | Django | 5.2 | Framework web |
 | Django REST Framework | 3.16 | API REST |
@@ -75,30 +101,31 @@ Sistema integral de gestión de envíos con búsqueda semántica impulsada por I
 
 ### Frontend
 | Tecnología | Versión | Propósito |
-|---|---|---|
+|------------|---------|-----------|
 | Angular | 17.3 | Framework SPA |
 | TypeScript | 5.2 | Lenguaje principal |
 | Leaflet | 1.9 | Mapas interactivos |
-| Chart.js | 4.5 | Gráficos y visualizaciones |
+| Chart.js | 4.5 | Gráficos |
 | jsPDF | 3.0 | Generación de PDF |
-| xlsx | 0.18 | Manejo de archivos Excel |
+| xlsx | 0.18 | Archivos Excel |
 
 ### Infraestructura
 | Tecnología | Propósito |
-|---|---|
+|------------|-----------|
 | Docker & Docker Compose | Contenedorización |
-| Nginx | Servidor web (producción) |
+| Nginx | Servidor web (producción, opcional) |
 
 ---
 
-## Requisitos Previos
+## Requisitos
 
-- **Docker** y **Docker Compose** instalados (método recomendado)
-- O bien, para instalación manual:
-  - Python 3.10+
-  - Node.js 18+ y npm
-  - PostgreSQL 15+ con extensión pgvector
-  - Redis 7+
+- **Docker** y **Docker Compose** (método recomendado)
+
+O, para instalación manual:
+- Python 3.10+
+- Node.js 18+ y npm
+- PostgreSQL 15+ con extensión pgvector
+- Redis 7+
 
 ---
 
@@ -106,22 +133,21 @@ Sistema integral de gestión de envíos con búsqueda semántica impulsada por I
 
 ### Con Docker Compose (Recomendado)
 
-1. **Clonar el repositorio:**
+**1. Clonar el repositorio**
 
 ```bash
-git clone <url-del-repositorio>
-cd App
+git clone https://github.com/DavidAucancela/UBAppV2.git
+cd UBAppV2
 ```
 
-2. **Configurar variables de entorno:**
+**2. Configurar variables de entorno**
 
-```bash
-# Copiar y editar el archivo .env en la raíz
-cp .env.example .env
-# Editar con tus valores (ver sección Variables de Entorno)
-```
+Edita `.env` y configura al menos:
+- `SECRET_KEY` — Genera una clave segura (ej: `python -c "import secrets; print(secrets.token_hex(32))"`)
+- `OPENAI_API_KEY` — Obtén una en [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+- `DB_PASSWORD` y `REDIS_PASSWORD` — Contraseñas seguras
 
-3. **Levantar los servicios:**
+**3. Levantar los servicios**
 
 ```bash
 # Modo desarrollo (sin Nginx)
@@ -131,14 +157,14 @@ docker-compose up -d
 docker-compose --profile production up -d
 ```
 
-4. **Acceder a la aplicación:**
+**4. Acceder a la aplicación**
 
 | Servicio | URL |
-|---|---|
+|----------|-----|
 | Frontend | http://localhost:4200 |
 | Backend API | http://localhost:8000/api |
-| Documentación API (Swagger) | http://localhost:8000/api/docs |
-| Documentación API (ReDoc) | http://localhost:8000/api/redoc |
+| Swagger (API docs) | http://localhost:8000/api/docs |
+| ReDoc (API docs) | http://localhost:8000/api/redoc |
 | Admin Django | http://localhost:8000/admin |
 
 ### Instalación Manual
@@ -147,29 +173,17 @@ docker-compose --profile production up -d
 
 ```bash
 cd backend
-
-# Crear entorno virtual
 python -m venv venv
 
-# Activar entorno virtual
 # Windows:
 venv\Scripts\activate
 # Linux/Mac:
-source venv/bin/activate
+# source venv/bin/activate
 
-# Instalar dependencias
 pip install -r requirements.txt
-
-# Configurar variables de entorno
-# Editar backend/.env con tus valores
-
-# Ejecutar migraciones
+# Crear backend/.env con tus valores
 python manage.py migrate
-
-# Crear superusuario
 python manage.py createsuperuser
-
-# Iniciar servidor de desarrollo
 python manage.py runserver
 ```
 
@@ -177,61 +191,45 @@ python manage.py runserver
 
 ```bash
 cd frontend
-
-# Instalar dependencias
 npm install
-
-# Iniciar servidor de desarrollo
 npm start
-# o
-ng serve --port 4200 --host 0.0.0.0
-
-# Construir para producción
-npm run build:prod
+# o: ng serve --port 4200 --host 0.0.0.0
 ```
 
 ---
 
 ## Variables de Entorno
 
-### Raíz (`.env` - Docker Compose)
+### Raíz (`.env` — Docker Compose)
 
-| Variable | Descripción | Valor por defecto |
-|---|---|---|
+| Variable | Descripción | Ejemplo |
+|----------|-------------|---------|
 | `DB_NAME` | Nombre de la base de datos | `UBAppDB` |
-| `DB_USER` | Usuario de PostgreSQL | `postgres` |
-| `DB_PASSWORD` | Contraseña de PostgreSQL | - |
-| `DB_PORT` | Puerto de PostgreSQL | `5432` |
-| `REDIS_PASSWORD` | Contraseña de Redis | - |
-| `REDIS_PORT` | Puerto de Redis | `6379` |
+| `DB_USER` | Usuario PostgreSQL | `postgres` |
+| `DB_PASSWORD` | Contraseña PostgreSQL | *(requerido)* |
+| `DB_PORT` | Puerto PostgreSQL | `5434` |
+| `REDIS_PASSWORD` | Contraseña Redis | *(requerido)* |
+| `REDIS_PORT` | Puerto Redis | `6379` |
 | `DEBUG` | Modo depuración | `False` |
-| `SECRET_KEY` | Clave secreta de Django | - |
-| `ALLOWED_HOSTS` | Hosts permitidos | `localhost,127.0.0.1` |
+| `SECRET_KEY` | Clave secreta Django | *(requerido)* |
+| `ALLOWED_HOSTS` | Hosts permitidos | `localhost,127.0.0.1,backend` |
 | `BACKEND_PORT` | Puerto del backend | `8000` |
 | `FRONTEND_PORT` | Puerto del frontend | `4200` |
-| `CORS_ALLOWED_ORIGINS` | Orígenes CORS permitidos | - |
-| `CSRF_TRUSTED_ORIGINS` | Orígenes CSRF confiables | - |
-| `OPENAI_API_KEY` | Clave API de OpenAI | - |
+| `CORS_ALLOWED_ORIGINS` | Orígenes CORS | `http://localhost:4200,...` |
+| `CSRF_TRUSTED_ORIGINS` | Orígenes CSRF | `http://localhost:4200,...` |
+| `OPENAI_API_KEY` | API Key de OpenAI | *(requerido para búsqueda semántica)* |
 | `OPENAI_EMBEDDING_MODEL` | Modelo de embeddings | `text-embedding-3-small` |
-| `OPENAI_EMBEDDING_DIMENSIONS` | Dimensiones del embedding | `1536` |
-| `API_URL` | URL del backend para el frontend | `http://backend:8000` |
-| `NGINX_PORT` | Puerto HTTP de Nginx | `80` |
-| `NGINX_HTTPS_PORT` | Puerto HTTPS de Nginx | `443` |
+| `OPENAI_EMBEDDING_DIMENSIONS` | Dimensiones | `1536` |
+| `API_URL` | URL del backend (para frontend) | `http://backend:8000` |
 
-### Backend (`backend/.env`)
+### Backend (`backend/.env` — instalación manual)
 
-| Variable | Descripción | Valor por defecto |
-|---|---|---|
-| `SECRET_KEY` | Clave secreta de Django | - |
-| `DEBUG` | Modo depuración | `True` |
-| `ALLOWED_HOSTS` | Hosts permitidos | `*` |
-| `DB_HOST` | Host de PostgreSQL | `localhost` |
-| `DB_PORT` | Puerto de PostgreSQL | `5432` |
-| `DB_NAME` | Nombre de la base de datos | `UBAppDB` |
-| `DB_USER` | Usuario de PostgreSQL | `postgres` |
-| `DB_PASSWORD` | Contraseña de PostgreSQL | - |
-| `OPENAI_API_KEY` | Clave API de OpenAI | - |
-| `LOG_LEVEL` | Nivel de logging | `INFO` |
+| Variable | Descripción |
+|----------|-------------|
+| `SECRET_KEY` | Clave secreta Django |
+| `DEBUG` | Modo depuración |
+| `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` | Conexión PostgreSQL |
+| `OPENAI_API_KEY` | API Key de OpenAI |
 
 ---
 
@@ -240,25 +238,23 @@ npm run build:prod
 ### Comandos Docker útiles
 
 ```bash
-# Ver logs de todos los servicios
+# Ver logs
 docker-compose logs -f
-
-# Ver logs de un servicio específico
 docker-compose logs -f backend
 
 # Reiniciar un servicio
 docker-compose restart backend
 
-# Detener todos los servicios
+# Detener todo
 docker-compose down
 
 # Detener y eliminar volúmenes (¡borra datos!)
 docker-compose down -v
 
-# Acceder a la base de datos
+# Acceder a PostgreSQL
 docker exec -it ubapp_postgres psql -U postgres -d UBAppDB
 
-# Ejecutar comandos Django
+# Comandos Django
 docker exec -it ubapp_backend python manage.py migrate
 docker exec -it ubapp_backend python manage.py createsuperuser
 docker exec -it ubapp_backend python manage.py collectstatic
@@ -271,8 +267,8 @@ npm start          # Servidor de desarrollo (puerto 4200)
 npm run build      # Compilar aplicación
 npm run build:prod # Compilar para producción
 npm test           # Ejecutar tests
-npm run lint       # Verificar estilo de código
-npm run lint:fix   # Corregir errores de estilo
+npm run lint       # Verificar estilo
+npm run lint:fix   # Corregir estilo
 ```
 
 ---
@@ -280,64 +276,48 @@ npm run lint:fix   # Corregir errores de estilo
 ## Estructura del Proyecto
 
 ```
-App/
-├── docker-compose.yml          # Orquestación de servicios
-├── .env                        # Variables de entorno (Docker)
-├── README.md                   # Este archivo
+UBAppV2/
+├── docker-compose.yml      # Orquestación de servicios
+├── .env.example            # Plantilla de variables (copiar a .env)
+├── README.md
 │
-├── backend/                    # API Django REST
+├── backend/                 # API Django REST
 │   ├── apps/
-│   │   ├── core/               # Utilidades base, paginación, excepciones
-│   │   ├── usuarios/           # Gestión de usuarios y autenticación
-│   │   ├── archivos/           # Gestión de envíos y productos
-│   │   ├── busqueda/           # Búsqueda tradicional y semántica
-│   │   ├── notificaciones/     # Sistema de notificaciones
-│   │   └── metricas/           # Métricas y monitoreo
-│   ├── settings.py             # Configuración de Django
-│   ├── urls.py                 # Enrutamiento principal
-│   ├── requirements.txt        # Dependencias Python
-│   ├── Dockerfile              # Imagen Docker del backend
-│   └── documentacion/          # Documentación técnica
+│   │   ├── core/           # Utilidades base, paginación, excepciones
+│   │   ├── usuarios/       # Usuarios y autenticación
+│   │   ├── archivos/       # Envíos y productos
+│   │   ├── busqueda/       # Búsqueda tradicional y semántica
+│   │   ├── notificaciones/
+│   │   └── metricas/
+│   ├── settings.py
+│   ├── urls.py
+│   ├── requirements.txt
+│   └── Dockerfile
 │
-├── frontend/                   # SPA Angular
+├── frontend/               # SPA Angular
 │   ├── src/app/
-│   │   ├── components/         # Componentes Angular
-│   │   ├── services/           # Servicios (API, auth, búsqueda)
-│   │   ├── models/             # Interfaces TypeScript
-│   │   ├── guards/             # Guards de autenticación y roles
-│   │   └── interceptors/       # Interceptores HTTP
-│   ├── angular.json            # Configuración Angular CLI
-│   ├── package.json            # Dependencias Node.js
-│   ├── Dockerfile              # Imagen Docker del frontend
-│   └── documentacion/          # Documentación del frontend
+│   │   ├── components/
+│   │   ├── services/
+│   │   ├── models/
+│   │   ├── guards/
+│   │   └── interceptors/
+│   ├── angular.json
+│   ├── package.json
+│   └── Dockerfile
 │
-├── media/                      # Archivos multimedia (Excel, PDF)
-└── logs/                       # Logs de la aplicación
+├── media/                  # Archivos multimedia
+├── logs/                   # Logs
+└── docs/                   # Documentación adicional
 ```
 
 ---
 
 ## API
 
-La API REST está documentada automáticamente con OpenAPI/Swagger.
+La API REST está documentada con OpenAPI/Swagger.
 
-- **Swagger UI**: http://localhost:8000/api/docs
-- **ReDoc**: http://localhost:8000/api/redoc
-
-### Endpoints principales
-
-| Método | Endpoint | Descripción |
-|---|---|---|
-| `POST` | `/api/token/` | Obtener token JWT |
-| `POST` | `/api/token/refresh/` | Refrescar token JWT |
-| `GET/POST` | `/api/archivos/` | Listar/crear envíos |
-| `GET/PUT/DELETE` | `/api/archivos/{id}/` | Detalle de envío |
-| `GET/POST` | `/api/usuarios/` | Listar/crear usuarios |
-| `GET` | `/api/busqueda/` | Búsqueda tradicional |
-| `GET` | `/api/busqueda/semantica/` | Búsqueda semántica |
-| `GET` | `/api/notificaciones/` | Listar notificaciones |
-| `GET` | `/api/metricas/` | Métricas del sistema |
-| `GET` | `/api/health/` | Estado del servicio |
+- **Swagger UI:** http://localhost:8000/api/docs
+- **ReDoc:** http://localhost:8000/api/redoc
 
 ---
 
@@ -346,26 +326,26 @@ La API REST está documentada automáticamente con OpenAPI/Swagger.
 ### Backend
 
 | Módulo | Descripción |
-|---|---|
-| **core** | Clases base (repositorios, servicios), paginación personalizada, manejo de excepciones y throttling |
-| **usuarios** | Modelo de usuario personalizado, autenticación JWT, perfiles con datos de ubicación, permisos por rol |
-| **archivos** | CRUD de envíos y productos, cálculo de tarifas por categoría/peso, generación de recibos PDF, importación desde Excel |
-| **busqueda** | Búsqueda tradicional con filtros, búsqueda semántica con OpenAI embeddings y pgvector, expansión de consultas, métricas de relevancia (MRR, nDCG, Precision@5) |
+|--------|-------------|
+| **core** | Clases base, paginación, excepciones, throttling |
+| **usuarios** | Usuario personalizado, JWT, perfiles, permisos por rol |
+| **archivos** | CRUD envíos/productos, tarifas, PDF, importación Excel |
+| **busqueda** | Búsqueda tradicional, semántica (OpenAI + pgvector), métricas |
 | **notificaciones** | Sistema de notificaciones por usuario |
-| **metricas** | Monitoreo de rendimiento, evaluación de módulos, seguimiento de actividad |
+| **metricas** | Monitoreo, evaluación, actividad |
 
 ### Frontend
 
 | Módulo | Descripción |
-|---|---|
-| **Autenticación** | Login/logout, gestión de tokens JWT, guards de autenticación y roles |
-| **Envíos** | Crear, editar y visualizar envíos con sus productos |
-| **Búsqueda** | Interfaz unificada para búsqueda tradicional y semántica |
-| **Importación/Exportación** | Importación masiva desde Excel, exportación a PDF |
-| **Mapas** | Visualización geográfica de compradores con Leaflet |
-| **Dashboard** | Paneles por usuario, métricas y gráficos con Chart.js |
-| **Tarifas** | Gestión y cálculo de tarifas de envío |
-| **Administración** | Gestión de usuarios (rol administrador) |
+|--------|-------------|
+| **Autenticación** | Login, JWT, guards |
+| **Envíos** | CRUD de envíos y productos |
+| **Búsqueda** | Tradicional y semántica |
+| **Importación/Exportación** | Excel, PDF |
+| **Mapas** | Visualización geográfica (Leaflet) |
+| **Dashboard** | Métricas y gráficos |
+| **Tarifas** | Gestión de tarifas |
+| **Administración** | Gestión de usuarios |
 
 ---
 

@@ -12,6 +12,7 @@ logs/
 
 # Media y archivos generados
 media/
+docs/
 
 # OS
 .DS_Store
