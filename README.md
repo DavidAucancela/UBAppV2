@@ -348,6 +348,17 @@ La API REST está documentada con OpenAPI/Swagger.
 
 ---
 
+## Despliegue en Render
+
+Para desplegar en [Render](https://render.com) con Docker:
+
+1. Conecta tu repositorio en [dashboard.render.com](https://dashboard.render.com)
+2. Crea un **Blueprint** desde el archivo `render.yaml`
+3. Configura `OPENAI_API_KEY` (backend) y `API_URL` (frontend) en el Dashboard
+4. Consulta la guía completa: [docs/DESPLIEGUE_RENDER.md](docs/DESPLIEGUE_RENDER.md)
+
+---
+
 ## Licencia
 
 Este proyecto es de uso privado.

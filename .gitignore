@@ -10,9 +10,12 @@
 logs/
 *.log
 
+# Gunicorn (symlink/control - causa errores en Windows con Git)
+backend/gunicorn.ctl
+gunicorn.ctl
+
 # Media y archivos generados
 media/
-docs/
 
 # OS
 .DS_Store

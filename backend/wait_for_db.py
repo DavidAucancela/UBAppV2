@@ -16,12 +16,12 @@ def wait_for_db():
     db_config = {
         "host": os.getenv("DB_HOST", "postgres"),
         "port": os.getenv("DB_PORT", "5432"),
-        "database": os.getenv("DB_NAME", "UBAppDB"),
+        "dbname": os.getenv("DB_NAME", "UBAppDB"),
         "user": os.getenv("DB_USER", "postgres"),
         "password": os.getenv("DB_PASSWORD", "admin")
     }
     
-    # Si hay DATABASE_URL, parsearla
+    # Si hay DATABASE_URL, parsearla (Render, Supabase, etc.)
     database_url = os.getenv("DATABASE_URL")
     if database_url:
         from urllib.parse import urlparse
@@ -29,7 +29,7 @@ def wait_for_db():
         db_config = {
             "host": parsed.hostname or "postgres",
             "port": parsed.port or 5432,
-            "database": parsed.path[1:] if parsed.path else "UBAppDB",
+            "dbname": (parsed.path or "/UBAppDB").lstrip("/") or "UBAppDB",
             "user": parsed.username or "postgres",
             "password": parsed.password or "admin"
         }

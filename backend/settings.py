@@ -86,21 +86,19 @@ if DATABASE_URL:
         )
     }
     
-    # Detectar si es conexión local (Docker o localhost) o remota (Supabase)
+    # Detectar si es conexión local (Docker o localhost) o remota (Render, Supabase, etc.)
     db_host = DATABASES['default'].get('HOST', '')
     is_local = db_host in ('localhost', '127.0.0.1', '::1', 'postgres')
-    is_supabase = 'supabase.co' in str(db_host)
     
     # Configurar opciones
     if 'OPTIONS' not in DATABASES['default']:
         DATABASES['default']['OPTIONS'] = {}
     
-    # SSL solo para Supabase; Docker (host "postgres") y localhost no usan SSL
-    # Forzar sslmode disable en local/Docker para evitar "server does not support SSL, but SSL was required"
-    if is_supabase and not is_local:
-        DATABASES['default']['OPTIONS']['sslmode'] = 'require'
-    else:
+    # SSL: requerido para hosts remotos (Render, Supabase); deshabilitado para local/Docker
+    if is_local:
         DATABASES['default']['OPTIONS']['sslmode'] = 'disable'
+    else:
+        DATABASES['default']['OPTIONS']['sslmode'] = 'require'
     # Eliminar sslmode del nivel superior si dj_database_url lo puso (evita conflicto)
     DATABASES['default'].pop('sslmode', None)
 
@@ -330,6 +328,10 @@ _DEFAULT_CORS_ORIGINS = [
 _ENV_CORS = [o.strip() for o in os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if o.strip()]
 CORS_ALLOWED_ORIGINS = _ENV_CORS if _ENV_CORS else _DEFAULT_CORS_ORIGINS
 
+# Permitir orígenes de Render (*.onrender.com) - las URLs tienen formato xxx-xxxx.onrender.com
+if any('.onrender.com' in o for o in CORS_ALLOWED_ORIGINS):
+    CORS_ALLOWED_ORIGIN_REGEXES = [r'^https://[a-z0-9-]+\.onrender\.com$']
+
 # Headers permitidos
 CORS_ALLOW_HEADERS = [
     'accept',
@@ -372,7 +374,12 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 
 # Configuración de Cache
 # Redis para producción, LocMem para desarrollo
+# Soporta REDIS_URL directo o REDIS_HOST+REDIS_PORT (Render)
 REDIS_URL = os.getenv('REDIS_URL', '')
+if not REDIS_URL and os.getenv('REDIS_HOST'):
+    redis_host = os.getenv('REDIS_HOST')
+    redis_port = os.getenv('REDIS_PORT', '6379')
+    REDIS_URL = f'redis://{redis_host}:{redis_port}/0'
 
 if REDIS_URL:
     # Usar django-redis (soporta CLIENT_CLASS y OPTIONS); evita TypeError con redis-py

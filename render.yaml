@@ -1,0 +1,88 @@
+# Blueprint para desplegar UBApp en Render
+# Documentación: https://render.com/docs/blueprint-spec
+
+services:
+  # ============================================
+  # BACKEND - Django REST API (Docker)
+  # ============================================
+  - type: web
+    runtime: docker
+    name: ubapp-backend
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    dockerCommand: >
+      sh -c "
+        python wait_for_db.py &&
+        python rename_backup_tables.py &&
+        python manage.py migrate --noinput &&
+        python manage.py collectstatic --noinput &&
+        gunicorn wsgi:application --bind 0.0.0.0:${PORT} --workers 2 --timeout 120 --access-logfile - --error-logfile -
+      "
+    healthCheckPath: /api/health/
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ubapp-db
+          property: connectionString
+      - key: REDIS_HOST
+        fromService:
+          type: keyvalue
+          name: ubapp-redis
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: keyvalue
+          name: ubapp-redis
+          property: port
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "false"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com,localhost,127.0.0.1"
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://ubapp-frontend.onrender.com,http://localhost:4200"
+      - key: CSRF_TRUSTED_ORIGINS
+        value: "https://ubapp-frontend.onrender.com,http://localhost:4200"
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_EMBEDDING_MODEL
+        value: "text-embedding-3-small"
+      - key: OPENAI_EMBEDDING_DIMENSIONS
+        value: "1536"
+
+  # ============================================
+  # FRONTEND - Angular SPA (Docker)
+  # ============================================
+  - type: web
+    runtime: docker
+    name: ubapp-frontend
+    dockerfilePath: ./frontend/Dockerfile.render
+    dockerContext: ./frontend
+    plan: free
+    envVars:
+      # IMPORTANTE: Después del primer deploy del backend, copia su URL y agrégalo aquí.
+      # Ej: https://ubapp-backend-xxxx.onrender.com/api
+      - key: API_URL
+        sync: false
+
+  # ============================================
+  # REDIS - Caché y sesiones
+  # ============================================
+  - type: keyvalue
+    name: ubapp-redis
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere
+    plan: free
+    maxmemoryPolicy: allkeys-lru
+
+databases:
+  # ============================================
+  # POSTGRESQL - Base de datos
+  # ============================================
+  - name: ubapp-db
+    databaseName: ubappdb
+    plan: free
+    # pgvector se habilita desde el Dashboard de Render en Extensions
