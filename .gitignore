@@ -1,0 +1,18 @@
+# Variables de entorno (contienen secretos - NUNCA subir)
+.env
+.env.local
+.env.*.local
+
+# Archivos de configuración local
+*.local
+
+# Logs
+logs/
+*.log
+
+# Media y archivos generados
+media/
+
+# OS
+.DS_Store
+Thumbs.db
