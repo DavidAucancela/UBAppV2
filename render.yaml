@@ -21,10 +21,10 @@ services:
     healthCheckPath: /api/health/
     plan: free
     envVars:
+      # Usa tu base de datos existente (Render solo permite 1 DB gratis).
+      # Copia la "Internal Database URL" de tu PostgreSQL en Render Dashboard.
       - key: DATABASE_URL
-        fromDatabase:
-          name: ubapp-db
-          property: connectionString
+        sync: false
       - key: REDIS_HOST
         fromService:
           type: keyvalue
@@ -78,11 +78,3 @@ services:
     plan: free
     maxmemoryPolicy: allkeys-lru
 
-databases:
-  # ============================================
-  # POSTGRESQL - Base de datos
-  # ============================================
-  - name: ubapp-db
-    databaseName: ubappdb
-    plan: free
-    # pgvector se habilita desde el Dashboard de Render en Extensions

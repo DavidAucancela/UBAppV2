@@ -25,21 +25,25 @@ Render usa el archivo `render.yaml` como Blueprint para crear todos los servicio
 
 ### Paso 2: Configurar variables manuales
 
-Antes del primer deploy, debes configurar estas variables en el Dashboard:
+**Importante:** Render solo permite **1 base de datos PostgreSQL gratis**. Si ya tienes una, usa esa.
+
+Antes del primer deploy, configura estas variables en el Dashboard:
 
 | Servicio | Variable | Descripción |
 |----------|----------|-------------|
+| **ubapp-backend** | `DATABASE_URL` | **Internal Database URL** de tu PostgreSQL en Render (Dashboard → tu DB → Connect → Internal) |
 | **ubapp-backend** | `OPENAI_API_KEY` | Tu API Key de [OpenAI](https://platform.openai.com/api-keys) |
-| **ubapp-frontend** | `API_URL` | URL del backend (ver Paso 4) |
+| **ubapp-frontend** | `API_URL` | **URL del backend** (ej: `https://ubapp-backend-xxxx.onrender.com/api`). Ver Paso 4. |
 
 ### Paso 3: Crear el Blueprint
 
 1. Clic en **Apply**
 2. Render creará:
-   - **ubapp-db**: PostgreSQL (con extensión pgvector)
    - **ubapp-redis**: Redis para caché
    - **ubapp-backend**: API Django (Docker)
    - **ubapp-frontend**: SPA Angular (Docker)
+
+> **Base de datos:** El Blueprint **no crea** una nueva PostgreSQL (Render solo permite 1 gratis). Usa tu base de datos existente y pega su `DATABASE_URL` en el backend.
 
 ### Paso 4: Configurar API_URL en el frontend
 
@@ -51,7 +55,7 @@ Antes del primer deploy, debes configurar estas variables en el Dashboard:
 
 ### Paso 5: Habilitar pgvector en PostgreSQL
 
-1. Ve al servicio **ubapp-db** (PostgreSQL)
+1. Ve a tu base de datos PostgreSQL en Render
 2. En **Info** → **Extensions**, habilita **pgvector**
 3. O ejecuta en la consola: `CREATE EXTENSION IF NOT EXISTS vector;`
 
