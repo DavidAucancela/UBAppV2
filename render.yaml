@@ -10,7 +10,7 @@ services:
     name: ubapp-backend
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
-    dockerCommand: ./start-render.sh
+    # Sin dockerCommand: usa CMD del Dockerfile (python start_render.py)
     healthCheckPath: /api/health/
     plan: free
     envVars:

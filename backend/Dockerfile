@@ -54,11 +54,12 @@ exec $cmd' > /usr/local/bin/wait_for_db.sh && \
 
 # Copiar scripts
 COPY wait_for_db.py .
-COPY start-render.sh .
-RUN chmod +x wait_for_db.py start-render.sh
+COPY start_render.py .
 
 # Exponer puerto
 EXPOSE 8000
 
-# Comando por defecto (puede ser sobrescrito en docker-compose)
-CMD ["gunicorn", "wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+# Comando por defecto
+# Para Render: usa start_render.py (migraciones + gunicorn). Sin dockerCommand en render.yaml.
+# Para Docker Compose local: se sobrescribe en docker-compose.yml
+CMD ["python", "start_render.py"]

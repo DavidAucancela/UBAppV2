@@ -1,0 +1,3 @@
+# Scripts deben usar LF para funcionar en Linux/Docker
+*.sh text eol=lf
+*.py text eol=lf
