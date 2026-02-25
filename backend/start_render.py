@@ -26,7 +26,7 @@ def main():
     os.execvp("gunicorn", [
         "gunicorn", "wsgi:application",
         "--bind", f"0.0.0.0:{port}",
-        "--workers", "2",
+        "--workers", "1",
         "--timeout", "120",
         "--access-logfile", "-",
         "--error-logfile", "-",
