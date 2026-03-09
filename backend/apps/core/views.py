@@ -1,7 +1,7 @@
 """
 Vistas core del sistema
 """
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, throttle_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
@@ -13,6 +13,7 @@ import redis
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+@throttle_classes([])
 def health_check(request):
     """
     Endpoint de health check para verificar el estado del sistema.
