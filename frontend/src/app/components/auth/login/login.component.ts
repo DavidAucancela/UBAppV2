@@ -112,7 +112,7 @@ export class LoginComponent implements OnDestroy {
           } else if (error.status === 429) {
             this.errorMessage = error.error?.error || 'Demasiados intentos fallidos. Intenta más tarde.';
           } else if (error.status === 0) {
-            this.errorMessage = 'Error de conexión. Verifica que el servidor esté funcionando.';
+            this.errorMessage = 'El servidor está iniciando, por favor espera unos segundos e intenta nuevamente.';
           } else {
             this.errorMessage = error.error?.error || 'Error en el inicio de sesión. Intenta nuevamente.';
           }
@@ -207,7 +207,7 @@ export class LoginComponent implements OnDestroy {
           } else if (error.status === 400) {
             this.resetError = error.error?.error || error.error?.message || 'Error al procesar la solicitud.';
           } else if (error.status === 0) {
-            this.resetError = 'Error de conexión. Verifica que el servidor esté funcionando.';
+            this.resetError = 'El servidor está iniciando, por favor espera unos segundos e intenta nuevamente.';
           } else {
             this.resetError = error.error?.error || error.error?.message || 'Error al enviar el correo. Intenta nuevamente.';
           }

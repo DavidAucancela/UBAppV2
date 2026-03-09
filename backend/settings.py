@@ -368,6 +368,11 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000  # 1 año
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+    # Render (y cualquier proxy inverso) termina SSL y reenvía HTTP al backend.
+    # Este setting le indica a Django que confíe en el header X-Forwarded-Proto
+    # para determinar si la request original era HTTPS.
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    USE_X_FORWARDED_HOST = True
 
 # Custom User Model
 AUTH_USER_MODEL = 'usuarios.Usuario'

@@ -1,11 +1,15 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { Usuario, ROLES_LABELS } from './models/usuario';
 import { Subscription } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { environment } from './environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     public authService: AuthService,
     private router: Router,
+    private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -34,9 +39,22 @@ export class AppComponent implements OnInit, OnDestroy {
         document.body.classList.add('dark-mode');
       }
 
+      // Despertar el backend al iniciar la app (evita errores de cold start en Render free tier)
+      this.wakeupBackend();
+
       // Verificar si hay sesión activa y redirigir automáticamente
       this.checkActiveSession();
     }
+  }
+
+  /**
+   * Ping al health check del backend para despertarlo si está inactivo (Render free tier).
+   * Se ejecuta en silencio al cargar la app, antes de que el usuario intente hacer login.
+   */
+  private wakeupBackend(): void {
+    this.http.get(`${environment.apiUrl}/health/`, { responseType: 'json' })
+      .pipe(catchError(() => EMPTY))
+      .subscribe();
   }
 
   private checkActiveSession(): void {
