@@ -55,8 +55,9 @@ services:
     dockerContext: ./frontend
     plan: free
     envVars:
-      # IMPORTANTE: Después del primer deploy del backend, copia su URL y agrégalo aquí.
-      # Ej: https://ubapp-backend-xxxx.onrender.com/api
+      # IMPORTANTE: Después del primer deploy del backend, copia su URL y agrégala aquí.
+      # DEBE terminar en /api — Ej: https://ubapp-backend-xxxx.onrender.com/api
+      # Si se omite /api, el script set-api-url.js lo agrega automáticamente al compilar.
       - key: API_URL
         sync: false
 
