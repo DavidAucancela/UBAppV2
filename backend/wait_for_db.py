@@ -21,23 +21,24 @@ def wait_for_db():
         "password": os.getenv("DB_PASSWORD", "admin")
     }
     
-    # Si hay DATABASE_URL, parsearla (Render, Supabase, etc.)
+    # Si hay DATABASE_URL, usarla directo como DSN (psycopg2 soporta URLs de postgres)
     database_url = os.getenv("DATABASE_URL")
     if database_url:
-        import re
-        from urllib.parse import urlparse
-        # Supabase wraps hostnames in brackets (e.g. [host.supabase.com]) which Python 3.11+
-        # rejects unless it's a valid IPv6 address. Strip brackets from hostnames
-        # (hostnames have no colons; IPv6 addresses do, so this is safe).
-        database_url = re.sub(r'\[([a-zA-Z0-9._-]+)\]', r'\1', database_url)
-        parsed = urlparse(database_url)
-        db_config = {
-            "host": parsed.hostname or "postgres",
-            "port": parsed.port or 5432,
-            "dbname": (parsed.path or "/UBAppDB").lstrip("/") or "UBAppDB",
-            "user": parsed.username or "postgres",
-            "password": parsed.password or "admin"
-        }
+        # psycopg2 parsea la URL internamente sin usar urlparse de Python,
+        # evitando el bug de Python 3.11 con hostnames entre corchetes (Supabase).
+        print(f"Esperando conexión a PostgreSQL (via DATABASE_URL)...")
+        while attempt < max_attempts:
+            try:
+                conn = psycopg2.connect(database_url)
+                conn.close()
+                print("✓ Base de datos disponible")
+                return True
+            except OperationalError as e:
+                attempt += 1
+                print(f"Intento {attempt}/{max_attempts}: {str(e)}")
+                time.sleep(2)
+        print("✗ No se pudo conectar a la base de datos después de 30 intentos")
+        sys.exit(1)
     
     print(f"Esperando conexión a PostgreSQL en {db_config['host']}:{db_config['port']}...")
     
