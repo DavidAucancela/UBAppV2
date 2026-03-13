@@ -26,9 +26,10 @@ def wait_for_db():
     if database_url:
         import re
         from urllib.parse import urlparse
-        # Supabase wraps hostnames in brackets (e.g. @[host]:port) which Python 3.11+
-        # rejects unless it's a valid IPv6 address. Strip the brackets.
-        database_url = re.sub(r'@\[([^\]]+)\]', r'@\1', database_url)
+        # Supabase wraps hostnames in brackets (e.g. [host.supabase.com]) which Python 3.11+
+        # rejects unless it's a valid IPv6 address. Strip brackets from hostnames
+        # (hostnames have no colons; IPv6 addresses do, so this is safe).
+        database_url = re.sub(r'\[([a-zA-Z0-9._-]+)\]', r'\1', database_url)
         parsed = urlparse(database_url)
         db_config = {
             "host": parsed.hostname or "postgres",
