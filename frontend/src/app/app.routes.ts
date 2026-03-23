@@ -21,6 +21,7 @@ import { NotificacionesListComponent } from './components/notificaciones/notific
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { Roles } from './models/usuario';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 export const routes: Routes = [
@@ -107,5 +108,5 @@ export const routes: Routes = [
     component: NotificacionesListComponent,
     canActivate: [authGuard, roleGuard([Roles.COMPRADOR])]
   },
-  { path: '**', redirectTo: '/informacion' }
+  { path: '**', component: NotFoundComponent }
 ];

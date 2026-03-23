@@ -1,0 +1,247 @@
+/* =========================================
+   404 - Not Found Page
+   ========================================= */
+
+.nf-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #533483 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+/* --- Partículas de fondo --- */
+.nf-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(102, 126, 234, 0.15);
+  animation: float-particle 8s infinite ease-in-out;
+}
+
+.particle:nth-child(1)  { width: 80px;  height: 80px;  top: 10%;  left: 5%;   animation-delay: 0s;    animation-duration: 9s; }
+.particle:nth-child(2)  { width: 50px;  height: 50px;  top: 20%;  left: 80%;  animation-delay: 1s;    animation-duration: 7s; }
+.particle:nth-child(3)  { width: 120px; height: 120px; top: 60%;  left: 15%;  animation-delay: 2s;    animation-duration: 11s; }
+.particle:nth-child(4)  { width: 40px;  height: 40px;  top: 75%;  left: 70%;  animation-delay: 0.5s;  animation-duration: 8s; }
+.particle:nth-child(5)  { width: 90px;  height: 90px;  top: 40%;  left: 90%;  animation-delay: 3s;    animation-duration: 10s; }
+.particle:nth-child(6)  { width: 60px;  height: 60px;  top: 85%;  left: 40%;  animation-delay: 1.5s;  animation-duration: 6s; }
+.particle:nth-child(7)  { width: 35px;  height: 35px;  top: 5%;   left: 50%;  animation-delay: 2.5s;  animation-duration: 9s; }
+.particle:nth-child(8)  { width: 70px;  height: 70px;  top: 50%;  left: 50%;  animation-delay: 4s;    animation-duration: 12s; }
+.particle:nth-child(9)  { width: 45px;  height: 45px;  top: 30%;  left: 30%;  animation-delay: 0.8s;  animation-duration: 7.5s; }
+.particle:nth-child(10) { width: 100px; height: 100px; top: 90%;  left: 90%;  animation-delay: 3.5s;  animation-duration: 10s; }
+
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) scale(1);   opacity: 0.15; }
+  50%       { transform: translateY(-30px) scale(1.1); opacity: 0.3; }
+}
+
+/* --- Card glassmorphism --- */
+.nf-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- Código 404 --- */
+.nf-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.code-digit {
+  font-size: 7rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, #667eea, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: digit-pulse 3s ease-in-out infinite;
+}
+
+.code-digit:last-child {
+  animation-delay: 0.3s;
+}
+
+.code-zero {
+  font-size: 5.5rem;
+  line-height: 1;
+  color: rgba(239, 68, 68, 0.85);
+  animation: zero-spin 6s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+}
+
+@keyframes digit-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+
+@keyframes zero-spin {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25%       { transform: rotate(-8deg) scale(1.05); }
+  75%       { transform: rotate(8deg) scale(1.05); }
+}
+
+/* --- Textos --- */
+.nf-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.nf-subtitle {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.65;
+  margin: 0 0 1.5rem;
+}
+
+/* --- URL box --- */
+.nf-url-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 2rem;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.nf-url-box i {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.nf-url {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Botones --- */
+.nf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.btn-nf {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+}
+
+.btn-nf.btn-primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.35);
+}
+
+.btn-nf.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+.btn-nf.btn-ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-nf.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-2px);
+}
+
+.btn-nf.btn-outline {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-nf.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* --- Hint --- */
+.nf-hint {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .nf-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .code-digit {
+    font-size: 5rem;
+  }
+
+  .code-zero {
+    font-size: 4rem;
+  }
+
+  .nf-title {
+    font-size: 1.4rem;
+  }
+
+  .nf-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-nf {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,47 @@
+<div class="nf-wrapper">
+  <!-- Partículas de fondo -->
+  <div class="nf-particles">
+    <span *ngFor="let p of [1,2,3,4,5,6,7,8,9,10]" class="particle"></span>
+  </div>
+
+  <div class="nf-card">
+    <!-- Icono / Número 404 -->
+    <div class="nf-code">
+      <span class="code-digit">4</span>
+      <span class="code-zero">
+        <i class="fas fa-circle-xmark"></i>
+      </span>
+      <span class="code-digit">4</span>
+    </div>
+
+    <h1 class="nf-title">Página no encontrada</h1>
+    <p class="nf-subtitle">
+      La URL que intentas acceder no existe o no está disponible.<br>
+      Puede que haya sido movida, eliminada o nunca haya existido.
+    </p>
+
+    <div class="nf-url-box">
+      <i class="fas fa-link"></i>
+      <span class="nf-url">{{ currentUrl }}</span>
+    </div>
+
+    <div class="nf-actions">
+      <button class="btn-nf btn-primary" (click)="goHome()">
+        <i class="fas fa-house"></i>
+        Ir al inicio
+      </button>
+      <button class="btn-nf btn-ghost" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i>
+        Volver atrás
+      </button>
+      <button class="btn-nf btn-outline" (click)="goLogin()">
+        <i class="fas fa-right-to-bracket"></i>
+        Iniciar sesión
+      </button>
+    </div>
+
+    <p class="nf-hint">
+      ¿Necesitas ayuda? Contacta al administrador del sistema.
+    </p>
+  </div>
+</div>

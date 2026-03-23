@@ -1,0 +1,36 @@
+# Dockerfile para Frontend Angular - Railway
+# Inyecta API_URL en el build desde variable de entorno
+
+# Stage 1: Build
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Railway pasa build args como ARG. Configura API_URL en el Dashboard como variable de entorno.
+ARG API_URL=http://localhost:8000/api
+ENV API_URL=${API_URL}
+
+# Copiar archivos de dependencias
+COPY package*.json ./
+
+# Instalar dependencias
+RUN npm ci --legacy-peer-deps
+
+# Copiar código fuente
+COPY . .
+
+# Reemplazar apiUrl en environment.prod.ts antes del build
+RUN node scripts/set-api-url.js || true
+
+# Construir la aplicación
+RUN npm run build:prod
+
+# Stage 2: Production
+FROM nginx:alpine
+
+COPY --from=builder /app/dist/angular-frontend/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

@@ -86,9 +86,12 @@ if DATABASE_URL:
         )
     }
     
-    # Detectar si es conexión local (Docker o localhost) o remota (Render, Supabase, etc.)
+    # Detectar si es conexión local (Docker o localhost) o remota (Render, Supabase, Railway externo, etc.)
     db_host = DATABASES['default'].get('HOST', '')
-    is_local = db_host in ('localhost', '127.0.0.1', '::1', 'postgres')
+    is_local = (
+        db_host in ('localhost', '127.0.0.1', '::1', 'postgres')
+        or db_host.endswith('.railway.internal')  # Railway internal network
+    )
     
     # Configurar opciones
     if 'OPTIONS' not in DATABASES['default']:
@@ -328,9 +331,12 @@ _DEFAULT_CORS_ORIGINS = [
 _ENV_CORS = [o.strip() for o in os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if o.strip()]
 CORS_ALLOWED_ORIGINS = _ENV_CORS if _ENV_CORS else _DEFAULT_CORS_ORIGINS
 
-# Permitir orígenes de Render (*.onrender.com) - las URLs tienen formato xxx-xxxx.onrender.com
+# Permitir orígenes de Render y Railway por regex
+CORS_ALLOWED_ORIGIN_REGEXES = []
 if any('.onrender.com' in o for o in CORS_ALLOWED_ORIGINS):
-    CORS_ALLOWED_ORIGIN_REGEXES = [r'^https://[a-z0-9-]+\.onrender\.com$']
+    CORS_ALLOWED_ORIGIN_REGEXES.append(r'^https://[a-z0-9-]+\.onrender\.com$')
+if any('.up.railway.app' in o for o in CORS_ALLOWED_ORIGINS):
+    CORS_ALLOWED_ORIGIN_REGEXES.append(r'^https://[a-z0-9-]+\.up\.railway\.app$')
 
 # Headers permitidos
 CORS_ALLOW_HEADERS = [
