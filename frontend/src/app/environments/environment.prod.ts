@@ -1,7 +1,6 @@
 export const environment = {
     production: true,
-    // Para Docker local: backend en localhost:8000. En producción real cambiar a tu dominio.
-    apiUrl: 'http://localhost:8000/api',
+    apiUrl: 'https://backend-django-production-98ea.up.railway.app/api',
     appName: 'UBApp',
     version: '1.0.0',
     enableDebug: false,
