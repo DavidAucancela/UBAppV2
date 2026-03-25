@@ -1,7 +1,8 @@
 #!/bin/sh
 set -e
 
-PORT="${PORT:-8080}"
+# Railway target port está configurado en 80 - nginx siempre escucha en 80
+PORT=80
 
 echo "Iniciando nginx en puerto $PORT"
 
