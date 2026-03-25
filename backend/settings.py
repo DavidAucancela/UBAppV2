@@ -18,7 +18,9 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'clave-por-defecto-solo-para-desarrollo')
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-# Railway health check usa este host internamente
+# Permitir todos los subdominios de Railway automáticamente
+if not any('.up.railway.app' in h for h in ALLOWED_HOSTS):
+    ALLOWED_HOSTS.append('.up.railway.app')
 if 'healthcheck.railway.app' not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append('healthcheck.railway.app')
 # Application definition
@@ -334,12 +336,12 @@ _DEFAULT_CORS_ORIGINS = [
 _ENV_CORS = [o.strip() for o in os.getenv('CORS_ALLOWED_ORIGINS', '').split(',') if o.strip()]
 CORS_ALLOWED_ORIGINS = _ENV_CORS if _ENV_CORS else _DEFAULT_CORS_ORIGINS
 
-# Permitir orígenes de Render y Railway por regex
-CORS_ALLOWED_ORIGIN_REGEXES = []
+# Permitir orígenes de Render y Railway por regex (siempre activo para Railway)
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r'^https://[a-z0-9-]+\.up\.railway\.app$',
+]
 if any('.onrender.com' in o for o in CORS_ALLOWED_ORIGINS):
     CORS_ALLOWED_ORIGIN_REGEXES.append(r'^https://[a-z0-9-]+\.onrender\.com$')
-if any('.up.railway.app' in o for o in CORS_ALLOWED_ORIGINS):
-    CORS_ALLOWED_ORIGIN_REGEXES.append(r'^https://[a-z0-9-]+\.up\.railway\.app$')
 
 # Headers permitidos
 CORS_ALLOW_HEADERS = [
