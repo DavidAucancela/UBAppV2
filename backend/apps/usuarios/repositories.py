@@ -90,11 +90,11 @@ class UsuarioRepository(BaseRepository):
         
         # Gerentes pueden ver todos excepto admins
         if usuario_actual.es_gerente:
-            return self.model.objects.exclude(rol=1)
-        
+            return self.model.objects.exclude(rol=self.model.ADMIN)
+
         # Digitadores pueden ver compradores y otros digitadores
         if usuario_actual.es_digitador:
-            return self.model.objects.filter(rol__in=[3, 4])
+            return self.model.objects.filter(rol__in=[self.model.DIGITADOR, self.model.COMPRADOR])
         
         # Compradores solo pueden ver su propio perfil
         return self.model.objects.filter(id=usuario_actual.id)
@@ -127,7 +127,7 @@ class UsuarioRepository(BaseRepository):
     def obtener_compradores_con_ubicacion(self) -> QuerySet:
         """Obtiene compradores activos con ubicación definida"""
         return self.model.objects.filter(
-            rol=4,
+            rol=self.model.COMPRADOR,
             is_active=True
         ).exclude(
             Q(ciudad__isnull=True) | Q(ciudad='')

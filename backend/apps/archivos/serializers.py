@@ -95,7 +95,7 @@ class EnvioListSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'costo_servicio', 'fecha_emision', 'fecha_creacion']
     
     def get_cantidad_productos(self, obj):
-        return obj.productos.count()
+        return len(obj.productos.all())
 
 class EnvioCreateSerializer(serializers.ModelSerializer):
     """Serializer para crear envíos con productos"""

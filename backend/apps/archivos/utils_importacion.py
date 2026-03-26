@@ -1,6 +1,7 @@
 """
 Utilidades para procesamiento de archivos Excel
 """
+import logging
 import pandas as pd
 import openpyxl
 import unicodedata
@@ -13,6 +14,8 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from .models import ImportacionExcel, Envio, Producto
+
+logger = logging.getLogger(__name__)
 from apps.notificaciones.utils import crear_notificacion_envio_asignado
 from apps.busqueda.utils_embeddings import generar_embedding_envio
 from apps.usuarios.validators import validar_cedula_ecuatoriana
@@ -578,23 +581,20 @@ class ProcesadorExcel:
             # Generar embeddings de forma asíncrona para todos los envíos creados
             # Esto se hace fuera de la transacción para no bloquear
             if envios_creados:
-                print(f"✅ Se crearon {len(envios_creados)} envíos exitosamente.")
-                print(f"🔄 Generando embeddings de forma asíncrona...")
+                logger.info(f"Se crearon {len(envios_creados)} envíos exitosamente.")
+                logger.info("Generando embeddings de forma asincrona...")
                 # Generar embeddings en un thread separado para no bloquear
                 import threading
                 from apps.busqueda.services import BusquedaSemanticaService
                 
                 def generar_embeddings_async():
-                    import logging
                     import traceback
-                    logger = logging.getLogger(__name__)
-                    
+
                     exitosos = 0
                     errores = 0
                     total = len(envios_creados)
                     
                     logger.info(f"Iniciando generación de embeddings para {total} envíos...")
-                    print(f"🔄 Generando embeddings para {total} envíos...")
                     
                     for i, envio in enumerate(envios_creados, 1):
                         try:
@@ -612,20 +612,19 @@ class ProcesadorExcel:
                             # Mostrar progreso cada 10 envíos
                             if i % 10 == 0 or i == total:
                                 mensaje = f"   Progreso embeddings: {i}/{total} ({exitosos} exitosos, {errores} errores)"
-                                print(mensaje)
                                 logger.info(mensaje)
                         except Exception as e:
                             errores += 1
                             error_trace = traceback.format_exc()
                             mensaje_error = f"⚠️ Error generando embedding para envío {envio.hawb} (ID: {envio.id}): {str(e)}"
-                            print(mensaje_error)
+                            logger.warning(mensaje_error)
                             logger.error(
                                 f"{mensaje_error}\n{error_trace}",
                                 exc_info=True
                             )
                     
                     mensaje_final = f"✅ Embeddings generados: {exitosos} exitosos, {errores} errores"
-                    print(mensaje_final)
+                    logger.info(mensaje_final)
                     logger.info(mensaje_final)
                 
                 threading.Thread(target=generar_embeddings_async, daemon=True).start()
@@ -964,7 +963,7 @@ class ProcesadorExcel:
             try:
                 generar_embedding_envio(envio)
             except Exception as e_embed:
-                print(f"Advertencia: No se pudo generar embedding para envío {envio.hawb}: {str(e_embed)}")
+                logger.warning(f"No se pudo generar embedding para envío {envio.hawb}: {str(e_embed)}")
         
         return envio
     
@@ -1086,7 +1085,7 @@ class ProcesadorExcel:
                 generar_embedding_envio(envio)
             except Exception as e_embed:
                 # No fallar la importación si falla el embedding
-                print(f"Advertencia: No se pudo generar embedding para envío {envio.hawb}: {str(e_embed)}")
+                logger.warning(f"No se pudo generar embedding para envío {envio.hawb}: {str(e_embed)}")
         
         return envio
     
@@ -1102,7 +1101,7 @@ class ProcesadorExcel:
         exitosos = 0
         errores = 0
         
-        print(f"Generando embeddings para {total} envíos...")
+        logger.info(f"Generando embeddings para {total} envíos...")
         
         for i, envio in enumerate(envios, 1):
             try:
@@ -1111,15 +1110,15 @@ class ProcesadorExcel:
                 
                 # Mostrar progreso cada 10 envíos
                 if i % 10 == 0:
-                    print(f"Progreso embeddings: {i}/{total} ({exitosos} exitosos, {errores} errores)")
+                    logger.info(f"Progreso embeddings: {i}/{total} ({exitosos} exitosos, {errores} errores)")
                     
             except Exception as e:
                 errores += 1
-                print(f"Error generando embedding para envío {envio.hawb}: {str(e)}")
+                logger.error(f"Error generando embedding para envío {envio.hawb}: {str(e)}")
                 # Continuar con el siguiente envío
                 continue
         
-        print(f"✅ Embeddings generados: {exitosos} exitosos, {errores} errores de {total} total")
+        logger.info(f"Embeddings generados: {exitosos} exitosos, {errores} errores de {total} total")
     
     def _generar_hawb_secuencial(self) -> str:
         """Genera el próximo HAWB en secuencia basado en la base de datos"""

@@ -265,7 +265,7 @@ class Envio(models.Model):
             )
         
         # Validar que el comprador sea realmente un comprador
-        if self.comprador and self.comprador.rol != 4:
+        if self.comprador and self.comprador.rol != Usuario.COMPRADOR:
             raise ValidationError({
                 'comprador': 'El comprador debe tener rol de Comprador (4)'
             })

@@ -40,11 +40,16 @@ class UsuarioManager(BaseUserManager):
 class Usuario(AbstractUser):
     """Modelo de usuario personalizado con roles"""
     
+    ADMIN = 1
+    GERENTE = 2
+    DIGITADOR = 3
+    COMPRADOR = 4
+
     ROLES_CHOICES = [
-        (1, 'Admin'),
-        (2, 'Gerente'),
-        (3, 'Digitador'),
-        (4, 'Comprador'),
+        (ADMIN, 'Admin'),
+        (GERENTE, 'Gerente'),
+        (DIGITADOR, 'Digitador'),
+        (COMPRADOR, 'Comprador'),
     ]
     
     # Eliminar campos heredados de AbstractUser que no existen en la BD
@@ -143,19 +148,19 @@ class Usuario(AbstractUser):
     
     @property
     def es_admin(self):
-        return self.rol == 1
+        return self.rol == self.ADMIN
 
     @property
     def es_gerente(self):
-        return self.rol == 2
+        return self.rol == self.GERENTE
 
     @property
     def es_digitador(self):
-        return self.rol == 3
+        return self.rol == self.DIGITADOR
 
     @property
     def es_comprador(self):
-        return self.rol == 4
+        return self.rol == self.COMPRADOR
     
     # Propiedad es_activo como alias del campo heredado is_active
     @property

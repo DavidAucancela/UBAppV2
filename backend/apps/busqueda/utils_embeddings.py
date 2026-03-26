@@ -1,11 +1,14 @@
 """
 Utilidades para generación y gestión de embeddings con OpenAI
 """
+import logging
 from django.conf import settings
 from openai import OpenAI
 import numpy as np
 from typing import Dict, List, Any, Tuple
 from .models import EnvioEmbedding
+
+logger = logging.getLogger(__name__)
 
 
 def get_openai_client():
@@ -156,7 +159,7 @@ def generar_embedding(texto: str, modelo: str = None) -> Dict[str, Any]:
             'modelo': modelo
         }
     except Exception as e:
-        print(f"Error generando embedding: {str(e)}")
+        logger.error(f"Error generando embedding: {str(e)}")
         raise
 
 

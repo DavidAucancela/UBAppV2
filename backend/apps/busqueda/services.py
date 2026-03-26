@@ -128,9 +128,9 @@ class BusquedaTradicionalService(BaseService):
         if usuario_actual.es_comprador:
             return usuarios.filter(id=usuario_actual.id)
         elif usuario_actual.es_digitador:
-            return usuarios.filter(rol__in=[3, 4])
+            return usuarios.filter(rol__in=[Usuario.DIGITADOR, Usuario.COMPRADOR])
         elif usuario_actual.es_gerente:
-            return usuarios.exclude(rol=1)
+            return usuarios.exclude(rol=Usuario.ADMIN)
         return usuarios
 
 
