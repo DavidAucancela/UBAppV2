@@ -276,6 +276,21 @@ export class InicioComponent implements OnInit, OnDestroy {
       };
       const list = Array.isArray(r.enviosList) ? r.enviosList : [];
       this.stats.enviosTodos = list;
+      // Ajustar año por defecto al año con más envíos
+      if (list.length > 0) {
+        const anioCount: Record<number, number> = {};
+        for (const e of list) {
+          const f = e.fecha_emision || e.fecha_creacion;
+          if (f) {
+            const y = new Date(f).getFullYear();
+            anioCount[y] = (anioCount[y] ?? 0) + 1;
+          }
+        }
+        const anioMasDatos = Number(Object.entries(anioCount).sort((a, b) => b[1] - a[1])[0][0]);
+        this.anioGraficoEnviosMes = anioMasDatos;
+        const aniosUnicos = Object.keys(anioCount).map(Number).sort((a, b) => a - b);
+        this.aniosDisponibles = aniosUnicos;
+      }
       const usuarios = Array.isArray(r.usuarios) ? r.usuarios : [];
       const actividades: ActividadItem[] = [];
       list.forEach((e: any) => {
