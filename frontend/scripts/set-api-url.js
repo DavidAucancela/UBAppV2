@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const envPath = path.join(__dirname, '../src/app/environments/environment.prod.ts');
-const apiUrl = process.env.API_URL || 'http://localhost:8000/api';
+const apiUrl = process.env.API_URL || 'https://backend-django-production-98ea.up.railway.app/api/v1';
 
 if (apiUrl.includes('REPLACE') || apiUrl.includes('tu-backend')) {
   console.warn('⚠️  API_URL no configurada. Configúrala en Render Dashboard antes del deploy.');
