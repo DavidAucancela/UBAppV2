@@ -146,7 +146,8 @@ export class ApiService {
       expand((response: any) => {
         const nextUrl = response?.next;
         if (!nextUrl) return EMPTY;
-        return this.http.get<any>(nextUrl);
+        const safeUrl = nextUrl.replace(/^http:\/\//i, 'https://');
+        return this.http.get<any>(safeUrl);
       }),
       map((response: any) => {
         if (response?.results && Array.isArray(response.results)) return response.results as Envio[];
