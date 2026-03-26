@@ -282,18 +282,17 @@
               <label class="form-label">
                 Categoría <span class="required">*</span>
               </label>
-              <select 
+              <select
                 formControlName="categoria"
                 class="form-control"
-                [class.error]="tarifaForm.get('categoria')?.invalid && tarifaForm.get('categoria')?.touched"
               >
                 <option value="">Seleccionar categoría</option>
                 <option *ngFor="let cat of categoriasDisponibles" [value]="cat.valor">
                   {{ cat.etiqueta }}
                 </option>
               </select>
-              <div class="error-message" *ngIf="tarifaForm.get('categoria')?.invalid && tarifaForm.get('categoria')?.touched">
-                Debe seleccionar una categoría
+              <div class="error-message" *ngIf="tarifaForm.get('categoria')?.invalid && (tarifaForm.get('categoria')?.touched || tarifaForm.get('categoria')?.dirty)">
+                <i class="fas fa-exclamation-circle"></i> Debe seleccionar una categoría
               </div>
             </div>
           </div>
@@ -303,17 +302,18 @@
               <label class="form-label">
                 Peso mínimo (kg) <span class="required">*</span>
               </label>
-              <input 
+              <input
                 type="number"
                 formControlName="peso_minimo"
                 class="form-control"
                 min="0.01"
                 step="0.01"
                 placeholder="0.00"
-                [class.error]="tarifaForm.get('peso_minimo')?.invalid && tarifaForm.get('peso_minimo')?.touched"
               >
-              <div class="error-message" *ngIf="tarifaForm.get('peso_minimo')?.invalid && tarifaForm.get('peso_minimo')?.touched">
-                El peso mínimo es requerido y debe ser mayor a 0
+              <div class="error-message" *ngIf="tarifaForm.get('peso_minimo')?.invalid && (tarifaForm.get('peso_minimo')?.touched || tarifaForm.get('peso_minimo')?.dirty)">
+                <i class="fas fa-exclamation-circle"></i>
+                <ng-container *ngIf="tarifaForm.get('peso_minimo')?.errors?.['required']">El peso mínimo es requerido</ng-container>
+                <ng-container *ngIf="tarifaForm.get('peso_minimo')?.errors?.['min']">Debe ser mayor a 0</ng-container>
               </div>
             </div>
 
@@ -321,17 +321,18 @@
               <label class="form-label">
                 Peso máximo (kg) <span class="required">*</span>
               </label>
-              <input 
+              <input
                 type="number"
                 formControlName="peso_maximo"
                 class="form-control"
                 min="0.01"
                 step="0.01"
                 placeholder="0.00"
-                [class.error]="tarifaForm.get('peso_maximo')?.invalid && tarifaForm.get('peso_maximo')?.touched"
               >
-              <div class="error-message" *ngIf="tarifaForm.get('peso_maximo')?.invalid && tarifaForm.get('peso_maximo')?.touched">
-                El peso máximo es requerido y debe ser mayor a 0
+              <div class="error-message" *ngIf="tarifaForm.get('peso_maximo')?.invalid && (tarifaForm.get('peso_maximo')?.touched || tarifaForm.get('peso_maximo')?.dirty)">
+                <i class="fas fa-exclamation-circle"></i>
+                <ng-container *ngIf="tarifaForm.get('peso_maximo')?.errors?.['required']">El peso máximo es requerido</ng-container>
+                <ng-container *ngIf="tarifaForm.get('peso_maximo')?.errors?.['min']">Debe ser mayor a 0</ng-container>
               </div>
             </div>
           </div>
@@ -341,17 +342,18 @@
               <label class="form-label">
                 Precio por Kg ($) <span class="required">*</span>
               </label>
-              <input 
+              <input
                 type="number"
                 formControlName="precio_por_kg"
                 class="form-control"
                 min="0"
                 step="0.01"
                 placeholder="0.00"
-                [class.error]="tarifaForm.get('precio_por_kg')?.invalid && tarifaForm.get('precio_por_kg')?.touched"
               >
-              <div class="error-message" *ngIf="tarifaForm.get('precio_por_kg')?.invalid && tarifaForm.get('precio_por_kg')?.touched">
-                El precio por kg es requerido
+              <div class="error-message" *ngIf="tarifaForm.get('precio_por_kg')?.invalid && (tarifaForm.get('precio_por_kg')?.touched || tarifaForm.get('precio_por_kg')?.dirty)">
+                <i class="fas fa-exclamation-circle"></i>
+                <ng-container *ngIf="tarifaForm.get('precio_por_kg')?.errors?.['required']">El precio por kg es requerido</ng-container>
+                <ng-container *ngIf="tarifaForm.get('precio_por_kg')?.errors?.['min']">No puede ser negativo</ng-container>
               </div>
             </div>
 
@@ -359,17 +361,18 @@
               <label class="form-label">
                 Cargo base ($) <span class="required">*</span>
               </label>
-              <input 
+              <input
                 type="number"
                 formControlName="cargo_base"
                 class="form-control"
                 min="0"
                 step="0.01"
                 placeholder="0.00"
-                [class.error]="tarifaForm.get('cargo_base')?.invalid && tarifaForm.get('cargo_base')?.touched"
               >
-              <div class="error-message" *ngIf="tarifaForm.get('cargo_base')?.invalid && tarifaForm.get('cargo_base')?.touched">
-                El cargo base es requerido
+              <div class="error-message" *ngIf="tarifaForm.get('cargo_base')?.invalid && (tarifaForm.get('cargo_base')?.touched || tarifaForm.get('cargo_base')?.dirty)">
+                <i class="fas fa-exclamation-circle"></i>
+                <ng-container *ngIf="tarifaForm.get('cargo_base')?.errors?.['required']">El cargo base es requerido</ng-container>
+                <ng-container *ngIf="tarifaForm.get('cargo_base')?.errors?.['min']">No puede ser negativo</ng-container>
               </div>
             </div>
           </div>

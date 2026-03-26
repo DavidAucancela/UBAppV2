@@ -459,10 +459,9 @@
             formControlName="descripcion"
             class="form-control"
             placeholder="Ej: Laptop HP Pavilion 15.6..."
-            [class.error]="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched"
-          >
-          <div class="error-message" *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched">
-            La descripción es requerida
+            >
+          <div class="error-message" *ngIf="productoForm.get('descripcion')?.invalid && (productoForm.get('descripcion')?.touched || productoForm.get('descripcion')?.dirty)">
+            <i class="fas fa-exclamation-circle"></i> La descripción es requerida
           </div>
         </div>
 
@@ -473,7 +472,6 @@
           <select 
             formControlName="envio"
             class="form-control"
-            [class.error]="productoForm.get('envio')?.invalid && productoForm.get('envio')?.touched"
             [disabled]="editingProducto !== null || loadingEnvios"
           >
             <option value="">Seleccione un envío</option>
@@ -481,8 +479,8 @@
               HAWB: {{ envio.hawb }} - {{ envio.comprador_nombre || envio.comprador?.nombre || 'N/A' }} ({{ envio.estado }})
             </option>
           </select>
-          <div class="error-message" *ngIf="productoForm.get('envio')?.invalid && productoForm.get('envio')?.touched">
-            Debe seleccionar un envío
+          <div class="error-message" *ngIf="productoForm.get('envio')?.invalid && (productoForm.get('envio')?.touched || productoForm.get('envio')?.dirty)">
+            <i class="fas fa-exclamation-circle"></i> Debe seleccionar un envío
           </div>
           <small *ngIf="editingProducto" class="form-text text-muted">
             El envío no puede ser modificado al editar un producto
@@ -499,7 +497,6 @@
           <select 
             formControlName="categoria"
             class="form-control"
-            [class.error]="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched"
           >
             <option value="">Seleccione una categoría</option>
             <option [value]="CategoriasProducto.ELECTRONICA">Electrónica</option>
@@ -508,8 +505,8 @@
             <option [value]="CategoriasProducto.DEPORTES">Deportes</option>
             <option [value]="CategoriasProducto.OTROS">Otros</option>
           </select>
-          <div class="error-message" *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched">
-            Debe seleccionar una categoría
+          <div class="error-message" *ngIf="productoForm.get('categoria')?.invalid && (productoForm.get('categoria')?.touched || productoForm.get('categoria')?.dirty)">
+            <i class="fas fa-exclamation-circle"></i> Debe seleccionar una categoría
           </div>
         </div>
 
@@ -525,10 +522,11 @@
               min="0.01"
               step="0.01"
               placeholder="0.00"
-              [class.error]="productoForm.get('peso')?.invalid && productoForm.get('peso')?.touched"
             >
-            <div class="error-message" *ngIf="productoForm.get('peso')?.invalid && productoForm.get('peso')?.touched">
-              El peso debe ser mayor a 0
+            <div class="error-message" *ngIf="productoForm.get('peso')?.invalid && (productoForm.get('peso')?.touched || productoForm.get('peso')?.dirty)">
+              <i class="fas fa-exclamation-circle"></i>
+              <ng-container *ngIf="productoForm.get('peso')?.errors?.['required']">El peso es requerido</ng-container>
+              <ng-container *ngIf="productoForm.get('peso')?.errors?.['min']">El peso debe ser mayor a 0</ng-container>
             </div>
           </div>
 
@@ -542,10 +540,11 @@
               class="form-control"
               min="1"
               placeholder="1"
-              [class.error]="productoForm.get('cantidad')?.invalid && productoForm.get('cantidad')?.touched"
             >
-            <div class="error-message" *ngIf="productoForm.get('cantidad')?.invalid && productoForm.get('cantidad')?.touched">
-              La cantidad debe ser al menos 1
+            <div class="error-message" *ngIf="productoForm.get('cantidad')?.invalid && (productoForm.get('cantidad')?.touched || productoForm.get('cantidad')?.dirty)">
+              <i class="fas fa-exclamation-circle"></i>
+              <ng-container *ngIf="productoForm.get('cantidad')?.errors?.['required']">La cantidad es requerida</ng-container>
+              <ng-container *ngIf="productoForm.get('cantidad')?.errors?.['min']">La cantidad mínima es 1</ng-container>
             </div>
           </div>
 
@@ -560,10 +559,11 @@
               min="0"
               step="0.01"
               placeholder="0.00"
-              [class.error]="productoForm.get('valor')?.invalid && productoForm.get('valor')?.touched"
             >
-            <div class="error-message" *ngIf="productoForm.get('valor')?.invalid && productoForm.get('valor')?.touched">
-              El valor debe ser mayor o igual a 0
+            <div class="error-message" *ngIf="productoForm.get('valor')?.invalid && (productoForm.get('valor')?.touched || productoForm.get('valor')?.dirty)">
+              <i class="fas fa-exclamation-circle"></i>
+              <ng-container *ngIf="productoForm.get('valor')?.errors?.['required']">El valor es requerido</ng-container>
+              <ng-container *ngIf="productoForm.get('valor')?.errors?.['min']">El valor no puede ser negativo</ng-container>
             </div>
           </div>
         </div>

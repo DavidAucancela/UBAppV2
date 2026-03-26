@@ -216,23 +216,21 @@
           <tr>
             <th class="col-checkbox">
               <label class="checkbox-header">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   [checked]="areAllSelected()"
                   (change)="selectAllOnPage()"
                 >
-                <span class="checkbox-label">Seleccionar</span>
               </label>
             </th>
             <th>HAWB</th>
             <th>Comprador / Cédula</th>
-            <th>Productos</th>
-            <th>Peso (kg)</th>
-            <th>Valor</th>
-            <th>Costo Envío</th>
+            <th class="text-center">Prods.</th>
+            <th class="text-right">Peso (kg)</th>
+            <th class="text-right">Valor</th>
+            <th class="text-right">Costo Envío</th>
             <th>Estado</th>
             <th>Fecha</th>
-            <th>Observaciones</th>
             <th class="actions-column">Acciones</th>
           </tr>
         </thead>
@@ -278,86 +276,67 @@
             <td>
               {{ envio.fecha_creacion | date:'dd/MM/yyyy' }}
             </td>
-            <td class="observaciones-cell">
-              <span *ngIf="envio.observaciones" class="observaciones-text" [title]="envio.observaciones">
-                {{ envio.observaciones.length > 50 ? (envio.observaciones.substring(0, 50) + '...') : envio.observaciones }}
-              </span>
-              <span *ngIf="!envio.observaciones" class="text-muted">-</span>
-            </td>
             <td class="actions-column">
               <div class="action-buttons">
-                <button 
+                <button
                   class="btn-icon btn-view"
                   (click)="viewEnvio(envio)"
                   title="Ver detalle"
+                  type="button"
                 >
                   <i class="fas fa-eye"></i>
                 </button>
-                
-                <button 
-                  class="btn-icon btn-edit"
-                  (click)="editEnvio(envio)"
-                  *ngIf="canEditEnvio(envio)"
-                  title="Editar"
-                >
-                  <i class="fas fa-edit"></i>
-                </button>
 
-                <!-- Estado dropdown -->
-                <div class="dropdown-estado" *ngIf="canChangeEstado(envio)">
-                  <button 
-                    class="btn-icon btn-status" 
-                    title="Cambiar estado"
+                <!-- Kebab menu -->
+                <div class="kebab-wrapper" *ngIf="canEditEnvio(envio) || canChangeEstado(envio) || canDeleteEnvio(envio)">
+                  <button
+                    class="btn-icon btn-kebab"
                     (click)="toggleDropdownEstado(envio.id!, $event)"
+                    title="Más acciones"
                     type="button"
                   >
-                    <i class="fas fa-exchange-alt"></i>
+                    <i class="fas fa-ellipsis-v"></i>
                   </button>
-                  <div class="dropdown-estado-menu" *ngIf="isDropdownOpen(envio.id!)" (click)="$event.stopPropagation()">
-                    <button 
-                      (click)="cambiarEstado(envio, EstadosEnvio.PENDIENTE)"
-                      [disabled]="envio.estado === EstadosEnvio.PENDIENTE"
+                  <div class="kebab-menu" *ngIf="isDropdownOpen(envio.id!)" (click)="$event.stopPropagation()">
+                    <button
+                      class="kebab-item"
+                      (click)="editEnvio(envio)"
+                      *ngIf="canEditEnvio(envio)"
                       type="button"
                     >
-                      Pendiente
+                      <i class="fas fa-edit"></i> Editar
                     </button>
-                    <button 
-                      (click)="cambiarEstado(envio, EstadosEnvio.EN_TRANSITO)"
-                      [disabled]="envio.estado === EstadosEnvio.EN_TRANSITO"
-                      type="button"
-                    >
-                      En Tránsito
-                    </button>
-                    <button 
-                      (click)="cambiarEstado(envio, EstadosEnvio.ENTREGADO)"
-                      [disabled]="envio.estado === EstadosEnvio.ENTREGADO"
-                      type="button"
-                    >
-                      Entregado
-                    </button>
-                    <button 
-                      (click)="cambiarEstado(envio, EstadosEnvio.CANCELADO)"
-                      [disabled]="envio.estado === EstadosEnvio.CANCELADO"
-                      type="button"
-                    >
-                      Cancelado
-                    </button>
+
+                    <ng-container *ngIf="canChangeEstado(envio)">
+                      <div class="kebab-divider"></div>
+                      <div class="kebab-section-label">Cambiar estado</div>
+                      <button class="kebab-item" (click)="cambiarEstado(envio, EstadosEnvio.PENDIENTE)" [disabled]="envio.estado === EstadosEnvio.PENDIENTE" type="button">
+                        <i class="fas fa-clock"></i> Pendiente
+                      </button>
+                      <button class="kebab-item" (click)="cambiarEstado(envio, EstadosEnvio.EN_TRANSITO)" [disabled]="envio.estado === EstadosEnvio.EN_TRANSITO" type="button">
+                        <i class="fas fa-truck"></i> En Tránsito
+                      </button>
+                      <button class="kebab-item" (click)="cambiarEstado(envio, EstadosEnvio.ENTREGADO)" [disabled]="envio.estado === EstadosEnvio.ENTREGADO" type="button">
+                        <i class="fas fa-check-circle"></i> Entregado
+                      </button>
+                      <button class="kebab-item" (click)="cambiarEstado(envio, EstadosEnvio.CANCELADO)" [disabled]="envio.estado === EstadosEnvio.CANCELADO" type="button">
+                        <i class="fas fa-times-circle"></i> Cancelado
+                      </button>
+                    </ng-container>
+
+                    <ng-container *ngIf="canDeleteEnvio(envio)">
+                      <div class="kebab-divider"></div>
+                      <button class="kebab-item kebab-danger" (click)="deleteEnvio(envio)" type="button">
+                        <i class="fas fa-trash"></i> Eliminar
+                      </button>
+                    </ng-container>
                   </div>
                 </div>
-                
-                <button 
-                  class="btn-icon btn-delete"
-                  (click)="deleteEnvio(envio)"
-                  *ngIf="canDeleteEnvio(envio)"
-                  title="Eliminar"
-                >
-                  <i class="fas fa-trash"></i>
-                </button>
               </div>
             </td>
           </tr>
           <tr *ngIf="filteredEnvios.length === 0">
-            <td colspan="11" class="no-data">
+            <td colspan="10" class="no-data">
               <i class="fas fa-inbox"></i>
               <p>No se encontraron envíos</p>
             </td>
@@ -457,11 +436,10 @@
                 formControlName="hawb"
                 class="form-control hawb-input"
                 [placeholder]="editingEnvio ? 'Ej: HAW123456' : 'Se generará automáticamente'"
-                [class.error]="envioForm.get('hawb')?.invalid && envioForm.get('hawb')?.touched"
                 [readonly]="!editingEnvio"
               >
-              <div class="error-message" *ngIf="envioForm.get('hawb')?.invalid && envioForm.get('hawb')?.touched">
-                El HAWB es requerido
+              <div class="error-message" *ngIf="envioForm.get('hawb')?.invalid && (envioForm.get('hawb')?.touched || envioForm.get('hawb')?.dirty)">
+                <i class="fas fa-exclamation-circle"></i> El HAWB es requerido
               </div>
               <small class="hawb-help-text" *ngIf="!editingEnvio">
                 <i class="fas fa-info-circle"></i>
@@ -476,15 +454,14 @@
               <select 
                 formControlName="comprador"
                 class="form-control"
-                [class.error]="envioForm.get('comprador')?.invalid && envioForm.get('comprador')?.touched"
               >
                 <option value="">Seleccione un comprador</option>
                 <option *ngFor="let comprador of compradores" [value]="comprador.id">
                   {{ comprador.nombre }} - {{ comprador.cedula }}
                 </option>
               </select>
-              <div class="error-message" *ngIf="envioForm.get('comprador')?.invalid && envioForm.get('comprador')?.touched">
-                Debe seleccionar un comprador
+              <div class="error-message" *ngIf="envioForm.get('comprador')?.invalid && (envioForm.get('comprador')?.touched || envioForm.get('comprador')?.dirty)">
+                <i class="fas fa-exclamation-circle"></i> Debe seleccionar un comprador
               </div>
             </div>
 
@@ -578,12 +555,15 @@
                   <label class="form-label">
                     Descripción <span class="required">*</span>
                   </label>
-                  <input 
+                  <input
                     type="text"
                     formControlName="descripcion"
                     class="form-control"
                     placeholder="Descripción del producto"
                   >
+                  <div class="error-message" *ngIf="producto.get('descripcion')?.invalid && (producto.get('descripcion')?.touched || producto.get('descripcion')?.dirty)">
+                    <i class="fas fa-exclamation-circle"></i> La descripción es requerida
+                  </div>
                 </div>
 
                 <div class="form-group">
@@ -591,7 +571,7 @@
                     <i [class]="'fas ' + getCategoriaIcon(producto.get('categoria')?.value || '')"></i>
                     Categoría <span class="required">*</span>
                   </label>
-                  <select 
+                  <select
                     formControlName="categoria"
                     class="form-control"
                   >
@@ -602,6 +582,9 @@
                     <option [value]="CategoriasProducto.DEPORTES">⚽ Deportes</option>
                     <option [value]="CategoriasProducto.OTROS">📦 Otros</option>
                   </select>
+                  <div class="error-message" *ngIf="producto.get('categoria')?.invalid && (producto.get('categoria')?.touched || producto.get('categoria')?.dirty)">
+                    <i class="fas fa-exclamation-circle"></i> Seleccione una categoría
+                  </div>
                 </div>
               </div>
 
@@ -610,7 +593,7 @@
                   <label class="form-label">
                     Peso (kg) <span class="required">*</span>
                   </label>
-                  <input 
+                  <input
                     type="text"
                     formControlName="peso"
                     class="form-control"
@@ -618,26 +601,36 @@
                     (blur)="normalizarInputDecimal($event, i, 'peso')"
                     (input)="onDecimalInput($event)"
                   >
+                  <div class="error-message" *ngIf="producto.get('peso')?.invalid && (producto.get('peso')?.touched || producto.get('peso')?.dirty)">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <ng-container *ngIf="producto.get('peso')?.errors?.['required']">El peso es requerido</ng-container>
+                    <ng-container *ngIf="producto.get('peso')?.errors?.['min']">El peso debe ser mayor a 0</ng-container>
+                  </div>
                 </div>
 
                 <div class="form-group">
                   <label class="form-label">
                     Cantidad <span class="required">*</span>
                   </label>
-                  <input 
+                  <input
                     type="number"
                     formControlName="cantidad"
                     class="form-control"
                     min="1"
                     placeholder="1"
                   >
+                  <div class="error-message" *ngIf="producto.get('cantidad')?.invalid && (producto.get('cantidad')?.touched || producto.get('cantidad')?.dirty)">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <ng-container *ngIf="producto.get('cantidad')?.errors?.['required']">La cantidad es requerida</ng-container>
+                    <ng-container *ngIf="producto.get('cantidad')?.errors?.['min']">La cantidad mínima es 1</ng-container>
+                  </div>
                 </div>
 
                 <div class="form-group">
                   <label class="form-label">
                     Valor unitario ($) <span class="required">*</span>
                   </label>
-                  <input 
+                  <input
                     type="text"
                     formControlName="valor"
                     class="form-control"
@@ -645,6 +638,11 @@
                     (blur)="normalizarInputDecimal($event, i, 'valor')"
                     (input)="onDecimalInput($event)"
                   >
+                  <div class="error-message" *ngIf="producto.get('valor')?.invalid && (producto.get('valor')?.touched || producto.get('valor')?.dirty)">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <ng-container *ngIf="producto.get('valor')?.errors?.['required']">El valor es requerido</ng-container>
+                    <ng-container *ngIf="producto.get('valor')?.errors?.['min']">El valor no puede ser negativo</ng-container>
+                  </div>
                 </div>
               </div>
             </div>
