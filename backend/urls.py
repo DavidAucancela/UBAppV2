@@ -8,27 +8,29 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-urlpatterns = [
+v1_patterns = [
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
+    path('usuarios/', include('apps.usuarios.urls')),
+    path('envios/', include('apps.archivos.urls')),
+    path('busqueda/', include('apps.busqueda.urls')),
+    path('notificaciones/', include('apps.notificaciones.urls')),
+    path('metricas/', include('apps.metricas.urls')),
+]
+
+urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/', include(v1_patterns)),
 
-    path('api/health/', include('apps.core.urls')),  # Health check endpoint
-    path('api/usuarios/', include('apps.usuarios.urls')),
-    path('api/envios/', include('apps.archivos.urls')),
-    path('api/busqueda/', include('apps.busqueda.urls')),
-    path('api/notificaciones/', include('apps.notificaciones.urls')),
-    path('api/metricas/', include('apps.metricas.urls')),
-    
+    # Health check sin versión (no es parte de la API pública)
+    path('api/health/', include('apps.core.urls')),
+
     # OpenAPI schema y UIs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-
-    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-
 ]
 
 # Servir archivos media en desarrollo
