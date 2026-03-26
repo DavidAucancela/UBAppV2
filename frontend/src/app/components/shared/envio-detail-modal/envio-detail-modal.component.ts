@@ -33,8 +33,8 @@ export class EnvioDetailModalComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges(): void {
-    if (this.envioId && this.show) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if ((changes['envioId'] || changes['show']) && this.envioId && this.show) {
       this.loadEnvio();
     }
   }
@@ -97,5 +97,22 @@ export class EnvioDetailModalComponent implements OnInit, OnChanges {
       'otros': 'fa-box'
     };
     return iconos[categoria] || 'fa-box';
+  }
+
+  getEstadoIcon(estado: string): string {
+    switch (estado) {
+      case EstadosEnvio.PENDIENTE:    return 'fas fa-clock';
+      case EstadosEnvio.EN_TRANSITO:  return 'fas fa-truck';
+      case EstadosEnvio.ENTREGADO:    return 'fas fa-check-circle';
+      case EstadosEnvio.CANCELADO:    return 'fas fa-ban';
+      default: return 'fas fa-box';
+    }
+  }
+
+  isEstadoAlcanzado(estado: string): boolean {
+    const orden = ['pendiente', 'en_transito', 'entregado'];
+    const idxActual = orden.indexOf(this.envio?.estado || '');
+    const idxTarget = orden.indexOf(estado);
+    return idxActual >= idxTarget;
   }
 }
