@@ -164,15 +164,21 @@ class Envio(SoftDeleteModel):
         productos = self.productos.all()
         # Peso total = suma de (peso * cantidad) de cada producto
         # Usar Decimal para evitar problemas de precisión y normalizar a 2 decimales
-        peso_total_calculado = sum(Decimal(str(p.peso)) * Decimal(str(p.cantidad)) for p in productos)
+        peso_total_calculado = sum(
+            (Decimal(str(p.peso)) * Decimal(str(p.cantidad)) for p in productos),
+            Decimal('0')
+        )
         self.peso_total = peso_total_calculado.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-        
+
         # Cantidad total = suma de cantidades
         self.cantidad_total = sum(p.cantidad for p in productos)
-        
+
         # Valor total = suma de (valor * cantidad) de cada producto
         # Usar Decimal para evitar problemas de precisión y normalizar a 2 decimales
-        valor_total_calculado = sum(Decimal(str(p.valor)) * Decimal(str(p.cantidad)) for p in productos)
+        valor_total_calculado = sum(
+            (Decimal(str(p.valor)) * Decimal(str(p.cantidad)) for p in productos),
+            Decimal('0')
+        )
         self.valor_total = valor_total_calculado.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
         
         # Calcular costo del servicio basado en tarifas
@@ -273,9 +279,9 @@ class Envio(SoftDeleteModel):
     
     def save(self, *args, **kwargs):
         if self.peso_total is not None:
-            self.peso_total = self.peso_total.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+            self.peso_total = Decimal(str(self.peso_total)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
         if self.valor_total is not None:
-            self.valor_total = self.valor_total.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+            self.valor_total = Decimal(str(self.valor_total)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
         self.full_clean()
         super().save(*args, **kwargs)
 
@@ -362,9 +368,9 @@ class Producto(models.Model):
     
     def save(self, *args, **kwargs):
         if self.peso is not None:
-            self.peso = self.peso.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+            self.peso = Decimal(str(self.peso)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
         if self.valor is not None:
-            self.valor = self.valor.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+            self.valor = Decimal(str(self.valor)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
         self.full_clean()
         super().save(*args, **kwargs)
 

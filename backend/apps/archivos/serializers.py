@@ -137,11 +137,11 @@ class EnvioCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         productos_data = validated_data.pop('productos', [])
         
-        # Establecer valores por defecto para totales
-        validated_data['peso_total'] = 0
+        # Establecer valores por defecto para totales (Decimal para evitar AttributeError en save())
+        validated_data['peso_total'] = Decimal('0')
         validated_data['cantidad_total'] = 0
-        validated_data['valor_total'] = 0
-        validated_data['costo_servicio'] = 0
+        validated_data['valor_total'] = Decimal('0')
+        validated_data['costo_servicio'] = Decimal('0')
         
         # Crear el envío
         envio = Envio.objects.create(**validated_data)
