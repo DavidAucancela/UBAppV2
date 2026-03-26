@@ -3,7 +3,7 @@ Repositorios para la app de usuarios
 Implementa el patrón Repository para acceso a datos de usuarios
 """
 from typing import Optional, List
-from django.db.models import QuerySet, Q, Sum, Count
+from django.db.models import QuerySet, Q, Sum, Count, Prefetch
 from django.contrib.auth import get_user_model
 
 from apps.core.base.base_repository import BaseRepository
@@ -126,11 +126,18 @@ class UsuarioRepository(BaseRepository):
     
     def obtener_compradores_con_ubicacion(self) -> QuerySet:
         """Obtiene compradores activos con ubicación definida"""
+        from apps.archivos.models import Envio
         return self.model.objects.filter(
             rol=self.model.COMPRADOR,
             is_active=True
         ).exclude(
             Q(ciudad__isnull=True) | Q(ciudad='')
+        ).prefetch_related(
+            Prefetch(
+                'envio_set',
+                queryset=Envio.objects.order_by('-fecha_emision'),
+                to_attr='envios_prefetched'
+            )
         )
     
     def obtener_compradores_por_ciudad(self, ciudad: str) -> QuerySet:

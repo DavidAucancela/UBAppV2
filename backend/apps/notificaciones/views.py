@@ -28,11 +28,12 @@ class NotificacionViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
         
         serializer = self.get_serializer(queryset, many=True)
+        data = serializer.data
         return Response({
-            'count': queryset.count(),
+            'count': len(data),
             'next': None,
             'previous': None,
-            'results': serializer.data
+            'results': data
         })
     
     @action(detail=False, methods=['get'])

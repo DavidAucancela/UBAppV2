@@ -189,11 +189,16 @@ class CompradorMapaSerializer(serializers.ModelSerializer):
     
     def get_total_envios(self, obj):
         """Retorna el total de envíos del comprador"""
+        if hasattr(obj, 'envios_prefetched'):
+            return len(obj.envios_prefetched)
         return obj.envio_set.count()
-    
+
     def get_envios_recientes(self, obj):
         """Retorna los últimos 5 envíos del comprador"""
-        envios = obj.envio_set.all()[:5]
+        if hasattr(obj, 'envios_prefetched'):
+            envios = obj.envios_prefetched[:5]
+        else:
+            envios = obj.envio_set.order_by('-fecha_emision')[:5]
         # Importación circular evitada usando serialización manual simple
         return [{
             'id': envio.id,
