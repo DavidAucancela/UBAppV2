@@ -3,6 +3,7 @@ Views para la app de usuarios
 Usan la arquitectura en capas (servicios y repositorios)
 """
 from rest_framework import viewsets, permissions, status, filters
+from apps.core.pagination import CustomPageNumberPagination
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -207,9 +208,7 @@ class ResetPasswordView(APIView):
             cache.set(cache_key, usuario.id, timeout=3600)
             
             new_password = ''.join(secrets.choice(string.ascii_letters + string.digits) for i in range(12))
-            usuario.set_password(new_password)
-            usuario.save()
-            
+
             try:
                 send_mail(
                     subject='Restablecimiento de contraseña - UBApp',
@@ -231,7 +230,9 @@ Equipo UBApp
                     recipient_list=[email],
                     fail_silently=False,
                 )
-                
+                usuario.set_password(new_password)
+                usuario.save()
+
                 return Response({
                     'message': 'Se ha enviado un correo electrónico con tu nueva contraseña temporal.'
                 })
@@ -336,7 +337,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
     permission_classes = [permissions.IsAuthenticated]
-    pagination_class = None  # Deshabilitar paginación para permitir obtener todos los usuarios
+    pagination_class = CustomPageNumberPagination
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['username', 'nombre', 'correo', 'cedula']
     ordering_fields = ['nombre', 'fecha_creacion', 'rol']

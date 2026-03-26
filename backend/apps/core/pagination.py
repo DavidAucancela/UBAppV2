@@ -8,5 +8,5 @@ class CustomPageNumberPagination(PageNumberPagination):
     """
     page_size = 10  # Tamaño por defecto
     page_size_query_param = 'page_size'  # Permite al cliente especificar el tamaño
-    max_page_size = 10000  # Límite máximo para evitar abusos
+    max_page_size = 100  # Límite máximo para evitar abusos
 

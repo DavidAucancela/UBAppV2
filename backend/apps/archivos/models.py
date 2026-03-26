@@ -231,14 +231,6 @@ class Envio(models.Model):
         else:
             return Decimal(str(costo_total)).quantize(Decimal('0.0001'))
     
-    def save(self, *args, **kwargs):
-        """Normalizar peso_total y valor_total a 2 decimales antes de guardar"""
-        if self.peso_total is not None:
-            self.peso_total = self.peso_total.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-        if self.valor_total is not None:
-            self.valor_total = self.valor_total.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-        super().save(*args, **kwargs)
-    
     def clean(self):
         """Validaciones adicionales del modelo"""
         from django.core.exceptions import ValidationError
@@ -279,8 +271,11 @@ class Envio(models.Model):
             })
     
     def save(self, *args, **kwargs):
-        """Sobrescribir save para llamar a clean()"""
-        self.full_clean()  # Llama a clean() automáticamente
+        if self.peso_total is not None:
+            self.peso_total = self.peso_total.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        if self.valor_total is not None:
+            self.valor_total = self.valor_total.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        self.full_clean()
         super().save(*args, **kwargs)
 
 
@@ -336,14 +331,6 @@ class Producto(models.Model):
     def __str__(self):
         return f"{self.descripcion} - {self.envio.hawb}"
 
-    def save(self, *args, **kwargs):
-        """Normalizar peso y valor a 2 decimales antes de guardar"""
-        if self.peso is not None:
-            self.peso = self.peso.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-        if self.valor is not None:
-            self.valor = self.valor.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-        super().save(*args, **kwargs)
-    
     def clean(self):
         """Validaciones adicionales del modelo"""
         from django.core.exceptions import ValidationError
@@ -373,7 +360,10 @@ class Producto(models.Model):
             })
     
     def save(self, *args, **kwargs):
-        """Sobrescribir save para llamar a clean()"""
+        if self.peso is not None:
+            self.peso = self.peso.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        if self.valor is not None:
+            self.valor = self.valor.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
         self.full_clean()
         super().save(*args, **kwargs)
 
