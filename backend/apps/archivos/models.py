@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from decimal import Decimal, ROUND_HALF_UP
 import json
+from apps.core.models import SoftDeleteModel
 
 Usuario = get_user_model()
 
@@ -100,7 +101,7 @@ class Tarifa(models.Model):
         """Calcula el costo para un peso dado"""
         return float(self.cargo_base) + (float(peso) * float(self.precio_por_kg))
 
-class Envio(models.Model):
+class Envio(SoftDeleteModel):
     """Modelo para gestionar envíos"""
     hawb = models.CharField(max_length=50, unique=True, verbose_name="HAWB")
     peso_total = models.DecimalField(max_digits=10, decimal_places=4, default=0, verbose_name="Peso Total")

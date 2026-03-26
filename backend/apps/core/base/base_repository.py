@@ -234,21 +234,22 @@ class BaseRepository(ABC, Generic[T]):
     
     def eliminar(self, obj: T) -> None:
         """
-        Elimina un objeto.
-        
+        Elimina un objeto. Si el modelo soporta soft delete, usa borrado lógico.
+
         Args:
             obj: Instancia a eliminar
         """
         obj.delete()
-    
+
     def eliminar_por_id(self, id: int) -> None:
         """
-        Elimina un objeto por su ID.
-        
+        Elimina un objeto por su ID. Si el modelo soporta soft delete, usa borrado lógico.
+
         Args:
             id: ID del objeto a eliminar
         """
-        self.model.objects.filter(id=id).delete()
+        obj = self.obtener_por_id(id)
+        obj.delete()
     
     def eliminar_multiple(self, queryset: QuerySet) -> int:
         """

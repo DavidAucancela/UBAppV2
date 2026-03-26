@@ -8,10 +8,14 @@ class CoreConfig(AppConfig):
 
     def ready(self):
         """Aplica patches cuando la app está lista"""
-        # Importar y aplicar patches para modelos de Django
         try:
             from . import patches_django
         except ImportError:
+            pass
+        try:
+            from .signals import connect_audit_signals
+            connect_audit_signals()
+        except Exception:
             pass
 
 
