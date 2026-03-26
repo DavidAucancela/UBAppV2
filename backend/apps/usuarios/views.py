@@ -337,7 +337,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
     permission_classes = [permissions.IsAuthenticated]
-    pagination_class = CustomPageNumberPagination
+    pagination_class = None  # El frontend maneja la paginación en el cliente
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['username', 'nombre', 'correo', 'cedula']
     ordering_fields = ['nombre', 'fecha_creacion', 'rol']
