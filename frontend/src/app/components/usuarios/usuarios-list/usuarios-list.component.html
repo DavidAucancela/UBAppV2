@@ -510,7 +510,7 @@
           <div class="error-message" *ngIf="usuarioForm.get('correo')?.invalid && (usuarioForm.get('correo')?.touched || usuarioForm.get('correo')?.dirty)">
             <i class="fas fa-exclamation-circle"></i>
             <ng-container *ngIf="usuarioForm.get('correo')?.errors?.['required']">El correo es requerido</ng-container>
-            <ng-container *ngIf="usuarioForm.get('correo')?.errors?.['email']">Ingrese un correo válido (ej. nombre@dominio.com)</ng-container>
+            <ng-container *ngIf="usuarioForm.get('correo')?.errors?.['email']">Ingrese un correo válido (ej. nombre&#64;dominio.com)</ng-container>
           </div>
         </div>
 
