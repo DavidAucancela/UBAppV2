@@ -140,6 +140,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
       roles: [Roles.COMPRADOR],
       order: 1
     },
+    {
+      label: 'Notificaciones',
+      icon: 'fas fa-bell',
+      route: '/notificaciones',
+      roles: [Roles.COMPRADOR],
+      order: 2
+    },
     // ========== ENVÍOS ==========
     {
       label: 'Envíos',
