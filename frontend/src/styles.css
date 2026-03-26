@@ -138,6 +138,13 @@ body.dark-page {
   background-color: #050517;
 }
 
+body.dark-page .main-content,
+body.dark-page .content-wrapper {
+  background-color: #050517;
+  min-height: 100vh;
+  max-width: 100%;     /* eliminar restricción de 1440px para páginas full-width */
+}
+
 /* Transiciones suaves en elementos interactivos */
 a, button, input, select, textarea {
   transition: all var(--transition-fast);
