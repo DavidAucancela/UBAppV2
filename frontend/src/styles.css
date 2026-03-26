@@ -762,6 +762,16 @@ body.dark-mode .btn-ghost {
   transform: rotate(90deg);
 }
 
+/* Cuando un <form> envuelve modal-body + modal-footer dentro de modal-content,
+   necesita participar en el flexbox para que el scroll funcione */
+.modal-content > form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
 /* Body — desplazable */
 .modal-body {
   padding: 24px;
