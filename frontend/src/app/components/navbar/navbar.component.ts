@@ -249,8 +249,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
    */
   private checkRouteAndToggleNavbar(): void {
     const currentRoute = this.router.url;
-    this.shouldHideNavbar = currentRoute === '/login' || currentRoute === '/register';
-    
+    const isAuthPage = currentRoute === '/login' || currentRoute === '/register';
+    const isLandingPage = currentRoute === '/informacion' || currentRoute === '/';
+    this.shouldHideNavbar = isAuthPage;
+
     if (this.shouldHideNavbar) {
       this.navbarState = 'hidden';
       this.logoState = 'hidden';
@@ -259,6 +261,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.navbarState = 'visible';
       this.logoState = 'visible';
       this.actionsState = 'visible';
+    }
+
+    // Clase en body para que auth y landing pages usen fondo oscuro consistente
+    if (isAuthPage || isLandingPage) {
+      document.body.classList.add('dark-page');
+    } else {
+      document.body.classList.remove('dark-page');
     }
   }
   ngOnDestroy(): void {

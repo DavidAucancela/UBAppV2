@@ -1,13 +1,14 @@
 :host {
   display: block;
   width: 100%;
-  background: radial-gradient(circle at top, rgba(102, 126, 234, 0.2), transparent 40%), #050517;
+  min-height: 100vh;
+  background: #050517; /* fondo base consistente */
 }
 
 .informacion-page {
   min-height: 100vh;
-  background: radial-gradient(circle at 20% 20%, rgb(255, 255, 255), transparent 45%), radial-gradient(circle at 80% 0%, rgba(118, 75, 162, 0.15), transparent 40%), #050517;
-  overflow: hidden;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.04), transparent 45%), radial-gradient(circle at 80% 0%, rgba(118, 75, 162, 0.15), transparent 40%), #050517;
+  overflow-x: hidden;
 }
 
 .section-shell {

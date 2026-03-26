@@ -133,6 +133,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Fondo oscuro en páginas de auth y landing — evita fondo gris al hacer zoom */
+body.dark-page {
+  background-color: #050517;
+}
+
 /* Transiciones suaves en elementos interactivos */
 a, button, input, select, textarea {
   transition: all var(--transition-fast);

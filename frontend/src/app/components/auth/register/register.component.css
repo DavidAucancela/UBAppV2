@@ -1,13 +1,14 @@
 :host {
   display: block;
-  --navbar-height: 92px;
+  min-height: 100vh;
+  background: #020617; /* fondo base para que no aparezca gris al hacer zoom */
 }
 
 .register-page {
   position: relative;
-  min-height: calc(100vh - var(--navbar-height));
+  min-height: 100vh;
   background: radial-gradient(circle at 10% 20%, rgba(102, 126, 234, 0.25), transparent 40%), #020617;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .register-pattern {

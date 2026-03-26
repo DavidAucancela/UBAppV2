@@ -1,14 +1,15 @@
 :host {
   display: block;
-  --navbar-height: 92px;
+  min-height: 100vh;
+  background: #050517; /* fondo base para que no aparezca gris al hacer zoom */
 }
 
 .auth-page {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - var(--navbar-height));
+  min-height: 100vh;
   background: radial-gradient(circle at top, rgba(102, 126, 234, 0.2), transparent 35%), #050517;
-  overflow: hidden;
+  overflow-x: hidden;
   isolation: isolate;
 }
 
