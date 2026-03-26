@@ -93,18 +93,33 @@
         {{ error }}
       </div>
 
-      <!-- Loading State -->
-      <div class="loading-state" *ngIf="loading">
-        <i class="fas fa-spinner fa-spin"></i>
-        <span>Cargando envíos...</span>
+      <!-- Skeleton Loader -->
+      <div class="card skeleton-table-wrapper" *ngIf="loading">
+        <div class="skeleton-thead">
+          <div class="skeleton skeleton-cell wide"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell narrow"></div>
+        </div>
+        <div class="skeleton-tbody-row" *ngFor="let i of [1,2,3,4,5]">
+          <div class="skeleton skeleton-cell wide"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell narrow"></div>
+        </div>
       </div>
 
       <!-- Table -->
       <div class="card" *ngIf="!loading && !error">
         <div class="table-container">
-          <div *ngIf="envios.length === 0" class="no-data">
-            <i class="fas fa-inbox"></i>
-            <p>No se encontraron envíos</p>
+          <div *ngIf="envios.length === 0" class="empty-state">
+            <div class="empty-state-icon">
+              <i class="fas fa-inbox"></i>
+            </div>
+            <h3 class="empty-state-title">Sin envíos</h3>
+            <p class="empty-state-description">Aún no tienes envíos registrados. Cuando se registren envíos a tu nombre, aparecerán aquí.</p>
           </div>
 
           <div *ngIf="envios.length > 0" class="table-responsive">

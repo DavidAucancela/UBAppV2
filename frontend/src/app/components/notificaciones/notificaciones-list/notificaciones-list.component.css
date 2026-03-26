@@ -403,6 +403,31 @@
   padding: 40px;
 }
 
+/* Notification skeleton */
+.skeleton-notif-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.skeleton-notif-item {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid var(--color-border);
+  align-items: flex-start;
+}
+
+.skeleton-notif-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+}
+
 .spinner {
   text-align: center;
   color: var(--color-primary);

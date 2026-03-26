@@ -130,10 +130,26 @@
         {{ errorMessage }}
       </div>
 
-      <!-- Loading State -->
-      <div class="loading-state" *ngIf="loading">
-        <i class="fas fa-spinner fa-spin"></i>
-        <span>Cargando envíos...</span>
+      <!-- Skeleton Loader -->
+      <div class="card skeleton-table-wrapper" *ngIf="loading">
+        <div class="skeleton-thead">
+          <div class="skeleton skeleton-cell narrow"></div>
+          <div class="skeleton skeleton-cell wide"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+        </div>
+        <div class="skeleton-tbody-row" *ngFor="let i of [1,2,3,4,5,6]">
+          <div class="skeleton skeleton-cell narrow"></div>
+          <div class="skeleton skeleton-cell wide"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+        </div>
       </div>
 
       <!-- Barra de acciones masivas -->
@@ -335,10 +351,18 @@
               </div>
             </td>
           </tr>
-          <tr *ngIf="filteredEnvios.length === 0">
+          <tr *ngIf="filteredEnvios.length === 0" class="empty-row">
             <td colspan="10" class="no-data">
-              <i class="fas fa-inbox"></i>
-              <p>No se encontraron envíos</p>
+              <div class="empty-state">
+                <div class="empty-state-icon">
+                  <i class="fas fa-inbox"></i>
+                </div>
+                <h3 class="empty-state-title">No se encontraron envíos</h3>
+                <p class="empty-state-description">No hay envíos que coincidan con los filtros seleccionados. Intenta ajustar los criterios de búsqueda.</p>
+                <button class="btn btn-primary" (click)="openCreateModal()" *ngIf="authService.canManageEnvios()">
+                  <i class="fas fa-plus"></i> Nuevo Envío
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>

@@ -90,11 +90,23 @@
         </div>
       </div>
 
-      <!-- Loading State -->
-      <div class="loading-container" *ngIf="loading">
-        <div class="spinner">
-          <i class="fas fa-spinner fa-spin"></i>
-          <span>Cargando tarifas...</span>
+      <!-- Skeleton Loader -->
+      <div class="card skeleton-table-wrapper" *ngIf="loading">
+        <div class="skeleton-thead">
+          <div class="skeleton skeleton-cell narrow"></div>
+          <div class="skeleton skeleton-cell wide"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell narrow"></div>
+        </div>
+        <div class="skeleton-tbody-row" *ngFor="let i of [1,2,3,4,5]">
+          <div class="skeleton skeleton-cell narrow"></div>
+          <div class="skeleton skeleton-cell wide"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell"></div>
+          <div class="skeleton skeleton-cell narrow"></div>
         </div>
       </div>
 
@@ -242,10 +254,18 @@
                   </div>
                 </td>
               </tr>
-              <tr *ngIf="filteredTarifas.length === 0">
+              <tr *ngIf="filteredTarifas.length === 0" class="empty-row">
                 <td [attr.colspan]="(authService.isAdmin() || authService.isGerente()) ? 8 : 7" class="no-data">
-                  <i class="fas fa-inbox"></i>
-                  <p>No se encontraron tarifas</p>
+                  <div class="empty-state">
+                    <div class="empty-state-icon">
+                      <i class="fas fa-tags"></i>
+                    </div>
+                    <h3 class="empty-state-title">No se encontraron tarifas</h3>
+                    <p class="empty-state-description">No hay tarifas que coincidan con los filtros aplicados. Ajusta la búsqueda o crea una nueva tarifa.</p>
+                    <button class="btn btn-primary" (click)="openCreateModal()" *ngIf="authService.isAdmin() || authService.isGerente()">
+                      <i class="fas fa-plus"></i> Nueva Tarifa
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>

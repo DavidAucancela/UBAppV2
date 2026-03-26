@@ -90,11 +90,15 @@
         </div>
       </div>
 
-      <!-- Loading State -->
-      <div class="loading-state" *ngIf="loading">
-        <div class="spinner">
-          <i class="fas fa-spinner fa-spin"></i>
-          <p>Cargando notificaciones...</p>
+      <!-- Skeleton Loader -->
+      <div class="card skeleton-notif-wrapper" *ngIf="loading">
+        <div class="skeleton-notif-item" *ngFor="let i of [1,2,3,4,5]">
+          <div class="skeleton skeleton-avatar"></div>
+          <div class="skeleton-notif-body">
+            <div class="skeleton skeleton-line medium"></div>
+            <div class="skeleton skeleton-line long"></div>
+            <div class="skeleton skeleton-line short"></div>
+          </div>
         </div>
       </div>
 
@@ -158,9 +162,16 @@
         </div>
         
         <!-- No hay notificaciones -->
-        <div class="no-notificaciones" *ngIf="paginatedNotificaciones.length === 0">
-          <i class="fas fa-bell-slash"></i>
-          <p>No hay notificaciones {{ filtroLeidas === 'leidas' ? 'leídas' : filtroLeidas === 'no_leidas' ? 'no leídas' : '' }}</p>
+        <div class="empty-state" *ngIf="paginatedNotificaciones.length === 0">
+          <div class="empty-state-icon">
+            <i class="fas fa-bell-slash"></i>
+          </div>
+          <h3 class="empty-state-title">Sin notificaciones</h3>
+          <p class="empty-state-description">
+            No hay notificaciones
+            {{ filtroLeidas === 'leidas' ? 'leídas' : filtroLeidas === 'no_leidas' ? 'no leídas' : '' }}
+            en este momento.
+          </p>
         </div>
         
         <!-- Paginación -->

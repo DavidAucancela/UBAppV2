@@ -818,6 +818,39 @@
   .detail-grid {
     grid-template-columns: 1fr;
   }
+
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table th,
+  .table td {
+    white-space: nowrap;
+  }
+
+  .titulo-principal {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+  }
+
+  .bulk-actions-buttons {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
 }
 
 /* Barra de acciones masivas */

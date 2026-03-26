@@ -845,3 +845,287 @@ body.dark-mode .modal-footer {
 body.dark-mode .modal-body::-webkit-scrollbar-thumb {
   background: #475569;
 }
+
+/* =====================================================================
+   14. EMPTY STATES
+   ===================================================================== */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+  gap: 16px;
+}
+
+.empty-state-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary-light, #ede9fe) 0%, var(--color-surface-raised) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.empty-state-icon i {
+  font-size: 2rem;
+  color: var(--color-primary);
+  opacity: 0.8;
+}
+
+.empty-state-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.empty-state-description {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: 360px;
+  line-height: 1.6;
+}
+
+.empty-state .btn {
+  margin-top: 8px;
+}
+
+/* Empty state inside table td */
+td.no-data {
+  padding: 0 !important;
+}
+
+td.no-data .empty-state {
+  padding: 48px 24px;
+}
+
+/* Dark mode */
+body.dark-mode .empty-state-icon {
+  background: linear-gradient(135deg, #3b1f6a 0%, #1e293b 100%);
+}
+
+body.dark-mode .empty-state-title {
+  color: var(--color-text);
+}
+
+/* =====================================================================
+   15. SKELETON LOADERS
+   ===================================================================== */
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-raised) 25%,
+    var(--color-border) 50%,
+    var(--color-surface-raised) 75%
+  );
+  background-size: 1200px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-md, 8px);
+}
+
+/* Text-line skeletons */
+.skeleton-line {
+  height: 14px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.skeleton-line.short  { width: 40%; }
+.skeleton-line.medium { width: 65%; }
+.skeleton-line.long   { width: 90%; }
+
+/* Table skeleton (replaces loading-state spinner) */
+.skeleton-table-wrapper {
+  overflow: hidden;
+}
+
+.skeleton-thead {
+  display: flex;
+  gap: 0;
+  padding: 14px 20px;
+  border-bottom: 2px solid var(--color-border);
+  background: var(--color-surface-raised);
+}
+
+.skeleton-thead .skeleton-cell {
+  height: 12px;
+  border-radius: 4px;
+  flex: 1;
+  margin: 0 8px;
+}
+
+.skeleton-tbody-row {
+  display: flex;
+  gap: 0;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-border);
+  align-items: center;
+}
+
+.skeleton-tbody-row:last-child {
+  border-bottom: none;
+}
+
+.skeleton-tbody-row .skeleton-cell {
+  height: 14px;
+  border-radius: 4px;
+  flex: 1;
+  margin: 0 8px;
+}
+
+.skeleton-tbody-row .skeleton-cell.narrow { flex: 0.5; }
+.skeleton-tbody-row .skeleton-cell.wide   { flex: 1.5; }
+
+/* Card skeleton (for card-grid views) */
+.skeleton-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.skeleton-card {
+  background: var(--color-surface);
+  border-radius: 16px;
+  border: 2px solid var(--color-border);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-card-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.skeleton-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+/* Dark mode skeletons */
+body.dark-mode .skeleton {
+  background: linear-gradient(
+    90deg,
+    #1e293b 25%,
+    #334155 50%,
+    #1e293b 75%
+  );
+  background-size: 1200px 100%;
+}
+
+body.dark-mode .skeleton-thead {
+  background: #1e293b;
+  border-bottom-color: #334155;
+}
+
+body.dark-mode .skeleton-tbody-row {
+  border-bottom-color: #334155;
+}
+
+body.dark-mode .skeleton-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+/* =====================================================================
+   16. RESPONSIVE — TABLES AS STACKED CARDS (mobile ≤ 768px)
+   ===================================================================== */
+
+@media (max-width: 768px) {
+  /* Make the table-wrapper scrollable horizontally on mobile
+     for tables that are too wide to stack nicely */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* For components that opt-in to card stacking, add class
+     .table-mobile-cards to the <table> element */
+  table.table-mobile-cards {
+    display: block;
+  }
+
+  table.table-mobile-cards thead {
+    display: none;
+  }
+
+  table.table-mobile-cards tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  table.table-mobile-cards tbody tr {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border-radius: 12px;
+    border: 2px solid var(--color-border);
+    padding: 16px;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  table.table-mobile-cards tbody tr:hover {
+    border-color: var(--color-primary);
+    transform: none;
+  }
+
+  table.table-mobile-cards tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none !important;
+    padding: 4px 0 !important;
+    font-size: 0.9rem;
+    gap: 8px;
+  }
+
+  table.table-mobile-cards tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    min-width: 100px;
+  }
+
+  /* td.no-data empty state spans full width on mobile */
+  table.table-mobile-cards tbody tr.empty-row {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  table.table-mobile-cards tbody tr.empty-row td::before {
+    display: none;
+  }
+
+  /* Dark mode mobile cards */
+  body.dark-mode table.table-mobile-cards tbody tr {
+    background: #1e293b;
+    border-color: #334155;
+  }
+}

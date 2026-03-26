@@ -1375,6 +1375,42 @@
   }
 }
 
+/* Extra small — xs phones */
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-item {
+    padding: 12px;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+  }
+
+  .table th,
+  .table td {
+    font-size: 0.78rem;
+    padding: 8px 6px;
+  }
+
+  .titulo-principal {
+    font-size: 1.8rem;
+  }
+
+  .bulk-actions-buttons {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .bulk-actions-buttons .btn-sm {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+  }
+}
+
 /* Utilities */
 .btn-sm {
   padding: 6px 12px;

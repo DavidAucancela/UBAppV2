@@ -127,10 +127,20 @@
     {{ errorMessage }}
   </div>
 
-  <!-- Loading State -->
-  <div class="loading-state" *ngIf="loading">
-    <i class="fas fa-spinner fa-spin"></i>
-    <span>Cargando productos...</span>
+  <!-- Skeleton Loader -->
+  <div class="skeleton-cards-grid" *ngIf="loading">
+    <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6]">
+      <div class="skeleton-card-header">
+        <div class="skeleton skeleton-avatar"></div>
+        <div style="flex:1">
+          <div class="skeleton skeleton-line medium"></div>
+          <div class="skeleton skeleton-line short"></div>
+        </div>
+      </div>
+      <div class="skeleton skeleton-line long"></div>
+      <div class="skeleton skeleton-line medium"></div>
+      <div class="skeleton skeleton-line short"></div>
+    </div>
   </div>
 
   <!-- Barra de acciones masivas -->
@@ -261,15 +271,22 @@
     </div>
 
     <!-- No Data -->
-    <div class="no-data-card" *ngIf="!loading && filteredProductos.length === 0 && productos.length === 0">
-      <i class="fas fa-box-open"></i>
-      <h3>No hay productos en el sistema</h3>
-      <p>Crea tu primer producto usando el botón "Nuevo Producto"</p>
+    <div class="empty-state" *ngIf="!loading && filteredProductos.length === 0 && productos.length === 0">
+      <div class="empty-state-icon">
+        <i class="fas fa-box-open"></i>
+      </div>
+      <h3 class="empty-state-title">No hay productos en el sistema</h3>
+      <p class="empty-state-description">Crea tu primer producto para comenzar a gestionar el inventario.</p>
+      <button class="btn btn-primary" (click)="openCreateModal()">
+        <i class="fas fa-plus"></i> Nuevo Producto
+      </button>
     </div>
-    <div class="no-data-card" *ngIf="!loading && filteredProductos.length === 0 && productos.length > 0">
-      <i class="fas fa-search"></i>
-      <h3>No se encontraron productos</h3>
-      <p>Intenta cambiar los filtros de búsqueda</p>
+    <div class="empty-state" *ngIf="!loading && filteredProductos.length === 0 && productos.length > 0">
+      <div class="empty-state-icon">
+        <i class="fas fa-search"></i>
+      </div>
+      <h3 class="empty-state-title">Sin resultados</h3>
+      <p class="empty-state-description">No se encontraron productos con los filtros aplicados. Intenta cambiar los criterios de búsqueda.</p>
     </div>
   </div>
 
@@ -370,15 +387,22 @@
         </tbody>
       </table>
     </div>
-    <div class="no-data-card" *ngIf="!loading && filteredProductos.length === 0 && productos.length === 0">
-      <i class="fas fa-box-open"></i>
-      <h3>No hay productos en el sistema</h3>
-      <p>Crea tu primer producto usando el botón "Nuevo Producto"</p>
+    <div class="empty-state" *ngIf="!loading && filteredProductos.length === 0 && productos.length === 0">
+      <div class="empty-state-icon">
+        <i class="fas fa-box-open"></i>
+      </div>
+      <h3 class="empty-state-title">No hay productos en el sistema</h3>
+      <p class="empty-state-description">Crea tu primer producto para comenzar a gestionar el inventario.</p>
+      <button class="btn btn-primary" (click)="openCreateModal()">
+        <i class="fas fa-plus"></i> Nuevo Producto
+      </button>
     </div>
-    <div class="no-data-card" *ngIf="!loading && filteredProductos.length === 0 && productos.length > 0">
-      <i class="fas fa-search"></i>
-      <h3>No se encontraron productos</h3>
-      <p>Intenta cambiar los filtros de búsqueda</p>
+    <div class="empty-state" *ngIf="!loading && filteredProductos.length === 0 && productos.length > 0">
+      <div class="empty-state-icon">
+        <i class="fas fa-search"></i>
+      </div>
+      <h3 class="empty-state-title">Sin resultados</h3>
+      <p class="empty-state-description">No se encontraron productos con los filtros aplicados. Intenta cambiar los criterios de búsqueda.</p>
     </div>
   </div>
 
