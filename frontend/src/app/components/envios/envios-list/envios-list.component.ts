@@ -67,6 +67,40 @@ export class EnviosListComponent implements OnInit, OnDestroy {
   EstadosEnvio = EstadosEnvio;
   CategoriasProducto = CategoriasProducto;
 
+  // Límites para cotización
+  static readonly PESO_MAX_KG = 150;
+  static readonly CANTIDAD_MAX = 50;
+  readonly PESO_MAX_KG = EnviosListComponent.PESO_MAX_KG;
+  readonly CANTIDAD_MAX = EnviosListComponent.CANTIDAD_MAX;
+  readonly CORREO_COTIZACION = 'cotizaciones@ubapp.com';
+
+  get productosExcedidos(): { index: number; descripcion: string; excedePeso: boolean; excedeQty: boolean }[] {
+    return this.productos.controls.map((ctrl, i) => {
+      const peso = parseFloat(ctrl.get('peso')?.value) || 0;
+      const cantidad = parseInt(ctrl.get('cantidad')?.value) || 0;
+      return { index: i + 1, descripcion: ctrl.get('descripcion')?.value || `Producto ${i + 1}`, excedePeso: peso > this.PESO_MAX_KG, excedeQty: cantidad > this.CANTIDAD_MAX };
+    }).filter(p => p.excedePeso || p.excedeQty);
+  }
+
+  get hayProductosExcedidos(): boolean {
+    return this.productosExcedidos.length > 0;
+  }
+
+  abrirCotizacionEmail(): void {
+    const excedidos = this.productosExcedidos;
+    const comprador = this.envioForm.get('comprador')?.value || '';
+    const hawb = this.envioForm.get('hawb')?.value || '';
+    const detalle = excedidos.map(p => {
+      const ctrl = this.productos.at(p.index - 1);
+      const peso = ctrl.get('peso')?.value;
+      const qty = ctrl.get('cantidad')?.value;
+      return `- ${p.descripcion}: peso=${peso}kg, cantidad=${qty}`;
+    }).join('%0A');
+    const asunto = encodeURIComponent(`Cotización envío especial${hawb ? ' HAWB ' + hawb : ''}`);
+    const cuerpo = encodeURIComponent(`Estimado equipo UBApp,\n\nSolicito cotización para un envío con productos que superan los límites estándar:\n\n${decodeURIComponent(detalle)}\n\nComprador ID: ${comprador}\nHAWB: ${hawb}\n\nQuedo a la espera de su respuesta.\n\nSaludos`);
+    window.open(`mailto:${this.CORREO_COTIZACION}?subject=${asunto}&body=${cuerpo}`, '_blank');
+  }
+
   constructor(
     private apiService: ApiService,
     public authService: AuthService,
@@ -489,8 +523,8 @@ export class EnviosListComponent implements OnInit, OnDestroy {
       envio.productos.forEach(producto => {
         const productoGroup = this.fb.group({
           descripcion: [producto.descripcion, Validators.required],
-          peso: [producto.peso, [Validators.required, Validators.min(0.01)]],
-          cantidad: [producto.cantidad, [Validators.required, Validators.min(1)]],
+          peso: [producto.peso, [Validators.required, Validators.min(0.01), Validators.max(this.PESO_MAX_KG)]],
+          cantidad: [producto.cantidad, [Validators.required, Validators.min(1), Validators.max(this.CANTIDAD_MAX)]],
           valor: [producto.valor, [Validators.required, Validators.min(0)]],
           categoria: [producto.categoria, Validators.required],
           productoExistenteId: ['']
@@ -590,8 +624,8 @@ export class EnviosListComponent implements OnInit, OnDestroy {
   addProducto(): void {
     const productoGroup = this.fb.group({
       descripcion: ['', Validators.required],
-      peso: [0, [Validators.required, Validators.min(0.01)]],
-      cantidad: [1, [Validators.required, Validators.min(1)]],
+      peso: [0, [Validators.required, Validators.min(0.01), Validators.max(this.PESO_MAX_KG)]],
+      cantidad: [1, [Validators.required, Validators.min(1), Validators.max(this.CANTIDAD_MAX)]],
       valor: [0, [Validators.required, Validators.min(0)]],
       categoria: ['', Validators.required],
       productoExistenteId: ['']

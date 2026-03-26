@@ -629,6 +629,7 @@
                     <i class="fas fa-exclamation-circle"></i>
                     <ng-container *ngIf="producto.get('peso')?.errors?.['required']">El peso es requerido</ng-container>
                     <ng-container *ngIf="producto.get('peso')?.errors?.['min']">El peso debe ser mayor a 0</ng-container>
+                    <ng-container *ngIf="producto.get('peso')?.errors?.['max']">Peso máximo por producto: {{ PESO_MAX_KG }} kg — requiere cotización</ng-container>
                   </div>
                 </div>
 
@@ -647,6 +648,7 @@
                     <i class="fas fa-exclamation-circle"></i>
                     <ng-container *ngIf="producto.get('cantidad')?.errors?.['required']">La cantidad es requerida</ng-container>
                     <ng-container *ngIf="producto.get('cantidad')?.errors?.['min']">La cantidad mínima es 1</ng-container>
+                    <ng-container *ngIf="producto.get('cantidad')?.errors?.['max']">Cantidad máxima: {{ CANTIDAD_MAX }} unidades — requiere cotización</ng-container>
                   </div>
                 </div>
 
@@ -669,6 +671,35 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- Banner de cotización para envíos que exceden límites -->
+          <div class="cotizacion-banner" *ngIf="hayProductosExcedidos">
+            <div class="cotizacion-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="cotizacion-body">
+              <h5>Este envío requiere cotización especial</h5>
+              <p>
+                Uno o más productos superan los límites estándar
+                (peso máximo <strong>{{ PESO_MAX_KG }} kg</strong> / cantidad máxima <strong>{{ CANTIDAD_MAX }} unidades</strong>):
+              </p>
+              <ul class="cotizacion-lista">
+                <li *ngFor="let p of productosExcedidos">
+                  <strong>Producto {{ p.index }}{{ p.descripcion ? ' — ' + p.descripcion : '' }}:</strong>
+                  <span *ngIf="p.excedePeso"> supera el peso máximo</span>
+                  <span *ngIf="p.excedePeso && p.excedeQty"> y </span>
+                  <span *ngIf="p.excedeQty"> supera la cantidad máxima</span>
+                </li>
+              </ul>
+              <p class="cotizacion-hint">No es posible procesar este pedido de forma estándar. Contáctenos para una cotización personalizada.</p>
+            </div>
+            <div class="cotizacion-action">
+              <button type="button" class="btn-cotizacion" (click)="abrirCotizacionEmail()">
+                <i class="fas fa-envelope"></i>
+                Solicitar cotización
+              </button>
             </div>
           </div>
 
