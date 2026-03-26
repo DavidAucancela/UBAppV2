@@ -23,7 +23,8 @@ def main():
     run("python create_admin.py", check=False)
     
     port = os.environ.get("PORT", "8000")
-    workers = os.environ.get("WEB_CONCURRENCY", str(os.cpu_count() * 2 + 1))
+    cpu_count = os.cpu_count() or 1
+    workers = os.environ.get("WEB_CONCURRENCY", str(min(cpu_count * 2 + 1, 4)))
     timeout = os.environ.get("GUNICORN_TIMEOUT", "120")
     # Reemplazar este proceso con gunicorn (recibe señales correctamente)
     os.execvp("gunicorn", [
