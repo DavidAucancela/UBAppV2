@@ -17,18 +17,32 @@
       <div class="logo-glow"></div>
     </a>
     
+    <!-- Botón hamburger - solo móvil -->
+    <button class="hamburger-btn"
+            *ngIf="authService.isAuthenticated()"
+            (click)="toggleMobileMenu()"
+            [class.open]="mobileMenuOpen"
+            aria-label="Abrir menú de navegación">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Overlay oscuro al abrir menú móvil -->
+    <div class="mobile-overlay" *ngIf="mobileMenuOpen" (click)="closeMobileMenu()"></div>
+
     <!-- Menú de Navegación - Solo si está autenticado -->
-    <nav class="nav-menu" aria-label="Navegación principal" *ngIf="authService.isAuthenticated()">
+    <nav class="nav-menu" [class.mobile-open]="mobileMenuOpen" aria-label="Navegación principal" *ngIf="authService.isAuthenticated()">
       <ul class="nav-list">
         <li class="nav-item" *ngFor="let item of visibleNavItems; let i = index" 
             [@itemAnimation]="getAnimationDelay(i)"
             [class.expanded]="isExpanded(item.label)">
           <!-- Item principal -->
           <a *ngIf="!item.subItems || item.subItems.length === 0"
-             [routerLink]="item.route" 
+             [routerLink]="item.route"
              routerLinkActive="active"
              class="nav-link"
-             (click)="handleNavLinkClick(item, $event)"
+             (click)="handleNavLinkClick(item, $event); closeMobileMenu()"
              aria-current="page">
             <i [class]="item.icon" aria-hidden="true"></i>
             <span>{{ item.label }}</span>
@@ -165,6 +179,14 @@
         <i class="fas fa-search" aria-hidden="true"></i>
       </button>-->
       
+      <!-- Toggle Modo Oscuro -->
+      <button class="action-btn"
+              (click)="toggleTheme()"
+              [title]="isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+              [attr.aria-label]="isDarkMode ? 'Activar modo claro' : 'Activar modo oscuro'">
+        <i [class]="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" aria-hidden="true"></i>
+      </button>
+
       <!-- Menú de Usuario -->
       <div class="user-menu">
         <button class="user-info" 

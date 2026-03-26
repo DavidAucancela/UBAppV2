@@ -20,7 +20,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: white;
+  background: var(--color-surface);
   opacity: 0.7;
   pointer-events: none;
   z-index: -1;
@@ -184,7 +184,7 @@
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  background: white;
+  background: var(--color-surface);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 }
@@ -196,7 +196,7 @@
   left: 0;
   right: 0;
   height: 5px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   transform: scaleX(0);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -233,7 +233,7 @@
   width: 100px;
   height: 100px;
   margin: 0 auto;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   border-radius: 25px;
   display: flex;
   align-items: center;
@@ -247,7 +247,7 @@
   content: '';
   position: absolute;
   inset: -10px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   border-radius: 30px;
   opacity: 0;
   filter: blur(20px);
@@ -271,7 +271,7 @@
   border: none;
   border-radius: 20px;
   overflow: hidden;
-  background: white;
+  background: var(--color-surface);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
@@ -381,7 +381,7 @@
 /* Call to Action Mejorado */
 .cta-section {
   position: relative;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   padding: 100px 0;
   overflow: hidden;
 }
@@ -435,7 +435,7 @@
 /* Sección de Beneficios Mejorada */
 .bg-light {
   position: relative;
-  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%) !important;
+  background: linear-gradient(180deg, var(--color-surface-raised) 0%, #e9ecef 100%) !important;
 }
 
 .beneficios-dinamicos {
@@ -474,7 +474,7 @@
   gap: 16px;
   padding: 18px 24px;
   border-radius: 18px;
-  background: white;
+  background: var(--color-surface);
   width: 100%;
   text-align: left;
   color: #000;
@@ -524,7 +524,7 @@
 
 .benefit-detail-card {
   border-radius: 30px;
-  background: white;
+  background: var(--color-surface);
   padding: 40px;
   position: relative;
   overflow: hidden;
@@ -592,7 +592,7 @@
 
 .list-unstyled li {
   padding: 15px 20px;
-  background: white;
+  background: var(--color-surface);
   border-radius: 15px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -645,7 +645,7 @@ h2.fw-bold::after {
   transform: translateX(-50%);
   width: 60px;
   height: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   border-radius: 2px;
 }
 
@@ -684,15 +684,15 @@ h2.fw-bold::after {
 }
 
 .hero-section .btn-primary {
-  background: white;
-  color: #667eea;
+  background: var(--color-surface);
+  color: var(--color-primary);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .hero-section .btn-primary:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-  background: #f8f9fa;
+  background: var(--color-surface-raised);
 }
 
 .hero-section .btn-outline-light {
@@ -743,7 +743,7 @@ h2.fw-bold::after {
 
 :host-context(body.dark-mode) .feature-card {
   background-color: #334155;
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .feature-card:hover {
@@ -754,7 +754,7 @@ h2.fw-bold::after {
 
 :host-context(body.dark-mode) .role-card {
   background-color: #334155;
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .role-card:hover {
@@ -766,12 +766,12 @@ h2.fw-bold::after {
 }
 
 :host-context(body.dark-mode) .bg-light {
-  background: linear-gradient(180deg, #1e293b 0%, #334155 100%) !important;
+  background: linear-gradient(180deg, var(--color-surface) 0%, #334155 100%) !important;
 }
 
 :host-context(body.dark-mode) .list-unstyled li {
   background-color: #334155;
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .list-unstyled li:hover {
@@ -780,14 +780,14 @@ h2.fw-bold::after {
 
 :host-context(body.dark-mode) .card {
   background-color: #334155;
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) h2.fw-bold,
 :host-context(body.dark-mode) h3,
 :host-context(body.dark-mode) h4,
 :host-context(body.dark-mode) h5 {
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .text-muted {
@@ -808,7 +808,7 @@ h2.fw-bold::after {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -848,7 +848,7 @@ h2.fw-bold::after {
 }
 
 .social-link:hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   transform: translateY(-3px);
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
@@ -899,6 +899,6 @@ h2.fw-bold::after {
 }
 
 .contact-info i {
-  color: #667eea;
+  color: var(--color-primary);
   width: 20px;
 }

@@ -1,6 +1,6 @@
 .mis-envios-container {
-  min-height: calc(100vh - 70px);
-  background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
+  min-height: calc(100vh - var(--navbar-height));
+  background: var(--color-bg);
   padding-bottom: 60px;
 }
 
@@ -9,12 +9,12 @@
   margin-bottom: 2rem;
   text-align: center;
   padding: 2rem 0;
-  padding-top: 90px;
+  padding-top: calc(var(--navbar-height) + var(--space-8));
 }
 
 .titulo-principal {
   font-size: 2.5rem;
-  color: #2c3e50;
+  color: var(--color-text);
   font-weight: 700;
   margin-bottom: 0.5rem;
   display: flex;
@@ -24,7 +24,7 @@
 }
 
 .titulo-principal i {
-  color: #3498db;
+  color: var(--color-primary);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .subtitulo {
-  color: #7f8c8d;
+  color: var(--color-text-muted);
   font-size: 1.1rem;
   margin: 0;
 }
@@ -55,7 +55,7 @@
 
 /* Card Styles */
 .card {
-  background: white;
+  background: var(--color-surface);
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -71,7 +71,7 @@
 .card-header-filters {
   padding: 20px 24px;
   background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid var(--color-border);
 }
 
 .card-header-filters h3,
@@ -79,7 +79,7 @@
   margin: 0;
   font-size: 1.3rem;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--color-text);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -87,7 +87,7 @@
 
 .card-header-filters h3 i,
 .card-header-filters h5 i {
-  color: #667eea;
+  color: var(--color-primary);
 }
 
 /* Filters Section */
@@ -114,15 +114,15 @@
   gap: 8px;
   margin-bottom: 8px;
   font-weight: 500;
-  color: #374151;
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
 }
 
 /* Results Summary */
 .results-summary {
   padding: 16px 24px;
-  border-top: 1px solid #e5e7eb;
-  background-color: white;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
 }
 
 .results-summary-content {
@@ -136,7 +136,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   font-size: 0.9rem;
 }
 
@@ -161,16 +161,16 @@
 }
 
 .alert-success {
-  background-color: #dcfce7;
-  color: #166534;
-  border-left: 4px solid #10b981;
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  border-left: 4px solid var(--color-success);
 }
 
 .alert-danger,
 .alert-error {
-  background-color: #fee2e2;
-  color: #991b1b;
-  border-left: 4px solid #ef4444;
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-text);
+  border-left: 4px solid var(--color-danger);
 }
 
 @keyframes slideDown {
@@ -192,7 +192,7 @@
   justify-content: center;
   padding: 60px 20px;
   gap: 15px;
-  color: #667eea;
+  color: var(--color-primary);
 }
 
 .loading-state i,
@@ -230,7 +230,7 @@
 .table td {
   padding: 10px 12px;
   text-align: left;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
   vertical-align: middle;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -252,23 +252,23 @@
 
 .table tbody tr {
   transition: all 0.2s ease;
-  background-color: white;
+  background-color: var(--color-surface);
 }
 
 .table-hover tbody tr:hover,
 .table tbody tr:hover {
-  background-color: #f8f9fa;
+  background-color: var(--color-surface-raised);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   cursor: pointer;
 }
 
 .table tbody tr td:first-child {
   font-weight: 600;
-  color: #667eea;
+  color: var(--color-primary);
 }
 
 .table tbody tr td strong {
-  color: #1e293b;
+  color: var(--color-text);
   font-size: 0.95rem;
 }
 
@@ -282,7 +282,7 @@
 
 /* Celdas de tabla optimizadas */
 .hawb-text {
-  color: #667eea;
+  color: var(--color-primary);
   font-weight: 700;
   font-size: 0.95rem;
 }
@@ -294,13 +294,13 @@
 }
 
 .comprador-nombre {
-  color: #1e293b;
+  color: var(--color-text);
   font-weight: 600;
   font-size: 0.9rem;
 }
 
 .comprador-cedula {
-  color: #6b7280;
+  color: var(--color-text-muted);
   font-size: 0.85rem;
 }
 
@@ -309,7 +309,7 @@
 }
 
 .costo-servicio {
-  color: #10b981;
+  color: var(--color-success);
   font-weight: 600;
 }
 
@@ -321,7 +321,7 @@
 }
 
 .observaciones-text {
-  color: #6b7280;
+  color: var(--color-text-muted);
   font-size: 0.9rem;
   line-height: 1.4;
   display: block;
@@ -329,7 +329,7 @@
 }
 
 .text-muted {
-  color: #9ca3af;
+  color: var(--color-text-placeholder);
   font-size: 0.9rem;
   font-style: italic;
 }
@@ -345,31 +345,31 @@
 
 .badge.bg-warning,
 .badge-warning {
-  background-color: #f59e0b;
+  background-color: var(--color-warning);
   color: white;
 }
 
 .badge.bg-info,
 .badge-info {
-  background-color: #3b82f6;
+  background-color: var(--color-info);
   color: white;
 }
 
 .badge.bg-success,
 .badge-success {
-  background-color: #10b981;
+  background-color: var(--color-success);
   color: white;
 }
 
 .badge.bg-secondary,
 .badge-secondary {
-  background-color: #6b7280;
+  background-color: var(--color-text-muted);
   color: white;
 }
 
 .badge.bg-danger,
 .badge-danger {
-  background-color: #ef4444;
+  background-color: var(--color-danger);
   color: white;
 }
 
@@ -377,7 +377,7 @@
 .no-data {
   text-align: center;
   padding: 60px 20px;
-  color: #9ca3af;
+  color: var(--color-text-placeholder);
 }
 
 .no-data i {
@@ -395,7 +395,7 @@
 .form-select {
   width: 100%;
   padding: 10px 14px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--color-border);
   border-radius: 6px;
   font-size: 0.95rem;
   transition: all 0.2s;
@@ -404,7 +404,7 @@
 .form-control:focus,
 .form-select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -422,7 +422,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   color: white;
 }
 
@@ -433,28 +433,28 @@
 
 .btn-outline-primary {
   background: transparent;
-  color: #667eea;
-  border: 2px solid #667eea;
+  color: var(--color-primary);
+  border: var(--border-size, 2px) solid var(--color-primary);
 }
 
 .btn-outline-primary:hover {
-  background: #667eea;
+  background: var(--color-primary);
   color: white;
 }
 
 .btn-outline-secondary {
   background: transparent;
-  color: #6b7280;
-  border: 2px solid #6b7280;
+  color: var(--color-text-muted);
+  border: 2px solid var(--color-text-muted);
 }
 
 .btn-outline-secondary:hover {
-  background: #6b7280;
+  background: var(--color-text-muted);
   color: white;
 }
 
 .btn-secondary {
-  background-color: #6b7280;
+  background-color: var(--color-text-muted);
   color: white;
 }
 
@@ -491,13 +491,19 @@
 
   .table-responsive {
     font-size: 0.85rem;
-    overflow-x: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table {
+    min-width: 580px;
   }
 
   .table th,
   .table td {
     padding: 8px 6px;
     font-size: 0.8rem;
+    white-space: nowrap;
   }
 
   .header-content {
@@ -520,7 +526,7 @@
 
 /* Modo Oscuro */
 :host-context(body.dark-mode) .mis-envios-container {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-bg) 100%);
 }
 
 :host-context(body.dark-mode) .mis-envios-header {
@@ -529,7 +535,7 @@
 
 :host-context(body.dark-mode) .card {
   background-color: #334155;
-  color: #e5e7eb;
+  color: var(--color-border);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -540,7 +546,7 @@
 
 :host-context(body.dark-mode) .card-header-filters h3,
 :host-context(body.dark-mode) .card-header-filters h5 {
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .card-header-filters h3 i,
@@ -562,12 +568,12 @@
 :host-context(body.dark-mode) .form-select {
   background-color: #475569;
   border-color: #64748b;
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .form-control:focus,
 :host-context(body.dark-mode) .form-select:focus {
-  background-color: #1e293b;
+  background-color: var(--color-text);
   border-color: #a78bfa;
 }
 
@@ -585,7 +591,7 @@
 }
 
 :host-context(body.dark-mode) .table td {
-  color: #e5e7eb;
+  color: var(--color-border);
   border-bottom-color: #475569;
 }
 
@@ -594,7 +600,7 @@
 }
 
 :host-context(body.dark-mode) .comprador-nombre {
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .comprador-cedula {

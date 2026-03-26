@@ -1,7 +1,7 @@
 /* Header Mejorado */
 .ubicaciones-header {
   position: relative;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   padding: 150px 0 100px 0;
   margin-top: 70px; /* Espacio para el navbar */
   margin-bottom: 0;
@@ -65,18 +65,18 @@
   border: none;
   margin-bottom: 10px;
   border-radius: 15px !important;
-  background: white;
+  background: var(--color-surface);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .list-group-item:hover {
-  background-color: #f8f9fa;
+  background-color: var(--color-surface-raised);
   transform: translateX(5px);
   box-shadow: 0 5px 20px rgba(102, 126, 234, 0.15);
 }
 
 .list-group-item.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   border-color: transparent;
   transform: translateX(10px) scale(1.02);
   box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
@@ -109,7 +109,7 @@
   gap: 15px;
   padding: 20px;
   border-radius: 15px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, var(--color-surface-raised) 0%, #e9ecef 100%);
   height: 100%;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -123,7 +123,7 @@
   top: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   transform: scaleY(0);
   transition: transform 0.3s;
 }
@@ -140,7 +140,7 @@
 .info-item i {
   font-size: 2rem;
   flex-shrink: 0;
-  color: #667eea;
+  color: var(--color-primary);
   transition: all 0.3s;
 }
 
@@ -157,14 +157,14 @@
 }
 
 .info-item a {
-  color: #667eea;
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s;
 }
 
 .info-item a:hover {
-  color: #764ba2;
+  color: var(--color-primary-dark);
   text-decoration: underline;
 }
 
@@ -211,7 +211,7 @@
 
 .map-placeholder i {
   font-size: 5rem;
-  color: #667eea;
+  color: var(--color-primary);
   margin-bottom: 1.5rem;
   animation: mapIconFloat 3s ease-in-out infinite;
 }
@@ -250,31 +250,31 @@
   padding: 2.5rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 15px;
-  background: white;
+  background: var(--color-surface);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .feature-box:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-surface-raised) 100%);
 }
 
 .feature-icon {
   font-size: 3.5rem;
-  color: #667eea;
+  color: var(--color-primary);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .feature-box:hover .feature-icon {
   transform: scale(1.2) rotate(10deg);
-  color: #764ba2;
+  color: var(--color-primary-dark);
 }
 
 /* Call to Action Mejorado */
 .cta-section {
   position: relative;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   padding: 100px 0;
   overflow: hidden;
 }
@@ -309,7 +309,7 @@
 .cta-section .btn-light:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-  background: #f8f9fa;
+  background: var(--color-surface-raised);
 }
 
 .cta-section .btn-outline-light {
@@ -341,7 +341,7 @@
 }
 
 .card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   color: white;
   padding: 1.5rem;
   font-weight: 600;
@@ -356,7 +356,7 @@
 }
 
 .card-body .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   border: none;
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
 }
@@ -371,7 +371,7 @@
 }
 
 .card-body .btn-outline-primary:hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-primary-gradient);
   border-color: transparent;
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
@@ -448,7 +448,7 @@
 
 :host-context(body.dark-mode) .list-group-item {
   background-color: #334155;
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .list-group-item:hover {
@@ -461,7 +461,7 @@
 
 :host-context(body.dark-mode) .card {
   background-color: #334155;
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .card-header {
@@ -471,11 +471,11 @@
 
 :host-context(body.dark-mode) .info-item {
   background: linear-gradient(135deg, #475569 0%, #334155 100%);
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .info-item strong {
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .info-item a {
@@ -491,12 +491,12 @@
 }
 
 :host-context(body.dark-mode) .map-placeholder h5 {
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .feature-box {
   background-color: #334155;
-  color: #e5e7eb;
+  color: var(--color-border);
 }
 
 :host-context(body.dark-mode) .feature-box:hover {
@@ -504,7 +504,7 @@
 }
 
 :host-context(body.dark-mode) .bg-light {
-  background: linear-gradient(180deg, #1e293b 0%, #334155 100%) !important;
+  background: linear-gradient(180deg, var(--color-surface) 0%, #334155 100%) !important;
 }
 
 :host-context(body.dark-mode) .cta-section {

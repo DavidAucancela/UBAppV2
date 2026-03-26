@@ -156,7 +156,7 @@
 }
 
 .btn-light {
-  background: white;
+  background: var(--color-surface);
   color: #0f172a;
   border-radius: 999px;
   padding: 0.85rem 1.75rem;

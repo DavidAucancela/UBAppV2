@@ -11,12 +11,12 @@
   margin-bottom: 2rem;
   text-align: center;
   padding: 2rem 0;
-  padding-top: 90px;
+  padding-top: calc(var(--navbar-height) + var(--space-8));
 }
 
 .titulo-principal {
   font-size: 2.5rem;
-  color: #2c3e50;
+  color: var(--color-text);
   font-weight: 700;
   margin-bottom: 0.5rem;
   display: flex;
@@ -26,7 +26,7 @@
 }
 
 .titulo-principal i {
-  color: #3498db;
+  color: var(--color-primary);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .subtitulo {
-  color: #7f8c8d;
+  color: var(--color-text-muted);
   font-size: 1.1rem;
   margin: 0;
 }
@@ -56,8 +56,8 @@
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid #e5e7eb;
-  border-top-color: #3b82f6;
+  border: 4px solid var(--color-border);
+  border-top-color: var(--color-info);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -68,7 +68,7 @@
 
 .loading-overlay p {
   margin-top: 20px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   font-size: 16px;
 }
 
@@ -128,7 +128,7 @@
   background: #f9fafb;
   border-radius: 8px;
   font-size: 14px;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .breadcrumb-item {
@@ -141,7 +141,7 @@
 }
 
 .breadcrumb-sep {
-  color: #9ca3af;
+  color: var(--color-text-placeholder);
   user-select: none;
 }
 
@@ -158,7 +158,7 @@
 }
 
 .onboarding-card {
-  background: white;
+  background: var(--color-surface);
   border-radius: 16px;
   padding: 24px;
   max-width: 420px;
@@ -188,7 +188,7 @@
 .btn-onboarding {
   width: 100%;
   padding: 12px 24px;
-  background: #3b82f6;
+  background: var(--color-info);
   color: white;
   border: none;
   border-radius: 8px;
@@ -204,7 +204,7 @@
 
 /* ===== PANEL DE FILTROS ===== */
 .panel-filtros {
-  background: white;
+  background: var(--color-surface);
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -222,7 +222,7 @@
   align-items: center;
   margin-bottom: 20px;
   padding-bottom: 15px;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid var(--color-border);
 }
 
 .panel-filtros-colapsado .filtros-header {
@@ -242,7 +242,7 @@
 }
 
 .badge-filtros-activos {
-  background: #ef4444;
+  background: var(--color-danger);
   color: white;
   padding: 4px 10px;
   border-radius: 12px;
@@ -258,8 +258,8 @@
 
 .btn-limpiar {
   padding: 8px 16px;
-  background: #e5e7eb;
-  color: #6b7280;
+  background: var(--color-border);
+  color: var(--color-text-muted);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -272,7 +272,7 @@
 }
 
 .btn-limpiar.btn-limpiar-activo {
-  background: #ef4444;
+  background: var(--color-danger);
   color: white;
 }
 
@@ -285,7 +285,7 @@
 
 .btn-toggle-filtros {
   padding: 8px 12px;
-  background: #f3f4f6;
+  background: var(--color-surface-raised);
   color: #4b5563;
   border: none;
   border-radius: 8px;
@@ -297,12 +297,12 @@
 }
 
 .btn-toggle-filtros:hover {
-  background: #e5e7eb;
+  background: var(--color-border);
 }
 
 .btn-limpiar:focus-visible,
 .btn-toggle-filtros:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-info);
   outline-offset: 2px;
 }
 
@@ -331,17 +331,17 @@
 .select-filtro,
 .input-busqueda {
   padding: 10px 14px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--color-border);
   border-radius: 8px;
   font-size: 14px;
   transition: all 0.3s ease;
-  background: white;
+  background: var(--color-surface);
 }
 
 .select-filtro:focus,
 .input-busqueda:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--color-info);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -350,7 +350,7 @@
   gap: 15px;
   flex-wrap: wrap;
   padding-top: 15px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-border);
 }
 
 .estadistica-mini {
@@ -381,16 +381,16 @@
 
 .estadistica-label {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .estadistica-mini.estadistica-activa {
-  background: #dbeafe;
-  border: 1px solid #3b82f6;
+  background: var(--color-info-bg);
+  border: 1px solid var(--color-info);
 }
 
 .estadistica-activa .estadistica-valor {
-  color: #1e40af;
+  color: var(--color-info-text);
 }
 
 /* ===== LAYOUT PRINCIPAL: IZQUIERDA (Gráfico) Y DERECHA (Mapa) ===== */
@@ -405,7 +405,7 @@
 .panel-izquierdo {
   display: flex;
   flex-direction: column;
-  background: white;
+  background: var(--color-surface);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -416,8 +416,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  border-bottom: 2px solid #e5e7eb;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-bottom: 2px solid var(--color-border);
+  background: var(--color-primary-gradient);
   color: white;
 }
 
@@ -465,7 +465,7 @@
   background: rgba(59, 130, 246, 0.1);
   border-radius: 6px;
   font-size: 12px;
-  color: #3b82f6;
+  color: var(--color-info);
   text-align: center;
 }
 
@@ -481,7 +481,7 @@
   justify-content: center;
   padding: 32px 24px;
   text-align: center;
-  color: #6b7280;
+  color: var(--color-text-muted);
   min-height: 280px;
 }
 
@@ -498,7 +498,7 @@
 
 .empty-hint {
   font-size: 13px !important;
-  color: #9ca3af !important;
+  color: var(--color-text-placeholder) !important;
 }
 
 .empty-grafico {
@@ -511,8 +511,8 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: white;
-  border-top: 2px solid #e5e7eb;
+  background: var(--color-surface);
+  border-top: 2px solid var(--color-border);
 }
 
 .lista-ciudades h4 {
@@ -547,20 +547,20 @@
 }
 
 .ciudad-item:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-info);
   outline-offset: 2px;
 }
 
 .ciudad-item:hover {
-  background: #f3f4f6;
-  border-color: #3b82f6;
+  background: var(--color-surface-raised);
+  border-color: var(--color-info);
   transform: translateX(4px);
 }
 
 .ciudad-item.activa {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, var(--color-info) 0%, #2563eb 100%);
   color: white;
-  border-color: #1e40af;
+  border-color: var(--color-info-text);
 }
 
 .ciudad-info {
@@ -596,7 +596,7 @@
 
 .badge-compradores {
   background: rgba(59, 130, 246, 0.2);
-  color: #3b82f6;
+  color: var(--color-info);
 }
 
 .ciudad-item.activa .badge-compradores {
@@ -606,7 +606,7 @@
 
 .badge-envios {
   background: rgba(16, 185, 129, 0.2);
-  color: #10b981;
+  color: var(--color-success);
 }
 
 .ciudad-item.activa .badge-envios {
@@ -618,14 +618,14 @@
 .panel-derecho {
   display: flex;
   flex-direction: column;
-  background: white;
+  background: var(--color-surface);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .panel-derecho .panel-header {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, var(--color-success) 0%, #059669 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -663,7 +663,7 @@
 .info-seleccion {
   padding: 15px 20px;
   background: #f9fafb;
-  border-top: 2px solid #e5e7eb;
+  border-top: 2px solid var(--color-border);
 }
 
 .info-header {
@@ -684,7 +684,7 @@
 
 .btn-cerrar-mini {
   padding: 6px 10px;
-  background: #ef4444;
+  background: var(--color-danger);
   color: white;
   border: none;
   border-radius: 6px;
@@ -710,14 +710,14 @@
 
 /* ===== PANEL INFERIOR: LISTADO DE ENVÍOS ===== */
 .panel-inferior {
-  background: white;
+  background: var(--color-surface);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .panel-inferior .panel-header {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  background: linear-gradient(135deg, var(--color-warning) 0%, #d97706 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -761,7 +761,7 @@
 .select-estado option,
 .select-orden option {
   color: #1f2937;
-  background: white;
+  background: var(--color-surface);
 }
 
 .btn-exportar {
@@ -817,7 +817,7 @@
 .sin-datos {
   text-align: center;
   padding: 60px 20px;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .sin-datos i {
@@ -841,13 +841,13 @@
 }
 
 .comprador-envios-card:hover {
-  border-color: #3b82f6;
+  border-color: var(--color-info);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
 }
 
 .comprador-envios-card.seleccionado {
-  border-color: #10b981;
+  border-color: var(--color-success);
   background: #f0fdf4;
 }
 
@@ -857,7 +857,7 @@
   align-items: flex-start;
   margin-bottom: 15px;
   padding-bottom: 15px;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid var(--color-border);
 }
 
 .comprador-info-card h4 {
@@ -897,7 +897,7 @@
 
 .btn-ver-mapa {
   padding: 8px 12px;
-  background: #3b82f6;
+  background: var(--color-info);
   color: white;
   border: none;
   border-radius: 8px;
@@ -918,10 +918,10 @@
 }
 
 .envio-item-card {
-  background: white;
+  background: var(--color-surface);
   padding: 12px;
   border-radius: 8px;
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid var(--color-info);
   transition: all 0.3s ease;
 }
 
@@ -930,19 +930,19 @@
 }
 
 .envio-item-card.estado-pendiente {
-  border-left-color: #f59e0b;
+  border-left-color: var(--color-warning);
 }
 
 .envio-item-card.estado-en_transito {
-  border-left-color: #3b82f6;
+  border-left-color: var(--color-info);
 }
 
 .envio-item-card.estado-entregado {
-  border-left-color: #10b981;
+  border-left-color: var(--color-success);
 }
 
 .envio-item-card.estado-cancelado {
-  border-left-color: #ef4444;
+  border-left-color: var(--color-danger);
 }
 
 .envio-header-card {
@@ -965,7 +965,7 @@
   gap: 15px;
   flex-wrap: wrap;
   font-size: 12px;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .envio-detail-item {
@@ -975,7 +975,7 @@
 }
 
 .envio-detail-item i {
-  color: #9ca3af;
+  color: var(--color-text-placeholder);
 }
 
 .estado-badge-card {
@@ -987,25 +987,25 @@
 }
 
 .estado-badge-card.estado-pendiente {
-  background: #f59e0b;
+  background: var(--color-warning);
 }
 
 .estado-badge-card.estado-en_transito {
-  background: #3b82f6;
+  background: var(--color-info);
 }
 
 .estado-badge-card.estado-entregado {
-  background: #10b981;
+  background: var(--color-success);
 }
 
 .estado-badge-card.estado-cancelado {
-  background: #ef4444;
+  background: var(--color-danger);
 }
 
 .mas-envios {
   text-align: center;
   padding: 10px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   font-size: 13px;
   font-style: italic;
 }
@@ -1013,7 +1013,7 @@
 .sin-envios {
   text-align: center;
   padding: 20px;
-  color: #9ca3af;
+  color: var(--color-text-placeholder);
 }
 
 .sin-envios i {
@@ -1030,9 +1030,9 @@
 
 .btn-ver-mas {
   padding: 12px 24px;
-  background: #f3f4f6;
+  background: var(--color-surface-raised);
   color: #4b5563;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--color-border);
   border-radius: 10px;
   font-size: 14px;
   font-weight: 600;
@@ -1042,8 +1042,8 @@
 }
 
 .btn-ver-mas:hover {
-  background: #e5e7eb;
-  border-color: #d1d5db;
+  background: var(--color-border);
+  border-color: var(--color-border-strong);
   color: #1f2937;
 }
 

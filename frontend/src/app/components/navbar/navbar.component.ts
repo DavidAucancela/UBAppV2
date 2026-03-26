@@ -117,6 +117,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   visibleNavItems: NavItem[] = [];
   isLoadingNav = false;
   expandedItems: Set<string> = new Set();
+  mobileMenuOpen = false;
   
   private userSubscription: Subscription | null = null;
   private notificacionSubscription: Subscription | null = null;
@@ -198,14 +199,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
     .pipe(filter((event: any) => event instanceof NavigationEnd))
     .subscribe(() => {
       this.checkRouteAndToggleNavbar();
-      // Cerrar todos los submenús cuando cambia la ruta
+      // Cerrar todos los submenús y menú móvil cuando cambia la ruta
       this.expandedItems.clear();
+      this.mobileMenuOpen = false;
     });
     
-    // Verificar si está en modo oscuro
+    // Restaurar y verificar modo oscuro
     if (isPlatformBrowser(this.platformId)) {
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+      }
       this.isDarkMode = document.body.classList.contains('dark-mode');
-      
+
       // Agregar listener global para cerrar dropdowns al hacer clic afuera
       document.addEventListener('click', this.handleGlobalClick.bind(this));
     }
@@ -517,6 +522,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .sort((a, b) => a.order - b.order);
   }
   
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+    if (!this.mobileMenuOpen) this.expandedItems.clear();
+  }
+
+  closeMobileMenu(): void {
+    this.mobileMenuOpen = false;
+    this.expandedItems.clear();
+  }
+
   /**
    * Toggle para expandir/colapsar subitems
    * Colapsa automáticamente otras categorías cuando se abre una nueva
