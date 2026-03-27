@@ -129,7 +129,7 @@
           </div>
 
           <div *ngIf="envios.length > 0" class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover table-mobile-cards">
               <thead>
                 <tr>
                   <th>HAWB</th>
@@ -144,24 +144,24 @@
               </thead>
               <tbody>
                 <tr *ngFor="let envio of envios" (click)="verDetalles(envio)" style="cursor: pointer;">
-                  <td>
+                  <td data-label="HAWB">
                     <strong class="hawb-text">{{ envio.hawb }}</strong>
                   </td>
-                  <td>{{ envio.fecha_emision | date:'dd/MM/yyyy HH:mm' }}</td>
-                  <td>
+                  <td data-label="Fecha Emisión">{{ envio.fecha_emision | date:'dd/MM/yyyy HH:mm' }}</td>
+                  <td data-label="Estado">
                     <span [class]="obtenerClaseEstado(envio.estado)">
                       {{ obtenerEstadoEnvio(envio.estado) }}
                     </span>
                   </td>
-                  <td class="text-end">{{ envio.peso_total | number:'1.2-2' }} kg</td>
-                  <td class="text-end">{{ envio.cantidad_total }}</td>
-                  <td class="text-end">
+                  <td data-label="Peso Total" class="text-end">{{ envio.peso_total | number:'1.2-2' }} kg</td>
+                  <td data-label="Cantidad" class="text-end">{{ envio.cantidad_total }}</td>
+                  <td data-label="Valor Total" class="text-end">
                     <span class="costo-servicio">{{ envio.valor_total | currency:'USD':'symbol':'1.2-2' }}</span>
                   </td>
-                  <td class="text-end">
+                  <td data-label="Costo Servicio" class="text-end">
                     <span class="costo-servicio">{{ envio.costo_servicio | currency:'USD':'symbol':'1.2-2' }}</span>
                   </td>
-                  <td class="observaciones-cell">
+                  <td data-label="Observaciones" class="observaciones-cell">
                     <span *ngIf="envio.observaciones" class="observaciones-text" [title]="envio.observaciones">
                       {{ envio.observaciones.length > 50 ? (envio.observaciones.substring(0, 50) + '...') : envio.observaciones }}
                     </span>

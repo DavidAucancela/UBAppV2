@@ -306,7 +306,7 @@
   <!-- Products Table View -->
   <div class="productos-table-container" *ngIf="!loading && viewMode === 'table'">
     <div class="table-wrapper">
-      <table class="productos-table">
+      <table class="productos-table table-mobile-cards">
         <thead>
           <tr>
             <th class="col-checkbox">
@@ -358,26 +358,26 @@
           <tr *ngFor="let producto of paginatedProductos; trackBy: trackByProductoId" [class.row-selected]="isSelected(producto)">
             <td class="col-checkbox">
               <label class="checkbox-cell">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   [checked]="isSelected(producto)"
                   (change)="toggleSelection(producto)"
                 >
               </label>
             </td>
-            <td class="producto-descripcion">
+            <td data-label="Descripción" class="producto-descripcion">
               <strong>{{ producto.descripcion }}</strong>
             </td>
-            <td>
+            <td data-label="Categoría">
               <span class="badge" [ngClass]="'categoria-' + (producto.categoria || 'otros')">
                 {{ getCategoriaDisplay(producto) }}
               </span>
             </td>
-            <td>{{ producto.peso | number:'1.2-2' }} kg</td>
-            <td>{{ producto.cantidad }}</td>
-            <td><strong>{{ getPesoTotal(producto) | number:'1.2-2' }} kg</strong></td>
-            <td>{{ producto.valor | currency:'USD':'symbol':'1.2-2' }}</td>
-            <td class="valor-total">
+            <td data-label="Peso Unit.">{{ producto.peso | number:'1.2-2' }} kg</td>
+            <td data-label="Cantidad">{{ producto.cantidad }}</td>
+            <td data-label="Peso Total"><strong>{{ getPesoTotal(producto) | number:'1.2-2' }} kg</strong></td>
+            <td data-label="Valor Unit.">{{ producto.valor | currency:'USD':'symbol':'1.2-2' }}</td>
+            <td data-label="Valor Total" class="valor-total">
               <strong>{{ getValorTotal(producto) | currency:'USD':'symbol':'1.2-2' }}</strong>
             </td>
             <td class="table-actions">

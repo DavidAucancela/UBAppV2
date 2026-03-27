@@ -218,8 +218,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
       this.isDarkMode = document.body.classList.contains('dark-mode');
 
-      // Agregar listener global para cerrar dropdowns al hacer clic afuera
+      // Agregar listener global para cerrar dropdowns al hacer clic/toque afuera
       document.addEventListener('click', this.handleGlobalClick.bind(this));
+      document.addEventListener('touchstart', this.handleGlobalClick.bind(this) as EventListener, { passive: true });
     }
     
     // Suscribirse a los cambios del usuario actual
@@ -283,6 +284,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // Remover listener global
     if (isPlatformBrowser(this.platformId)) {
       document.removeEventListener('click', this.handleGlobalClick.bind(this));
+      document.removeEventListener('touchstart', this.handleGlobalClick.bind(this) as EventListener);
     }
   }
 
@@ -316,6 +318,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     }
     
+    // Cerrar menú móvil si el click/touch es fuera del sidebar y del hamburger
+    if (this.mobileMenuOpen) {
+      const navMenu = target.closest('.nav-menu');
+      const hamburgerBtn = target.closest('.hamburger-btn');
+      if (!navMenu && !hamburgerBtn) {
+        this.closeMobileMenu();
+        return;
+      }
+    }
+
     // Cerrar submenús expandidos
     if (this.expandedItems.size > 0) {
       const navItem = target.closest('.nav-item');

@@ -328,7 +328,7 @@
   <!-- Tabla de resultados -->
   <div *ngIf="!cargando && !sinResultados && enviosEncontrados.length > 0" class="seccion-resultados">
     <div class="tabla-responsive">
-      <table class="tabla-envios">
+      <table class="tabla-envios table-mobile-cards">
         <thead>
           <tr>
             <th>N° Guía (HAWB)</th>
@@ -344,10 +344,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let envio of enviosEncontrados" class="fila-envio">
-            <td class="celda-hawb">
+            <td data-label="N° Guía" class="celda-hawb">
               <strong>{{ envio.hawb }}</strong>
             </td>
-            <td>
+            <td data-label="Destinatario">
               <div class="info-destinatario">
                 <div class="nombre">{{ envio.comprador_info?.nombre || 'N/A' }}</div>
                 <div class="cedula" *ngIf="envio.comprador_info?.cedula">
@@ -355,25 +355,25 @@
                 </div>
               </div>
             </td>
-            <td>
+            <td data-label="Ciudad">
               <i class="fas fa-map-marker-alt"></i>
               {{ envio.comprador_info?.ciudad || 'N/A' }}
             </td>
-            <td>
+            <td data-label="Estado">
               <span class="badge-estado" [ngClass]="obtenerClaseEstado(envio.estado)">
                 {{ obtenerEtiquetaEstado(envio.estado) }}
               </span>
             </td>
-            <td class="celda-fecha">
+            <td data-label="Fecha" class="celda-fecha">
               {{ formatearFecha(envio.fecha_emision) }}
             </td>
-            <td class="text-right celda-peso">
+            <td data-label="Peso Total" class="text-right celda-peso">
               {{ formatearPeso(envio.peso_total) }}
             </td>
-            <td class="text-right celda-valor">
+            <td data-label="Valor Total" class="text-right celda-valor">
               {{ formatearMoneda(envio.valor_total) }}
             </td>
-            <td class="text-right celda-costo">
+            <td data-label="Costo Servicio" class="text-right celda-costo">
               {{ formatearMoneda(envio.costo_servicio) }}
             </td>
             <td class="text-center celda-acciones">

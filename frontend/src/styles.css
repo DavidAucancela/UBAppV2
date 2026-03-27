@@ -1155,6 +1155,22 @@ body.dark-mode .skeleton-card {
     min-width: 100px;
   }
 
+  /* Celdas sin data-label (checkbox, acciones): centradas y sin pseudo-label */
+  table.table-mobile-cards tbody td:not([data-label])::before,
+  table.table-mobile-cards tbody td[data-label=""]::before {
+    display: none;
+  }
+
+  table.table-mobile-cards tbody td:not([data-label]),
+  table.table-mobile-cards tbody td[data-label=""] {
+    justify-content: center;
+  }
+
+  /* Columnas de solo-checkbox: ocultar en mobile */
+  table.table-mobile-cards tbody td.col-checkbox {
+    display: none;
+  }
+
   /* td.no-data empty state spans full width on mobile */
   table.table-mobile-cards tbody tr.empty-row {
     border: none;
