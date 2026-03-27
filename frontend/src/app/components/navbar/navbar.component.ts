@@ -550,7 +550,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .sort((a, b) => a.order - b.order);
   }
   
-  toggleMobileMenu(): void {
+  toggleMobileMenu(event?: Event): void {
+    if (event) event.stopPropagation();
     this.mobileMenuOpen = !this.mobileMenuOpen;
     if (!this.mobileMenuOpen) this.expandedItems.clear();
   }

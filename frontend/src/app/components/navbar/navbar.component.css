@@ -1003,7 +1003,7 @@
     left: 0;
     height: calc(100dvh - var(--navbar-height));
     width: min(280px, 80vw);
-    background: linear-gradient(160deg, #0a2540 0%, #0d3b5e 50%, #0f5f7a 100%);
+    background: linear-gradient(180deg, #1e1b4b 0%, #312e81 60%, #4c1d95 100%);
     z-index: 1000;
     padding: 1.25rem 0;
     overflow-y: auto;
@@ -1080,21 +1080,26 @@
     color: white;
   }
 
-  /* Submenú dentro del sidebar */
-  .dropdown-menu {
-    position: static;
+  /* Submenú dentro del sidebar — especificidad igualada para anular reglas desktop con !important */
+  .dropdown-menu,
+  .nav-item .dropdown-menu,
+  .nav-item.expanded .dropdown-menu {
+    position: static !important;
     transform: none !important;
-    margin-top: 0.25rem;
-    margin-left: 0.75rem;
-    opacity: 1;
-    visibility: visible;
+    left: auto !important;
+    top: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
     display: none;
-    box-shadow: none;
+    box-shadow: none !important;
     border-radius: var(--radius-md);
     background: rgba(255, 255, 255, 0.07);
-    border: none;
-    min-width: unset;
+    border: none !important;
+    min-width: unset !important;
+    width: 100%;
     padding: 0.25rem 0;
+    margin-top: 0.25rem;
+    margin-left: 0.75rem;
   }
 
   .nav-item.expanded .dropdown-menu {
