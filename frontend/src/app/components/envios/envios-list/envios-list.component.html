@@ -28,10 +28,14 @@
             <i class="fas fa-filter"></i>
             Filtros de búsqueda
           </h3>
+          <button class="filters-toggle" (click)="toggleFilters()">
+            <i class="fas fa-filter"></i> Filtros
+            <span class="badge-count" *ngIf="activeFiltersCount > 0">{{ activeFiltersCount }}</span>
+          </button>
         </div>
 
         <!-- Filters -->
-        <div class="filters-section">
+        <div class="filters-section filters-panel" [class.filters-open]="filtersOpen">
       <div class="filter-row">
         <!-- Search -->
         <div class="filter-group">
@@ -252,44 +256,44 @@
         </thead>
         <tbody>
           <tr *ngFor="let envio of paginatedEnvios" [class.row-selected]="isSelected(envio)">
-            <td class="col-checkbox">
+            <td class="col-checkbox hide-mobile">
               <label class="checkbox-cell">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   [checked]="isSelected(envio)"
                   (change)="toggleSelection(envio)"
                 >
               </label>
             </td>
-            <td>
+            <td data-label="HAWB">
               <strong class="hawb-text">{{ envio.hawb }}</strong>
             </td>
-            <td>
+            <td data-label="Comprador">
               <div class="comprador-info">
                 <span class="comprador-nombre">{{ envio.comprador_info?.nombre || 'Sin información' }}</span>
                 <span class="comprador-cedula">{{ envio.comprador_info?.cedula || '-' }}</span>
               </div>
             </td>
-            <td class="text-center">
+            <td class="text-center hide-mobile" data-label="Prods.">
               <span class="badge badge-info">
                 {{ envio.cantidad_productos || 0 }}
               </span>
             </td>
-            <td class="text-right">
+            <td class="text-right hide-mobile" data-label="Peso (kg)">
               {{ envio.peso_total | number:'1.2-2' }}
             </td>
-            <td class="text-right">
+            <td class="text-right hide-mobile" data-label="Valor">
               {{ envio.valor_total | currency:'USD':'symbol':'1.2-2' }}
             </td>
-            <td class="text-right">
+            <td class="text-right hide-mobile" data-label="Costo Envío">
               <span class="costo-servicio">{{ envio.costo_servicio || 0 | currency:'USD':'symbol':'1.2-2' }}</span>
             </td>
-            <td>
+            <td data-label="Estado">
               <span class="badge" [ngClass]="getEstadoClass(envio.estado)">
                 {{ getEstadoLabel(envio.estado) }}
               </span>
             </td>
-            <td>
+            <td class="hide-mobile" data-label="Fecha">
               {{ envio.fecha_creacion | date:'dd/MM/yyyy' }}
             </td>
             <td class="actions-column">
@@ -355,7 +359,13 @@
             <td colspan="10" class="no-data">
               <div class="empty-state">
                 <div class="empty-state-icon">
-                  <i class="fas fa-inbox"></i>
+                  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="18" y="56" width="84" height="48" rx="4" stroke="var(--color-border)" stroke-width="3"/>
+                    <path d="M18 56 L18 40 L46 28 L60 56" stroke="var(--color-border)" stroke-width="3" fill="none" stroke-linejoin="round"/>
+                    <path d="M102 56 L102 40 L74 28 L60 56" stroke="var(--color-border)" stroke-width="3" fill="none" stroke-linejoin="round"/>
+                    <line x1="60" y1="28" x2="60" y2="56" stroke="var(--color-border)" stroke-width="2"/>
+                    <path d="M60 96 L60 74 M51 82 L60 72 L69 82" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
                 </div>
                 <h3 class="empty-state-title">No se encontraron envíos</h3>
                 <p class="empty-state-description">No hay envíos que coincidan con los filtros seleccionados. Intenta ajustar los criterios de búsqueda.</p>

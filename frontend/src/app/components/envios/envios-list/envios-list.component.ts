@@ -38,6 +38,19 @@ export class EnviosListComponent implements OnInit, OnDestroy {
   searchTerm = '';
   selectedEstado = '';
   selectedComprador = '';
+  filtersOpen = false;
+
+  get activeFiltersCount(): number {
+    let count = 0;
+    if (this.searchTerm) count++;
+    if (this.selectedEstado) count++;
+    if (this.selectedComprador) count++;
+    return count;
+  }
+
+  toggleFilters(): void {
+    this.filtersOpen = !this.filtersOpen;
+  }
   
   // Pagination
   paginaActual = 1;

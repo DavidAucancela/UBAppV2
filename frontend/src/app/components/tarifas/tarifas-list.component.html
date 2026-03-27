@@ -39,9 +39,13 @@
             <i class="fas fa-filter"></i>
             Filtros
           </h3>
+          <button class="filters-toggle" (click)="toggleFilters()">
+            <i class="fas fa-filter"></i> Filtros
+            <span class="badge-count" *ngIf="activeFiltersCount > 0">{{ activeFiltersCount }}</span>
+          </button>
         </div>
 
-        <div class="filters-section">
+        <div class="filters-section filters-panel" [class.filters-open]="filtersOpen">
           <div class="filter-row">
             <!-- Categoría Filter -->
             <div class="filter-group">
@@ -185,39 +189,39 @@
             </thead>
             <tbody>
               <tr *ngFor="let tarifa of filteredTarifas" [class.inactive]="!tarifa.activa" [class.row-selected]="isSelected(tarifa)">
-                <td class="col-checkbox" *ngIf="authService.isAdmin() || authService.isGerente()">
+                <td class="col-checkbox hide-mobile" *ngIf="authService.isAdmin() || authService.isGerente()">
                   <label class="checkbox-cell">
-                    <input 
-                      type="checkbox" 
+                    <input
+                      type="checkbox"
                       [checked]="isSelected(tarifa)"
                       (change)="toggleSelection(tarifa)"
                     >
                   </label>
                 </td>
-                <td>
+                <td data-label="Categoría">
                   <div class="categoria-cell">
                     <i class="fas {{ getCategoriaIcon(tarifa.categoria) }}"></i>
                     <span>{{ getCategoriaLabel(tarifa.categoria) }}</span>
                   </div>
                 </td>
-                <td>
+                <td data-label="Rango Peso">
                   <span class="peso-range">
                     {{ tarifa.peso_minimo }} - {{ tarifa.peso_maximo }} kg
                   </span>
                 </td>
-                <td class="text-right">
+                <td class="text-right" data-label="Precio/kg">
                   <span class="price-value">${{ tarifa.precio_por_kg | number:'1.2-2' }}</span>
                 </td>
-                <td class="text-right">
+                <td class="text-right hide-mobile" data-label="Cargo base">
                   <span class="price-value">${{ tarifa.cargo_base | number:'1.2-2' }}</span>
                 </td>
-                <td class="text-right">
+                <td class="text-right hide-mobile" data-label="Ej. 1kg">
                   <span class="price-value example">
                     ${{ calcularCostoEjemplo(tarifa, 1) | number:'1.2-2' }}
                   </span>
                 </td>
-                <td class="text-center">
-                  <span 
+                <td class="text-center" data-label="Estado">
+                  <span
                     class="badge"
                     [class.badge-success]="tarifa.activa"
                     [class.badge-secondary]="!tarifa.activa"
@@ -258,7 +262,12 @@
                 <td [attr.colspan]="(authService.isAdmin() || authService.isGerente()) ? 8 : 7" class="no-data">
                   <div class="empty-state">
                     <div class="empty-state-icon">
-                      <i class="fas fa-tags"></i>
+                      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 24 L24 66 L68 110 L110 68 L66 24 Z" stroke="var(--color-border)" stroke-width="3" fill="none" stroke-linejoin="round"/>
+                        <circle cx="44" cy="44" r="7" stroke="var(--color-border)" stroke-width="3" fill="none"/>
+                        <path d="M60 70 C60 70 58 63 63 60 C68 57 70 62 65 66 C62 69 62 72 65 75" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <circle cx="65" cy="78" r="2" fill="var(--color-primary)"/>
+                      </svg>
                     </div>
                     <h3 class="empty-state-title">No se encontraron tarifas</h3>
                     <p class="empty-state-description">No hay tarifas que coincidan con los filtros aplicados. Ajusta la búsqueda o crea una nueva tarifa.</p>

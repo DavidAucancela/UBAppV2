@@ -116,7 +116,13 @@
         <div class="table-container">
           <div *ngIf="envios.length === 0" class="empty-state">
             <div class="empty-state-icon">
-              <i class="fas fa-inbox"></i>
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="18" y="56" width="84" height="48" rx="4" stroke="var(--color-border)" stroke-width="3"/>
+                <path d="M18 56 L18 40 L46 28 L60 56" stroke="var(--color-border)" stroke-width="3" fill="none" stroke-linejoin="round"/>
+                <path d="M102 56 L102 40 L74 28 L60 56" stroke="var(--color-border)" stroke-width="3" fill="none" stroke-linejoin="round"/>
+                <line x1="60" y1="28" x2="60" y2="56" stroke="var(--color-border)" stroke-width="2"/>
+                <path d="M60 96 L60 74 M51 82 L60 72 L69 82" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </div>
             <h3 class="empty-state-title">Sin envíos</h3>
             <p class="empty-state-description">Aún no tienes envíos registrados. Cuando se registren envíos a tu nombre, aparecerán aquí.</p>

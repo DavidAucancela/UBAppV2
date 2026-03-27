@@ -51,3 +51,7 @@ scipy>=1.11.0
 
 # Base de datos URL parser
 dj-database-url>=2.1.0
+
+# Tareas asíncronas (Celery)
+celery==5.3.6
+django-celery-results==2.5.1

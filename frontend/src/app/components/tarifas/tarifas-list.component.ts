@@ -38,6 +38,18 @@ export class TarifasListComponent implements OnInit {
   // Filters
   selectedCategoria = '';
   showActivasOnly = true;
+  filtersOpen = false;
+
+  get activeFiltersCount(): number {
+    let count = 0;
+    if (this.selectedCategoria) count++;
+    if (!this.showActivasOnly) count++;
+    return count;
+  }
+
+  toggleFilters(): void {
+    this.filtersOpen = !this.filtersOpen;
+  }
   
   // Messages
   successMessage = '';

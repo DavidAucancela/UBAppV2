@@ -30,6 +30,19 @@ export class UsuariosListComponent implements OnInit {
   searchTerm = '';
   selectedRole = '';
   selectedStatus = '';
+  filtersOpen = false;
+
+  get activeFiltersCount(): number {
+    let count = 0;
+    if (this.searchTerm) count++;
+    if (this.selectedRole) count++;
+    if (this.selectedStatus) count++;
+    return count;
+  }
+
+  toggleFilters(): void {
+    this.filtersOpen = !this.filtersOpen;
+  }
   
   // Pagination
   paginaActual = 1;

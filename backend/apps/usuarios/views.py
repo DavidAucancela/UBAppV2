@@ -12,7 +12,6 @@ from django.contrib.auth import get_user_model, authenticate
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
-from django.core.mail import send_mail
 from django.conf import settings
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiTypes
 import secrets
@@ -31,6 +30,7 @@ from .services import UsuarioService
 from .repositories import usuario_repository
 from apps.core.throttling import LoginRateThrottle, RegistroRateThrottle
 from .validators import validar_password_fuerte
+from .tasks import enviar_bienvenida, enviar_reset_password
 
 Usuario = get_user_model()
 
@@ -134,32 +134,53 @@ class LoginView(APIView):
             }, status=status.HTTP_401_UNAUTHORIZED)
         
         self.limpiar_intentos(username)
-        
+
         refresh = RefreshToken.for_user(user)
         serializer = UsuarioSerializer(user)
-        
-        return Response({
+        is_secure = not settings.DEBUG
+
+        response = Response({
             'token': str(refresh.access_token),
             'refresh': str(refresh),
             'user': serializer.data,
             'message': 'Login exitoso'
         })
+        response.set_cookie(
+            key='access_token',
+            value=str(refresh.access_token),
+            httponly=True,
+            samesite='Lax',
+            secure=is_secure,
+            max_age=3600,  # 60 min
+        )
+        response.set_cookie(
+            key='refresh_token',
+            value=str(refresh),
+            httponly=True,
+            samesite='Lax',
+            secure=is_secure,
+            max_age=86400,  # 1 día
+        )
+        return response
 
 
 class LogoutView(APIView):
     """Vista para cerrar sesión"""
     permission_classes = [permissions.IsAuthenticated]
-    
+
     def post(self, request):
         try:
-            refresh_token = request.data.get('refresh')
+            refresh_token = request.data.get('refresh') or request.COOKIES.get('refresh_token')
             if refresh_token:
                 token = RefreshToken(refresh_token)
                 token.blacklist()
         except Exception:
             pass
-        
-        return Response({'message': 'Logout exitoso'})
+
+        response = Response({'message': 'Logout exitoso'})
+        response.delete_cookie('access_token')
+        response.delete_cookie('refresh_token')
+        return response
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -210,35 +231,20 @@ class ResetPasswordView(APIView):
             new_password = ''.join(secrets.choice(string.ascii_letters + string.digits) for i in range(12))
 
             try:
-                send_mail(
-                    subject='Restablecimiento de contraseña - UBApp',
-                    message=f'''
-Hola {usuario.nombre or usuario.username},
-
-Has solicitado restablecer tu contraseña en UBApp.
-
-Tu nueva contraseña temporal es: {new_password}
-
-Por favor, inicia sesión con esta contraseña y cámbiala inmediatamente por una contraseña segura.
-
-Si no solicitaste este restablecimiento, por favor contacta al administrador del sistema.
-
-Saludos,
-Equipo UBApp
-                    ''',
-                    from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@ubapp.com'),
-                    recipient_list=[email],
-                    fail_silently=False,
-                )
                 usuario.set_password(new_password)
                 usuario.save()
-
+                enviar_reset_password.delay(
+                    nombre=usuario.nombre or usuario.username,
+                    username=usuario.username,
+                    new_password=new_password,
+                    email=email,
+                )
                 return Response({
                     'message': 'Se ha enviado un correo electrónico con tu nueva contraseña temporal.'
                 })
             except Exception:
                 return Response({
-                    'error': 'Error al enviar el correo electrónico. Por favor, contacta al administrador.'
+                    'error': 'Error al procesar la solicitud. Por favor, contacta al administrador.'
                 }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
                 
         except Exception:
@@ -365,38 +371,17 @@ class UsuarioViewSet(viewsets.ModelViewSet):
                 usuario_creador=request.user
             )
             
-            # Enviar correo con credenciales si se creó correctamente
+            # Enviar correo con credenciales si se creó correctamente (async)
             password = request.data.get('password')
             if password and usuario.correo:
-                try:
-                    send_mail(
-                        subject='Bienvenido a UBApp - Credenciales de acceso',
-                        message=f'''
-Hola {usuario.nombre or usuario.username},
-
-Tu cuenta ha sido creada exitosamente en UBApp.
-
-Credenciales de acceso:
-- Usuario: {usuario.username}
-- Contraseña: {password}
-- Rol: {usuario.get_rol_display_name()}
-
-Por favor, inicia sesión y cambia tu contraseña por razones de seguridad.
-
-Puedes acceder al sistema en: {getattr(settings, 'FRONTEND_URL', 'http://localhost:4200')}
-
-Saludos,
-Equipo UBApp
-                        ''',
-                        from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@ubapp.com'),
-                        recipient_list=[usuario.correo],
-                        fail_silently=True,
-                    )
-                except Exception as email_error:
-                    BaseService.log_warning(
-                        f"No se pudo enviar correo de bienvenida: {str(email_error)}",
-                        {'usuario_id': usuario.id}
-                    )
+                enviar_bienvenida.delay(
+                    nombre=usuario.nombre or usuario.username,
+                    username=usuario.username,
+                    password=password,
+                    rol=usuario.get_rol_display_name(),
+                    correo=usuario.correo,
+                    frontend_url=getattr(settings, 'FRONTEND_URL', 'http://localhost:4200'),
+                )
             
             serializer = UsuarioSerializer(usuario)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

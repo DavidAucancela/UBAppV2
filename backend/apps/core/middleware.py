@@ -4,6 +4,24 @@ Permite que signals y modelos accedan al usuario de la request.
 """
 import threading
 
+
+class JWTCookieMiddleware:
+    """
+    Lee el access_token de la cookie httpOnly y lo inyecta en HTTP_AUTHORIZATION,
+    permitiendo que simplejwt autentique sin necesidad de que el frontend gestione el header.
+    Solo actúa si no hay ya un header Authorization presente.
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        if 'HTTP_AUTHORIZATION' not in request.META:
+            token = request.COOKIES.get('access_token')
+            if token:
+                request.META['HTTP_AUTHORIZATION'] = f'Bearer {token}'
+        return self.get_response(request)
+
 _thread_locals = threading.local()
 
 

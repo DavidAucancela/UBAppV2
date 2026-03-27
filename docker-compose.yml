@@ -10,6 +10,8 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     # Sin 'ports': solo accesible desde otros contenedores (backend). Evita conflicto con PostgreSQL en el host.
     # Para conectar desde Windows: docker exec -it ubapp_postgres psql -U postgres -d UBAppDB
+    ports:
+      - "5435:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backend/backup:/backup  # Para backups
@@ -92,6 +94,34 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+
+  # Celery worker para tareas asíncronas
+  celery:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ubapp_celery
+    command: celery -A celery worker --loglevel=info --concurrency=2
+    volumes:
+      - ./backend:/app
+    environment:
+      - DEBUG=${DEBUG:-False}
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-admin}@postgres:5432/${DB_NAME:-UBAppDB}
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_password}@redis:6379/0
+      - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL:-noreply@ubapp.com}
+      - EMAIL_HOST=${EMAIL_HOST:-}
+      - EMAIL_PORT=${EMAIL_PORT:-587}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER:-}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD:-}
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    networks:
+      - ubapp_network
+    restart: unless-stopped
 
   # Frontend Angular
   frontend:

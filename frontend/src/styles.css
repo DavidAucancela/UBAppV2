@@ -883,20 +883,24 @@ body.dark-mode .modal-body::-webkit-scrollbar-thumb {
 }
 
 .empty-state-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-primary-light, #ede9fe) 0%, var(--color-surface-raised) 100%);
+  width: 120px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
 }
 
+.empty-state-icon svg {
+  width: 120px;
+  height: 120px;
+}
+
+/* Fallback for components still using FA icons */
 .empty-state-icon i {
-  font-size: 2rem;
+  font-size: 3rem;
   color: var(--color-primary);
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .empty-state-title {
@@ -929,7 +933,7 @@ td.no-data .empty-state {
 
 /* Dark mode */
 body.dark-mode .empty-state-icon {
-  background: linear-gradient(135deg, #3b1f6a 0%, #1e293b 100%);
+  /* SVG uses CSS variables which already adapt to dark mode */
 }
 
 body.dark-mode .empty-state-title {

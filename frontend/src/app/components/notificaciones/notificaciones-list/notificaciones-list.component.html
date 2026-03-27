@@ -164,7 +164,14 @@
         <!-- No hay notificaciones -->
         <div class="empty-state" *ngIf="paginatedNotificaciones.length === 0">
           <div class="empty-state-icon">
-            <i class="fas fa-bell-slash"></i>
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M60 18 C38 18 28 34 28 54 L28 76 L92 76 L92 54 C92 34 82 18 60 18 Z" stroke="var(--color-border)" stroke-width="3" fill="none" stroke-linejoin="round"/>
+              <path d="M51 76 C51 80 55 85 60 85 C65 85 69 80 69 76" stroke="var(--color-border)" stroke-width="3" fill="none"/>
+              <line x1="60" y1="10" x2="60" y2="18" stroke="var(--color-border)" stroke-width="3" stroke-linecap="round"/>
+              <text x="74" y="44" font-size="11" font-weight="700" fill="var(--color-primary)" font-family="sans-serif">z</text>
+              <text x="83" y="32" font-size="13" font-weight="700" fill="var(--color-primary)" font-family="sans-serif">z</text>
+              <text x="94" y="20" font-size="15" font-weight="700" fill="var(--color-primary)" font-family="sans-serif">z</text>
+            </svg>
           </div>
           <h3 class="empty-state-title">Sin notificaciones</h3>
           <p class="empty-state-description">

@@ -24,10 +24,14 @@
             <i class="fas fa-filter"></i>
             Filtros de búsqueda
           </h3>
+          <button class="filters-toggle" (click)="toggleFilters()">
+            <i class="fas fa-filter"></i> Filtros
+            <span class="badge-count" *ngIf="activeFiltersCount > 0">{{ activeFiltersCount }}</span>
+          </button>
         </div>
 
         <!-- Filters -->
-        <div class="filters-section">
+        <div class="filters-section filters-panel" [class.filters-open]="filtersOpen">
           <div class="filter-row">
             <!-- Search -->
             <div class="filter-group">
@@ -235,20 +239,20 @@
       </thead>
       <tbody>
         <tr *ngFor="let usuario of paginatedUsuarios" class="table-row" [class.row-selected]="isSelected(usuario)">
-          <td class="col-checkbox">
+          <td class="col-checkbox hide-mobile">
             <label class="checkbox-cell">
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 [checked]="isSelected(usuario)"
                 (change)="toggleSelection(usuario)"
               >
             </label>
           </td>
-          <td>{{ usuario.username }}</td>
-          <td>{{ usuario.nombre }}</td>
-          <td>{{ usuario.correo }}</td>
-          <td>{{ usuario.cedula }}</td>
-          <td class="ubicacion-cell">
+          <td data-label="Usuario">{{ usuario.username }}</td>
+          <td data-label="Nombre">{{ usuario.nombre }}</td>
+          <td class="hide-mobile" data-label="Correo">{{ usuario.correo }}</td>
+          <td class="hide-mobile" data-label="Cédula">{{ usuario.cedula }}</td>
+          <td class="ubicacion-cell hide-mobile" data-label="Ubicación">
             <div class="ubicacion-info" *ngIf="usuario.provincia || usuario.canton || usuario.ciudad">
               <span class="ubicacion-item" *ngIf="usuario.provincia">
                 <i class="fas fa-globe-americas"></i>
@@ -268,12 +272,12 @@
               Sin ubicación
             </span>
           </td>
-          <td>
+          <td data-label="Rol">
             <span class="role-badge" [class]="getRoleClass(usuario.rol)">
               {{ getRoleLabel(usuario.rol) }}
             </span>
           </td>
-          <td>
+          <td data-label="Estado">
             <span class="status-badge" [class]="usuario.es_activo ? 'active' : 'inactive'">
               {{ usuario.es_activo ? 'Activo' : 'Inactivo' }}
             </span>
@@ -301,7 +305,13 @@
           <td colspan="9" class="no-data">
             <div class="empty-state">
               <div class="empty-state-icon">
-                <i class="fas fa-users"></i>
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="40" cy="38" r="16" stroke="var(--color-border)" stroke-width="3"/>
+                  <path d="M10 98 C10 78 24 65 40 65 C56 65 70 78 70 98" stroke="var(--color-border)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                  <circle cx="88" cy="52" r="20" stroke="var(--color-primary)" stroke-width="3" fill="none"/>
+                  <line x1="88" y1="42" x2="88" y2="62" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="78" y1="52" x2="98" y2="52" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round"/>
+                </svg>
               </div>
               <h3 class="empty-state-title">No se encontraron usuarios</h3>
               <p class="empty-state-description">No hay usuarios que coincidan con la búsqueda actual. Intenta con otro nombre, email o rol.</p>
