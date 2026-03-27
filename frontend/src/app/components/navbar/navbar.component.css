@@ -949,13 +949,7 @@
   height: 2px;
   background: white;
   border-radius: 2px;
-  transition: transform 0.25s ease, opacity 0.25s ease;
-  transform-origin: center;
 }
-
-.hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ---- Mobile overlay ---- */
 .mobile-overlay {
@@ -1003,7 +997,7 @@
     left: 0;
     height: calc(100dvh - var(--navbar-height));
     width: min(280px, 80vw);
-    background: linear-gradient(180deg, #1e1b4b 0%, #312e81 60%, #4c1d95 100%);
+    background: linear-gradient(180deg, #4a3aaa 0%, #667eea 50%, #764ba2 100%);
     z-index: 1000;
     padding: 1.25rem 0;
     overflow-y: auto;

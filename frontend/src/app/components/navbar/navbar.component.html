@@ -21,7 +21,6 @@
     <button class="hamburger-btn"
             *ngIf="authService.isAuthenticated()"
             (click)="toggleMobileMenu($event)"
-            [class.open]="mobileMenuOpen"
             aria-label="Abrir menú de navegación">
       <span></span>
       <span></span>
