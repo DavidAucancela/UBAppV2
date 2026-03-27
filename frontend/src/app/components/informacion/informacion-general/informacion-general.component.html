@@ -1,216 +1,462 @@
-<div class="informacion-page">
-  <!-- Hero Section -->
-  <section class="hero-section particles-high">
-    <div class="container hero-container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <h1 class="display-4 fw-bold mb-4">Sistema de almacenamiento de Envíos</h1>
-          <p class="lead mb-4">
-            Plataforma integral para administrar tus envíos internacionales de manera eficiente y segura.
-          </p>
+<div class="info-page">
+
+  <!-- ================================================================
+       1. HERO
+       ================================================================ -->
+  <section class="hero">
+    <div class="hero-particle p1"></div>
+    <div class="hero-particle p2"></div>
+    <div class="hero-particle p3"></div>
+
+    <div class="hero-inner">
+
+      <!-- Texto -->
+      <div class="hero-text">
+        <span class="hero-badge">
+          <i class="fas fa-shipping-fast"></i>
+          Logística internacional inteligente
+        </span>
+
+        <h1 class="hero-title">
+          Gestiona tus envíos<br>
+          <span class="hero-title-accent">con inteligencia</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Seguimiento HAWB, búsqueda semántica con IA, mapa interactivo
+          y gestión de roles — todo en una plataforma unificada.
+        </p>
+
+        <div class="hero-actions">
+          <a routerLink="/login" class="btn btn-primary btn-lg">
+            <i class="fas fa-sign-in-alt"></i>
+            Iniciar Sesión
+          </a>
+          <a routerLink="/register" class="btn btn-hero-outline btn-lg">
+            <i class="fas fa-user-plus"></i>
+            Crear cuenta
+          </a>
         </div>
-        <div class="col-lg-6 text-center">
-          <i class="bi bi-boxes hero-icon"></i>
+
+        <div class="hero-trust">
+          <div class="trust-item"><i class="fas fa-shield-alt"></i><span>Seguro y cifrado</span></div>
+          <div class="trust-item"><i class="fas fa-bolt"></i><span>Tiempo real</span></div>
+          <div class="trust-item"><i class="fas fa-mobile-alt"></i><span>Responsive</span></div>
+        </div>
+      </div>
+
+      <!-- Mockup SVG del dashboard -->
+      <div class="hero-visual">
+        <div class="hero-mockup-wrapper">
+          <svg class="hero-mockup" viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="hNavG" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#667eea"/>
+                <stop offset="100%" stop-color="#764ba2"/>
+              </linearGradient>
+              <linearGradient id="hBar1" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#667eea"/>
+                <stop offset="100%" stop-color="#667eea" stop-opacity="0.3"/>
+              </linearGradient>
+              <linearGradient id="hBar2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#764ba2"/>
+                <stop offset="100%" stop-color="#764ba2" stop-opacity="0.3"/>
+              </linearGradient>
+              <filter id="hShadow">
+                <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#00000020"/>
+              </filter>
+            </defs>
+
+            <!-- Frame -->
+            <rect width="520" height="330" rx="14" fill="#f1f5f9" filter="url(#hShadow)"/>
+
+            <!-- Navbar -->
+            <rect width="520" height="46" rx="14" fill="url(#hNavG)"/>
+            <rect y="30" width="520" height="16" fill="url(#hNavG)"/>
+            <!-- Logo -->
+            <rect x="14" y="11" width="24" height="24" rx="6" fill="rgba(255,255,255,0.25)"/>
+            <text x="46" y="29" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="white">UBApp</text>
+            <!-- Nav links -->
+            <rect x="120" y="17" width="48" height="12" rx="6" fill="rgba(255,255,255,0.18)"/>
+            <rect x="178" y="17" width="48" height="12" rx="6" fill="rgba(255,255,255,0.18)"/>
+            <rect x="236" y="17" width="48" height="12" rx="6" fill="rgba(255,255,255,0.28)"/>
+            <!-- Avatar -->
+            <circle cx="494" cy="23" r="13" fill="rgba(255,255,255,0.2)"/>
+            <circle cx="494" cy="19" r="5"  fill="rgba(255,255,255,0.45)"/>
+            <ellipse cx="494" cy="30" rx="7" ry="4" fill="rgba(255,255,255,0.45)"/>
+
+            <!-- Stat cards row -->
+            <!-- Card 1 -->
+            <rect x="14" y="58" width="114" height="62" rx="9" fill="white"/>
+            <rect x="14" y="58" width="114" height="3"  rx="2" fill="#667eea"/>
+            <text x="24" y="74"  font-family="Inter,sans-serif" font-size="7"  fill="#6b7280">TOTAL ENVÍOS</text>
+            <text x="24" y="94"  font-family="Inter,sans-serif" font-size="19" font-weight="700" fill="#1e293b">1,247</text>
+            <text x="24" y="109" font-family="Inter,sans-serif" font-size="6.5" fill="#10b981">↑ +12% este mes</text>
+            <!-- Card 2 -->
+            <rect x="138" y="58" width="114" height="62" rx="9" fill="white"/>
+            <rect x="138" y="58" width="114" height="3" rx="2" fill="#f59e0b"/>
+            <text x="148" y="74"  font-family="Inter,sans-serif" font-size="7"  fill="#6b7280">PENDIENTES</text>
+            <text x="148" y="94"  font-family="Inter,sans-serif" font-size="19" font-weight="700" fill="#1e293b">84</text>
+            <text x="148" y="109" font-family="Inter,sans-serif" font-size="6.5" fill="#f59e0b">→ En proceso</text>
+            <!-- Card 3 -->
+            <rect x="262" y="58" width="114" height="62" rx="9" fill="white"/>
+            <rect x="262" y="58" width="114" height="3" rx="2" fill="#10b981"/>
+            <text x="272" y="74"  font-family="Inter,sans-serif" font-size="7"  fill="#6b7280">ENTREGADOS</text>
+            <text x="272" y="94"  font-family="Inter,sans-serif" font-size="19" font-weight="700" fill="#1e293b">1,163</text>
+            <text x="272" y="109" font-family="Inter,sans-serif" font-size="6.5" fill="#10b981">✓ 93.3%</text>
+            <!-- Card 4 -->
+            <rect x="386" y="58" width="120" height="62" rx="9" fill="white"/>
+            <rect x="386" y="58" width="120" height="3" rx="2" fill="#764ba2"/>
+            <text x="396" y="74"  font-family="Inter,sans-serif" font-size="7"  fill="#6b7280">VALOR TOTAL</text>
+            <text x="396" y="94"  font-family="Inter,sans-serif" font-size="19" font-weight="700" fill="#1e293b">$48.2K</text>
+            <text x="396" y="109" font-family="Inter,sans-serif" font-size="6.5" fill="#764ba2">↑ Este trimestre</text>
+
+            <!-- Table panel -->
+            <rect x="14" y="132" width="324" height="184" rx="9" fill="white"/>
+            <!-- Table header -->
+            <rect x="14" y="132" width="324" height="26" rx="9" fill="#f8fafc"/>
+            <rect x="14" y="148" width="324" height="10" fill="#f8fafc"/>
+            <text x="24"  y="149" font-family="Inter,sans-serif" font-size="7" font-weight="600" fill="#475569">HAWB</text>
+            <text x="96"  y="149" font-family="Inter,sans-serif" font-size="7" font-weight="600" fill="#475569">COMPRADOR</text>
+            <text x="196" y="149" font-family="Inter,sans-serif" font-size="7" font-weight="600" fill="#475569">ESTADO</text>
+            <text x="274" y="149" font-family="Inter,sans-serif" font-size="7" font-weight="600" fill="#475569">VALOR</text>
+
+            <!-- Row 1 -->
+            <line x1="14" y1="166" x2="338" y2="166" stroke="#e5e7eb" stroke-width="0.8"/>
+            <text x="24"  y="179" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#667eea">GH-001847</text>
+            <text x="96"  y="179" font-family="Inter,sans-serif" font-size="7"   fill="#374151">María González</text>
+            <rect x="196" y="170" width="50" height="13" rx="6" fill="#dcfce7"/>
+            <text x="210" y="180" font-family="Inter,sans-serif" font-size="6.5" fill="#166534">Entregado</text>
+            <text x="274" y="179" font-family="Inter,sans-serif" font-size="7"   fill="#374151">$125.50</text>
+
+            <!-- Row 2 -->
+            <line x1="14" y1="193" x2="338" y2="193" stroke="#e5e7eb" stroke-width="0.8"/>
+            <text x="24"  y="206" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#667eea">GH-001848</text>
+            <text x="96"  y="206" font-family="Inter,sans-serif" font-size="7"   fill="#374151">Carlos Ruiz</text>
+            <rect x="196" y="197" width="52" height="13" rx="6" fill="#fef3c7"/>
+            <text x="204" y="207" font-family="Inter,sans-serif" font-size="6.5" fill="#92400e">En tránsito</text>
+            <text x="274" y="206" font-family="Inter,sans-serif" font-size="7"   fill="#374151">$87.20</text>
+
+            <!-- Row 3 -->
+            <line x1="14" y1="220" x2="338" y2="220" stroke="#e5e7eb" stroke-width="0.8"/>
+            <text x="24"  y="233" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#667eea">GH-001849</text>
+            <text x="96"  y="233" font-family="Inter,sans-serif" font-size="7"   fill="#374151">Ana Martínez</text>
+            <rect x="196" y="224" width="48" height="13" rx="6" fill="#dbeafe"/>
+            <text x="204" y="234" font-family="Inter,sans-serif" font-size="6.5" fill="#1e40af">Pendiente</text>
+            <text x="274" y="233" font-family="Inter,sans-serif" font-size="7"   fill="#374151">$243.80</text>
+
+            <!-- Row 4 -->
+            <line x1="14" y1="247" x2="338" y2="247" stroke="#e5e7eb" stroke-width="0.8"/>
+            <text x="24"  y="260" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#667eea">GH-001850</text>
+            <text x="96"  y="260" font-family="Inter,sans-serif" font-size="7"   fill="#374151">Luis Torres</text>
+            <rect x="196" y="251" width="50" height="13" rx="6" fill="#dcfce7"/>
+            <text x="210" y="261" font-family="Inter,sans-serif" font-size="6.5" fill="#166534">Entregado</text>
+            <text x="274" y="260" font-family="Inter,sans-serif" font-size="7"   fill="#374151">$56.90</text>
+
+            <!-- Row 5 -->
+            <line x1="14" y1="274" x2="338" y2="274" stroke="#e5e7eb" stroke-width="0.8"/>
+            <text x="24"  y="287" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#667eea">GH-001851</text>
+            <text x="96"  y="287" font-family="Inter,sans-serif" font-size="7"   fill="#374151">Sofia Mendez</text>
+            <rect x="196" y="278" width="48" height="13" rx="6" fill="#fee2e2"/>
+            <text x="204" y="288" font-family="Inter,sans-serif" font-size="6.5" fill="#991b1b">Cancelado</text>
+            <text x="274" y="287" font-family="Inter,sans-serif" font-size="7"   fill="#374151">$189.00</text>
+
+            <!-- Row 6 -->
+            <line x1="14" y1="301" x2="338" y2="301" stroke="#e5e7eb" stroke-width="0.8"/>
+            <text x="24"  y="314" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#667eea">GH-001852</text>
+            <text x="96"  y="314" font-family="Inter,sans-serif" font-size="7"   fill="#374151">Pedro Alvarado</text>
+            <rect x="196" y="305" width="52" height="13" rx="6" fill="#fef3c7"/>
+            <text x="204" y="315" font-family="Inter,sans-serif" font-size="6.5" fill="#92400e">En tránsito</text>
+            <text x="274" y="314" font-family="Inter,sans-serif" font-size="7"   fill="#374151">$312.40</text>
+
+            <!-- Right panel: Activity + Chart -->
+            <rect x="350" y="132" width="156" height="184" rx="9" fill="white"/>
+            <text x="360" y="151" font-family="Inter,sans-serif" font-size="8" font-weight="600" fill="#1e293b">Actividad reciente</text>
+            <line x1="350" y1="157" x2="506" y2="157" stroke="#e5e7eb" stroke-width="0.8"/>
+
+            <!-- Activity items -->
+            <circle cx="366" cy="172" r="6" fill="#dcfce7"/>
+            <text x="366" y="175" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#166534">✓</text>
+            <text x="380" y="170" font-family="Inter,sans-serif" font-size="7"   fill="#374151">GH-001847</text>
+            <text x="380" y="179" font-family="Inter,sans-serif" font-size="5.5" fill="#6b7280">Entregado · 5m</text>
+
+            <circle cx="366" cy="196" r="6" fill="#fef3c7"/>
+            <text x="366" y="199" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#92400e">→</text>
+            <text x="380" y="194" font-family="Inter,sans-serif" font-size="7"   fill="#374151">GH-001848</text>
+            <text x="380" y="203" font-family="Inter,sans-serif" font-size="5.5" fill="#6b7280">En tránsito · 12m</text>
+
+            <circle cx="366" cy="220" r="6" fill="#dbeafe"/>
+            <text x="366" y="223" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#1e40af">+</text>
+            <text x="380" y="218" font-family="Inter,sans-serif" font-size="7"   fill="#374151">GH-001849</text>
+            <text x="380" y="227" font-family="Inter,sans-serif" font-size="5.5" fill="#6b7280">Nuevo · 1h</text>
+
+            <circle cx="366" cy="244" r="6" fill="#fee2e2"/>
+            <text x="366" y="247" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#991b1b">✕</text>
+            <text x="380" y="242" font-family="Inter,sans-serif" font-size="7"   fill="#374151">GH-001851</text>
+            <text x="380" y="251" font-family="Inter,sans-serif" font-size="5.5" fill="#6b7280">Cancelado · 2h</text>
+
+            <!-- Mini chart -->
+            <line x1="350" y1="263" x2="506" y2="263" stroke="#e5e7eb" stroke-width="0.8"/>
+            <text x="360" y="275" font-family="Inter,sans-serif" font-size="6.5" fill="#6b7280">Envíos esta semana</text>
+            <rect x="360" y="285" width="10" height="22" rx="3" fill="url(#hBar1)" opacity="0.5"/>
+            <rect x="375" y="279" width="10" height="28" rx="3" fill="url(#hBar1)" opacity="0.65"/>
+            <rect x="390" y="283" width="10" height="24" rx="3" fill="url(#hBar1)" opacity="0.55"/>
+            <rect x="405" y="273" width="10" height="34" rx="3" fill="url(#hBar2)" opacity="0.7"/>
+            <rect x="420" y="278" width="10" height="29" rx="3" fill="url(#hBar1)" opacity="0.65"/>
+            <rect x="435" y="268" width="10" height="39" rx="3" fill="url(#hBar2)"/>
+            <rect x="450" y="272" width="10" height="35" rx="3" fill="url(#hBar1)" opacity="0.85"/>
+          </svg>
         </div>
       </div>
     </div>
-    <div class="particle-overlay layer-one"></div>
-    <div class="particle-overlay layer-two"></div>
+
+    <a class="hero-scroll" href="#stats" aria-label="Ir a estadísticas">
+      <i class="fas fa-chevron-down"></i>
+    </a>
   </section>
 
-  <!-- Características -->
-  <section class="section-shell">
-    <div class="container py-5">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold mb-3">Características </h2>
-        <p class="lead text-muted">Todo lo que necesitas para gestionar tus envíos en un solo lugar</p>
-      </div>
 
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-4" *ngFor="let caracteristica of caracteristicas">
-          <div class="card feature-card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="feature-icon mb-3">
-                <i class="bi {{ caracteristica.icono }}"></i>
-              </div>
-              <div class="w-100 d-flex justify-content-center">
-                <h5 class="card-title mb-3" style="font-size: 1.5rem; font-weight: 600; text-align: center;">
-                  {{ caracteristica.titulo }}
-                </h5>
-              </div>
-              <p class="card-text text-muted text-center">{{ caracteristica.descripcion }}</p>
-            </div>
-          </div>
+  <!-- ================================================================
+       2. STATS
+       ================================================================ -->
+  <section class="stats-section" id="stats">
+    <div class="stats-inner">
+      <div class="stat-card animate-on-scroll"
+           *ngFor="let stat of stats; let i = index"
+           [style.transition-delay]="(i * 0.1) + 's'">
+        <div class="stat-icon-wrap">
+          <i [class]="stat.icon"></i>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Beneficios Dinámicos -->
-  <section class="hero-section particles-high">
-    <div class="container hero-container py-5">
-      <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-          <div class="section-heading">
-            <p class="eyebrow mb-2 text-white">Experiencia inteligente</p>
-            <h1 class="fw-bold mb-3 text-white">¿Por qué elegir nuestro sistema?</h1>
-            <p class="lead text-white">Selecciona un beneficio para descubrir cómo potenciamos tu operación</p>
+        <div class="stat-body">
+          <div class="stat-value">
+            <span class="stat-number">{{ stat.display }}</span>
+            <span class="stat-suffix">{{ stat.suffix }}</span>
           </div>
-          <div class="benefits-list">
-            <button
-              class="benefit-item"
-              type="button"
-              *ngFor="let beneficio of beneficios; let i = index"
-              [class.active]="i === beneficioSeleccionadoIndex"
-              (click)="seleccionarBeneficio(i)">
-              <span class="indicator"></span>
-              <div class="content">
-                <h5 class="mb-1">{{ beneficio.titulo }}</h5>
-                <p class="mb-0 text-muted">{{ beneficio.resumen }}</p>
-              </div>
-              <i class="bi bi-chevron-right ms-auto"></i>
-            </button>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="benefit-detail-card shadow-lg" *ngIf="beneficioSeleccionado">
-            <div class="detail-media mb-4" *ngIf="beneficioSeleccionado.imagen">
-              <img [src]="beneficioSeleccionado.imagen" [alt]="beneficioSeleccionado.titulo" class="img-fluid rounded-4" loading="lazy">
-              <span class="media-badge">
-                <i class="bi bi-stars me-2"></i>
-                Caso de uso
-              </span>
-            </div>
-            <p class="text-uppercase small text-primary fw-semibold mb-2">{{ beneficioSeleccionado.categoria }}</p>
-            <h3 class="h4 fw-bold mb-3">{{ beneficioSeleccionado.titulo }}</h3>
-            <p class="text-muted mb-4">{{ beneficioSeleccionado.descripcion }}</p>
-            <ul class="detail-list list-unstyled mb-0">
-              <li *ngFor="let detalle of beneficioSeleccionado.detalles">
-                <i class="bi bi-check2-circle text-success me-2"></i>
-                <span>{{ detalle }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Roles y Permisos -->
-  <section class="section-shell">
-    <div class="container py-5">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold mb-3">Roles del Sistema</h2>
-        <p class="lead text-muted">Diferentes niveles de acceso según tus necesidades</p>
-      </div>
-
-      <div class="row g-4 roles-row justify-content-center">
-        <div class="col-md-6 col-lg-3 d-flex">
-          <div class="card role-card h-100 shadow-sm w-100 text-center">
-            <div class="card-body">
-              <div class="role-icon admin mb-3">
-                <i class="bi bi-shield-fill-check"></i>
-              </div>
-              <h5 class="card-title">Administrador</h5>
-              <p class="card-text text-muted">Acceso completo a todas las funcionalidades del sistema</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3 d-flex">
-          <div class="card role-card h-100 shadow-sm w-100 text-center">
-            <div class="card-body">
-              <div class="role-icon gerente mb-3">
-                <i class="bi bi-person-badge-fill"></i>
-              </div>
-              <h5 class="card-title">Gerente</h5>
-              <p class="card-text text-muted">Acceso a búsquedas avanzadas y dashboard gerencial</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3 d-flex">
-          <div class="card role-card h-100 shadow-sm w-100 text-center">
-            <div class="card-body">
-              <div class="role-icon digitador mb-3">
-                <i class="bi bi-keyboard-fill"></i>
-              </div>
-              <h5 class="card-title">Digitador</h5>
-              <p class="card-text text-muted">Gestión de envíos y registro de información</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3 d-flex">
-          <div class="card role-card h-100 shadow-sm w-100 text-center">
-            <div class="card-body">
-              <div class="role-icon comprador mb-3">
-                <i class="bi bi-person-fill"></i>
-              </div>
-              <h5 class="card-title">Comprador</h5>
-              <p class="card-text text-muted">Visualización y seguimiento de envíos propios</p>
-            </div>
-          </div>
+          <p class="stat-label">{{ stat.label }}</p>
         </div>
       </div>
     </div>
   </section>
 
 
-  <div class="footer-content">
-    <div class="footer-section">
-      <h4>UBApp</h4>
-      <p>Sistema de almacenamiento de envíos</p>
-      <div class="social-links">    
-        <a href="www.linkedin.com/in/jonathan-david-aucancela/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link">
-          <i class="fab fa-linkedin"></i>
+  <!-- ================================================================
+       3. CARACTERÍSTICAS
+       ================================================================ -->
+  <section class="features-section">
+    <div class="section-header animate-on-scroll">
+      <span class="section-eyebrow">Funcionalidades</span>
+      <h2 class="section-title">Todo lo que necesitas<br>en un solo lugar</h2>
+      <p class="section-sub">Una plataforma diseñada para cada etapa del proceso logístico</p>
+    </div>
+
+    <div class="features-list">
+      <div class="feature-block animate-on-scroll"
+           *ngFor="let f of features; let i = index"
+           [class.feature-reverse]="i % 2 !== 0">
+
+        <!-- Visual -->
+        <div class="feature-visual">
+          <div class="fv-inner" [ngClass]="'fv-' + f.visual">
+            <div class="fv-glow"></div>
+            <div class="fv-icon-wrap">
+              <i [class]="f.icon"></i>
+            </div>
+            <div class="fv-decoration">
+              <span class="fvd-dot fvd-1"></span>
+              <span class="fvd-dot fvd-2"></span>
+              <span class="fvd-dot fvd-3"></span>
+              <span class="fvd-ring fvd-r1"></span>
+              <span class="fvd-ring fvd-r2"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="feature-content">
+          <div class="feature-icon-badge">
+            <i [class]="f.icon"></i>
+          </div>
+          <h3 class="feature-title">{{ f.titulo }}</h3>
+          <p class="feature-desc">{{ f.descripcion }}</p>
+          <ul class="feature-bullets">
+            <li *ngFor="let b of f.bullets">
+              <i class="fas fa-check-circle"></i>
+              <span>{{ b }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       4. CÓMO FUNCIONA
+       ================================================================ -->
+  <section class="steps-section">
+    <div class="section-header animate-on-scroll">
+      <span class="section-eyebrow light">Proceso</span>
+      <h2 class="section-title light">¿Cómo funciona?</h2>
+      <p class="section-sub light">Tres pasos para gestionar todo el ciclo de vida de tus envíos</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card animate-on-scroll"
+           *ngFor="let step of steps; let i = index; let last = last"
+           [style.transition-delay]="(i * 0.15) + 's'">
+        <div class="step-number">{{ step.numero }}</div>
+        <div class="step-icon-wrap">
+          <i [class]="step.icon"></i>
+        </div>
+        <h3 class="step-title">{{ step.titulo }}</h3>
+        <p class="step-desc">{{ step.descripcion }}</p>
+        <div class="step-arrow" *ngIf="!last">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       5. ROLES
+       ================================================================ -->
+  <section class="roles-section">
+    <div class="section-header animate-on-scroll">
+      <span class="section-eyebrow">Accesos</span>
+      <h2 class="section-title">Un sistema para cada rol</h2>
+      <p class="section-sub">Cada usuario accede exactamente a las funciones que necesita</p>
+    </div>
+
+    <div class="roles-grid">
+      <div class="role-card animate-on-scroll"
+           *ngFor="let rol of roles; let i = index"
+           [ngClass]="'role-' + rol.color"
+           [style.transition-delay]="(i * 0.1) + 's'">
+        <div class="role-icon-wrap">
+          <i [class]="rol.icon"></i>
+        </div>
+        <h3 class="role-title">{{ rol.titulo }}</h3>
+        <p class="role-desc">{{ rol.descripcion }}</p>
+        <ul class="role-accesos">
+          <li *ngFor="let a of rol.accesos">
+            <i class="fas fa-check"></i>
+            <span>{{ a }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       6. TECH STACK
+       ================================================================ -->
+  <section class="tech-section animate-on-scroll">
+    <div class="tech-inner">
+      <p class="tech-label">Construido con tecnología de nivel empresarial</p>
+      <div class="tech-pills">
+        <div class="tech-pill" *ngFor="let t of techStack">
+          <i [class]="t.icon"></i>
+          <div class="tech-info">
+            <span class="tech-name">{{ t.nombre }}</span>
+            <span class="tech-detail">{{ t.detalle }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       7. CTA FINAL
+       ================================================================ -->
+  <section class="cta-section animate-on-scroll">
+    <div class="cta-particle cp1"></div>
+    <div class="cta-particle cp2"></div>
+    <div class="cta-inner">
+      <div class="cta-icon-wrap">
+        <i class="fas fa-shipping-fast"></i>
+      </div>
+      <h2 class="cta-title">¿Listo para optimizar tu logística?</h2>
+      <p class="cta-sub">Accede ahora o crea tu cuenta en segundos. Sin configuración complicada.</p>
+      <div class="cta-actions">
+        <a routerLink="/login" class="btn btn-cta-white btn-lg">
+          <i class="fas fa-sign-in-alt"></i>
+          Iniciar Sesión
         </a>
-        
-        <a href="https://github.com/DavidAucancela/" target="_blank" rel="noopener" aria-label="GitHub" class="social-link">
-          <i class="fab fa-github"></i>
+        <a routerLink="/register" class="btn btn-cta-outline btn-lg">
+          <i class="fas fa-user-plus"></i>
+          Registrarse gratis
         </a>
       </div>
     </div>
+  </section>
 
-    <div class="footer-section">
-      <h5>Enlaces Rápidos</h5>
-      <ul class="footer-links">
-        <li><a routerLink="/informacion">Información</a></li>
-        <!--<li><a routerLink="/ubicaciones">Ubicaciones</a></li>-->
-        <li><a routerLink="/login">Iniciar Sesión</a></li>
-      </ul>
+
+  <!-- ================================================================
+       8. FOOTER
+       ================================================================ -->
+  <footer class="footer">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <i class="fas fa-shipping-fast"></i>
+          <span>UBApp</span>
+        </div>
+        <p class="footer-tagline">Plataforma de gestión de envíos internacionales con búsqueda semántica e inteligencia artificial.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/jonathan-david-aucancela/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/DavidAucancela/" target="_blank" rel="noopener" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Plataforma</h5>
+        <ul>
+          <li><a routerLink="/informacion"><i class="fas fa-info-circle"></i> Información</a></li>
+          <li><a routerLink="/login"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
+          <li><a routerLink="/register"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Funciones</h5>
+        <ul>
+          <li><a routerLink="/envios"><i class="fas fa-truck-loading"></i> Envíos</a></li>
+          <li><a routerLink="/busqueda-envios"><i class="fas fa-search"></i> Búsqueda</a></li>
+          <li><a routerLink="/mapa-compradores"><i class="fas fa-map-marked-alt"></i> Mapa</a></li>
+          <li><a routerLink="/importacion-excel"><i class="fas fa-file-excel"></i> Importar Excel</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Contacto</h5>
+        <ul class="footer-contact">
+          <li>
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:jonathan_jd&#64;outlook.com">jonathan_jd&#64;outlook.com</a>
+          </li>
+          <li>
+            <i class="fas fa-phone"></i>
+            <a href="tel:+593998956361">+593 99 895 6361</a>
+          </li>
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Ecuador</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <div class="footer-section">
-      <h5>Recursos</h5>
-      <ul class="footer-links">
-        <li><a routerLink="/busqueda">Búsqueda</a></li>
-        <li><a routerLink="/mapa-compradores">Mapa</a></li>
-        <li><a routerLink="/importacion-excel">Importar Excel</a></li>
-      </ul>
+    <div class="footer-bottom">
+      <p>© 2025 UBApp — Desarrollado por Jonathan Aucancela.</p>
     </div>
+  </footer>
 
-    <div class="footer-section">
-      <h5>Contacto</h5>
-      <p class="contact-info">
-        <i class="fas fa-envelope"></i> jonathan_jd&#64;outlook.com
-      </p>
-      <p class="contact-info">
-        <i class="fas fa-phone"></i> +593 99 895 6361
-      </p>
-    </div>
-  </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
