@@ -486,8 +486,7 @@
 }
 
 .tabla-envios thead {
-  background: var(--color-primary-gradient);
-  color: white;
+  background-color: var(--color-surface-raised);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -502,6 +501,7 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   font-size: 0.85rem;
+  color: var(--color-text-secondary);
 }
 
 .tabla-envios th.text-right {

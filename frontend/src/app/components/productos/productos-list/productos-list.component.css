@@ -50,7 +50,7 @@
 /* Card Styles */
 .card {
   background: var(--color-surface);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   margin-bottom: 20px;
   overflow: hidden;
@@ -275,7 +275,7 @@
 /* Filters Section */
 .filters-section {
   padding: 20px 24px;
-  background-color: #f8fafc;
+  background-color: var(--color-surface-raised);
   border-top: 1px solid var(--color-border);
 }
 
@@ -799,8 +799,8 @@
 /* Card Header Filters */
 .card-header-filters {
   padding: 20px 24px;
-  background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
-  border-bottom: 2px solid var(--color-border);
+  background: var(--color-surface-raised);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .card-header-filters h3 {
@@ -1081,8 +1081,7 @@
 }
 
 .productos-table thead {
-  background: var(--color-primary-gradient);
-  color: white;
+  background-color: var(--color-surface-raised);
 }
 
 .productos-table th {
@@ -1095,6 +1094,7 @@
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  color: var(--color-text-secondary);
 }
 
 .productos-table th.sortable {
@@ -1106,7 +1106,7 @@
 }
 
 .productos-table th.sortable:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--color-border);
 }
 
 .productos-table th.sortable i {

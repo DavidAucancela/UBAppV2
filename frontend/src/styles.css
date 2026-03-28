@@ -544,6 +544,66 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* ----------------------------------------------------------
+   8b. TABLAS — VARIANTES DE CONTENEDOR
+   ---------------------------------------------------------- */
+/* Wrapper para tabla con scroll horizontal */
+.table-responsive-container {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+}
+
+/* ----------------------------------------------------------
+   9b. UTILIDADES DE LAYOUT
+   ---------------------------------------------------------- */
+/* Wrapper de página estándar */
+.page-container {
+  min-height: calc(100vh - var(--navbar-height));
+  background: var(--color-bg);
+  padding-bottom: var(--space-12);
+}
+
+/* Card header con filtros — variante del .card-header global */
+.card-header-filters {
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-surface-raised);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.card-header-filters h3,
+.card-header-filters h4 {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.card-header-filters h3 i,
+.card-header-filters h4 i {
+  color: var(--color-primary);
+}
+
+/* Sección de filtros estándar */
+.filters-section {
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-surface-raised);
+  border-bottom: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+  .page-container  { padding-bottom: var(--space-8); }
+  .card-header-filters { padding: var(--space-4); }
+  .filters-section     { padding: var(--space-4); }
+}
+
+/* ----------------------------------------------------------
    9. UTILIDADES DE ESPACIADO
    ---------------------------------------------------------- */
 .mt-1 { margin-top:    var(--space-2); }
