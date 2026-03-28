@@ -224,39 +224,16 @@
       </div>
     </div>
 
-    <a class="hero-scroll" href="#stats" aria-label="Ir a estadísticas">
+    <a class="hero-scroll" href="#features" aria-label="Ver funcionalidades">
       <i class="fas fa-chevron-down"></i>
     </a>
   </section>
 
 
   <!-- ================================================================
-       2. STATS
-       ================================================================ -->
-  <section class="stats-section" id="stats">
-    <div class="stats-inner">
-      <div class="stat-card animate-on-scroll"
-           *ngFor="let stat of stats; let i = index"
-           [style.transition-delay]="(i * 0.1) + 's'">
-        <div class="stat-icon-wrap">
-          <i [class]="stat.icon"></i>
-        </div>
-        <div class="stat-body">
-          <div class="stat-value">
-            <span class="stat-number">{{ stat.display }}</span>
-            <span class="stat-suffix">{{ stat.suffix }}</span>
-          </div>
-          <p class="stat-label">{{ stat.label }}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
        3. CARACTERÍSTICAS
        ================================================================ -->
-  <section class="features-section">
+  <section class="features-section" id="features">
     <div class="section-header animate-on-scroll">
       <span class="section-eyebrow">Funcionalidades</span>
       <h2 class="section-title">Todo lo que necesitas<br>en un solo lugar</h2>
@@ -315,42 +292,44 @@
     </div>
 
     <div class="demo-inner animate-on-scroll">
-      <!-- Search bar -->
-      <div class="demo-search-wrap">
-        <div class="demo-ai-badge">
-          <i class="fas fa-brain"></i>
-          <span>Motor semántico activo</span>
-          <span class="demo-ai-dot"></span>
+      <!-- Search bar + floating results -->
+      <div class="demo-search-container">
+        <div class="demo-search-wrap">
+          <div class="demo-ai-badge">
+            <i class="fas fa-brain"></i>
+            <span>Motor semántico activo</span>
+            <span class="demo-ai-dot"></span>
+          </div>
+          <div class="demo-search-bar">
+            <i class="fas fa-search demo-search-icon"></i>
+            <span class="demo-text">{{ currentDemoText }}</span><span class="demo-cursor">|</span>
+          </div>
+          <div class="demo-examples">
+            <span class="demo-ex-label">Prueba con:</span>
+            <span class="demo-ex-chip">"envíos de María"</span>
+            <span class="demo-ex-chip">"en tránsito esta semana"</span>
+            <span class="demo-ex-chip">"valor mayor a $200"</span>
+          </div>
         </div>
-        <div class="demo-search-bar">
-          <i class="fas fa-search demo-search-icon"></i>
-          <span class="demo-text">{{ currentDemoText }}</span><span class="demo-cursor">|</span>
-        </div>
-        <div class="demo-examples">
-          <span class="demo-ex-label">Prueba con:</span>
-          <span class="demo-ex-chip">"envíos de María"</span>
-          <span class="demo-ex-chip">"en tránsito esta semana"</span>
-          <span class="demo-ex-chip">"valor mayor a $200"</span>
-        </div>
-      </div>
 
-      <!-- Results -->
-      <div class="demo-results-wrap" [class.show]="showDemoResults">
-        <div class="demo-results-header">
-          <span class="demo-results-count">
-            <i class="fas fa-check-circle"></i>
-            {{ demoResults.length }} resultado{{ demoResults.length !== 1 ? 's' : '' }} encontrado{{ demoResults.length !== 1 ? 's' : '' }}
-          </span>
-          <span class="demo-results-time"><i class="fas fa-bolt"></i> 38ms</span>
-        </div>
-        <div class="demo-result-row"
-             *ngFor="let r of demoResults; let i = index"
-             [style.animation-delay]="(i * 0.09) + 's'">
-          <span class="dr-hawb">{{ r.hawb }}</span>
-          <span class="dr-comprador">{{ r.comprador }}</span>
-          <span class="dr-estado" [ngClass]="'dr-' + r.estadoClass">{{ r.estado }}</span>
-          <span class="dr-ciudad"><i class="fas fa-map-marker-alt"></i>{{ r.ciudad }}</span>
-          <span class="dr-valor">{{ r.valor }}</span>
+        <!-- Results — position absolute para no desplazar el contenido -->
+        <div class="demo-results-wrap" [class.show]="showDemoResults">
+          <div class="demo-results-header">
+            <span class="demo-results-count">
+              <i class="fas fa-check-circle"></i>
+              {{ demoResults.length }} resultado{{ demoResults.length !== 1 ? 's' : '' }} encontrado{{ demoResults.length !== 1 ? 's' : '' }}
+            </span>
+            <span class="demo-results-time"><i class="fas fa-bolt"></i> 38ms</span>
+          </div>
+          <div class="demo-result-row"
+               *ngFor="let r of demoResults; let i = index"
+               [style.animation-delay]="(i * 0.09) + 's'">
+            <span class="dr-hawb">{{ r.hawb }}</span>
+            <span class="dr-comprador">{{ r.comprador }}</span>
+            <span class="dr-estado" [ngClass]="'dr-' + r.estadoClass">{{ r.estado }}</span>
+            <span class="dr-ciudad"><i class="fas fa-map-marker-alt"></i>{{ r.ciudad }}</span>
+            <span class="dr-valor">{{ r.valor }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -379,56 +358,6 @@
         <p class="step-desc">{{ step.descripcion }}</p>
         <div class="step-arrow" *ngIf="!last">
           <i class="fas fa-arrow-right"></i>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       5. ROLES
-       ================================================================ -->
-  <section class="roles-section">
-    <div class="section-header animate-on-scroll">
-      <span class="section-eyebrow">Accesos</span>
-      <h2 class="section-title">Un sistema para cada rol</h2>
-      <p class="section-sub">Cada usuario accede exactamente a las funciones que necesita</p>
-    </div>
-
-    <div class="roles-grid">
-      <div class="role-card animate-on-scroll"
-           *ngFor="let rol of roles; let i = index"
-           [ngClass]="'role-' + rol.color"
-           [style.transition-delay]="(i * 0.1) + 's'">
-        <div class="role-icon-wrap">
-          <i [class]="rol.icon"></i>
-        </div>
-        <h3 class="role-title">{{ rol.titulo }}</h3>
-        <p class="role-desc">{{ rol.descripcion }}</p>
-        <ul class="role-accesos">
-          <li *ngFor="let a of rol.accesos">
-            <i class="fas fa-check"></i>
-            <span>{{ a }}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================================================================
-       6. TECH STACK
-       ================================================================ -->
-  <section class="tech-section animate-on-scroll">
-    <div class="tech-inner">
-      <p class="tech-label">Construido con tecnología de nivel empresarial</p>
-      <div class="tech-pills">
-        <div class="tech-pill" *ngFor="let t of techStack">
-          <i [class]="t.icon"></i>
-          <div class="tech-info">
-            <span class="tech-name">{{ t.nombre }}</span>
-            <span class="tech-detail">{{ t.detalle }}</span>
-          </div>
         </div>
       </div>
     </div>
