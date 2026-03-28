@@ -2,11 +2,14 @@ import { Component, OnDestroy, Inject, PLATFORM_ID, AfterViewInit, NgZone } from
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-interface Stat    { target: number; display: string; suffix: string; label: string; icon: string; }
-interface Feature { icon: string; titulo: string; descripcion: string; bullets: string[]; visual: string; }
-interface Step    { numero: string; icon: string; titulo: string; descripcion: string; }
-interface Rol     { icon: string; titulo: string; descripcion: string; color: string; accesos: string[]; }
-interface Tech    { icon: string; nombre: string; detalle: string; }
+interface Stat        { target: number; display: string; suffix: string; label: string; icon: string; }
+interface Feature     { icon: string; titulo: string; descripcion: string; bullets: string[]; visual: string; }
+interface Step        { numero: string; icon: string; titulo: string; descripcion: string; }
+interface Rol         { icon: string; titulo: string; descripcion: string; color: string; accesos: string[]; }
+interface Tech        { icon: string; nombre: string; detalle: string; }
+interface DemoQuery   { text: string; results: DemoResult[]; }
+interface DemoResult  { hawb: string; comprador: string; estado: string; estadoClass: string; ciudad: string; valor: string; }
+interface MockupNotif { hawb: string; msg: string; icon: string; }
 
 @Component({
   selector: 'app-informacion-general',
@@ -136,7 +139,49 @@ export class InformacionGeneralComponent implements AfterViewInit, OnDestroy {
     { icon: 'fas fa-lock',        nombre: 'JWT + Cookies',  detalle: 'Auth segura' }
   ];
 
+  // ── Demo search ────────────────────────────────────────────────────
+  demoQueries: DemoQuery[] = [
+    {
+      text: 'envíos pendientes de María',
+      results: [
+        { hawb: 'GH-001849', comprador: 'María González', estado: 'Pendiente',    estadoClass: 'pendiente', ciudad: 'Quito',     valor: '$243.80' },
+        { hawb: 'GH-001855', comprador: 'María Torres',   estado: 'Pendiente',    estadoClass: 'pendiente', ciudad: 'Guayaquil', valor: '$98.50'  },
+      ]
+    },
+    {
+      text: 'paquetes en tránsito esta semana',
+      results: [
+        { hawb: 'GH-001848', comprador: 'Carlos Ruiz',    estado: 'En tránsito',  estadoClass: 'transito',  ciudad: 'Cuenca',  valor: '$87.20'  },
+        { hawb: 'GH-001852', comprador: 'Pedro Alvarado', estado: 'En tránsito',  estadoClass: 'transito',  ciudad: 'Loja',    valor: '$312.40' },
+        { hawb: 'GH-001856', comprador: 'Diana Mora',     estado: 'En tránsito',  estadoClass: 'transito',  ciudad: 'Ambato',  valor: '$156.90' },
+      ]
+    },
+    {
+      text: 'entregados con valor mayor a $200',
+      results: [
+        { hawb: 'GH-001847', comprador: 'Ana Martínez',   estado: 'Entregado',    estadoClass: 'entregado', ciudad: 'Quito',     valor: '$243.80' },
+        { hawb: 'GH-001853', comprador: 'Luis Torres',    estado: 'Entregado',    estadoClass: 'entregado', ciudad: 'Guayaquil', valor: '$318.60' },
+      ]
+    }
+  ];
+
+  currentDemoText = '';
+  demoResults: DemoResult[] = [];
+  showDemoResults = false;
+
+  // ── Mockup notification ────────────────────────────────────────────
+  mockupNotifs: MockupNotif[] = [
+    { hawb: 'GH-001860', msg: 'Nuevo envío registrado', icon: 'fas fa-plus-circle'  },
+    { hawb: 'GH-001848', msg: 'Estado actualizado',     icon: 'fas fa-sync-alt'     },
+    { hawb: 'GH-001853', msg: 'Entregado exitosamente', icon: 'fas fa-check-circle' },
+  ];
+  currentMockupNotif: MockupNotif = this.mockupNotifs[0];
+  showMockupNotif = false;
+
   private observers: IntersectionObserver[] = [];
+  private typewriterActive = false;
+  private mockupInterval: any = null;
+  private notifIndex = 0;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -147,6 +192,8 @@ export class InformacionGeneralComponent implements AfterViewInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       this.setupScrollAnimations();
       this.setupCounters();
+      this.startMockupAnimations();
+      this.startSearchDemo();
     }
   }
 
@@ -189,7 +236,67 @@ export class InformacionGeneralComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  private startMockupAnimations(): void {
+    const show = () => {
+      this.zone.run(() => {
+        this.currentMockupNotif = this.mockupNotifs[this.notifIndex % this.mockupNotifs.length];
+        this.notifIndex++;
+        this.showMockupNotif = true;
+        setTimeout(() => this.zone.run(() => this.showMockupNotif = false), 2800);
+      });
+    };
+    setTimeout(show, 2000);
+    this.mockupInterval = setInterval(show, 6000);
+  }
+
+  private startSearchDemo(): void {
+    this.typewriterActive = true;
+    let queryIndex = 0;
+
+    const cycle = () => {
+      if (!this.typewriterActive) return;
+      const query = this.demoQueries[queryIndex];
+      this.zone.run(() => { this.currentDemoText = ''; this.showDemoResults = false; });
+      let charIndex = 0;
+
+      const typeChar = () => {
+        if (!this.typewriterActive) return;
+        if (charIndex < query.text.length) {
+          this.zone.run(() => this.currentDemoText += query.text[charIndex++]);
+          setTimeout(typeChar, 55);
+        } else {
+          setTimeout(() => {
+            if (!this.typewriterActive) return;
+            this.zone.run(() => { this.demoResults = query.results; this.showDemoResults = true; });
+            setTimeout(() => {
+              if (!this.typewriterActive) return;
+              this.zone.run(() => this.showDemoResults = false);
+              setTimeout(() => {
+                const eraseChar = () => {
+                  if (!this.typewriterActive) return;
+                  if (this.currentDemoText.length > 0) {
+                    this.zone.run(() => this.currentDemoText = this.currentDemoText.slice(0, -1));
+                    setTimeout(eraseChar, 30);
+                  } else {
+                    queryIndex = (queryIndex + 1) % this.demoQueries.length;
+                    setTimeout(cycle, 500);
+                  }
+                };
+                eraseChar();
+              }, 300);
+            }, 3200);
+          }, 500);
+        }
+      };
+      typeChar();
+    };
+
+    setTimeout(cycle, 1200);
+  }
+
   ngOnDestroy(): void {
     this.observers.forEach(o => o.disconnect());
+    this.typewriterActive = false;
+    if (this.mockupInterval) clearInterval(this.mockupInterval);
   }
 }
