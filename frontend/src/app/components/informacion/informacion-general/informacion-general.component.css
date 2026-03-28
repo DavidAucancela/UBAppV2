@@ -607,6 +607,7 @@
   background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
   padding: 6rem 1.5rem;
   position: relative;
+  z-index: 1;
   overflow: hidden;
 }
 
@@ -1461,6 +1462,8 @@
 .demo-section {
   background: #f8fafc;
   padding: 6rem 1.5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .demo-inner {
