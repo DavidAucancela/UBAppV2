@@ -1461,7 +1461,7 @@
    =================================================================== */
 .demo-section {
   background: #f8fafc;
-  padding: 6rem 1.5rem;
+  padding: 6rem 1.5rem 22rem;
   position: relative;
   z-index: 2;
 }
@@ -1714,7 +1714,7 @@
 
 /* Demo responsive */
 @media (max-width: 768px) {
-  .demo-section { padding: 4rem 1.25rem; }
+  .demo-section { padding: 4rem 1.25rem 20rem; }
   .demo-search-wrap { padding: 1.4rem 1.2rem 1.2rem; }
   .demo-results-wrap { left: 0; right: 0; }
   .demo-results-wrap.show { padding: 0.75rem 1.2rem 1.2rem; }
