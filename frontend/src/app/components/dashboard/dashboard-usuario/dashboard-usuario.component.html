@@ -1,174 +1,234 @@
 <div class="dashboard-container">
-  <!-- Loading y Error -->
+
+  <!-- Loading -->
   <div *ngIf="loading" class="loading-container">
-    <div class="spinner-wrapper">
+    <div class="spinner">
       <i class="fas fa-spinner fa-spin"></i>
-      <p class="loading-text">Cargando estadísticas...</p>
+      <span>Cargando tu panel...</span>
     </div>
   </div>
 
-  <div *ngIf="error" class="error-alert">
+  <!-- Error -->
+  <div *ngIf="error && !loading" class="alert-error">
     <i class="fas fa-exclamation-circle"></i>
     {{ error }}
   </div>
 
-  <!-- Dashboard Content -->
+  <!-- Contenido principal -->
   <div *ngIf="!loading && dashboard" class="dashboard-content">
-    <!-- Header -->
-    <header class="dashboard-header">
-      <div class="header-content">
-        <div>
-          <h1 class="dashboard-title">
-            <i class="fas fa-user-circle"></i>
-            Mi Panel
-          </h1>
-        </div>
-        <button class="btn-refresh" (click)="cargarDashboard()" title="Actualizar">
-          <i class="fas fa-sync-alt"></i>
-        </button>
+
+    <!-- ── Header ───────────────────────────────────────── -->
+    <header class="dash-header">
+      <div class="dash-header-left">
+        <p class="dash-greeting">Bienvenido,</p>
+        <h1 class="dash-name">{{ dashboard.usuario?.nombre || authService.getCurrentUser()?.nombre || 'Comprador' }}</h1>
+        <p class="dash-date">{{ fechaHoy }}</p>
       </div>
+      <button class="btn-refresh" (click)="cargarDashboard()" title="Actualizar datos">
+        <i class="fas fa-sync-alt"></i>
+      </button>
     </header>
 
-    <!-- KPIs Principales -->
-    <section class="kpis-section">
-      <div class="kpis-grid">
-        <div class="kpi-card kpi-primary">
-          <div class="kpi-icon">
-            <i class="fas fa-box"></i>
-          </div>
-          <div class="kpi-content">
-            <h3 class="kpi-label">Total Envíos</h3>
-            <p class="kpi-value">{{ dashboard.total_envios || 0 }}</p>
-          </div>
-        </div>
-        <div class="kpi-card kpi-warning">
-          <div class="kpi-icon">
-            <i class="fas fa-clock"></i>
-          </div>
-          <div class="kpi-content">
-            <h3 class="kpi-label">Pendientes</h3>
-            <p class="kpi-value">{{ dashboard.envios_pendientes || 0 }}</p>
-          </div>
-        </div>
-        <div class="kpi-card kpi-info">
-          <div class="kpi-icon">
-            <i class="fas fa-truck"></i>
-          </div>
-          <div class="kpi-content">
-            <h3 class="kpi-label">En Tránsito</h3>
-            <p class="kpi-value">{{ dashboard.envios_en_transito || 0 }}</p>
-          </div>
-        </div>
-        <div class="kpi-card kpi-success">
-          <div class="kpi-icon">
-            <i class="fas fa-check-circle"></i>
-          </div>
-          <div class="kpi-content">
-            <h3 class="kpi-label">Entregados</h3>
-            <p class="kpi-value">{{ dashboard.envios_entregados || 0 }}</p>
-          </div>
+    <!-- ── KPI chips ─────────────────────────────────────── -->
+    <div class="kpis-row">
+      <div class="kpi-chip kpi-primary">
+        <div class="kpi-chip-icon"><i class="fas fa-box"></i></div>
+        <div class="kpi-chip-body">
+          <span class="kpi-chip-value">{{ dashboard.total_envios }}</span>
+          <span class="kpi-chip-label">Total envíos</span>
         </div>
       </div>
-    </section>
-
-    <!-- Cupo Anual -->
-    <section class="cupo-section" *ngIf="authService.isComprador()">
-      <div class="card cupo-card">
-        <div class="cupo-header">
-          <div>
-            <h2 class="card-title">
-              <i class="fas fa-chart-line"></i>
-              Cupo Anual {{ anioActual }}
-            </h2>
-            <p class="card-subtitle">Consumo de tu cupo disponible</p>
-          </div>
+      <div class="kpi-chip kpi-warning">
+        <div class="kpi-chip-icon"><i class="fas fa-clock"></i></div>
+        <div class="kpi-chip-body">
+          <span class="kpi-chip-value">{{ dashboard.envios_pendientes }}</span>
+          <span class="kpi-chip-label">Pendientes</span>
         </div>
-        <div class="cupo-body">
-          <div class="cupo-progress-wrapper">
-            <div class="cupo-progress-bar">
-              <div 
-                class="cupo-progress-fill"
-                [class.cupo-low]="(dashboard.porcentaje_usado || 0) < 50"
-                [class.cupo-medium]="(dashboard.porcentaje_usado || 0) >= 50 && (dashboard.porcentaje_usado || 0) < 80"
-                [class.cupo-high]="(dashboard.porcentaje_usado || 0) >= 80 && (dashboard.porcentaje_usado || 0) < 90"
-                [class.cupo-critical]="(dashboard.porcentaje_usado || 0) >= 90"
-                [style.width.%]="dashboard.porcentaje_usado || 0">
+      </div>
+      <div class="kpi-chip kpi-info">
+        <div class="kpi-chip-icon"><i class="fas fa-truck"></i></div>
+        <div class="kpi-chip-body">
+          <span class="kpi-chip-value">{{ dashboard.envios_en_transito }}</span>
+          <span class="kpi-chip-label">En tránsito</span>
+        </div>
+      </div>
+      <div class="kpi-chip kpi-success">
+        <div class="kpi-chip-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="kpi-chip-body">
+          <span class="kpi-chip-value">{{ dashboard.envios_entregados }}</span>
+          <span class="kpi-chip-label">Entregados</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2 cards principales ───────────────────────────── -->
+    <div class="main-grid">
+
+      <!-- Card 1: Cupo + Gráfico -->
+      <div class="card card-data">
+
+        <!-- Cupo anual -->
+        <div class="cupo-block">
+          <div class="cupo-title-row">
+            <h2 class="block-title"><i class="fas fa-weight-hanging"></i> Cupo Anual {{ anioActual }}</h2>
+            <span class="cupo-badge" [style.background]="cupoColor + '22'" [style.color]="cupoColor">
+              {{ (dashboard.porcentaje_usado || 0) | number:'1.0-0' }}% usado
+            </span>
+          </div>
+
+          <div class="cupo-gauge-row">
+            <div class="gauge-wrap">
+              <div class="gauge-ring" [style.background]="cupoGaugeCss">
+                <div class="gauge-center">
+                  <span class="gauge-pct" [style.color]="cupoColor">{{ (dashboard.porcentaje_usado || 0) | number:'1.0-0' }}%</span>
+                  <span class="gauge-sub">utilizado</span>
+                </div>
               </div>
             </div>
-            <div class="cupo-percentage">
-              <span class="cupo-percentage-value">{{ (dashboard.porcentaje_usado || 0) | number:'1.0-0' }}%</span>
-              <span class="cupo-percentage-label">utilizado</span>
+            <div class="cupo-stats">
+              <div class="cupo-stat">
+                <i class="fas fa-weight-hanging" style="color:#3b82f6"></i>
+                <div>
+                  <span class="stat-val">{{ (dashboard.peso_usado || 0) | number:'1.2-2' }} kg</span>
+                  <span class="stat-lbl">Peso usado</span>
+                </div>
+              </div>
+              <div class="cupo-stat">
+                <i class="fas fa-battery-three-quarters" style="color:#10b981"></i>
+                <div>
+                  <span class="stat-val">{{ (dashboard.peso_disponible || 0) | number:'1.2-2' }} kg</span>
+                  <span class="stat-lbl">Disponible</span>
+                </div>
+              </div>
+              <div class="cupo-stat">
+                <i class="fas fa-database" style="color:#8b5cf6"></i>
+                <div>
+                  <span class="stat-val">{{ (dashboard.cupo_anual || 0) | number:'1.2-2' }} kg</span>
+                  <span class="stat-lbl">Cupo total</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="cupo-stats">
-            <div class="cupo-stat">
-              <span class="cupo-stat-label">Usado</span>
-              <span class="cupo-stat-value">{{ (dashboard.peso_usado || 0) | number:'1.2-2' }} kg</span>
-            </div>
-            <div class="cupo-stat">
-              <span class="cupo-stat-label">Disponible</span>
-              <span class="cupo-stat-value">{{ (dashboard.peso_disponible || 0) | number:'1.2-2' }} kg</span>
-            </div>
-            <div class="cupo-stat">
-              <span class="cupo-stat-label">Total</span>
-              <span class="cupo-stat-value">{{ (dashboard.cupo_anual || 0) | number:'1.2-2' }} kg</span>
+
+          <div class="cupo-bar-wrap">
+            <div class="cupo-bar-track">
+              <div class="cupo-bar-fill"
+                [style.width.%]="dashboard.porcentaje_usado || 0"
+                [style.background]="cupoColor">
+              </div>
             </div>
           </div>
+
           <div *ngIf="(dashboard.porcentaje_usado || 0) >= 80" class="cupo-alert">
             <i class="fas fa-exclamation-triangle"></i>
-            <span>Has utilizado el {{ (dashboard.porcentaje_usado || 0) | number:'1.0-0' }}% de tu cupo anual</span>
+            Has utilizado el {{ (dashboard.porcentaje_usado || 0) | number:'1.0-0' }}% de tu cupo — considera tus próximos envíos.
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Layout Principal: Gráfico y Envíos Recientes -->
-    <section class="main-content-section">
-      <!-- Gráfico de Estados -->
-      <div class="card chart-card">
-        <div class="card-header">
-          <h2 class="card-title">
-            <i class="fas fa-chart-pie"></i>
-            Distribución por Estado
-          </h2>
-        </div>
-        <div class="chart-body">
-          <canvas #estadosChart></canvas>
-        </div>
-      </div>
+        <!-- Divider -->
+        <div class="card-divider"></div>
 
-      <!-- Envíos Recientes -->
-      <div class="card envios-recientes-card">
-        <div class="card-header">
-          <h2 class="card-title">
-            <i class="fas fa-history"></i>
-            Envíos Recientes
-          </h2>
+        <!-- Gráfico doughnut -->
+        <div class="chart-block">
+          <h2 class="block-title"><i class="fas fa-chart-pie"></i> Estado de mis envíos</h2>
+          <div class="chart-area">
+            <div class="chart-canvas-wrap">
+              <canvas #estadosChart></canvas>
+            </div>
+            <!-- Leyenda personalizada -->
+            <div class="chart-legend">
+              <div class="legend-item">
+                <span class="legend-dot" style="background:#f59e0b"></span>
+                <span class="legend-label">Pendientes</span>
+                <span class="legend-val">{{ dashboard.envios_pendientes }}</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot" style="background:#3b82f6"></span>
+                <span class="legend-label">En tránsito</span>
+                <span class="legend-val">{{ dashboard.envios_en_transito }}</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot" style="background:#10b981"></span>
+                <span class="legend-label">Entregados</span>
+                <span class="legend-val">{{ dashboard.envios_entregados }}</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot" style="background:#94a3b8"></span>
+                <span class="legend-label">Cancelados</span>
+                <span class="legend-val">{{ dashboard.envios_cancelados }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /Card 1 -->
+
+      <!-- Card 2: Envíos Recientes -->
+      <div class="card card-envios">
+        <div class="card-head">
+          <h2 class="block-title"><i class="fas fa-history"></i> Envíos recientes</h2>
           <a routerLink="/mis-envios" class="view-all-link">
-            Ver todos
-            <i class="fas fa-arrow-right"></i>
+            Ver todos <i class="fas fa-arrow-right"></i>
           </a>
         </div>
-        <div class="envios-list">
-          <div 
-            *ngFor="let envio of enviosRecientes.slice(0, 5)"
-            class="envio-item"
-            [routerLink]="['/mis-envios']">
-            <div class="envio-icon" [ngClass]="'status-' + obtenerClaseEstado(envio.estado).split(' ')[1]">
+
+        <div class="activity-list">
+          <div
+            *ngFor="let envio of enviosRecientes.slice(0, 7)"
+            class="activity-item"
+            (click)="abrirDetalle(envio)">
+            <div class="activity-icon" [ngClass]="'status-' + obtenerClaseEstado(envio.estado)">
               <i class="fas fa-truck"></i>
             </div>
-            <div class="envio-content">
-              <span class="envio-hawb">{{ envio.hawb }}</span>
-              <span class="envio-meta">{{ obtenerEstadoEnvio(envio.estado) }}</span>
+            <div class="activity-content">
+              <span class="activity-hawb">{{ envio.hawb }}</span>
+              <span class="activity-meta">
+                {{ obtenerEstadoEnvio(envio.estado) }}
+                <ng-container *ngIf="envio.fecha_emision"> · {{ formatearFecha(envio.fecha_emision) }}</ng-container>
+              </span>
             </div>
-            <i class="fas fa-chevron-right envio-arrow"></i>
+            <div class="activity-right">
+              <span *ngIf="envio.peso_total" class="activity-peso">{{ envio.peso_total | number:'1.1-1' }} kg</span>
+              <i class="fas fa-chevron-right activity-arrow"></i>
+            </div>
           </div>
-          <div *ngIf="!enviosRecientes || enviosRecientes.length === 0" class="envios-empty">
+
+          <div *ngIf="!enviosRecientes?.length" class="activity-empty">
             <i class="fas fa-inbox"></i>
-            <span>No hay envíos recientes</span>
+            <span>Aún no tienes envíos registrados</span>
           </div>
         </div>
+      </div><!-- /Card 2 -->
+
+    </div><!-- /main-grid -->
+
+  </div><!-- /dashboard-content -->
+
+  <!-- ── Modal detalle envío ───────────────────────────── -->
+  <div class="modal-overlay" *ngIf="envioSeleccionado" (click)="cerrarDetalle()">
+    <div class="modal-detail" (click)="$event.stopPropagation()">
+      <div class="modal-detail-header">
+        <h3><i class="fas fa-truck"></i> {{ envioSeleccionado.hawb }}</h3>
+        <button class="modal-close" (click)="cerrarDetalle()"><i class="fas fa-times"></i></button>
       </div>
-    </section>
+      <div class="modal-detail-body">
+        <div class="detail-grid">
+          <div class="detail-row"><span class="detail-label">Estado</span><span>{{ obtenerEstadoEnvio(envioSeleccionado.estado) }}</span></div>
+          <div class="detail-row"><span class="detail-label">Peso total</span><span>{{ envioSeleccionado.peso_total | number:'1.2-2' }} kg</span></div>
+          <div class="detail-row"><span class="detail-label">Cantidad</span><span>{{ envioSeleccionado.cantidad_total }}</span></div>
+          <div class="detail-row"><span class="detail-label">Valor total</span><span>{{ envioSeleccionado.valor_total | currency:'USD':'symbol':'1.2-2' }}</span></div>
+          <div class="detail-row"><span class="detail-label">Costo servicio</span><span>{{ envioSeleccionado.costo_servicio | currency:'USD':'symbol':'1.2-2' }}</span></div>
+          <div class="detail-row"><span class="detail-label">Fecha emisión</span><span>{{ formatearFecha(envioSeleccionado.fecha_emision) }}</span></div>
+          <div class="detail-row" *ngIf="envioSeleccionado.observaciones">
+            <span class="detail-label">Observaciones</span>
+            <span>{{ envioSeleccionado.observaciones }}</span>
+          </div>
+        </div>
+        <a routerLink="/mis-envios" class="btn-ver-envio" (click)="cerrarDetalle()">
+          <i class="fas fa-external-link-alt"></i> Ver en mis envíos
+        </a>
+      </div>
+    </div>
   </div>
+
 </div>
