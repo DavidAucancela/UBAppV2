@@ -14,7 +14,7 @@
 /* ===== ENCABEZADO MEJORADO ===== */
 .encabezado {
   text-align: center;
-  padding-top: calc(var(--navbar-height) + var(--space-8));
+  padding-top: var(--space-8);
 }
 
 .titulo-principal {

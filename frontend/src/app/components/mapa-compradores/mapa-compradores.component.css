@@ -11,7 +11,7 @@
   margin-bottom: 2rem;
   text-align: center;
   padding: 2rem 0;
-  padding-top: calc(var(--navbar-height) + var(--space-8));
+  padding-top: var(--space-8);
 }
 
 .titulo-principal {

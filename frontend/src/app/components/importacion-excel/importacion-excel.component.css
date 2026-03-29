@@ -2,7 +2,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
-  padding-top: calc(var(--navbar-height) + var(--space-8));
+  padding-top: var(--space-8);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
