@@ -22,6 +22,8 @@ export class RegisterComponent implements OnInit {
   loadingCiudades = false;
   successMessage = '';
   errorMessage = '';
+  showPassword = false;
+  showPasswordConfirm = false;
   readonly ROLES = Roles;
   readonly roleLabels = ROLES_LABELS;
   readonly availableRoles = [Roles.COMPRADOR];

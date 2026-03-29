@@ -2,7 +2,7 @@
 
 .busqueda-unificada-container {
   min-height: 100vh;
-  background: var(--color-primary-gradient);
+  background: var(--color-bg);
   padding: 2rem 0;
 }
 
@@ -17,16 +17,16 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-surface-raised);
   padding: 0.5rem;
   border-radius: 20px;
-  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
 }
 
 .tab-modo {
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  color: white;
+  border: 2px solid var(--color-border);
+  color: var(--color-text-secondary);
   padding: 1.5rem 2rem;
   border-radius: 16px;
   cursor: pointer;
@@ -54,17 +54,25 @@
 }
 
 .tab-modo:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-surface);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .tab-modo.activo {
-  background: var(--color-surface);
-  color: var(--color-primary);
-  border-color: white;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-  transform: translateY(-10px);
+  background: var(--color-primary-gradient);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.35);
+  transform: translateY(-5px);
+}
+
+.tab-modo.activo i,
+.tab-modo.activo span,
+.tab-modo.activo small {
+  color: white;
 }
 
 .tab-modo.activo i {
@@ -80,7 +88,7 @@
 .indicador-modo {
   position: relative;
   height: 4px;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-border);
   border-radius: 10px;
   margin-top: 1rem;
   overflow: hidden;
@@ -92,7 +100,7 @@
   left: 0;
   width: 50%;
   height: 100%;
-  background: var(--color-surface);
+  background: var(--color-primary-gradient);
   border-radius: 10px;
   transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
@@ -109,13 +117,14 @@
 }
 
 .info-modo {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   padding: 1.5rem 2rem;
   border-radius: 16px;
   display: flex;
   align-items: center;
   gap: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
   animation: slideIn 0.5s ease-out;
 }
 
@@ -179,13 +188,14 @@
 }
 
 .comparacion-modos {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 20px;
   padding: 2.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .columna-comparacion h4 {
@@ -207,7 +217,7 @@
   padding: 0.75rem 0;
   color: var(--color-text);
   font-size: 1.05rem;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .columna-comparacion li:last-child {

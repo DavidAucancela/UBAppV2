@@ -10,8 +10,11 @@ from django.db import migrations
 
 def renombrar_tablas(apps, schema_editor):
     """Renombra las tablas de Django a los nombres personalizados"""
+    if schema_editor.connection.vendor != 'postgresql':
+        return
+
     db_alias = schema_editor.connection.alias
-    
+
     with schema_editor.connection.cursor() as cursor:
         # Renombrar tablas si existen con sus nombres originales
         renombrados = [
@@ -59,8 +62,11 @@ def renombrar_tablas(apps, schema_editor):
 
 def revertir_renombrado(apps, schema_editor):
     """Revierte el renombrado de las tablas"""
+    if schema_editor.connection.vendor != 'postgresql':
+        return
+
     db_alias = schema_editor.connection.alias
-    
+
     with schema_editor.connection.cursor() as cursor:
         # Revertir renombrados
         renombrados = [

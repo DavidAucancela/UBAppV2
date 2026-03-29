@@ -86,11 +86,13 @@
   font-size: 0.75rem;
   opacity: 0.8;
   margin: 0 0 0.3rem;
+  color: #ffffff;
 }
 
 .brand-card h1 {
   font-size: clamp(1.4rem, 2.2vw, 2.3rem);
   margin: 0;
+  color: #ffffff;
 }
 
 .subtitle {

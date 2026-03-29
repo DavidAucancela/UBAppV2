@@ -3,6 +3,95 @@
 from django.db import migrations
 
 
+def renombrar_tabla(apps, schema_editor):
+    """Renombra usuarios_usuario → usuarios si aplica."""
+    vendor = schema_editor.connection.vendor
+    with schema_editor.connection.cursor() as cursor:
+        if vendor == 'postgresql':
+            cursor.execute("""
+                SELECT EXISTS (
+                    SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios_usuario'
+                )
+            """)
+            existe_vieja = cursor.fetchone()[0]
+            cursor.execute("""
+                SELECT EXISTS (
+                    SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios'
+                )
+            """)
+            existe_nueva = cursor.fetchone()[0]
+        elif vendor == 'sqlite':
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='usuarios_usuario'")
+            existe_vieja = cursor.fetchone() is not None
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='usuarios'")
+            existe_nueva = cursor.fetchone() is not None
+
+    if existe_vieja and not existe_nueva:
+        schema_editor.execute("ALTER TABLE usuarios_usuario RENAME TO usuarios;")
+        # Renombrar tablas M2M heredadas de AbstractUser
+        with schema_editor.connection.cursor() as cursor:
+            if vendor == 'postgresql':
+                cursor.execute("SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios_usuario_groups')")
+                tiene_groups = cursor.fetchone()[0]
+                cursor.execute("SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios_usuario_user_permissions')")
+                tiene_perms = cursor.fetchone()[0]
+            else:
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='usuarios_usuario_groups'")
+                tiene_groups = cursor.fetchone() is not None
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='usuarios_usuario_user_permissions'")
+                tiene_perms = cursor.fetchone() is not None
+        if tiene_groups:
+            schema_editor.execute("ALTER TABLE usuarios_usuario_groups RENAME TO usuarios_groups;")
+        if tiene_perms:
+            schema_editor.execute("ALTER TABLE usuarios_usuario_user_permissions RENAME TO usuarios_user_permissions;")
+
+
+def revertir_renombrar_tabla(apps, schema_editor):
+    vendor = schema_editor.connection.vendor
+    with schema_editor.connection.cursor() as cursor:
+        if vendor == 'postgresql':
+            cursor.execute("SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios')")
+            existe_nueva = cursor.fetchone()[0]
+            cursor.execute("SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios_usuario')")
+            existe_vieja = cursor.fetchone()[0]
+        elif vendor == 'sqlite':
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='usuarios'")
+            existe_nueva = cursor.fetchone() is not None
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='usuarios_usuario'")
+            existe_vieja = cursor.fetchone() is not None
+
+    if existe_nueva and not existe_vieja:
+        schema_editor.execute("ALTER TABLE usuarios RENAME TO usuarios_usuario;")
+
+
+def eliminar_columnas(apps, schema_editor):
+    """Elimina columnas heredadas de AbstractUser si existen en la tabla usuarios."""
+    columnas_a_eliminar = ['email', 'first_name', 'last_name', 'latitud', 'longitud']
+    vendor = schema_editor.connection.vendor
+
+    with schema_editor.connection.cursor() as cursor:
+        if vendor == 'postgresql':
+            cursor.execute("""
+                SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios')
+            """)
+            if not cursor.fetchone()[0]:
+                return
+            cursor.execute("""
+                SELECT column_name FROM information_schema.columns WHERE table_name = 'usuarios'
+            """)
+            columnas_existentes = {row[0] for row in cursor.fetchall()}
+        elif vendor == 'sqlite':
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='usuarios'")
+            if cursor.fetchone() is None:
+                return
+            cursor.execute("PRAGMA table_info(usuarios)")
+            columnas_existentes = {row[1] for row in cursor.fetchall()}
+
+    for col in columnas_a_eliminar:
+        if col in columnas_existentes:
+            schema_editor.execute(f"ALTER TABLE usuarios DROP COLUMN {col};")
+
+
 class Migration(migrations.Migration):
     """
     Migración para reflejar cambios ya aplicados manualmente en la BD:
@@ -14,115 +103,18 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        # Renombrar tabla si existe con nombre por defecto
-        migrations.RunSQL(
-            sql="""
-                DO $$
-                BEGIN
-                    -- Si existe usuarios_usuario (nombre por defecto) pero no usuarios, renombrar
-                    IF EXISTS (
-                        SELECT 1 FROM information_schema.tables 
-                        WHERE table_name = 'usuarios_usuario'
-                    ) AND NOT EXISTS (
-                        SELECT 1 FROM information_schema.tables 
-                        WHERE table_name = 'usuarios'
-                    ) THEN
-                        ALTER TABLE usuarios_usuario RENAME TO usuarios;
-                    END IF;
-                END $$;
-            """,
-            reverse_sql="""
-                DO $$
-                BEGIN
-                    IF EXISTS (
-                        SELECT 1 FROM information_schema.tables 
-                        WHERE table_name = 'usuarios'
-                    ) AND NOT EXISTS (
-                        SELECT 1 FROM information_schema.tables 
-                        WHERE table_name = 'usuarios_usuario'
-                    ) THEN
-                        ALTER TABLE usuarios RENAME TO usuarios_usuario;
-                    END IF;
-                END $$;
-            """
-        ),
-        # Eliminar columnas si existen
-        migrations.RunSQL(
-            sql="""
-                DO $$
-                BEGIN
-                    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios') THEN
-                        -- Eliminar columnas solo si existen
-                        IF EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios' AND column_name = 'email'
-                        ) THEN
-                            ALTER TABLE usuarios DROP COLUMN email;
-                        END IF;
-                        
-                        IF EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios' AND column_name = 'first_name'
-                        ) THEN
-                            ALTER TABLE usuarios DROP COLUMN first_name;
-                        END IF;
-                        
-                        IF EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios' AND column_name = 'last_name'
-                        ) THEN
-                            ALTER TABLE usuarios DROP COLUMN last_name;
-                        END IF;
-                        
-                        IF EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios' AND column_name = 'latitud'
-                        ) THEN
-                            ALTER TABLE usuarios DROP COLUMN latitud;
-                        END IF;
-                        
-                        IF EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios' AND column_name = 'longitud'
-                        ) THEN
-                            ALTER TABLE usuarios DROP COLUMN longitud;
-                        END IF;
-                    END IF;
-                END $$;
-            """,
-            reverse_sql="-- No se puede revertir automáticamente"
-        ),
+        migrations.RunPython(renombrar_tabla, revertir_renombrar_tabla),
+        migrations.RunPython(eliminar_columnas, migrations.RunPython.noop),
         migrations.SeparateDatabaseAndState(
             database_operations=[],
             state_operations=[
-                migrations.RemoveField(
-                    model_name='usuario',
-                    name='email',
-                ),
-                migrations.RemoveField(
-                    model_name='usuario',
-                    name='first_name',
-                ),
-                migrations.RemoveField(
-                    model_name='usuario',
-                    name='is_active',
-                ),
-                migrations.RemoveField(
-                    model_name='usuario',
-                    name='last_name',
-                ),
-                migrations.RemoveField(
-                    model_name='usuario',
-                    name='latitud',
-                ),
-                migrations.RemoveField(
-                    model_name='usuario',
-                    name='longitud',
-                ),
-                migrations.AlterModelTable(
-                    name='usuario',
-                    table='usuarios',
-                ),
+                migrations.RemoveField(model_name='usuario', name='email'),
+                migrations.RemoveField(model_name='usuario', name='first_name'),
+                migrations.RemoveField(model_name='usuario', name='is_active'),
+                migrations.RemoveField(model_name='usuario', name='last_name'),
+                migrations.RemoveField(model_name='usuario', name='latitud'),
+                migrations.RemoveField(model_name='usuario', name='longitud'),
+                migrations.AlterModelTable(name='usuario', table='usuarios'),
             ]
         ),
     ]

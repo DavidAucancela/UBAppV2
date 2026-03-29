@@ -4,7 +4,7 @@
   padding: 2rem;
   max-width: 1600px;
   margin: 0 auto;
-  background: var(--color-primary-gradient);
+  background: var(--color-bg);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,20 +19,18 @@
 
 .titulo-principal {
   font-size: 2.5rem;
-  color: #ffffff;
+  color: var(--color-text);
   font-weight: 700;
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .titulo-principal i {
-  color: #ffffff;
+  color: var(--color-primary);
   animation: pulse 2s ease-in-out infinite;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 @keyframes pulse {
@@ -41,10 +39,9 @@
 }
 
 .subtitulo {
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--color-text-muted);
   font-size: 1.1rem;
   margin: 0;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Layout principal mejorado */
@@ -78,7 +75,7 @@
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 3px solid #e0e0e0;
+  border-bottom: 3px solid var(--color-border);
 }
 
 .titulo-historial {
@@ -128,8 +125,8 @@
 }
 
 .card-historial {
-  background: linear-gradient(135deg, var(--color-surface-raised) 0%, #ffffff 100%);
-  border: 2px solid #e0e0e0;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
   border-radius: 12px;
   padding: 1.25rem;
   cursor: pointer;
@@ -235,7 +232,7 @@
 .footer-historial-mejorado {
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 2px solid #e0e0e0;
+  border-top: 2px solid var(--color-border);
   text-align: center;
 }
 
@@ -255,10 +252,10 @@
 
 /* Mantener compatibilidad con estilos antiguos */
 .seccion-historial-lateral {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--color-surface);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
   margin-bottom: 1rem;
 }
 
@@ -277,11 +274,11 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  color: white;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  color: var(--color-text);
 }
 
 .titulo-principal i {
+  color: var(--color-primary);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -292,7 +289,7 @@
 
 .subtitulo {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -303,21 +300,22 @@
 }
 
 .btn-cambiar-modo {
-  background: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  color: white;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  color: var(--color-text);
   padding: 0.75rem 1.5rem;
   border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
 }
 
 .btn-cambiar-modo:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
 /* ===== MENSAJES ===== */
@@ -391,7 +389,7 @@
   width: 100%;
   padding: 1.5rem 4rem 1.5rem 4.5rem;
   font-size: 1.1rem;
-  border: 3px solid #e0e0e0;
+  border: 3px solid var(--color-border);
   border-radius: 20px;
   resize: vertical;
   min-height: 80px;
@@ -494,7 +492,7 @@
   border-radius: 16px;
   padding: 1.5rem;
   margin-top: 1rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--color-border);
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -559,7 +557,7 @@
   border-radius: 16px;
   padding: 1.5rem;
   margin-top: 1rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--color-border);
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -645,7 +643,7 @@
 .seccion-selector-modelo {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 2px solid #e0e0e0;
+  border-top: 2px solid var(--color-border);
 }
 
 /* ===== INDICADOR DE ANÁLISIS ===== */
@@ -683,7 +681,7 @@
 .barra-progreso {
   width: 100%;
   height: 8px;
-  background: #e0e0e0;
+  background: var(--color-border);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -798,7 +796,7 @@
 }
 
 .btn-vista {
-  background: #e0e0e0;
+  background: var(--color-border);
   border: none;
   width: 40px;
   height: 40px;
@@ -901,7 +899,7 @@
 .barra-similitud {
   flex: 1;
   height: 8px;
-  background: #e0e0e0;
+  background: var(--color-border);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -941,7 +939,7 @@
 .barra-relevancia {
   width: 100%;
   height: 8px;
-  background: #e0e0e0;
+  background: var(--color-border);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
@@ -1094,7 +1092,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border);
   transition: all 0.3s ease;
 }
 
@@ -1165,8 +1163,7 @@
 }
 
 .tabla-envios thead {
-  background: var(--color-primary-gradient);
-  color: white;
+  background: var(--color-surface-raised);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -1202,11 +1199,11 @@
 }
 
 .tabla-envios tbody tr:nth-child(even) {
-  background-color: #fafbfc;
+  background-color: var(--color-surface-raised);
 }
 
 .tabla-envios tbody tr:hover {
-  background-color: #f0f8ff !important;
+  background-color: var(--color-surface-raised) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -1260,14 +1257,14 @@
 
 .celda-valor {
   font-weight: 700;
-  color: #27ae60;
+  color: var(--color-success);
   white-space: nowrap;
   font-size: 1rem;
 }
 
 .celda-costo {
   font-weight: 700;
-  color: #e67e22;
+  color: var(--color-warning);
   white-space: nowrap;
   font-size: 1rem;
 }
@@ -1287,7 +1284,7 @@
 .barra-relevancia {
   width: 100%;
   height: 8px;
-  background: #e0e0e0;
+  background: var(--color-border);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -1439,7 +1436,7 @@
 
 .tabla-compacta td {
   padding: 1rem;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .tabla-compacta tbody tr:hover {
@@ -1587,6 +1584,84 @@
   .grid-detalle {
     grid-template-columns: 1fr;
   }
+
+  /* ─── Card table transformation ─────────────────────── */
+  .tabla-responsive { overflow-x: visible; }
+
+  .tabla-envios thead { display: none; }
+
+  .tabla-envios tbody tr {
+    display: block;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 14px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  .tabla-envios tbody tr:has(.estado-pendiente)   { border-left-color: #3b82f6; }
+  .tabla-envios tbody tr:has(.estado-en-transito) { border-left-color: #f59e0b; }
+  .tabla-envios tbody tr:has(.estado-entregado)   { border-left-color: #10b981; }
+  .tabla-envios tbody tr:has(.estado-cancelado)   { border-left-color: #ef4444; }
+
+  .tabla-envios td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.9rem;
+  }
+
+  .tabla-envios td:last-child { border-bottom: none; }
+
+  .tabla-envios td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+    min-width: 90px;
+  }
+
+  .tabla-envios td.celda-hawb {
+    background: var(--color-surface-raised);
+    border-bottom: 2px solid var(--color-border);
+    font-weight: 700;
+  }
+
+  .tabla-envios td.celda-acciones {
+    justify-content: center;
+    background: var(--color-surface-raised);
+  }
+
+  .tabla-envios td.celda-acciones::before { display: none; }
+
+  /* Relevance bar spans full width on mobile */
+  .tabla-envios td.celda-relevancia {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .tabla-envios td.celda-relevancia::before {
+    min-width: unset;
+  }
+
+  .tabla-envios td.celda-relevancia .indicador-relevancia {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .tabla-envios td.celda-relevancia .barra-relevancia {
+    flex: 1;
+  }
 }
 
 /* ===== ESTILOS PARA SELECTOR DE MODELO DE EMBEDDING ===== */
@@ -1619,7 +1694,7 @@
 
 .card-modelo-embedding {
   padding: 1.25rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--color-border);
   border-radius: 10px;
   background: var(--color-surface);
   cursor: pointer;
@@ -1965,7 +2040,7 @@
 
 .select-elementos {
   padding: 0.5rem 0.75rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--color-border);
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 500;

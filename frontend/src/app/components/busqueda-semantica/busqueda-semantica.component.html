@@ -194,10 +194,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let resultado of resultadosPaginados" class="fila-envio">
-            <td *ngIf="configuracion.mostrarPuntuacion" class="celda-relevancia">
+            <td *ngIf="configuracion.mostrarPuntuacion" data-label="Relevancia" class="celda-relevancia">
               <div class="indicador-relevancia">
                 <div class="barra-relevancia">
-                  <div 
+                  <div
                     class="relleno-relevancia"
                     [style.width.%]="resultado.puntuacionSimilitud * 100"
                     [style.background-color]="obtenerColorSimilitud(resultado.puntuacionSimilitud)"
@@ -208,10 +208,10 @@
                 </span>
               </div>
             </td>
-            <td class="celda-hawb">
+            <td data-label="N° Guía" class="celda-hawb">
               <strong>{{ resultado.envio.hawb }}</strong>
             </td>
-            <td>
+            <td data-label="Destinatario">
               <div class="info-destinatario">
                 <div class="nombre">{{ resultado.envio.comprador_info?.nombre || 'N/A' }}</div>
                 <div class="cedula" *ngIf="resultado.envio.comprador_info?.cedula">
@@ -219,25 +219,25 @@
                 </div>
               </div>
             </td>
-            <td>
+            <td data-label="Ciudad">
               <i class="fas fa-map-marker-alt"></i>
               {{ resultado.envio.comprador_info?.ciudad || 'N/A' }}
             </td>
-            <td>
+            <td data-label="Estado">
               <span class="badge-estado" [ngClass]="obtenerClaseEstado(resultado.envio.estado)">
                 {{ obtenerEtiquetaEstado(resultado.envio.estado) }}
               </span>
             </td>
-            <td class="celda-fecha">
+            <td data-label="Fecha" class="celda-fecha">
               {{ formatearFecha(resultado.envio.fecha_emision) }}
             </td>
-            <td class="text-right celda-peso">
+            <td data-label="Peso" class="text-right celda-peso">
               {{ formatearPeso(resultado.envio.peso_total) }}
             </td>
-            <td class="text-right celda-valor">
+            <td data-label="Valor" class="text-right celda-valor">
               {{ formatearMoneda(resultado.envio.valor_total) }}
             </td>
-            <td class="text-right celda-costo">
+            <td data-label="Costo" class="text-right celda-costo">
               {{ formatearMoneda(resultado.envio.costo_servicio) }}
             </td>
             <td class="text-center celda-acciones">

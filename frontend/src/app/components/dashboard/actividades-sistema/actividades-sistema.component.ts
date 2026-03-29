@@ -39,6 +39,13 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
   resultadosPruebaCompleta: any = null;
   iteracionesPrueba = 24;
 
+  // Tests unitarios Django
+  ejecutandoTests = false;
+  resultadosTests: any = null;
+  testsDisponibles: any = null;
+  appSeleccionadaTests: string = '';
+  testsParsed: { nombre: string; clase: string; estado: string }[] = [];
+
   // Datos de métricas semánticas
   metricasSemanticas: any[] = [];
   estadisticasSemanticas: any = {};
@@ -555,7 +562,7 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
 
   // ==================== ACCIONES ====================
 
-  cambiarSeccion(seccion: 'semanticas' | 'rendimiento'): void {
+  cambiarSeccion(seccion: 'semanticas' | 'rendimiento' | 'pruebas'): void {
     this.seccionActiva = seccion;
     // Dar tiempo a que el DOM de la pestaña se renderice antes de crear los gráficos
     setTimeout(() => {
@@ -734,6 +741,57 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
     return Math.min(100, (ms / 3000) * 100);
   }
   
+  // ==================== TESTS UNITARIOS DJANGO ====================
+
+  ejecutarTestsDjango(): void {
+    if (this.ejecutandoTests) return;
+    this.ejecutandoTests = true;
+    this.resultadosTests = null;
+    this.testsParsed = [];
+
+    const app = this.appSeleccionadaTests || undefined;
+    this.metricasService.ejecutarTests(app).subscribe({
+      next: (resultado) => {
+        this.resultadosTests = resultado;
+        this.testsParsed = this.parsearSalidaTests(resultado.salida || '');
+        this.ejecutandoTests = false;
+      },
+      error: (error) => {
+        this.resultadosTests = {
+          exitoso: false,
+          total_fallos: -1,
+          mensaje: error.error?.error || 'Error de conexión',
+          salida: '',
+          fecha_ejecucion: new Date().toISOString()
+        };
+        this.ejecutandoTests = false;
+      }
+    });
+  }
+
+  private parsearSalidaTests(salida: string): { nombre: string; clase: string; estado: string }[] {
+    const resultados: { nombre: string; clase: string; estado: string }[] = [];
+    // Matches: "test_nombre (module.Clase) ... ok/FAIL/ERROR/skip"
+    const regex = /^(\S+)\s+\(([^)]+)\)\s+\.\.\.\s+(\S+.*?)$/gm;
+    let match;
+    while ((match = regex.exec(salida)) !== null) {
+      resultados.push({
+        nombre: match[1],
+        clase: match[2].split('.').pop() || match[2],
+        estado: match[3].trim().toLowerCase()
+      });
+    }
+    return resultados;
+  }
+
+  get resumenTests(): { total: number; ok: number; fail: number; error: number } {
+    const total = this.testsParsed.length;
+    const ok = this.testsParsed.filter(t => t.estado === 'ok').length;
+    const fail = this.testsParsed.filter(t => t.estado === 'fail').length;
+    const error = this.testsParsed.filter(t => t.estado === 'error').length;
+    return { total, ok, fail, error };
+  }
+
   obtenerProcesosOrdenados(resultadosJson: any): any[] {
     if (!resultadosJson) return [];
     

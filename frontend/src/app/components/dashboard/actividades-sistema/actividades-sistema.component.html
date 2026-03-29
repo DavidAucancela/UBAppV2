@@ -28,12 +28,19 @@
         <i class="fas fa-brain"></i>
         Métricas semánticas del sistema
       </button>
-      <button 
-        class="tab-button" 
+      <button
+        class="tab-button"
         [class.active]="seccionActiva === 'rendimiento'"
         (click)="cambiarSeccion('rendimiento')">
         <i class="fas fa-tachometer-alt"></i>
         Métricas de rendimiento del sistema
+      </button>
+      <button
+        class="tab-button"
+        [class.active]="seccionActiva === 'pruebas'"
+        (click)="cambiarSeccion('pruebas')">
+        <i class="fas fa-vial"></i>
+        Tests
       </button>
     </div>
 
@@ -846,6 +853,104 @@
             </button>
           </div>
         </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== SECCIÓN: TESTS UNITARIOS ==================== -->
+    <div class="seccion-content" *ngIf="seccionActiva === 'pruebas'">
+
+      <div class="section-card">
+        <div class="section-header">
+          <h3><i class="fas fa-vial"></i> Tests unitarios del sistema</h3>
+          <p class="section-description">Ejecuta los tests de Django y visualiza el resultado por módulo.</p>
+        </div>
+
+        <!-- Controles de ejecución -->
+        <div class="tests-controles">
+          <div class="filtro-item">
+            <label>Módulo (opcional):</label>
+            <select [(ngModel)]="appSeleccionadaTests" [ngModelOptions]="{standalone: true}">
+              <option value="">Todos los módulos</option>
+              <option value="archivos">archivos — Envíos, Productos y Tarifas</option>
+              <option value="usuarios">usuarios — Usuarios y Autenticación</option>
+              <option value="notificaciones">notificaciones — Notificaciones</option>
+            </select>
+          </div>
+          <button
+            class="btn btn-primary"
+            (click)="ejecutarTestsDjango()"
+            [disabled]="ejecutandoTests">
+            <i class="fas" [class.fa-play]="!ejecutandoTests" [class.fa-spinner]="ejecutandoTests" [class.fa-spin]="ejecutandoTests"></i>
+            {{ ejecutandoTests ? 'Ejecutando...' : 'Ejecutar tests' }}
+          </button>
+        </div>
+
+        <!-- Aviso mientras corre -->
+        <div class="tests-running-info" *ngIf="ejecutandoTests">
+          <i class="fas fa-info-circle"></i>
+          Los tests pueden tardar entre 5 y 30 segundos dependiendo del módulo seleccionado.
+        </div>
+
+        <!-- Resultados -->
+        <div class="tests-resultados" *ngIf="resultadosTests && !ejecutandoTests">
+
+          <!-- Resumen general -->
+          <div class="tests-resumen" [class.exitoso]="resultadosTests.exitoso" [class.fallido]="!resultadosTests.exitoso">
+            <div class="resumen-icono">
+              <i class="fas" [class.fa-check-circle]="resultadosTests.exitoso" [class.fa-times-circle]="!resultadosTests.exitoso"></i>
+            </div>
+            <div class="resumen-datos">
+              <span class="resumen-estado">{{ resultadosTests.exitoso ? 'Todos los tests pasaron' : 'Hay tests fallidos' }}</span>
+              <span class="resumen-fecha">{{ formatearFecha(resultadosTests.fecha_ejecucion) }}</span>
+            </div>
+            <div class="resumen-contadores">
+              <span class="contador total">Total: {{ resumenTests.total }}</span>
+              <span class="contador ok">OK: {{ resumenTests.ok }}</span>
+              <span class="contador fail" *ngIf="resumenTests.fail > 0">FAIL: {{ resumenTests.fail }}</span>
+              <span class="contador error" *ngIf="resumenTests.error > 0">ERROR: {{ resumenTests.error }}</span>
+            </div>
+          </div>
+
+          <!-- Tabla de tests individuales -->
+          <div class="tests-tabla-wrapper" *ngIf="testsParsed.length > 0">
+            <table class="tests-tabla">
+              <thead>
+                <tr>
+                  <th>Estado</th>
+                  <th>Test</th>
+                  <th>Clase</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let t of testsParsed" [class.row-ok]="t.estado === 'ok'" [class.row-fail]="t.estado === 'fail' || t.estado === 'error'">
+                  <td class="estado-cell">
+                    <span class="badge-estado" [class.badge-ok]="t.estado === 'ok'" [class.badge-fail]="t.estado !== 'ok'">
+                      <i class="fas" [class.fa-check]="t.estado === 'ok'" [class.fa-times]="t.estado !== 'ok'"></i>
+                      {{ t.estado.toUpperCase() }}
+                    </span>
+                  </td>
+                  <td class="nombre-cell">{{ t.nombre }}</td>
+                  <td class="clase-cell">{{ t.clase }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Salida raw (colapsable) -->
+          <details class="tests-salida-raw">
+            <summary><i class="fas fa-terminal"></i> Ver salida completa del runner</summary>
+            <pre class="salida-pre">{{ resultadosTests.salida }}</pre>
+          </details>
+
+        </div>
+
+        <!-- Estado vacío -->
+        <div class="tests-empty" *ngIf="!resultadosTests && !ejecutandoTests">
+          <i class="fas fa-vial fa-3x"></i>
+          <p>Presiona <strong>Ejecutar tests</strong> para correr el suite completo de pruebas unitarias.</p>
+        </div>
+
       </div>
 
     </div>

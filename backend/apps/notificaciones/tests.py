@@ -41,12 +41,12 @@ class NotificacionTestCase(TestCase):
     def test_listar_notificaciones_requiere_autenticacion(self):
         """El endpoint de notificaciones requiere autenticación."""
         client_anon = APIClient()
-        response = client_anon.get('/api/notificaciones/')
+        response = client_anon.get('/api/v1/notificaciones/')
         self.assertIn(response.status_code, [401, 403])
 
     def test_listar_notificaciones_autenticado(self):
         """Usuario autenticado puede listar sus notificaciones."""
-        response = self.client.get('/api/notificaciones/')
+        response = self.client.get('/api/v1/notificaciones/')
         self.assertIn(response.status_code, [200, 404])  # 404 si la URL difiere
 
     def test_usuario_ve_solo_sus_notificaciones(self):
@@ -73,7 +73,7 @@ class NotificacionTestCase(TestCase):
             tipo='info',
         )
 
-        response = self.client.get('/api/notificaciones/')
+        response = self.client.get('/api/v1/notificaciones/')
         if response.status_code == 200:
             data = response.json()
             results = data.get('results', data) if isinstance(data, dict) else data
@@ -97,7 +97,7 @@ class NotificacionTestCase(TestCase):
             leida=False,
         )
 
-        response = self.client.patch(f'/api/notificaciones/{notif.id}/', {'leida': True}, format='json')
+        response = self.client.patch(f'/api/v1/notificaciones/{notif.id}/', {'leida': True}, format='json')
         if response.status_code in [200, 404]:
             if response.status_code == 200:
                 notif.refresh_from_db()
@@ -118,7 +118,7 @@ class NotificacionTestCase(TestCase):
             tipo='info',
         )
 
-        response = self.client.delete(f'/api/notificaciones/{notif.id}/')
+        response = self.client.delete(f'/api/v1/notificaciones/{notif.id}/')
         self.assertIn(response.status_code, [204, 404])
         if response.status_code == 204:
             self.assertFalse(Notificacion.objects.filter(id=notif.id).exists())
@@ -138,7 +138,7 @@ class NotificacionTestCase(TestCase):
             tipo='info',
         )
 
-        response = self.client.delete(f'/api/notificaciones/{notif_admin.id}/')
+        response = self.client.delete(f'/api/v1/notificaciones/{notif_admin.id}/')
         # Debe ser 403 o 404 (no encontrado porque no es suya)
         self.assertIn(response.status_code, [403, 404])
         self.assertTrue(Notificacion.objects.filter(id=notif_admin.id).exists())

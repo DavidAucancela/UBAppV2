@@ -1306,58 +1306,75 @@
     display: block;
   }
 
-  /* Card table */
-  .table thead {
-    display: none;
-  }
+  /* ─── Card table ──────────────────────────────────────── */
+  .table-container { overflow-x: visible; }
+
+  .table thead { display: none; }
 
   .table tbody tr {
     display: block;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md, 8px);
-    margin-bottom: 12px;
-    padding: 12px;
     background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 14px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    padding: 0;
   }
 
   .table tbody tr.empty-row {
     border: none;
-    padding: 0;
+    box-shadow: none;
     margin: 0;
   }
+
+  /* Status-colored left border */
+  .table tbody tr:has(.badge-info)    { border-left-color: #3b82f6; }
+  .table tbody tr:has(.badge-warning) { border-left-color: #f59e0b; }
+  .table tbody tr:has(.badge-success) { border-left-color: #10b981; }
+  .table tbody tr:has(.badge-danger)  { border-left-color: #ef4444; }
 
   .table td {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: none;
-    padding: 6px 0;
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.6rem 1rem;
     font-size: 0.875rem;
   }
 
+  .table td:last-child { border-bottom: none; }
+
   .table td::before {
     content: attr(data-label);
-    font-weight: 600;
+    font-weight: 700;
     color: var(--color-text-muted);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin-right: 8px;
+    letter-spacing: 0.06em;
     flex-shrink: 0;
-    min-width: 80px;
+    min-width: 85px;
   }
 
-  .table td.hide-mobile {
-    display: none;
+  /* HAWB cell — highlighted header of the card */
+  .table td[data-label="HAWB"] {
+    background: var(--color-surface-raised);
+    border-bottom: 2px solid var(--color-border);
+    font-weight: 700;
   }
 
+  .table td.hide-mobile { display: none; }
+
+  /* Actions footer */
   .table td.actions-column {
-    justify-content: flex-end;
+    justify-content: center;
+    background: var(--color-surface-raised);
   }
 
   .table td.actions-column::before {
-    content: '';
-    min-width: 0;
+    display: none;
   }
 
   .totales-grid {

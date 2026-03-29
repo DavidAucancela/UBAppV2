@@ -374,14 +374,17 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             # Enviar correo con credenciales si se creó correctamente (async)
             password = request.data.get('password')
             if password and usuario.correo:
-                enviar_bienvenida.delay(
-                    nombre=usuario.nombre or usuario.username,
-                    username=usuario.username,
-                    password=password,
-                    rol=usuario.get_rol_display_name(),
-                    correo=usuario.correo,
-                    frontend_url=getattr(settings, 'FRONTEND_URL', 'http://localhost:4200'),
-                )
+                try:
+                    enviar_bienvenida.delay(
+                        nombre=usuario.nombre or usuario.username,
+                        username=usuario.username,
+                        password=password,
+                        rol=usuario.get_rol_display_name(),
+                        correo=usuario.correo,
+                        frontend_url=getattr(settings, 'FRONTEND_URL', 'http://localhost:4200'),
+                    )
+                except Exception:
+                    pass  # El email es un efecto secundario; no debe bloquear la creación
             
             serializer = UsuarioSerializer(usuario)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

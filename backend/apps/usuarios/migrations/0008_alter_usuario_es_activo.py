@@ -3,6 +3,95 @@
 from django.db import migrations, models
 
 
+def _get_columns(cursor, vendor, table):
+    if vendor == 'postgresql':
+        cursor.execute(
+            "SELECT column_name FROM information_schema.columns WHERE table_name = %s",
+            [table]
+        )
+    else:
+        cursor.execute(f"PRAGMA table_info({table})")
+    return {row[0] if vendor == 'postgresql' else row[1] for row in cursor.fetchall()}
+
+
+def _table_exists(cursor, vendor, table):
+    if vendor == 'postgresql':
+        cursor.execute(
+            "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = %s)",
+            [table]
+        )
+        return cursor.fetchone()[0]
+    else:
+        cursor.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?", [table]
+        )
+        return cursor.fetchone() is not None
+
+
+def renombrar_tabla(apps, schema_editor):
+    vendor = schema_editor.connection.vendor
+    with schema_editor.connection.cursor() as cursor:
+        existe_vieja = _table_exists(cursor, vendor, 'usuarios_usuario')
+        existe_nueva = _table_exists(cursor, vendor, 'usuarios')
+    if existe_vieja and not existe_nueva:
+        schema_editor.execute("ALTER TABLE usuarios_usuario RENAME TO usuarios;")
+        with schema_editor.connection.cursor() as cursor:
+            if _table_exists(cursor, vendor, 'usuarios_usuario_groups'):
+                schema_editor.execute("ALTER TABLE usuarios_usuario_groups RENAME TO usuarios_groups;")
+            if _table_exists(cursor, vendor, 'usuarios_usuario_user_permissions'):
+                schema_editor.execute(
+                    "ALTER TABLE usuarios_usuario_user_permissions RENAME TO usuarios_user_permissions;"
+                )
+
+
+def revertir_renombrar_tabla(apps, schema_editor):
+    vendor = schema_editor.connection.vendor
+    with schema_editor.connection.cursor() as cursor:
+        existe_nueva = _table_exists(cursor, vendor, 'usuarios')
+        existe_vieja = _table_exists(cursor, vendor, 'usuarios_usuario')
+    if existe_nueva and not existe_vieja:
+        schema_editor.execute("ALTER TABLE usuarios RENAME TO usuarios_usuario;")
+        with schema_editor.connection.cursor() as cursor:
+            if _table_exists(cursor, vendor, 'usuarios_groups'):
+                schema_editor.execute("ALTER TABLE usuarios_groups RENAME TO usuarios_usuario_groups;")
+            if _table_exists(cursor, vendor, 'usuarios_user_permissions'):
+                schema_editor.execute(
+                    "ALTER TABLE usuarios_user_permissions RENAME TO usuarios_usuario_user_permissions;"
+                )
+
+
+def ajustar_campo_is_active(apps, schema_editor):
+    vendor = schema_editor.connection.vendor
+    for tabla in ('usuarios', 'usuarios_usuario'):
+        with schema_editor.connection.cursor() as cursor:
+            if not _table_exists(cursor, vendor, tabla):
+                continue
+            cols = _get_columns(cursor, vendor, tabla)
+
+        tiene_es_activo = 'es_activo' in cols
+        tiene_is_active = 'is_active' in cols
+
+        if tiene_es_activo and tiene_is_active:
+            schema_editor.execute(f"ALTER TABLE {tabla} DROP COLUMN es_activo;")
+        elif tiene_es_activo and not tiene_is_active:
+            schema_editor.execute(f"ALTER TABLE {tabla} RENAME COLUMN es_activo TO is_active;")
+        elif not tiene_es_activo and not tiene_is_active:
+            schema_editor.execute(
+                f"ALTER TABLE {tabla} ADD COLUMN is_active BOOLEAN DEFAULT TRUE NOT NULL;"
+            )
+        break  # solo procesar la primera tabla que exista
+
+
+def revertir_is_active(apps, schema_editor):
+    vendor = schema_editor.connection.vendor
+    with schema_editor.connection.cursor() as cursor:
+        if not _table_exists(cursor, vendor, 'usuarios'):
+            return
+        cols = _get_columns(cursor, vendor, 'usuarios')
+    if 'is_active' in cols and 'es_activo' not in cols:
+        schema_editor.execute("ALTER TABLE usuarios RENAME COLUMN is_active TO es_activo;")
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -10,127 +99,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        # Primero asegurar que la tabla se llame 'usuarios'
-        migrations.RunSQL(
-            sql="""
-                DO $$
-                BEGIN
-                    -- Si existe usuarios_usuario pero no usuarios, renombrar
-                    IF EXISTS (
-                        SELECT 1 FROM information_schema.tables 
-                        WHERE table_name = 'usuarios_usuario'
-                    ) AND NOT EXISTS (
-                        SELECT 1 FROM information_schema.tables 
-                        WHERE table_name = 'usuarios'
-                    ) THEN
-                        ALTER TABLE usuarios_usuario RENAME TO usuarios;
-                        -- También renombrar tablas relacionadas
-                        IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios_usuario_groups') THEN
-                            ALTER TABLE usuarios_usuario_groups RENAME TO usuarios_groups;
-                        END IF;
-                        IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios_usuario_user_permissions') THEN
-                            ALTER TABLE usuarios_usuario_user_permissions RENAME TO usuarios_user_permissions;
-                        END IF;
-                    END IF;
-                END $$;
-            """,
-            reverse_sql="""
-                DO $$
-                BEGIN
-                    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios') THEN
-                        ALTER TABLE usuarios RENAME TO usuarios_usuario;
-                        IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios_groups') THEN
-                            ALTER TABLE usuarios_groups RENAME TO usuarios_usuario_groups;
-                        END IF;
-                        IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios_user_permissions') THEN
-                            ALTER TABLE usuarios_user_permissions RENAME TO usuarios_usuario_user_permissions;
-                        END IF;
-                    END IF;
-                END $$;
-            """
-        ),
-        # Ahora modificar el campo
-        migrations.RunSQL(
-            sql="""
-                DO $$
-                BEGIN
-                    -- Verificar si la tabla existe (ya renombrada a 'usuarios' o todavía 'usuarios_usuario')
-                    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios') THEN
-                        -- Si el campo es_activo existe y no tiene db_column, agregarlo
-                        IF EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios' 
-                            AND column_name = 'es_activo'
-                            AND table_schema = 'public'
-                        ) THEN
-                            -- El campo ya existe, solo verificar que tenga el db_column correcto
-                            -- Si is_active existe, es_activo debe mapear a is_active
-                            IF EXISTS (
-                                SELECT 1 FROM information_schema.columns 
-                                WHERE table_name = 'usuarios' 
-                                AND column_name = 'is_active'
-                            ) THEN
-                                -- Ya existe is_active, eliminar es_activo porque es redundante
-                                ALTER TABLE usuarios DROP COLUMN IF EXISTS es_activo;
-                            ELSE
-                                -- Renombrar es_activo a is_active si no existe is_active
-                                ALTER TABLE usuarios RENAME COLUMN es_activo TO is_active;
-                            END IF;
-                        ELSIF EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios' 
-                            AND column_name = 'is_active'
-                        ) THEN
-                            -- is_active ya existe, no hacer nada
-                            NULL;
-                        ELSE
-                            -- Crear el campo is_active
-                            ALTER TABLE usuarios ADD COLUMN is_active BOOLEAN DEFAULT TRUE NOT NULL;
-                        END IF;
-                    ELSIF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios_usuario') THEN
-                        -- Mismo proceso pero con usuarios_usuario
-                        IF EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios_usuario' 
-                            AND column_name = 'es_activo'
-                        ) THEN
-                            IF EXISTS (
-                                SELECT 1 FROM information_schema.columns 
-                                WHERE table_name = 'usuarios_usuario' 
-                                AND column_name = 'is_active'
-                            ) THEN
-                                -- Ya existe is_active, eliminar es_activo porque es redundante
-                                ALTER TABLE usuarios_usuario DROP COLUMN IF EXISTS es_activo;
-                            ELSE
-                                ALTER TABLE usuarios_usuario RENAME COLUMN es_activo TO is_active;
-                            END IF;
-                        ELSIF NOT EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios_usuario' 
-                            AND column_name = 'is_active'
-                        ) THEN
-                            ALTER TABLE usuarios_usuario ADD COLUMN is_active BOOLEAN DEFAULT TRUE NOT NULL;
-                        END IF;
-                    END IF;
-                END $$;
-            """,
-            reverse_sql="""
-                DO $$
-                BEGIN
-                    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'usuarios') THEN
-                        IF EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios' AND column_name = 'is_active'
-                        ) AND NOT EXISTS (
-                            SELECT 1 FROM information_schema.columns 
-                            WHERE table_name = 'usuarios' AND column_name = 'es_activo'
-                        ) THEN
-                            ALTER TABLE usuarios RENAME COLUMN is_active TO es_activo;
-                        END IF;
-                    END IF;
-                END $$;
-            """
-        ),
+        migrations.RunPython(renombrar_tabla, revertir_renombrar_tabla),
+        migrations.RunPython(ajustar_campo_is_active, revertir_is_active),
         migrations.SeparateDatabaseAndState(
             database_operations=[],
             state_operations=[
