@@ -138,7 +138,7 @@ else:
             'HOST': db_host,
             'PORT': os.getenv('DB_PORT', '5435'),
             'OPTIONS': db_options,
-            'CONN_MAX_AGE': 600,  # Mantener conexiones vivas por 10 minutos
+            'CONN_MAX_AGE': 60,  # Mantener conexiones vivas por 1 minuto (1 worker)
             'ATOMIC_REQUESTS': True,  # Cada request en una transacción
         }
     }
@@ -406,9 +406,9 @@ if REDIS_URL:
                 'SOCKET_CONNECT_TIMEOUT': 5,
                 'SOCKET_TIMEOUT': 5,
                 'RETRY_ON_TIMEOUT': True,
-                'MAX_CONNECTIONS': 50,
+                'MAX_CONNECTIONS': 10,
                 'CONNECTION_POOL_KWARGS': {
-                    'max_connections': 50,
+                    'max_connections': 10,
                     'retry_on_timeout': True
                 },
             },
