@@ -81,8 +81,10 @@ WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database Configuration
-# Usar DATABASE_URL si está disponible, sino usar variables individuales
-DATABASE_URL = os.getenv('DATABASE_URL')
+# SUPABASE_DATABASE_URL tiene prioridad sobre DATABASE_URL (que Railway inyecta
+# automáticamente apuntando a postgres.railway.internal cuando hay un servicio
+# PostgreSQL en el mismo proyecto, aunque no se use).
+DATABASE_URL = os.getenv('SUPABASE_DATABASE_URL') or os.getenv('DATABASE_URL')
 
 if DATABASE_URL:
     # Detectar si usa PgBouncer de Supabase (puerto 6543) → no reusar conexiones persistentes
