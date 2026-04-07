@@ -16,6 +16,9 @@ from django.conf import settings
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiTypes
 import secrets
 import string
+import logging
+
+logger = logging.getLogger(__name__)
 
 from .serializers import (
     UsuarioSerializer as MainUsuarioSerializer, 
@@ -105,53 +108,72 @@ class LoginView(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-        
+
         if not username or not password:
             return Response(
                 {'error': 'Se requieren username y password'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        
-        puede_intentar, intentos = self.verificar_intentos(username)
-        
+
+        try:
+            puede_intentar, intentos = self.verificar_intentos(username)
+        except Exception as e:
+            logger.exception(f"[LOGIN] Error en verificar_intentos: {e}")
+            puede_intentar, intentos = True, 0
+
         if not puede_intentar:
             tiempo_espera = self.TIEMPO_BLOQUEO // 60
             return Response({
                 'error': f'Cuenta bloqueada temporalmente. Demasiados intentos fallidos. Intente nuevamente en {tiempo_espera} minutos.'
             }, status=status.HTTP_429_TOO_MANY_REQUESTS)
-        
-        user = authenticate(username=username, password=password)
-        
+
+        try:
+            user = authenticate(username=username, password=password)
+        except Exception as e:
+            logger.exception(f"[LOGIN] Error en authenticate(): {e}")
+            return Response({'error': 'Error interno al autenticar'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         if user is None:
             intentos_actuales = self.registrar_intento_fallido(username)
             intentos_restantes = self.MAX_INTENTOS - intentos_actuales
-            
+
             mensaje_error = 'Credenciales inválidas'
             if intentos_restantes > 0:
                 mensaje_error += f'. Le quedan {intentos_restantes} intentos.'
             else:
                 mensaje_error += f'. Cuenta bloqueada por {self.TIEMPO_BLOQUEO // 60} minutos.'
-            
+
             return Response({
                 'error': mensaje_error,
                 'intentos_restantes': max(0, intentos_restantes)
             }, status=status.HTTP_401_UNAUTHORIZED)
-        
+
         if not user.es_activo:
             return Response({
                 'error': 'Usuario desactivado'
             }, status=status.HTTP_401_UNAUTHORIZED)
-        
+
         self.limpiar_intentos(username)
 
-        refresh = RefreshToken.for_user(user)
-        serializer = UsuarioSerializer(user)
+        try:
+            refresh = RefreshToken.for_user(user)
+        except Exception as e:
+            logger.exception(f"[LOGIN] Error en RefreshToken.for_user(): {e}")
+            return Response({'error': 'Error interno al generar token'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        try:
+            serializer = UsuarioSerializer(user)
+            user_data = serializer.data
+        except Exception as e:
+            logger.exception(f"[LOGIN] Error en UsuarioSerializer: {e}")
+            return Response({'error': 'Error interno al serializar usuario'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         is_secure = not settings.DEBUG
 
         response = Response({
             'token': str(refresh.access_token),
             'refresh': str(refresh),
-            'user': serializer.data,
+            'user': user_data,
             'message': 'Login exitoso'
         })
         response.set_cookie(
