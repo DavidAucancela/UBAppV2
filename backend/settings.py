@@ -85,26 +85,30 @@ WSGI_APPLICATION = 'wsgi.application'
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 if DATABASE_URL:
+    # Detectar si usa PgBouncer de Supabase (puerto 6543) → no reusar conexiones persistentes
+    _using_pgbouncer = ':6543' in DATABASE_URL
+
     # Parsear DATABASE_URL y agregar opciones SSL solo si es Supabase (no localhost)
     DATABASES = {
         'default': dj_database_url.parse(
             DATABASE_URL,
-            conn_max_age=60,
-            conn_health_checks=True,
+            # PgBouncer en modo transaction no soporta conexiones persistentes
+            conn_max_age=0 if _using_pgbouncer else 60,
+            conn_health_checks=not _using_pgbouncer,
         )
     }
-    
+
     # Detectar si es conexión local (Docker o localhost) o remota (Render, Supabase, Railway externo, etc.)
     db_host = DATABASES['default'].get('HOST', '')
     is_local = (
         db_host in ('localhost', '127.0.0.1', '::1', 'postgres')
         or db_host.endswith('.railway.internal')  # Railway internal network
     )
-    
+
     # Configurar opciones
     if 'OPTIONS' not in DATABASES['default']:
         DATABASES['default']['OPTIONS'] = {}
-    
+
     # SSL: requerido para hosts remotos (Render, Supabase); deshabilitado para local/Docker
     if is_local:
         DATABASES['default']['OPTIONS']['sslmode'] = 'disable'
