@@ -76,22 +76,31 @@ class LoginView(APIView):
         return f'login_intentos_{username}'
     
     def verificar_intentos(self, username):
-        cache_key = self.get_cache_key(username)
-        intentos = cache.get(cache_key, 0)
-        if intentos >= self.MAX_INTENTOS:
-            return False, intentos
-        return True, intentos
-    
+        try:
+            cache_key = self.get_cache_key(username)
+            intentos = cache.get(cache_key, 0)
+            if intentos >= self.MAX_INTENTOS:
+                return False, intentos
+            return True, intentos
+        except Exception:
+            return True, 0  # Si Redis falla, permitir el intento
+
     def registrar_intento_fallido(self, username):
-        cache_key = self.get_cache_key(username)
-        intentos = cache.get(cache_key, 0)
-        intentos += 1
-        cache.set(cache_key, intentos, self.TIEMPO_BLOQUEO)
-        return intentos
-    
+        try:
+            cache_key = self.get_cache_key(username)
+            intentos = cache.get(cache_key, 0)
+            intentos += 1
+            cache.set(cache_key, intentos, self.TIEMPO_BLOQUEO)
+            return intentos
+        except Exception:
+            return 1
+
     def limpiar_intentos(self, username):
-        cache_key = self.get_cache_key(username)
-        cache.delete(cache_key)
+        try:
+            cache_key = self.get_cache_key(username)
+            cache.delete(cache_key)
+        except Exception:
+            pass
     
     def post(self, request):
         username = request.data.get('username')

@@ -89,7 +89,7 @@ if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.parse(
             DATABASE_URL,
-            conn_max_age=600,
+            conn_max_age=60,
             conn_health_checks=True,
         )
     }
@@ -382,6 +382,8 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000  # 1 año
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+    # Railway usa proxy inverso — detectar HTTPS correctamente
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Custom User Model
 AUTH_USER_MODEL = 'usuarios.Usuario'
@@ -403,6 +405,7 @@ if REDIS_URL:
             'LOCATION': REDIS_URL,
             'OPTIONS': {
                 'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'IGNORE_EXCEPTIONS': True,  # No propagar errores de Redis → degrada sin 500
                 'SOCKET_CONNECT_TIMEOUT': 5,
                 'SOCKET_TIMEOUT': 5,
                 'RETRY_ON_TIMEOUT': True,
@@ -419,6 +422,10 @@ if REDIS_URL:
         'sessions': {
             'BACKEND': 'django_redis.cache.RedisCache',
             'LOCATION': REDIS_URL,
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'IGNORE_EXCEPTIONS': True,
+            },
             'KEY_PREFIX': 'ubapp_sessions',
             'TIMEOUT': 86400,  # 1 día
         },
@@ -426,6 +433,10 @@ if REDIS_URL:
         'throttle': {
             'BACKEND': 'django_redis.cache.RedisCache',
             'LOCATION': REDIS_URL,
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'IGNORE_EXCEPTIONS': True,
+            },
             'KEY_PREFIX': 'ubapp_throttle',
             'TIMEOUT': 3600,  # 1 hora
         },
@@ -433,6 +444,10 @@ if REDIS_URL:
         'embeddings': {
             'BACKEND': 'django_redis.cache.RedisCache',
             'LOCATION': REDIS_URL,
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'IGNORE_EXCEPTIONS': True,
+            },
             'KEY_PREFIX': 'ubapp_embeddings',
             'TIMEOUT': 604800,  # 7 días
         },

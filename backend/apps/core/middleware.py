@@ -38,8 +38,11 @@ class CurrentUserMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        user = getattr(request, 'user', None)
-        _thread_locals.user = user if user and user.is_authenticated else None
+        try:
+            user = getattr(request, 'user', None)
+            _thread_locals.user = user if user and user.is_authenticated else None
+        except Exception:
+            _thread_locals.user = None
         _thread_locals.ip_address = self._get_client_ip(request)
 
         response = self.get_response(request)
