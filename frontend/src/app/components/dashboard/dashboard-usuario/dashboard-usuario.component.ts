@@ -136,7 +136,7 @@ export class DashboardUsuarioComponent implements OnInit, OnDestroy, AfterViewIn
     const cancelados  = this.dashboard.envios_cancelados  || 0;
     const total       = pendientes + enTransito + entregados + cancelados;
 
-    const config: ChartConfiguration = {
+    const config: ChartConfiguration<'doughnut'> = {
       type: 'doughnut',
       data: {
         labels: ['Pendientes', 'En Tránsito', 'Entregados', 'Cancelados'],
