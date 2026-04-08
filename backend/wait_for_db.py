@@ -21,8 +21,9 @@ def wait_for_db():
         "password": os.getenv("DB_PASSWORD", "admin")
     }
     
-    # Si hay DATABASE_URL, usarla directo como DSN (psycopg2 soporta URLs de postgres)
-    database_url = os.getenv("DATABASE_URL")
+    # Si hay DATABASE_URL o SUPABASE_DATABASE_URL, usarla directo como DSN
+    # SUPABASE_DATABASE_URL tiene prioridad (igual que en settings.py)
+    database_url = os.getenv("SUPABASE_DATABASE_URL") or os.getenv("DATABASE_URL")
     if database_url:
         # psycopg2 parsea la URL internamente sin usar urlparse de Python,
         # evitando el bug de Python 3.11 con hostnames entre corchetes (Supabase).
