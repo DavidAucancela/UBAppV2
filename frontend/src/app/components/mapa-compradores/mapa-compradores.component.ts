@@ -94,6 +94,18 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
   mostrarOnboarding = false;
   filtrosColapsados = false;
 
+  /** Tab activo del sidebar: ciudades o compradores */
+  sidebarTab: 'ciudades' | 'compradores' = 'ciudades';
+
+  /** Comprador seleccionado para ver detalle en el sidebar */
+  compradorSeleccionadoDetalle: EnvioPorComprador | null = null;
+
+  /** Muestra el hint de zoom cuando no hay provincia seleccionada */
+  mostrarHintZoom = true;
+
+  /** Panel inferior colapsado */
+  panelInferiorColapsado = false;
+
   private iconoCiudad: L.Icon | null = null;
   private iconoCiudadActiva: L.Icon | null = null;
   private iconoComprador: L.Icon | null = null;
@@ -156,6 +168,10 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
 
   get hayDatosParaGrafico(): boolean {
     return this.obtenerDatosFiltrados().length > 0;
+  }
+
+  get totalEnviosGlobal(): number {
+    return this.enviosPorComprador.reduce((sum, c) => sum + c.total_envios, 0);
   }
 
   async ngOnInit(): Promise<void> {
@@ -534,6 +550,26 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
     this.ciudadSeleccionada = comprador.ciudad || null;
     this.listadoPaginaActual = 1;
     this.actualizarVistaFiltrada();
+
+    // Mostrar detalle en sidebar automáticamente al hacer clic en marcador del mapa
+    const encontrado = this.enviosPorComprador.find((e) => e.comprador_id === comprador.id);
+    if (encontrado) {
+      this.compradorSeleccionadoDetalle = encontrado;
+      this.sidebarTab = 'compradores';
+    }
+    this.cdr.detectChanges();
+  }
+
+  /** Abre el detalle de un comprador en el sidebar */
+  verDetalleComprador(compradorData: EnvioPorComprador): void {
+    this.compradorSeleccionadoDetalle = compradorData;
+    this.sidebarTab = 'compradores';
+    this.cdr.detectChanges();
+  }
+
+  /** Cierra el detalle y vuelve a la lista de compradores */
+  cerrarDetalleComprador(): void {
+    this.compradorSeleccionadoDetalle = null;
     this.cdr.detectChanges();
   }
 
@@ -608,7 +644,9 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
 
   private manejarCambioZoom(): void {
     if (!this.map) return;
-    if (this.map.getZoom() < 9) {
+    const zoom = this.map.getZoom();
+    this.mostrarHintZoom = zoom < 9;
+    if (zoom < 9) {
       this.limpiarMarcadoresCompradores();
       this.provinciaSeleccionada = null;
       this.ciudadSeleccionada = null;
@@ -617,6 +655,7 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
       this.resaltarMarcadorProvincia(null);
       this.actualizarVistaFiltrada();
     }
+    this.cdr.detectChanges();
   }
 
   volverVista(): void {
@@ -629,6 +668,8 @@ export class MapaCompradoresComponent implements OnInit, OnDestroy {
       this.datosProvinciaSeleccionada = null;
       this.resaltarMarcadorProvincia(null);
     }
+    this.mostrarHintZoom = true;
+    this.compradorSeleccionadoDetalle = null;
     this.actualizarVistaFiltrada();
   }
 
