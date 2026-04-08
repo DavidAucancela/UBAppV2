@@ -500,6 +500,142 @@
         </div>
       </div>
 
+      <!-- ===== COBERTURA DE EMBEDDINGS ===== -->
+      <div class="section-card cobertura-embeddings-card">
+        <div class="section-header">
+          <h3><i class="fas fa-chart-pie"></i> Cobertura de embeddings</h3>
+          <div class="section-actions">
+            <button class="btn btn-secondary btn-sm" (click)="cargarEstadisticasCobertura()" [disabled]="cargandoCobertura">
+              <i class="fas" [class.fa-sync-alt]="!cargandoCobertura" [class.fa-spinner]="cargandoCobertura" [class.fa-spin]="cargandoCobertura"></i>
+              Actualizar
+            </button>
+            <button
+              class="btn btn-primary btn-sm"
+              (click)="generarEmbeddings()"
+              [disabled]="generandoEmbeddingsPendientes || cargandoCobertura"
+            >
+              <i class="fas" [class.fa-magic]="!generandoEmbeddingsPendientes" [class.fa-spinner]="generandoEmbeddingsPendientes" [class.fa-spin]="generandoEmbeddingsPendientes"></i>
+              {{ generandoEmbeddingsPendientes ? 'Generando...' : 'Generar pendientes' }}
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="mensajeGeneracion" class="mensaje-generacion">
+          <i class="fas fa-info-circle"></i> {{ mensajeGeneracion }}
+        </div>
+
+        <div *ngIf="cargandoCobertura" class="loading-inline">
+          <i class="fas fa-spinner fa-spin"></i> Cargando cobertura...
+        </div>
+
+        <div *ngIf="!cargandoCobertura && estadisticasCobertura" class="stats-grid stats-cobertura">
+          <div class="stat-card">
+            <div class="stat-icon" style="background: #6366f1;">
+              <i class="fas fa-boxes"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ estadisticasCobertura.total_envios || 0 }}</h3>
+              <p>Total envíos</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: #22c55e;">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ estadisticasCobertura.total_con_embedding || 0 }}</h3>
+              <p>Con embedding</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: #f59e0b;">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ estadisticasCobertura.total_sin_embedding || 0 }}</h3>
+              <p>Sin embedding</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: #3b82f6;">
+              <i class="fas fa-percent"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ estadisticasCobertura.porcentaje_con_embedding || 0 }}%</h3>
+              <p>Cobertura</p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!cargandoCobertura && !estadisticasCobertura" class="empty-cell" style="padding: 24px; text-align: center;">
+          <i class="fas fa-info-circle"></i> Sin datos de cobertura disponibles.
+        </div>
+      </div>
+
+      <!-- ===== HISTORIAL DE BÚSQUEDAS SEMÁNTICAS ===== -->
+      <div class="section-card historial-busquedas-card">
+        <div class="section-header">
+          <h3><i class="fas fa-history"></i> Historial de búsquedas semánticas</h3>
+          <div class="section-actions">
+            <button class="btn btn-secondary btn-sm" (click)="cargarHistorialBusquedas()" [disabled]="cargandoHistorial">
+              <i class="fas" [class.fa-sync-alt]="!cargandoHistorial" [class.fa-spinner]="cargandoHistorial" [class.fa-spin]="cargandoHistorial"></i>
+              Actualizar
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="cargandoHistorial" class="loading-inline">
+          <i class="fas fa-spinner fa-spin"></i> Cargando historial...
+        </div>
+
+        <div *ngIf="!cargandoHistorial" class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Consulta</th>
+                <th>Fecha</th>
+                <th>Resultados</th>
+                <th>Modelo</th>
+                <th>Tiempo (ms)</th>
+                <th>Tokens</th>
+                <th>Costo (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let h of historialBusquedas; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>
+                  <span [title]="h.consulta">
+                    {{ h.consulta?.length > 80 ? (h.consulta.substring(0, 80) + '…') : h.consulta }}
+                  </span>
+                </td>
+                <td><small>{{ formatearFecha(h.fecha || h.fechaConsulta) }}</small></td>
+                <td>
+                  <span class="badge" [class.success]="h.totalResultados > 0" [class.warning]="h.totalResultados === 0">
+                    {{ h.totalResultados ?? h.total_resultados ?? 0 }}
+                  </span>
+                </td>
+                <td><small>{{ h.modeloUtilizado || h.modelo_utilizado || '—' }}</small></td>
+                <td>{{ h.tiempoRespuesta || h.tiempo_respuesta || '—' }}</td>
+                <td>{{ h.tokensUtilizados || h.tokens_utilizados || '—' }}</td>
+                <td>
+                  <small *ngIf="h.costoConsulta || h.costo_consulta">
+                    ${{ ((h.costoConsulta || h.costo_consulta) * 1000).toFixed(4) }}‰
+                  </small>
+                  <small *ngIf="!h.costoConsulta && !h.costo_consulta">—</small>
+                </td>
+              </tr>
+              <tr *ngIf="historialBusquedas.length === 0">
+                <td colspan="8" class="empty-cell">
+                  <i class="fas fa-search"></i> Sin búsquedas registradas todavía.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
     <!-- ==================== SECCIÓN: MÉTRICAS DE RENDIMIENTO (14 operaciones M1-M14) ==================== -->

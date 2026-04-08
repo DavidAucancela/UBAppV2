@@ -1,273 +1,163 @@
-<!-- Contenedor principal de búsqueda semántica -->
-<div class="busqueda-semantica-container">
-  <!-- Encabezado mejorado con estilo de otros módulos -->
+<div class="busqueda-container">
+
+  <!-- Encabezado -->
   <div class="encabezado">
     <h1 class="titulo-principal">
-      <i class="fas fa-search"></i>
-      Búsqueda semántica
+      <i class="fas fa-brain"></i>
+      Búsqueda con IA
     </h1>
-    <p class="subtitulo">Busca envíos usando lenguaje natural </p>
+    <p class="subtitulo">Encuentra envíos describiendo lo que buscas en lenguaje natural</p>
   </div>
 
-  <!-- Sección principal de búsqueda -->
-  <div class="seccion-busqueda">
-    
-    <!-- Campo de búsqueda semántica -->
-    <div class="busqueda-semantica-principal">
-      <div class="contenedor-input-semantico">
-        <i class="fas fa-search icono-busqueda"></i>
-        <textarea
-          [(ngModel)]="textoConsulta"
-          (input)="alEscribirConsulta()"
-          (focus)="alEnfocarCampo()"
-          (blur)="alDesenfocarCampo()"
-          class="input-semantico"
-          placeholder="Describe lo que buscas... Ej: 'envíos entregados en Quito la semana pasada' o 'paquetes pendientes para Guayaquil'"
-          rows="3"
-        ></textarea>
-        <button 
-          class="btn-limpiar-consulta"
-          *ngIf="textoConsulta.length > 0"
-          (click)="limpiarBusqueda()"
-          title="Limpiar búsqueda"
-        >
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-
-      <!-- Botones de acción -->
-      <div class="acciones-busqueda">
-        <button 
-          class="btn btn-primario btn-buscar-semantico"
-          (click)="realizarBusquedaSemantica()"
-          [disabled]="analizando || textoConsulta.length < 3"
-        >
-          <i class="fas fa-brain"></i>
-          {{ analizando ? 'Analizando tu búsqueda...' : 'Buscar con IA' }}
-        </button>
-
-        <button 
-          class="btn btn-secundario"
-          (click)="toggleFiltrosAdicionales()"
-        >
-          <i class="fas fa-microchip"></i>
-          {{ mostrarFiltrosAdicionales ? 'Ocultar' : 'Cambiar' }} Modelo 
-        </button>
-      </div>
-    </div>
-
-    <!-- Historial de búsquedas -->
-    <div class="seccion-historial" *ngIf="historialBusquedas.length > 0">
-      <div class="header-historial">
-        <button 
-          class="btn-toggle-historial"
-          (click)="historialColapsado = !historialColapsado"
-        >
-          <i class="fas" [ngClass]="historialColapsado ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
-          <i class="fas fa-history"></i>
-          <span>Historial de búsquedas</span>
-        </button>
-        <button 
-          *ngIf="!historialColapsado"
-          class="btn-limpiar-historial"
-          (click)="limpiarHistorial()"
-          title="Limpiar historial"
-        >
-          <i class="fas fa-trash-alt"></i>
-        </button>
-      </div>
-      
-      <div class="lista-historial" *ngIf="!historialColapsado">
-        <div 
-          *ngFor="let busqueda of historialMostrado" 
-          class="item-historial"
-          (click)="usarDelHistorial(busqueda)"
-          title="Clic para reutilizar esta búsqueda"
-        >
-          <div class="info-historial">
-            <div class="detalles-historial">
-              <div class="consulta-historial-texto">
-                {{ busqueda.consulta.length > 100 ? (busqueda.consulta.substring(0, 100) + '...') : busqueda.consulta }}
-              </div>
-              <div class="meta-historial">
-                <span class="fecha-historial">
-                  {{ formatearFecha(busqueda.fecha || busqueda.fechaConsulta) }}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Botón mostrar más -->
-        <div class="mostrar-mas-container" *ngIf="hayMasHistorial">
-          <button 
-            class="btn-mostrar-mas"
-            (click)="toggleMostrarMasHistorial()"
-          >
-            <i class="fas" [ngClass]="mostrarMasHistorial ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
-            {{ mostrarMasHistorial ? 'Mostrar menos' : 'Mostrar más' }}
-          </button>
-        </div>
-      </div>
-    </div>
-
-
-
-    <!-- Selector de Modelo de Embedding -->
-    <div *ngIf="mostrarFiltrosAdicionales" class="seccion-selector-modelo">
-      <div class="seccion-filtro-modelo">
-        <h4 class="subtitulo-filtro">
-          <i class="fas fa-microchip"></i>
-          Seleccionar modelo de embedding
-        </h4>
-        <div class="grid-modelos-embedding">
-          <div 
-            *ngFor="let modeloInfo of modelosDisponibles"
-            class="card-modelo-embedding"
-            [class.seleccionado]="modeloSeleccionado === modeloInfo.modelo"
-            (click)="cambiarModeloEmbedding(modeloInfo.modelo)"
-          >
-            <div class="header-card-modelo">
-              <input 
-                type="radio" 
-                [checked]="modeloSeleccionado === modeloInfo.modelo"
-                (change)="cambiarModeloEmbedding(modeloInfo.modelo)"
-              >
-              <strong>{{ modeloInfo.nombre }}</strong>
-            </div>
-            <p class="descripcion-modelo">{{ modeloInfo.descripcion }}</p>
-          </div>
-        </div>
-      </div>
+  <!-- Google-style search bar -->
+  <div class="search-bar-wrapper">
+    <div class="search-bar" [class.search-bar--active]="analizando">
+      <i class="fas fa-search search-bar__icon" aria-hidden="true"></i>
+      <input
+        type="text"
+        class="search-bar__input"
+        [(ngModel)]="textoConsulta"
+        (keydown.enter)="realizarBusquedaSemantica()"
+        placeholder="Ej: envíos entregados en Quito la semana pasada..."
+        autocomplete="off"
+        aria-label="Campo de búsqueda semántica"
+      />
+      <button
+        *ngIf="textoConsulta.length > 0 && !analizando"
+        class="search-bar__clear"
+        (click)="limpiarBusqueda()"
+        aria-label="Limpiar búsqueda"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+      <button
+        class="search-bar__btn"
+        (click)="realizarBusquedaSemantica()"
+        [disabled]="analizando || textoConsulta.length < 3"
+        aria-label="Buscar"
+      >
+        <i *ngIf="analizando" class="fas fa-spinner fa-spin"></i>
+        <span *ngIf="!analizando">Buscar</span>
+      </button>
     </div>
   </div>
 
-  <!-- Indicador de carga / analizando -->
-  <div *ngIf="analizando" class="indicador-analisis">
-    <div class="animacion-cerebro">
-      <i class="fas fa-brain fa-pulse"></i>
-    </div>
-    <h3>Analizando tu búsqueda...</h3>
-    <p>Nuestro sistema de IA está procesando tu consulta</p>
-    <div class="barra-progreso">
-      <div class="barra-progreso-animada"></div>
-    </div>
+  <!-- Analizando -->
+  <div *ngIf="analizando" class="estado-analizando" aria-live="polite">
+    <div class="spinner-ring"></div>
+    <span>Analizando tu consulta con IA...</span>
   </div>
 
   <!-- Sin resultados -->
   <div *ngIf="sinResultados && !analizando" class="sin-resultados">
-    <i class="fas fa-search icono-grande"></i>
-    <h3>No se encontraron coincidencias</h3>
-    <p>Intenta reformular tu búsqueda o usa términos diferentes</p>
-    <div class="sugerencias-mejora">
-      <strong>Tips para mejorar tu búsqueda:</strong>
-      <ul>
-        <li>Sé más específico: "envíos a Quito de esta semana"</li>
-        <li>Usa sinónimos: "paquetes" en lugar de "envíos"</li>
-        <li>Menciona detalles: nombres, ciudades, fechas</li>
-      </ul>
-    </div>
-    <button class="btn btn-primario" (click)="limpiarBusqueda()">
-      <i class="fas fa-redo"></i>
-      Nueva Búsqueda
+    <i class="fas fa-search-minus" aria-hidden="true"></i>
+    <h3>Sin resultados</h3>
+    <p>No se encontraron envíos para <em>"{{ textoConsulta }}"</em></p>
+    <ul class="tips">
+      <li>Sé más específico: <em>"envíos a Quito esta semana"</em></li>
+      <li>Usa sinónimos: <em>"paquetes"</em> en lugar de <em>"envíos"</em></li>
+      <li>Menciona detalles: nombres, ciudades, fechas</li>
+    </ul>
+    <button class="btn-nueva-busqueda" (click)="limpiarBusqueda()">
+      <i class="fas fa-redo"></i> Nueva búsqueda
     </button>
   </div>
 
-
-  <!-- Tabla de resultados (formato igual a busqueda-envios) -->
+  <!-- Resultados -->
   <div *ngIf="!analizando && !sinResultados && resultadosSemanticos.length > 0" class="seccion-resultados">
+
+    <!-- Controles de vista -->
+    <div class="resultados-toolbar">
+      <div class="resultados-info">
+        <span class="resultados-count">
+          <strong>{{ resultadosSemanticos.length }}</strong>
+          {{ resultadosSemanticos.length === 1 ? 'resultado' : 'resultados' }}
+        </span>
+        <span *ngIf="totalPaginas > 1" class="resultados-pagina">
+          — pág. {{ paginaActual }} / {{ totalPaginas }}
+        </span>
+      </div>
+      <div class="resultados-controles">
+        <label class="control-label" for="sel-pagina">Mostrar</label>
+        <select
+          id="sel-pagina"
+          class="select-pagina"
+          [value]="elementosPorPagina"
+          (change)="cambiarElementosPorPagina(+$any($event.target).value)"
+        >
+          <option *ngFor="let op of opcionesElementosPorPagina" [value]="op">{{ op }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tabla -->
     <div class="tabla-responsive">
-      <table class="tabla-envios">
+      <table class="tabla-resultados" aria-label="Resultados de búsqueda semántica">
         <thead>
           <tr>
-            <th *ngIf="configuracion.mostrarPuntuacion">Relevancia</th>
             <th>N° Guía (HAWB)</th>
             <th>Destinatario</th>
             <th>Ciudad destino</th>
             <th>Estado</th>
-            <th>Fecha emisión</th>
-            <th class="text-right">Peso total</th>
-            <th class="text-right">Valor total</th>
-            <th class="text-right">Costo servicio</th>
+            <th>Fecha</th>
+            <th class="text-right">Peso</th>
+            <th class="text-right">Valor</th>
+            <th class="text-right">Costo</th>
             <th class="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let resultado of resultadosPaginados" class="fila-envio">
-            <td *ngIf="configuracion.mostrarPuntuacion" data-label="Relevancia" class="celda-relevancia">
-              <div class="indicador-relevancia">
-                <div class="barra-relevancia">
-                  <div
-                    class="relleno-relevancia"
-                    [style.width.%]="resultado.puntuacionSimilitud * 100"
-                    [style.background-color]="obtenerColorSimilitud(resultado.puntuacionSimilitud)"
-                  ></div>
-                </div>
-                <span class="texto-relevancia" [ngClass]="obtenerClaseSimilitud(resultado.puntuacionSimilitud)">
-                  {{ formatearPorcentajeSimilitud(resultado.puntuacionSimilitud) }}
+          <tr *ngFor="let r of resultadosPaginados" class="fila-resultado">
+            <td data-label="N° Guía">
+              <span class="hawb">{{ r.envio.hawb }}</span>
+            </td>
+            <td data-label="Destinatario">
+              <div class="destinatario">
+                <span class="destinatario__nombre">{{ r.envio.comprador_info?.nombre || 'N/A' }}</span>
+                <span class="destinatario__cedula" *ngIf="r.envio.comprador_info?.cedula">
+                  {{ r.envio.comprador_info.cedula }}
                 </span>
               </div>
             </td>
-            <td data-label="N° Guía" class="celda-hawb">
-              <strong>{{ resultado.envio.hawb }}</strong>
-            </td>
-            <td data-label="Destinatario">
-              <div class="info-destinatario">
-                <div class="nombre">{{ resultado.envio.comprador_info?.nombre || 'N/A' }}</div>
-                <div class="cedula" *ngIf="resultado.envio.comprador_info?.cedula">
-                  {{ resultado.envio.comprador_info.cedula }}
-                </div>
-              </div>
-            </td>
             <td data-label="Ciudad">
-              <i class="fas fa-map-marker-alt"></i>
-              {{ resultado.envio.comprador_info?.ciudad || 'N/A' }}
-            </td>
-            <td data-label="Estado">
-              <span class="badge-estado" [ngClass]="obtenerClaseEstado(resultado.envio.estado)">
-                {{ obtenerEtiquetaEstado(resultado.envio.estado) }}
+              <span class="ciudad">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                {{ r.envio.comprador_info?.ciudad || 'N/A' }}
               </span>
             </td>
-            <td data-label="Fecha" class="celda-fecha">
-              {{ formatearFecha(resultado.envio.fecha_emision) }}
+            <td data-label="Estado">
+              <span class="badge-estado" [ngClass]="obtenerClaseEstado(r.envio.estado)">
+                {{ obtenerEtiquetaEstado(r.envio.estado) }}
+              </span>
             </td>
-            <td data-label="Peso" class="text-right celda-peso">
-              {{ formatearPeso(resultado.envio.peso_total) }}
+            <td data-label="Fecha" class="fecha">
+              {{ formatearFecha(r.envio.fecha_emision) }}
             </td>
-            <td data-label="Valor" class="text-right celda-valor">
-              {{ formatearMoneda(resultado.envio.valor_total) }}
+            <td data-label="Peso" class="text-right monospace">
+              {{ formatearPeso(r.envio.peso_total) }}
             </td>
-            <td data-label="Costo" class="text-right celda-costo">
-              {{ formatearMoneda(resultado.envio.costo_servicio) }}
+            <td data-label="Valor" class="text-right monospace">
+              {{ formatearMoneda(r.envio.valor_total) }}
+            </td>
+            <td data-label="Costo" class="text-right monospace">
+              {{ formatearMoneda(r.envio.costo_servicio) }}
             </td>
             <td class="text-center celda-acciones">
-              <div class="botones-accion">
-                <button 
-                  class="btn-icono btn-ver"
-                  (click)="verDetalles(resultado)"
-                  title="Ver detalles"
-                >
+              <div class="acciones">
+                <button class="btn-icono btn-ver" (click)="verDetalles(r)" title="Ver detalles">
                   <i class="fas fa-eye"></i>
                 </button>
-                <button 
-                  class="btn-icono btn-descargar"
-                  (click)="descargarComprobante(resultado.envio)"
-                  title="Descargar comprobante"
-                >
+                <button class="btn-icono btn-descargar" (click)="descargarComprobante(r.envio)" title="Descargar">
                   <i class="fas fa-download"></i>
                 </button>
-                <button 
-                  class="btn-icono btn-imprimir"
-                  (click)="imprimirComprobante(resultado.envio)"
-                  title="Imprimir comprobante"
-                >
+                <button class="btn-icono btn-imprimir" (click)="imprimirComprobante(r.envio)" title="Imprimir">
                   <i class="fas fa-print"></i>
                 </button>
-                <button 
+                <button
+                  *ngIf="r.envio.comprador_info?.ciudad"
                   class="btn-icono btn-mapa"
-                  (click)="verEnMapa(resultado.envio)"
+                  (click)="verEnMapa(r.envio)"
                   title="Ver en mapa"
-                  *ngIf="resultado.envio.comprador_info?.ciudad"
                 >
                   <i class="fas fa-map-marked-alt"></i>
                 </button>
@@ -277,206 +167,85 @@
         </tbody>
       </table>
     </div>
-    
+
     <!-- Paginación -->
     <div class="paginacion" *ngIf="totalPaginas > 1">
-      <button 
-        class="btn-pagina"
-        (click)="paginaAnterior()"
-        [disabled]="paginaActual === 1"
-      >
-        <i class="fas fa-chevron-left"></i>
-        Anterior
+      <button class="btn-pagina" (click)="paginaAnterior()" [disabled]="paginaActual === 1">
+        <i class="fas fa-chevron-left"></i> Anterior
       </button>
 
-      <div class="numeros-pagina">
-        <button 
-          *ngIf="paginaActual > 3"
+      <div class="paginas-numeros">
+        <button *ngIf="paginaActual > 3" class="btn-numero" (click)="irAPagina(1)">1</button>
+        <span *ngIf="paginaActual > 3" class="ellipsis">…</span>
+        <button
+          *ngFor="let p of obtenerRangoPaginas()"
           class="btn-numero"
-          (click)="irAPagina(1)"
-        >
-          1
-        </button>
-        <span *ngIf="paginaActual > 3" class="puntos-suspension">...</span>
-
-        <button 
-          *ngFor="let pagina of obtenerRangoPaginas()"
-          class="btn-numero"
-          [class.activo]="pagina === paginaActual"
-          (click)="irAPagina(pagina)"
-        >
-          {{ pagina }}
-        </button>
-
-        <span *ngIf="paginaActual < totalPaginas - 2" class="puntos-suspension">...</span>
-        <button 
-          *ngIf="paginaActual < totalPaginas - 2"
-          class="btn-numero"
-          (click)="irAPagina(totalPaginas)"
-        >
+          [class.activo]="p === paginaActual"
+          (click)="irAPagina(p)"
+        >{{ p }}</button>
+        <span *ngIf="paginaActual < totalPaginas - 2" class="ellipsis">…</span>
+        <button *ngIf="paginaActual < totalPaginas - 2" class="btn-numero" (click)="irAPagina(totalPaginas)">
           {{ totalPaginas }}
         </button>
       </div>
 
-      <button 
-        class="btn-pagina"
-        (click)="paginaSiguiente()"
-        [disabled]="paginaActual === totalPaginas"
-      >
-        Siguiente
-        <i class="fas fa-chevron-right"></i>
+      <button class="btn-pagina" (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">
+        Siguiente <i class="fas fa-chevron-right"></i>
       </button>
     </div>
   </div>
-  
-  <!-- Controles de vista de resultados -->
-  <div *ngIf="resultadosSemanticos.length > 0 && !analizando" class="controles-vista">
-    <div class="info-resultados-semanticos">
-      <span class="contador-resultados">
-        <strong>{{ respuestaActual?.totalEncontrados ?? resultadosSemanticos.length }}</strong> resultado(s) encontrado(s)
-        <span *ngIf="totalPaginas > 1">
-          (Mostrando {{ (paginaActual - 1) * elementosPorPagina + 1 }} - {{ Math.min(paginaActual * elementosPorPagina, resultadosSemanticos.length) }})
-        </span>
-      </span>
-      <span class="info-modelo" *ngIf="respuestaActual?.modeloUtilizado">
-        <i class="fas fa-microchip"></i>
-        Modelo: {{ respuestaActual.modeloUtilizado }}
-      </span>
-      <span class="info-tiempo" *ngIf="respuestaActual?.tiempoRespuesta">
-        <i class="fas fa-clock"></i>
-        {{ respuestaActual.tiempoRespuesta }}ms
-      </span>
-      <span class="info-costo" *ngIf="respuestaActual?.costoConsulta && configuracion.mostrarCosto">
-        <i class="fas fa-dollar-sign"></i>
-        Costo: {{ formatearCosto(respuestaActual.costoConsulta) }}
-      </span>
-      <span class="info-tokens" *ngIf="respuestaActual?.tokensUtilizados">
-        <i class="fas fa-hashtag"></i>
-        {{ respuestaActual.tokensUtilizados }} tokens
-      </span>
-    </div>
-    <div class="controles-paginacion-header">
-      <label>
-        <i class="fas fa-list"></i>
-        Mostrar:
-      </label>
-      <select 
-        class="select-elementos"
-        [value]="elementosPorPagina"
-        (change)="cambiarElementosPorPagina(+$any($event.target).value)"
-      >
-        <option *ngFor="let opcion of opcionesElementosPorPagina" [value]="opcion">
-          {{ opcion }}
-        </option>
-      </select>
-    </div>
-  </div>
+
 </div>
 
-<!-- Modal de detalles del envío (igual formato que busqueda-envios) -->
+<!-- Modal de detalles del envío -->
 <div class="modal-overlay" *ngIf="mostrarDetalleModal" (click)="cerrarDetalleModal()">
   <div class="modal-contenido" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2>
-        <i class="fas fa-box"></i>
-        Detalles del envío
-      </h2>
-      <button class="btn-cerrar-modal" (click)="cerrarDetalleModal()">
+      <h2><i class="fas fa-box"></i> Detalles del envío</h2>
+      <button class="btn-cerrar-modal" (click)="cerrarDetalleModal()" aria-label="Cerrar">
         <i class="fas fa-times"></i>
       </button>
     </div>
 
     <div class="modal-body" *ngIf="envioSeleccionado">
-      <!-- Información general -->
       <div class="seccion-detalle">
-        <h3 class="subtitulo-detalle">
-          <i class="fas fa-info-circle"></i>
-          Información general
-        </h3>
+        <h3 class="subtitulo-detalle"><i class="fas fa-info-circle"></i> Información general</h3>
         <div class="grid-detalle">
-          <div class="campo-detalle">
-            <label>Número de guía (HAWB):</label>
-            <strong>{{ envioSeleccionado.hawb }}</strong>
-          </div>
+          <div class="campo-detalle"><label>Número de guía (HAWB):</label><strong>{{ envioSeleccionado.hawb }}</strong></div>
           <div class="campo-detalle">
             <label>Estado:</label>
             <span class="badge-estado" [ngClass]="obtenerClaseEstado(envioSeleccionado.estado)">
               {{ obtenerEtiquetaEstado(envioSeleccionado.estado) }}
             </span>
           </div>
-          <div class="campo-detalle">
-            <label>Fecha de emisión:</label>
-            <span>{{ formatearFecha(envioSeleccionado.fecha_emision) }}</span>
-          </div>
-          <div class="campo-detalle">
-            <label>Fecha de actualización:</label>
-            <span>{{ formatearFecha(envioSeleccionado.fecha_actualizacion) }}</span>
-          </div>
+          <div class="campo-detalle"><label>Fecha de emisión:</label><span>{{ formatearFecha(envioSeleccionado.fecha_emision) }}</span></div>
+          <div class="campo-detalle"><label>Fecha de actualización:</label><span>{{ formatearFecha(envioSeleccionado.fecha_actualizacion) }}</span></div>
         </div>
       </div>
 
-      <!-- Información del destinatario -->
       <div class="seccion-detalle" *ngIf="envioSeleccionado.comprador_info">
-        <h3 class="subtitulo-detalle">
-          <i class="fas fa-user"></i>
-          Información del destinatario
-        </h3>
+        <h3 class="subtitulo-detalle"><i class="fas fa-user"></i> Destinatario</h3>
         <div class="grid-detalle">
-          <div class="campo-detalle">
-            <label>Nombre:</label>
-            <span>{{ envioSeleccionado.comprador_info.nombre }}</span>
-          </div>
-          <div class="campo-detalle">
-            <label>Cédula:</label>
-            <span>{{ envioSeleccionado.comprador_info.cedula }}</span>
-          </div>
-          <div class="campo-detalle">
-            <label>Correo:</label>
-            <span>{{ envioSeleccionado.comprador_info.correo }}</span>
-          </div>
-          <div class="campo-detalle">
-            <label>Teléfono:</label>
-            <span>{{ envioSeleccionado.comprador_info.telefono || 'N/A' }}</span>
-          </div>
-          <div class="campo-detalle">
-            <label>Ciudad:</label>
-            <span>{{ envioSeleccionado.comprador_info.ciudad || 'N/A' }}</span>
-          </div>
+          <div class="campo-detalle"><label>Nombre:</label><span>{{ envioSeleccionado.comprador_info.nombre }}</span></div>
+          <div class="campo-detalle"><label>Cédula:</label><span>{{ envioSeleccionado.comprador_info.cedula }}</span></div>
+          <div class="campo-detalle"><label>Correo:</label><span>{{ envioSeleccionado.comprador_info.correo }}</span></div>
+          <div class="campo-detalle"><label>Teléfono:</label><span>{{ envioSeleccionado.comprador_info.telefono || 'N/A' }}</span></div>
+          <div class="campo-detalle"><label>Ciudad:</label><span>{{ envioSeleccionado.comprador_info.ciudad || 'N/A' }}</span></div>
         </div>
       </div>
 
-      <!-- Información del envío -->
       <div class="seccion-detalle">
-        <h3 class="subtitulo-detalle">
-          <i class="fas fa-box-open"></i>
-          Información del envío
-        </h3>
+        <h3 class="subtitulo-detalle"><i class="fas fa-box-open"></i> Información del envío</h3>
         <div class="grid-detalle">
-          <div class="campo-detalle">
-            <label>Peso total:</label>
-            <strong>{{ formatearPeso(envioSeleccionado.peso_total) }}</strong>
-          </div>
-          <div class="campo-detalle">
-            <label>Cantidad total:</label>
-            <strong>{{ envioSeleccionado.cantidad_total }} unidades</strong>
-          </div>
-          <div class="campo-detalle">
-            <label>Valor total:</label>
-            <strong class="texto-valor">{{ formatearMoneda(envioSeleccionado.valor_total) }}</strong>
-          </div>
-          <div class="campo-detalle">
-            <label>Costo del servicio:</label>
-            <strong class="texto-costo">{{ formatearMoneda(envioSeleccionado.costo_servicio) }}</strong>
-          </div>
+          <div class="campo-detalle"><label>Peso total:</label><strong>{{ formatearPeso(envioSeleccionado.peso_total) }}</strong></div>
+          <div class="campo-detalle"><label>Cantidad:</label><strong>{{ envioSeleccionado.cantidad_total }} unidades</strong></div>
+          <div class="campo-detalle"><label>Valor total:</label><strong class="texto-valor">{{ formatearMoneda(envioSeleccionado.valor_total) }}</strong></div>
+          <div class="campo-detalle"><label>Costo servicio:</label><strong class="texto-costo">{{ formatearMoneda(envioSeleccionado.costo_servicio) }}</strong></div>
         </div>
       </div>
 
-      <!-- Productos -->
-      <div class="seccion-detalle" *ngIf="envioSeleccionado.productos && envioSeleccionado.productos.length > 0">
-        <h3 class="subtitulo-detalle">
-          <i class="fas fa-boxes"></i>
-          Productos: ({{ envioSeleccionado.productos.length }})
-        </h3>
+      <div class="seccion-detalle" *ngIf="envioSeleccionado.productos?.length">
+        <h3 class="subtitulo-detalle"><i class="fas fa-boxes"></i> Productos ({{ envioSeleccionado.productos.length }})</h3>
         <div class="tabla-productos">
           <table>
             <thead>
@@ -484,98 +253,35 @@
                 <th>Descripción</th>
                 <th>Categoría</th>
                 <th class="text-right">Peso</th>
-                <th class="text-right">Cantidad</th>
+                <th class="text-right">Cant.</th>
                 <th class="text-right">Valor</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let producto of envioSeleccionado.productos">
-                <td>{{ producto.descripcion }}</td>
-                <td>{{ producto.categoria_nombre || producto.categoria }}</td>
-                <td class="text-right">{{ formatearPeso(producto.peso) }}</td>
-                <td class="text-right">{{ producto.cantidad }}</td>
-                <td class="text-right">{{ formatearMoneda(producto.valor) }}</td>
+              <tr *ngFor="let p of envioSeleccionado.productos">
+                <td>{{ p.descripcion }}</td>
+                <td>{{ p.categoria_nombre || p.categoria }}</td>
+                <td class="text-right">{{ formatearPeso(p.peso) }}</td>
+                <td class="text-right">{{ p.cantidad }}</td>
+                <td class="text-right">{{ formatearMoneda(p.valor) }}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- Observaciones -->
       <div class="seccion-detalle" *ngIf="envioSeleccionado.observaciones">
-        <h3 class="subtitulo-detalle">
-          <i class="fas fa-comment-alt"></i>
-          Observaciones
-        </h3>
+        <h3 class="subtitulo-detalle"><i class="fas fa-comment-alt"></i> Observaciones</h3>
         <p class="texto-observaciones">{{ envioSeleccionado.observaciones }}</p>
       </div>
     </div>
 
     <div class="modal-footer">
       <button class="btn btn-secundario" (click)="cerrarDetalleModal()">
-        <i class="fas fa-times"></i>
-        Cerrar
+        <i class="fas fa-times"></i> Cerrar
       </button>
       <button class="btn btn-primario" (click)="descargarComprobante(envioSeleccionado!)">
-        <i class="fas fa-download"></i>
-        Descargar comprobante
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Sección de estadísticas de embeddings -->
-<div class="seccion-estadisticas-embeddings">
-  <div class="card-estadisticas">
-    <div class="header-estadisticas">
-      <h3>
-        <i class="fas fa-chart-line"></i>
-        Estadísticas de embeddings
-      </h3>
-    </div>
-    <div class="contenido-estadisticas" *ngIf="!cargandoEstadisticas && estadisticasEmbeddings">
-      <div class="estadistica-item">
-        <span class="label">Total de envios:</span>
-        <span class="valor">{{ estadisticasEmbeddings.total_envios || 0 }}</span>
-      </div>
-      <div class="estadistica-item">
-        <span class="label">Con embedding:</span>
-        <span class="valor valor-exito">{{ estadisticasEmbeddings.total_con_embedding || 0 }}</span>
-      </div>
-      <div class="estadistica-item">
-        <span class="label">Sin embedding:</span>
-        <span class="valor valor-advertencia">{{ estadisticasEmbeddings.total_sin_embedding || 0 }}</span>
-      </div>
-      <div class="estadistica-item porcentaje">
-        <span class="label">Cobertura:</span>
-        <span class="valor">{{ estadisticasEmbeddings.porcentaje_con_embedding || 0 }}%</span>
-      </div>
-    </div>
-    <div class="contenido-estadisticas" *ngIf="cargandoEstadisticas">
-      <div class="cargando">
-        <i class="fas fa-spinner fa-spin"></i>
-        Cargando estadísticas...
-      </div>
-    </div>
-    <div class="acciones-estadisticas">
-      <button 
-        class="btn btn-primario btn-generar-embeddings"
-        (click)="generarEmbeddingsPendientes()"
-        [disabled]="generandoEmbeddings || cargandoEstadisticas"
-        title="Generar embeddings para envíos que no tienen embedding"
-      >
-        <i class="fas fa-sync-alt" [class.fa-spin]="generandoEmbeddings"></i>
-        <span *ngIf="!generandoEmbeddings">Generar embeddings pendientes</span>
-        <span *ngIf="generandoEmbeddings">Generando...</span>
-      </button>
-      <button 
-        class="btn btn-secundario btn-refrescar"
-        (click)="cargarEstadisticasEmbeddings()"
-        [disabled]="cargandoEstadisticas"
-        title="Actualizar estadísticas"
-      >
-        <i class="fas fa-sync-alt" [class.fa-spin]="cargandoEstadisticas"></i>
-        Actualizar
+        <i class="fas fa-download"></i> Descargar comprobante
       </button>
     </div>
   </div>

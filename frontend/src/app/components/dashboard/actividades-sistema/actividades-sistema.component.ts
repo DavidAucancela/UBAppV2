@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { MetricasService } from '../../../services/metricas.service';
+import { ApiService } from '../../../services/api.service';
 
 Chart.register(...registerables);
 
@@ -97,8 +98,19 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
   };
 
 
+  // ===== HISTORIAL DE BÚSQUEDAS SEMÁNTICAS =====
+  historialBusquedas: any[] = [];
+  cargandoHistorial = false;
+
+  // ===== ESTADÍSTICAS DE COBERTURA DE EMBEDDINGS =====
+  estadisticasCobertura: any = null;
+  cargandoCobertura = false;
+  generandoEmbeddingsPendientes = false;
+  mensajeGeneracion = '';
+
   constructor(
-    private metricasService: MetricasService
+    private metricasService: MetricasService,
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
@@ -125,7 +137,9 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
       this.cargarPruebasControladas(),
       this.cargarRegistrosEmbedding(),
       this.cargarDetallesProcesos(),
-      this.cargarPruebasRendimientoCompletas()
+      this.cargarPruebasRendimientoCompletas(),
+      this.cargarHistorialBusquedas(),
+      this.cargarEstadisticasCobertura()
     ]).finally(() => {
       this.loading = false;
       setTimeout(() => {
@@ -214,6 +228,66 @@ export class ActividadesSistemaComponent implements OnInit, AfterViewInit, OnDes
           resolve();
         }
       });
+    });
+  }
+
+  // ==================== HISTORIAL DE BÚSQUEDAS ====================
+
+  cargarHistorialBusquedas(): Promise<void> {
+    return new Promise((resolve) => {
+      this.cargandoHistorial = true;
+      this.apiService.obtenerHistorialSemantico().subscribe({
+        next: (data) => {
+          this.historialBusquedas = Array.isArray(data) ? data : [];
+          this.cargandoHistorial = false;
+          resolve();
+        },
+        error: (error) => {
+          console.error('Error cargando historial de búsquedas:', error);
+          this.historialBusquedas = [];
+          this.cargandoHistorial = false;
+          resolve();
+        }
+      });
+    });
+  }
+
+  // ==================== ESTADÍSTICAS DE COBERTURA ====================
+
+  cargarEstadisticasCobertura(): Promise<void> {
+    return new Promise((resolve) => {
+      this.cargandoCobertura = true;
+      this.apiService.obtenerEstadisticasEmbeddings().subscribe({
+        next: (data) => {
+          this.estadisticasCobertura = data;
+          this.cargandoCobertura = false;
+          resolve();
+        },
+        error: (error) => {
+          console.error('Error cargando estadísticas de cobertura:', error);
+          this.estadisticasCobertura = null;
+          this.cargandoCobertura = false;
+          resolve();
+        }
+      });
+    });
+  }
+
+  generarEmbeddings(): void {
+    if (this.generandoEmbeddingsPendientes) return;
+    this.generandoEmbeddingsPendientes = true;
+    this.mensajeGeneracion = '';
+    this.apiService.generarEmbeddingsPendientes().subscribe({
+      next: (res) => {
+        this.mensajeGeneracion = res?.mensaje || 'Embeddings generados correctamente.';
+        this.generandoEmbeddingsPendientes = false;
+        this.cargarEstadisticasCobertura();
+      },
+      error: (err) => {
+        this.mensajeGeneracion = 'Error al generar embeddings. Intente nuevamente.';
+        console.error('Error generando embeddings:', err);
+        this.generandoEmbeddingsPendientes = false;
+      }
     });
   }
 
