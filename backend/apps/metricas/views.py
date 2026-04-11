@@ -544,16 +544,15 @@ class PruebasSistemaViewSet(viewsets.ViewSet):
                 status=status.HTTP_403_FORBIDDEN
             )
         
-        from io import StringIO
+        import subprocess
         import sys
-        from django.test.utils import get_runner
-        from django.conf import settings
-        
+        import os
+
         try:
             # Obtener parámetros
             app_name = request.data.get('app', None)  # ej: 'archivos', 'busqueda', 'usuarios'
             test_suite = request.data.get('test_suite', None)  # ej: 'EnvioTestCase'
-            
+
             # Preparar argumentos
             if app_name and test_suite:
                 test_labels = [f'apps.{app_name}.tests.{test_suite}']
@@ -561,25 +560,23 @@ class PruebasSistemaViewSet(viewsets.ViewSet):
                 test_labels = [f'apps.{app_name}']
             else:
                 test_labels = []
-            
-            # Capturar salida
-            output = StringIO()
-            sys.stdout = output
-            sys.stderr = output
-            
-            # Ejecutar tests
-            TestRunner = get_runner(settings)
-            test_runner = TestRunner(verbosity=2, interactive=False, keepdb=True)
-            failures = test_runner.run_tests(test_labels)
-            
-            # Restaurar stdout/stderr
-            sys.stdout = sys.__stdout__
-            sys.stderr = sys.__stderr__
-            
-            # Obtener salida
-            output_text = output.getvalue()
-            
-            # Analizar resultados
+
+            # Ejecutar tests en subproceso para aislarlos de la conexión actual.
+            # Usa settings_test.py (SQLite en memoria) para evitar CREATEDB en Supabase/Railway.
+            backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            cmd = [sys.executable, 'manage.py', 'test', '--verbosity=2', '--settings=settings_test'] + test_labels
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                cwd=backend_dir,
+                timeout=300,
+                env={**os.environ, 'DJANGO_SETTINGS_MODULE': 'settings_test'}
+            )
+
+            output_text = result.stdout + result.stderr
+            failures = result.returncode
+
             resultado = {
                 'mensaje': 'Tests ejecutados',
                 'exitoso': failures == 0,
@@ -587,14 +584,16 @@ class PruebasSistemaViewSet(viewsets.ViewSet):
                 'salida': output_text,
                 'fecha_ejecucion': timezone.now().isoformat()
             }
-            
+
             return Response(resultado, status=status.HTTP_200_OK)
-            
+
+        except subprocess.TimeoutExpired:
+            BaseService.log_error(Exception("Timeout"), "Tests excedieron el tiempo límite", usuario_id=request.user.id)
+            return Response(
+                {'error': 'Los tests excedieron el tiempo límite de 5 minutos'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
         except Exception as e:
-            # Restaurar stdout/stderr
-            sys.stdout = sys.__stdout__
-            sys.stderr = sys.__stderr__
-            
             BaseService.log_error(e, "Error ejecutando tests", usuario_id=request.user.id)
             return Response(
                 {'error': f'Error ejecutando tests: {str(e)}'},
