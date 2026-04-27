@@ -5,7 +5,7 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { AuthService } from '../../../services/auth.service';
 import { DashboardUsuario } from '../../../models/usuario';
 import { Envio } from '../../../models/envio';
-import { Chart, ChartConfiguration, registerables } from 'chart.js';
+import { Chart, ChartConfiguration, ChartOptions, registerables } from 'chart.js';
 import { Subscription } from 'rxjs';
 
 Chart.register(...registerables);
@@ -166,7 +166,7 @@ export class DashboardUsuarioComponent implements OnInit, OnDestroy, AfterViewIn
             }
           }
         }
-      }
+      } as ChartOptions<'doughnut'>
     };
 
     this.estadosChart = new Chart(this.estadosChartRef.nativeElement, config);
