@@ -39,7 +39,6 @@
           <a *ngIf="item.subItems && item.subItems.length > 0"
              class="nav-link has-submenu no-navigate"
              (click)="handleItemClick(item, $event)"
-             aria-current="page">
             <i [class]="item.icon" aria-hidden="true"></i>
             <span>{{ item.label }}</span>
             <i class="fas fa-chevron-down submenu-arrow" 
@@ -51,10 +50,10 @@
           <ul class="dropdown-menu" 
               *ngIf="item.subItems && item.subItems.length > 0 && isExpanded(item.label)">
             <li *ngFor="let subItem of item.subItems">
-              <a [routerLink]="subItem.route" 
+              <a [routerLink]="subItem.route"
                  routerLinkActive="active"
                  class="dropdown-item"
-                 (click)="toggleSubmenu(item.label)">
+                 (click)="closeMobileMenu()">
                 <i [class]="subItem.icon" aria-hidden="true"></i>
                 <span>{{ subItem.label }}</span>
               </a>

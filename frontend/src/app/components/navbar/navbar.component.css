@@ -1069,9 +1069,9 @@
     padding: 0;
   }
 
-  /* Neutralizar el efecto ::before de escritorio (fondo blanco sobre gradiente) */
+  /* Deshabilitar el efecto ::before de escritorio — no aplica en el dropdown móvil */
   .nav-menu .nav-link::before {
-    background: var(--color-surface-raised);
+    display: none;
   }
 
   .nav-menu .nav-link {

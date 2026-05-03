@@ -121,6 +121,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   
   private userSubscription: Subscription | null = null;
   private notificacionSubscription: Subscription | null = null;
+  private boundGlobalClickHandler!: (event: MouseEvent) => void;
   
   // Notificaciones
   notificaciones: Notificacion[] = [];
@@ -219,8 +220,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.isDarkMode = document.body.classList.contains('dark-mode');
 
       // Agregar listener global para cerrar dropdowns al hacer clic/toque afuera
-      document.addEventListener('click', this.handleGlobalClick.bind(this));
-      document.addEventListener('touchstart', this.handleGlobalClick.bind(this) as EventListener, { passive: true });
+      this.boundGlobalClickHandler = this.handleGlobalClick.bind(this);
+      document.addEventListener('click', this.boundGlobalClickHandler);
+      document.addEventListener('touchstart', this.boundGlobalClickHandler as EventListener, { passive: true });
     }
     
     // Suscribirse a los cambios del usuario actual
@@ -282,9 +284,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.clearLogoClickSuppressionTimeout();
     
     // Remover listener global
-    if (isPlatformBrowser(this.platformId)) {
-      document.removeEventListener('click', this.handleGlobalClick.bind(this));
-      document.removeEventListener('touchstart', this.handleGlobalClick.bind(this) as EventListener);
+    if (isPlatformBrowser(this.platformId) && this.boundGlobalClickHandler) {
+      document.removeEventListener('click', this.boundGlobalClickHandler);
+      document.removeEventListener('touchstart', this.boundGlobalClickHandler as EventListener);
     }
   }
 
