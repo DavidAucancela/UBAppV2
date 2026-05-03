@@ -757,6 +757,205 @@
   font-size: 1rem;
 }
 
+/* ===== TABLA DE REGISTROS (diseño busqueda-envios) ===== */
+.seccion-resultados {
+  background: var(--color-surface);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+}
+
+.tabla-responsive {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.tabla-envios {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  table-layout: fixed;
+}
+
+.tabla-envios thead {
+  background-color: var(--color-surface-raised);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tabla-envios th {
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  font-weight: 600;
+  white-space: normal;
+  vertical-align: middle;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-envios th.text-center { text-align: center; }
+
+.tabla-envios tbody { background: var(--color-surface); }
+
+.tabla-envios tbody tr {
+  border-bottom: 1px solid var(--color-surface-raised);
+  transition: all 0.3s ease;
+  background-color: var(--color-surface);
+}
+
+.tabla-envios tbody tr:nth-child(even) {
+  background-color: var(--color-surface-raised);
+}
+
+.tabla-envios tbody tr:hover {
+  background-color: #eef2ff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.tabla-envios tbody tr.row-selected,
+.tabla-envios tbody tr.row-selected:nth-child(even) {
+  background-color: #dde3ff !important;
+}
+
+.tabla-envios tbody tr.row-selected:hover {
+  background-color: #c7d0ff !important;
+}
+
+.tabla-envios td {
+  padding: 0.75rem 0.5rem;
+  vertical-align: middle;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 0.85rem;
+}
+
+.celda-username strong {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* ===== BADGES (diseño busqueda-envios) ===== */
+.badge-estado {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Roles */
+.badge-estado.admin {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-text);
+  border: 1px solid var(--color-danger-text);
+}
+
+.badge-estado.gerente {
+  background-color: var(--color-info-bg);
+  color: var(--color-info-text);
+  border: 1px solid var(--color-info-text);
+}
+
+.badge-estado.digitador {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  border: 1px solid var(--color-warning-text);
+}
+
+.badge-estado.comprador {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  border: 1px solid var(--color-success-text);
+}
+
+/* Estado activo / inactivo */
+.badge-estado.estado-activo {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  border: 1px solid var(--color-success-text);
+}
+
+.badge-estado.estado-inactivo {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-text);
+  border: 1px solid var(--color-danger-text);
+}
+
+/* ===== ACCIONES ===== */
+.celda-acciones {
+  text-align: center;
+}
+
+.botones-accion {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-icono {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.btn-icono:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-ver {
+  background-color: var(--color-info-bg);
+  color: var(--color-info-text);
+}
+
+.btn-ver:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-editar {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+
+.btn-editar:hover {
+  background-color: var(--color-warning);
+  color: white;
+}
+
+.btn-eliminar {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-text);
+}
+
+.btn-eliminar:hover {
+  background-color: var(--color-danger);
+  color: white;
+}
+
 /* ===== FILTERS TOGGLE (mobile) ===== */
 .filters-toggle {
   display: none;
@@ -810,9 +1009,11 @@
   }
 
   /* Card table */
-  .table thead { display: none; }
+  .tabla-responsive { overflow-x: visible; }
 
-  .table tbody tr {
+  .tabla-envios thead { display: none; }
+
+  .tabla-envios tbody tr {
     display: block;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -821,24 +1022,25 @@
     margin-bottom: 1rem;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    padding: 0;
   }
 
-  .table tbody tr:has(.active)   { border-left-color: #10b981; }
-  .table tbody tr:has(.inactive) { border-left-color: #6b7280; }
+  .tabla-envios tbody tr:has(.estado-activo)   { border-left-color: #10b981; }
+  .tabla-envios tbody tr:has(.estado-inactivo) { border-left-color: #6b7280; }
 
-  .table tbody tr:hover {
+  .tabla-envios tbody tr:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     background-color: var(--color-surface) !important;
   }
 
-  .table tbody tr.empty-row {
+  .tabla-envios tbody tr.empty-row {
     border: none;
     box-shadow: none;
     border-radius: 0;
     background: transparent;
   }
 
-  .table td {
+  .tabla-envios td {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -849,9 +1051,9 @@
     background-color: inherit;
   }
 
-  .table td:last-child { border-bottom: none; }
+  .tabla-envios td:last-child { border-bottom: none; }
 
-  .table td::before {
+  .tabla-envios td::before {
     content: attr(data-label);
     font-weight: 700;
     color: var(--color-text-muted);
@@ -862,15 +1064,26 @@
     min-width: 85px;
   }
 
-  .table td.hide-mobile { display: none; }
+  /* Username: encabezado de la card */
+  .tabla-envios td.celda-username {
+    background: var(--color-surface-raised);
+    padding: 0.85rem 1rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .tabla-envios td.hide-mobile { display: none; }
 
   /* Acciones: centradas sin etiqueta */
-  .table td:last-child {
+  .tabla-envios td.celda-acciones {
     justify-content: center;
     background: var(--color-surface-raised);
   }
 
-  .table td:last-child::before { display: none; }
+  .tabla-envios td.celda-acciones::before { display: none; }
+
+  .botones-accion { gap: 0.75rem; }
+
+  .btn-icono { width: 40px; height: 40px; }
 
   .form-row {
     grid-template-columns: 1fr;
@@ -1227,4 +1440,56 @@
 
 :host-context(body.dark-mode) .table tbody tr:nth-child(even) {
   background-color: var(--color-surface-raised);
+}
+
+/* ===== DARK MODE — TABLA REGISTROS ===== */
+:host-context(body.dark-mode) .seccion-resultados {
+  background: #334155;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+:host-context(body.dark-mode) .tabla-envios th {
+  background: linear-gradient(135deg, #475569 0%, #334155 100%);
+  color: #cbd5e1;
+}
+
+:host-context(body.dark-mode) .tabla-envios tbody tr {
+  background-color: #334155;
+}
+
+:host-context(body.dark-mode) .tabla-envios tbody tr:nth-child(even) {
+  background-color: #3b4a5e;
+}
+
+:host-context(body.dark-mode) .tabla-envios tbody tr:hover {
+  background-color: #475569 !important;
+}
+
+:host-context(body.dark-mode) .tabla-envios td {
+  color: var(--color-border);
+  border-bottom-color: #475569;
+}
+
+:host-context(body.dark-mode) .celda-username strong {
+  color: #a78bfa;
+}
+
+:host-context(body.dark-mode) .btn-icono {
+  background-color: #475569;
+  color: #94a3b8;
+}
+
+:host-context(body.dark-mode) .btn-ver {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+}
+
+:host-context(body.dark-mode) .btn-editar {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #fcd34d;
+}
+
+:host-context(body.dark-mode) .btn-eliminar {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
 }

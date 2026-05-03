@@ -212,15 +212,15 @@
   </div>
 
   <!-- Users Table -->
-  <div class="card" *ngIf="!loading">
-    <div class="table-container">
-    <table class="table table-mobile-cards">
+  <div class="seccion-resultados" *ngIf="!loading">
+    <div class="tabla-responsive">
+    <table class="tabla-envios table-mobile-cards">
       <thead>
         <tr>
           <th class="col-checkbox" title="Seleccionar todo">
             <label class="checkbox-header">
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 (change)="selectAllOnPage()"
                 [checked]="areAllSelected()"
                 aria-label="Seleccionar todos"
@@ -234,7 +234,7 @@
           <th>Ubicación</th>
           <th>Rol</th>
           <th>Estado</th>
-          <th>Acciones</th>
+          <th class="text-center">Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -248,7 +248,9 @@
               >
             </label>
           </td>
-          <td data-label="Usuario">{{ usuario.username }}</td>
+          <td data-label="Usuario" class="celda-username">
+            <strong>{{ usuario.username }}</strong>
+          </td>
           <td data-label="Nombre">{{ usuario.nombre }}</td>
           <td class="hide-mobile" data-label="Correo">{{ usuario.correo }}</td>
           <td class="hide-mobile" data-label="Cédula">{{ usuario.cedula }}</td>
@@ -273,25 +275,25 @@
             </span>
           </td>
           <td data-label="Rol">
-            <span class="role-badge" [class]="getRoleClass(usuario.rol)">
+            <span class="badge-estado" [ngClass]="getRoleClass(usuario.rol)">
               {{ getRoleLabel(usuario.rol) }}
             </span>
           </td>
           <td data-label="Estado">
-            <span class="status-badge" [class]="usuario.es_activo ? 'active' : 'inactive'">
+            <span class="badge-estado" [ngClass]="usuario.es_activo ? 'estado-activo' : 'estado-inactivo'">
               {{ usuario.es_activo ? 'Activo' : 'Inactivo' }}
             </span>
           </td>
-          <td>
-            <div class="actions">
-              <button class="btn-icon" (click)="editUsuario(usuario)" title="Editar">
+          <td class="celda-acciones">
+            <div class="botones-accion">
+              <button class="btn-icono btn-editar" (click)="editUsuario(usuario)" title="Editar">
                 <i class="fas fa-edit"></i>
               </button>
-              <button class="btn-icon" (click)="viewUsuario(usuario)" title="Ver detalles">
+              <button class="btn-icono btn-ver" (click)="viewUsuario(usuario)" title="Ver detalles">
                 <i class="fas fa-eye"></i>
               </button>
-              <button 
-                class="btn-icon danger" 
+              <button
+                class="btn-icono btn-eliminar"
                 (click)="deleteUsuario(usuario)"
                 title="Eliminar"
                 *ngIf="canDeleteUsuario(usuario)"
@@ -421,7 +423,7 @@
           </div>
           <div class="detail-item">
             <span class="detail-label">Rol</span>
-            <span class="role-badge" [class]="getRoleClass(u.rol)">
+            <span class="badge-estado" [ngClass]="getRoleClass(u.rol)">
               {{ getRoleLabel(u.rol) }}
             </span>
           </div>
@@ -453,7 +455,7 @@
         <div class="detail-grid">
           <div class="detail-item">
             <span class="detail-label">Estado</span>
-            <span class="status-badge" [class]="u.es_activo ? 'active' : 'inactive'">
+            <span class="badge-estado" [ngClass]="u.es_activo ? 'estado-activo' : 'estado-inactivo'">
               {{ u.es_activo ? 'Activo' : 'Inactivo' }}
             </span>
           </div>

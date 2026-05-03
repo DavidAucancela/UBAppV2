@@ -229,9 +229,9 @@
       </div>
 
       <!-- Table -->
-      <div class="card" *ngIf="!loading">
-    <div class="table-container">
-      <table class="table table-mobile-cards">
+      <div class="seccion-resultados" *ngIf="!loading">
+    <div class="tabla-responsive">
+      <table class="tabla-envios table-mobile-cards">
         <thead>
           <tr>
             <th class="col-checkbox">
@@ -243,7 +243,7 @@
                 >
               </label>
             </th>
-            <th>HAWB</th>
+            <th>N° Guía (HAWB)</th>
             <th>Comprador / Cédula</th>
             <th class="text-center">Prods.</th>
             <th class="text-right">Peso (kg)</th>
@@ -251,7 +251,7 @@
             <th class="text-right">Costo Envío</th>
             <th>Estado</th>
             <th>Fecha</th>
-            <th class="actions-column">Acciones</th>
+            <th class="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -265,41 +265,41 @@
                 >
               </label>
             </td>
-            <td data-label="HAWB">
-              <strong class="hawb-text">{{ envio.hawb }}</strong>
+            <td data-label="N° Guía" class="celda-hawb">
+              <strong>{{ envio.hawb }}</strong>
             </td>
             <td data-label="Comprador">
-              <div class="comprador-info">
-                <span class="comprador-nombre">{{ envio.comprador_info?.nombre || 'Sin información' }}</span>
-                <span class="comprador-cedula">{{ envio.comprador_info?.cedula || '-' }}</span>
+              <div class="info-destinatario">
+                <div class="nombre">{{ envio.comprador_info?.nombre || 'Sin información' }}</div>
+                <div class="cedula">{{ envio.comprador_info?.cedula || '-' }}</div>
               </div>
             </td>
             <td class="text-center hide-mobile" data-label="Prods.">
-              <span class="badge badge-info">
+              <span class="badge-count-prods">
                 {{ envio.cantidad_productos || 0 }}
               </span>
             </td>
-            <td class="text-right hide-mobile" data-label="Peso (kg)">
+            <td class="text-right hide-mobile celda-peso" data-label="Peso (kg)">
               {{ envio.peso_total | number:'1.2-2' }}
             </td>
-            <td class="text-right hide-mobile" data-label="Valor">
+            <td class="text-right hide-mobile celda-valor" data-label="Valor">
               {{ envio.valor_total | currency:'USD':'symbol':'1.2-2' }}
             </td>
-            <td class="text-right hide-mobile" data-label="Costo Envío">
-              <span class="costo-servicio">{{ envio.costo_servicio || 0 | currency:'USD':'symbol':'1.2-2' }}</span>
+            <td class="text-right hide-mobile celda-costo" data-label="Costo Envío">
+              {{ envio.costo_servicio || 0 | currency:'USD':'symbol':'1.2-2' }}
             </td>
             <td data-label="Estado">
-              <span class="badge" [ngClass]="getEstadoClass(envio.estado)">
+              <span class="badge-estado" [ngClass]="getEstadoClass(envio.estado)">
                 {{ getEstadoLabel(envio.estado) }}
               </span>
             </td>
-            <td class="hide-mobile" data-label="Fecha">
+            <td class="hide-mobile celda-fecha" data-label="Fecha">
               {{ envio.fecha_creacion | date:'dd/MM/yyyy' }}
             </td>
-            <td class="actions-column">
-              <div class="action-buttons">
+            <td class="celda-acciones">
+              <div class="botones-accion">
                 <button
-                  class="btn-icon btn-view"
+                  class="btn-icono btn-ver"
                   (click)="viewEnvio(envio)"
                   title="Ver detalle"
                   type="button"

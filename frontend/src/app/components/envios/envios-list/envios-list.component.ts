@@ -899,13 +899,13 @@ export class EnviosListComponent implements OnInit, OnDestroy {
   getEstadoClass(estado: string): string {
     switch (estado) {
       case EstadosEnvio.ENTREGADO:
-        return 'badge-success';
+        return 'estado-entregado';
       case EstadosEnvio.EN_TRANSITO:
-        return 'badge-warning';
+        return 'estado-en-transito';
       case EstadosEnvio.PENDIENTE:
-        return 'badge-info';
+        return 'estado-pendiente';
       case EstadosEnvio.CANCELADO:
-        return 'badge-danger';
+        return 'estado-cancelado';
       default:
         return '';
     }
