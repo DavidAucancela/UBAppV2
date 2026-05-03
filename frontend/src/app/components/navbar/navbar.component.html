@@ -17,16 +17,6 @@
       <div class="logo-glow"></div>
     </a>
     
-    <!-- Botón hamburger - solo móvil -->
-    <button class="hamburger-btn"
-            *ngIf="authService.isAuthenticated()"
-            (click)="toggleMobileMenu($event)"
-            aria-label="Abrir menú de navegación">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
     <!-- Overlay oscuro al abrir menú móvil -->
     <div class="mobile-overlay" *ngIf="mobileMenuOpen" (click)="closeMobileMenu()"></div>
 
@@ -231,6 +221,15 @@
           </button>
         </div>
       </div>
+
+      <!-- Botón hamburger - solo móvil, al extremo derecho -->
+      <button class="hamburger-btn"
+              (click)="toggleMobileMenu($event)"
+              aria-label="Abrir menú de navegación">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </div>
 </header>

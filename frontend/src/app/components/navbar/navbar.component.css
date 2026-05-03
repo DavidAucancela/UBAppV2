@@ -997,7 +997,7 @@
     left: 0;
     height: calc(100dvh - var(--navbar-height));
     width: min(280px, 80vw);
-    background: linear-gradient(180deg, #4a3aaa 0%, #667eea 50%, #764ba2 100%);
+    background: linear-gradient(180deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-dark) 100%);
     z-index: 1000;
     padding: 1.25rem 0;
     overflow-y: auto;
@@ -1043,6 +1043,8 @@
   .hamburger-btn {
     display: flex;
     flex-shrink: 0;
+    width: 34px;
+    height: 34px;
   }
 
   /* Overlay activo cuando menú abierto */
@@ -1186,4 +1188,11 @@
 :host-context(.dark-mode) .notificacion-item:not(.leida) {
   background: rgba(59, 130, 246, 0.08);
   border-left-color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  :host-context(.dark-mode) .nav-menu {
+    background: linear-gradient(180deg, var(--color-surface-raised) 0%, var(--color-surface) 50%, var(--color-surface-raised) 100%);
+    box-shadow: 6px 0 32px rgba(0, 0, 0, 0.5);
+  }
 }

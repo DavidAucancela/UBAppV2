@@ -24,8 +24,9 @@ FROM nginx:alpine
 # Copiar archivos del navegador (Angular 17+ con SSR genera browser/ y server/)
 COPY --from=builder /app/dist/angular-frontend/browser /usr/share/nginx/html
 
-# Configuración nginx para SPA (rutas de Angular)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Configuración nginx para SPA — se copia como template para que nginx
+# sustituya ${PORT} automáticamente via 20-envsubst-on-templates.sh
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
 # Exponer puerto
 EXPOSE 80

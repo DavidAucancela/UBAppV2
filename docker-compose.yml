@@ -140,6 +140,7 @@ services:
     environment:
       - API_URL=${API_URL:-http://backend:8000}
       - NODE_ENV=production
+      - PORT=80
     depends_on:
       - backend
     networks:
