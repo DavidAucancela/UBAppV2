@@ -434,9 +434,10 @@ detalle_proceso_rendimiento  →  desglose por etapa M1-M14
   - Transmisión solo por HTTPS en producción
 
 - **RBAC (Role-Based Access Control)**
-  - 4 roles con permisos diferenciados
-  - Guards en el frontend (Angular route guards)
+  - 4 roles con permisos diferenciados: Admin, Gerente, Digitador, Comprador
+  - Guards en el frontend (Angular `authGuard` + `roleGuard`) verificados por ruta
   - Verificación de permisos en cada endpoint backend
+  - Rutas Angular con lazy loading — los bundles de componentes restringidos solo se cargan si el guard pasa
 
 ### Protecciones HTTP
 
@@ -479,6 +480,19 @@ detalle_proceso_rendimiento  →  desglose por etapa M1-M14
 - Gunicorn: 3 workers (local) / 1 worker (Render free tier — 512MB RAM)
 - Nginx como proxy inverso en producción
 - Multi-stage Docker build en frontend (reduce tamaño de imagen)
+
+### Operaciones asíncronas
+
+Las operaciones post-transacción (generación de embeddings, notificaciones, logging) se ejecutan mediante **Celery** con broker Redis:
+
+| Tarea | Trigger | Reintentos |
+|---|---|---|
+| `generar_embedding_envio` | Crear / actualizar / cambiar estado de envío | 3 |
+| `notificar_envio_creado` | Crear envío | 3 |
+| `notificar_cambio_estado` | Cambiar estado de envío | 3 |
+| `log_creacion_envio` | Crear envío | Sin retry |
+
+Todas las tareas son idempotentes y no bloquean la respuesta HTTP del API.
 
 ### Métricas del sistema
 
@@ -632,21 +646,31 @@ cd frontend && npm run test:coverage
 
 ## 13. HISTORIAL DE CAMBIOS RECIENTES
 
+### 2026-05-02 — Correcciones de diseño del sistema
+
+Revisión completa de diseño con 9 correcciones aplicadas. Ver detalle completo en `backend/documentacion/revisionesGenerales/CORRECCIONES_DISENO_SISTEMA_2026-05-02.md`.
+
+| ID | Área | Descripción |
+|---|---|---|
+| B2 | Backend / Modelo | `calcular_totales()` separado de `actualizar_totales()` — sin efecto secundario de escritura |
+| B3 | Backend / Modelo | `Usuario.nombre` y `Usuario.correo` cambiados a `NOT NULL` con migración |
+| B4 | Backend / Config | Variables de entorno unificadas en `python-decouple`; eliminado `python-dotenv` redundante |
+| B6 | Backend / Async | Operaciones asíncronas migradas de `threading.Thread` a tareas Celery con reintentos |
+| B7 | Backend / Modelo | Nuevo campo `resultados_ids (ArrayField)` en `BusquedaTradicional`; `resultados_json` marcado como deprecado |
+| B8 | Backend / Señales | `AuditLog` detecta correctamente soft-delete y restore mediante `update_fields` |
+| F1 | Frontend / Rutas | Lazy loading con `loadComponent` en todas las rutas — eliminados 20 imports estáticos |
+| F2 | Frontend / Seguridad | Guards de rutas corregidos: `/mis-envios`, `/actividades`, `/envios`, `/busqueda-envios`, `/notificaciones` |
+| F3 | Frontend / Tipos | `CompradorInfo` extraído como interface; nuevo `EnvioDetalle` para respuestas GET con depth |
+
+### Commits anteriores relevantes
+
 | Commit | Descripción |
 |---|---|
-| `3c82291` | Reducir workers de Gunicorn a 1 (límite de RAM en Render free tier) |
-| `9442d3a` | Corregir URL de health check que retornaba 404 en Render |
-| `0ea663b` | Correcciones de despliegue en Render: `start_render.py`, `.gitattributes`, valor por defecto `OPENAI_API_KEY` |
-| `a54b63e` | Cambios en `Dockerfile`, `render.yaml` y `start-render.sh` |
-| `d0eb0ef` | Ajustes de despliegue en Render |
-| `94e404a` | Actualizaciones de `README.md` y `settings.py` |
-| `329126b` | Configuración de `.gitignore` |
-| `67920c7` | Cambios finales de diseño, proceso semántico, eficiencia y Docker |
-| `40af97e` | Panel de métricas y evaluación semántica |
-| `329ede8` | Correcciones para pruebas |
-| `078424c` | Correcciones de diseño y desarrollo del panel semántico |
-
-**Tendencia reciente:** El foco ha sido en estabilizar el despliegue en Render.com (últimos 5 commits).
+| `fe60d3a` | fix: tipado `ChartOptions<'doughnut'>` para build en Railway |
+| `f270a81` | Correcciones de despliegue |
+| `23aac93` | feat: refactor módulo búsqueda semántica + mover IA stats a actividades |
+| `37b8b4e` | Cambios nuevos |
+| `a90af3a` | fix: corregir bucle infinito de crecimiento en sidebar del mapa |
 
 ---
 
@@ -656,21 +680,25 @@ cd frontend && npm run test:coverage
 
 | Riesgo | Impacto | Probabilidad | Mitigación |
 |---|---|---|---|
+| `Envio.comprador` usa `CASCADE` (B1 pendiente) | Alto | Media | Migrar a `PROTECT` antes de producción — ver plan CORRECCIONES_DISENO |
 | Agotamiento de créditos OpenAI | Alto | Media | Monitorear uso; caché de embeddings activo |
 | Límite de RAM en Render free tier | Alto | Alta | Migrar a plan pago o servidor propio |
+| Celery worker no activo | Medio | Media | Sin Celery, las tareas B6 fallan silenciosamente — verificar en staging |
 | Sin WebSockets para notificaciones | Bajo | Alta | Polling implementado como alternativa |
 | Secretos expuestos en Git (pasado) | Crítico | Bajo | Documentado y mitigado (ver `INCIDENTE_GIT_SECRETOS.md`) |
 | Ausencia de suite de tests backend | Medio | N/A | Implementar pruebas unitarias/integración |
 
 ### Recomendaciones técnicas
 
-1. **Tests backend:** Implementar pruebas unitarias con `pytest-django` para cubrir vistas, servicios y modelos críticos.
-2. **WebSockets:** Evaluar `Django Channels` + Redis para notificaciones en tiempo real verdaderas.
-3. **CI/CD:** Configurar GitHub Actions para ejecutar tests y build automáticamente en cada PR.
-4. **Monitoreo:** Integrar Sentry para captura de errores en producción.
-5. **Rate limiting:** Revisar y ajustar límites según uso real en producción.
-6. **Backups:** Configurar backups automáticos de PostgreSQL en producción.
+1. **B1 pendiente:** Aplicar `on_delete=PROTECT` en `Envio.comprador` y `on_delete=SET_NULL` en `BusquedaTradicional.usuario`. Requiere análisis de datos existentes.
+2. **Celery en staging:** Verificar que el worker Celery está activo antes de desplegar B6 a producción. Sin él, las notificaciones y embeddings no se generarán.
+3. **Deprecar `resultados_json`:** Actualizar `pdf_service.py`, serializers y views para usar `resultados_ids` y eliminar el campo en la siguiente iteración.
+4. **Tests backend:** Implementar pruebas unitarias con `pytest-django` para `actualizar_totales()`, `_resolver_accion()` y guards de rutas.
+5. **WebSockets:** Evaluar `Django Channels` + Redis para notificaciones en tiempo real verdaderas.
+6. **CI/CD:** Configurar GitHub Actions para ejecutar tests y build automáticamente en cada PR.
+7. **Monitoreo:** Integrar Sentry para captura de errores en producción.
+8. **Backups:** Configurar backups automáticos de PostgreSQL en producción.
 
 ---
 
-*Este reporte fue generado automáticamente el 2026-03-09 analizando el estado del repositorio `UBAppV2`.*
+*Reporte actualizado: 2026-05-02. Generado originalmente el 2026-03-09.*

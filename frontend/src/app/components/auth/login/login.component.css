@@ -268,7 +268,7 @@
 
 .field-control:focus-within {
   border-color: #818cf8;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.12);
 }
 
 .field-control i {
@@ -319,7 +319,7 @@
   font-weight: 600;
   font-size: 1rem;
   margin-top: 0.5rem;
-  box-shadow: 0 15px 35px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.35);
 }
 
 .reset-password-link {

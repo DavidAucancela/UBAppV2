@@ -116,7 +116,7 @@
 
 .input-busqueda-principal:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
 }
 
 .btn-limpiar {
@@ -225,7 +225,7 @@
 .input-filtro:focus,
 .select-filtro:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
 }
 
 .select-filtro {
@@ -266,18 +266,19 @@
 }
 
 .btn-primario:hover:not(:disabled) {
-  background: #2980b9;
+  background: var(--color-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  box-shadow: 0 4px 12px var(--color-primary-shadow);
 }
 
 .btn-secundario {
-  background: #95a5a6;
-  color: white;
+  background: var(--color-surface-raised);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
 }
 
 .btn-secundario:hover:not(:disabled) {
-  background: var(--color-text-muted);
+  background: var(--color-border);
   transform: translateY(-2px);
 }
 
@@ -828,12 +829,12 @@
 }
 
 .texto-valor {
-  color: #27ae60;
+  color: var(--color-success);
   font-size: 1.1rem;
 }
 
 .texto-costo {
-  color: #e67e22;
+  color: var(--color-warning);
   font-size: 1.1rem;
 }
 

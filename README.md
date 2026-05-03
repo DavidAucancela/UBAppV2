@@ -81,6 +81,7 @@ docker-compose up -d
 - **Lógica de negocio** → Servicios
 - **Datos** → Repositorios y modelos
 - **Semántica** → Motor de búsqueda con IA
+- **Async** → Tareas Celery (embeddings, notificaciones, logging)
 
 ---
 
