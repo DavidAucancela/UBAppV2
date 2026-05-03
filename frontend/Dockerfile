@@ -15,8 +15,8 @@ RUN npm ci --legacy-peer-deps
 # Copiar código fuente
 COPY . .
 
-# Construir la aplicación
-RUN npm run build:prod
+# Construir la aplicación (dev config: apunta a localhost:8000 para docker-compose local)
+RUN npm run build
 
 # Stage 2: Production
 FROM nginx:alpine
