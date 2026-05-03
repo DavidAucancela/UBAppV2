@@ -13,11 +13,18 @@ class BusquedaTradicional(models.Model):
     tipo_busqueda = models.CharField(max_length=50, default='general')
     fecha_busqueda = models.DateTimeField(auto_now_add=True)
     resultados_encontrados = models.PositiveIntegerField(default=0)
+    resultados_ids = ArrayField(
+        models.IntegerField(),
+        default=list,
+        blank=True,
+        verbose_name="IDs de Resultados",
+        help_text="IDs de los envíos encontrados. Usar para re-consultar en PDF."
+    )
     resultados_json = models.JSONField(
         null=True,
         blank=True,
-        verbose_name="Resultados en JSON",
-        help_text="Resultados completos para generación de PDF"
+        verbose_name="Resultados en JSON (deprecado)",
+        help_text="Deprecated: usar resultados_ids. Se mantiene por compatibilidad."
     )
 
     class Meta:

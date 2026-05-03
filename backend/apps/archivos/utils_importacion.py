@@ -955,8 +955,7 @@ class ProcesadorExcel:
                 Producto.objects.create(envio=envio, **producto_datos)
         
         # Recalcular totales del envío con todos los productos
-        envio.calcular_totales()
-        envio.save()
+        envio.actualizar_totales()
         
         # Generar embedding solo si se solicita
         if generar_embedding:
@@ -1073,7 +1072,7 @@ class ProcesadorExcel:
         if producto_datos and producto_datos.get('descripcion'):
             Producto.objects.create(envio=envio, **producto_datos)
             # Recalcular totales
-            envio.calcular_totales()
+            envio.actualizar_totales()
         
         # Crear notificación cuando se asigna un envío a un comprador
         if envio.comprador and envio.comprador.es_comprador:

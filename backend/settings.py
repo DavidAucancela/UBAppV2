@@ -1,23 +1,19 @@
 from pathlib import Path
 import os
-from decouple import config
+from decouple import config, Csv
 from datetime import timedelta
-from dotenv import load_dotenv
 import dj_database_url
-
-# Cargar variables del entorno
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'clave-por-defecto-solo-para-desarrollo')
+SECRET_KEY = config('SECRET_KEY', default='clave-por-defecto-solo-para-desarrollo')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
 # Permitir todos los subdominios de Railway automáticamente
 if not any('.up.railway.app' in h for h in ALLOWED_HOSTS):
     ALLOWED_HOSTS.append('.up.railway.app')

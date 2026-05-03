@@ -43,15 +43,26 @@ def _log(tabla, objeto_id, accion, datos_anteriores=None, datos_nuevos=None):
         logger.error(f"Error creando AuditLog para {tabla}({objeto_id}): {e}")
 
 
+def _resolver_accion(created, update_fields, instance):
+    """Determina la acción de auditoría según si es creación, soft-delete, restore o update."""
+    from .models import AuditLog
+    if created:
+        return AuditLog.CREAR
+    if update_fields and 'deleted_at' in update_fields:
+        return AuditLog.ELIMINAR if instance.deleted_at is not None else AuditLog.RESTAURAR
+    return AuditLog.ACTUALIZAR
+
+
 def connect_audit_signals():
     """Conecta los signals de auditoría para los modelos principales."""
     from apps.archivos.models import Envio
     from apps.usuarios.models import Usuario
+    from .models import AuditLog
 
     # ----- Envio -----
     @receiver(post_save, sender=Envio, dispatch_uid='audit_envio_save')
-    def audit_envio_save(sender, instance, created, **kwargs):
-        accion = AuditLog.CREAR if created else AuditLog.ACTUALIZAR
+    def audit_envio_save(sender, instance, created, update_fields, **kwargs):
+        accion = _resolver_accion(created, update_fields, instance)
         _log('envio', instance.pk, accion, datos_nuevos=_serialize(instance))
 
     @receiver(pre_delete, sender=Envio, dispatch_uid='audit_envio_delete')
@@ -60,10 +71,10 @@ def connect_audit_signals():
 
     # ----- Usuario -----
     @receiver(post_save, sender=Usuario, dispatch_uid='audit_usuario_save')
-    def audit_usuario_save(sender, instance, created, **kwargs):
-        accion = AuditLog.CREAR if created else AuditLog.ACTUALIZAR
+    def audit_usuario_save(sender, instance, created, update_fields, **kwargs):
+        accion = _resolver_accion(created, update_fields, instance)
         data = _serialize(instance)
-        data.pop('password', None)  # nunca loggear contraseñas
+        data.pop('password', None)
         _log('usuarios', instance.pk, accion, datos_nuevos=data)
 
     @receiver(pre_delete, sender=Usuario, dispatch_uid='audit_usuario_delete')
@@ -71,5 +82,3 @@ def connect_audit_signals():
         data = _serialize(instance)
         data.pop('password', None)
         _log('usuarios', instance.pk, AuditLog.ELIMINAR, datos_anteriores=data)
-
-    from .models import AuditLog  # noqa: F811 — needed for accion constants above

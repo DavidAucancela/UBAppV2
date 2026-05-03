@@ -1,5 +1,17 @@
 import { Producto, ProductoCreate } from './producto';
 
+export interface CompradorInfo {
+  id: number;
+  username: string;
+  nombre: string;
+  correo: string;
+  cedula: string;
+  rol_nombre: string;
+  telefono?: string;
+  ciudad?: string;
+}
+
+/** Envío tal como lo devuelve la API en listados/detalle (comprador como ID + info expandida). */
 export interface Envio {
   id?: number;
   hawb: string;
@@ -9,16 +21,7 @@ export interface Envio {
   costo_servicio?: number;
   fecha_emision?: string;
   comprador: number;
-  comprador_info?: {
-    id: number;
-    username: string;
-    nombre: string;
-    correo: string;
-    cedula: string;
-    rol_nombre: string;
-    telefono?: string;
-    ciudad?: string;
-  };
+  comprador_info?: CompradorInfo;
   estado: string;
   estado_nombre?: string;
   observaciones?: string;
@@ -28,6 +31,12 @@ export interface Envio {
   cantidad_productos?: number;
 }
 
+/** Envío con comprador completo (cuando la API devuelve depth=1). */
+export interface EnvioDetalle extends Omit<Envio, 'comprador'> {
+  comprador: CompradorInfo;
+}
+
+/** Payload para crear un envío (comprador como ID). */
 export interface EnvioCreate {
   hawb: string;
   comprador: number;
@@ -36,6 +45,7 @@ export interface EnvioCreate {
   productos?: ProductoCreate[];
 }
 
+/** Payload para actualizar un envío (todos los campos opcionales). */
 export interface EnvioUpdate {
   hawb?: string;
   comprador?: number;

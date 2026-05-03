@@ -63,10 +63,11 @@ class Usuario(AbstractUser):
     nombre = models.CharField(
         max_length=100,
         blank=False,
-        null=True,
+        null=False,
+        default='',
         validators=[MinLengthValidator(2, 'El nombre debe tener al menos 2 caracteres')]
     )
-    correo = models.EmailField(unique=True, blank=False, null=True)
+    correo = models.EmailField(unique=True, blank=False, null=False)
     cedula = models.CharField(
         max_length=10, 
         unique=True, 

@@ -160,31 +160,25 @@ class Envio(SoftDeleteModel):
         return f"HAWB: {self.hawb} - {self.comprador.nombre}"
 
     def calcular_totales(self):
-        """Calcula los totales basados en los productos"""
+        """Calcula los totales en memoria sin persistir. Usar actualizar_totales() para guardar."""
         productos = self.productos.all()
-        # Peso total = suma de (peso * cantidad) de cada producto
-        # Usar Decimal para evitar problemas de precisión y normalizar a 2 decimales
         peso_total_calculado = sum(
             (Decimal(str(p.peso)) * Decimal(str(p.cantidad)) for p in productos),
             Decimal('0')
         )
         self.peso_total = peso_total_calculado.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-
-        # Cantidad total = suma de cantidades
         self.cantidad_total = sum(p.cantidad for p in productos)
-
-        # Valor total = suma de (valor * cantidad) de cada producto
-        # Usar Decimal para evitar problemas de precisión y normalizar a 2 decimales
         valor_total_calculado = sum(
             (Decimal(str(p.valor)) * Decimal(str(p.cantidad)) for p in productos),
             Decimal('0')
         )
         self.valor_total = valor_total_calculado.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-        
-        # Calcular costo del servicio basado en tarifas
-        # El método calcular_costo_servicio ya retorna un Decimal redondeado a 4 decimales
         self.costo_servicio = self.calcular_costo_servicio()
-        self.save()
+
+    def actualizar_totales(self):
+        """Calcula los totales y los persiste en la BD."""
+        self.calcular_totales()
+        self.save(update_fields=['peso_total', 'cantidad_total', 'valor_total', 'costo_servicio'])
     
     def calcular_costo_servicio(self):
         """Calcula el costo del servicio basado en productos y tarifas"""

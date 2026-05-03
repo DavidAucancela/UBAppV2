@@ -153,7 +153,7 @@ class EnvioCreateSerializer(serializers.ModelSerializer):
         
         # Recalcular totales basados en productos
         if productos_data:
-            envio.calcular_totales()
+            envio.actualizar_totales()
         
         return envio
 
