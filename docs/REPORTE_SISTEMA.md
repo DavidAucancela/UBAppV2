@@ -646,6 +646,46 @@ cd frontend && npm run test:coverage
 
 ## 13. HISTORIAL DE CAMBIOS RECIENTES
 
+### 2026-05-03 — Refactor navbar móvil + correcciones de infraestructura Docker
+
+**Archivos modificados:** `navbar.component.css`, `navbar.component.html`, `frontend/Dockerfile`, `docker-compose.yml`
+
+#### Diseño — Navbar móvil (`navbar.component.css/html`)
+
+| # | Problema | Solución |
+|---|---|---|
+| N1 | Sidebar usaba colores hardcodeados (`#4a3aaa`, `#667eea`, `#764ba2`) fuera del sistema | Reemplazado por `var(--color-primary-dark)` y `var(--color-primary)` |
+| N2 | Dark mode no afectaba al sidebar móvil | Agregada regla `:host-context(.dark-mode) .nav-menu` para móvil |
+| N3 | Botón hamburger posicionado entre logo y nav — patrón UX incorrecto | Movido al final de `header-actions`: `[logo] ... [🌙] [👤] [☰]` |
+| N4 | Sidebar ocupaba altura completa de pantalla | Refactor a **dropdown**: `height: auto`, `fit-content` |
+| N5 | Sidebar abría desde la izquierda | Corregido a `right: 0` + `translateX(100%)` |
+| N6 | Ancho excesivo (`min(280px, 80vw)`) — casi pantalla completa | `width: fit-content; min-width: 220px; max-width: min(300px, ...)` |
+| N7 | Clic en hamburger con menú abierto lo reabrí (bug toggle) | Overlay cambiado a `top: var(--navbar-height)` — ya no cubre la navbar |
+| N8 | Fondo gradiente no integrado al sistema de diseño | Fondo sólido `var(--color-surface)` con `border: 1px solid var(--color-border)` |
+| N9 | Ítems con texto blanco sobre gradiente | Texto `var(--color-text)`, iconos `var(--color-primary)`, activo `var(--color-info-bg)` |
+| N10 | Submenús con estilos de sidebar (fondo semitransparente blanco) | Fondo `var(--color-surface-raised)`, texto `var(--color-text-secondary)` del sistema |
+
+#### Infraestructura — Docker local (`docker-compose.yml`, `frontend/Dockerfile`)
+
+| # | Problema | Solución |
+|---|---|---|
+| D1 | `nginx.conf` usaba `${PORT}` pero `20-envsubst-on-templates.sh` solo procesa `/etc/nginx/templates/` | Config copiada como `.template` a directorio correcto en Dockerfile |
+| D2 | Variable `PORT` no definida en local — nginx en crash loop | Agregado `PORT=80` al environment del frontend en `docker-compose.yml` |
+| D3 | `Dockerfile` local usaba `npm run build:prod` → URL Railway hardcodeada | Cambiado a `npm run build` (usa `environment.ts` con `localhost:8000`) |
+| D4 | `backend/.env` en subcarpeta — docker-compose no lo detectaba (`SECRET_KEY` vacío) | Copiado `backend/.env` a raíz del proyecto |
+
+> **Nota:** `Dockerfile.railway` y `Dockerfile.render` no fueron modificados — siguen usando `npm run build:prod` con sus propios mecanismos de inyección de `API_URL`.
+
+#### Commits de esta sesión
+
+| Commit | Descripción |
+|---|---|
+| `edb17610` | refactor: navbar móvil — sidebar a dropdown con sistema de diseño |
+| `f41f9e9f` | Arreglando el nav V2 (fix toggle + posición derecha) |
+| `5fda2f13` | Correcciones de nav versión móvil V1 (Docker + hamburger) |
+
+---
+
 ### 2026-05-02 — Correcciones de diseño del sistema
 
 Revisión completa de diseño con 9 correcciones aplicadas. Ver detalle completo en `backend/documentacion/revisionesGenerales/CORRECCIONES_DISENO_SISTEMA_2026-05-02.md`.
