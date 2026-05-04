@@ -830,18 +830,20 @@
   to   { opacity: 1; transform: translateY(0);    }
 }
 
-/* Header del dropdown — mantiene el gradiente de marca */
-.dropdown-header {
+/* Header del dropdown — layout horizontal, simetría con diseño armónico */
+.user-dropdown .dropdown-header {
   background: var(--color-primary-gradient);
   color: white;
   padding: 1.25rem;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .user-avatar-large {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 0.875rem;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -850,20 +852,35 @@
   border: 2px solid rgba(255, 255, 255, 0.6);
 }
 
-.user-avatar-large i { font-size: 2.25rem; }
+.user-avatar-large i { font-size: 2rem; }
+
+.user-info-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
 
 .user-info-text h4 {
   margin: 0 0 0.2rem;
   font-size: var(--text-base);
   font-weight: var(--font-semibold);
   color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
 }
 
 .user-info-text p {
-  margin: 0 0 0.625rem;
+  margin: 0 0 0.5rem;
   font-size: var(--text-xs);
   opacity: 0.9;
   color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
 }
 
 .role-badge {
